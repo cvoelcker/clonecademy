@@ -1,0 +1,42 @@
+Mon  1 May 12:34:31 CEST 2017
+
+Erstes internes Gruppentreffen
+- Frage:
+-- Technologien, Server, ...
+-- Wo das integriert wird
+-- Wer ist Admin?
+-- Design Constraints
+-- Was wollt ihr eigentlich?
+--- Wie sehen Fragen aus, wie sehen Antworten aus?
+--- Welche Seiten gibt es?
+--- Was wird an drumherum verlangt?
+--- Softwarelizenz?
+- Unser Wunschkonzert:
+-- Python, Django, Angular, Docker
+
+- Alte QS Dokumente:
+-- Johannes, Stefan, Jannis
+
+
+Wed  3 May 10:23:23 CEST 2017
+
+Auftraggebertreffen:
+- Asana als Projektmanagement Tool, mit Slack zusammen 
+
+Planung erstes Treffen Auftraggeber
+- Entwicklungsprozess
+-- Länge der Iterationen (2 Wochen Zyklus?)
+--- Am Anfang kürzer
+- Scope definieren
+-- Ähnlichkeiten zu Codecadamy?
+- Softwarestack klar machen
+- Grob anfangen Use Cases zu sammeln
+- Infrastruktur klären
+-- Zugangsrechte
+- QS Dokument
+-- Auftraggeberseite
+- Lizenzvereinbarungen
+-- Muss ins Projekttagebuch (laut Bubel)
+- Terminfindung
+
+!! Auftraggeber mit Problemen nerven !!
