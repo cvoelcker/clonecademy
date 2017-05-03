@@ -14,14 +14,10 @@ Erstes internes Gruppentreffen
 - Unser Wunschkonzert:
 -- Python, Django, Angular, Docker
 
-- Alte QS Dokumente:
--- Johannes, Stefan, Jannis
-
-
 Wed  3 May 10:23:23 CEST 2017
 
 Auftraggebertreffen:
-- Asana als Projektmanagement Tool, mit Slack zusammen 
+- Asana als Projektmanagement Tool, mit Slack zusammen
 
 Planung erstes Treffen Auftraggeber
 - Entwicklungsprozess
@@ -30,6 +26,7 @@ Planung erstes Treffen Auftraggeber
 - Scope definieren
 -- Ähnlichkeiten zu Codecadamy?
 - Softwarestack klar machen
+- Auf welchen Endgeräten soll die Webseite (gut) laufen
 - Grob anfangen Use Cases zu sammeln
 - Infrastruktur klären
 -- Zugangsrechte
