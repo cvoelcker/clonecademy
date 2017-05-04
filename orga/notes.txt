@@ -36,4 +36,51 @@ Planung erstes Treffen Auftraggeber
 -- Muss ins Projekttagebuch (laut Bubel)
 - Terminfindung
 
-!! Auftraggeber mit Problemen nerven !!
+!! Teamleiter mit Problemen nerven !!
+
+Auftraggebertreffen
+- iGEM Team
+- Vorstellung
+-- Angebot, das Team näher kennen zu lernen
+-- Es gibt einen technical track!
+
+Inhalte:
+- Projektvorstellung:
+-- verschiedene Projekte bringen ihre Lösungen ein
+-- Lerneinheiten + Grundlagen (basics + spezifika)
+-- Aufgabentracks -> Wissensteil -> Fragen
+- synthetische Biologie, Clonen als Basis
+- Teamtreffen Dienstag Abend 19:00 Uhr
+-- Es gibt ein Gegenstück im iGEM Team, die Administration etc. übernehmen
+- Projektumfang:
+-- high prio: früher working prototype -> rapid development
+--- Anmeldung; Team anlegen (ein Klick im Model, zweite dritte Phase); Aufgaben sehen, lösen, Feedback (ausführlich, [dynamisch?]); Drag and Drop, Graphische Elemente (Wie bekomme ich Subgene in eine gemeinsame DNA, gibt es da schon front-end solutions?), Multiple choice; mehrere Admins zum einpflegen (Prozess dafür definieren); Statistiken im Profil > Metastatistiken; Bewertung von Lektionen (low priority); 
+--- admin interface, learning frontend, user profile, 
+--- drei Nutzerstufen, Admin, Einsteller, User
+--- MWP: User, Anmeldung, Admin Interface, Multiple Choice Aufgabe, Resultat & direktes Feedback
+-- Verlinkung von Webseite und BioWiki
+
+- Entwicklungsprozess:
+-- 1 Iteration pro Woche - Treffen
+--- Was haben wir
+--- Wie ist das
+--- Was machen wir jetzt
+-- später länger?
+
+- Technical Solutions:
+-- Nginx
+-- Docker
+-- Python Django
+-- Angular
+-- erstmal kein Admin Zugang, Anmelden, was wir brauchen
+-- Design Mensch gibt es
+-- Seafile für Daten von der Bio
+
+- Lizenz:
+-- MIT Lizenz
+-- erstmal closed source, Perspektivisch später klar machen
+
+- Nächste Schritte
+-- Bio Dudel Freitag 10:00 Uhr
+-- 
+
