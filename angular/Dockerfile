@@ -12,4 +12,5 @@ RUN nodejs -v
 RUN npm install --silent -g @angular/cli
 RUN npm install --silent
 
+
 ADD . /angular
