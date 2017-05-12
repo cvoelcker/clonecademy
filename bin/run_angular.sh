@@ -3,4 +3,5 @@ DIR=$(find / -type d -name 'clonecadamy' 2>/dev/null -print -quit)
 
 cd $DIR
 cd angular
-docker-compose up -d
+
+docker-compose run angular

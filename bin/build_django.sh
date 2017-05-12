@@ -1,10 +1,9 @@
 #!/bin/bash
 
-DIR=$(ls -R /home 2>/dev/null | grep "clonecadamy/django:")
-
-DIR="${DIR%"${DIR##*[!:]}"}"
+DIR=$(find / -type d -name 'clonecadamy' 2>/dev/null -print -quit)
 
 cd $DIR
+cd django
 
 docker-compose build
 docker-compose run django python3 manage.py migrate
