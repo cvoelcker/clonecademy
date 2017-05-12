@@ -57,14 +57,14 @@ Inhalte:
 -- Nginx
 -- Docker
 -- Python Django
--- Angular
+-- Angular 2
 -- erstmal kein Admin Zugang, Anmelden, was wir brauchen
 -- Design Mensch gibt es
 -- Seafile für Daten von der Bio
 
 - Projektumfang:
 -- high prio: früher working prototype -> rapid development
---- Anmeldung; Team anlegen (ein Klick im Model, zweite dritte Phase); Aufgaben sehen, lösen, Feedback (ausführlich, [dynamisch?]); Drag and Drop, Graphische Elemente (Wie bekomme ich Subgene in eine gemeinsame DNA, gibt es da schon front-end solutions?), Multiple choice; mehrere Admins zum einpflegen (Prozess dafür definieren); Statistiken im Profil > Metastatistiken; Bewertung von Lektionen (low priority);
+--- Anmeldung; Team anlegen (ein Klick im Model, zweite dritte Phase); Aufgaben sehen, lösen, Feedback (ausführlich, [dynamisch?]); Drag and Drop, Graphische Elemente (Wie bekomme ich Subgene in eine gemeinsame DNA, gibt es da schon front-end solutions?), Multiple choice; mehrere Admins zum einpflegen (Prozess dafür definieren); Statistiken im Profil > Metastatistiken; Bewertung von Lektionen (low priority)
 --- admin interface, learning frontend, user profile,
 --- drei Nutzerstufen, Admin, Einsteller, User
 --- MVP: User, Anmeldung, Admin Interface, Multiple Choice Aufgabe, Resultat & direktes Feedback
