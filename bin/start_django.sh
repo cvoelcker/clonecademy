@@ -1,7 +1,8 @@
 #!/bin/bash
 
-DIR="/home/leonhard/Uni/17_Sommer/BP/local"
+DIR=$(ls -R /home 2>/dev/null | grep "clonecadamy/django:")
+
+DIR="${DIR%"${DIR##*[!:]}"}"
 
 cd $DIR
-cd django/
 docker-compose up -d

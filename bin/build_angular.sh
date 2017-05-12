@@ -1,7 +1,9 @@
 #!/bin/bash
 
-DIR="/home/leonhard/Uni/17_Sommer/BP/local"
+DIR=$(ls -R /home 2>/dev/null | grep "clonecadamy/angular:")
+
+DIR="${DIR%"${DIR##*[!:]}"}"
 
 cd $DIR
-cd angular/
+
 docker-compose build
