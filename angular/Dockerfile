@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y nodejs
 RUN npm -v
 RUN nodejs -v
 RUN npm install --silent -g @angular/cli
+RUN npm install --silent ngx-bootstrap --save
 RUN npm install --silent
 
 
