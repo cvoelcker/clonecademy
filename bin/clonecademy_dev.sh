@@ -1,11 +1,14 @@
 #!/bin/bash
 
-#start_django
-#start_angular
+start_django
+start_angular
 
-if [ ! -z $1 ] && [ $1 = "atom" ]
+if [ ! -z $1 ]
   then
-    DIR=$(find / -type d -name 'clonecadamy' 2>/dev/null -print -quit)
+  if [ $1 = "atom" ]
+    then
+      DIR=$(find / -type d -name 'clonecadamy' 2>/dev/null -print -quit)
 
-    atom $DIR
+      atom $DIR
+  fi
 fi
