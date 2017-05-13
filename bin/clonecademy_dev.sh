@@ -1,13 +1,11 @@
 #!/bin/bash
 
-start_django
-start_angular
+#start_django
+#start_angular
 
-if [ $1 = "atom" ]
+if [ ! -z $1 ] && [ $1 = "atom" ]
   then
-    DIR=$(ls -R /home 2>/dev/null | grep "clonecadamy/django:")
-
-    DIR="${DIR%"${DIR##*[!django:]}"}"
+    DIR=$(find / -type d -name 'clonecadamy' 2>/dev/null -print -quit)
 
     atom $DIR
 fi
