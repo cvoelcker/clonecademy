@@ -1,7 +1,7 @@
 #!/bin/bash
 
-DIR="/home/leonhard/Uni/17_Sommer/BP/local"
+DIR=$(find / -type d -name 'clonecadamy' 2>/dev/null -print -quit)
 
 cd $DIR
-cd angular/
+cd angular
 docker-compose build

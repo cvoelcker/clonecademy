@@ -2,5 +2,6 @@
 DIR=$(find / -type d -name 'clonecadamy' 2>/dev/null -print -quit)
 
 cd $DIR
-cd angular
-docker-compose up -d
+cd django
+
+docker-compose run django python manage.py

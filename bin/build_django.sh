@@ -1,8 +1,9 @@
 #!/bin/bash
 
-DIR="/home/leonhard/Uni/17_Sommer/BP/local"
+DIR=$(find / -type d -name 'clonecadamy' 2>/dev/null -print -quit)
 
 cd $DIR
-cd django/
+cd django
+
 docker-compose build
 docker-compose run django python3 manage.py migrate
