@@ -25,7 +25,7 @@ if ! hash docker-compose 2>/dev/null; then
    stable"
  fi
  sudo apt-get update
- sudo apt-get install -y docker-ce docker-compose
+ sudo apt-get install -y docker docker-compose
 fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -55,3 +55,6 @@ sudo chmod +x $DIR/clonecademy_*
 sudo ln -s $DIR"/clonecademy_build.sh" "/usr/bin/clonecademy_build"
 sudo ln -s $DIR"/clonecademy_dev.sh" "/usr/bin/clonecademy_start"
 sudo ln -s $DIR"/clonecademy_stop.sh"  "/usr/bin/clonecademy_stop"
+
+echo "you have to be member of the docker group or run all scripts as root \n"
+echo "run: sudo usermod -a -G docker your-user-name"
