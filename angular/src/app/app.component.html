@@ -1,4 +1,12 @@
-<h1>
-  {{title}} oh
-</h1>
-<router-outlet></router-outlet>
+<header class="container">
+  <h1>
+    {{title}} oh
+  </h1>
+</header>
+<main class="container">
+  <router-outlet appLoggedIn>
+  </router-outlet>
+</main>
+<footer class="container">
+  footer
+</footer>
