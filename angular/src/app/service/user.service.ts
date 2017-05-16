@@ -14,4 +14,9 @@ export class UserService {
     return this.id != null
   }
 
+  logout(): void{
+    this.id = null;
+    this.name = null;
+  }
+
 }
