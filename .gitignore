@@ -120,3 +120,6 @@ npm-debug.log
 *.aux
 *.lof
 *.synctex.gz
+
+#Django
+django/db.sqlite3
