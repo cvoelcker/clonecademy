@@ -30,6 +30,8 @@ export class UserService {
       valid => {
         this.name = name;
         this.cookie.put("userName", name);
+        let token = this.cookie.get('token');
+        this.server.getData("verify-api/").then(data => {console.log(data)}).catch(err => console.log(err))
       })
   }
 

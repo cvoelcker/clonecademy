@@ -13,6 +13,8 @@ export class ServerService {
   private baseUrl = 'http://0.0.0.0:8000/'
   private format = '?format=json';
 
+  headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json'});
+
   private token: string;
 
   constructor(private http: Http, private cookie: CookieService) {
@@ -20,7 +22,12 @@ export class ServerService {
   }
 
   getData(type: string){
-    return this.http.get(this.baseUrl + type + this.format)
+
+
+    let body = JSON.stringify({token: this.token}); // Stringify payload
+    let options = new RequestOptions({headers: this.headers})
+
+    return this.http.post(this.baseUrl + type, body, options)
                   .toPromise()
                   .then(response => response.json())
                   .catch(this.handleError);
@@ -38,15 +45,15 @@ export class ServerService {
   public login(name: string, password: string){
 
     let body = JSON.stringify({username: name, password: password}); // Stringify payload
-    let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
-    let options = new RequestOptions({headers: headers})
+
+    let options = new RequestOptions({headers: this.headers})
 
     return new Promise((resolve, reject) => this.http.post(this.baseUrl + "api-auth", body, options)
       .subscribe(
         (res) => {
           let response = res.json();
-          this.token = response
-          this.cookie.put("token", response);
+          this.token = response.token
+          this.cookie.put("token", response.token);
           resolve(true)
         },
         (err) => {

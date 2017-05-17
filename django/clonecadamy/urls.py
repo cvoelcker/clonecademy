@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from rest_framework import routers
-from rest_framework_jwt.views import obtain_jwt_token
+from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
@@ -25,4 +25,5 @@ router = routers.DefaultRouter()
 urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^api-auth', obtain_jwt_token),
+    url(r'^verify-api', verify_jwt_token)
 ]
