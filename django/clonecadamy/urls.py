@@ -24,5 +24,5 @@ router = routers.DefaultRouter()
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     url(r'^', include(router.urls)),
-    url(r'^api-auth/', obtain_jwt_token),
+    url(r'^api-auth', obtain_jwt_token),
 ]
