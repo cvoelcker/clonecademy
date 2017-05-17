@@ -1,6 +1,5 @@
 #!/bin/bash
-
-DIR=$(find / -type d -name 'clonecadamy' 2>/dev/null -print -quit)
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && dirname $(pwd -P) )"
 
 cd $DIR
 cd django
