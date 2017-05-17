@@ -1,5 +1,7 @@
 #!/bin/bash
-DIR="$(cd "$(dirname "$0")" && pwd)"
+DIR=$(cd $(dirname $([ -L $0 ] && readlink -f $0 || echo $0)) && dirname $(pwd -P))
+
+echo $DIR
 
 cd $DIR
 cd angular
