@@ -8,5 +8,5 @@
   </router-outlet>
 </main>
 <footer class="container">
-  footer
+  <button *ngIf="user.loggedIn()" (click)="user.logout()">logout</button>
 </footer>

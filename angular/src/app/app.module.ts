@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { RouterModule, Routes } from '@angular/router';
+import {CookieService} from 'angular2-cookie/core';
+
 
 import { ServerService } from './service/server.service';
 import { UserService } from './service/user.service';
@@ -39,7 +41,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule
   ],
-  providers: [ServerService, UserService],
+  providers: [ServerService, UserService, CookieService],
   bootstrap: [
     AppComponent,
   ]
