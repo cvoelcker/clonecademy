@@ -1,5 +1,5 @@
 #!/bin/bash
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && dirname $(pwd -P) )"
+DIR="$(cd "$(dirname "$0")" && pwd)"
 
 cd $DIR
 cd django
