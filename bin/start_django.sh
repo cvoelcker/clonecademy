@@ -1,5 +1,5 @@
 #!/bin/bash
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && dirname $(pwd) )"
+DIR=$(dirname $(dirname $(readlink -f ${BASH_SOURCE[0]})))
 
 cd $DIR
 cd django
