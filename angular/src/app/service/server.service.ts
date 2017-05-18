@@ -54,6 +54,8 @@ export class ServerService {
           let response = res.json();
           this.token = response.token
           this.cookie.put("token", response.token);
+          this.cookie.put("username", name);
+          
           resolve(true)
         },
         (err) => {
