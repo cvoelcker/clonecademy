@@ -7,6 +7,12 @@ class CourseCategory(models.Model):
     """
     name = models.CharField(help_text="Name of the category (e.g. biochemistry)", max_length=144)
 
+    def getCourses(self):
+        return self.course_set
+
+    def __str__(self):
+        return self.name
+
 
 class Course(models.Model):
     """
@@ -15,24 +21,38 @@ class Course(models.Model):
     a compete unit for learning.
     """
     QUESTION_NAME_LENGTH = 144
-
     EASY = 'EA'
     MODERATE = 'MO'
     DIFFICULT = 'DI'
-    EXPERT = 'MA'
+    EXPERT = 'EX'
     DIFFICULTY = (
         (EASY, 'Easy (high school students)'),
         (MODERATE, 'Moderate (college entry)'),
         (DIFFICULT, 'Difficult (college students'),
         (EXPERT, 'Expert (college graduates)'),
     )
-    name = models.CharField(help_text="A short concise name for the course", unique=True, max_length=144)
+
+    name = models.CharField(
+        help_text="A short concise name for the course",
+        unique=True,
+        max_length=144
+    )
     #Course_type = models.ManyToManyField(CourseCategory)
     Course_difficulty = models.CharField(
         max_length=2,
         choices=DIFFICULTY,
         default=MODERATE
     )
+    is_visible = models.BooleanField(default=False)
+
+    def visible(self):
+        return self.is_visible
+
+    def getQuestions(self):
+        return self.question_set
+
+    def __str__(self):
+        return self.name
 
 
 class Question(models.Model):
@@ -41,18 +61,34 @@ class Question(models.Model):
     can be solved by a user, a correct solution to evaluate the answer and a way to
     provide feedback to the user.
     """
-    name = models.CharField(help_text="A short concise name for the question", max_length=144)
-    #TODO: Find better representation
-    ranking = models.IntegerField(help_text="Determines the place of the question")
+    class Meta():
+        # prevents two questions having the same rank_id
+        unique_together = (("course", "rank"))
+
+    name = models.CharField(
+        help_text="A short concise name for the question",
+        max_length=144
+    )
+    rank = models.IntegerField(help_text="Determines the place of the question")
     question_body = models.TextField(help_text="This field can contain markdown syntax")
     course = models.ForeignKey('Course', on_delete=models.CASCADE)
 
-    class Meta():
-        unique_together = (("course", "ranking"),)
+    def getCourse(self):
+        return self.course
+
+    def __str__(self):
+        return self.name
 
 class MultipleChoiceQuestion(Question):
+    """
+    A simple multiple choice question
+    """
+    def getAnswers(self):
+        return self.multiplechoiceanswer_set
+
     def numCorrectAnswers(self):
-        return self.multiplechoiceanswer_set.filter(is_correct=True).count()
+        return self.getAnswers().filter(is_correct=True).count()
+
     def notSolvable(self):
         return self.numCorrectAnswers() == 0
 
@@ -64,3 +100,6 @@ class MultipleCoiceAnswer(models.Model):
     is_correct = models.BooleanField(default=False)
 
     question = models.ForeignKey('MultipleChoiceQuestion', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
