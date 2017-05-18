@@ -21,10 +21,17 @@ export class ServerService {
     this.token = this.cookie.get('token')
   }
 
-  getData(type: string){
+  get(type: string){
+    let options = new RequestOptions({headers: this.headers})
+
+    return this.http.get(this.baseUrl + type, options).toPromise().then(res => res.json()).catch(this.handleError)
+  }
+
+  post(type: string){
 
 
     let body = JSON.stringify({token: this.token}); // Stringify payload
+    //this.headers.append('Authorization', 'Token ' + this.token)
     let options = new RequestOptions({headers: this.headers})
 
     return this.http.post(this.baseUrl + type, body, options)
