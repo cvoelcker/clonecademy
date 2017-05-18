@@ -28,10 +28,8 @@ export class UserService {
   login(name: string, password: string){
     return this.server.login(name, password).then(
       valid => {
-        this.name = name;
-        this.cookie.put("userName", name);
-        let token = this.cookie.get('token');
-        this.server.getData("verify-api/").then(data => {console.log(data)}).catch(err => console.log(err))
+        this.name = name
+        this.server.post("users/").then(data => {console.log(data)}).catch(err => console.log(err))
       })
   }
 
