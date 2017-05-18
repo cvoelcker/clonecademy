@@ -4,22 +4,21 @@ from .models import *
 class CourseCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = CourseCategory
-        fields('name')
+        fields = ('name')
 
 
-class CourseSerializer(serializer.ModelSerializer):
+class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields('name', 'Course_difficulty', 'is_visible')
+        fields = ('name', 'course_difficulty', 'is_visible')
 
 
-class Question(serializer.Serializer):
+class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields('name', 'order', 'question_body', 'course')
+        fields = ('name', 'order', 'question_body', 'course')
 
 
-class MultipleChoiceQuestionSerializer(Question):
-    class Meta:
-        model = MultipleChoiceQuestion
-        fields()
+# TODO: Represent inheritance over models in the serializer
+class MultipleChoiceQuestionSerializer(QuestionSerializer):
+    pass

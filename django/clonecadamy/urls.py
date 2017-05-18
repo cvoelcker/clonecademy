@@ -18,8 +18,11 @@ from rest_framework import routers
 from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token
 from django.contrib import admin
 
+from learning_base import views as learning_base_view
+
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
+router.register(r'courses', learning_base_view.CourseViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.

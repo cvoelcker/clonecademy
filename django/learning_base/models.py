@@ -2,10 +2,13 @@ from django.db import models
 
 class CourseCategory(models.Model):
     """
-    The type of a Course, meaning the field in which the Course belongs, e.g.
+    The type of a course, meaning the field in which the course belongs, e.g.
     biochemistry, cloning, technical details.
     """
-    name = models.CharField(help_text="Name of the category (e.g. biochemistry)", max_length=144)
+    name = models.CharField(
+        help_text="Name of the category (e.g. biochemistry)",
+        max_length=144
+    )
 
     def getCourses(self):
         return self.course_set
@@ -16,11 +19,12 @@ class CourseCategory(models.Model):
 
 class Course(models.Model):
     """
-    One Course is a group of questions which build on each other and should be solved
+    One course is a group of questions which build on each other and should be solved
     together. These questions should have similar topics, difficulty and should form
     a compete unit for learning.
     """
     QUESTION_NAME_LENGTH = 144
+
     EASY = 'EA'
     MODERATE = 'MO'
     DIFFICULT = 'DI'
@@ -29,7 +33,7 @@ class Course(models.Model):
         (EASY, 'Easy (high school students)'),
         (MODERATE, 'Moderate (college entry)'),
         (DIFFICULT, 'Difficult (college students'),
-        (EXPERT, 'Expert (college graduates)'),
+        (EXPERT, 'Expert (college graduates)')
     )
 
     name = models.CharField(
@@ -39,6 +43,8 @@ class Course(models.Model):
         max_length=144
     )
     #Course_type = models.ManyToManyField(CourseCategory)
+
+    # QUESTION: Other representation better? How to guarantee constraints
     course_difficulty = models.CharField(
         verbose_name='Course difficulty',
         max_length=2,
@@ -78,7 +84,8 @@ class Question(models.Model):
     )
     order = models.IntegerField(
         verbose_name='Question name',
-        help_text="Determines the place of the question"
+        help_text="Determines the place of the question",
+        default=0
     )
     question_body = models.TextField(
         verbose_name='Question text',
@@ -96,6 +103,7 @@ class Question(models.Model):
     def __str__(self):
         return self.name
 
+
 class MultipleChoiceQuestion(Question):
     """
     A simple multiple choice question
@@ -108,6 +116,7 @@ class MultipleChoiceQuestion(Question):
 
     def notSolvable(self):
         return self.numCorrectAnswers() == 0
+
 
 class MultipleCoiceAnswer(models.Model):
     """
