@@ -33,17 +33,22 @@ class Course(models.Model):
     )
 
     name = models.CharField(
+        verbose_name='Course name',
         help_text="A short concise name for the course",
         unique=True,
         max_length=144
     )
     #Course_type = models.ManyToManyField(CourseCategory)
-    Course_difficulty = models.CharField(
+    course_difficulty = models.CharField(
+        verbose_name='Course difficulty',
         max_length=2,
         choices=DIFFICULTY,
         default=MODERATE
     )
-    is_visible = models.BooleanField(default=False)
+    is_visible = models.BooleanField(
+        verbose_name='Is the course visible',
+        default=False
+    )
 
     def visible(self):
         return self.is_visible
@@ -63,15 +68,27 @@ class Question(models.Model):
     """
     class Meta():
         # prevents two questions having the same rank_id
-        unique_together = (("course", "rank"))
+        unique_together = (("course", "order"))
+        ordering = ('order',)
 
     name = models.CharField(
         help_text="A short concise name for the question",
+        verbose_name='Question name',
         max_length=144
     )
-    rank = models.IntegerField(help_text="Determines the place of the question")
-    question_body = models.TextField(help_text="This field can contain markdown syntax")
-    course = models.ForeignKey('Course', on_delete=models.CASCADE)
+    order = models.IntegerField(
+        verbose_name='Question name',
+        help_text="Determines the place of the question"
+    )
+    question_body = models.TextField(
+        verbose_name='Question text',
+        help_text="This field can contain markdown syntax"
+    )
+    course = models.ForeignKey(
+        'Course',
+        verbose_name="Question's course",
+        on_delete=models.CASCADE
+    )
 
     def getCourse(self):
         return self.course
@@ -96,10 +113,20 @@ class MultipleCoiceAnswer(models.Model):
     """
     A possible answer to a multiple choice question
     """
-    text = models.TextField(help_text="The answers text")
-    is_correct = models.BooleanField(default=False)
+    text = models.TextField(
+        verbose_name="Answer text",
+        help_text="The answers text"
+    )
+    is_correct = models.BooleanField(
+        verbose_name='is the answer correct?',
+        default=False
+    )
 
-    question = models.ForeignKey('MultipleChoiceQuestion', on_delete=models.CASCADE)
+    question = models.ForeignKey(
+        'MultipleChoiceQuestion',
+        verbose_name="The answer's question",
+        on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return self.name

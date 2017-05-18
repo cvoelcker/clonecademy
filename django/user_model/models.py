@@ -20,7 +20,6 @@ class Profile(models.Model):
     group = models.ForeignKey(LearningGroup, null=True, on_delete=models.SET_NULL)
     date_registered = models.DateField()
 
-
     def __str__(self):
         return self.name
 
@@ -53,4 +52,3 @@ class Progress(models.Model):
 
     def __str__(self):
         return self.name
-        
