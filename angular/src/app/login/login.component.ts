@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../service/user.service';
 import { Router } from "@angular/router"
 
+import { CookieService } from 'angular2-cookie/core';
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,7 +18,7 @@ export class LoginComponent implements OnInit {
   submitted: boolean;
   invalidLogin: boolean;
 
-  constructor(private user: UserService, private router: Router) {
+  constructor(private cookie: CookieService, private user: UserService, private router: Router) {
 
   }
 
@@ -25,7 +28,7 @@ export class LoginComponent implements OnInit {
       .catch(res => {this.invalidLogin = true;})
   }
   ngOnInit() {
-    if(this.user.loggedIn()){
+    if(this.cookie.get('token') != null){
       this.router.navigate(['/dashboard']);
     }
   }

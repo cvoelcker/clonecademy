@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { UserService} from '../service/user.service'
+import { ServerService} from '../service/server.service'
 
 
 @Component({
@@ -10,8 +10,12 @@ import { UserService} from '../service/user.service'
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private user: UserService) {
-    
+  constructor(private server: ServerService) {
+
+  }
+
+  connect(){
+    this.server.get("courses").catch(err => console.log(err))
   }
 
   ngOnInit() {

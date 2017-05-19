@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
-import { UserService } from './service/user.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +7,8 @@ import { UserService } from './service/user.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private user: UserService){
+
+  constructor(){
 
   }
   title = 'app works!';
