@@ -1,0 +1,7 @@
+QS Merkmal
+  - Änderbarkeit nochmal besprechen.
+
+Module (nicht mehr Kapitel):
+  - öffentliche Kurse im Privaten anbieten
+  - Kurse Modular aufbauen, dass man sich auch Module von anderen Moderatoren hinzufügen kann
+    (soweit diese öffentlich)
