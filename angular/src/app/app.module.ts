@@ -7,7 +7,6 @@ import { RouterModule, Routes } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
 
 import { ServerService } from './service/server.service';
-import { UserService } from './service/user.service';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -42,7 +41,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule
   ],
-  providers: [ServerService, UserService, CookieService],
+  providers: [ServerService, CookieService],
   bootstrap: [
     AppComponent,
   ]

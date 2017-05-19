@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { UserService } from '../service/user.service';
+import { ServerService } from '../service/server.service';
 import { Router } from "@angular/router"
 
 import { CookieService } from 'angular2-cookie/core';
@@ -18,12 +18,12 @@ export class LoginComponent implements OnInit {
   submitted: boolean;
   invalidLogin: boolean;
 
-  constructor(private cookie: CookieService, private user: UserService, private router: Router) {
+  constructor(private cookie: CookieService, private server: ServerService, private router: Router) {
 
   }
 
   login(){
-    this.user.login(this.username, this.password)
+    this.server.login(this.username, this.password)
       .then(res => {this.router.navigate(['/dashboard'])})
       .catch(res => {this.invalidLogin = true;})
   }

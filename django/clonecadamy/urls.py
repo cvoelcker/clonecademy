@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from rest_framework import routers
-from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token
+from rest_framework_jwt.views import obtain_jwt_token
 from django.contrib import admin
 
 from learning_base import views as learning_base_view
@@ -30,5 +30,4 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^admin/', admin.site.urls),
     url(r'^api-auth', obtain_jwt_token),
-    url(r'^verify-api', verify_jwt_token),
 ]
