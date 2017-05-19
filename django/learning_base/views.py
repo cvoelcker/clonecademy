@@ -13,6 +13,6 @@ class CourseViewSet(viewsets.ModelViewSet):
 
     """
     permission_classes = (permissions.IsAuthenticated,)
-    authentication_classes = (JSONWebTokenAuthentication,)
+    authentication_classes = (JSONWebTokenAuthentication, authentication.TokenAuthentication,)
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
