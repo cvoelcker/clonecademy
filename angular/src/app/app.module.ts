@@ -14,6 +14,7 @@ import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoggedInDirective } from './directive/logged-in.directive';
+import { MenuComponent } from './menu/menu.component';
 
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -32,7 +33,8 @@ const appRoutes: Routes = [
     LoginComponent,
     DashboardComponent,
     PageNotFoundComponent,
-    LoggedInDirective
+    LoggedInDirective,
+    MenuComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

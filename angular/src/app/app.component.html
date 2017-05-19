@@ -3,10 +3,11 @@
     {{title}} oh
   </h1>
 </header>
+<app-menu></app-menu>
 <main class="container">
   <router-outlet appLoggedIn>
   </router-outlet>
 </main>
 <footer class="container">
-  <button *ngIf="user.loggedIn()" (click)="user.logout()">logout</button>
+  footer
 </footer>

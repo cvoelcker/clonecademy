@@ -62,12 +62,15 @@ export class ServerService {
           this.token = response.token
           this.cookie.put("token", response.token);
           this.cookie.put("username", name);
-          
-          resolve(true)
+          resolve(true);
         },
         (err) => {
           reject(false)
         }))
+  }
+
+  public clearToken(){
+    this.token = null;
   }
 
 }
