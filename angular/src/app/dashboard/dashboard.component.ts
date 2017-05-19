@@ -15,11 +15,14 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  connect(){
-    this.server.get("courses").then(data => this.course = data).catch(err => console.log(err))
-  }
-
   ngOnInit() {
+    this.server.get("courses")
+      .then(data => {
+        this.course = data
+        console.log(data)
+      }
+      )
+      .catch(err => console.log(err))
   }
 
 }
