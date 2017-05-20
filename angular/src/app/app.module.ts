@@ -14,13 +14,19 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoggedInDirective } from './directive/logged-in.directive';
 import { MenuComponent } from './menu/menu.component';
+import { CourseComponent } from './course/course.component';
 
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'login',      component: LoginComponent },
-  { path: '',
+  {
+    path: '',
     redirectTo: 'login',
     pathMatch: 'full'
+  },
+  {
+    path: 'course/:id',
+    component: CourseComponent
   },
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -33,7 +39,8 @@ const appRoutes: Routes = [
     DashboardComponent,
     PageNotFoundComponent,
     LoggedInDirective,
-    MenuComponent
+    MenuComponent,
+    CourseComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

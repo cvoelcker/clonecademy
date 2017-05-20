@@ -3,5 +3,5 @@
 </h2>
 
 <div *ngFor="let c of course">
-  <div>{{c.name}}</div>
+  <a routerLink="/course/{{c.id}}">{{c.name}}</a>
 </div>
