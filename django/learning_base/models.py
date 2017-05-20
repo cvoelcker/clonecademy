@@ -16,6 +16,27 @@ class CourseCategory(models.Model):
     def __str__(self):
         return self.name
 
+class Module(models.Model):
+    """
+    A Course is made out of many modules and a module is the Base class for everything else.
+    In a module can be questions  or chapters.
+    """
+
+    class Meta():
+        ordering = ('order',)
+
+    name = models.CharField(
+        help_text="A short concise name for the question",
+        verbose_name='Question name',
+        max_length=144
+    )
+    order = models.IntegerField(
+        verbose_name='Question Order',
+        help_text="Determines the place of the question",
+        default=0
+    )
+    def __str__(self):
+        return self.name
 
 class Course(models.Model):
     """
@@ -55,7 +76,9 @@ class Course(models.Model):
         verbose_name='Is the course visible',
         default=False
     )
-    
+
+    module = models.ManyToManyField(Module)
+
     def visible(self):
         return self.is_visible
 
@@ -65,66 +88,23 @@ class Course(models.Model):
     def __str__(self):
         return self.name
 
-
-class Question(models.Model):
+class Question(Module):
     """
     A question is the smallest unit of the learning process. A question has a task that
     can be solved by a user, a correct solution to evaluate the answer and a way to
     provide feedback to the user.
     """
-    class Meta():
-        # prevents two questions having the same rank_id
-        unique_together = (("course", "order"))
-        ordering = ('order',)
-
-    name = models.CharField(
-        help_text="A short concise name for the question",
-        verbose_name='Question name',
-        max_length=144
-    )
-    order = models.IntegerField(
-        verbose_name='Question name',
-        help_text="Determines the place of the question",
-        default=0
-    )
     question_body = models.TextField(
         verbose_name='Question text',
         help_text="This field can contain markdown syntax"
     )
-    course = models.ForeignKey(
-        'Course',
-        verbose_name="Question's course",
-        on_delete=models.CASCADE,
-    )
-
-    def getCourse(self):
-        return self.course
-
-    def __str__(self):
-        return self.name
 
 
-class MultipleChoiceQuestion(Question):
-    """
-    A simple multiple choice question
-    """
-    def getAnswers(self):
-        return self.multiplechoiceanswer_set
-
-    def numCorrectAnswers(self):
-        return self.getAnswers().filter(is_correct=True).count()
-
-    def notSolvable(self):
-        return self.numCorrectAnswers() == 0
-
-    def __str__(self):
-        return self.name
-
-
-class MultipleCoiceAnswer(models.Model):
+class MultipleChoiceAnswer(models.Model):
     """
     A possible answer to a multiple choice question
     """
+
     text = models.TextField(
         verbose_name="Answer text",
         help_text="The answers text"
@@ -134,11 +114,25 @@ class MultipleCoiceAnswer(models.Model):
         default=False
     )
 
-    question = models.ForeignKey(
-        'MultipleChoiceQuestion',
-        verbose_name="The answer's question",
-        on_delete=models.CASCADE
-    )
+    def __str__(self):
+        return self.text
+
+
+class MultipleChoiceQuestion(Question):
+    """
+    A simple multiple choice question
+    """
+    
+    answers = models.ManyToManyField(MultipleChoiceAnswer)
+
+    def getAnswers(self):
+        return self.answers
+
+    def numCorrectAnswers(self):
+        return self.getAnswers().filter(is_correct=True).count()
+
+    def notSolvable(self):
+        return self.numCorrectAnswers() == 0
 
     def __str__(self):
         return self.name

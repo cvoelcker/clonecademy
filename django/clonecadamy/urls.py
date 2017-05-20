@@ -22,7 +22,7 @@ from learning_base import views as learning_base_view
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
-router.register(r'courses', learning_base_view.CourseViewSet)
+#router.register(r'courses', learning_base_view.CourseViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
@@ -30,4 +30,8 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^admin/', admin.site.urls),
     url(r'^api-auth', obtain_jwt_token),
+    url(r'^courses/$', learning_base_view.getCourses),
+    url(r'^courses/(?P<course>[0-9]+)/?$', learning_base_view.singleCourse),
+    url(r'^courses/(?P<course>[0-9]+)/(?P<module>[0-9]+)/?$', learning_base_view.getModule),
+    #url(r'^courses', learning_base_view.CourseViewSet)
 ]
