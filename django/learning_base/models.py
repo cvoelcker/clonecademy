@@ -55,7 +55,7 @@ class Course(models.Model):
         verbose_name='Is the course visible',
         default=False
     )
-
+    
     def visible(self):
         return self.is_visible
 
@@ -94,7 +94,7 @@ class Question(models.Model):
     course = models.ForeignKey(
         'Course',
         verbose_name="Question's course",
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
 
     def getCourse(self):
@@ -116,6 +116,9 @@ class MultipleChoiceQuestion(Question):
 
     def notSolvable(self):
         return self.numCorrectAnswers() == 0
+
+    def __str__(self):
+        return self.name
 
 
 class MultipleCoiceAnswer(models.Model):

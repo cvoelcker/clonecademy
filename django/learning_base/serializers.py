@@ -10,7 +10,7 @@ class CourseCategorySerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ('name', 'course_difficulty', 'is_visible')
+        fields = ('name', 'course_difficulty', 'id')
 
 
 class QuestionSerializer(serializers.ModelSerializer):
@@ -21,4 +21,6 @@ class QuestionSerializer(serializers.ModelSerializer):
 
 # TODO: Represent inheritance over models in the serializer
 class MultipleChoiceQuestionSerializer(QuestionSerializer):
-    pass
+    class Meta:
+        model = MultipleChoiceQuestion
+        fields = fields = ('name', 'order', 'question_body')
