@@ -3,12 +3,12 @@
 start_django
 start_angular
 
-if [ ! -z $1 ]
-  then
-  if [ $1 = "atom" ]
+if hash atom 2>/dev/null; then
+  echo "Do you want to start atom in the clonecademy dir? y/N"
+  read answer
+  if [ $answer == "Y" ] || [ $answer == "y" ]
     then
-      DIR=$(find / -type d -name 'clonecadamy' 2>/dev/null -print -quit)
-
+      DIR=$(dirname $(dirname $(readlink -f ${BASH_SOURCE[0]})))
       atom $DIR
   fi
 fi
