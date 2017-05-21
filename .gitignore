@@ -122,4 +122,5 @@ npm-debug.log
 *.synctex.gz
 
 #Django
-django/db.sqlite3
+django/db.sqlite.3
+django/*/migrations/
