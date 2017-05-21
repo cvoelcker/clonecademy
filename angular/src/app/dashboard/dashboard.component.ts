@@ -19,7 +19,6 @@ export class DashboardComponent implements OnInit {
     this.server.get("courses")
       .then(data => {
         this.course = data
-        console.log(data)
       }
       )
       .catch(err => console.log(err))

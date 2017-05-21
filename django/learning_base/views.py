@@ -24,13 +24,13 @@ def singleCourse(self, course):
     course = Course.objects.filter(id=course)
     if len(course) <= 0:
         return Response(status=status.HTTP_404_NOT_FOUND)
-    values = {"course": CoursePreviewSerializer(course[0]).data, "questions": []}
+    values = {"course": CoursePreviewSerializer(course[0]).data, "module": []}
 
     questions = course[0].module.order_by("order")
     for q in questions:
         module = ModulePreviewSerializer(q).data
         module['class'] = q.__class__.__name__
-        values['questions'].append(module)
+        values['module'].append(module)
     return Response(values)
 
 @api_view(['GET', 'POST'])

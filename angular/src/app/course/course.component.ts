@@ -11,6 +11,8 @@ export class CourseComponent implements OnInit {
 
   id: number;
   type: string;
+  name: string;
+  modules: [any];
 
   constructor(private route: ActivatedRoute, private server: ServerService) {
 
@@ -18,7 +20,11 @@ export class CourseComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((data: Params) => {this.id = data.id})
-    this.server.get('courses/'+this.id + "/").then(data => console.log(data))
+    this.server.get('courses/'+this.id + "/")
+      .then(data => {
+        this.name = data.course.name;
+        this.modules = data.module;
+      })
 
   }
 
