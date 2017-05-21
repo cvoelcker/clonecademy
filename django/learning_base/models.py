@@ -1,4 +1,6 @@
 from django.db import models
+from polymorphic.models import PolymorphicModel
+from django.contrib.contenttypes.models import ContentType
 
 class CourseCategory(models.Model):
     """
@@ -16,7 +18,7 @@ class CourseCategory(models.Model):
     def __str__(self):
         return self.name
 
-class Module(models.Model):
+class Module(PolymorphicModel):
     """
     A Course is made out of many modules and a module is the Base class for everything else.
     In a module can be questions  or chapters.
@@ -26,15 +28,16 @@ class Module(models.Model):
         ordering = ('order',)
 
     name = models.CharField(
-        help_text="A short concise name for the question",
+        help_text="A short concise name for the module",
         verbose_name='Question name',
         max_length=144
     )
     order = models.IntegerField(
         verbose_name='Question Order',
-        help_text="Determines the place of the question",
+        help_text="Determines the place of the module",
         default=0
     )
+
     def __str__(self):
         return self.name
 
@@ -79,6 +82,8 @@ class Course(models.Model):
 
     module = models.ManyToManyField(Module)
 
+    category = models.ManyToManyField(CourseCategory)
+
     def visible(self):
         return self.is_visible
 
@@ -98,6 +103,9 @@ class Question(Module):
         verbose_name='Question text',
         help_text="This field can contain markdown syntax"
     )
+
+    def __str__(self):
+        return self.name
 
 
 class MultipleChoiceAnswer(models.Model):
@@ -122,7 +130,7 @@ class MultipleChoiceQuestion(Question):
     """
     A simple multiple choice question
     """
-    
+
     answers = models.ManyToManyField(MultipleChoiceAnswer)
 
     def getAnswers(self):

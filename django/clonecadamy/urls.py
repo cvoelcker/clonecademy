@@ -32,6 +32,7 @@ urlpatterns = [
     url(r'^api-auth', obtain_jwt_token),
     url(r'^courses/$', learning_base_view.getCourses),
     url(r'^courses/(?P<course>[0-9]+)/?$', learning_base_view.singleCourse),
-    url(r'^courses/(?P<course>[0-9]+)/(?P<module>[0-9]+)/?$', learning_base_view.getModule),
+    url(r'^courses/(?P<courseID>[0-9]+)/(?P<moduleID>[0-9]+)/?$', learning_base_view.getModule),
+    url(r'^MultipleChoiceQuestion/(?P<id>[0-9]+)/$', learning_base_view.multipleChoice),
     #url(r'^courses', learning_base_view.CourseViewSet)
 ]

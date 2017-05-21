@@ -20,7 +20,7 @@ class CoursePreviewSerializer(serializers.ModelSerializer):
 class ModulePreviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Module
-        fields = ('name', 'kind')
+        fields = ('name', )
 
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -36,4 +36,9 @@ class QuestionPreviewSerializer(serializers.ModelSerializer):
 class MultipleChoiceQuestionSerializer(QuestionSerializer):
     class Meta:
         model = MultipleChoiceQuestion
-        fields = fields = ('name', 'order', 'question_body')
+        fields = ('name', 'question_body')
+
+class MultipleChoiceAnswersSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MultipleChoiceAnswer
+        fields = ('text', )

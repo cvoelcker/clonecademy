@@ -42,7 +42,8 @@ INSTALLED_APPS = (
     'rest_framework.authtoken',
     'corsheaders',
     'learning_base',
-    'user_model'
+    'user_model',
+    'polymorphic',
 )
 
 MIDDLEWARE_CLASSES = (
