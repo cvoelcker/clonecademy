@@ -11,28 +11,32 @@ import 'rxjs/add/operator/toPromise';
 export class ServerService {
 
   private baseUrl = 'http://0.0.0.0:8000/'
-  private format = '?format=json';
 
-  headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json'});
+  headers = new Headers({'Accept': 'application/json', 'Content-Type': 'application/json'});
 
   private token: string;
 
   constructor(private http: Http, private cookie: CookieService) {
-    this.token = this.cookie.get('token')
+    this.token = this.cookie.get("token")
+  }
+
+  private makeHeader(){
+    // the jwt token is the string given from django after login
+    return new Headers({'Authorization': "JWT " + this.cookie.get("token"), 'Accept': 'application/json', 'Content-Type': 'application/json'});
+
   }
 
   get(type: string){
-    let options = new RequestOptions({headers: this.headers})
+
+    let options = new RequestOptions({headers: this.makeHeader()})
 
     return this.http.get(this.baseUrl + type, options).toPromise().then(res => res.json()).catch(this.handleError)
   }
 
-  post(type: string){
+  post(type: string, body: JSON){
 
-
-    let body = JSON.stringify({token: this.token}); // Stringify payload
     //this.headers.append('Authorization', 'Token ' + this.token)
-    let options = new RequestOptions({headers: this.headers})
+    let options = new RequestOptions({headers: this.makeHeader()})
 
     return this.http.post(this.baseUrl + type, body, options)
                   .toPromise()
@@ -51,9 +55,11 @@ export class ServerService {
 
   public login(name: string, password: string){
 
+    let headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json'});
+
     let body = JSON.stringify({username: name, password: password}); // Stringify payload
 
-    let options = new RequestOptions({headers: this.headers})
+    let options = new RequestOptions({headers: headers})
 
     return new Promise((resolve, reject) => this.http.post(this.baseUrl + "api-auth", body, options)
       .subscribe(
@@ -62,6 +68,8 @@ export class ServerService {
           this.token = response.token
           this.cookie.put("token", response.token);
           this.cookie.put("username", name);
+
+
           resolve(true);
         },
         (err) => {
@@ -71,6 +79,10 @@ export class ServerService {
 
   public clearToken(){
     this.token = null;
+  }
+
+  public getToken(){
+    return this.token;
   }
 
 }

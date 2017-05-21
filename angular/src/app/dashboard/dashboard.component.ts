@@ -9,16 +9,20 @@ import { ServerService} from '../service/server.service'
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  course: any;
 
   constructor(private server: ServerService) {
 
   }
 
-  connect(){
-    this.server.get("courses").catch(err => console.log(err))
-  }
-
   ngOnInit() {
+    this.server.get("courses")
+      .then(data => {
+        this.course = data
+        console.log(data)
+      }
+      )
+      .catch(err => console.log(err))
   }
 
 }

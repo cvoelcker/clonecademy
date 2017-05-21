@@ -7,7 +7,6 @@ import { RouterModule, Routes } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
 
 import { ServerService } from './service/server.service';
-import { UserService } from './service/user.service';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -15,13 +14,19 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoggedInDirective } from './directive/logged-in.directive';
 import { MenuComponent } from './menu/menu.component';
+import { CourseComponent } from './course/course.component';
 
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'login',      component: LoginComponent },
-  { path: '',
+  {
+    path: '',
     redirectTo: 'login',
     pathMatch: 'full'
+  },
+  {
+    path: 'course/:id',
+    component: CourseComponent
   },
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -34,7 +39,8 @@ const appRoutes: Routes = [
     DashboardComponent,
     PageNotFoundComponent,
     LoggedInDirective,
-    MenuComponent
+    MenuComponent,
+    CourseComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -42,7 +48,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule
   ],
-  providers: [ServerService, UserService, CookieService],
+  providers: [ServerService, CookieService],
   bootstrap: [
     AppComponent,
   ]
