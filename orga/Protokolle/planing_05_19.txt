@@ -1,0 +1,30 @@
+Organisatorisches:
+- User Stories werden ab jetzt Freitag nach der Besprechung vollständig formuliert
+- Donnerstags "Abschlussgespräch" zu den User Stories
+
+Treffen am 19.05.
+- User Stories Letzte Iteration vorstellen
+ - Login
+ - Kurs anlegen (via Django Admin)
+
+- Diagramm vorstellen
+
+- QS reden
+ - Merkmale
+ - Maßnahmen ansprechen
+
+- Endgeräte
+ - Welche Bildschirmauflösungen sollten primär berücksichtigt werden
+ - Bei Fragen nur zu Klicken würde uns mobile Endgeräte erlauben
+
+- Kommende Iteration Vorschlag:
+ - MultipleChoiceQuestion anlegen (html basierte Formatierung der Fragen erlauben)
+   - Fett und Farbig erlauben
+   - Frage (Titel und Fragestellung?)
+  - Was soll ein Fragetext alles können (Bilder, Typographie)
+ - Benutzer erstellen
+ - Kurs auswählen
+ - Kurs bearbeiten
+ - Statistik einsehen
+
+- Feiertagsplanung klären -> Sollten wir schon 2 Iterationen planen?
