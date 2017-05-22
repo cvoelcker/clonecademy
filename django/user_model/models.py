@@ -21,10 +21,22 @@ class Profile(models.Model):
     date_registered = models.DateField()
 
     def __str__(self):
-        return self.name
+        return self.user.__str__()
 
+class Try(models.Model):
+    person = models.ForeignKey(Profile, on_delete=models.CASCADE, null=False)
+    question = models.ForeignKey(lb_models.Question, null=True, on_delete=models.SET_NULL)
+    date = models.DateField()
+    tries = models.IntegerField(null=False, default=0)
+    solved = models.BooleanField(null=False, default=1)
 
-class Completion(models.Model):
+    def __str__(self):
+        if self.solved:
+            return "Question: {} was solved on {} after {} tries".format(self.question, self.date, self.tries)
+        else:
+            return "Question: {} has not been solved after {} tries".format(self.question, self.tries)
+
+class CourseCompletion(models.Model):
     """
     A field holding reference for a user that completed a course. This makes it possible
     to track, when a user completed the course
