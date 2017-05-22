@@ -1,3 +1,4 @@
-<nav>
-<button *ngIf="server.token != null" (click)="logout()">logout</button>
+<nav *ngIf="server.token != null">
+  <button routerLink="/dashboard">Dashboard</button>
+  <button  (click)="logout()">logout</button>
 </nav>

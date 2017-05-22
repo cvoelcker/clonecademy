@@ -15,6 +15,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoggedInDirective } from './directive/logged-in.directive';
 import { MenuComponent } from './menu/menu.component';
 import { CourseComponent } from './course/course.component';
+import { ModuleComponent } from './module/module.component';
+import { MultipleChoiceQuestionComponent } from './multiple-choice-question/multiple-choice-question.component';
+import { ModuleDirective } from './directive/module.directive';
 
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -26,7 +29,11 @@ const appRoutes: Routes = [
   },
   {
     path: 'course/:id',
-    component: CourseComponent
+    component: CourseComponent,
+  },
+  {
+    path: "course/:id/:module",
+    component: ModuleComponent,
   },
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -40,7 +47,10 @@ const appRoutes: Routes = [
     PageNotFoundComponent,
     LoggedInDirective,
     MenuComponent,
-    CourseComponent
+    CourseComponent,
+    ModuleComponent,
+    MultipleChoiceQuestionComponent,
+    ModuleDirective,
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

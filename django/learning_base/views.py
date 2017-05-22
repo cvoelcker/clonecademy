@@ -24,7 +24,7 @@ def singleCourse(self, course):
     course = Course.objects.filter(id=course)
     if len(course) <= 0:
         return Response(status=status.HTTP_404_NOT_FOUND)
-    values = {"course": CoursePreviewSerializer(course[0]).data, "module": []}
+    values = {"course": CourseSerializer(course[0]).data, "module": []}
 
     questions = course[0].module.order_by("order")
     for q in questions:
@@ -48,10 +48,11 @@ def multipleChoice(request, id):
         return Response(["Request", "POST"])
 
 @api_view(['GET', 'POST'])
-def getModule(request, module, course):
-    module = Module.objects.filter(id=module)
-    if len(module) <= 0:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-
-    return Response(ModulePreviewSerializer(module[0]).data)
+def callModule(request, module, course):
+    if request.method == "GET":
+        module = Module.objects.filter(id=module)
+        if len(module) <= 0:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response(ModuleSerializer(module[0]).data)
+    if request.method == "POST":
+        return Response(["Request", "POST"])

@@ -38,6 +38,7 @@ class Module(PolymorphicModel):
         default=0
     )
 
+
     def __str__(self):
         return self.name
 
@@ -112,6 +113,8 @@ class MultipleChoiceAnswer(models.Model):
     """
     A possible answer to a multiple choice question
     """
+    class Meta:
+        ordering = ('?', )
 
     text = models.TextField(
         verbose_name="Answer text",
