@@ -33,8 +33,9 @@ export class ServerService {
     return this.http.get(this.baseUrl + type, options).toPromise().then(res => res.json()).catch(this.handleError)
   }
 
-  post(type: string, body: JSON){
+  post(type: string, body: any){
 
+    body = JSON.stringify(body)
     //this.headers.append('Authorization', 'Token ' + this.token)
     let options = new RequestOptions({headers: this.makeHeader()})
 

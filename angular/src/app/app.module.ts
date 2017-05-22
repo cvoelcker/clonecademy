@@ -18,6 +18,7 @@ import { CourseComponent } from './course/course.component';
 import { ModuleComponent } from './module/module.component';
 import { MultipleChoiceQuestionComponent } from './multiple-choice-question/multiple-choice-question.component';
 import { ModuleDirective } from './directive/module.directive';
+import { QuestionComponent } from './question/question.component';
 
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -51,6 +52,7 @@ const appRoutes: Routes = [
     ModuleComponent,
     MultipleChoiceQuestionComponent,
     ModuleDirective,
+    QuestionComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -61,6 +63,10 @@ const appRoutes: Routes = [
   providers: [ServerService, CookieService],
   bootstrap: [
     AppComponent,
+  ],
+  entryComponents: [
+    // you have to add all modules for questions here
+    MultipleChoiceQuestionComponent
   ]
 })
 export class AppModule { }

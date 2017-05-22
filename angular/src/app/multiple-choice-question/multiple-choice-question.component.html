@@ -1,3 +1,13 @@
+<h2>
+  {{data.name}}
+</h2>
 <p>
-  multiple-choice-question works!
+  {{data.question_body}}
 </p>
+<ul>
+  <li *ngFor="let ans of data.answers">
+    <input type="checkbox" id="answer-{{ans.id}}" name="answers" value="{{ans.id}}" [(ngModel)]="ans.value">
+    <label for="answer-{{ans.id}}">{{ans.text}}</label>
+  </li>
+</ul>
+<button (click)="submit()">Submit</button>
