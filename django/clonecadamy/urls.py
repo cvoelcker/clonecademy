@@ -24,7 +24,6 @@ from user_model import views as user_view
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 
-router.register(r'courses', learning_base_view.CourseViewSet)
 router.register(r'personal_statistics', user_view.TriesViewSet)
 
 # Wire up our API using automatic URL routing.
