@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import *
+from learning_base.question.multiply_choice.serializer import *
+from learning_base.question.multiply_choice.models import *
 
 class CourseCategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -31,28 +33,3 @@ class ModuleSerializer(serializers.ModelSerializer):
 
         value['class'] = obj.__class__.__name__
         return value
-
-class QuestionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Question
-        fields = ('name', 'order', 'question_body',)
-
-class QuestionPreviewSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Question
-        fields = ('name', 'id')
-
-
-class MultipleChoiceAnswersSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = MultipleChoiceAnswer
-        fields = ('text', 'id')
-
-
-# TODO: Represent inheritance over models in the serializer
-class MultipleChoiceQuestionSerializer(QuestionSerializer):
-    answers = MultipleChoiceAnswersSerializer(many = True, read_only=True)
-
-    class Meta:
-        model = MultipleChoiceQuestion
-        fields = ('name', 'question_body', 'answers',)

@@ -44,7 +44,7 @@ class Progress(models.Model):
     person = models.ForeignKey(Profile, on_delete=models.CASCADE)
     course = models.ForeignKey(lb_models.Course, on_delete=models.CASCADE)
     date = models.DateField()
-    question_id = models.ForeignKey(lb_models.Question)
+    #question_id = models.ForeignKey(lb_models.Question)
 
     def clean():
         if(question_id.getCourse != course):

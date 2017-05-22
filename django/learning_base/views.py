@@ -4,7 +4,8 @@ from rest_framework import authentication, permissions
 from rest_framework.decorators import api_view
 
 from learning_base.serializers import *
-from learning_base.models import Course, Question
+from learning_base.models import Course
+from learning_base.question.multiply_choice.models import *
 from rest_framework.response import Response
 
 # Create your views here.
@@ -20,7 +21,7 @@ def getCourses(request):
     return Response(values)
 
 @api_view(['GET'])
-def singleCourse(self, course):
+def singleCourse(request, course):
     course = Course.objects.filter(id=course)
     if len(course) <= 0:
         return Response(status=status.HTTP_404_NOT_FOUND)
@@ -34,25 +35,13 @@ def singleCourse(self, course):
     return Response(values)
 
 @api_view(['GET', 'POST'])
-def multipleChoice(request, id):
-    if request.method == "GET":
-        question = MultipleChoiceQuestion.objects.filter(id=id)
-        if len(question) <= 0:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-        answers = []
-        for a in question[0].answers.all().order_by('?'):
-            answers.append(a.text)
-        return Response({'q': MultipleChoiceQuestionSerializer(question[0]).data, 'a': answers})
-
-    if request.method == "POST":
-        return Response(["Request", "POST"])
-
-@api_view(['GET', 'POST'])
 def callModule(request, module, course):
+    module = Module.objects.filter(id=module)
+    if len(module) <= 0:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    module = module.first()
+
     if request.method == "GET":
-        module = Module.objects.filter(id=module)
-        if len(module) <= 0:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-        return Response(ModuleSerializer(module[0]).data)
+        return Response(ModuleSerializer(module).data)
     if request.method == "POST":
-        return Response(["Request", "POST"])
+        return Response(module.evaluate(request.data))

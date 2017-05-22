@@ -38,6 +38,8 @@ class Module(PolymorphicModel):
         default=0
     )
 
+    def evaluate(data):
+        return False
 
     def __str__(self):
         return self.name
@@ -90,60 +92,6 @@ class Course(models.Model):
 
     def getQuestions(self):
         return self.question_set
-
-    def __str__(self):
-        return self.name
-
-class Question(Module):
-    """
-    A question is the smallest unit of the learning process. A question has a task that
-    can be solved by a user, a correct solution to evaluate the answer and a way to
-    provide feedback to the user.
-    """
-    question_body = models.TextField(
-        verbose_name='Question text',
-        help_text="This field can contain markdown syntax"
-    )
-
-    def __str__(self):
-        return self.name
-
-
-class MultipleChoiceAnswer(models.Model):
-    """
-    A possible answer to a multiple choice question
-    """
-    class Meta:
-        ordering = ('?', )
-
-    text = models.TextField(
-        verbose_name="Answer text",
-        help_text="The answers text"
-    )
-    is_correct = models.BooleanField(
-        verbose_name='is the answer correct?',
-        default=False
-    )
-
-    def __str__(self):
-        return self.text
-
-
-class MultipleChoiceQuestion(Question):
-    """
-    A simple multiple choice question
-    """
-
-    answers = models.ManyToManyField(MultipleChoiceAnswer)
-
-    def getAnswers(self):
-        return self.answers
-
-    def numCorrectAnswers(self):
-        return self.getAnswers().filter(is_correct=True).count()
-
-    def notSolvable(self):
-        return self.numCorrectAnswers() == 0
 
     def __str__(self):
         return self.name
