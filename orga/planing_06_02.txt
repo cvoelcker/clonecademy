@@ -5,3 +5,6 @@ Module (nicht mehr Kapitel):
   - öffentliche Kurse im Privaten anbieten
   - Kurse Modular aufbauen, dass man sich auch Module von anderen Moderatoren hinzufügen kann
     (soweit diese öffentlich)
+
+Fragen:
+  - sollen dem Benutzer nach falschem ausfüllen die richtigen Antworten gezeigt werden
