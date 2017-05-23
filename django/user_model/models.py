@@ -1,7 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from learning_base import models as lb_models
+from learning_base.question import models as q_models
 from django.core.exceptions import ValidationError
+
 
 class LearningGroup(models.Model):
     """
@@ -25,7 +27,7 @@ class Profile(models.Model):
 
 class Try(models.Model):
     person = models.ForeignKey(Profile, on_delete=models.CASCADE, null=False)
-    question = models.ForeignKey(lb_models.Question, null=True, on_delete=models.SET_NULL)
+    question = models.ForeignKey(q_models.Question, null=True, on_delete=models.SET_NULL)
     date = models.DateField()
     tries = models.IntegerField(null=False, default=0)
     solved = models.BooleanField(null=False, default=1)

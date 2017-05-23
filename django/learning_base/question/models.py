@@ -11,6 +11,5 @@ class Question(Module):
         verbose_name='Question text',
         help_text="This field can contain markdown syntax"
     )
-
     def __str__(self):
         return self.name
