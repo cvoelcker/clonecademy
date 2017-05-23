@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ServerService } from "../service/server.service"
 
 
 @Component({
@@ -12,9 +13,13 @@ export class QuestionComponent implements OnInit {
   moduleID: number;
   courseID: number;
 
-  constructor() { }
+  constructor(public server: ServerService) { }
 
   ngOnInit() {
+  }
+
+  submit(): Promise<boolean>{
+    return new Promise<boolean>((resolve, reject) => {reject(false)})
   }
 
 }

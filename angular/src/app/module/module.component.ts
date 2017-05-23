@@ -24,6 +24,7 @@ export class ModuleComponent implements OnInit {
   courseID: number;
   moduleID: number;
   @ViewChild(ModuleDirective) adHost: ModuleDirective;
+  question: QuestionComponent;
 
   constructor(private factory: ComponentFactoryResolver, private server: ServerService, private route: ActivatedRoute) { }
 
@@ -40,11 +41,22 @@ export class ModuleComponent implements OnInit {
     viewRef.clear();
     let componenRef = viewRef.createComponent(component);
 
-    let question = (<QuestionComponent> componenRef.instance);
-    question.data = value;
-    question.courseID = this.courseID;
-    question.moduleID = this.moduleID;
+    this.question = (<QuestionComponent> componenRef.instance);
+    this.question.data = value;
+    this.question.courseID = this.courseID;
+    this.question.moduleID = this.moduleID;
 
+  }
+
+  submit(){
+    // # TODO always has to be implemented
+    this.question.submit().then(data => {
+      // the answer was correct
+      console.log("correct")
+    }).catch(err => {
+      // the answer was incorrect
+      console.log("false")
+    })
   }
 
 }

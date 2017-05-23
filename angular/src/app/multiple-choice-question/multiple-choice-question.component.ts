@@ -15,21 +15,33 @@ export class MultipleChoiceQuestionComponent implements QuestionComponent {
   courseID: number;
   answers: [{"id": number, "text": string, "value": boolean}];
 
-  constructor(private server: ServerService) { }
+  constructor(public server: ServerService) { }
 
   ngOnInit() {
     this.answers = this.data.answers
   }
 
-  submit(){
+  submit(): Promise<boolean>{
     let sendAnswer = [];
-    
+
     for (let ans of this.answers){
       if(ans.value){
         sendAnswer.push(ans.id)
       }
     }
-    this.server.post("courses/"+this.courseID+"/"+this.moduleID, sendAnswer).then(data => console.log(data))
+    //super.submit
+    return new Promise<boolean>((resolve, reject) => {
+      this.server.post("courses/"+this.courseID+"/"+this.moduleID, sendAnswer).then(data => {
+        if(data){
+          resolve(data)
+        }
+        else{
+          reject(data)
+        }
+      })
+
+    })
+
   }
 
 }
