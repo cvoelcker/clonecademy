@@ -10,7 +10,7 @@ import { ServerService } from "../service/server.service"
 export class QuestionComponent implements OnInit {
 
   @Input() data: any;
-  moduleID: number;
+  moduleIndex: number;
   courseID: number;
 
   constructor(public server: ServerService) { }
