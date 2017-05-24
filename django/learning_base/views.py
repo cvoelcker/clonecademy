@@ -26,8 +26,8 @@ def singleCourse(request, course):
     if len(course) <= 0:
         return Response(status=status.HTTP_404_NOT_FOUND)
     values = {"course": CourseSerializer(course[0]).data, "module": []}
-
     questions = course[0].module.order_by("order")
+    values['course']['module_count'] = len(questions)
     for q in questions:
         module = ModulePreviewSerializer(q).data
         module['class'] = q.__class__.__name__
