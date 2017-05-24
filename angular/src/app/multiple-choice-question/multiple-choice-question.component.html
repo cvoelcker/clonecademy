@@ -2,7 +2,7 @@
   <li *ngFor="let ans of data.answers"
     [attr.data-selected]="false"
     (click)="hightlightStatus[ans.id]=!hightlightStatus[ans.id]"
-    [class.highlight]="hightlightStatus[ans.id]" >
+    [class.selected]="hightlightStatus[ans.id]" >
     <p>{{ans.text}}</p>
   </li>
 </ul>
