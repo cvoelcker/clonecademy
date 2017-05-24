@@ -14,18 +14,24 @@ export class MultipleChoiceQuestionComponent implements QuestionComponent {
   moduleID: number;
   courseID: number;
   answers: [{"id": number, "text": string, "value": boolean}];
+  hightlightStatus: {};
 
-  constructor(public server: ServerService) { }
+  constructor(public server: ServerService) {
+
+   }
 
   ngOnInit() {
     this.answers = this.data.answers
+    this.hightlightStatus = {}
+    for(let ans of this.answers){
+      this.hightlightStatus[ans.id] = false
+    }
   }
 
   submit(): Promise<boolean>{
     let sendAnswer = [];
-
     for (let ans of this.answers){
-      if(ans.value){
+      if(this.hightlightStatus[ans.id]){
         sendAnswer.push(ans.id)
       }
     }

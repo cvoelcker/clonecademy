@@ -1,2 +1,10 @@
-<ng-template appModule></ng-template>
-<button (click)="submit()">Submit</button>
+<div class="row">
+  <div class="col-md-4">
+    <h2>{{title}}</h2>
+    <p>{{questionBody}}</p>
+  </div>
+  <div class="col-md-8">
+    <ng-template appModule></ng-template>
+    <button (click)="submit()">Submit</button>
+  </div>
+</div>

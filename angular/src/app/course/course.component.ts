@@ -24,7 +24,6 @@ export class CourseComponent implements OnInit {
       .then(data => {
         this.name = data.course.name;
         this.modules = data.module;
-        console.log(data)
       })
 
   }

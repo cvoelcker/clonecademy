@@ -25,6 +25,8 @@ export class ModuleComponent implements OnInit {
   moduleID: number;
   @ViewChild(ModuleDirective) adHost: ModuleDirective;
   question: QuestionComponent;
+  title: string;
+  questionBody: string;
 
   constructor(private factory: ComponentFactoryResolver, private server: ServerService, private route: ActivatedRoute) { }
 
@@ -42,6 +44,8 @@ export class ModuleComponent implements OnInit {
     let componenRef = viewRef.createComponent(component);
 
     this.question = (<QuestionComponent> componenRef.instance);
+    this.title = value.name;
+    this.questionBody = value.question_body
     this.question.data = value;
     this.question.courseID = this.courseID;
     this.question.moduleID = this.moduleID;
