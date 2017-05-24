@@ -45,6 +45,8 @@ def callModule(request, course, module):
     #module = module.first()
 
     if request.method == "GET":
-        return Response(ModuleSerializer(module).data)
+        value = ModuleSerializer(module).data
+        value['max_module'] = len(all_modules)
+        return Response(value)
     if request.method == "POST":
         return Response(module.evaluate(request.data))
