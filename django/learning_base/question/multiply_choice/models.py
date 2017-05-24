@@ -5,8 +5,7 @@ class MultipleChoiceAnswer(models.Model):
     """
     A possible answer to a multiple choice question
     """
-    class Meta:
-        ordering = ('?', )
+    
 
     text = models.TextField(
         verbose_name="Answer text",
@@ -47,6 +46,3 @@ class MultipleChoiceQuestion(Question):
             if not (ans.id in data):
                 return False
         return True
-
-    def __str__(self):
-        return self.name
