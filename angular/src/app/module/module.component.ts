@@ -22,7 +22,7 @@ export class ModuleComponent implements OnInit {
   }
   module: any;
   courseID: number;
-  moduleID: number;
+  moduleIndex: number;
   @ViewChild(ModuleDirective) adHost: ModuleDirective;
   question: QuestionComponent;
   title: string;
@@ -31,8 +31,8 @@ export class ModuleComponent implements OnInit {
   constructor(private factory: ComponentFactoryResolver, private server: ServerService, private route: ActivatedRoute) { }
 
   ngOnInit(){
-    this.route.params.subscribe((data: Params) => {this.courseID = data.id, this.moduleID = data.module})
-    this.server.get("courses/"+this.courseID+"/"+this.moduleID).then(data => this.loadContainer(data))
+    this.route.params.subscribe((data: Params) => {this.courseID = data.id, this.moduleIndex = data.module})
+    this.server.get("courses/"+this.courseID+"/"+this.moduleIndex).then(data => this.loadContainer(data))
   }
 
 
@@ -48,7 +48,7 @@ export class ModuleComponent implements OnInit {
     this.questionBody = value.question_body
     this.question.data = value;
     this.question.courseID = this.courseID;
-    this.question.moduleID = this.moduleID;
+    this.question.moduleIndex = this.moduleIndex;
 
   }
 

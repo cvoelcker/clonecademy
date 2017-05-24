@@ -11,7 +11,7 @@ import { ServerService } from "../service/server.service"
 export class MultipleChoiceQuestionComponent implements QuestionComponent {
 
   @Input() data: any;
-  moduleID: number;
+  moduleIndex: number;
   courseID: number;
   answers: [{"id": number, "text": string, "value": boolean}];
   hightlightStatus: {};
@@ -37,7 +37,7 @@ export class MultipleChoiceQuestionComponent implements QuestionComponent {
     }
     //super.submit
     return new Promise<boolean>((resolve, reject) => {
-      this.server.post("courses/"+this.courseID+"/"+this.moduleID, sendAnswer).then(data => {
+      this.server.post("courses/"+this.courseID+"/"+this.moduleIndex, sendAnswer).then(data => {
         if(data){
           resolve(data)
         }
