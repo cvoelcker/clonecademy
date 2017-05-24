@@ -27,6 +27,7 @@ export class ModuleComponent implements OnInit {
   question: QuestionComponent;
   title: string;
   questionBody: string;
+  lastModule:boolean;
 
   constructor(private factory: ComponentFactoryResolver, private server: ServerService, private route: ActivatedRoute) { }
 
@@ -49,6 +50,8 @@ export class ModuleComponent implements OnInit {
     this.question.data = value;
     this.question.courseID = this.courseID;
     this.question.moduleIndex = this.moduleIndex;
+    console.log(value)
+    this.lastModule = this.moduleIndex >= value.max_module
 
   }
 

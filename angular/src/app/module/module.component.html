@@ -6,6 +6,8 @@
   <div class="col-md-8">
     <ng-template appModule></ng-template>
     <button (click)="submit()">Submit</button>
-    <button (click)="next()">Next</button>
+    <button *ngIf="!lastModule" (click)="next()">Next</button>
+    <button *ngIf="lastModule" (click)="exit()">Exit</button>
+
   </div>
 </div>
