@@ -35,11 +35,14 @@ def singleCourse(request, course):
     return Response(values)
 
 @api_view(['GET', 'POST'])
-def callModule(request, module, course):
-    module = Module.objects.filter(id=module)
-    if len(module) <= 0:
+def callModule(request, course, module):
+    course = Course.objects.filter(id=course).first()
+    index = int(module) - 1
+    all_modules = course.module.all()
+    if index < 0 or index > len(all_modules):
         return Response(status=status.HTTP_404_NOT_FOUND)
-    module = module.first()
+    module = all_modules[index]
+    #module = module.first()
 
     if request.method == "GET":
         return Response(ModuleSerializer(module).data)
