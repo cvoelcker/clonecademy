@@ -1,4 +1,9 @@
 <label for="title">title</label>
 <input type="text" id="title" [(ngModel)]="title" required>
 <p>{{title}}</p>
-<button class="glyphicon-plus">add Course</button>
+<div class="modules" #modules></div>
+<button (click)="addModule()">
+  <span class="glyphicon glyphicon-plus" ></span>
+  <span>add Course</span>
+</button>
+<button (click)="save()">save</button>

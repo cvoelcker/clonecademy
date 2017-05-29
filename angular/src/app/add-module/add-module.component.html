@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-md-11">
+    <!--<p>add-module works! {{id}}</p>-->
+    <div class="module" #module></div>
+    <button class="col-md-12" *ngIf="!selected" (click)="chooseType()">chosse Type</button>
+  </div>
+  <div class="col-md-1 arrows">
+    <button class="glyphicon glyphicon-triangle-top" (click)="up()"></button>
+    <button class="glyphicon glyphicon-triangle-bottom" (click)="down()"></button>
+  </div>
+</div>
+<div class="row">
+  <button class="col-md-1" (click)="close()">remove</button>
+</div>

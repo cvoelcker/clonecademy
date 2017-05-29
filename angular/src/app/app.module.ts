@@ -20,6 +20,9 @@ import { MultipleChoiceQuestionComponent } from './multiple-choice-question/mult
 import { ModuleDirective } from './directive/module.directive';
 import { QuestionComponent } from './question/question.component';
 import { CreateCourseComponent } from './create-course/create-course.component';
+import { AddMultiplyChoiceComponent } from './add-multiply-choice/add-multiply-choice.component';
+import { AddModuleComponent } from './add-module/add-module.component';
+import { AddQuestionComponent } from './add-question/add-question.component';
 
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -59,6 +62,9 @@ const appRoutes: Routes = [
     ModuleDirective,
     QuestionComponent,
     CreateCourseComponent,
+    AddMultiplyChoiceComponent,
+    AddModuleComponent,
+    AddQuestionComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -71,6 +77,9 @@ const appRoutes: Routes = [
     AppComponent,
   ],
   entryComponents: [
+    AddModuleComponent,
+    AddQuestionComponent,
+    AddMultiplyChoiceComponent,
     // you have to add all modules for questions here
     MultipleChoiceQuestionComponent
   ]
