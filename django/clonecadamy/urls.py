@@ -37,4 +37,6 @@ urlpatterns = [
     url(r'^courses/(?P<course>[0-9]+)/?$', learning_base_view.singleCourse),
     url(r'^courses/(?P<course>[0-9]+)/(?P<module>[0-9]+)/?$', learning_base_view.callModule),
     #url(r'^courses', learning_base_view.CourseViewSet)
+
+    url(r'^user/', user_view.getUserInfo)
 ]
