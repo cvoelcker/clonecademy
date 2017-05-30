@@ -29,14 +29,13 @@ class Try(models.Model):
     person = models.ForeignKey(Profile, on_delete=models.CASCADE, null=False)
     question = models.ForeignKey(question_model.Question, null=True, on_delete=models.SET_NULL)
     date = models.DateField()
-    tries = models.IntegerField(null=False, default=0)
     solved = models.BooleanField(null=False, default=1)
 
     def __str__(self):
         if self.solved:
-            return "Question: {} was solved on {} after {} tries".format(self.question, self.date, self.tries)
+            return "Question: {} was solved correctly on {}".format(self.question, self.date)
         else:
-            return "Question: {} has not been solved after {} tries".format(self.question, self.tries)
+            return "Question: {} was not solved wrong {}".format(self.question)
 
 class CourseCompletion(models.Model):
     """
