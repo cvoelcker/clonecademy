@@ -1,9 +1,15 @@
-<label for="title">title</label>
-<input type="text" id="title" [(ngModel)]="title" required>
-<p>{{title}}</p>
-<div class="modules" #modules></div>
-<button (click)="addModule()">
-  <span class="glyphicon glyphicon-plus" ></span>
-  <span>add Module</span>
-</button>
-<button (click)="save()">save</button>
+<div class="row form-group">
+  <label for="title">title</label>
+  <input type="text" class="form-control" id="title" [(ngModel)]="title" required>
+</div>
+<div class="container">
+  <p>{{title}}</p>
+  <div class="container">
+    <div class="modules" #modules></div>
+  </div>
+  <button (click)="addModule()">
+    <span class="glyphicon glyphicon-plus" ></span>
+    <span>add Module</span>
+  </button>
+  <button (click)="save()">save</button>
+</div>

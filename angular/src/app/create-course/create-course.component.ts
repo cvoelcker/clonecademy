@@ -36,7 +36,7 @@ export class CreateCourseComponent implements OnInit {
       }
       else if(data == "down"){
         let index = this.modules.indexOf(moduleComponent.hostView);
-        let i = index + 1 > 0 ? index + 1 : 0;
+        let i = index + 1 < this.moduleArray.length ? index + 1 : this.moduleArray.length - 1;
         this.modules.move(moduleComponent.hostView, i);
       }
     })
@@ -48,14 +48,14 @@ export class CreateCourseComponent implements OnInit {
   }
 
   save(){
+
     this.modules.length
     for(let i = 0; i < this.moduleArray.length; i++){
       let module = this.moduleArray[i];
       let index = this.modules.indexOf(module.hostView);
       let m = (<AddModuleComponent> module.instance).save();
       if(index >= 0 && m != null){
-        console.log(m)
-        console.log(index)
+        //console.log(m)
       }
     }
 

@@ -1,12 +1,30 @@
+<div class="row form-group">
+  <div class="col-md-12">
+    <label for="title">Module title</label>
+    <input type="text" class="form-control" id="title" [(ngModel)]="title" required>
+  </div>
+</div>
 <div class="row">
   <div class="col-md-11">
+
     <!--<p>add-module works! {{id}}</p>-->
     <div class="module" #module></div>
-    <button class="col-md-12" *ngIf="!selected" (click)="chooseType()">chosse Type</button>
+
+
+      <div class="form-group">
+        <label for="basic" class="col-lg-2 control-label">Select Question Type</label>
+
+        <div class="col-lg-10">
+          <select *ngFor="let c of components" id="basic" (click)="addQuestion()" [(ngModel)]="selectedValue" class="selectpicker show-tick form-control">
+            <option [ngValue]="c.component">{{c.name}}</option>
+          </select>
+        </div>
+      </div>
+
   </div>
   <div class="col-md-1 arrows">
-    <button class="glyphicon glyphicon-triangle-top" (click)="up()"></button>
-    <button class="glyphicon glyphicon-triangle-bottom" (click)="down()"></button>
+    <button class="glyphicon glyphicon-triangle-top btn btn-primary" (click)="up()"></button>
+    <button class="glyphicon glyphicon-triangle-bottom btn btn-primary" (click)="down()"></button>
   </div>
 </div>
 <div class="row">

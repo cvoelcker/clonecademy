@@ -1,24 +1,28 @@
 import { Component, OnInit} from '@angular/core';
 
-import { AddQuestionComponent } from "../add-question/add-question.component"
+import { AddQuestionModule } from "../add-question/add-question.module"
 
 @Component({
   selector: 'app-add-multiply-choice',
   templateUrl: './add-multiply-choice.component.html',
   styleUrls: ['./add-multiply-choice.component.css']
 })
-export class AddMultiplyChoiceComponent extends AddQuestionComponent {
+export class AddMultiplyChoiceComponent extends AddQuestionModule {
 
 
   question: string;
-  answers: [{text: string, correct: boolean}]
+  answers: [{text: string, correct: boolean}];
 
   ngOnInit() {
     this.answers = [{text: "test", correct: true}]
   }
 
-  save(){
-    return {type: "MultiplyChoiceQuestion", question: this.question, answers: this.answers}
+  save(): string{
+    return JSON.stringify({
+      type: "MultiplyChoiceQuestion",
+      question: this.question,
+      answers: this.answers
+    });
   }
 
   addAnswer(){

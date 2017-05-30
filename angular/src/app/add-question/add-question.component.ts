@@ -14,6 +14,10 @@ export class AddQuestionComponent implements OnInit {
   ngOnInit() {
   }
 
+  addQuestion(){
+    
+  }
+
   save(): any{
     console.log("emit")
     this.saveEmitter.emit("saved")
