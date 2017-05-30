@@ -1,5 +1,5 @@
 <ul>
-  <li *ngFor="let ans of data.answers"
+  <li *ngFor="let ans of answers"
     [attr.data-selected]="false"
     (click)="hightlightStatus[ans.id]=!hightlightStatus[ans.id]"
     [class.selected]="hightlightStatus[ans.id]" >

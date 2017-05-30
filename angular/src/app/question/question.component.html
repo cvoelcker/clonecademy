@@ -1,3 +1,11 @@
-<p>
-  question works!
-</p>
+<div class="row">
+  <div class="col-md-4">
+    <h2>{{title}}</h2>
+    <p>{{questionBody}}</p>
+  </div>
+  <div class="col-md-8">
+    <div class="question" #question></div>
+  </div>
+</div>
+<button class="btn btn-primary" (click)="submit()">submit</button>
+<button [disabled]="!submitCorrect" class="btn btn-primary" (click)="next()">next</button>

@@ -5,7 +5,7 @@ class MultipleChoiceAnswer(models.Model):
     """
     A possible answer to a multiple choice question
     """
-    
+
 
     text = models.TextField(
         verbose_name="Answer text",
@@ -27,6 +27,8 @@ class MultipleChoiceQuestion(Question):
 
     answers = models.ManyToManyField(MultipleChoiceAnswer)
 
+    def __str__(self):
+        return self.question_body
 
     def numCorrectAnswers(self):
         return self.answers.filter(is_correct=True).count()

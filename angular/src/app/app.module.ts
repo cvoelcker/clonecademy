@@ -24,6 +24,8 @@ import { AddMultiplyChoiceComponent } from './add-multiply-choice/add-multiply-c
 import { AddModuleComponent } from './add-module/add-module.component';
 import { AddQuestionComponent } from './add-question/add-question.component';
 
+import { QuestionModule } from "./question/question.module"
+
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'login',      component: LoginComponent },
@@ -39,6 +41,10 @@ const appRoutes: Routes = [
   {
     path: "course/:id/:module",
     component: ModuleComponent,
+  },
+  {
+    path: "course/:id/:module/:question",
+    component: QuestionComponent,
   },
   {
     path: "createCourse",
@@ -65,6 +71,7 @@ const appRoutes: Routes = [
     AddMultiplyChoiceComponent,
     AddModuleComponent,
     AddQuestionComponent,
+    QuestionModule,
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

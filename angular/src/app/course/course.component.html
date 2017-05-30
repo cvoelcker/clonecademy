@@ -3,6 +3,11 @@
 </h2>
 <ul>
   <li *ngFor="let m of modules; let i = index">
-    <a routerLink="{{i + 1}}">{{m.name}}</a>
+    <a routerLink="{{i + 1}}/"><b>{{i + 1}}:</b> {{m.name}}</a>
+    <ul>
+      <li *ngFor="let q of m.question; let j = index">
+        <a routerLink="{{i + 1}}/{{j + 1}}/"><b>{{j + 1}}:</b> {{q.class}}</a>
+      </li>
+    </ul>
   </li>
 </ul>
