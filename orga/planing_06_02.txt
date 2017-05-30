@@ -7,4 +7,5 @@ Module (nicht mehr Kapitel):
     (soweit diese öffentlich)
 
 Fragen:
-  - sollen dem Benutzer nach falschem ausfüllen die richtigen Antworten gezeigt werden
+  - sollen dem Benutzer nach falschem ausfüllen die richtigen Antworten gezeigt werden?
+  - spricht euer Server https:// ?

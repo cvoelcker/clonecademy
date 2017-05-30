@@ -1,1 +1,7 @@
-<ng-template appModule></ng-template>
+
+<h2>{{name}}</h2>
+<ul>
+  <li *ngFor="let q of questions, let i = index ">
+    <a routerLink="{{i + 1}}/"><b>{{i + 1}}</b>: <span>{{q.class}}</span></a>
+  </li>
+</ul>

@@ -4,6 +4,7 @@ from learning_base import models as lb_models
 from learning_base.question import models as question_model
 from django.core.exceptions import ValidationError
 
+
 class LearningGroup(models.Model):
     """
     A user group

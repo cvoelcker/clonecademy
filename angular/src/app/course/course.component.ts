@@ -22,9 +22,8 @@ export class CourseComponent implements OnInit {
     this.route.params.subscribe((data: Params) => {this.id = data.id})
     this.server.get('courses/'+this.id + "/")
       .then(data => {
-        this.name = data.course.name;
-        this.modules = data.module;
-        console.log(data)
+        this.name = data.name;
+        this.modules = data.modules;
       })
 
   }

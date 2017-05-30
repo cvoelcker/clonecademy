@@ -1,7 +1,7 @@
 from django.db import models
-from learning_base.models import Module
+from polymorphic.models import PolymorphicModel
 
-class Question(Module):
+class Question(PolymorphicModel):
     """
     A question is the smallest unit of the learning process. A question has a task that
     can be solved by a user, a correct solution to evaluate the answer and a way to
@@ -11,6 +11,3 @@ class Question(Module):
         verbose_name='Question text',
         help_text="This field can contain markdown syntax"
     )
-
-    def __str__(self):
-        return self.name

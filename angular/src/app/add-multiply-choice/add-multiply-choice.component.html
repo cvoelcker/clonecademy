@@ -1,0 +1,14 @@
+<div>
+  <h2>
+    Add multipe choice Question
+  </h2>
+  <h3>Question</h3>
+  <textarea class="question" id="question" type="textarea" [(ngModel)]="question"></textarea>
+  <button (click)="addAnswer()">add Answer</button>
+  <ul *ngFor="let i of answers">
+    <li class="singleQuestion" [class.correct]="i.correct">
+      <button class="correctButton" (click)="i.correct = !i.correct"><span class="glyphicon" [class.glyphicon-ok]="i.correct" ></span> <span>this answer is correct</span></button>
+      <textarea class="answer" [(ngModel)]="i.text"></textarea>
+    </li>
+  </ul>
+</div>

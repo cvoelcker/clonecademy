@@ -5,8 +5,7 @@ class MultipleChoiceAnswer(models.Model):
     """
     A possible answer to a multiple choice question
     """
-    class Meta:
-        ordering = ('?', )
+
 
     text = models.TextField(
         verbose_name="Answer text",
@@ -28,6 +27,8 @@ class MultipleChoiceQuestion(Question):
 
     answers = models.ManyToManyField(MultipleChoiceAnswer)
 
+    def __str__(self):
+        return self.question_body
 
     def numCorrectAnswers(self):
         return self.answers.filter(is_correct=True).count()
@@ -47,6 +48,3 @@ class MultipleChoiceQuestion(Question):
             if not (ans.id in data):
                 return False
         return True
-
-    def __str__(self):
-        return self.name

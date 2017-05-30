@@ -1,6 +1,6 @@
 import { Component, OnInit, ComponentFactoryResolver, ViewChild } from '@angular/core';
 
-import { ActivatedRoute, Params } from '@angular/router'
+import { ActivatedRoute, Params, Router } from '@angular/router'
 import { ServerService } from '../service/server.service';
 
 import { ModuleDirective } from '../directive/module.directive'
@@ -20,31 +20,23 @@ export class ModuleComponent implements OnInit {
     "MultipleChoiceQuestion" : MultipleChoiceQuestionComponent
     // add new qustion types here
   }
-  module: any;
+  name: any;
   courseID: number;
-  moduleID: number;
-  @ViewChild(ModuleDirective) adHost: ModuleDirective;
+  moduleIndex: number;
+  title: string;
+  questionBody: string;
+  lastModule:boolean;
+  questions: any;
 
-  constructor(private factory: ComponentFactoryResolver, private server: ServerService, private route: ActivatedRoute) { }
+  constructor(private server: ServerService, private route: ActivatedRoute) { }
 
   ngOnInit(){
-    this.route.params.subscribe((data: Params) => {this.courseID = data.id, this.moduleID = data.module})
-    this.server.get("courses/"+this.courseID+"/"+this.moduleID).then(data => this.loadContainer(data))
+    this.route.params.subscribe((data: Params) => {this.courseID = data.id, this.moduleIndex = data.module})
+    this.server.get("courses/"+this.courseID+"/"+this.moduleIndex).then(data => {
+      this.name = data.name
+      this.questions = data.question;
+    })
   }
 
-
-  loadContainer(value: any){
-    let component = this.factory.resolveComponentFactory(this.components[value.class])
-
-    let viewRef = this.adHost.viewContainerRef;
-    viewRef.clear();
-    let componenRef = viewRef.createComponent(component);
-
-    let question = (<QuestionComponent> componenRef.instance);
-    question.data = value;
-    question.courseID = this.courseID;
-    question.moduleID = this.moduleID;
-
-  }
 
 }

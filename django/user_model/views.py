@@ -5,6 +5,10 @@ from django.contrib.auth.models import User
 from .serializers import TriesSerializer
 from .models import Try
 
+from rest_framework.decorators import api_view
+
+from rest_framework.response import Response
+
 # Create your views here.
 
 class TriesViewSet(viewsets.ReadOnlyModelViewSet):
@@ -18,3 +22,11 @@ class TriesViewSet(viewsets.ReadOnlyModelViewSet):
         _user = self.request.user
         user = _user.profile
         return self.queryset.filter(person=user)
+
+@api_view(['GET'])
+def getUserInfo(request):
+    value = []
+    for group in request.user.get_all_permissions():
+        if "learning_base" in group:
+            value.append(group)
+    return Response(value)

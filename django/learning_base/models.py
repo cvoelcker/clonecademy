@@ -1,5 +1,5 @@
 from django.db import models
-from polymorphic.models import PolymorphicModel
+from learning_base.question.models import Question
 from django.contrib.contenttypes.models import ContentType
 
 class CourseCategory(models.Model):
@@ -18,25 +18,27 @@ class CourseCategory(models.Model):
     def __str__(self):
         return self.name
 
-class Module(PolymorphicModel):
+class Module(models.Model):
     """
-    A Course is made out of many modules and a module is the Base class for everything else.
-    In a module can be questions  or chapters.
+    A Course is made out of many modules and a module and in a Module can be n questions
     """
 
     class Meta():
-        ordering = ('order',)
+        ordering = ('name',)
 
     name = models.CharField(
         help_text="A short concise name for the module",
-        verbose_name='Question name',
+        verbose_name='Module name',
         max_length=144
     )
-    order = models.IntegerField(
-        verbose_name='Question Order',
-        help_text="Determines the place of the module",
-        default=0
+
+    question_order = models.CharField(
+        help_text="the ordering of the questions in array format. It must to start with [ and end with ]",
+        verbose_name="Question ordering array",
+        max_length=144
     )
+
+    questions = models.ManyToManyField(Question)
 
     def evaluate(data):
         return False
@@ -61,6 +63,12 @@ class Course(models.Model):
         (MODERATE, 'Moderate (college entry)'),
         (DIFFICULT, 'Difficult (college students'),
         (EXPERT, 'Expert (college graduates)')
+    )
+
+    module_order = models.CharField(
+        help_text="The ordering of the modules in array format. It must to start with [ and end with ]",
+        verbose_name="Question ordering array",
+        max_length=144
     )
 
     name = models.CharField(

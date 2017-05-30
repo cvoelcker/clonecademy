@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.server.get("courses")
+    this.server.get("courses/")
       .then(data => {
         this.course = data
       }

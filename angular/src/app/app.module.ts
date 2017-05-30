@@ -19,6 +19,12 @@ import { ModuleComponent } from './module/module.component';
 import { MultipleChoiceQuestionComponent } from './multiple-choice-question/multiple-choice-question.component';
 import { ModuleDirective } from './directive/module.directive';
 import { QuestionComponent } from './question/question.component';
+import { CreateCourseComponent } from './create-course/create-course.component';
+import { AddMultiplyChoiceComponent } from './add-multiply-choice/add-multiply-choice.component';
+import { AddModuleComponent } from './add-module/add-module.component';
+import { AddQuestionComponent } from './add-question/add-question.component';
+
+import { QuestionModule } from "./question/question.module"
 
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -35,6 +41,14 @@ const appRoutes: Routes = [
   {
     path: "course/:id/:module",
     component: ModuleComponent,
+  },
+  {
+    path: "course/:id/:module/:question",
+    component: QuestionComponent,
+  },
+  {
+    path: "createCourse",
+    component: CreateCourseComponent
   },
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -53,18 +67,26 @@ const appRoutes: Routes = [
     MultipleChoiceQuestionComponent,
     ModuleDirective,
     QuestionComponent,
+    CreateCourseComponent,
+    AddMultiplyChoiceComponent,
+    AddModuleComponent,
+    AddQuestionComponent,
+    QuestionModule,
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
   ],
   providers: [ServerService, CookieService],
   bootstrap: [
     AppComponent,
   ],
   entryComponents: [
+    AddModuleComponent,
+    AddQuestionComponent,
+    AddMultiplyChoiceComponent,
     // you have to add all modules for questions here
     MultipleChoiceQuestionComponent
   ]
