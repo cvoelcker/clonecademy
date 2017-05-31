@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from django.contrib.auth.models import User
 
-from .serializers import TriesSerializer
+from .serializers import StatisticsViewSerializer
 from .models import Try
 
 from rest_framework.decorators import api_view
@@ -16,7 +16,7 @@ class TriesViewSet(viewsets.ReadOnlyModelViewSet):
 
     """
     queryset = Try.objects.all()
-    serializer_class = TriesSerializer
+    serializer_class = StatisticsViewSerializer
 
     def get_queryset(self):
         _user = self.request.user
