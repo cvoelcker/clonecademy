@@ -24,9 +24,6 @@ from user_model import views as user_view
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 
-#router.register(r'courses', learning_base_view.CourseViewSet)
-router.register(r'personal_statistics', user_view.TriesViewSet)
-
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
@@ -37,8 +34,6 @@ urlpatterns = [
     url(r'^courses/(?P<courseID>[0-9]+)/?$', learning_base_view.singleCourse),
     url(r'^courses/(?P<courseID>[0-9]+)/(?P<moduleIndex>[0-9]+)/?$', learning_base_view.callModule),
     url(r'^courses/(?P<courseID>[0-9]+)/(?P<moduleIndex>[0-9]+)/(?P<questionIndex>[0-9]+)/?$', learning_base_view.callQuestion),
-
-    #url(r'^courses', learning_base_view.CourseViewSet)
-
-    url(r'^user/', user_view.getUserInfo)
+    url(r'^user/statistics$', user_view.getStatisticsOverview),
+    url(r'^user/', user_view.getUserInfo),
 ]

@@ -35,10 +35,14 @@ class Module(models.Model):
     question_order = models.CharField(
         help_text="the ordering of the questions in array format. It must to start with [ and end with ]",
         verbose_name="Question ordering array",
-        max_length=144
+        max_length=144,
+        null=True
     )
 
-    questions = models.ManyToManyField(Question)
+    questions = models.ManyToManyField(
+        Question,
+        null=True
+    )
 
     def evaluate(data):
         return False
@@ -68,7 +72,8 @@ class Course(models.Model):
     module_order = models.CharField(
         help_text="The ordering of the modules in array format. It must to start with [ and end with ]",
         verbose_name="Question ordering array",
-        max_length=144
+        max_length=144,
+        null=True
     )
 
     name = models.CharField(
@@ -91,9 +96,15 @@ class Course(models.Model):
         default=False
     )
 
-    module = models.ManyToManyField(Module)
+    module = models.ManyToManyField(
+        Module,
+        null=True
+    )
 
-    category = models.ManyToManyField(CourseCategory)
+    category = models.ManyToManyField(
+        CourseCategory,
+        null=True
+    )
 
     def visible(self):
         return self.is_visible

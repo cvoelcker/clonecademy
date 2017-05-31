@@ -14,36 +14,62 @@ class LearningGroup(models.Model):
     def __str__(self):
         return self.name
 
+
 class Profile(models.Model):
     """
     The profile of a user, storing information about its completed courses etc.
     """
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    group = models.ForeignKey(LearningGroup, null=True, on_delete=models.SET_NULL)
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE
+    )
+    group = models.ForeignKey(
+        LearningGroup,
+        null=True,
+        on_delete=models.SET_NULL
+    )
     date_registered = models.DateField()
 
     def __str__(self):
         return self.user.__str__()
 
+
 class Try(models.Model):
-    person = models.ForeignKey(Profile, on_delete=models.CASCADE, null=False)
-    question = models.ForeignKey(question_model.Question, null=True, on_delete=models.SET_NULL)
+    person = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE,
+        null=False
+    )
+    question = models.ForeignKey(
+        question_model.Question,
+        null=True,
+        on_delete=models.SET_NULL,
+        unique=True
+    )
     date = models.DateField()
-    solved = models.BooleanField(null=False, default=1)
+    tries = models.IntegerField(default=0)
+    solved = models.BooleanField(default=False)
 
     def __str__(self):
         if self.solved:
             return "Question: {} was solved correctly on {}".format(self.question, self.date)
         else:
-            return "Question: {} was not solved wrong {}".format(self.question)
+            return "Question: {} was solved wrong {} times".format(self.question, self.tries)
+
 
 class CourseCompletion(models.Model):
     """
     A field holding reference for a user that completed a course. This makes it possible
     to track, when a user completed the course
     """
-    person = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    course = models.ForeignKey(lb_models.Course, on_delete=models.CASCADE)
+    person = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE
+    )
+    course = models.ForeignKey(
+        lb_models.Course,
+        on_delete=models.CASCADE
+    )
     date = models.DateField()
 
     def __str__(self):
@@ -54,8 +80,14 @@ class Progress(models.Model):
     """
     A field tracking a users progress in different modules.
     """
-    person = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    course = models.ForeignKey(lb_models.Course, on_delete=models.CASCADE)
+    person = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE
+    )
+    course = models.ForeignKey(
+        lb_models.Course,
+        on_delete=models.CASCADE
+    )
     date = models.DateField()
     #question_id = models.ForeignKey(lb_models.Question)
 
