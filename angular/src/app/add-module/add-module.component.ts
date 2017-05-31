@@ -36,8 +36,7 @@ export class AddModuleComponent implements OnInit {
 
       // add the question to the module component and add it to the array so we can edit and save it later
       let question = this.module.createComponent(this.question)
-      let questionComponent = (<AddQuestionModule> question.instance)
-      this.questionArray.push(questionComponent)
+      this.questionArray.push(question)
     }
   }
 
@@ -57,11 +56,16 @@ export class AddModuleComponent implements OnInit {
   }
 
   save(){
-    console.log(this.module)
-    console.log(this.questionArray)
-    for(let i = 0; i < this.module.length; i++){
-      console.log(this.module.get(i))
+    let values = [];
+    for(let i = 0; i < this.questionArray.length; i++){
+      let tmp = this.questionArray[i];
+      let index = this.module.indexOf(this.questionArray[i].hostView)
+
+      let save = (<AddQuestionModule> tmp.instance).save()
+      save['order'] = index;
+      values.push(save)
     }
+    return {title: this.title, question: values};
   }
 
 }

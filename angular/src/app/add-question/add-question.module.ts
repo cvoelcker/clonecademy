@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
   template: '<p>implement me</p>',
 })
 export class AddQuestionModule {
-  public save(): string{
+  public save(): any{
     return "nix";
   }
  }

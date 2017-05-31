@@ -55,6 +55,8 @@ export class CreateCourseComponent implements OnInit {
       let index = this.modules.indexOf(module.hostView);
       let m = (<AddModuleComponent> module.instance).save();
       if(index >= 0 && m != null){
+        m['order'] = index
+        console.log(m)
         //console.log(m)
       }
     }

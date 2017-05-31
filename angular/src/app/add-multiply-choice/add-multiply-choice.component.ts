@@ -17,12 +17,12 @@ export class AddMultiplyChoiceComponent extends AddQuestionModule {
     this.answers = [{text: "test", correct: true}]
   }
 
-  save(): string{
-    return JSON.stringify({
+  save(): any{
+    return {
       type: "MultiplyChoiceQuestion",
       question: this.question,
       answers: this.answers
-    });
+    };
   }
 
   addAnswer(){
