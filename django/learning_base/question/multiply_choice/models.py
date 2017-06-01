@@ -48,12 +48,22 @@ class MultipleChoiceQuestion(Question):
                 return False
         return True
 
+    def delete(self):
+        for ans in self.answers:
+            ans.delete()
+        super(MultipleChoiceQuestion, self).delete()
+
     def save(self, q):
+        if 'question' not in q or 'answers' not in q:
+            return False
         question_body=q['question']
 
         super(Question, self).save()
 
         for a in q['answers']:
+            if 'correct' not in a or 'text' not in a:
+                return False
             ans = MultipleChoiceAnswer(text=a['text'], is_correct = a['correct'])
             ans.save()
             self.answers.add(ans)
+        return True

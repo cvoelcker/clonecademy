@@ -50,6 +50,11 @@ class Module(models.Model):
     def __str__(self):
         return self.name
 
+    def delete(self):
+        for q in self.questions:
+            q.delete()
+        super(Module, self).delete()
+
 class Course(models.Model):
     """
     One course is a group of questions which build on each other and should be solved
@@ -105,6 +110,11 @@ class Course(models.Model):
         CourseCategory,
         null=True
     )
+
+    def wipe_out(self):
+        for m in self.module.all():
+            m.delete()
+        super(Course, self).delete()
 
     def visible(self):
         return self.is_visible
