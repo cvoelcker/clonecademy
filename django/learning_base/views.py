@@ -10,7 +10,6 @@ from learning_base.question.models import Question
 from learning_base.question.multiply_choice.models import MultipleChoiceQuestion
 from learning_base.models import Course, CourseCategory
 
-from learning_base.exceptions import *
 
 from rest_framework.response import Response
 
@@ -111,7 +110,7 @@ def save(request):
                 quest = MultipleChoiceQuestion(question_body = q['question'])
                 if not quest.save(q):
                     course.wipe_out()
-                    return Response(status=403)           
+                    return Response(status=403)
 
             # add the created question to our module
             module.questions.add(quest)
