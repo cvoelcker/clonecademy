@@ -1,7 +1,7 @@
 <h2>
   Dashboard
 </h2>
-<button routerLink="/createCourse/">add Course</button>
+<button class="btn btn-primary" routerLink="/createCourse/">add Course</button>
 <div *ngFor="let c of course">
   <a routerLink="/course/{{c.id}}">{{c.name}}</a>
 </div>

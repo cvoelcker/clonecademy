@@ -1,23 +1,21 @@
-<div class="row form-group">
+<div class="form-group row">
   <label for="title">title</label>
   <input type="text" class="form-control" id="title" [(ngModel)]="title" required>
 </div>
-<div class="form-group">
-  <label for="basic" class="col-lg-2 control-label">Select Categry</label>
+<div class="form-group row">
+  <label for="basic" class="control-label">Select Categry</label>
 
-  <div class="col-lg-10">
+  <div class="">
     <select *ngFor="let c of categories" id="basic" [(ngModel)]="catId" class="selectpicker show-tick form-control">
       <option [ngValue]="c.id">{{c.name}}</option>
     </select>
   </div>
 </div>
-<div class="container">
-  <div class="container">
-    <div class="modules" #modules></div>
-  </div>
-  <button (click)="addModule()">
+<div class="container row">
+  <div class="modules" #modules></div>
+  <button class="btn btn-primary" (click)="addModule()">
     <span class="glyphicon glyphicon-plus" ></span>
     <span>add Module</span>
   </button>
-  <button (click)="save()">save</button>
+  <button class="btn btn-primary" (click)="save()">save</button>
 </div>

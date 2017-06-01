@@ -1,7 +1,11 @@
-<div class="row form-group">
-  <div class="col-md-12">
+<div class="form-group">
+  <div class="col-md-11">
     <label for="title">Module title</label>
     <input type="text" class="form-control" id="title" [(ngModel)]="title" required>
+  </div>
+  <div class="col-md-1 arrows">
+    <button class="glyphicon glyphicon-triangle-top btn btn-primary" (click)="up()"></button>
+    <button class="glyphicon glyphicon-triangle-bottom btn btn-primary" (click)="down()"></button>
   </div>
 </div>
 <div class="row">
@@ -23,11 +27,7 @@
     <!-- / add Question -->
 
   </div>
-  <div class="col-md-1 arrows">
-    <button class="glyphicon glyphicon-triangle-top btn btn-primary" (click)="up()"></button>
-    <button class="glyphicon glyphicon-triangle-bottom btn btn-primary" (click)="down()"></button>
-  </div>
 </div>
 <div class="row">
-  <button class="col-md-1" (click)="close()">remove</button>
+  <button class="col-md-1 btn btn-primary" (click)="close()">remove</button>
 </div>
