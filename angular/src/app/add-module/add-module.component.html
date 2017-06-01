@@ -11,16 +11,17 @@
     <!--<p>add-module works! {{id}}</p>-->
     <div class="module" #module></div>
 
+    <!-- add Question -->
+    <div class="form-group">
+      <label for="basic" class="col-lg-2 control-label">Select Question Type</label>
 
-      <div class="form-group">
-        <label for="basic" class="col-lg-2 control-label">Select Question Type</label>
-
-        <div class="col-lg-10">
-          <select *ngFor="let c of components" id="basic" (click)="addQuestion()" [(ngModel)]="selectedValue" class="selectpicker show-tick form-control">
-            <option [ngValue]="c.component">{{c.name}}</option>
-          </select>
-        </div>
+      <div class="col-lg-10">
+        <select *ngFor="let c of components" id="basic" (click)="addQuestion()" [(ngModel)]="selectedValue" class="selectpicker show-tick form-control">
+          <option [ngValue]="c.component">{{c.name}}</option>
+        </select>
       </div>
+    </div>
+    <!-- / add Question -->
 
   </div>
   <div class="col-md-1 arrows">

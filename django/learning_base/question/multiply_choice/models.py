@@ -48,3 +48,13 @@ class MultipleChoiceQuestion(Question):
             if not (ans.id in data):
                 return False
         return True
+
+    def save(self, q):
+        question_body=q['question']
+
+        super(Question, self).save()
+        
+        for a in q['answers']:
+            ans = MultipleChoiceAnswer(text=a['text'], is_correct = a['correct'])
+            ans.save()
+            self.answers.add(ans)

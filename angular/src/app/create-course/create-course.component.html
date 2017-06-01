@@ -3,9 +3,20 @@
   <label for="title">title</label>
   <input type="text" class="form-control" id="title" [(ngModel)]="title" required>
 </div>
+<<<<<<< HEAD
 
+=======
+<div class="form-group">
+  <label for="basic" class="col-lg-2 control-label">Select Question Type</label>
+
+  <div class="col-lg-10">
+    <select *ngFor="let c of categories" id="basic" [(ngModel)]="catId" class="selectpicker show-tick form-control">
+      <option [ngValue]="c.id">{{c.name}}</option>
+    </select>
+  </div>
+</div>
+>>>>>>> 7b4d56f09e233e4f91e534105d0fa689e3290e65
 <div class="container">
-  <p>{{title}}</p>
   <div class="container">
     <div class="modules" #modules></div>
   </div>
