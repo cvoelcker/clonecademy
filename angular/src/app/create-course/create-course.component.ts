@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, ComponentRef, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory, EventEmitter } from '@angular/core';
 import { AddModuleComponent } from '../add-module/add-module.component'
+
+import { ServerService } from '../service/server.service'
 @Component({
   selector: 'app-create-course',
   templateUrl: './create-course.component.html',
@@ -13,11 +15,15 @@ export class CreateCourseComponent implements OnInit {
   moduleArray: ComponentRef<AddModuleComponent>[] = [];
   i = 0;
 
-  constructor(private componentFactory: ComponentFactoryResolver) {
+  categories: {name: string, id: number};
+  catId: number;
+
+  constructor(private server: ServerService, private componentFactory: ComponentFactoryResolver) {
     this.childComponent = this.componentFactory.resolveComponentFactory(AddModuleComponent)
   }
 
   ngOnInit() {
+    this.server.get("get-course-categories/").then(data => this.categories = data).catch(err => console.log(err))
   }
 
   addModule(){
@@ -49,17 +55,18 @@ export class CreateCourseComponent implements OnInit {
 
   save(){
 
-    this.modules.length
+    let saveModules = [];
     for(let i = 0; i < this.moduleArray.length; i++){
       let module = this.moduleArray[i];
       let index = this.modules.indexOf(module.hostView);
       let m = (<AddModuleComponent> module.instance).save();
       if(index >= 0 && m != null){
         m['order'] = index
-        console.log(m)
-        //console.log(m)
+        saveModules.push(m)
       }
     }
+    let course = {title: this.title, categorie: this.catId,  modules: saveModules};
+    this.server.post('save/course/', course).then(data => {console.log(data)}).catch(err => {console.log(err)})
 
   }
 

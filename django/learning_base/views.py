@@ -7,7 +7,8 @@ from ast import literal_eval
 from learning_base.serializers import *
 from learning_base.question.serializer import *
 from learning_base.question.models import Question
-from learning_base.models import Course
+from learning_base.question.multiply_choice.models import MultipleChoiceQuestion
+from learning_base.models import Course, CourseCategory
 from rest_framework.response import Response
 
 # Create your views here.
@@ -17,10 +18,8 @@ def getCourses(request):
     courses = Course.objects.all().filter(is_visible=True)
     if len(courses) <= 0:
         return Response(status=status.HTTP_404_NOT_FOUND)
-    values = []
-    for c in courses:
-        values.append(CourseSerializer(c).data)
-    return Response(values)
+
+    return Response(CourseSerializer(courses, many=True).data)
 
 @api_view(['GET'])
 def singleCourse(request, courseID):
@@ -55,6 +54,62 @@ def callModule(request, courseID, moduleIndex):
         value = ModuleSerializer(module).data
         return Response(value)
 
+@api_view(['GET'])
+def getCourseCategories(reqeust):
+    categories = CourseCategory.objects.all()
+    return Response(CourseCategorySerializer(categories, many=True).data)
+
+@api_view(['POST'])
+def save(request):
+    data = request.data
+    if data == None:
+        return Response(status="invalid data")
+
+    courseTitle = data['title']
+    modules = data['modules']
+
+    cat = None
+    if data['categorie'] != None:
+        cat = CourseCategory.objects.filter(id=data['categorie']).first()
+    else:
+        return Response(status="invalid data")
+
+    course = Course(name = courseTitle,  is_visible = True)
+    course.save()
+
+    course.category.add(cat)
+
+    moduleOrder = [-1] * len(modules)
+    test = ""
+    # first we extract the modules and save it
+    for m in modules:
+        module = Module(name = m['title'])
+        module.save()
+        order = [-1] * len(m['question'])
+
+        #every module gets his questions here
+        for q in m['question']:
+            quest = Question()
+            # check which question Type it is and save it
+            if q['type'] == "MultiplyChoiceQuestion":
+                quest = MultipleChoiceQuestion(question_body = q['question'])
+                quest.save(q)
+
+            # add the created question to our module
+            module.questions.add(quest)
+            test = quest.id
+            order[q['order']] = quest.id
+
+        module.question_order = str(order)
+        module.save()
+        moduleOrder[m['order']] = module.id
+
+        course.module.add(module)
+
+    course.module_order = str(moduleOrder)
+
+    course.save()
+    return Response(course.id)
 
 
 @api_view(['GET', "POST"])

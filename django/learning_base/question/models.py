@@ -13,4 +13,4 @@ class Question(PolymorphicModel):
     )
 
     def __str__(self):
-        return verbose_name
+        return self.question_body

@@ -6,7 +6,7 @@ from ast import literal_eval
 class CourseCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = CourseCategory
-        fields = ('name')
+        fields = ('name', "id", )
 
 class ModuleSerializer(serializers.ModelSerializer):
     questions = QuestionSerializer(many = True, read_only=True)
