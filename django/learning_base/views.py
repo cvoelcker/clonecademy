@@ -10,6 +10,8 @@ from learning_base.question.models import Question
 from learning_base.question.multiply_choice.models import MultipleChoiceQuestion
 from learning_base.models import Course, CourseCategory
 
+from user_model.models import Try
+
 
 from rest_framework.response import Response
 
@@ -155,4 +157,6 @@ def callQuestion(request, courseID, moduleIndex, questionIndex):
         value['lastModule'] = int(moduleIndex) == len(course.module.all())
         return Response(value)
     elif request.method == "POST":
+        solved = question.evaluate(request.data)
+        Try(person=request.user.profile, question=question, answer=str(request.data), solved=solved).save()
         return Response(question.evaluate(request.data))
