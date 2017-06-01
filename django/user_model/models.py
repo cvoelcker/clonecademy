@@ -47,8 +47,9 @@ class Try(models.Model):
         on_delete=models.SET_NULL,
     )
     answer = models.TextField(
-        verbose_name="The fiven answer",
-        help_text="The answers as pure string"
+        verbose_name="The given answer",
+        help_text="The answers as pure string",
+        null=True
     )
     date = models.DateTimeField(
         default=datetime.now,

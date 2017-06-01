@@ -1,11 +1,8 @@
-
-
-  <div class="box">
-
-    <h2>Dashboard</h2>
-
-    <button routerLink="/createCourse/">add Course</button>
-    <div *ngFor="let c of course">
-    <a routerLink="/course/{{c.id}}">{{c.name}}</a>
-    </div>
+<div class="box">
+  <h2>Dashboard</h2>
+  <button routerLink="/profile/statistics/">view statistics</button>
+  <button routerLink="/createCourse/">add Course</button>
+  <div *ngFor="let c of course">
+  <a routerLink="/course/{{c.id}}">{{c.name}}</a>
   </div>
+</div>

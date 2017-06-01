@@ -35,32 +35,27 @@ class StatisticsDetailedViewSerializer(serializers.ModelSerializer):
         fields = ('person', 'question', 'date', 'solved')
 
 
-class StatisticsOverviewSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Try
-        fields = ('person', 'question', 'date', 'solved')
-
-    person = ProfileSerializer()
-    question = QuestionSerializer()
-    date = serializers.DateTimeField()
-    solved = serializers.BooleanField()
+class StatisticsOverviewSerializer(serializers.BaseSerializer):
 
     def to_representation(self, user):
-        _all_questions = dict()
-        for _question in Question.objects.all():
-            _try_set = Try.objects.filter(question=_question, person=user.profile)
-            for _try in _try_set:
-                if not _all_questions[_question]:
-                    _all_questions[_question] = {
-                        'question': _try.question,
-                        'person': _try.person,
+        all_questions = list()
+        for question in Question.objects.all():
+            question_string = str(question)
+            question_entry = dict()
+            try_set = Try.objects.filter(question=question, person=user.profile)
+            for _try in try_set:
+                if not question_entry:
+                    question_entry = {
+                        'question': question_string,
                         'solved': _try.solved,
                         'tries': 1
                     }
                 else:
-                    _all_questions[_question]['tries'] += 1
-                    _all_questions[_question]['solved'] = _all_questions[_question]['solved'] or _try.solved
-        return _all_questions
+                    question_entry['tries'] += 1
+                    question_entry['solved'] = question_entry['solved'] or _try.solved
+            if question_entry:
+                all_questions.append(question_entry)
+        return all_questions
 
 # class CommentSerializer(serializers.Serializer):
 #    email = serializers.EmailField()

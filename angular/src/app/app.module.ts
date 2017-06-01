@@ -23,8 +23,9 @@ import { CreateCourseComponent } from './create-course/create-course.component';
 import { AddMultiplyChoiceComponent } from './add-multiply-choice/add-multiply-choice.component';
 import { AddModuleComponent } from './add-module/add-module.component';
 import { AddQuestionComponent } from './add-question/add-question.component';
+import { StatisticsComponent } from './personal_statistics/statistics.component';
 
-import { QuestionModule } from "./question/question.module"
+import { QuestionModule } from "./question/question.module";
 
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -50,6 +51,10 @@ const appRoutes: Routes = [
     path: "createCourse",
     component: CreateCourseComponent
   },
+  {
+    path: "profile/statistics",
+    component: StatisticsComponent
+  },
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -71,6 +76,7 @@ const appRoutes: Routes = [
     AddMultiplyChoiceComponent,
     AddModuleComponent,
     AddQuestionComponent,
+    StatisticsComponent,
     QuestionModule,
   ],
   imports: [

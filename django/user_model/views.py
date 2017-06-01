@@ -14,10 +14,8 @@ from rest_framework.response import Response
 
 @api_view(['GET'])
 def getStatisticsOverview(request):
-    _user = request.user.profile
-    _queryset = Try.objects.filter(person=_user)
-    _json = StatisticsOverviewSerializer(_queryset, many=True)
-    return Response(_json.data)
+    json = StatisticsOverviewSerializer(request.user).data
+    return Response(json)
 
 @api_view(['GET'])
 def getStatisticsDetail(request):
