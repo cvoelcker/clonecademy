@@ -5,7 +5,8 @@ Module (nicht mehr Kapitel):
   - öffentliche Kurse im Privaten anbieten
   - Kurse Modular aufbauen, dass man sich auch Module von anderen Moderatoren hinzufügen kann
     (soweit diese öffentlich)
+  - Bleiben Module statisch in einem kurs?
 
 Fragen:
   - sollen dem Benutzer nach falschem ausfüllen die richtigen Antworten gezeigt werden?
-  - spricht euer Server https:// ?
+  - spricht euer Server https:

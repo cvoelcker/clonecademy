@@ -8,12 +8,17 @@ import { ServerService} from '../service/server.service'
   styleUrls: ['./statistics.component.css']
 })
 export class StatisticsComponent implements OnInit {
-  @Input() data: any;
-  statisticsString: string;
+  statistics: any;
 
   constructor(private server: ServerService) {}
 
   ngOnInit() {
+    this.server.get("user/statistics")
+      .then(data => {
+        this.statistics = data
+      }
+      )
+      .catch(err => console.log(err))
   }
 
 }
