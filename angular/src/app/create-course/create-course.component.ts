@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ComponentRef, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory, EventEmitter } from '@angular/core';
 import { AddModuleComponent } from '../add-module/add-module.component'
+import { Router } from "@angular/router"
 
 import { ServerService } from '../service/server.service'
 @Component({
@@ -18,7 +19,7 @@ export class CreateCourseComponent implements OnInit {
   categories: {name: string, id: number};
   catId: number;
 
-  constructor(private server: ServerService, private componentFactory: ComponentFactoryResolver) {
+  constructor(private router: Router, private server: ServerService, private componentFactory: ComponentFactoryResolver) {
     this.childComponent = this.componentFactory.resolveComponentFactory(AddModuleComponent)
   }
 
@@ -66,7 +67,11 @@ export class CreateCourseComponent implements OnInit {
       }
     }
     let course = {title: this.title, categorie: this.catId,  modules: saveModules};
-    this.server.post('save/course/', course).then(data => {console.log(data)}).catch(err => {console.log(err)})
+    this.server.post('save/course/', course).then(data => {
+      this.router.navigate(['/dashboard'])
+    }).catch(err => {
+      console.log(err)
+    })
 
   }
 
