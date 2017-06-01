@@ -45,8 +45,13 @@ class Try(models.Model):
         null=True,
         on_delete=models.SET_NULL,
     )
+    answer = models.TextField(
+        verbose_name="The fiven answer",
+        help_text="The answers as pure string"
+    )
     date = models.DateField(
-        default=datetime.now
+        default=datetime.now,
+        null=True
     )
     solved = models.BooleanField(
         default=False
