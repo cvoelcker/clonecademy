@@ -3,6 +3,10 @@
 \usepackage[utf8]{inputenc}
 \usepackage{ngerman}
 \usepackage{parcolumns}
+\usepackage{hyperref}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
 
 \newcommand{\titlerow}[2]{
 	\begin{parcolumns}[colwidths={1=.15\linewidth}]{2}
@@ -15,46 +19,76 @@
 \title{CloneCademy}
 \subtitle{Qualitätssicherungsdokument}
 \subsubtitle{%
-	\titlerow{Gruppe NR}{%
-		Ilhan Simsiki <ilhan.simsiki@stud.tu-darmstadt.de>\\
-		Leonhard Wiedmann <leonhard.wiedmann@stud.tu-darmstadt.de>\\
-		Tobias Huber <tobias.huber@stud.tu-darmstadt.de>\\
-		Claas Völcker <claas@voelcker.net>}
-	\titlerow{Teamleiter}{Alexander Nagl <alexander.nagl@t-online.de>}
+	\titlerow{Gruppe}{%
+		Ilhan Simsiki
+		<\href{mailto:ilhan.simsiki@stud.tu-darmstadt.de}{ilhan.simsiki@stud.tu-darmstadt.de}>\\
+		Leonhard Wiedmann
+		<\href{mailto:leonhard.wiedmann@stud.tu-darmstadt.de}{leonhard.wiedmann@stud.tu-darmstadt.de}>\\ 
+		Tobias Huber
+		<\href{mailto:tobias.huber@stud.tu-darmstadt.de}{tobias.huber@stud.tu-darmstadt.de}>\\
+		Claas Völcker
+		<\href{mailto:c.voelcker@stud.tu-darmstadt.de}{c.voelcker@stud.tu-darmstadt.de}>}
+	\titlerow{Teamleiter}{Alexander Nagl
+		<\href{mailto:alexander.nagl@t-online.de}{alexander.nagl@t-online.de}>}
 	\titlerow{iGEM Team TU Darmstadt}{%
-		Thea Lotz <lotz@bio.tu-darmstadt.de>\\
+		Thea Lotz <\href{mailto:lotz@bio.tu-darmstadt.de}{lotz@bio.tu-darmstadt.de}>\\
 		Fachbereich Biologie}
 	\titlerow{Abgabedatum}{xx.xx.xxxx}}
 \institution{Bachelor-Praktikum SoSe 2017\\Fachbereich Informatik}
 
 \begin{document}
 
-	\maketitle
-	\tableofcontents
+\maketitle
+\tableofcontents
 
-	\chapter{Einleitung}
-		CloneCademy ist ein Projekt für das iGEM Team der TU Darmstadt. Was ist iGem?: Die international Genetically Engineered Macchine (iGem) competition ist ein internationaler Wettbewerb für Studierende auf dem Gebiet der Syntehtischen Biologie.
-		Es wird seit 2003 von der iGEM Foundation veranstaltet.
-		Im Rahmen des iGem Wettbewerbs, sollen wir eine Online Lernplattform für das iGem Team der TU Darmstadt erstellen. CloneCamdey orientiert sich hierbei an CodeCademy eine interkative online-Lernplattform.
-		Das Ziel ist es im Rahmen von interaktiven Unterrichtseinheiten Prinzipien der Molekularbiologie sowie der syntetischen Biologie erlernt werden.
+\chapter{Einleitung}
+CloneCademy ist ein Projekt für das iGEM-Team der TU Darmstadt. Die \emph{international Genetically Engineered Machine competition} (iGem) ist ein internationaler Wettbewerb für Studierende auf dem Gebiet der Syntehtischen Biologie.
+Dieser wird seit 2003 von der iGEM Foundation veranstaltet. 
 
+Im Rahmen des iGem Wettbewerbs sollen wir eine Online Lernplattform für das iGem Team der TU Darmstadt erstellen. CloneCademy orientiert sich hierbei an CodeCademy, einer interaktive Online-Lernplattform zum Erlernen von Programmierfähigkeiten.
 
+Das Ziel der Plattform ist es, im Rahmen von interaktiven Unterrichtseinheiten Prinzipien der Molekularbiologie sowie der syntetischen Biologie erlernen zu können, und seine eigenen Fortschritte begutachten zu können. Darüber hinaus soll es auch anderen Interessierten (z.B. andere iGEM-Teams, Lehrende an Universitäten und Schulen, etc.) eigene Inhalte einzupflegen und zur Verfügung zu stellen.
 
-	\chapter{Qualitätsziele}
-        \section{Sicherheit (Security)}
+\chapter{Qualitätsziele}
+\section{Datensicherheit (Security)}
 
-		Im Rahmen des Projekts CloneCademy, wird eine Webanwendung entwickelt, auf die über das Internet zugegriffen wird. Die Angriffssicherheit ist in diesem Projekt das wichtigste Qualitätsziel. Da CloneCademy sowohl persönliche Daten der Nutzer, als auch die gesammelten Daten in die Datenbank beinhaltet, ist es sehr wichtig, dass Nutzer keine Daten verändern oder einsehe können, wenn sie dazu nicht die ausreichenden Rechte haben. \\
-Um gegen die Standartangriffe geschützt zu sein verwenden wir das Rest Framework für Django, dass uns Login und erkennen mit Tokens integriert.
-Darüber hinaus wurde ein Entwickler benannt, der sich maßgeblich um das Thema Sicherheit in Webanwendungen kümmert. \newline
-Die Analyse des Codes der Webanwendung erfolgt im Rahmen des täglichen Nightly Builds. Sollte ein Problem gefunden werden, so geht eine Mail an alle Entwickler und im Rahmen des nächsten (gruppeninternen) Meetings wird dann ein Entwickler bestimmt, der den Fehler beseitigt. Der fehlerbereinigte Code durchläuft die gleichen QS-Maßnahmen, solange bis keine Probleme mehr entdeckt werden.
+Im Rahmen des Projekts CloneCademy wird eine Webanwendung entwickelt, auf die über das Internet zugegriffen werden kann. Daher ist die Sicherung gegen unbefugten Zugriff und Änderung der Daten der Webseite in diesem Projekt das wichtigste Qualitätsziel. Da CloneCademy sowohl persönliche Daten der Nutzer als auch Metadaten über die Nutzung der Plattform und die Inhalte der einzelnen Lerneinheiten in die Datenbank speichert, ist es sehr wichtig, dass Internetnutzer*innen keine Daten verändern oder einsehen können, solange sie dazu nicht die benötigten Rechte besitzen.
+		
+Die größte Bedrohung geht von bekannten Webangriffen und Misskonfigurationen im Backend einer Webseite aus. Im Rahmen dieses Projektes wird darauf geachtet, dass wir die Plattform gegen die zehn wichtigsten Sicherheitslücken in einer Webanwendung sichern.
 
+Diese sind\footnote{Nach der verbreiteten Liste des Open Web Application Security Project (OWASP) \\
+	Link zum Download:  \href{https://github.com/OWASP/Top10/raw/master/2017/OWASP\%20Top\%2010\%20-\%202017\%20RC1-English.pdf}{https://github.com/OWASP/Top10/raw/master/2017/OWASP\%20Top\%2010\%20-\%202017\%20RC1-English.pdf}}:
+\begin{enumerate}
+\item Injection
+\item Fehler in Authentifizierung und Session-Management
+\item Cross-Site Scripting (XSS)
+\item Fehlerhafte Zugriffskontrolle
+\item Sicherheitsrelevante Fehlkonfiguration
+\item Verlust der Vertraulichkeit sensibler Daten
+\item Ungenügender Schutz vor Angriffen
+\item Cross-Site Request Forgery (CSRF)
+\item Nutzung von Komponenten mit bekannten Schwachstellen
+\item Ungenügend geschützte Programmierschnittstelle
+\end{enumerate}
 
+Um die Sicherheit der Anwendung zu gewährleisten, folgen wir einem mehrschrittigen Plan. 
 
-        \section{Veränderbarkeit}
-                Für die Webanwendung CloneCademy ist es wichtig, dass die Anwendung im nachhinein noch veränderbar ist. Veränderbar in so fern: Es können neue Inhalte eingepflegt, bearbeitet und gelöscht werden. Da es im CloneCadamy eine Online Lernplattform handelt wie CodeCademy, müssen neue Kurse und Fragen eingepflegt werden.
+Ein Entwickler des Teams wird zum Sicherheitsbeauftragten ernannt. Seine Aufgabe ist es, auf die Einhaltung aller Programmierrichtlinien zu achten und Tests zur Validierung aller Schutzziele durchzuführen. Die genaue Vorgehensweise ist im folgenden detailliert ausgeführt.
 
-        \section{Bedienbarkeit}
-                CloneCademy müss für jede Benutzerrolle (Admin, Moderator, Nutzer) leicht zu Bedienen sein. Auch Personen die weniger IT-Affinität besitzen sollten sich auf der Lernplattform gut zurrecht finden können. Als Beispiel für die Moderatoren: Kurse anlegen, bearbeiten, löschen, neue Fragen einpflegen, alte bearbeiten und löschen usw. Diese Aufgaben sollen auch ohne eine Einführung einfach zu machen sein.
+Während der ersten Gespräche mit den Auftraggeber*innen wurden Nutzerrollen definiert (Admin, Moderator*in und Nutzer*in). In jeder User Story wird festgehalten, ob und welche Zugriffsbeschränkungen einzelne Module der Webseite oder Daten besitzen. Während der Implementierung der jeweiligen Story achten die zuständigen Entwickler darauf, das diese Vorgaben eingehalten werden. Um dies zu gewährleisten, werden die zur Verfügung gestellten Sicherheitswerkzeuge der genutzten Frameworks (Django, Django REST, Angular2) genutzt.
+
+Während der Implementierung achten alle Entwickler darauf, die Best Practices im Web Development zu beachten. Als Referenz dafür werden die Handreichungen des Open Web Application Security Project (OWASP)\footnote{\href{https://www.owasp.org/images/0/08/OWASP_SCP_Quick_Reference_Guide_v2.pdf}{https://www.owasp.org/images/0/08/OWASP\_SCP\_Quick\_Reference\_Guide\_v2.pdf}} verwendet. In den wöchentlichen internen Code-Reviews wird die Qualität des Codes hinsichtlich dieser Richtlinien überprüft.
+
+Um die Qualität des Codes im Python-basierten Backend automatisiert zu testen, wird das verbreitete Werkzeug \emph{bandit}\footnote{\href{https://wiki.openstack.org/wiki/Security/Projects/Bandit}{https://wiki.openstack.org/wiki/Security/Projects/Bandit}} verwendet. Als statisches Analyse-Werkzeug für das Frontend wird \emph{ng2lint}\footnote{\href{https://www.npmjs.com/package/ng2lint}{https://www.npmjs.com/package/ng2lint}} verwendet. Beide Programme unterstützen die Code Review, indem die gelieferten Meldungen als Grundlage genutzt werden. Das Team achtet darauf, alle gefundenen Schwachstellen soweit wie möglich zu beheben und ansonsten eine realistische Einschätzung über die Konsequenzen der gefundenen Fehler an die Auftraggeber*innen zu melden.
+
+Um die tatsächliche Sicherheit des Endproduktes gegen externe Angriffe zu zeigen, wird ein automatisiertes Penetrations-Werkzeug verwendet. Das OWASP empfiehlt hierfür das \emph{Zed Attack Proxy Project}, welches eine Reihe bekannter Angriffe auf die Plattform ausführt und die gefundenen Schwachstellen meldet. Der Sicherheitsbeauftragte führt diese Tests durch und meldet die Ergebnisse an die jeweiligen Entwickler des betroffenen Moduls, damit diese behoben werden können. Ist eine Behebung nicht möglich, werden die Konsequenzen dieser Lücke zusammen mit möglichen weiteren Schritten zum Schutz der Anwendung im betrieb an die Auftraggeber*innen gemeldet.
+
+\section{Bedienbarkeit}
+CloneCademy muss für jede Benutzerrolle (Admin, Moderator*in, Nutzer*in) bedienbar sein. Um dies zu gewährleisten, müssen alle zugängigen Seiten, vor allem das Frontend, intuitiv benutzbar gestalltet werden. Die grundlegende Bedienung der Webseite sollte ohne Einführung erkennbar sein und alle Elemente sollten mit einer entsprechenden Hilfestellung erweitert werden.
+
+\section{Veränderbarkeit}
+Für die Webanwendung CloneCademy ist es wichtig, dass die Anwendung im nachhinein noch veränderbar ist. Es muss möglich sein, neue Inhalte in die Datenbank einzupflegen und auch den Source Code der Webseite selbst erweitern zu können.
+
 
 
 

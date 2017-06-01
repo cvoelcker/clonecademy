@@ -118,7 +118,10 @@ npm-debug.log
 
 #Tex
 *.aux
-*.lof
+*.log
+*.dvi
+*.out
+*.toc
 *.synctex.gz
 
 #Django
