@@ -41,4 +41,5 @@ urlpatterns = [
     url(r'^save/course/$', learning_base_view.save),
     url(r'^user/statistics$', user_view.getStatisticsOverview),
     url(r'^user/', user_view.getUserInfo),
+    url(r'^register/', user_view.createNewUser)
 ]
