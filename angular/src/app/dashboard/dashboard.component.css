@@ -1,0 +1,20 @@
+button {
+   background-color: #555555; /* Black */
+   border: none;
+   color: white;
+   padding: 12px 28px;
+   border: 2px solid #e7e7e7; /* Gray */
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 16px;
+}
+
+.box {
+ float: left;
+ width: 33%;
+ margin-right: 2%;
+ padding: 20px;
+ background: #eee;
+ box-sizing: border-box;
+}
