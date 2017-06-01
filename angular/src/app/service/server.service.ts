@@ -78,6 +78,12 @@ export class ServerService {
         }))
   }
 
+  public register(username: string, password: string, email: string, firstName: string, lastName:string, ) {
+    /** TODO: implement ??? or maybe not ???
+     * check wether or not the function in app.component.ts is sufficient
+     */
+  }
+
   public clearToken(){
     this.token = null;
   }
