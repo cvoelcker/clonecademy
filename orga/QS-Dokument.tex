@@ -1,0 +1,65 @@
+\documentclass[accentcolor=tud0b,12pt,paper=a4]{tudreport}
+
+\usepackage[utf8]{inputenc}
+\usepackage{ngerman}
+\usepackage{parcolumns}
+
+\newcommand{\titlerow}[2]{
+	\begin{parcolumns}[colwidths={1=.15\linewidth}]{2}
+		\colchunk[1]{#1:}
+		\colchunk[2]{#2}
+	\end{parcolumns}
+	\vspace{0.2cm}
+}
+
+\title{CloneCademy}
+\subtitle{Qualitätssicherungsdokument}
+\subsubtitle{%
+	\titlerow{Gruppe NR}{%
+		Ilhan Simsiki <ilhan.simsiki@stud.tu-darmstadt.de>\\
+		Leonhard Wiedmann <leonhard.wiedmann@stud.tu-darmstadt.de>\\
+		Tobias Huber <tobias.huber@stud.tu-darmstadt.de>\\
+		Claas Völcker <claas@voelcker.net>}
+	\titlerow{Teamleiter}{Alexander Nagl <alexander.nagl@t-online.de>}
+	\titlerow{iGEM Team TU Darmstadt}{%
+		Thea Lotz <lotz@bio.tu-darmstadt.de>\\
+		Fachbereich Biologie}
+	\titlerow{Abgabedatum}{xx.xx.xxxx}}
+\institution{Bachelor-Praktikum SoSe 2017\\Fachbereich Informatik}
+
+\begin{document}
+
+	\maketitle
+	\tableofcontents
+
+	\chapter{Einleitung}
+		CloneCademy ist ein Projekt für das iGEM Team der TU Darmstadt. Was ist iGem?: Die international Genetically Engineered Macchine (iGem) competition ist ein internationaler Wettbewerb für Studierende auf dem Gebiet der Syntehtischen Biologie.
+		Es wird seit 2003 von der iGEM Foundation veranstaltet.
+		Im Rahmen des iGem Wettbewerbs, sollen wir eine Online Lernplattform für das iGem Team der TU Darmstadt erstellen. CloneCamdey orientiert sich hierbei an CodeCademy eine interkative online-Lernplattform.
+		Das Ziel ist es im Rahmen von interaktiven Unterrichtseinheiten Prinzipien der Molekularbiologie sowie der syntetischen Biologie erlernt werden.
+
+
+
+	\chapter{Qualitätsziele}
+        \section{Sicherheit (Security)}
+
+		Im Rahmen des Projekts CloneCademy, wird eine Webanwendung entwickelt, auf die über das Internet zugegriffen wird. Die Angriffssicherheit ist in diesem Projekt das wichtigste Qualitätsziel. Da CloneCademy sowohl persönliche Daten der Nutzer, als auch die gesammelten Daten in die Datenbank beinhaltet, ist es sehr wichtig, dass Nutzer keine Daten verändern oder einsehe können, wenn sie dazu nicht die ausreichenden Rechte haben. \\
+Um gegen die Standartangriffe geschützt zu sein verwenden wir das Rest Framework für Django, dass uns Login und erkennen mit Tokens integriert.
+Darüber hinaus wurde ein Entwickler benannt, der sich maßgeblich um das Thema Sicherheit in Webanwendungen kümmert. \newline
+Die Analyse des Codes der Webanwendung erfolgt im Rahmen des täglichen Nightly Builds. Sollte ein Problem gefunden werden, so geht eine Mail an alle Entwickler und im Rahmen des nächsten (gruppeninternen) Meetings wird dann ein Entwickler bestimmt, der den Fehler beseitigt. Der fehlerbereinigte Code durchläuft die gleichen QS-Maßnahmen, solange bis keine Probleme mehr entdeckt werden.
+
+
+
+        \section{Veränderbarkeit}
+                Für die Webanwendung CloneCademy ist es wichtig, dass die Anwendung im nachhinein noch veränderbar ist. Veränderbar in so fern: Es können neue Inhalte eingepflegt, bearbeitet und gelöscht werden. Da es im CloneCadamy eine Online Lernplattform handelt wie CodeCademy, müssen neue Kurse und Fragen eingepflegt werden.
+
+        \section{Bedienbarkeit}
+                CloneCademy müss für jede Benutzerrolle (Admin, Moderator, Nutzer) leicht zu Bedienen sein. Auch Personen die weniger IT-Affinität besitzen sollten sich auf der Lernplattform gut zurrecht finden können. Als Beispiel für die Moderatoren: Kurse anlegen, bearbeiten, löschen, neue Fragen einpflegen, alte bearbeiten und löschen usw. Diese Aufgaben sollen auch ohne eine Einführung einfach zu machen sein.
+
+
+
+\appendix
+	\chapter{Anhang}
+		(Am Ende des Projekts nachzureichen)\\
+
+\end{document}
