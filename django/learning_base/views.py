@@ -9,6 +9,10 @@ from learning_base.question.serializer import *
 from learning_base.question.models import Question
 from learning_base.question.multiply_choice.models import MultipleChoiceQuestion
 from learning_base.models import Course, CourseCategory
+
+from user_model.models import Try
+
+
 from rest_framework.response import Response
 
 # Create your views here.
@@ -63,37 +67,52 @@ def getCourseCategories(reqeust):
 def save(request):
     data = request.data
     if data == None:
-        return Response(status="invalid data")
+        return Response(status=400)
+
+    # every course needs a title, the modules and a categorie
+    # here we check that thes variables are set
+    if "title" not in data or 'modules' not in data or 'categorie' not in data:
+        return Response(status=400)
 
     courseTitle = data['title']
     modules = data['modules']
 
-    cat = None
-    if data['categorie'] != None:
-        cat = CourseCategory.objects.filter(id=data['categorie']).first()
-    else:
-        return Response(status="invalid data")
+    cat = CourseCategory.objects.filter(id=data['categorie']).first()
 
     course = Course(name = courseTitle,  is_visible = True)
     course.save()
 
     course.category.add(cat)
 
+    # we prepare the array to save the order
     moduleOrder = [-1] * len(modules)
-    test = ""
+
     # first we extract the modules and save it
     for m in modules:
+        # every modules needs at least a title, question and a order in which it appears in the course
+        # if these variables are not give delete the coures from the database
+        if 'title' not in m or 'question' not in m or 'order' not in m:
+            course.wipe_out()
+            return Response(status=401)
         module = Module(name = m['title'])
         module.save()
         order = [-1] * len(m['question'])
 
         #every module gets his questions here
         for q in m['question']:
+            # every question needs at least a question text a type and order
+            # if these variables are not given delete the course with all its modules
+            if 'type' not in q or 'question' not in q or 'order' not in q:
+                course.wipe_out()
+                return Response(status=402)
+
             quest = Question()
             # check which question Type it is and save it
             if q['type'] == "MultiplyChoiceQuestion":
                 quest = MultipleChoiceQuestion(question_body = q['question'])
-                quest.save(q)
+                if not quest.save(q):
+                    course.wipe_out()
+                    return Response(status=403)
 
             # add the created question to our module
             module.questions.add(quest)
@@ -109,7 +128,7 @@ def save(request):
     course.module_order = str(moduleOrder)
 
     course.save()
-    return Response(course.id)
+    return Response(True)
 
 
 @api_view(['GET', "POST"])
@@ -138,4 +157,6 @@ def callQuestion(request, courseID, moduleIndex, questionIndex):
         value['lastModule'] = int(moduleIndex) == len(course.module.all())
         return Response(value)
     elif request.method == "POST":
+        solved = question.evaluate(request.data)
+        Try(person=request.user.profile, question=question, answer=str(request.data), solved=solved).save()
         return Response(question.evaluate(request.data))
