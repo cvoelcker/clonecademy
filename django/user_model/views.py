@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from django.contrib.auth.models import User
 
-from .serializers import TriesSerializer
+from .serializers import StatisticsViewSerializer
 from .models import Try
 
 from rest_framework.decorators import api_view
@@ -11,17 +11,17 @@ from rest_framework.response import Response
 
 # Create your views here.
 
-class TriesViewSet(viewsets.ReadOnlyModelViewSet):
-    """
 
-    """
-    queryset = Try.objects.all()
-    serializer_class = TriesSerializer
+@api_view(['GET'])
+def getStatisticsOverview(request):
+    _user = request.user.profile
+    queryset = Try.objects.filter(person=_user)
+    value = []
+    for objects in queryset:
+        _json = StatisticsViewSerializer(objects)
+        value.append(_json.data)
+    return Response(value)
 
-    def get_queryset(self):
-        _user = self.request.user
-        user = _user.profile
-        return self.queryset.filter(person=user)
 
 @api_view(['GET'])
 def getUserInfo(request):

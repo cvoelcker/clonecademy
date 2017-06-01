@@ -1,30 +1,39 @@
 from rest_framework import serializers
 
 from .models import *
-from learning_base.question.serializers import QuestionPreviewSerializer
+
+class GroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = ('name')
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username', 'email')
 
-class ProfileSerializer(serializer.ModelSerializer):
+
+class ProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     group = GroupSerializer()
-
     class Meta:
         model = Profile
         fields = ('user', 'group', 'date_registered')
 
+
 class StatisticsDetailedViewSerializer(serializers.ModelSerializer):
-    person = StringRelatedField()
-    question = StringRelatedField()
+    person = serializers.StringRelatedField()
+    question = serializers.StringRelatedField()
     class Meta:
         model = Try
         fields = ('person', 'question', 'date', 'solved')
 
-class StatisticsViewSerializer(serializers.Serializer):
+
+class StatisticsViewSerializer(serializers.ModelSerializer):
     question = serializers.StringRelatedField()
+    class Meta:
+        model = Try
+        fields = ('question', 'solved', 'tries')
 
 
 #class CommentSerializer(serializers.Serializer):
