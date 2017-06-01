@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from django.contrib.auth.models import User
 
-from .serializers import StatisticsViewSerializer
+from .serializers import StatisticsOverviewSerializer
 from .models import Try
 
 from rest_framework.decorators import api_view
@@ -15,13 +15,13 @@ from rest_framework.response import Response
 @api_view(['GET'])
 def getStatisticsOverview(request):
     _user = request.user.profile
-    queryset = Try.objects.filter(person=_user)
-    value = []
-    for objects in queryset:
+    _queryset = Try.objects.filter(person=_user)
+    _json = StatisticsOverviewSerializer(_queryset, many=True)
+    return Response(_json.data)
 
-        _json = StatisticsViewSerializer(objects)
-        value.append(_json.data)
-    return Response(value)
+@api_view(['GET'])
+def getStatisticsDetail(request):
+    pass
 
 
 @api_view(['GET'])

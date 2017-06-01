@@ -5,6 +5,7 @@ from learning_base.question import models as question_model
 from django.core.exceptions import ValidationError
 from datetime import datetime
 
+
 class LearningGroup(models.Model):
     """
     A user group
@@ -49,7 +50,7 @@ class Try(models.Model):
         verbose_name="The fiven answer",
         help_text="The answers as pure string"
     )
-    date = models.DateField(
+    date = models.DateTimeField(
         default=datetime.now,
         null=True
     )
@@ -93,10 +94,11 @@ class Progress(models.Model):
         on_delete=models.CASCADE
     )
     date = models.DateField()
-    #question_id = models.ForeignKey(lb_models.Question)
+
+    # question_id = models.ForeignKey(lb_models.Question)
 
     def clean():
-        if(question_id.getCourse != course):
+        if (question_id.getCourse != course):
             raise ValidationError(_('Course has no matching question'))
 
     def __str__(self):
