@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from learning_base import models as lb_models
 from learning_base.question import models as question_model
 from django.core.exceptions import ValidationError
-
+from datetime import datetime
 
 class LearningGroup(models.Model):
     """
@@ -44,17 +44,16 @@ class Try(models.Model):
         question_model.Question,
         null=True,
         on_delete=models.SET_NULL,
-        unique=True
     )
-    date = models.DateField()
-    tries = models.IntegerField(default=0)
-    solved = models.BooleanField(default=False)
+    date = models.DateField(
+        default=datetime.now
+    )
+    solved = models.BooleanField(
+        default=False
+    )
 
-    def __str__(self):
-        if self.solved:
-            return "Question: {} was solved correctly on {}".format(self.question, self.date)
-        else:
-            return "Question: {} was solved wrong {} times".format(self.question, self.tries)
+    def __unicode__(self):
+        return "Question: {} was solved {} on {}".format(self.question, self.solved, self.date)
 
 
 class CourseCompletion(models.Model):

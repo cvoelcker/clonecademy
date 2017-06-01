@@ -6,7 +6,6 @@ class MultipleChoiceAnswer(models.Model):
     A possible answer to a multiple choice question
     """
 
-
     text = models.TextField(
         verbose_name="Answer text",
         help_text="The answers text"
@@ -53,7 +52,7 @@ class MultipleChoiceQuestion(Question):
         question_body=q['question']
 
         super(Question, self).save()
-        
+
         for a in q['answers']:
             ans = MultipleChoiceAnswer(text=a['text'], is_correct = a['correct'])
             ans.save()

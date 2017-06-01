@@ -18,6 +18,7 @@ def getStatisticsOverview(request):
     queryset = Try.objects.filter(person=_user)
     value = []
     for objects in queryset:
+
         _json = StatisticsViewSerializer(objects)
         value.append(_json.data)
     return Response(value)
