@@ -1,8 +1,9 @@
-import { Component, Type, OnInit, Output, EventEmitter, Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory } from '@angular/core';
+import { Component, Type, OnInit, Output, EventEmitter, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory } from '@angular/core';
 
 import { AddQuestionComponent } from "../add-question/add-question.component"
-import { AddQuestionModule } from "../add-question/add-question.module"
 
+
+import { AddQuestionModule } from '../add-question/add-question.module'
 import { AddMultiplyChoiceComponent } from "../add-multiply-choice/add-multiply-choice.component"
 
 @Component({
@@ -15,27 +16,29 @@ export class AddModuleComponent implements OnInit {
   components: Array<{name: string, component: Type<AddQuestionModule>}> = [
     {name: "Multiple Choice Question", component: AddMultiplyChoiceComponent}
   ]
-  selectedValue: Type<AddQuestionModule>;
+  selectedValue: Type<AddQuestionComponent>;
   id: number;
   title: string;
   selected: boolean;
-  question: ComponentFactory<AddQuestionModule>;
+  question: ComponentFactory<AddQuestionComponent>;
   questionArray: any[] = [];
-  moduleComponent: AddQuestionModule;
+  moduleComponent: AddQuestionComponent;
 
   @ViewChild('module', {read: ViewContainerRef}) module: ViewContainerRef;
 
   @Output() clear: EventEmitter<any> = new EventEmitter();
   constructor(private factory: ComponentFactoryResolver) {
-
+    this.question = this.factory.resolveComponentFactory(AddQuestionComponent)
   }
 
   addQuestion(){
     if(this.selectedValue != undefined){
-      this.question = this.factory.resolveComponentFactory(this.selectedValue)
 
       // add the question to the module component and add it to the array so we can edit and save it later
       let question = this.module.createComponent(this.question)
+      let q = (<AddQuestionComponent> question.instance)
+      q.child = this.selectedValue
+      q.addQuestion()
       this.questionArray.push(question)
     }
   }
@@ -61,7 +64,7 @@ export class AddModuleComponent implements OnInit {
       let tmp = this.questionArray[i];
       let index = this.module.indexOf(this.questionArray[i].hostView)
 
-      let save = (<AddQuestionModule> tmp.instance).save()
+      let save = (<AddQuestionComponent> tmp.instance).save()
       save['order'] = index;
       values.push(save)
     }
