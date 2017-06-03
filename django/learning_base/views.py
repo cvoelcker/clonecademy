@@ -111,11 +111,15 @@ def save(request):
             quest = Question()
             # check which question Type it is and save it
             if q['type'] == "MultiplyChoiceQuestion":
-                quest = MultipleChoiceQuestion(question_body = q['question'], feedback= q['feedback'], feedback_is_set=q['feedbackBool'])
+                quest = MultipleChoiceQuestion(question_body = q['question'])
                 if not quest.save(q):
                     course.wipe_out()
                     return Response(status=403)
 
+            if 'feedbackBool' in q and q['feedbackBool'] and 'feedback' in q:
+                quest.feedback = q['feedback']
+                quest.feedback_is_set = q['feedbackBool']
+                quest.save()
             # add the created question to our module
             module.questions.add(quest)
             test = quest.id
