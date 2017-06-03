@@ -35,7 +35,6 @@ export class AddModuleComponent implements OnInit {
     if(this.selectedValue != undefined){
 
       // add the question to the module component and add it to the array so we can edit and save it later
-      console.log(this.selectedValue)
       let question = this.module.createComponent(this.question)
       let q = (<AddQuestionComponent> question.instance)
       q.child = this.selectedValue

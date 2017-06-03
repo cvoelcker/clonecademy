@@ -7,5 +7,13 @@
     <div class="question" #question></div>
   </div>
 </div>
+<div class="row">
+  <div *ngIf='submitCorrect' class="alert alert-success col-md-6">
+    {{feedback}}
+  </div>
+  <div *ngIf='!submitCorrect && submitSend' class="alert alert-danger col-md-6">
+    Please Try again
+  </div>
+</div>
 <button class="btn btn-primary" (click)="submit()">submit</button>
 <button [disabled]="!submitCorrect" class="btn btn-primary" (click)="next()">next</button>
