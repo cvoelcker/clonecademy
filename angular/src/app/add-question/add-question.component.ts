@@ -41,7 +41,6 @@ export class AddQuestionComponent implements OnInit {
       response['feedback'] = this.feedback;
     }
 
-    console.log(response)
     return response
   }
 
