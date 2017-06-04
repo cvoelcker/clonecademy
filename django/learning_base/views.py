@@ -106,6 +106,8 @@ def save(request):
                 course.wipe_out()
                 return Response(status=402)
 
+            # TODO it qould be nice to create the question component with
+            # question_body and feedback and pass it to the child object
             quest = Question()
             # check which question Type it is and save it
             if q['type'] == "MultiplyChoiceQuestion":
@@ -114,6 +116,10 @@ def save(request):
                     course.wipe_out()
                     return Response(status=403)
 
+            if 'feedbackBool' in q and q['feedbackBool'] and 'feedback' in q:
+                quest.feedback = q['feedback']
+                quest.feedback_is_set = q['feedbackBool']
+                quest.save()
             # add the created question to our module
             module.questions.add(quest)
             test = quest.id
@@ -159,4 +165,7 @@ def callQuestion(request, courseID, moduleIndex, questionIndex):
     elif request.method == "POST":
         solved = question.evaluate(request.data)
         Try(person=request.user.profile, question=question, answer=str(request.data), solved=solved).save()
-        return Response(question.evaluate(request.data))
+        response = {"evaluate": solved}
+        if solved and question.feedback_is_set:
+            response['feedback'] = question.feedback
+        return Response(response)

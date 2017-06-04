@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { RouterModule, Routes } from '@angular/router';
-import {CookieService} from 'angular2-cookie/core';
+import { CookieService } from 'angular2-cookie/services/cookies.service';
 
 import { ServerService } from './service/server.service';
 
@@ -25,6 +25,7 @@ import { AddModuleComponent } from './add-module/add-module.component';
 import { AddQuestionComponent } from './add-question/add-question.component';
 import { StatisticsComponent } from './personal_statistics/statistics.component';
 
+import { AddQuestionModule } from "./add-question/add-question.module"
 import { QuestionModule } from "./question/question.module";
 
 const appRoutes: Routes = [
@@ -78,6 +79,7 @@ const appRoutes: Routes = [
     AddQuestionComponent,
     StatisticsComponent,
     QuestionModule,
+    AddQuestionModule,
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -91,6 +93,7 @@ const appRoutes: Routes = [
   ],
   entryComponents: [
     AddModuleComponent,
+    AddQuestionModule,
     AddQuestionComponent,
     AddMultiplyChoiceComponent,
     // you have to add all modules for questions here

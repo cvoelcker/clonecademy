@@ -1,3 +1,7 @@
-<div class="row">
-  <div #questions></div>  
+<div >
+  <button class="btn btn-primary">remove Question</button>
+  <div class="question" #question></div>
+  <label for="feedbackBool">Do you want to have a custom Feedback? </label>
+  <input type="checkbox" name="isActive" id="feedbackBool" [(ngModel)]="feedbackBool">
+  <textarea *ngIf="feedbackBool" class="feedback" id="feedback" type="textarea" [(ngModel)]="feedback"></textarea>
 </div>

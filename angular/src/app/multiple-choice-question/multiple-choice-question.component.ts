@@ -6,7 +6,7 @@ import { ServerService } from "../service/server.service"
 @Component({
   selector: 'app-MultipleChoiceQuestion',
   templateUrl: './multiple-choice-question.component.html',
-  styleUrls: ['./multiple-choice-question.component.css']
+  styleUrls: ['./multiple-choice-question.component.scss']
 })
 export class MultipleChoiceQuestionComponent extends QuestionModule {
 

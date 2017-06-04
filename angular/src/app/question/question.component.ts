@@ -9,7 +9,7 @@ import { QuestionModule } from "./question.module"
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
-  styleUrls: ['./question.component.css']
+  styleUrls: ['./question.component.scss']
 })
 export class QuestionComponent implements OnInit {
 
@@ -27,7 +27,9 @@ export class QuestionComponent implements OnInit {
   questionModule: QuestionModule;
   lastQuestion: boolean;
   lastModule: boolean;
+  submitSend: boolean;
   submitCorrect: boolean;
+  feedback: string;
 
   constructor(private router: Router, public server: ServerService, private route: ActivatedRoute, private factory: ComponentFactoryResolver) {
 
@@ -63,10 +65,23 @@ export class QuestionComponent implements OnInit {
 
 
   submit(){
+
     let data = this.questionModule.submit();
     this.server.post("courses/"+this.courseID+"/"+this.moduleIndex + "/" + this.questionIndex, data)
-      .then(data => this.submitCorrect = data)
+      .then(data => this.evaluteAnswer(data))
       .catch(err => console.log(err))
+  }
+
+  evaluteAnswer(data){
+    this.submitCorrect = data['evaluate']
+    this.submitSend = true;
+
+    if(data['feedback']){
+      this.feedback = data['feedback']
+    }
+    else{
+      this.feedback = "gut gemacht"
+    }
   }
 
   next(){

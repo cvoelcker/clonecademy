@@ -5,7 +5,7 @@ import { ServerService} from '../service/server.service'
 @Component({
   selector: 'statistics',
   templateUrl: './statistics.component.html',
-  styleUrls: ['./statistics.component.css']
+  styleUrls: ['./statistics.component.scss']
 })
 export class StatisticsComponent implements OnInit {
   statistics = 'test';

@@ -5,7 +5,7 @@ import { AddQuestionModule } from "../add-question/add-question.module"
 @Component({
   selector: 'app-add-multiply-choice',
   templateUrl: './add-multiply-choice.component.html',
-  styleUrls: ['./add-multiply-choice.component.css']
+  styleUrls: ['./add-multiply-choice.component.scss']
 })
 export class AddMultiplyChoiceComponent extends AddQuestionModule {
 
