@@ -9,7 +9,7 @@ import { AddMultiplyChoiceComponent } from "../add-multiply-choice/add-multiply-
 @Component({
   selector: 'app-add-module',
   templateUrl: './add-module.component.html',
-  styleUrls: ['./add-module.component.css']
+  styleUrls: ['./add-module.component.scss']
 })
 export class AddModuleComponent implements OnInit {
 

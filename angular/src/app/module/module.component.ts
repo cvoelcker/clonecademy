@@ -12,7 +12,7 @@ import { MultipleChoiceQuestionComponent } from "../multiple-choice-question/mul
 @Component({
   selector: 'app-module',
   templateUrl: './module.component.html',
-  styleUrls: ['./module.component.css']
+  styleUrls: ['./module.component.scss']
 })
 export class ModuleComponent implements OnInit {
 
