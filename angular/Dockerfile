@@ -6,12 +6,6 @@ WORKDIR /angular
 
 COPY package.json /angular/
 
-RUN apt-get update && apt-get install -y nodejs
-RUN npm install --silent -g @angular/cli --save
-RUN npm install --silent bootstrap --save
-RUN npm install --silent angular2-cookie --save
-RUN npm install --silent angular2-jwt --save
-RUN npm install --silent
-
+RUN npm install -g -s @angular/cli
 
 ADD . /angular
