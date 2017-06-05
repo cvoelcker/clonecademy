@@ -1,5 +1,6 @@
 <label for="profileSelect">Select a profile</label>
-<select *ngFor="let p of profiles" id="profileSelect" [(ngModel)]="profile" class="selectpicker show-tick form-control">
-  <option [ngValue]="p.id">{{p.username}}, {{p.email}}</option>
+<select>
+  <option *ngFor="let p of profiles" id="profileSelect" [ngValue]="p.id">{{p.username}}</option>
 </select>
-<div *ngIf="profile != Null"> hallo</div>
+<button class="btn btn-primary" routerLink="/user-detail/">Show User!</button>
+<div *ngIf="profiles != Null"> {{profiles.length}} Users found</div>
