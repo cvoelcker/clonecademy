@@ -9,7 +9,7 @@ import { AddQuestionModule } from './add-question.module'
 })
 export class AddQuestionComponent implements OnInit {
 
-  @Output() saveEmitter: EventEmitter<any> = new EventEmitter();
+  @Output() emitter: EventEmitter<any> = new EventEmitter();
   public child: Type<AddQuestionModule>;
   @ViewChild('question', {read: ViewContainerRef}) question: ViewContainerRef;
   questionFactory: ComponentFactory<AddQuestionModule>;
@@ -32,6 +32,10 @@ export class AddQuestionComponent implements OnInit {
     let question = this.question.createComponent(this.questionFactory)
 
     this.questionCopy  = (<AddQuestionModule> question.instance)
+  }
+
+  remove(){
+    this.emitter.emit("remove")
   }
 
   save(): any{

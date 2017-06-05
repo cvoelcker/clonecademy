@@ -1,5 +1,5 @@
 <div >
-  <button class="btn btn-primary">remove Question</button>
+  <button class="btn btn-primary" (click)="remove()">remove Question</button>
   <div class="question" #question></div>
   <label for="feedbackBool">Do you want to have a custom Feedback? </label>
   <input type="checkbox" name="isActive" id="feedbackBool" [(ngModel)]="feedbackBool">
