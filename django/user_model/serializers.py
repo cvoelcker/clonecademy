@@ -14,7 +14,7 @@ class GroupSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('username', 'email')
+        fields = ('username', 'email', "id")
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -25,6 +25,12 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = ('user', 'group', 'date_registered')
 
+class ProfileListSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
+    class Meta:
+        model = Profile
+        fields = ('user', )
 
 class StatisticsDetailedViewSerializer(serializers.ModelSerializer):
     person = ProfileSerializer()

@@ -27,6 +27,7 @@ import { StatisticsComponent } from './personal_statistics/statistics.component'
 
 import { AddQuestionModule } from "./add-question/add-question.module"
 import { QuestionModule } from "./question/question.module";
+import { ProfilesComponent } from './profiles/profiles.component';
 
 const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -56,6 +57,10 @@ const appRoutes: Routes = [
     path: "profile/statistics",
     component: StatisticsComponent
   },
+  {
+    path: "profiles",
+    component: ProfilesComponent,
+  },
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -80,6 +85,7 @@ const appRoutes: Routes = [
     StatisticsComponent,
     QuestionModule,
     AddQuestionModule,
+    ProfilesComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

@@ -1,0 +1,5 @@
+<label for="profileSelect">Select a profile</label>
+<select *ngFor="let p of profiles" id="profileSelect" [(ngModel)]="profile" class="selectpicker show-tick form-control">
+  <option [ngValue]="p.id">{{p.username}}, {{p.email}}</option>
+</select>
+<div *ngIf="profile != Null"> hallo</div>

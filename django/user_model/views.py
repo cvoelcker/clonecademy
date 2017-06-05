@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from django.contrib.auth.models import User
 
-from .serializers import StatisticsOverviewSerializer
-from .models import Try
+from .serializers import StatisticsOverviewSerializer, ProfileListSerializer
+from .models import Try, Profile
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -23,6 +23,14 @@ def getStatisticsOverview(request):
 def getStatisticsDetail(request):
     pass
 
+@api_view(['GET'])
+def getAllUsers(request):
+    profiles = Profile.objects.all()
+    serializer = ProfileListSerializer(profiles, many=True).data
+    #TODO it will return [{user: {username, id, email}}]
+    # but it would be good to return [{username, id, email}]
+    serializer = map(lambda x: x['user'], serializer)
+    return Response(serializer)
 
 @api_view(['GET'])
 def getUserInfo(request):

@@ -1,4 +1,5 @@
 <nav *ngIf="server.token != null">
+  <button class="btn btn-primary" routerLink="/profiles">Profiles</button>
   <button class="btn btn-primary" routerLink="/dashboard">Dashboard</button>
   <button class="btn btn-primary" (click)="logout()">logout</button>
 </nav>
