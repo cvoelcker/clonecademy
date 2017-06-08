@@ -1,5 +1,5 @@
 <label for="profileSelect">Select a profile</label>
-<select [(ngModel)]="selectedValue" (click)="changed()" class="selectpicker show-tick form-control">
+<select [(ngModel)]="selectedValue" (click)="user.ngOnInit()" class="selectpicker show-tick form-control">
   <option *ngFor="let p of profiles" id="profileSelect" [ngValue]="p.id">{{p.username}}</option>
 </select>
 
