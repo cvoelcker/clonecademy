@@ -29,7 +29,7 @@ router = routers.DefaultRouter()
 urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^admin/', admin.site.urls),
-    url(r'^api-auth/', obtain_jwt_token),
+    url(r'^api-auth', obtain_jwt_token),
 
     url(r'^courses/$', learning_base_view.getCourses),
     url(r'^courses/(?P<courseID>[0-9]+)/?$', learning_base_view.singleCourse),
