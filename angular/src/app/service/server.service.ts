@@ -62,7 +62,7 @@ export class ServerService {
 
     let options = new RequestOptions({headers: headers})
 
-    return new Promise((resolve, reject) => this.http.post(this.baseUrl + "api-auth", body, options)
+    return new Promise((resolve, reject) => this.http.post(this.baseUrl + "api-auth/", body, options)
       .subscribe(
         (res) => {
           let response = res.json();
