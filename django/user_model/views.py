@@ -68,7 +68,8 @@ def requestModStatus(request):
     '''
     try:
         data = request.data
-        user = Profile.objects.filter(data["username"]=user.username)[0]
+        user = User.objects.filter(username=data["username"])[0]
+        user = user.profile
         if user.is_mod or user.requested_mod:
             return Response(status=400)
         user.requested_mod = True

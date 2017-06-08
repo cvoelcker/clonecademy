@@ -4,6 +4,7 @@ from learning_base import models as lb_models
 from learning_base.question import models as question_model
 from django.core.exceptions import ValidationError
 from datetime import datetime
+from clonecadamy.settings import FRONT_END_HOSTNAME, PROFILE_PATH
 
 
 class LearningGroup(models.Model):
@@ -41,6 +42,9 @@ class Profile(models.Model):
     requested_mod = models.BooleanField(
         default=False
     )
+
+    def get_link_to_profile(self):
+        return FRONT_END_HOSTNAME + PROFILE_PATH + self.user.username
 
     def __str__(self):
         return self.user.__str__()
