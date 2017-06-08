@@ -18,7 +18,7 @@
     </form>
     <div class="alert alert-danger" *ngIf="invalidLogin">Your Login Variables are invalid</div>
 
-    <button md-raised-button class="btn btn-info" (click)="showLogin = !showLogin">No Account? Register here</button>
+    <button md-raised-button class="btn-info" (click)="showLogin = !showLogin">No Account? Register here</button>
   </div>
 
   <div class="register" *ngIf="!showLogin">
@@ -56,6 +56,6 @@
 
     </form>
     <div class="alert alert-danger" *ngIf="errorMessage != null">{{errorMessage}}</div>
-    <button class="btn btn-info" (click)="showLogin = !showLogin">Login with you account</button>
+    <button md-raised-button class="btn-info" (click)="showLogin = !showLogin">Login with you account</button>
   </div>
 </div>
