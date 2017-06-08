@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
                         name: this.newName,
                         surname: this.newSurname,
                         age: this.newAge,};
-    this.server.post("register", newUserInfo)
+    this.server.post("register/", newUserInfo)
       .then(answer => {console.log(answer)})
       .catch(error => {this.invalidRegister = true;
                         this.errorMessage = error.statusText});
