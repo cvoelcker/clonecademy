@@ -14,7 +14,7 @@ export class AddMultiplyChoiceComponent extends AddQuestionModule {
   answers: [{text: string, correct: boolean}];
 
   ngOnInit() {
-    this.answers = [{text: "test", correct: true}]
+    this.answers = [{text: "", correct: true}]
   }
 
   save(): any{
@@ -23,6 +23,10 @@ export class AddMultiplyChoiceComponent extends AddQuestionModule {
       question: this.question,
       answers: this.answers
     };
+  }
+
+  removeAnswer(index: number){
+    this.answers.splice(index, 1);
   }
 
   addAnswer(){

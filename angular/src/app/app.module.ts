@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+// Material Style
+import {MdButtonModule, MdCheckboxModule, MdInputModule} from '@angular/material';
+
 import { RouterModule, Routes } from '@angular/router';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 
@@ -98,6 +101,14 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
+    MdButtonModule,
+    MdCheckboxModule,
+    MdInputModule,
+  ],
+  exports: [
+    MdButtonModule,
+    MdCheckboxModule,
+    MdInputModule,
   ],
   providers: [ServerService, CookieService],
   bootstrap: [
