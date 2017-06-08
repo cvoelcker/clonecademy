@@ -27,7 +27,7 @@ class Profile(models.Model):
         #related_name = "profile"
         #could ease access to the corespending profile from a given user
     )
-    group = models.ForeignKey(
+    group = models.OneToOneField(
         LearningGroup,
         null=True,
         on_delete=models.SET_NULL

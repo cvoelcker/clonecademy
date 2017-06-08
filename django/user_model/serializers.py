@@ -8,7 +8,7 @@ from learning_base.serializers import QuestionSerializer
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = LearningGroup
-        fields = ('name')
+        fields = ('name', "id" )
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -20,6 +20,12 @@ class UserSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     group = GroupSerializer()
+
+    def to_representation(self, obj):
+        serializer = UserSerializer(obj.user).data
+        serializer['group'] = GroupSerializer(obj.group).data
+        serializer['date_registered'] = obj.date_registered
+        return serializer
 
     class Meta:
         model = Profile

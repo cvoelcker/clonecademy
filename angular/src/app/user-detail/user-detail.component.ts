@@ -12,13 +12,16 @@ export class UserDetailComponent implements OnInit{
 
   @Input() id: number;
 
-  user: Array<{username: string, id: number, email: string}>;
+  user: {username: string, id: number, email: string, group: {}, dateRegistered: Date, dateString: string}
 
   constructor(private server: ServerService) { }
 
   ngOnInit() {
-    this.server.get("list-user/").then(data => this.user = data).catch(err => console.log(err))
-    
+    this.server.get("user/"+ this.id + "/").then(data => {
+      this.user = data
+      this.user['dateRegistered'] = new Date(data['date_registered'])
+    }).catch(err => console.log(err))
+
 
   }
 }

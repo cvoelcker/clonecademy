@@ -39,8 +39,9 @@ urlpatterns = [
     url(r'^get-course-categories/$', learning_base_view.getCourseCategories),
 
     url(r'^save/course/$', learning_base_view.save),
-    url(r'^user/statistics$', user_view.getStatisticsOverview),
-    url(r'^user/', user_view.getUserInfo),
+    url(r'^user/statistics/$', user_view.getStatisticsOverview),
+    url(r'^user/$', user_view.getUserInfo),
+    url(r'^user/(?P<userID>[0-9]+)/?$', user_view.getUserDetails),
     url(r'^list-user/', user_view.getAllUsers),
     url(r'^register/', user_view.createNewUser)
 ]
