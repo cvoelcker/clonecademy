@@ -21,7 +21,5 @@ export class UserDetailComponent implements OnInit{
       this.user = data
       this.user['dateRegistered'] = new Date(data['date_registered'])
     }).catch(err => console.log(err))
-
-
   }
 }
