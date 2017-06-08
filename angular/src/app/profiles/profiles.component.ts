@@ -30,11 +30,5 @@ export class ProfilesComponent implements OnInit {
     this.server.get("list-user/").then(data => this.profiles = data).catch(err => console.log(err))
   }
 
-  changed(){
-    if(this.user != undefined){
-      this.user.ngOnInit()
-    }
-  }
-
 
 }
