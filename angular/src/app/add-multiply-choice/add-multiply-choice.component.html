@@ -4,11 +4,18 @@
   </h2>
   <h3>Question</h3>
   <textarea class="question" id="question" type="textarea" [(ngModel)]="question"></textarea>
-  <button class="btn btn-primary" (click)="addAnswer()">add Answer</button>
-  <ul *ngFor="let i of answers">
+  <button md-raised-button class=" " (click)="addAnswer()">add Answer</button>
+  <ul *ngFor="let i of answers; let j = index" class="answers">
     <li class="singleQuestion" [class.correct]="i.correct">
-      <button class="correctButton btn btn-primary" (click)="i.correct = !i.correct"><span class="glyphicon" [class.glyphicon-ok]="i.correct" ></span> <span>this answer is correct</span></button>
-      <textarea class="answer" [(ngModel)]="i.text"></textarea>
+      <div class="alert" [class.alert-success]="i.correct">
+        <md-checkbox type="checkbox" name="isActive" id="feedbackBool" [(ngModel)]="i.correct">
+          is this Answer correct?
+        </md-checkbox>
+        <button md-raised-button class="  remove" (click)="this.answers.splice(j, 1)" >
+          <i class="material-icons">delete</i>remove
+        </button>
+        <textarea class="answer" [(ngModel)]="i.text"></textarea>
+      </div>
     </li>
   </ul>
 </div>

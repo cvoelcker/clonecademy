@@ -4,8 +4,12 @@
     <input type="text" class="form-control" id="title" [(ngModel)]="title" required>
   </div>
   <div class="col-md-1 arrows">
-    <button class="glyphicon glyphicon-triangle-top btn btn-primary" (click)="up()"></button>
-    <button class="glyphicon glyphicon-triangle-bottom btn btn-primary" (click)="down()"></button>
+    <button md-raised-button (click)="up()">
+      <i class="material-icons">keyboard_arrow_up</i>
+    </button>
+    <button md-raised-button (click)="down()">
+    <i class="material-icons">keyboard_arrow_down</i>
+  </button>
   </div>
 </div>
 
@@ -27,5 +31,7 @@
 
 </div>
 <div class="row col-md-12">
-  <button class="btn btn-primary" (click)="close()">remove module</button>
+  <button md-raised-button class=" " (click)="close()">
+    <i class="material-icons">delete</i>remove module
+  </button>
 </div>

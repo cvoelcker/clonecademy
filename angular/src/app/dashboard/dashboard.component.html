@@ -1,7 +1,7 @@
 <div class="box">
   <h2>Dashboard</h2>
-  <button class="btn btn-primary" routerLink="/profile/statistics/">view statistics</button>
-  <button class="btn btn-primary" routerLink="/createCourse/">add Course</button>
+  <button md-raised-button class=" " routerLink="/profile/statistics/">view statistics</button>
+  <button md-raised-button class=" " routerLink="/createCourse/">add Course</button>
   <div *ngFor="let c of course">
   <a routerLink="/course/{{c.id}}">{{c.name}}</a>
   </div>

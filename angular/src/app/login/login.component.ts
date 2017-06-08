@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { trigger, state, style, animate, transition } from '@angular/animations';
+
 import { ServerService } from '../service/server.service';
 import { Router } from "@angular/router"
 
@@ -9,7 +11,18 @@ import { CookieService } from 'angular2-cookie/core';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  animations: [
+    trigger('show', [
+      state( "active", style({
+        display: "none"
+      })),
+      state( "inactive", style({
+        display: "block"
+      })),
+      transition('inactive => active', animate('100ms ease-in')),
+    ])
+  ]
 })
 export class LoginComponent implements OnInit {
 
@@ -31,6 +44,8 @@ export class LoginComponent implements OnInit {
   newAge: number;
   invalidRegister: boolean;
   errorMessage: string;
+
+  showLogin = true;
 
 
 
