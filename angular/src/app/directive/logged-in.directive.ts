@@ -11,7 +11,7 @@ export class LoggedInDirective implements OnDestroy {
 
   constructor(private cookie: CookieService, private router: Router, private location: Location) {
 
-    if(!this.cookie.get("token") != null){ // if not logged in
+    if(this.cookie.get("token") == null){ // if not logged in
       this.location.replaceState("/"); // clear browser history
       this.router.navigate(["/login"]); // go back to login page
     }
