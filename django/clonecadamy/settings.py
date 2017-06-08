@@ -112,6 +112,7 @@ FRONT_END_HOSTNAME = 'localhost:3000/'
 BACK_END_HOSTNAME = 'localhost:3000/'
 PROFILE_PATH = 'user/'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/

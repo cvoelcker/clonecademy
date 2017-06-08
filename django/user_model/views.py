@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from django.contrib.auth.models import User
+from django.core.mail import mail_admins, send_mail
 
 from .serializers import *
 from .models import Try, Profile
@@ -72,23 +73,22 @@ def requestModStatus(request):
     '''
     Handels the moderator rights request. Expects a username and a
     '''
-    try:
-        data = request.data
-        user = User.objects.filter(username=data["username"])[0]
-        user = user.profile
-        if user.is_mod or user.requested_mod:
-            return Response(status=400)
-        user.requested_mod = True
-        user.save()
-
-        mail_admins(
-            'Moderator rights requested by {}'.format(data["username"]),
-            'The following user {} requested moderator rights for the CloneCademy platform. \n \
-            The given reason for this request: \n{}\n \
-            If you want to add this user to the moderator group, access the profile {}\
-            for the confirmation field.\n \
-            Have a nice day, your CloneCademy bot'.format(
-                data["username"], data["reason"], user.get_link_to_profile()),
-        )
-    except:
+    data = request.data
+    user = request.user
+    profile = user.profile
+    if profile.is_mod or profile.requested_mod:
         return Response(status=400)
+    profile.requested_mod = True
+    profile.save()
+    send_mail(
+        'Moderator rights requested by {}'.format(user.username),
+        'The following user {} requested moderator rights for the CloneCademy platform. \n \
+        The given reason for this request: \n{}\n \
+        If you want to add this user to the moderator group, access the profile {}\
+        for the confirmation field.\n \
+        Have a nice day, your CloneCademy bot'.format(
+            user.username, data["reason"], user.get_link_to_profile()),
+        'bot@clonecademy.de',
+        ['claas@voelcker.net']
+    )
+    return Response("Request send")
