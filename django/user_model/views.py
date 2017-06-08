@@ -42,7 +42,7 @@ def getUserInfo(request):
 
 @api_view(['POST'])
 def createNewUser(request):
-    data = request.data;
+    data = request.data
 
     if "username" not in data or "email" not in data or "password" not in data:
         return Response(status = 400)
@@ -60,3 +60,28 @@ def createNewUser(request):
     #newUser.save();
 
     #return HttpResponse("Register did work")
+
+@api_view(['POST'])
+def requestModStatus(request):
+    '''
+    Handels the moderator rights request. Expects a username and a
+    '''
+    try:
+        data = request.data
+        user = Profile.objects.filter(data["username"]=user.username)[0]
+        if user.is_mod or user.requested_mod:
+            return Response(status=400)
+        user.requested_mod = True
+        user.save()
+
+        mail_admins(
+            'Moderator rights requested by {}'.format(data["username"]),
+            'The following user {} requested moderator rights for the CloneCademy platform. \n \
+            The given reason for this request: \n{}\n \
+            If you want to add this user to the moderator group, access the profile {}\
+            for the confirmation field.\n \
+            Have a nice day, your CloneCademy bot'.format(
+                data["username"], data["reason"], user.get_link_to_profile()),
+        )
+    except:
+        return Response(status=400)
