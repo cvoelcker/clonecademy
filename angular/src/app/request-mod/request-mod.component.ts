@@ -14,12 +14,22 @@ export class RequestModComponent implements OnInit {
   reason: string;
   answer: string;
   errorMessage: string;
+  available: boolean;
 
   constructor(private server: ServerService) {
+    this.check_request()
   }
 
   check_request() {
-    return true
+    this.server.get("user/can_request_mod")
+      .then(answer => {
+        if (answer['requested_mod'])
+          this.available = false
+        else
+          this.available = true
+      })
+      .catch(error => {this.available = false})
+    return this.available
   }
 
   send_request(){
@@ -27,7 +37,8 @@ export class RequestModComponent implements OnInit {
       return -1;
     let request = {reason: this.reason}
     this.server.post("user/request_mod", request)
-      .then(answer => this.answer = answer)
+      .then(answer => {this.answer = answer;
+                        this.available=false})
       .catch(error => this.errorMessage = error.statusText);
   }
 

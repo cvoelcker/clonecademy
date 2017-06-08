@@ -25,11 +25,12 @@ class ProfileSerializer(serializers.ModelSerializer):
         serializer = UserSerializer(obj.user).data
         serializer['group'] = GroupSerializer(obj.group).data
         serializer['date_registered'] = obj.date_registered
+        serializer['requested_mod'] = obj.requested_mod
         return serializer
 
     class Meta:
         model = Profile
-        fields = ('user', 'group', 'date_registered')
+        fields = ('user', 'group', 'date_registered', 'requested_mod')
 
 class ProfileListSerializer(serializers.ModelSerializer):
     user = UserSerializer()

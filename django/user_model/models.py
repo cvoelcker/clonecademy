@@ -39,12 +39,15 @@ class Profile(models.Model):
     is_trusted_mod = models.BooleanField(
         default=False
     )
-    requested_mod = models.BooleanField(
-        default=False
+    requested_mod = models.DateField(
+        default=None,
+        null=True,
+        blank=True
     )
 
     def get_link_to_profile(self):
-        return FRONT_END_HOSTNAME + PROFILE_PATH + self.user.username
+        #TODO: Implement correct user prile access strin
+        return "clonecademy.com/this/users/profile"
 
     def __str__(self):
         return self.user.__str__()

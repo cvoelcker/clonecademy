@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.shortcuts import render
 from rest_framework import viewsets
 from django.contrib.auth.models import User
@@ -35,8 +37,8 @@ def getAllUsers(request):
 
 @api_view(['GET'])
 def getUserDetails(request, userID):
-    profils = Profile.objects.filter(id=userID).first()
-    serializer = ProfileSerializer(profils).data
+    profiles = Profile.objects.filter(id=userID).first()
+    serializer = ProfileSerializer(profiles).data
     return Response(serializer)
 
 @api_view(['GET'])
@@ -71,14 +73,18 @@ def createNewUser(request):
 @api_view(['POST'])
 def requestModStatus(request):
     '''
-    Handels the moderator rights request. Expects a username and a
+    Handels the moderator rights request. Expects a reason and extracts the user
+    from the request header.
+
+    This class does not use a serializer, as the json is only one element wide and.
     '''
     data = request.data
     user = request.user
     profile = user.profile
     if profile.is_mod or profile.requested_mod:
-        return Response(status=400)
-    profile.requested_mod = True
+        return Response('User is mod or has sent to many requests',status=400)
+    #TODO: fix if an localization issues arrise
+    profile.requested_mod = datetime.now()
     profile.save()
     send_mail(
         'Moderator rights requested by {}'.format(user.username),
@@ -87,8 +93,14 @@ def requestModStatus(request):
         If you want to add this user to the moderator group, access the profile {}\
         for the confirmation field.\n \
         Have a nice day, your CloneCademy bot'.format(
-            user.username, data["reason"], user.get_link_to_profile()),
+            user.username, data["reason"], profile.get_link_to_profile()),
         'bot@clonecademy.de',
-        ['claas@voelcker.net']
+        ['test@test.net']
     )
     return Response("Request send")
+
+@api_view(['GET'])
+def canRequestMod(request):
+    profile = request.user.profile
+    can_request = ProfileSerializer(profile)
+    return Response(can_request.data)
