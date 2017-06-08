@@ -5,8 +5,10 @@ from django.contrib.auth.models import User
 from .serializers import *
 from .models import Try, Profile
 
+from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.decorators import authentication_classes, permission_classes
 
 #For debug only!
 from django.http import HttpResponse
@@ -46,26 +48,37 @@ def getUserInfo(request):
             value.append(group)
     return Response(value)
 
+
 @api_view(['POST'])
+@authentication_classes([])
+@permission_classes([])
 def createNewUser(request):
-    data = request.data
 
-    if "username" not in data or "email" not in data or "password" not in data:
-        return Response(status = 400)
 
-    newUser = User.objects.create_user(data["username"], data["email"], data["password"]);
+    # User serialization out of json request data
+    user_serializer = UserSerializer(data=request.data)
+    if user_serializer.is_valid():
+        user_serializer.save()
+        return Response(status=status.HTTP_200_OK)
+    return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    #add optional info
+    # profile serialization out of json request data
+    profile_serializer = ProfileSerializer(data=request.data)
+    if profile_serializer.is_valid():
+        profile_serializer.save()
+        return Response(status=status.HTTP_200_OK)
+    return Response(profile_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     #TODO: refactor name and surname to first and last name
+    # add optional info
     #if("name" in data):
-    #   newUser.first_name = data["name"]
+        #newUser.first_name = data["name"]
 
     #if("surname" in data):
-    #   newUser.last_name = data["surname"]
+        #newUser.last_name = data["surname"]
 
-    #newUser.save();
+    return Response("Register did work")
 
-    #return HttpResponse("Register did work")
 
 @api_view(['POST'])
 def requestModStatus(request):
@@ -92,3 +105,6 @@ def requestModStatus(request):
         )
     except:
         return Response(status=400)
+
+
+

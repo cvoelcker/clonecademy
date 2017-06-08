@@ -14,7 +14,7 @@ class GroupSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('username', 'email', "id")
+        fields = ('username', 'email', 'password', "id")
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -29,7 +29,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ('user', 'group', 'date_registered')
+        fields = ('user', 'group', 'date_registered', 'first_name', 'last_name', 'age')
 
 class ProfileListSerializer(serializers.ModelSerializer):
     user = UserSerializer()

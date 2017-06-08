@@ -42,12 +42,19 @@ class Profile(models.Model):
     requested_mod = models.BooleanField(
         default=False
     )
-
     def get_link_to_profile(self):
         return FRONT_END_HOSTNAME + PROFILE_PATH + self.user.username
 
     def __str__(self):
         return self.user.__str__()
+
+    #Optional info from the user
+    first_name = models.CharField(max_length=100)
+    first_name.null = True
+    last_name = models.CharField(max_length=100)
+    last_name.null = True
+    age = models.IntegerField()
+    age.null = True
 
 
 class Try(models.Model):
