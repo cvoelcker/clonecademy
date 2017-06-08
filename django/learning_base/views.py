@@ -122,7 +122,7 @@ def save(request):
                 quest.save()
             # add the created question to our module
             module.questions.add(quest)
-            test = quest.id
+            
             order[q['order']] = quest.id
 
         module.question_order = str(order)
