@@ -1,14 +1,15 @@
+from datetime import datetime
+
 from django.shortcuts import render
 from rest_framework import viewsets
 from django.contrib.auth.models import User
+from django.core.mail import mail_admins, send_mail
 
 from .serializers import *
 from .models import Try, Profile
 
-from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework.decorators import authentication_classes, permission_classes
 
 #For debug only!
 from django.http import HttpResponse
@@ -36,8 +37,8 @@ def getAllUsers(request):
 
 @api_view(['GET'])
 def getUserDetails(request, userID):
-    profils = Profile.objects.filter(id=userID).first()
-    serializer = ProfileSerializer(profils).data
+    profiles = Profile.objects.filter(id=userID).first()
+    serializer = ProfileSerializer(profiles).data
     return Response(serializer)
 
 @api_view(['GET'])
@@ -48,63 +49,58 @@ def getUserInfo(request):
             value.append(group)
     return Response(value)
 
-
 @api_view(['POST'])
-@authentication_classes([])
-@permission_classes([])
 def createNewUser(request):
+    data = request.data
 
+    if "username" not in data or "email" not in data or "password" not in data:
+        return Response(status = 400)
 
-    # User serialization out of json request data
-    user_serializer = UserSerializer(data=request.data)
-    if user_serializer.is_valid():
-        user_serializer.save()
-        return Response(status=status.HTTP_200_OK)
-    return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    newUser = User.objects.create_user(data["username"], data["email"], data["password"]);
 
-    # profile serialization out of json request data
-    profile_serializer = ProfileSerializer(data=request.data)
-    if profile_serializer.is_valid():
-        profile_serializer.save()
-        return Response(status=status.HTTP_200_OK)
-    return Response(profile_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+    #add optional info
     #TODO: refactor name and surname to first and last name
-    # add optional info
     #if("name" in data):
-        #newUser.first_name = data["name"]
+     #   newUser.first_name = data["name"]
 
     #if("surname" in data):
-        #newUser.last_name = data["surname"]
+     #   newUser.last_name = data["surname"]
 
-    return Response("Register did work")
+    #newUser.save();
 
+    #return HttpResponse("Register did work")
 
 @api_view(['POST'])
 def requestModStatus(request):
     '''
-    Handels the moderator rights request. Expects a username and a
+    Handels the moderator rights request. Expects a reason and extracts the user
+    from the request header.
+
+    This class does not use a serializer, as the json is only one element wide and.
     '''
-    try:
-        data = request.data
-        user = User.objects.filter(username=data["username"])[0]
-        user = user.profile
-        if user.is_mod or user.requested_mod:
-            return Response(status=400)
-        user.requested_mod = True
-        user.save()
+    data = request.data
+    user = request.user
+    profile = user.profile
+    if profile.is_mod or profile.requested_mod:
+        return Response('User is mod or has sent to many requests',status=400)
+    #TODO: fix if an localization issues arrise
+    profile.requested_mod = datetime.now()
+    profile.save()
+    send_mail(
+        'Moderator rights requested by {}'.format(user.username),
+        'The following user {} requested moderator rights for the CloneCademy platform. \n \
+        The given reason for this request: \n{}\n \
+        If you want to add this user to the moderator group, access the profile {}\
+        for the confirmation field.\n \
+        Have a nice day, your CloneCademy bot'.format(
+            user.username, data["reason"], profile.get_link_to_profile()),
+        'bot@clonecademy.de',
+        ['test@test.net']
+    )
+    return Response("Request send")
 
-        mail_admins(
-            'Moderator rights requested by {}'.format(data["username"]),
-            'The following user {} requested moderator rights for the CloneCademy platform. \n \
-            The given reason for this request: \n{}\n \
-            If you want to add this user to the moderator group, access the profile {}\
-            for the confirmation field.\n \
-            Have a nice day, your CloneCademy bot'.format(
-                data["username"], data["reason"], user.get_link_to_profile()),
-        )
-    except:
-        return Response(status=400)
-
-
-
+@api_view(['GET'])
+def canRequestMod(request):
+    profile = request.user.profile
+    can_request = ProfileSerializer(profile)
+    return Response(can_request.data)

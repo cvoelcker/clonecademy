@@ -27,7 +27,7 @@ import { AddMultiplyChoiceComponent } from './add-multiply-choice/add-multiply-c
 import { AddModuleComponent } from './add-module/add-module.component';
 import { AddQuestionComponent } from './add-question/add-question.component';
 import { StatisticsComponent } from './personal_statistics/statistics.component';
-
+import { RequestModComponent } from './request-mod/request-mod.component';
 import { AddQuestionModule } from "./add-question/add-question.module"
 import { QuestionModule } from "./question/question.module";
 import { ProfilesComponent } from './profiles/profiles.component';
@@ -69,6 +69,10 @@ const appRoutes: Routes = [
     path: "user-detail",
     component: UserDetailComponent,
   },
+  {
+    path: "profile/request_mod",
+    component: RequestModComponent,
+  },
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -95,6 +99,7 @@ const appRoutes: Routes = [
     AddQuestionModule,
     ProfilesComponent,
     UserDetailComponent,
+    RequestModComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

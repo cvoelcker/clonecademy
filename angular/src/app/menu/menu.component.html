@@ -1,5 +1,6 @@
-<nav *ngIf="server.token != null">
-  <button md-raised-button class=" " routerLink="/profiles">Profiles</button>
-  <button md-raised-button class=" " routerLink="/dashboard">Dashboard</button>
-  <button md-raised-button class=" " (click)="logout()">logout</button>
+ang<nav *ngIf="server.token != null">
+  <button class="btn btn-primary" routerLink="/profiles">Profiles</button>
+  <button class="btn btn-primary" routerLink="/dashboard">Dashboard</button>
+  <button class="btn btn-primary" routerLink="/profile/request_mod">Request mod rights</button>
+  <button class="btn btn-primary" (click)="logout()">logout</button>
 </nav>
