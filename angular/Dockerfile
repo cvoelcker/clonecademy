@@ -6,6 +6,4 @@ WORKDIR /angular
 
 COPY package.json /angular/
 
-RUN npm install -g -s @angular/cli
-
 ADD . /angular
