@@ -6,7 +6,7 @@
         <div *ngIf="submitted " class="help-block">Reason is required</div>
     </div>
     <div class="form-group">
-        <button [disabled]="loading" (click)="send_request()" class="btn btn-primary">Request moderator access</button>
+        <button [disabled]="loading" (click)="send_request()" md-raised-button>Request moderator access</button>
     </div>
 </form>
 <div class="error" *ngIf="invalidLogin">Your request could not be sent</div>
