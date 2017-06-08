@@ -52,10 +52,10 @@ def createNewUser(request):
     #add optional info
     #TODO: refactor name and surname to first and last name
     #if("name" in data):
-     #   newUser.first_name = data["name"]
+    #   newUser.first_name = data["name"]
 
     #if("surname" in data):
-     #   newUser.last_name = data["surname"]
+    #   newUser.last_name = data["surname"]
 
     #newUser.save();
 
