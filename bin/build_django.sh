@@ -5,4 +5,5 @@ cd $DIR
 cd django
 
 docker-compose build
+docker-compose run django pyhton3 makemigrations
 docker-compose run django python3 manage.py migrate
