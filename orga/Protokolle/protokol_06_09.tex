@@ -1,0 +1,80 @@
+\documentclass[colorback, accentcolor=tud1c, paper=a4]{tudexercise}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{multicol}
+
+%opening
+\title{Protokol Auftraggebertreffen 9. Juni 2017}
+\subtitle{Claas A. Völcker}
+\subsubtitle{BP Clonecademy}
+\author{Claas A. Völcker}
+
+
+\begin{document}
+	
+	\maketitle
+	
+	\begin{multicols}{2}
+		\subsection*{Anmerkung}
+		\begin{itemize}
+			\item Das Protokoll ist ein Gedächtnisprotokoll, da durch einen Festplattenabsturz das Original verloren gegangen ist.
+			\item Eventuelle Unstimmigkeiten bitte so schnell wie möglich melden.
+		\end{itemize}
+		
+		\subsection*{User Stories}
+		\begin{itemize}
+			\item Die präsentierten Userstories wurden abgenommen (siehe US PDF)
+			\item ''Adminrechte freischalten'' (ID 12) wurde in die nächste Iteration verlängert
+		\end{itemize}
+		
+		\subsection*{Funktionalität}
+		\begin{itemize}
+			\item Man kann Fragen überspringen und später beantworten
+			\item Die Texte ändern sich nach Kurs und Modul, müssen also in beiden gespeichert werden
+		\end{itemize}
+		
+		\subsection*{Aufbau der ersten Übersichtsseite}
+		\begin{enumerate}
+			\item Auswahl der Sprache (Englisch/Deutsch), später nicht mehr änderbar
+			\item Auswahl der Kursgruppe: iGEM, Allgemein
+		\end{enumerate}
+		
+		\subsection*{Design}
+		\begin{itemize}
+			\item Das grundlegende Design, dass von der BP Gruppe präsentiert wurde, ist als Basis gut
+			\begin{itemize}
+				\item drei Farben, plus wieß und schwarz
+				\item Weiß, schwarz und grau sollten als Basisfarben verwendet werden, die anderen beiden als Akzente
+				\item (52/56/60), (196/6/51), (214/191/131)
+			\end{itemize}
+		\end{itemize}
+		
+		\subsection*{Nutzerrollen}
+		Die Namen der Rollen sind vorläufige Arbeitsversionen
+		\begin{itemize}
+			\item Nutzer: Können Fragen sehen und beantworten, können ihr eignes Profil einsehen
+			\item Moderator*innen: Können Kurse neu anlegen und eigene Kurse ändern
+			\item Trusted Moderator*innen: Können Kurse anlegen, die nicht mehr explizit freigeschaltet werden müssen, können alle Kurse ändern
+			\item Admins: Können Rechte vergeben und entziehen, können Kurse freischalten
+			\item Server-Admins: Haben Zugriff auf den Server und das Django Backend
+		\end{itemize}
+		Die Ordnung über die Gruppen impliziert, dass Nutzer*innen alle Rechte der kleineren Gruppe haben
+		\begin{itemize}
+			\item Zum Thema Accountlöschung/Blockierung tauscht sich das iGEM Team noch aus.
+		\end{itemize}
+		
+		\subsection*{Weiteres Vorgehen}
+		\begin{itemize}
+			\item Die kommende Iteration streckt sich über zwei Wochen
+			\item Ziel der Iteration ist es, den existierenden Code zu überarbeiten, und Integrationstests durchzuführen, damit ein erster Release auf dem Server möglich ist
+			\item Dazu wird das Design umgesetzt und die Datenbank sauber überarbeitet
+			\item Alle existierenden Schnittstellen und der Code sollte dokumentiert sein
+			\item Der Code wird auf Modularität überprüft
+			\item Am 16.06. findet ein eigenes Treffen statt, um technische Fragen zu klären
+			\item Als Ziel wird eine Vorstellung der Webseite auf dem iGEM Treffen angestrebt
+		\end{itemize}
+
+	\end{multicols}
+	
+\end{document}
+
