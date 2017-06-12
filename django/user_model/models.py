@@ -29,8 +29,8 @@ class Profile(models.Model):
     )
     group = models.OneToOneField(
         LearningGroup,
-        null=True,
-        on_delete=models.SET_NULL
+        blank=True,
+        null=True
     )
     date_registered = models.DateField()
     is_mod = models.BooleanField(
