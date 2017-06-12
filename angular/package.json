@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --host 0.0.0.0 --port 3000",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -50,6 +50,7 @@
     "typescript": "~2.3.3",
     "bootstrap": "^3.3.7",
     "angular2-cookie": "^1.2.6",
+    "node-sass": "^4.5.3",
     "webpack-dev-server": "^2.4.5"
   }
 }

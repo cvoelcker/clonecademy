@@ -108,7 +108,8 @@ class Course(models.Model):
 
     category = models.ManyToManyField(
         CourseCategory,
-        null=True
+        null=True,
+        blank = True,
     )
 
     def wipe_out(self):

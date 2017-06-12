@@ -1,5 +1,5 @@
 # Last.Backend angular example image
-FROM node:7.10.0
+FROM node:latest
 
 RUN mkdir /angular
 WORKDIR /angular
