@@ -1,10 +1,21 @@
 
-.box {
- float: left;
- width: 33%;
- margin-right: 0.5%;
- padding: 20px;
+.detail-menu {
+ position: absolute;
+ left: 0;
+ top:0;
+ right: auto;
+ bottom: 0;
  box-sizing: border-box;
+ overflow: auto;
+ overflow-x: hidden;
+}
+
+.collapse{
+  height: 0px;
+}
+
+#courses{
+  transition: height 0.4s ease-in-out;
 }
 
 .content {

@@ -6,8 +6,6 @@ import { HttpModule } from '@angular/http';
 // Material Style
 import {MdButtonModule, MdCheckboxModule, MdInputModule} from '@angular/material';
 
-import {Md2CollapseModule} from 'md2-collapse/collapse';
-
 import { RouterModule, Routes } from '@angular/router';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 
@@ -111,7 +109,6 @@ const appRoutes: Routes = [
     MdButtonModule,
     MdCheckboxModule,
     MdInputModule,
-    Md2CollapseModule,
   ],
   exports: [
     MdButtonModule,
