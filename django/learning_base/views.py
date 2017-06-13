@@ -94,7 +94,7 @@ def save(request):
         if 'title' not in m or 'question' not in m or 'order' not in m:
             course.wipe_out()
             return Response(status=401)
-        module = Module(name = m['title'])
+        module = Module(name = m['title'], learning_text = m['learningText'])
         module.save()
         order = [-1] * len(m['question'])
 
@@ -118,7 +118,7 @@ def save(request):
                 if not quest.save(q):
                     course.wipe_out()
                     return Response(status=403)
-            
+
             # add the created question to our module
             module.questions.add(quest)
 

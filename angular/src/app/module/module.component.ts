@@ -27,6 +27,7 @@ export class ModuleComponent implements OnInit {
   questionBody: string;
   lastModule:boolean;
   questions: any;
+  learningText: string;
 
   constructor(private server: ServerService, private route: ActivatedRoute) { }
 
@@ -35,6 +36,7 @@ export class ModuleComponent implements OnInit {
     this.server.get("courses/"+this.courseID+"/"+this.moduleIndex).then(data => {
       this.name = data.name
       this.questions = data.question;
+      this.learningText = data.learning_text;
     })
   }
 

@@ -67,6 +67,7 @@ export class CreateCourseComponent implements OnInit {
       }
     }
     let course = {title: this.title, categorie: this.catId,  modules: saveModules};
+    console.log(course)
     this.server.post('save/course/', course).then(data => {
       this.router.navigate(['/dashboard'])
     }).catch(err => {

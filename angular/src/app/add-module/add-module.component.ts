@@ -19,6 +19,7 @@ export class AddModuleComponent implements OnInit {
   selectedValue: Type<AddQuestionComponent>;
   id: number;
   title: string;
+  learningText: string;
   selected: boolean;
   question: ComponentFactory<AddQuestionComponent>;
   questionArray: any[] = [];
@@ -71,7 +72,7 @@ export class AddModuleComponent implements OnInit {
       }
 
     }
-    return {title: this.title, question: values};
+    return {title: this.title, question: values, learningText: this.learningText};
   }
 
 }

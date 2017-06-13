@@ -15,7 +15,7 @@ class ModuleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Module
-        fields = ('name', 'questions', "question_order",)
+        fields = ('name', 'learning_text', 'questions', "question_order",)
 
     def to_representation(self, obj):
         """
@@ -25,6 +25,7 @@ class ModuleSerializer(serializers.ModelSerializer):
         value['name'] = obj.name
         value['max_module'] = len(obj.questions.all())
         value["id"] = obj.id
+        value['learning_text'] = obj.learning_text
 
         ordering = literal_eval(obj.question_order)
         questions = QuestionPreviewSerializer(obj.questions, many=True, read_only=True).data

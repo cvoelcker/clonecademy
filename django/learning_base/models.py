@@ -32,6 +32,11 @@ class Module(models.Model):
         max_length=144
     )
 
+    learning_text = models.TextField(
+        help_text="The learning Text for the module",
+        verbose_name="Learning text"
+    )
+
     question_order = models.CharField(
         help_text="the ordering of the questions in array format. It must to start with [ and end with ]",
         verbose_name="Question ordering array",
