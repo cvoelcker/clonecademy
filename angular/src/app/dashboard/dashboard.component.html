@@ -8,7 +8,7 @@
       <button md-raised-button class=" " (click)="createclicked()" >add Course</button><br>
 
       <button md-raised-button class=" " (click)="collapse = !collapse" >Courses</button>
-      <div id="courses" [collapse]="collapse">
+      <div id="courses" class="collapse">
         <div *ngFor="let c of course">
         <a routerLink="/course/{{c.id}}" >{{c.name}}</a>
         </div>
@@ -26,7 +26,3 @@
       </div>
 
     </div>
-
-  </div>
-
-</div>
