@@ -2,8 +2,15 @@
 .box {
  float: left;
  width: 33%;
- margin-right: 2%;
+ margin-right: 0.5%;
  padding: 20px;
- background: #eee;
+ box-sizing: border-box;
+}
+
+.content {
+ float: right;
+ width: 66%;
+ margin-right: 0.5%;
+ padding: 20px;
  box-sizing: border-box;
 }
