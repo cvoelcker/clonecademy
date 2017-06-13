@@ -12,6 +12,6 @@ docker-compose run django python3 manage.py makemigrations user_model
 
 docker-compose run django python3 manage.py migrate
 
-
+echo "please enter email and password for the superuser admin"
 docker-compose run django python3 manage.py createsuperuser --username admin
 docker-compose run django python3 manage.py shell < install_script.py
