@@ -1,12 +1,13 @@
 <h2>
-  {{name}}
+  {{name}} <button *ngIf="!completed" md-raised-button class="startCourse" routerLink="/course/{{ id }}/1/1/"> start Course</button>
 </h2>
 <ul>
   <li *ngFor="let m of modules; let i = index">
-    <a routerLink="{{i + 1}}/"><b>{{i + 1}}:</b> {{m.name}}</a>
+    <h3><b>{{i + 1}}:</b> {{m.name}}</h3>
+    <div>{{m.learning_text}}</div>
     <ul>
       <li *ngFor="let q of m.question; let j = index">
-        <a routerLink="{{i + 1}}/{{j + 1}}/"><b>{{j + 1}}:</b> {{q.class}}</a>
+        <div class="alert" [class.alert-success]="solved.indexOf(q.id) > -1"><b>{{j + 1}}:</b> {{q.class}}</div>
       </li>
     </ul>
   </li>

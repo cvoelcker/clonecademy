@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Type, OnInit, Output, EventEmitter, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory } from '@angular/core';
 
 import { ServerService} from '../service/server.service'
 
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
+import { CourseComponent } from '../course/course.component'
 
 import { CreateCourseComponent } from '../create-course/create-course.component'
 
@@ -24,12 +25,19 @@ import { CreateCourseComponent } from '../create-course/create-course.component'
   ]
 })
 export class DashboardComponent implements OnInit {
-  course: any;
+  data: any;
   create: boolean;
   statistics: boolean;
   collapse: boolean
 
-  constructor(private server: ServerService) {
+  course: ComponentFactory<CourseComponent>;
+  addCourse: ComponentFactory<CreateCourseComponent>;
+
+  @ViewChild('details', {read: ViewContainerRef}) details: ViewContainerRef;
+
+  constructor(private server: ServerService, private factory: ComponentFactoryResolver) {
+    this.course = this.factory.resolveComponentFactory(CourseComponent)
+    this.addCourse = this.factory.resolveComponentFactory(CreateCourseComponent)
 
   }
 
@@ -39,22 +47,23 @@ export class DashboardComponent implements OnInit {
 
     this.server.get("courses/")
       .then(data => {
-        this.course = data
+        this.data = data
       }
       )
       .catch(err => console.log(err))
   }
 
-  createclicked(){
-    this.create = true;
-    this.statistics = false;
-
+  createClicked(){
+    this.details.clear()
+    this.details.createComponent(this.addCourse)
   }
 
-  statisticsclicked(){
-    this.statistics = true;
-    this.create = false;
+  courseClicked(id: number){
+    this.details.clear()
+    let courseView = this.details.createComponent(this.course)
+    let course = (<CourseComponent> courseView.instance)
+    course.id = id;
+    course.load()
   }
-
 
 }
