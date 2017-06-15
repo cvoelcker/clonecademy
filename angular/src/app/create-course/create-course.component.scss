@@ -1,5 +1,13 @@
 @import '../../_vars';
 
 .moduleWrapper{
-  border-top: 2px solid $optional-color;
+  border-top: 2px solid black;
+}
+
+ul{
+  padding: 0;
+  list-style: none;
+  li:nth-child(2n){
+    background-color: red;
+  }
 }
