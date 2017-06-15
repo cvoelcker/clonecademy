@@ -1,4 +1,5 @@
 <h2>Request mod rights</h2>
+{{available}}
 <form *ngIf="available" name="form">
   <label for="reasonInput">Give a reason for the request</label>
     <div class="form-group" [ngClass]="{ 'has-error': submitted }">
@@ -10,4 +11,5 @@
     </div>
 </form>
 <div class="error" *ngIf="invalidLogin">Your request could not be sent</div>
+<p *ngIf="error">Request was rejected</p>
 <div *ngIf="available == false" class="help-block">Request sent</div>
