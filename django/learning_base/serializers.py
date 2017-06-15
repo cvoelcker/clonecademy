@@ -1,7 +1,38 @@
 from rest_framework import serializers
 from .models import *
-from .question.serializer import *
 from ast import literal_eval
+from learning_base.multiply_choice.models import *
+from learning_base.multiply_choice.serializer import *
+
+class QuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Question
+        fields = ('id', )
+
+    def to_representation(self, obj):
+        if isinstance(obj, MultipleChoiceQuestion):
+            value = MultipleChoiceQuestionSerializer(obj, context = self.context).to_representation(obj)
+        # to serialize add new serializ classes for module types here
+        else:
+            return super(QuestionSerializer, self).to_representation(obj)
+
+        value['class'] = obj.__class__.__name__
+        return value
+
+class QuestionPreviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Question
+        fields = ('id', )
+
+    def to_representation(self, obj):
+        if isinstance(obj, MultipleChoiceQuestion):
+            value = MultipleChoiceQuestionPreviewSerializer(obj, context = self.context).to_representation(obj)
+        # to serialize add new serializ classes for module types here
+        else:
+            return super(QuestionPreviewSerializer, self).to_representation(obj)
+
+        value['class'] = obj.__class__.__name__
+        return value
 
 
 class CourseCategorySerializer(serializers.ModelSerializer):
@@ -17,6 +48,9 @@ class ModuleSerializer(serializers.ModelSerializer):
         model = Module
         fields = ('name', 'learning_text', 'questions', "question_order",)
 
+    #TODO: Can this be refactored and the ordering be done in the frontend?
+    #      The serializer is needlessly complicated
+    #      The ordering field in Question Meta should do this
     def to_representation(self, obj):
         """
         This function makes the serialization and is needed for the custom order of the question
@@ -45,6 +79,9 @@ class CourseSerializer(serializers.ModelSerializer):
         model = Course
         fields = ('name', 'course_difficulty', 'id')
 
+    #TODO: Can this be refactored and the ordering be done in the frontend?
+    #      The serializer is needlessly complicated
+    #      The ordering field in Module Meta should do this
     def to_representation(self, obj):
         """
         This function makes the serialization and is needed for the custom order of the modules
@@ -54,7 +91,6 @@ class CourseSerializer(serializers.ModelSerializer):
         value['course_difficulty'] = obj.course_difficulty
         value["id"] = obj.id
 
-        ordering = literal_eval(obj.module_order)
         modules = ModuleSerializer(obj.module, many=True, read_only=True).data
 
         return_modules = []

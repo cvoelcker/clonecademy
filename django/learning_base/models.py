@@ -1,6 +1,7 @@
 from django.db import models
-from learning_base.question.models import Question
+from polymorphic.models import PolymorphicModel
 from django.contrib.contenttypes.models import ContentType
+from user_model import models as ub_models
 
 class CourseCategory(models.Model):
     """
@@ -18,13 +19,68 @@ class CourseCategory(models.Model):
     def __str__(self):
         return self.name
 
+
+class Course(models.Model):
+    """
+    One course is a group of questions which build on each other and should be solved
+    together. These questions should have similar topics, difficulty and should form
+    a compete unit for learning.
+    """
+    QUESTION_NAME_LENGTH = 144
+
+    EASY = 0
+    MODERATE = 1
+    DIFFICULT = 2
+    EXPERT = 3
+    DIFFICULTY = (
+        (EASY, 'Easy (high school students)'),
+        (MODERATE, 'Moderate (college entry)'),
+        (DIFFICULT, 'Difficult (college students'),
+        (EXPERT, 'Expert (college graduates)')
+    )
+
+    name = models.CharField(
+        verbose_name='Course name',
+        help_text="A short concise name for the course",
+        unique=True,
+        max_length=144
+    )
+
+    category = models.ForeignKey(
+        CourseCategory,
+        null=True,
+        blank = True
+    )
+
+    course_difficulty = models.IntegerField(
+        verbose_name='Course difficulty',
+        choices=DIFFICULTY,
+        default=MODERATE
+    )
+
+    responsible_mod = models.ForeignKey(
+        ub_models.Profile,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
+
+    is_visible = models.BooleanField(
+        verbose_name='Is the course visible',
+        default=False
+    )
+
+    def __str__(self):
+        return self.name
+
+
 class Module(models.Model):
     """
     A Course is made out of many modules and a module and in a Module can be n questions
     """
-
     class Meta():
-        ordering = ('name',)
+        unique_together = ['module_order', 'course']
+        ordering = ['module_order']
 
     name = models.CharField(
         help_text="A short concise name for the module",
@@ -37,20 +93,12 @@ class Module(models.Model):
         verbose_name="Learning text"
     )
 
-    question_order = models.CharField(
-        help_text="the ordering of the questions in array format. It must to start with [ and end with ]",
-        verbose_name="Question ordering array",
-        max_length=144,
-        null=True
+    course = models.ForeignKey(
+        Course,
+        on_delete=models.CASCADE
     )
 
-    questions = models.ManyToManyField(
-        Question,
-        null=True
-    )
-
-    def evaluate(data):
-        return False
+    module_order = models.IntegerField()
 
     def __str__(self):
         return self.name
@@ -60,73 +108,43 @@ class Module(models.Model):
             q.delete()
         super(Module, self).delete()
 
-class Course(models.Model):
+
+class Question(PolymorphicModel):
     """
-    One course is a group of questions which build on each other and should be solved
-    together. These questions should have similar topics, difficulty and should form
-    a compete unit for learning.
+    A question is the smallest unit of the learning process. A question has a task that
+    can be solved by a user, a correct solution to evaluate the answer and a way to
+    provide feedback to the user.
     """
-    QUESTION_NAME_LENGTH = 144
+    class Meta():
+        unique_together = ['module', 'question_order']
+        ordering = ['module', 'question_order']
 
-    EASY = 'EA'
-    MODERATE = 'MO'
-    DIFFICULT = 'DI'
-    EXPERT = 'EX'
-    DIFFICULTY = (
-        (EASY, 'Easy (high school students)'),
-        (MODERATE, 'Moderate (college entry)'),
-        (DIFFICULT, 'Difficult (college students'),
-        (EXPERT, 'Expert (college graduates)')
+    question_title = models.TextField(
+        verbose_name='Question title',
+        help_text="A short and concise name for the question"
     )
 
-    module_order = models.CharField(
-        help_text="The ordering of the modules in array format. It must to start with [ and end with ]",
-        verbose_name="Question ordering array",
-        max_length=144,
-        null=True
+    question_body = models.TextField(
+        verbose_name='Question text',
+        help_text="This field can contain markdown syntax"
     )
 
-    name = models.CharField(
-        verbose_name='Course name',
-        help_text="A short concise name for the course",
-        unique=True,
-        max_length=144
-    )
-    #Course_type = models.ManyToManyField(CourseCategory)
-
-    # QUESTION: Other representation better? How to guarantee constraints
-    course_difficulty = models.CharField(
-        verbose_name='Course difficulty',
-        max_length=2,
-        choices=DIFFICULTY,
-        default=MODERATE
-    )
-    is_visible = models.BooleanField(
-        verbose_name='Is the course visible',
-        default=False
+    feedback = models.TextField(
+        verbose_name="feedback",
+        help_text="The feedback for the user after a sucessful answer"
     )
 
-    module = models.ManyToManyField(
+    question_order = models.IntegerField()
+
+    module = models.ForeignKey(
         Module,
-        null=True
+        verbose_name="feedback",
+        help_text="The corresponding module for the question",
+        on_delete=models.CASCADE
     )
 
-    category = models.ManyToManyField(
-        CourseCategory,
-        null=True,
-        blank = True,
-    )
-
-    def wipe_out(self):
-        for m in self.module.all():
-            m.delete()
-        super(Course, self).delete()
-
-    def visible(self):
-        return self.is_visible
-
-    def getQuestions(self):
-        return self.question_set
+    def feedback_is_set(self):
+        return len(feedback) != 0
 
     def __str__(self):
-        return self.name
+        return self.question_title

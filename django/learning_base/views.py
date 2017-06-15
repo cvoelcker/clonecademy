@@ -5,9 +5,7 @@ from rest_framework.decorators import api_view
 from ast import literal_eval
 
 from learning_base.serializers import *
-from learning_base.question.serializer import *
-from learning_base.question.models import Question
-from learning_base.question.multiply_choice.models import MultipleChoiceQuestion
+from learning_base.multiply_choice.models import MultipleChoiceQuestion
 from learning_base.models import Course, CourseCategory
 
 from user_model.models import Try

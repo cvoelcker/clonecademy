@@ -42,7 +42,7 @@ urlpatterns = [
 
     url(r'^user/statistics$', user_view.getStatisticsOverview),
     url(r'^user/request_mod$', user_view.requestModStatus),
-    url(r'^user/can_request_mod$', user_view.canRequestMod),
+    url(r'^user/can_request_mod$', user_view.getUserDetails),
     url(r'^user/$', user_view.getUserInfo),
     url(r'^user/(?P<userID>[0-9]+)/?$', user_view.getUserDetails),
 

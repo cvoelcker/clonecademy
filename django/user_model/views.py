@@ -13,20 +13,23 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import authentication_classes, permission_classes
 
-# Create your views here.
-
+# TODO: Consistency over checks: is user and profile extracted here, or in the
+#       serializer? Make all consistent, for better maintainability
 
 @api_view(['GET'])
 def getStatisticsOverview(request):
-    json = StatisticsOverviewSerializer(request.user).data
-    return Response(json)
+    '''
+    Returns the statistics overview for a user
+    '''
+    json = StatisticsOverviewSerializer(request.user)
+    return Response(json.data)
 
-@api_view(['GET'])
-def getStatisticsDetail(request):
-    pass
 
 @api_view(['GET'])
 def getAllUsers(request):
+    '''
+    Returns a list of alluser profile names
+    '''
     profiles = Profile.objects.all()
     serializer = ProfileListSerializer(profiles, many=True).data
     #TODO it will return [{user: {username, id, email}}]
@@ -34,11 +37,17 @@ def getAllUsers(request):
     serializer = map(lambda x: x['user'], serializer)
     return Response(serializer)
 
+
+# TODO: What is the difference between the next two methods
 @api_view(['GET'])
 def getUserDetails(request, userID):
-    profiles = Profile.objects.filter(id=userID).first()
-    serializer = ProfileSerializer(profiles).data
-    return Response(serializer)
+    '''
+    Returns the user profile info
+    '''
+    profile = request.user.profile
+    profile_data = ProfileSerializer(profile)
+    return Response(profile_data.data)
+
 
 @api_view(['GET'])
 def getUserInfo(request):
@@ -48,10 +57,15 @@ def getUserInfo(request):
             value.append(group)
     return Response(value)
 
+
 @api_view(['POST'])
 @authentication_classes([])
 @permission_classes([])
 def createNewUser(request):
+    '''
+    This handels the request for a new user account. All data is validated, and if
+    every consistency check passes, a new user and  new profile is created.
+    '''
     # User serialization out of json request data
     user_serializer = UserSerializer(data=request.data)
     if user_serializer.is_valid():
@@ -65,6 +79,7 @@ def createNewUser(request):
         profile_serializer.save()
         return Response(status=status.HTTP_200_OK)
     return Response(profile_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['POST'])
 def requestModStatus(request):
@@ -94,9 +109,3 @@ def requestModStatus(request):
         ['test@test.net']
     )
     return Response("Request send")
-
-@api_view(['GET'])
-def canRequestMod(request):
-    profile = request.user.profile
-    can_request = ProfileSerializer(profile)
-    return Response(can_request.data)

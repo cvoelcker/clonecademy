@@ -1,23 +1,32 @@
 from rest_framework import serializers
 
 from .models import *
-from learning_base.question.models import Question
+from learning_base.models import Question
 from learning_base.serializers import QuestionSerializer
 
 
 class GroupSerializer(serializers.ModelSerializer):
+    '''
+    Model serializer for the Group model
+    '''
     class Meta:
         model = LearningGroup
         fields = ('name', "id" )
 
 
 class UserSerializer(serializers.ModelSerializer):
+    '''
+    Model serializer for the User model
+    '''
     class Meta:
         model = User
         fields = ('username', 'email', 'password', "id")
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+    '''
+    Model serializer for the Profile model
+    '''
     user = UserSerializer()
     group = GroupSerializer()
 
@@ -31,14 +40,24 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = ('user', 'group', 'date_registered', 'first_name', 'last_name', 'age')
 
+
+# TODO: Kill this shit, it is not relevant anymore, it provides the same
+#       functions as above
 class ProfileListSerializer(serializers.ModelSerializer):
+    '''
+    Model serializer for the Profile model
+    '''
     user = UserSerializer()
 
     class Meta:
         model = Profile
         fields = ('user', )
 
-class StatisticsDetailedViewSerializer(serializers.ModelSerializer):
+
+class TrySerializer(serializers.ModelSerializer):
+    '''
+    Model serializer for the Try model
+    '''
     person = ProfileSerializer()
     question = QuestionSerializer()
 
@@ -48,7 +67,9 @@ class StatisticsDetailedViewSerializer(serializers.ModelSerializer):
 
 
 class StatisticsOverviewSerializer(serializers.BaseSerializer):
-
+    '''
+    Longer serializer for the statistics overview
+    '''
     def to_representation(self, user):
         all_questions = list()
         for question in Question.objects.all():
@@ -69,6 +90,8 @@ class StatisticsOverviewSerializer(serializers.BaseSerializer):
                 all_questions.append(question_entry)
         return all_questions
 
+# For reference:
+#
 # class CommentSerializer(serializers.Serializer):
 #    email = serializers.EmailField()
 #    content = serializers.CharField(max_length=200)

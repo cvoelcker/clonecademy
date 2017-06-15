@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from .models import CourseCategory, Course, Module
-from learning_base.question.multiply_choice.models import *
+from .models import CourseCategory, Course, Module, Question
+from learning_base.multiply_choice.models import *
 
 admin.site.register(Module)
 admin.site.register(CourseCategory)
