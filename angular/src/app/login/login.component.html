@@ -50,7 +50,22 @@
             <div *ngIf="submitted " class="help-block">Password is required</div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" [ngClass]="{ 'has-error': submitted }">
+            <label for="newFirstName">First name (optional)</label>
+	    <input type="text" class="form-control" name="new_first_name" [(ngModel)]="newFirstName"/>
+        </div>
+        
+        <div class="form-group" [ngClass]="{ 'has-error': submitted }">
+            <label for="newLastName">Last name (optional)</label>
+	    <input type="text" class="form-control" name="text" [(ngModel)]="newLastName" />
+        </div>
+	
+        <div class="form-group" [ngClass]="{ 'has-error': submitted }">
+            <label for="newAge">Age (optional)</label>
+	    <input type="number" class="form-control" name="number" [(ngModel)]="newAge" />
+        </div>
+	
+	<div class="form-group">
             <button [disabled]="loading" (click)="register()" md-raised-button class=" ">Register</button>
         </div>
 

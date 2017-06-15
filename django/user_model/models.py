@@ -15,11 +15,34 @@ class LearningGroup(models.Model):
     def __str__(self):
         return self.name
 
+class ProfileManager(models.Manager):
+    def create_both(self, username, email, password="", group=None, first_name='', last_name='', age=None):
+        user = User.objects.create_user(
+            username=username,
+            email=email,
+            password=password
+        )
+        if LearningGroup.objects.filter(name=group):
+            group = LearningGroup.objects.filter(name=group)
+        else:
+            group=None
+        profile = Profile(
+            user=user,
+            group=group,
+            first_name=first_name,
+            last_name=last_name,
+            age=age
+        )
+        profile.save()
+        return
+
 
 class Profile(models.Model):
     """
     The profile of a user, storing information about its completed courses etc.
     """
+    objects = ProfileManager()
+
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE
@@ -30,8 +53,6 @@ class Profile(models.Model):
         blank=True,
         null=True
     )
-
-    date_registered = models.DateField()
 
     is_mod = models.BooleanField(
         default=False
@@ -50,19 +71,19 @@ class Profile(models.Model):
     #Optional info from the user
     first_name = models.CharField(
         max_length=100,
-        null = True,
-        blank = True
+        blank=True,
+        null=True
     )
 
     last_name = models.CharField(
         max_length=100,
-        null = True,
-        blank = True
+        blank=True,
+        null=True
     )
 
     age = models.IntegerField(
-        null = True,
-        blank = True
+        blank=True,
+        null=True
     )
 
     def get_link_to_profile(self):

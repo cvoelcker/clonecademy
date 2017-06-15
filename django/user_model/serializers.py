@@ -20,7 +20,19 @@ class UserSerializer(serializers.ModelSerializer):
     '''
     class Meta:
         model = User
-        fields = ('username', 'email', 'password', "id")
+        fields = ('username', 'email', 'id', 'date_joined')
+
+    def create(self, validated_data):
+        print("\n\n\n\n\n{}\n\n\n\n\n\n\n\n\n".format(validated_data))
+        return Profile.objects.create_both(
+            username=validated_data["username"],
+            email=validated_data["email"],
+            password=validated_data["password"],
+            age=validated_data["age"],
+            group=validated_data["group"],
+            first_name=validated_data["first_name"],
+            last_name=validated_data["last_name"],
+        )
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -28,17 +40,11 @@ class ProfileSerializer(serializers.ModelSerializer):
     Model serializer for the Profile model
     '''
     user = UserSerializer()
-    group = GroupSerializer()
-
-    def to_representation(self, obj):
-        serializer = UserSerializer(obj.user).data
-        serializer['group'] = GroupSerializer(obj.group).data
-        serializer['date_registered'] = obj.date_registered
-        return serializer
+    group = GroupSerializer(required=False)
 
     class Meta:
         model = Profile
-        fields = ('user', 'group', 'date_registered', 'first_name', 'last_name', 'age')
+        fields = ('user', 'group', 'first_name', 'last_name', 'age', 'requested_mod')
 
 
 # TODO: Kill this shit, it is not relevant anymore, it provides the same
@@ -51,7 +57,7 @@ class ProfileListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ('user', )
+        fields = ('user',)
 
 
 class TrySerializer(serializers.ModelSerializer):

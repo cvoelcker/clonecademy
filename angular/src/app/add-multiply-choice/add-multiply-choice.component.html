@@ -2,10 +2,10 @@
   <h2>
     Add multipe choice Question
   </h2>
-  <h3>Question</h3>
+  <label for="question">Question</label>
   <textarea class="question" id="question" type="textarea" [(ngModel)]="question"></textarea>
-  <button md-raised-button class=" " (click)="addAnswer()">add Answer</button>
-  <ul *ngFor="let i of answers; let j = index" class="answers">
+  <label for="answers">Answers</label>
+  <ul *ngFor="let i of answers; let j = index" id="answers" class="answers">
     <li class="singleQuestion" [class.correct]="i.correct">
       <div class="alert" [class.alert-success]="i.correct">
         <md-checkbox type="checkbox" name="isActive" id="feedbackBool" [(ngModel)]="i.correct">
@@ -18,4 +18,5 @@
       </div>
     </li>
   </ul>
+  <button md-raised-button class="addAnswer" (click)="addAnswer()">add Answer</button>
 </div>

@@ -12,7 +12,7 @@
   </div>
 </div>
 
-<div>
+<div [class.moduleWrapper]="moduleArray.length > 0" class="test">
   <div class="modules" #modules></div>
   <button md-raised-button class=" " (click)="addModule()">
     <i class="material-icons">add</i> add Module

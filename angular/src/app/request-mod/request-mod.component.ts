@@ -16,20 +16,18 @@ export class RequestModComponent implements OnInit {
   errorMessage: string;
   available: boolean;
 
-  constructor(private server: ServerService) {
-    this.check_request()
-  }
+  constructor(private server: ServerService) {}
 
   check_request() {
     this.server.get("user/can_request_mod")
       .then(answer => {
         if (answer['requested_mod'])
-          this.available = false
+          this.available = false;
         else
-          this.available = true
+          this.available = true;
       })
-      .catch(error => {this.available = false})
-    return this.available
+      .catch(error => {this.available = false});
+    return this.available;
   }
 
   send_request(){
@@ -42,5 +40,8 @@ export class RequestModComponent implements OnInit {
       .catch(error => this.errorMessage = error.statusText);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.check_request();
+  }
+
 }

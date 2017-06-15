@@ -1,10 +1,20 @@
-<div class="col-md-4">
-  <h2>Dashboard</h2>
-  <button md-raised-button class=" " routerLink="/profile/statistics/">view statistics</button>
-  <button md-raised-button class=" " routerLink="/createCourse/">add Course</button>
-  <div *ngFor="let c of course">
-  <a routerLink="/course/{{c.id}}">{{c.name}}</a>
-  </div>
-</div>
-<div class="col-md-8">
-</div>
+<div class="Document">
+
+  <div class="row">
+
+    <div class ="detail-menu col-md-4">
+      <h2>Dashboard<button md-raised-button class="addCourse" (click)="createClicked()" >add Course</button><br></h2>
+
+      <button md-button class="collapseButton" (click)="collapse = !collapse" >Courses</button>
+      <div id="courses" [class.collapse]="collapse">
+        <div *ngFor="let c of data">
+        <a (click)="courseClicked(c.id)" >{{c.name}}</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class ="content col-md-8">
+      <div #details></div>
+
+    </div>

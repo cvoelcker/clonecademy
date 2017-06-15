@@ -1,13 +1,15 @@
-<header class="container">
-  <h1>
-    {{title}}
-  </h1>
-  <app-menu></app-menu>
-</header>
-<main class="container">
-  <router-outlet appLoggedIn>
-  </router-outlet>
-</main>
-<footer class="container">
-  footer
-</footer>
+<div class="box">
+  <header class="container">
+    <h1>
+      {{title}}
+    </h1>
+    <app-menu></app-menu>
+  </header>
+  <main class="container flex">
+    <router-outlet class="content" appLoggedIn>
+    </router-outlet>
+  </main>
+  <footer class="container flex">
+    footer
+  </footer>
+</div>

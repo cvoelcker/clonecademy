@@ -29,7 +29,16 @@ def singleCourse(request, courseID):
     if len(course) <= 0:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    return Response(CourseSerializer(course[0]).data)
+    course = course.first()
+    data = CourseSerializer(course).data
+    solved = []
+
+    for m in course.module.all():
+        for q in m.questions.all():
+            if Try.objects.filter(question=q).filter(solved=True).exists():
+                solved.append(q.id)
+    data['solved'] = solved
+    return Response(data)
 
 
 def get_module_by_order(course, index):
