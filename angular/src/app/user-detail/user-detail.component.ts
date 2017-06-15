@@ -17,7 +17,7 @@ export class UserDetailComponent {
   change(id: number){
     this.server.get("user/"+ id + "/").then(data => {
       this.user = data
-      this.user['dateRegistered'] = new Date(data['date_registered'])
+      this.user['dateRegistered'] = new Date(data['date_joined'])
     }).catch(err => console.log(err))
   }
 }

@@ -55,16 +55,11 @@ def createNewUser(request):
     # User serialization out of json request data
     user_serializer = UserSerializer(data=request.data)
     if user_serializer.is_valid():
-        user_serializer.save()
-        return Response(status=status.HTTP_200_OK)
-    return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        user = user_serializer.create(request.data)
+        return Response(user)
+    else:
+        return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    # profile serialization out of json request data
-    profile_serializer = ProfileSerializer(data=request.data)
-    if profile_serializer.is_valid():
-        profile_serializer.save()
-        return Response(status=status.HTTP_200_OK)
-    return Response(profile_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 def requestModStatus(request):

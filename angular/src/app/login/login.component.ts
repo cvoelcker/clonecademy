@@ -39,9 +39,10 @@ export class LoginComponent implements OnInit {
   newEmail: string;
   newPassword: string;
   newPassword2: string;
-  newName: string;
-  newSurname: string;
-  newAge: number;
+  newFirstName: string = "";
+  newLastName: string = "";
+  newAge: number = -1;
+  newGroup: string = "";
   invalidRegister: boolean;
   errorMessage: string;
 
@@ -65,9 +66,10 @@ export class LoginComponent implements OnInit {
     let newUserInfo = {username: this.newUsername,
                         email: this.newEmail,
                         password: this.newPassword,
-                        name: this.newName,
-                        surname: this.newSurname,
-                        age: this.newAge,};
+                        first_name: this.newFirstName,
+                        last_name: this.newLastName,
+			age: this.newAge,
+			group: this.newGroup,};
     this.server.post("register/", newUserInfo)
       .then(answer => {console.log(answer)})
       .catch(error => {this.invalidRegister = true;
