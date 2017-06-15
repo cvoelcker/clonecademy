@@ -126,5 +126,3 @@ npm-debug.log
 
 #Django
 django/db.sqlite.3
-django/*/migrations/
-django/*/__init__.py
