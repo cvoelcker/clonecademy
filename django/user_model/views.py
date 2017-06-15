@@ -38,7 +38,8 @@ def getAllUsers(request):
 def getUserDetails(request, userID):
     profiles = Profile.objects.filter(id=userID).first()
     serializer = ProfileSerializer(profiles).data
-    return Response(serializer)
+    #serializer = map(lambda x: x['user'], serializer)
+    return Response(serializer['user'])
 
 @api_view(['GET'])
 def getUserInfo(request):
@@ -95,3 +96,8 @@ def canRequestMod(request):
     profile = request.user.profile
     can_request = ProfileSerializer(profile)
     return Response(can_request.data)
+
+@api_view(['GET'])
+def getCurrentUser(request):
+    profile = request.user.profile
+    return Response(ProfileSerializer(profile).data)

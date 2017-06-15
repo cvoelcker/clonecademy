@@ -13,9 +13,17 @@ import { ServerService } from '../service/server.service';
 })
 export class ProfilePageComponent implements OnInit {
 
+  user: {username: string, email: string, id: number, date_joined: Date};
+
   constructor(private cookie: CookieService, private router: Router, private server: ServerService) { }
 
   ngOnInit() {
+    console.log
+    this.server.get("current_user/").then(data => {
+      this.user = data.user
+
+      this.user['date_joined'] = new Date(data['user']['date_joined'])
+    }).catch(err => console.log(err))
   }
 
   logout(): void{

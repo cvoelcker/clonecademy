@@ -45,6 +45,7 @@ urlpatterns = [
     url(r'^user/can_request_mod$', user_view.canRequestMod),
     url(r'^user/$', user_view.getUserInfo),
     url(r'^user/(?P<userID>[0-9]+)/?$', user_view.getUserDetails),
+    url(r'^current_user/$', user_view.getCurrentUser),
 
     url(r'^list-user/', user_view.getAllUsers),
 

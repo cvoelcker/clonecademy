@@ -18,6 +18,7 @@ export class UserDetailComponent {
     this.server.get("user/"+ id + "/").then(data => {
       this.user = data
       this.user['dateRegistered'] = new Date(data['date_joined'])
+      console.log(this.user)
     }).catch(err => console.log(err))
   }
 }
