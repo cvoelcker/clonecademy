@@ -23,7 +23,7 @@
 		Ilhan Simsiki
 		<\href{mailto:ilhan.simsiki@stud.tu-darmstadt.de}{ilhan.simsiki@stud.tu-darmstadt.de}>\\
 		Leonhard Wiedmann
-		<\href{mailto:leonhard.wiedmann@stud.tu-darmstadt.de}{leonhard.wiedmann@stud.tu-darmstadt.de}>\\ 
+		<\href{mailto:leonhard.wiedmann@stud.tu-darmstadt.de}{leonhard.wiedmann@stud.tu-darmstadt.de}>\\
 		Tobias Huber
 		<\href{mailto:tobias.huber@stud.tu-darmstadt.de}{tobias.huber@stud.tu-darmstadt.de}>\\
 		Claas Völcker
@@ -44,7 +44,7 @@
 \chapter{Einleitung}
 
 \emph{CloneCademy} ist ein Projekt für das iGEM-Team der TU Darmstadt. Die \emph{international Genetically Engineered Machine competition} (iGEM) ist ein internationaler Wettbewerb für Studierende auf dem Gebiet der Synthetischen Biologie.
-Dieser wird seit 2003 von der iGEM-Foundation veranstaltet. 
+Dieser wird seit 2003 von der iGEM-Foundation veranstaltet.
 
 Im Rahmen des Wettbewerbs wird eine Online-Lernplattform für das iGEM-Team der TU Darmstadt erstellt. Das Ziel dieser Plattform ist es, durch interaktive Unterrichtseinheiten Prinzipien der Molekularbiologie sowie der syntetischen Biologie zu erlernen, und sowohl eigene Lernfortschritte als auch die anderer Teams, begutachten zu können. Darüber hinaus soll es auch anderen Interessierten (z.B. andere iGEM-Teams, Lehrende an Universitäten und Schulen, etc.) möglich sein, eigene Inhalte einzupflegen und zur Verfügung zu stellen.
 
@@ -52,7 +52,7 @@ Im Rahmen des Wettbewerbs wird eine Online-Lernplattform für das iGEM-Team der 
 \section{Datensicherheit (Security)}
 
 Im Rahmen des Projekts CloneCademy wird eine Webanwendung entwickelt, auf die über das Internet zugegriffen werden kann. Daher ist die Sicherung gegen unbefugten Zugriff und Änderung der Daten der Webseite in diesem Projekt das wichtigste Qualitätsziel. Da CloneCademy sowohl persönliche Daten der Nutzer*innen als auch Metadaten über die Nutzung der Plattform und die Inhalte der einzelnen Lerneinheiten in einer Datenbank speichert, ist es sehr wichtig, dass Internetnutzer*innen keine Daten verändern oder einsehen können, solange sie dazu nicht die benötigten Rechte besitzen.
-		
+
 Die größte Bedrohung geht von bekannten Webangriffen und Misskonfigurationen im Backend einer Webseite aus. Während dieses Projekts wird darauf geachtet, dass wir die Plattform gegen die wichtigsten Sicherheitslücken in einer Webanwendung sichern.
 
 Diese sind\footnote{Paraphrasiert nach der verbreiteten Liste des Open Web Application Security Project (OWASP) \\
@@ -67,7 +67,7 @@ Diese sind\footnote{Paraphrasiert nach der verbreiteten Liste des Open Web Appli
 \item Ungenügend geschützte Programmierschnittstelle
 \end{enumerate}
 
-Um die Sicherheit der Anwendung zu gewährleisten, folgen wir einem mehrschrittigen Plan. 
+Um die Sicherheit der Anwendung zu gewährleisten, folgen wir einem mehrschrittigen Plan.
 
 Ein Entwickler des Teams wird zum Sicherheitsbeauftragten ernannt. Seine Aufgabe ist es, auf die Einhaltung aller Programmierrichtlinien zu achten und Tests zur Validierung aller Schutzziele durchzuführen. Die genaue Vorgehensweise wird im Folgenden detailliert ausgeführt.
 
@@ -80,7 +80,11 @@ Um die Qualität des Codes im Python-basierten Backend automatisiert zu testen, 
 Um die tatsächliche Sicherheit des Endproduktes gegen externe Angriffe zu zeigen, wird ein automatisiertes Penetrations-Werkzeug verwendet. Das OWASP empfiehlt hierfür das \emph{Zed Attack Proxy Project}, welches eine Reihe bekannter Angriffe auf die Plattform ausführt und die gefundenen Schwachstellen meldet. Der Sicherheitsbeauftragte führt diese Tests monatlich durch und meldet die Ergebnisse an die jeweiligen Entwickler des betroffenen Moduls, damit diese innerhalb des nächsten Monats behoben werden können. Ist eine Behebung nicht möglich, werden die Konsequenzen dieser Lücke zusammen mit möglichen weiteren Schritten zum Schutz der Anwendung im Betrieb an die Auftraggeber*innen gemeldet.
 
 \section{Bedienbarkeit (Entwurf)}
-CloneCademy muss für jede Benutzerrolle (Admin, Moderator*in, Nutzer*in) bedienbar sein. Um dies zu gewährleisten, müssen alle zugängigen Seiten, vor allem das Frontend, intuitiv benutzbar gestaltet werden. Die grundlegende Bedienung der Webseite sollte ohne Einführung erkennbar sein und alle Elemente sollten mit einer entsprechenden Hilfestellung erweitert werden.
+CloneCademy muss für jede Benutzerrolle (Admin, Moderator*in, Nutzer*in) bedienbar sein. Um dies zu gewährleisten, müssen alle zugängigen Seiten, intuitiv benutzbar gestaltet werden. Die grundlegende Bedienung der Webseite sollte ohne Einführung und Intuitiv bedienbar sein. Die Lernplatform wird vor allem für Schülern*innen und Studenten*innen im International eingesetzt. Es ist deshalb wichtig eine sehr einfache Bedienung zu schaffen, welche aber auch für eine große Seite komplexe Bedienung ermöglicht.
+
+Um dieses Ziel zu erreichen verwenden wir für den grundlegenden Style der Seite das Material Design \footnote{href{https://material.angular.io/}{https://material.angular.io/}} für Angular2 und um Buttons übersichtlicher zu machen werden diese mit Icons \footnote{\href{https://material.io/icons/}{https://material.io/icons/}} versehen. Da eine Bedienbare Oberfläche eher subjektiv ist werden wir außerdem Nutzerstudien durchführen. In den Studien werden die Benutzer ohne Einführung mit der Platform konfrontiert und sollen darin verschiedene Aufgaben erfüllen. Durch ein Tracking des Bildschirms während der Studie das Verhalten erfasst um es später zu reflektieren und durch einen paar Fragen nach der Studie wird die Persönliche Meinung der Probanden*innen zusätzlich erfasst.
+
+Um zum Schluss ein Bedienbares Produkt zu haben, werden die Nutzerstudien in mehreren Iterationen und mit immer wieder neuen Nutzer durchgeführt um Verbessungsvorschläge aus den Vorherigen Studien direkt wieder zu testen.
 
 \section{Veränderbarkeit (Entwurf)}
 Für die Webanwendung CloneCademy ist es wichtig, dass die Anwendung im Nachhinein noch veränderbar ist. Es muss möglich sein, neue Inhalte in die Datenbank einzupflegen und auch den Source Code der Webseite selbst erweitern zu können.
