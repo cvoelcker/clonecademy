@@ -1,5 +1,20 @@
+@import '../../_vars.scss';
+
 .arrows{
   button{
     width: 100%;
   }
+}
+
+#learningText{
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  min-height: 5em;
+}
+
+.moduleWrapper{
+  margin: 1em 0;
+  border-bottom: 2px solid $optional-color;
+  padding: 1em 0;
 }

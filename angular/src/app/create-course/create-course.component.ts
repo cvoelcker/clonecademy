@@ -15,6 +15,7 @@ export class CreateCourseComponent implements OnInit {
   childComponent: ComponentFactory<AddModuleComponent>;
   moduleArray: ComponentRef<AddModuleComponent>[] = [];
   i = 0;
+  length: number;
 
   categories: {name: string, id: number};
   catId: number;
@@ -33,8 +34,10 @@ export class CreateCourseComponent implements OnInit {
     this.moduleArray.push(moduleComponent)
 
     module.clear.subscribe((data) => {
+      let moduleSingle = moduleComponent
       if(data == "remove"){
-        moduleComponent.destroy();
+        this.moduleArray.splice(this.moduleArray.indexOf(moduleSingle), 1)
+        moduleSingle.destroy();
       }
       else if(data == "up"){
         let index = this.modules.indexOf(moduleComponent.hostView);
@@ -47,10 +50,11 @@ export class CreateCourseComponent implements OnInit {
         this.modules.move(moduleComponent.hostView, i);
       }
     })
+    length = this.modules.length
   }
 
   removeCourse(){
-
+    console.log(this.modules)
     this.modules.detach(0)
   }
 
@@ -61,13 +65,11 @@ export class CreateCourseComponent implements OnInit {
       let module = this.moduleArray[i];
       let index = this.modules.indexOf(module.hostView);
       let m = (<AddModuleComponent> module.instance).save();
-      if(index >= 0 && m != null){
-        m['order'] = index
-        saveModules.push(m)
-      }
+      m['order'] = index
+      saveModules.push(m)
+
     }
     let course = {title: this.title, categorie: this.catId,  modules: saveModules};
-    console.log(course)
     this.server.post('save/course/', course).then(data => {
       this.router.navigate(['/dashboard'])
     }).catch(err => {

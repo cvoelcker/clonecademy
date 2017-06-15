@@ -1,8 +1,10 @@
 <div >
-  <button md-raised-button class=" " (click)="remove()">remove Question</button>
   <div class="question" #question></div>
-  <md-checkbox name="isActive" id="feedbackBool" [(ngModel)]="feedbackBool">
-    Custom feedback
-  </md-checkbox>
-  <textarea *ngIf="feedbackBool" class="feedback" id="feedback" type="textarea" [(ngModel)]="feedback"></textarea>
+  <div>
+    <md-checkbox name="isActive" id="feedbackBool" [(ngModel)]="feedbackBool">
+      Custom feedback
+    </md-checkbox>
+    <textarea *ngIf="feedbackBool" class="feedback col-md-12" id="feedback" type="textarea" [(ngModel)]="feedback"></textarea>
+  </div>
+  <button md-raised-button class=" " (click)="remove()">remove Question</button>
 </div>

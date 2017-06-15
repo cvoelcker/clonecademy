@@ -27,9 +27,11 @@
 }
 
 .content {
- float: right;
- width: 66%;
- margin-right: 0.5%;
- padding: 20px;
  box-sizing: border-box;
+ overflow-y: auto;
+ position: absolute;
+ right: 0;
+ left: auto;
+ top: 0;
+ bottom: 0;
 }
