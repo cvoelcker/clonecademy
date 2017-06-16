@@ -1,0 +1,54 @@
+<div class="col-md-6 col-md-offset-3">
+
+<div class="register">
+
+  <h2>Register</h2>
+
+  <form name="register">
+      <div class="form-group" [ngClass]="{ 'has-error': submitted }">
+          <label for="newEmail">E-Mailadress</label>
+          <input type="" class="form-control" name="new_username" [(ngModel)]="newEmail" required />
+          <div *ngIf="submitted " class="help-block">Username is required</div>
+      </div>
+
+      <div class="form-group" [ngClass]="{ 'has-error': submitted }">
+          <label for="newUsername">Username</label>
+          <input type="text" class="form-control" name="new_username" [(ngModel)]="newUsername" required />
+          <div *ngIf="submitted " class="help-block">Username is required</div>
+      </div>
+
+      <div class="form-group" [ngClass]="{ 'has-error': submitted }">
+          <label for="newPassword">Password</label>
+          <input type="password" class="form-control" name="password" [(ngModel)]="newPassword" required />
+          <div *ngIf="submitted " class="help-block">Password is required</div>
+      </div>
+
+      <div class="form-group" [ngClass]="{ 'has-error': submitted }">
+          <label for="newPassword_2">Password again</label>
+          <input type="password" class="form-control" name="password" [(ngModel)]="newPassword2" required />
+          <div *ngIf="submitted " class="help-block">Password is required</div>
+      </div>
+
+      <div class="form-group" [ngClass]="{ 'has-error': submitted }">
+          <label for="newFirstName">First name (optional)</label>
+    <input type="text" class="form-control" name="new_first_name" [(ngModel)]="newFirstName"/>
+      </div>
+
+      <div class="form-group" [ngClass]="{ 'has-error': submitted }">
+          <label for="newLastName">Last name (optional)</label>
+    <input type="text" class="form-control" name="text" [(ngModel)]="newLastName" />
+      </div>
+
+      <div class="form-group" [ngClass]="{ 'has-error': submitted }">
+          <label for="newAge">Age (optional)</label>
+    <input type="number" class="form-control" name="number" [(ngModel)]="newAge" />
+      </div>
+
+<div class="form-group">
+          <button [disabled]="loading" (click)="register()" md-raised-button class=" ">Register</button>
+      </div>
+
+  </form>
+  <div class="alert alert-danger" *ngIf="errorMessage != null">{{errorMessage}}</div>
+  <button md-raised-button class="btn-info" routerLink="/login">Login with you account</button>
+</div>

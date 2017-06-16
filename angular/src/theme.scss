@@ -6,6 +6,7 @@
 $primary: mat-palette($md-ccred);
 $accent: mat-palette($md-ccback);
 $warn: mat-palette($mat-red);
+$shadow: mat-palette($md-ccshadow);
 $font: mat-palette($md-ccshadow);
 
 $custom-theme: mat-light-theme($primary, $accent, $warn);
@@ -13,7 +14,7 @@ $custom-theme: mat-light-theme($primary, $accent, $warn);
 @include angular-material-theme($custom-theme);
 
 main, footer{
-  background-color: #ddd;
+  background-color: mat-color($shadow, 100);
 }
 
 header{
@@ -21,7 +22,14 @@ header{
 }
 
 main{
-  //box-shadow: 0px 0px 3px mat-color($accent);
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-bottom: 1em;
+  box-shadow: 0px 2px 2px #aaa;
+}
+
+body{
+  overflow-y: hidden;
 }
 
 a{
@@ -35,6 +43,9 @@ a:hover, a:focus, a:active{
 
 *[md-raised-button]{
   background-color: mat-color($primary);
+  &:hover{
+    background-color: mat-color($primary, 300)
+  }
 }
 
 button{
@@ -47,8 +58,12 @@ button{
 
 *[md-tab-link]{
 
-    text-decoration: none;
-    color: mat-color($font);
+  text-decoration: none;
+  color: mat-color($font);
+
+  &:hover{
+    background-color: mat-color($accent, 300)
+  }
 
   &.is-active{
     border-bottom: 4px solid mat-color($primary)

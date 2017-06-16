@@ -16,6 +16,7 @@ export class ServerService {
 
   private token: string;
 
+
   constructor(private http: Http, private cookie: CookieService) {
     this.token = this.cookie.get("token")
   }
@@ -69,10 +70,10 @@ export class ServerService {
           this.token = response.token
           this.cookie.put("token", response.token);
           this.cookie.put("username", name);
-          resolve(true);
+          resolve(response);
         },
         (err) => {
-          reject(false)
+          reject(err.json())
         }))
   }
 

@@ -1,3 +1,3 @@
 <h3 *ngIf="user != undefined">Hello {{user.username}}</h3>
 <button md-raised-button routerLink="/admin/request_mod">Request mod rights</button>
-<button md-raised-button (click)="logout()">logout</button>
+<button md-raised-button (click)="user.logout()">logout</button>

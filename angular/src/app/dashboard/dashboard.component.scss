@@ -8,7 +8,18 @@
  box-sizing: border-box;
  overflow: auto;
  overflow-x: hidden;
+ box-shadow: 0 0 2px;
+}
 
+.content {
+ box-sizing: border-box;
+ overflow-y: auto;
+ position: absolute;
+ right: 0;
+ left: auto;
+ top: 0;
+ bottom: 0;
+ box-shadow: 0 0 2px;
 }
 
 .addCourse{
@@ -25,14 +36,4 @@
 
 #courses{
   transition: height 0.4s ease-in-out;
-}
-
-.content {
- box-sizing: border-box;
- overflow-y: auto;
- position: absolute;
- right: 0;
- left: auto;
- top: 0;
- bottom: 0;
 }

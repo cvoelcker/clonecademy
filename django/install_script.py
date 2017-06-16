@@ -32,8 +32,8 @@ if not Group.objects.filter(name="moderator").exists():
 
 admin_user = User.objects.filter(username="admin").first()
 
-admin_user.groups = Group.objects.filter(name="admin")
+admin_user.groups = Group.objects.all()
 admin_user.save()
 
-p = Profile(user=admin_user, date_registered= datetime.now())
+p = Profile(user=admin_user)
 p.save()

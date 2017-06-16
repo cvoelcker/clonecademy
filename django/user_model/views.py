@@ -57,7 +57,7 @@ def createNewUser(request):
     user_serializer = UserSerializer(data=request.data)
     if user_serializer.is_valid():
         user = user_serializer.create(request.data)
-        return Response(user)
+        return Response(True)
     else:
         return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

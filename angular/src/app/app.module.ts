@@ -12,6 +12,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 
 import { ServerService } from './service/server.service';
+import { UserService } from './service/user.service';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -36,6 +37,7 @@ import { ProfilesComponent } from './profiles/profiles.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
+import { RegisterComponent } from './register/register.component';
 
 const appRoutes: Routes = [
   {
@@ -45,6 +47,10 @@ const appRoutes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
   },
   {
     path: '',
@@ -120,6 +126,7 @@ const appRoutes: Routes = [
     RequestModComponent,
     ProfilePageComponent,
     AdminPageComponent,
+    RegisterComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -135,7 +142,7 @@ const appRoutes: Routes = [
   ],
   exports: [
   ],
-  providers: [ServerService, CookieService],
+  providers: [ServerService, UserService,  CookieService],
   bootstrap: [
     AppComponent,
   ],
