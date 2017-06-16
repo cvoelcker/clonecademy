@@ -1,10 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
-from learning_base import models as lb_models
 from django.core.exceptions import ValidationError
 from datetime import datetime
 from clonecadamy.settings import FRONT_END_HOSTNAME, PROFILE_PATH
+from django.apps import apps
+# from learning_base import models as lb_models
 
+
+# TODO: Refactor everything into one fucking app
 
 class LearningGroup(models.Model):
     """
@@ -110,7 +113,7 @@ class Try(models.Model):
     )
 
     question = models.ForeignKey(
-        lb_models.Question,
+        apps.get_model('learning_base', 'Question', require_ready=False),
         null=True,
         on_delete=models.SET_NULL,
     )
@@ -133,44 +136,3 @@ class Try(models.Model):
     def __unicode__(self):
         return "Solution_{}_{}_{}".format(self.question, self.solved, self.date)
 
-
-class CourseCompletion(models.Model):
-    """
-    A field holding reference for a user that completed a course. This makes it possible
-    to track, when a user completed the course.
-    """
-    person = models.ForeignKey(
-        Profile,
-        on_delete=models.CASCADE
-    )
-
-    course = models.ForeignKey(
-        lb_models.Course,
-        on_delete=models.CASCADE
-    )
-
-    date = models.DateField()
-
-    def __str__(self):
-        return self.name
-
-
-#TODO: Implement which questions are solved (maybe via the Try's?)
-class Progress(models.Model):
-    """
-    A field tracking a users progress in different modules.
-    """
-    person = models.ForeignKey(
-        Profile,
-        on_delete=models.CASCADE
-    )
-
-    course = models.ForeignKey(
-        lb_models.Course,
-        on_delete=models.CASCADE
-    )
-
-    date = models.DateField()
-
-    def __str__(self):
-        return self.name

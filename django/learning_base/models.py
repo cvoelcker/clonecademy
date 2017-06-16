@@ -1,7 +1,9 @@
 from django.db import models
 from polymorphic.models import PolymorphicModel
 from django.contrib.contenttypes.models import ContentType
-from user_model import models as ub_models
+from django.apps import apps
+# from user_model import models as ub_models
+
 
 class CourseCategory(models.Model):
     """
@@ -59,7 +61,7 @@ class Course(models.Model):
     )
 
     responsible_mod = models.ForeignKey(
-        ub_models.Profile,
+        apps.get_model('user_model', 'Profile', require_ready=False),
         on_delete=models.SET_NULL,
         null=True,
         blank=True
@@ -109,13 +111,14 @@ class Module(models.Model):
         super(Module, self).delete()
 
 
-class Question(PolymorphicModel):
+class Question(models.Model):
     """
     A question is the smallest unit of the learning process. A question has a task that
     can be solved by a user, a correct solution to evaluate the answer and a way to
     provide feedback to the user.
     """
     class Meta():
+        abstract = True
         unique_together = ['module', 'question_order']
         ordering = ['module', 'question_order']
 
