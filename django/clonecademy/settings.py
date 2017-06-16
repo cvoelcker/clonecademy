@@ -61,7 +61,7 @@ MIDDLEWARE_CLASSES = (
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-ROOT_URLCONF = 'clonecadamy.urls'
+ROOT_URLCONF = 'clonecademy.urls'
 
 TEMPLATES = [
     {
@@ -79,7 +79,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'clonecadamy.wsgi.application'
+WSGI_APPLICATION = 'clonecademy.wsgi.application'
 
 
 # Database
