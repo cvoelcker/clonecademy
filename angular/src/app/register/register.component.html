@@ -4,48 +4,48 @@
 
   <h2>Register</h2>
 
-  <form name="register">
+  <form #f="ngForm" name="register" (ngSubmit)="register(f)">
       <div class="form-group" [ngClass]="{ 'has-error': submitted }">
-          <label for="newEmail">E-Mailadress</label>
-          <input type="" class="form-control" name="new_username" [(ngModel)]="newEmail" required />
-          <div *ngIf="submitted " class="help-block">Username is required</div>
+          <label for="email">E-Mailadress</label>
+          <input type="email" #email="ngModel" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" class="form-control" name="email" [(ngModel)]="newEmail" required />
+          <div *ngIf="!email.valid && f.submitted" class="alert alert-danger">email is required</div>
       </div>
 
       <div class="form-group" [ngClass]="{ 'has-error': submitted }">
-          <label for="newUsername">Username</label>
-          <input type="text" class="form-control" name="new_username" [(ngModel)]="newUsername" required />
-          <div *ngIf="submitted " class="help-block">Username is required</div>
+          <label for="username">Username</label>
+          <input type="text" #username="ngModel" minlength="5" class="form-control" name="username" [(ngModel)]="newUsername" required />
+          <div *ngIf="!username.valid && f.submitted" class="alert alert-danger">Invalid input for username</div>
       </div>
 
       <div class="form-group" [ngClass]="{ 'has-error': submitted }">
           <label for="newPassword">Password</label>
-          <input type="password" class="form-control" name="password" [(ngModel)]="newPassword" required />
-          <div *ngIf="submitted " class="help-block">Password is required</div>
+          <input type="password" #password="ngModel" minlength="5" class="form-control" name="password" [(ngModel)]="newPassword" required />
+          <div *ngIf="!password.valid && f.submitted" class="alert alert-danger">Password is required</div>
       </div>
 
       <div class="form-group" [ngClass]="{ 'has-error': submitted }">
           <label for="newPassword_2">Password again</label>
-          <input type="password" class="form-control" name="password" [(ngModel)]="newPassword2" required />
-          <div *ngIf="submitted " class="help-block">Password is required</div>
+          <input type="password" #password2="ngModel" minlength="5" class="form-control" name="password2" [(ngModel)]="newPassword2" required />
+          <div *ngIf="(!password2.valid || password2.value != password.value) && f.submitted" class="alert alert-danger">password has to match</div>
       </div>
 
       <div class="form-group" [ngClass]="{ 'has-error': submitted }">
           <label for="newFirstName">First name (optional)</label>
-    <input type="text" class="form-control" name="new_first_name" [(ngModel)]="newFirstName"/>
+    <input type="text" class="form-control" name="firstName" [(ngModel)]="newFirstName"/>
       </div>
 
       <div class="form-group" [ngClass]="{ 'has-error': submitted }">
           <label for="newLastName">Last name (optional)</label>
-    <input type="text" class="form-control" name="text" [(ngModel)]="newLastName" />
+    <input type="text" class="form-control" name="lastName" [(ngModel)]="newLastName" />
       </div>
 
       <div class="form-group" [ngClass]="{ 'has-error': submitted }">
           <label for="newAge">Age (optional)</label>
-    <input type="number" class="form-control" name="number" [(ngModel)]="newAge" />
+    <input type="number" class="form-control" name="age" [(ngModel)]="newAge" />
       </div>
 
-<div class="form-group">
-          <button [disabled]="loading" (click)="register()" md-raised-button class=" ">Register</button>
+      <div class="form-group">
+          <button [disabled]="loading" type="submit" md-raised-button class=" ">Register</button>
       </div>
 
   </form>

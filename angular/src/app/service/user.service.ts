@@ -15,6 +15,7 @@ export class UserService {
   public dateJoined: Date;
   private id: number;
   public email: string;
+  private groups: [{name: string}];
 
   public loginUser(username: string, password: string){
     return new Promise((resolve, reject) =>  this.server.login(username, password)
@@ -33,11 +34,12 @@ export class UserService {
 
   public loadUser(){
     this.server.get("current_user/").then(data => {
-      this.username = data.user['username']
-      this.id = data.user['id']
-      this.email = data.user['email']
+      this.username = data['username']
+      this.id = data['id']
+      this.email = data['email']
+      this.groups = data['groups']
 
-      this.dateJoined = new Date(data['user']['date_joined'])
+      this.dateJoined = new Date(data['date_joined'])
     }).catch(err => console.log(err))
   }
 

@@ -1,35 +1,20 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from learning_base import models as lb_models
 from learning_base.question import models as question_model
 from django.core.exceptions import ValidationError
 from datetime import datetime
 from clonecadamy.settings import FRONT_END_HOSTNAME, PROFILE_PATH
 
-
-class LearningGroup(models.Model):
-    """
-    A user group
-    """
-    name = models.CharField(help_text="The name of the user group", max_length=144)
-
-    def __str__(self):
-        return self.name
-
 class ProfileManager(models.Manager):
-    def create_both(self, username, email, password="", group=None, first_name='', last_name='', age=None):
+    def create_both(self, username, email, password="", first_name='', last_name='', age=None):
         user = User.objects.create_user(
             username=username,
             email=email,
             password=password
         )
-        if LearningGroup.objects.filter(name=group):
-            group = LearningGroup.objects.filter(name=group)
-        else:
-            group=None
         profile = Profile(
             user=user,
-            group=group,
             first_name=first_name,
             last_name=last_name,
             age=age
@@ -49,12 +34,6 @@ class Profile(models.Model):
         on_delete=models.CASCADE
         #related_name = "profile"
         #could ease access to the corespending profile from a given user
-    )
-
-    group = models.OneToOneField(
-        LearningGroup,
-        blank=True,
-        null=True
     )
 
     is_mod = models.BooleanField(

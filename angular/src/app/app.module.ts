@@ -8,6 +8,8 @@ import {MdButtonModule, MdCheckboxModule, MdInputModule, MdSelectModule, Materia
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { RouterModule, Routes } from '@angular/router';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 
@@ -130,6 +132,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
+    ReactiveFormsModule,
     BrowserModule,
     FormsModule,
     HttpModule,

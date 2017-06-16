@@ -99,5 +99,4 @@ def canRequestMod(request):
 
 @api_view(['GET'])
 def getCurrentUser(request):
-    profile = request.user.profile
-    return Response(ProfileSerializer(profile).data)
+    return Response(UserGroups(request.user).data)

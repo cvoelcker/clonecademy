@@ -7,14 +7,14 @@ from learning_base.serializers import QuestionSerializer
 
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
-        model = LearningGroup
-        fields = ('name', "id" )
+        model = Group
+        fields = ('name', )
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('username', 'email', 'id', 'date_joined')
+        fields = ('username', 'first_name', "last_name", 'email', 'id', 'date_joined', )
 
     def create(self, validated_data):
         print("\n\n\n\n\n{}\n\n\n\n\n\n\n\n\n".format(validated_data))
@@ -23,19 +23,22 @@ class UserSerializer(serializers.ModelSerializer):
             email=validated_data["email"],
             password=validated_data["password"],
             age=validated_data["age"],
-            group=validated_data["group"],
-            first_name=validated_data["first_name"],
-            last_name=validated_data["last_name"],
+            first_name=validated_data["firstName"],
+            last_name=validated_data["lastName"]
         )
 
+class UserGroups(serializer.ModelSerializer):
+    groups = GroupSerializer(many=True)
+    class Meta:
+        model User
+        fields = ('username', 'first_name', "last_name", 'email', 'groups', 'date_joined', )
 
 class ProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer()
-    group = GroupSerializer(required=False)
 
     class Meta:
         model = Profile
-        fields = ('user', 'group', 'first_name', 'last_name', 'age', 'requested_mod')
+        fields = ('user', 'first_name', 'last_name', 'age', 'requested_mod')
 
 class ProfileListSerializer(serializers.ModelSerializer):
     user = UserSerializer()
