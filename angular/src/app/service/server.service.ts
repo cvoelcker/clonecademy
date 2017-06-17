@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Headers } from '@angular/http';
 
 import {CookieService} from 'angular2-cookie/core';
-import {MdDialog} from '@angular/material';
+import {MdDialog, MdDialogRef} from '@angular/material';
 import {Observable} from 'rxjs/Rx';
 
 import { ErrorDialog } from '../service/error.service'
 
 import { LoaderComponent } from '../loader/loader.component';
+
+
 
 
 import 'rxjs/add/operator/toPromise';
@@ -20,6 +22,8 @@ export class ServerService {
   headers = new Headers({'Accept': 'application/json', 'Content-Type': 'application/json'});
 
   private token: string;
+
+  private loader: MdDialogRef<LoaderComponent>
 
 
   constructor(private http: Http, private cookie: CookieService, private dialog: MdDialog, private error: ErrorDialog) {
@@ -37,6 +41,7 @@ export class ServerService {
     let loader = this.dialog.open(LoaderComponent, {
       disableClose: true
     })
+
 
     let options = new RequestOptions({headers: this.makeHeader()})
     return this.http.get(this.baseUrl + type, options)

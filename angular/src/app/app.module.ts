@@ -48,7 +48,16 @@ import { LoaderComponent } from './loader/loader.component';
 
 const appRoutes: Routes = [
   {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
+  {
     path: 'dashboard',
+   component: DashboardComponent
+  },
+  {
+    path: 'dashboard/:id',
    component: DashboardComponent
   },
   {
@@ -60,29 +69,12 @@ const appRoutes: Routes = [
     component: RegisterComponent
   },
   {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full'
-  },
-  {
-    path: 'course/:id',
-    component: CourseComponent,
-  },
-  {
-    path: "course/:id/:module",
-    component: ModuleComponent,
-  },
-  {
     path: "course/:id/:module/:question",
     component: QuestionComponent,
   },
   {
     path: "profile",
     component: ProfilePageComponent
-  },
-  {
-    path: "createCourse",
-    component: CreateCourseComponent
   },
   {
     path: "profile/statistics",
@@ -171,6 +163,8 @@ const appRoutes: Routes = [
     AddMultiplyChoiceComponent,
     ErrorMessageComponent,
     LoaderComponent,
+    CourseComponent,
+    CreateCourseComponent,
     // you have to add all modules for questions here
     MultipleChoiceQuestionComponent
   ]

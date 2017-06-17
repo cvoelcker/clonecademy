@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Output, EventEmitter, Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { ServerService } from "../service/server.service"
 
@@ -31,8 +31,11 @@ export class QuestionComponent implements OnInit {
   submitCorrect: boolean;
   feedback: string;
 
-  constructor(private router: Router, public server: ServerService, private route: ActivatedRoute, private factory: ComponentFactoryResolver) {
+  constructor(private changeDet: ChangeDetectorRef, private router: Router, public server: ServerService, private route: ActivatedRoute, private factory: ComponentFactoryResolver) {
 
+  }
+
+  ngAfterViewInit(){
   }
 
   ngOnInit(){
@@ -42,11 +45,14 @@ export class QuestionComponent implements OnInit {
       this.moduleIndex = data.module,
       this.questionIndex = data.question
     })
+
     this.loadQuestion()
+
   }
 
   loadQuestion(){
     this.server.get("courses/"+this.courseID+"/"+this.moduleIndex + "/" + this.questionIndex).then(data => {
+
       this.submitCorrect = false;
       this.title = data.title
       this.questionBody = data.question_body
@@ -59,6 +65,7 @@ export class QuestionComponent implements OnInit {
       this.question.clear()
       let question = this.question.createComponent(this.questionFactory)
       this.questionModule = (<QuestionModule> question.instance)
+      this.changeDet.detectChanges()
 
     })
   }

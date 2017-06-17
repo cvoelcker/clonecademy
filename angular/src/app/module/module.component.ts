@@ -29,15 +29,16 @@ export class ModuleComponent implements OnInit {
   questions: any;
   learningText: string;
 
-  constructor(private server: ServerService, private route: ActivatedRoute) { }
-
-  ngOnInit(){
-    this.route.params.subscribe((data: Params) => {this.courseID = data.id, this.moduleIndex = data.module})
+  constructor(private server: ServerService, private route: ActivatedRoute) {
     this.server.get("courses/"+this.courseID+"/"+this.moduleIndex).then(data => {
       this.name = data.name
       this.questions = data.question;
       this.learningText = data.learning_text;
     })
+  }
+
+  ngOnInit(){
+    this.route.params.subscribe((data: Params) => {this.courseID = data.id, this.moduleIndex = data.module})
   }
 
 

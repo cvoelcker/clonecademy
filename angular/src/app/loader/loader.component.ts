@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-loader',
   templateUrl: './loader.component.html',
   styleUrls: ['./loader.component.scss']
 })
-export class LoaderComponent implements OnInit {
+export class LoaderComponent {
 
-  constructor() { }
+  constructor(private _changeDetectionRef : ChangeDetectorRef) { }
 
-  ngOnInit() {
+  ngAfterViewInit() {
+    this._changeDetectionRef.detectChanges()
   }
 
 }

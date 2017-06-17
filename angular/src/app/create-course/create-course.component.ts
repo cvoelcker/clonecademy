@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ComponentRef, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory, EventEmitter } from '@angular/core';
+import { Component, Input, ComponentRef, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory, EventEmitter, Output } from '@angular/core';
 import { AddModuleComponent } from '../add-module/add-module.component'
 import { Router } from "@angular/router"
 
@@ -8,24 +8,22 @@ import { ServerService } from '../service/server.service'
   templateUrl: './create-course.component.html',
   styleUrls: ['./create-course.component.scss']
 })
-export class CreateCourseComponent implements OnInit {
+export class CreateCourseComponent  {
 
   @Input() title: string;
   @ViewChild('modules', {read: ViewContainerRef}) modules: ViewContainerRef;
   childComponent: ComponentFactory<AddModuleComponent>;
   moduleArray: ComponentRef<AddModuleComponent>[] = [];
-  i = 0;
   length: number;
 
   categories: {name: string, id: number};
   catId: number;
 
+  @Output() emitter: EventEmitter<any> = new EventEmitter();
+
   constructor(private router: Router, private server: ServerService, private componentFactory: ComponentFactoryResolver) {
     this.childComponent = this.componentFactory.resolveComponentFactory(AddModuleComponent)
-  }
-
-  ngOnInit() {
-    this.server.get("get-course-categories/").then(data => this.categories = data).catch(err => console.log(err))
+    this.server.get("get-course-categories/").then(data => {this.categories = data;}).catch(err => console.log(err))
   }
 
   addModule(){
@@ -54,7 +52,6 @@ export class CreateCourseComponent implements OnInit {
   }
 
   removeCourse(){
-    console.log(this.modules)
     this.modules.detach(0)
   }
 
@@ -71,7 +68,7 @@ export class CreateCourseComponent implements OnInit {
     }
     let course = {title: this.title, categorie: this.catId,  modules: saveModules};
     this.server.post('save/course/', course).then(data => {
-      this.router.navigate(['/dashboard'])
+      this.emitter.emit("saved")
     }).catch(err => {
       console.log(err)
     })
