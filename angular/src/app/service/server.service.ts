@@ -40,7 +40,6 @@ export class ServerService {
   // the token will be passed
   // if silent is true the loader will not be shown
   get(type: string, silent = false){
-    console.log(type)
     let loader;
     if(!silent){
       loader = this.dialog.open(LoaderComponent, {

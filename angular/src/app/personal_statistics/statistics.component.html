@@ -1,7 +1,12 @@
 <h2>Statistics</h2>
+<div *ngIf="!loading">
   <table>
-  <th>Question</th><th>Solved</th><th>Tries</th>
-  <tr *ngFor="let stat of statistics">
-    <td>{{stat.question}}</td><td>{{stat.solved}}</td><td>{{stat.tries}}</td>
-  </tr>
-</table>
+    <th>Question</th><th>Solved</th><th>Tries</th>
+    <tr *ngFor="let stat of statistics">
+      <td>{{stat.question}}</td><td>{{stat.solved}}</td><td>{{stat.tries}}</td>
+    </tr>
+  </table>
+</div>
+<div *ngIf="loading" class="localLoader">
+  <md-progress-spinner mode="indeterminate"></md-progress-spinner>
+</div>

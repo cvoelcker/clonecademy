@@ -1,3 +1,16 @@
-<h3 *ngIf="user != undefined">Hello {{user.username}}</h3>
-<button md-raised-button routerLink="/admin/request_mod">Request mod rights</button>
-<button md-raised-button (click)="user.logout()">logout</button>
+<div class="sidebar col-md-4">
+  <h3 *ngIf="user != undefined">Profile</h3>
+  <ul>
+    <li *ngFor="let m of menu">
+      <button md-button (click)="load(m)">{{m.name}}</button>
+    </li>
+  </ul>
+  <ul>
+    <li>
+      <button md-button (click)="user.logout()">Logout</button>
+    </li>
+  </ul>
+</div>
+<div class="content col-md-8">
+  <div #content></div>
+</div>

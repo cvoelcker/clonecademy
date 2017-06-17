@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { ServerService} from '../service/server.service'
+import { ServerService} from '../service/server.service';
 
 @Component({
   selector: 'statistics',
@@ -9,17 +9,18 @@ import { ServerService} from '../service/server.service'
 })
 export class StatisticsComponent implements OnInit {
   statistics: JSON;
+  loading = true
 
   constructor(private server: ServerService) {
   }
 
   ngOnInit() {
-    this.server.get("user/statistics")
+    this.server.get("user/statistics", true)
       .then(data => {
         this.statistics = data
-      }
+        this.loading = false
+        }
       )
-      .catch(err => console.log(err))
   }
 
 }

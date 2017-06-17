@@ -88,3 +88,38 @@ button{
 md-progress-spinner{
   margin: auto;
 }
+
+// sidebar for the Menu
+.sidebar{
+  position: absolute;
+  left: 0;
+  top:0;
+  right: auto;
+  bottom: 0;
+  box-sizing: border-box;
+  overflow: auto;
+  overflow-x: hidden;
+  box-shadow: 0 0 2px;
+  ul{
+    list-style: none;
+    padding: 0;
+    li{
+      padding: 0.5em 0;
+      text-align: center;
+      button{
+        width: 100%;
+      }
+    }
+  }
+}
+
+.content {
+ box-sizing: border-box;
+ overflow-y: auto;
+ position: absolute;
+ right: 0;
+ left: auto;
+ top: 0;
+ bottom: 0;
+ box-shadow: 0 0 2px;
+}

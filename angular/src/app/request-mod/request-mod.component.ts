@@ -15,23 +15,29 @@ export class RequestModComponent implements OnInit {
   answer: string;
   errorMessage: string;
   available: boolean;
+  loading = true;
+
 
   constructor(private server: ServerService) {}
 
   check_request() {
-    this.server.get("user/can_request_mod")
+    this.server.get("user/can_request_mod", true)
       .then(answer => {
         if (answer['requested_mod'])
           this.available = false;
         else
           this.available = true;
+        this.loading = false;
       })
-      .catch(error => {this.available = false});
-    return this.available;
+      .catch(error => {
+        this.available = false
+        this.loading = false;
+      });
+
   }
 
   send_request(){
-    if (!this.check_request())
+    if (!this.available)
       return -1;
     let request = {reason: this.reason}
     this.server.post("user/request_mod", request)

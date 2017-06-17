@@ -1,15 +1,19 @@
 <h2>Request mod rights</h2>
-{{available}}
-<form *ngIf="available" name="form">
-  <label for="reasonInput">Give a reason for the request</label>
-    <div class="form-group" [ngClass]="{ 'has-error': submitted }">
-        <input type="text" id="reasonInput" class="form-control" name="reason" [(ngModel)]="reason" required />
-        <div *ngIf="submitted " class="help-block">Reason is required</div>
-    </div>
-    <div class="form-group">
-        <button [disabled]="loading" (click)="send_request()" md-raised-button>Request moderator access</button>
-    </div>
-</form>
-<div class="error" *ngIf="invalidLogin">Your request could not be sent</div>
-<p *ngIf="error">Request was rejected</p>
-<div *ngIf="available == false" class="help-block">Request sent</div>
+<div *ngIf="!loading">
+  <form *ngIf="available" name="form">
+    <label for="reasonInput">Give a reason for the request</label>
+      <div class="form-group" [ngClass]="{ 'has-error': submitted }">
+          <input type="text" id="reasonInput" class="form-control" name="reason" [(ngModel)]="reason" required />
+          <div *ngIf="submitted " class="help-block">Reason is required</div>
+      </div>
+      <div class="form-group">
+          <button [disabled]="loading" (click)="send_request()" md-raised-button>Request moderator access</button>
+      </div>
+  </form>
+  <div class="error" *ngIf="invalidLogin">Your request could not be sent</div>
+  <p *ngIf="error">Request was rejected</p>
+  <div *ngIf="available == false" class="help-block">Request sent</div>
+</div>
+<div *ngIf="loading" class="localLoader">
+  <md-progress-spinner mode="indeterminate"></md-progress-spinner>
+</div>
