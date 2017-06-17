@@ -15,13 +15,16 @@ export class CourseComponent {
   modules: [any];
   solved: [number];
   completed: boolean = true;
+  loading = true;
+
 
   constructor(private route: ActivatedRoute, private server: ServerService) {
 
   }
 
   load() {
-    this.server.get('courses/'+this.id + "/")
+
+    this.server.get('courses/'+this.id + "/", true)
       .then(data => {
         this.name = data.name;
         this.modules = data.modules;
@@ -32,6 +35,7 @@ export class CourseComponent {
         if(!(data.solved.indexOf(lastQuestion.id) > -1)){
           this.completed = false;
         }
+        this.loading = false
       })
   }
 

@@ -53,12 +53,16 @@ const appRoutes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'dashboard',
+    path: 'course',
    component: DashboardComponent
   },
   {
-    path: 'dashboard/:id',
+    path: 'course/:id',
    component: DashboardComponent
+  },
+  {
+    path: "course/:id/:module/:question",
+    component: QuestionComponent,
   },
   {
     path: 'login',
@@ -67,10 +71,6 @@ const appRoutes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
-  },
-  {
-    path: "course/:id/:module/:question",
-    component: QuestionComponent,
   },
   {
     path: "profile",

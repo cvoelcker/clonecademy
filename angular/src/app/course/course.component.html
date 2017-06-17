@@ -1,3 +1,4 @@
+<div *ngIf="!loading" >
 <h2>
   {{name}} <button  md-raised-button class="startCourse" routerLink="/course/{{ id }}/1/1/"> start Course</button>
 </h2>
@@ -12,3 +13,7 @@
     </ul>
   </li>
 </ul>
+</div>
+<div *ngIf="loading" class="localLoader">
+<md-progress-spinner mode="indeterminate"></md-progress-spinner>
+</div>

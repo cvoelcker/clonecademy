@@ -32,17 +32,14 @@ export class DashboardComponent implements OnInit {
 
   course: ComponentFactory<CourseComponent>;
   addCourse: ComponentFactory<CreateCourseComponent>;
+  loading = true;
 
   @ViewChild('details', {read: ViewContainerRef}) details: ViewContainerRef;
 
-  constructor(private server: ServerService, private factory: ComponentFactoryResolver, private route: ActivatedRoute) {
+  constructor(private server: ServerService, private factory: ComponentFactoryResolver, private route: ActivatedRoute, private router: Router) {
     this.course = this.factory.resolveComponentFactory(CourseComponent)
     this.addCourse = this.factory.resolveComponentFactory(CreateCourseComponent)
-    this.server.get("courses/")
-      .then(data => {
-        this.data = data
-        }
-      )
+
   }
 
   ngOnInit() {
@@ -53,6 +50,13 @@ export class DashboardComponent implements OnInit {
 
       }
     })
+
+    this.server.get("courses/", true)
+      .then(data => {
+        this.data = data
+        this.loading = false;
+        }
+      )
 
   }
 
@@ -74,6 +78,7 @@ export class DashboardComponent implements OnInit {
 
   courseClicked(id: number){
     this.details.clear()
+    this.router.navigate(['/course/' + id])
     let courseView = this.details.createComponent(this.course)
     let course = (<CourseComponent> courseView.instance)
     course.id = id;

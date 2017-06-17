@@ -36,31 +36,46 @@ export class ServerService {
 
   }
 
-  get(type: string){
-
-    let loader = this.dialog.open(LoaderComponent, {
-      disableClose: true
-    })
+  // call this function to get data from the server
+  // the token will be passed
+  // if silent is true the loader will not be shown
+  get(type: string, silent = false){
+    console.log(type)
+    let loader;
+    if(!silent){
+      loader = this.dialog.open(LoaderComponent, {
+        disableClose: true
+      })
+    }
 
 
     let options = new RequestOptions({headers: this.makeHeader()})
     return this.http.get(this.baseUrl + type, options)
       .toPromise()
       .then(res => {
-        loader.close()
+        if(!silent){
+          loader.close()
+        }
         return res.json()
       })
       .catch(err => {
-        loader.close()
+        if(!silent){
+          loader.close()
+        }
         this.handleError(err, this.error)
       })
   }
 
-  post(type: string, body: any){
+  // call this function to get data from the server
+  // if silent is true the loader will not be shown
+  post(type: string, body: any, silent = false){
+    let loader;
+    if(!silent){
 
-    let loader = this.dialog.open(LoaderComponent, {
-      disableClose: true
-    })
+      loader = this.dialog.open(LoaderComponent, {
+        disableClose: true
+      })
+    }
 
     body = JSON.stringify(body)
     //this.headers.append('Authorization', 'Token ' + this.token)
@@ -69,11 +84,15 @@ export class ServerService {
     return this.http.post(this.baseUrl + type, body, options)
                   .toPromise()
                   .then(response => {
-                    loader.close()
+                    if(!silent){
+                      loader.close()
+                    }
                     return response.json()
                   })
                   .catch(err => {
-                    loader.close()
+                    if(!silent){
+                      loader.close()
+                    }
                     this.handleError(err, this.error)
                   });
   }

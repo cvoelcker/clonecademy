@@ -103,7 +103,7 @@ export class QuestionComponent implements OnInit {
     }
     else{
       // TODO add a feedback for the course here
-      this.router.navigateByUrl("/dashboard")
+      this.router.navigateByUrl("/course")
       return
     }
     this.router.navigateByUrl("/course/"+this.courseID+"/"+ module + "/" + question)

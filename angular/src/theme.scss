@@ -77,3 +77,14 @@ button{
     border-color: mat-color($warn)
   }
 }
+
+
+// the style for the local Loader which will only be shown in the boxes and set to the center of the parent box
+.localLoader{
+  width: 100%;
+  text-align: center;
+}
+
+md-progress-spinner{
+  margin: auto;
+}

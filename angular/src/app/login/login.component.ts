@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
 
   login(form){
     if(form.valid){
-      
+
       this.user.loginUser(this.username, this.password)
       .catch(data => {
         let dialogRef = this.errorDialog.open(data['non_field_errors'])
@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if(this.cookie.get('token') != null){
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/course']);
     }
   }
 

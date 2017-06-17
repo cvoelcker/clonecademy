@@ -22,7 +22,7 @@ export class UserService {
       .then(res => {
         this.loadUser();
         this.login = true;
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/course']);
         resolve(true)
       })
       .catch(res => {

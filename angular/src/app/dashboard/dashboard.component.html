@@ -4,14 +4,17 @@
 
     <div class ="detail-menu col-md-4">
       <h2>Dashboard<button md-raised-button class="addCourse" (click)="createClicked()" ><i class="material-icons">add</i> add Course</button><br></h2>
-
-      <button md-button class="collapseButton" (click)="collapse = !collapse" >Courses</button>
-      <div id="courses" [class.collapse]="collapse">
-        <div *ngFor="let c of data">
-        <a (click)="courseClicked(c.id)" >{{c.name}}</a>
+      <div *ngIf="!loading">
+        <button md-button class="collapseButton" (click)="collapse = !collapse" >Courses</button>
+        <div id="courses" [class.collapse]="collapse">
+          <div *ngFor="let c of data">
+          <a (click)="courseClicked(c.id)" >{{c.name}}</a>
+          </div>
         </div>
       </div>
-
+      <div *ngIf="loading" class="localLoader">
+        <md-progress-spinner mode="indeterminate"></md-progress-spinner>
+      </div>
     </div>
 
     <div class ="content col-md-8">
