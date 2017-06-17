@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { ServerService } from '../service/server.service';
 import { UserService } from '../service/user.service';
-import { LoginComponent } from '../login/login.component';
+
+import { ErrorDialog } from "../service/error.service"
 
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
@@ -13,7 +14,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 })
 export class RegisterComponent {
 
-  constructor(private server: ServerService, private fb: FormBuilder, private user: UserService){
+  constructor(private error: ErrorDialog, private server: ServerService, private fb: FormBuilder, private user: UserService){
 
   }
 
@@ -44,14 +45,12 @@ export class RegisterComponent {
   })
 
   register(value){
-    console.log(value.value)
 
     if(value.valid && value.value["password"] === value.value['password2']){
       let data = value.value
       delete data['password2']
       this.server.post("register/", data)
         .then(answer => {
-          console.log(answer)
           this.user.loginUser(this.newUsername, this.newPassword)
         })
         .catch(error => {
@@ -60,7 +59,13 @@ export class RegisterComponent {
         });
     }
     else{
-      console.log("false")
+      if(!value.valid){
+        this.error.open("Email, username and password is required")
+      }
+      else{
+        this.error.open("The password is not matching")
+      }
+
     }
 
   }

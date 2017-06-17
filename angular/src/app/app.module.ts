@@ -4,7 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 // Material Style
-import {MdButtonModule, MdCheckboxModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule} from '@angular/material';
+import {MdButtonModule, MdCheckboxModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule, MdProgressSpinnerModule} from '@angular/material';
+
+import {MdDialog, MdDialogModule} from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -15,6 +17,7 @@ import { CookieService } from 'angular2-cookie/services/cookies.service';
 
 import { ServerService } from './service/server.service';
 import { UserService } from './service/user.service';
+import { ErrorDialog } from "./service/error.service";
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -40,6 +43,8 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { RegisterComponent } from './register/register.component';
+import { ErrorMessageComponent } from './error-message/error-message.component';
+import { LoaderComponent } from './loader/loader.component';
 
 const appRoutes: Routes = [
   {
@@ -129,6 +134,8 @@ const appRoutes: Routes = [
     ProfilePageComponent,
     AdminPageComponent,
     RegisterComponent,
+    ErrorMessageComponent,
+    LoaderComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -141,11 +148,19 @@ const appRoutes: Routes = [
     MdInputModule,
     MdSelectModule,
     MdTabsModule,
+    MdDialogModule,
+    MdProgressSpinnerModule,
     BrowserAnimationsModule,
   ],
   exports: [
   ],
-  providers: [ServerService, UserService,  CookieService],
+  providers: [
+    ServerService,
+    UserService,
+    CookieService,
+    MdDialog,
+    ErrorDialog
+  ],
   bootstrap: [
     AppComponent,
   ],
@@ -154,6 +169,8 @@ const appRoutes: Routes = [
     AddQuestionModule,
     AddQuestionComponent,
     AddMultiplyChoiceComponent,
+    ErrorMessageComponent,
+    LoaderComponent,
     // you have to add all modules for questions here
     MultipleChoiceQuestionComponent
   ]

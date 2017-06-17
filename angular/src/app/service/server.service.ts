@@ -2,8 +2,13 @@ import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Headers } from '@angular/http';
 
 import {CookieService} from 'angular2-cookie/core';
-
+import {MdDialog} from '@angular/material';
 import {Observable} from 'rxjs/Rx';
+
+import { ErrorDialog } from '../service/error.service'
+
+import { LoaderComponent } from '../loader/loader.component';
+
 
 import 'rxjs/add/operator/toPromise';
 
@@ -17,7 +22,7 @@ export class ServerService {
   private token: string;
 
 
-  constructor(private http: Http, private cookie: CookieService) {
+  constructor(private http: Http, private cookie: CookieService, private dialog: MdDialog, private error: ErrorDialog) {
     this.token = this.cookie.get("token")
   }
 
@@ -29,12 +34,28 @@ export class ServerService {
 
   get(type: string){
 
-    let options = new RequestOptions({headers: this.makeHeader()})
+    let loader = this.dialog.open(LoaderComponent, {
+      disableClose: true
+    })
 
-    return this.http.get(this.baseUrl + type, options).toPromise().then(res => res.json()).catch(this.handleError)
+    let options = new RequestOptions({headers: this.makeHeader()})
+    return this.http.get(this.baseUrl + type, options)
+      .toPromise()
+      .then(res => {
+        loader.close()
+        return res.json()
+      })
+      .catch(err => {
+        loader.close()
+        this.handleError(err, this.error)
+      })
   }
 
   post(type: string, body: any){
+
+    let loader = this.dialog.open(LoaderComponent, {
+      disableClose: true
+    })
 
     body = JSON.stringify(body)
     //this.headers.append('Authorization', 'Token ' + this.token)
@@ -42,16 +63,19 @@ export class ServerService {
 
     return this.http.post(this.baseUrl + type, body, options)
                   .toPromise()
-                  .then(response => response.json())
-                  .catch(this.handleError);
+                  .then(response => {
+                    loader.close()
+                    return response.json()
+                  })
+                  .catch(err => {
+                    loader.close()
+                    this.handleError(err, this.error)
+                  });
   }
 
-  setToken(token: string){
-    this.token = token;
-  }
-
-  private handleError(error: any) {
+  private handleError(error: any, dialog) {
     console.error('An error occurred', error);
+    dialog.open(error.statusText || error.message)
     return Promise.reject(error.message || error);
   }
 
