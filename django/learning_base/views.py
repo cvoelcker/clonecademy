@@ -1,15 +1,12 @@
 from django.shortcuts import render
+
 from rest_framework import viewsets, status
 from rest_framework import authentication, permissions
-from rest_framework.decorators import api_view
-from ast import literal_eval
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 
 from learning_base.serializers import *
-from learning_base.multiply_choice.models import MultipleChoiceQuestion
-from learning_base.models import Course, CourseCategory
-
-from user_model.models import Try
-
+from learning_base.multiple_choice.models import MultipleChoiceQuestion
+from learning_base.models import Course, CourseCategory, Module, valid_mod_request
 
 from rest_framework.response import Response
 
@@ -33,8 +30,8 @@ def singleCourse(request, courseID):
     data = CourseSerializer(course).data
     solved = []
 
-    for m in course.module.all():
-        for q in m.questions.all():
+    for m in Module.objects.filter(course=course):
+        for q in Question.objects.filter(module=m):
             if Try.objects.filter(question=q).filter(solved=True).exists():
                 solved.append(q.id)
     data['solved'] = solved
@@ -42,19 +39,12 @@ def singleCourse(request, courseID):
 
 
 def get_module_by_order(course, index):
-    # get the map of the ordered modules
-    ordering_module = literal_eval(course.module_order)
-
-    if index < 0 or index > len(ordering_module):
-        return False
-
-    #module = module.first()
-    return course.module.filter(id=ordering_module[index]).first()
+    return Module.objects.filter(id=index, course=course).first()
 
 @api_view(['GET'])
 def callModule(request, courseID, moduleIndex):
     course = Course.objects.filter(id=courseID).first()
-    index = int(moduleIndex) - 1
+    index = int(moduleIndex)
 
     module = get_module_by_order(course, index);
 
@@ -146,27 +136,26 @@ def save(request):
 @api_view(['GET', "POST"])
 def callQuestion(request, courseID, moduleIndex, questionIndex):
     course = Course.objects.filter(id=courseID).first()
-    index = int(moduleIndex) - 1
+    index = int(moduleIndex)
 
     module = get_module_by_order(course, index);
 
-    if module == False:
+    if not module:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    index = int(questionIndex) - 1
-    ordering = literal_eval(module.question_order)
+    index = int(questionIndex)
 
-    if index < 0 or index > len(ordering):
+    if index < 0:
         return Response(status=status.HTTP_404_NOT_FOUND)
-    question = Question.objects.filter(id=ordering[int(questionIndex) - 1])[0]
+    question = Question.objects.filter(id=int(questionIndex)).first()
 
     if request.method == "GET":
-        value = QuestionSerializer(question,  read_only=True).data
+        value = QuestionSerializer(question, read_only=True).data
         value['title'] = module.name
         # to see if the module is over
-        value['lastQuestion'] = int(questionIndex) == len(ordering)
+        value['lastQuestion'] = int(questionIndex) == module.num_of_questions()
         # to check if the course is over
-        value['lastModule'] = int(moduleIndex) == len(course.module.all())
+        value['lastModule'] = int(moduleIndex) == course.num_of_modules()
         return Response(value)
     elif request.method == "POST":
         solved = question.evaluate(request.data)
@@ -175,3 +164,88 @@ def callQuestion(request, courseID, moduleIndex, questionIndex):
         if solved and question.feedback_is_set:
             response['feedback'] = question.feedback
         return Response(response)
+
+
+@api_view(['GET'])
+def getStatisticsOverview(request):
+    '''
+    Returns the statistics overview for a user
+    '''
+    json = StatisticsOverviewSerializer(request.user)
+    return Response(json.data)
+
+
+@api_view(['GET'])
+def getAllUsers(request):
+    '''
+    Returns a list of alluser profile names
+    '''
+    users = User.objects.all()
+    serializer = UserSerializer(users, many=True).data
+    return Response(serializer)
+
+
+@api_view(['GET'])
+def getUserDetails(request, userID):
+    '''
+    Returns the user profile info
+    '''
+    user = User.objects.filter(id=userID).first()
+    user = UserSerializer(user)
+    return Response(user.data)
+
+
+@api_view(['GET'])
+def getUserInfo(request):
+    value = []
+    for group in request.user.get_all_permissions():
+        if "learning_base" in group:
+            value.append(group)
+    return Response(value)
+
+
+@api_view(['POST'])
+@authentication_classes([])
+@permission_classes([])
+def createNewUser(request):
+    '''
+    This handels the request for a new user account. All data is validated, and if
+    every consistency check passes, a new user and  new profile is created.
+    '''
+    # User serialization out of json request data
+    user_serializer = UserSerializer(data=request.data)
+    if user_serializer.is_valid():
+        user = user_serializer.create(request.data)
+        return Response(user)
+    else:
+        return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['POST'])
+def requestModStatus(request):
+    '''
+    Handels the moderator rights request. Expects a reason and extracts the user
+    from the request header.
+
+    This class does not use a serializer, as the json is only one element wide and.
+    '''
+    data = request.data
+    user = request.user
+    if not valid_mod_request(user=user):
+        return Response('User is mod or has sent to many requests',status=400)
+    #TODO: fix if an localization issues arrise
+    profile.requested_mod = datetime.now()
+    profile.save()
+    send_mail(
+        'Moderator rights requested by {}'.format(user.username),
+        'The following user {} requested moderator rights for the CloneCademy platform. \n \
+        The given reason for this request: \n{}\n \
+        If you want to add this user to the moderator group, access the profile {}\
+        for the confirmation field.\n \
+        Have a nice day, your CloneCademy bot'.format(
+            user.username, data["reason"], profile.get_link_to_profile()),
+        'bot@clonecademy.de',
+        ['test@test.net']
+    )
+    return Response("Request send")

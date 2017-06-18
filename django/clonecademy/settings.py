@@ -43,9 +43,8 @@ INSTALLED_APPS = (
     'rest_framework.authtoken',
     'corsheaders',
     'learning_base',
-    'user_model',
-    'polymorphic',
-)
+    'polymorphic'
+    )
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',

@@ -1,8 +1,40 @@
 from django.db import models
-from polymorphic.models import PolymorphicModel
+from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.apps import apps
+from django.contrib.auth.models import User
+from django.utils import timezone
+from polymorphic.models import PolymorphicModel
 # from user_model import models as ub_models
+
+
+def get_link_to_profile(self, user):
+    '''
+    Returns the link to the users profile page
+    '''
+    #TODO: Implement correct user profile access string
+    return "clonecademy.com/this/users/profile"
+
+
+def valid_mod_request(user):
+    request = ModRequest.objects.filter(user=user)
+    return request.exists() and (request.first().date - timezone(now)).days < -7 
+
+
+class ModRequest(models.Model):
+    class Meta():
+        ordering = ["date",]
+
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        null=False
+    )
+
+    date = models.DateField(
+        blank=False,
+        default=timezone.now
+    )
 
 
 class CourseCategory(models.Model):
@@ -61,7 +93,7 @@ class Course(models.Model):
     )
 
     responsible_mod = models.ForeignKey(
-        apps.get_model('user_model', 'Profile', require_ready=False),
+        User,
         on_delete=models.SET_NULL,
         null=True,
         blank=True
@@ -74,6 +106,9 @@ class Course(models.Model):
 
     def __str__(self):
         return self.name
+
+    def num_of_modules(self):
+        return len(Module.objects.filter(course=self))
 
 
 class Module(models.Model):
@@ -110,15 +145,17 @@ class Module(models.Model):
             q.delete()
         super(Module, self).delete()
 
+    def num_of_questions(self):
+        return len(Question.objects.filter(module=self))
 
-class Question(models.Model):
+
+class Question(PolymorphicModel):
     """
     A question is the smallest unit of the learning process. A question has a task that
     can be solved by a user, a correct solution to evaluate the answer and a way to
     provide feedback to the user.
     """
     class Meta():
-        abstract = True
         unique_together = ['module', 'question_order']
         ordering = ['module', 'question_order']
 
@@ -141,7 +178,7 @@ class Question(models.Model):
 
     module = models.ForeignKey(
         Module,
-        verbose_name="feedback",
+        verbose_name="Module",
         help_text="The corresponding module for the question",
         on_delete=models.CASCADE
     )
@@ -151,3 +188,50 @@ class Question(models.Model):
 
     def __str__(self):
         return self.question_title
+
+
+class LearningGroup(models.Model):
+    """
+    A user group (currently not used)
+    """
+    name = models.CharField(help_text="The name of the user group", max_length=144)
+
+    def __str__(self):
+        return self.name
+
+
+class Try(models.Model):
+    '''
+    A try represents a submission of an answer. Each time an answer is submitted, a Try
+    object is created in the database, detailing answer, wether it was answered
+    correctly and the time of the submission.
+    '''
+    person = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+    )
+
+    question = models.ForeignKey(
+        Question,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+
+    answer = models.TextField(
+        verbose_name="The given answer",
+        help_text="The answers as pure string",
+        null=True
+    )
+
+    date = models.DateTimeField(
+        default=timezone.now,
+        null=True
+    )
+
+    solved = models.BooleanField(
+        default=False
+    )
+
+    def __unicode__(self):
+        return "Solution_{}_{}_{}".format(self.question, self.solved, self.date)

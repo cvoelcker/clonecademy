@@ -1,8 +1,8 @@
 from rest_framework import serializers
 from .models import *
 from ast import literal_eval
-from learning_base.multiply_choice.models import *
-from learning_base.multiply_choice.serializer import *
+from learning_base.multiple_choice.models import *
+from learning_base.multiple_choice.serializer import *
 
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -42,35 +42,23 @@ class CourseCategorySerializer(serializers.ModelSerializer):
 
 
 class ModuleSerializer(serializers.ModelSerializer):
-    questions = QuestionSerializer(many=True, read_only=True)
-
     class Meta:
         model = Module
-        fields = ('name', 'learning_text', 'questions', "question_order",)
+        fields = ('name', 'learning_text')
 
-    #TODO: Can this be refactored and the ordering be done in the frontend?
-    #      The serializer is needlessly complicated
-    #      The ordering field in Question Meta should do this
     def to_representation(self, obj):
         """
         This function makes the serialization and is needed for the custom order of the question
         """
         value = dict()
         value['name'] = obj.name
-        value['max_module'] = len(obj.questions.all())
         value["id"] = obj.id
         value['learning_text'] = obj.learning_text
 
-        ordering = literal_eval(obj.question_order)
-        questions = QuestionPreviewSerializer(obj.questions, many=True, read_only=True).data
+        questions = Question.objects.filter(module=obj)
+        questions = QuestionPreviewSerializer(questions, many=True, read_only=True).data
 
-        return_questions = []
-        for i in ordering:
-            for question in questions:
-                if i == question['id']:
-                    return_questions.append(question)
-
-        value["question"] = return_questions
+        value["questions"] = questions
         return value
 
 
@@ -91,13 +79,62 @@ class CourseSerializer(serializers.ModelSerializer):
         value['course_difficulty'] = obj.course_difficulty
         value["id"] = obj.id
 
-        modules = ModuleSerializer(obj.module, many=True, read_only=True).data
+        all_modules = Module.objects.filter(course=obj)
+        modules = ModuleSerializer(all_modules, many=True, read_only=True).data
 
-        return_modules = []
-        for i in ordering:
-            for m in modules:
-                if i == m['id']:
-                    return_modules.append(m)
-
-        value["modules"] = return_modules
+        value["modules"] = modules
         return value
+
+
+class GroupSerializer(serializers.ModelSerializer):
+    '''
+    Model serializer for the Group model
+    '''
+    class Meta:
+        model = LearningGroup
+        fields = ('name', "id" )
+
+
+class UserSerializer(serializers.ModelSerializer):
+    '''
+    Model serializer for the User model
+    '''
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'id', 'date_joined')
+
+class TrySerializer(serializers.ModelSerializer):
+    '''
+    Model serializer for the Try model
+    '''
+    person = UserSerializer()
+    question = QuestionSerializer()
+
+    class Meta:
+        model = Try
+        fields = ('person', 'question', 'date', 'solved')
+
+
+class StatisticsOverviewSerializer(serializers.BaseSerializer):
+    '''
+    Longer serializer for the statistics overview
+    '''
+    def to_representation(self, user):
+        all_questions = list()
+        for question in Question.objects.all():
+            question_string = str(question)
+            question_entry = dict()
+            try_set = Try.objects.filter(question=question, person=user)
+            for _try in try_set:
+                if not question_entry:
+                    question_entry = {
+                        'question': question_string,
+                        'solved': _try.solved,
+                        'tries': 1
+                    }
+                else:
+                    question_entry['tries'] += 1
+                    question_entry['solved'] = question_entry['solved'] or _try.solved
+            if question_entry:
+                all_questions.append(question_entry)
+        return all_questions

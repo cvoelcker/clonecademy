@@ -18,8 +18,7 @@ from rest_framework import routers
 from rest_framework_jwt.views import obtain_jwt_token
 from django.contrib import admin
 
-from learning_base import views as learning_base_view
-from user_model import views as user_view
+from learning_base import views
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
@@ -31,22 +30,22 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api-auth', obtain_jwt_token),
 
-    url(r'^courses/$', learning_base_view.getCourses),
-    url(r'^courses/(?P<courseID>[0-9]+)/?$', learning_base_view.singleCourse),
-    url(r'^courses/(?P<courseID>[0-9]+)/(?P<moduleIndex>[0-9]+)/?$', learning_base_view.callModule),
-    url(r'^courses/(?P<courseID>[0-9]+)/(?P<moduleIndex>[0-9]+)/(?P<questionIndex>[0-9]+)/?$', learning_base_view.callQuestion),
+    url(r'^courses/$', views.getCourses),
+    url(r'^courses/(?P<courseID>[0-9]+)/?$', views.singleCourse),
+    url(r'^courses/(?P<courseID>[0-9]+)/(?P<moduleIndex>[0-9]+)/?$', views.callModule),
+    url(r'^courses/(?P<courseID>[0-9]+)/(?P<moduleIndex>[0-9]+)/(?P<questionIndex>[0-9]+)/?$', views.callQuestion),
 
-    url(r'^get-course-categories/$', learning_base_view.getCourseCategories),
+    url(r'^get-course-categories/$', views.getCourseCategories),
 
-    url(r'^save/course/$', learning_base_view.save),
+    url(r'^save/course/$', views.save),
 
-    url(r'^user/statistics$', user_view.getStatisticsOverview),
-    url(r'^user/request_mod$', user_view.requestModStatus),
-    url(r'^user/can_request_mod$', user_view.getUserDetails),
-    url(r'^user/$', user_view.getUserInfo),
-    url(r'^user/(?P<userID>[0-9]+)/?$', user_view.getUserDetails),
+    url(r'^user/statistics$', views.getStatisticsOverview),
+    url(r'^user/request_mod$', views.requestModStatus),
+    url(r'^user/can_request_mod$', views.getUserDetails),
+    url(r'^user/$', views.getUserInfo),
+    url(r'^user/(?P<userID>[0-9]+)/?$', views.getUserDetails),
 
-    url(r'^list-user/', user_view.getAllUsers),
+    url(r'^list-user/', views.getAllUsers),
 
-    url(r'^register/', user_view.createNewUser)
+    url(r'^register/', views.createNewUser)
 ]

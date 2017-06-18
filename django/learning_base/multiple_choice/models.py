@@ -11,13 +11,13 @@ class MultipleChoiceQuestion(Question):
         return self.question_body
 
     def numCorrectAnswers(self):
-        return self.answers.filter(is_correct=True).count()
+        return len(MultipleChoiceAnswer.objects.filter(is_correct=True))
 
     def notSolvable(self):
         return self.numCorrectAnswers() == 0
 
     def evaluate(self, data):
-        answers = map(lambda x: x.id, self.answers.filter(is_correct=True))
+        answers = map(lambda x: x.id, MultipleChoiceAnswer.objects.filter(question=self, is_correct=True))
 
         # if the the array length of the answers is not equal to the correct answers it cant be correct
         if len(data) != len(answers):
@@ -27,26 +27,6 @@ class MultipleChoiceQuestion(Question):
         for ans in answers:
             if not (ans in data):
                 return False
-        return True
-
-    def delete(self):
-        for ans in self.answers:
-            ans.delete()
-        super(MultipleChoiceQuestion, self).delete()
-
-    def save(self, q):
-        if 'question' not in q or 'answers' not in q:
-            return False
-        question_body=q['question']
-
-        super(Question, self).save()
-
-        for a in q['answers']:
-            if 'correct' not in a or 'text' not in a:
-                return False
-            ans = MultipleChoiceAnswer(text=a['text'], is_correct = a['correct'])
-            ans.save()
-            self.answers.add(ans)
         return True
 
 
