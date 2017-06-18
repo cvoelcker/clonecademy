@@ -15,7 +15,9 @@ export class UserService {
   public dateJoined: Date;
   private id: number;
   public email: string;
-  private groups: [{name: string}];
+  private groups: Array<{name: string}>;
+
+  public loaded = false;
 
   public loginUser(username: string, password: string){
     return new Promise((resolve, reject) =>  this.server.login(username, password)
@@ -33,14 +35,34 @@ export class UserService {
   }
 
   public loadUser(){
-    this.server.get("current_user/").then(data => {
+    this.server.get("current_user/", true).then(data => {
       this.username = data['username']
       this.id = data['id']
       this.email = data['email']
       this.groups = data['groups']
-
       this.dateJoined = new Date(data['date_joined'])
+      this.loaded = true;
     }).catch(err => console.log(err))
+  }
+
+  private isInGroup(name: string){
+    if(this.loaded){
+
+      for(let i = 0; i < this.groups.length; i++){
+        if(this.groups[i].name == name){
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  public isAdmin(){
+    return this.isInGroup('admin')
+  }
+
+  public isModerator(){
+    return this.isInGroup("moderator")
   }
 
   public logout(){
@@ -52,6 +74,7 @@ export class UserService {
 
   constructor(private server: ServerService, private router: Router, private cookie: CookieService ) {
     this.login = this.server.getToken() != null
+    this.loadUser();
   }
 
 }

@@ -7,7 +7,7 @@ import { ServerService } from '../service/server.service'
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.scss']
 })
-export class CourseComponent {
+export class CourseComponent implements OnInit {
 
   id: number;
   type: string;
@@ -20,6 +20,13 @@ export class CourseComponent {
 
   constructor(private route: ActivatedRoute, private server: ServerService) {
 
+  }
+
+  ngOnInit(){
+    this.route.params.subscribe(data => {
+      this.id = data.id
+      this.load();
+    })
   }
 
   load() {

@@ -2,7 +2,7 @@
   <h3 *ngIf="user != undefined">Profile</h3>
   <ul>
     <li *ngFor="let m of menu">
-      <button md-button (click)="load(m)">{{m.name}}</button>
+      <button md-button [routerLink]="'/profile/' + m.url">{{m.name}}</button>
     </li>
   </ul>
   <ul>
@@ -12,5 +12,5 @@
   </ul>
 </div>
 <div class="content col-md-8">
-  <div #content></div>
+<router-outlet ></router-outlet>
 </div>

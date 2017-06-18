@@ -5,9 +5,12 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './admin-page.component.html',
   styleUrls: ['./admin-page.component.sass']
 })
-export class AdminPageComponent implements OnInit {
+export class AdminPageComponent implements OnInit{
 
-  constructor() { }
+  menu: Array<{name: string, url: string}> = [
+    {name: "Profiles", url: "profiles"}
+  ]
+
 
   ngOnInit() {
   }

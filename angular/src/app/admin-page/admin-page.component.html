@@ -1,4 +1,11 @@
-<p>
-  admin-page works!
-</p>
-<button md-raised-button routerLink="/admin/profiles">Profiles</button>
+<div class="sidebar col-md-4">
+  <h3>Admin</h3>
+  <ul>
+    <li *ngFor="let m of menu">
+      <button md-button [routerLink]="'/admin/' + m.url">{{m.name}}</button>
+    </li>
+  </ul>
+</div>
+<div class="content col-md-8">
+  <router-outlet></router-outlet>
+</div>

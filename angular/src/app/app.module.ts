@@ -54,11 +54,17 @@ const appRoutes: Routes = [
   },
   {
     path: 'course',
-   component: DashboardComponent
-  },
-  {
-    path: 'course/:id',
-   component: DashboardComponent
+   component: DashboardComponent,
+   children: [
+     {
+       path: "create_course",
+       component: CreateCourseComponent,
+     },
+     {
+       path: ":id",
+       component: CourseComponent
+     }
+   ]
   },
   {
     path: "course/:id/:module/:question",
@@ -74,19 +80,31 @@ const appRoutes: Routes = [
   },
   {
     path: "profile",
-    component: ProfilePageComponent
-  },
-  {
-    path: "profile/:subpage",
-    component: ProfilePageComponent
-  },
-  {
-    path: "admin/profiles",
-    component: ProfilesComponent,
+    component: ProfilePageComponent,
+    children: [
+      {
+        path: "",
+        component: UserDetailComponent,
+      },
+      {
+        path: "request_mod",
+        component: RequestModComponent,
+      },
+      {
+        path: "statistics",
+        component: StatisticsComponent,
+      }
+  ]
   },
   {
     path: "admin",
-    component: AdminPageComponent
+    component: AdminPageComponent,
+    children: [
+      {
+        path: "profiles",
+        component: ProfilesComponent,
+      }
+    ]
   },
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -157,9 +175,12 @@ const appRoutes: Routes = [
     LoaderComponent,
     CourseComponent,
     CreateCourseComponent,
+    // profile page components
     StatisticsComponent,
     RequestModComponent,
     UserDetailComponent,
+    // admin Page components
+    ProfilesComponent,
     // you have to add all modules for questions here
     MultipleChoiceQuestionComponent
   ]
