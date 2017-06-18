@@ -220,7 +220,10 @@ def createNewUser(request):
     else:
         return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
+@api_view(['GET'])
+def canRequestMod(request):
+    user = request.user
+    return Response(valid_mod_request(user))
 
 @api_view(['POST'])
 def requestModStatus(request):
@@ -249,3 +252,6 @@ def requestModStatus(request):
         ['test@test.net']
     )
     return Response("Request send")
+
+def getCurrentUser(request):
+    return getUserDetails(request, request.user.id)
