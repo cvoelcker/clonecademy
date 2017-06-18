@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component} from '@angular/core';
 
 import { AddQuestionModule } from "../add-question/add-question.module"
 
@@ -11,12 +11,10 @@ export class AddMultiplyChoiceComponent extends AddQuestionModule {
 
 
   question: string;
-  answers: [{text: string, correct: boolean}];
+  answers: [{text: string, correct: boolean}] = [{text: "", correct: true}];
 
-  ngOnInit() {
-    this.answers = [{text: "", correct: true}]
-  }
-
+  // the function to save it returns a object
+  // {type: string, question: string, answers: [text: string, correct: boolean]}
   save(): any{
     return {
       type: "MultiplyChoiceQuestion",

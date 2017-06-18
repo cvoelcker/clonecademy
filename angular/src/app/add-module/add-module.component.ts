@@ -48,18 +48,23 @@ export class AddModuleComponent implements OnInit {
   ngOnInit() {
   }
 
+  // emit remove so parent class can remove this
   close(){
     this.clear.emit("remove")
   }
 
+  // emit up so parent class can change the position
   up(){
     this.clear.emit("up")
   }
 
+  // emit down so parent can change the position
   down(){
     this.clear.emit("down")
   }
 
+  // save all questions in the correct order
+  // append title, and the learning Text and return it
   save(){
     let values = [];
     for(let i = 0; i < this.questionArray.length; i++){

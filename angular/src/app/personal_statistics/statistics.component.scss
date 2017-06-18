@@ -1,0 +1,11 @@
+@import "../../theme";
+
+table{
+  width: 100%;
+  th{
+    border-bottom: 1px solid mat-color($shadow);
+  }
+  tr:nth-child(2n){
+    background-color: mat-color($shadow, 200)
+  }
+}

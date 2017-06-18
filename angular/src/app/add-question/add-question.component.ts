@@ -1,4 +1,4 @@
-import { Component, Type, OnInit, Output, EventEmitter, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory } from '@angular/core';
+import { Component, Type, Output, EventEmitter, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory } from '@angular/core';
 
 import { AddQuestionModule } from './add-question.module'
 
@@ -7,7 +7,7 @@ import { AddQuestionModule } from './add-question.module'
   templateUrl: './add-question.component.html',
   styleUrls: ['./add-question.component.scss']
 })
-export class AddQuestionComponent implements OnInit {
+export class AddQuestionComponent {
 
   @Output() emitter: EventEmitter<any> = new EventEmitter();
   public child: Type<AddQuestionModule>;
@@ -19,16 +19,14 @@ export class AddQuestionComponent implements OnInit {
   feedback: string;
   feedbackBool: boolean;
 
-  constructor(private factory: ComponentFactoryResolver) {
-  }
+  constructor(private factory: ComponentFactoryResolver) { }
 
-  ngOnInit() {
-
-
-  }
-
+  // add a question to the view
   addQuestion(){
+    // create factory
+    // in the module class child will be set to the question type
     this.questionFactory = this.factory.resolveComponentFactory(this.child)
+    // create new question
     let question = this.question.createComponent(this.questionFactory)
 
     this.questionCopy  = (<AddQuestionModule> question.instance)
@@ -41,6 +39,7 @@ export class AddQuestionComponent implements OnInit {
   save(): any{
     let response = this.questionCopy.save()
     response['feedbackBool'] = this.feedbackBool
+    // check if custom feedback is set and save it if needed
     if(this.feedbackBool){
       response['feedback'] = this.feedback;
     }

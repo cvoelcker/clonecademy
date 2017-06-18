@@ -13,6 +13,11 @@ $custom-theme: mat-light-theme($primary, $accent, $warn);
 
 @include angular-material-theme($custom-theme);
 
+
+body{
+  font-family: "Helvetica"
+}
+
 main, footer{
   background-color: mat-color($shadow, 100);
 }

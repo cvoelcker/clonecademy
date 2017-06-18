@@ -37,6 +37,7 @@ export class DashboardComponent implements OnInit {
   @ViewChild('details', {read: ViewContainerRef}) details: ViewContainerRef;
 
   constructor(private server: ServerService, private factory: ComponentFactoryResolver, private route: ActivatedRoute, private router: Router) {
+    // create factories for later use
     this.course = this.factory.resolveComponentFactory(CourseComponent)
     this.addCourse = this.factory.resolveComponentFactory(CreateCourseComponent)
 
@@ -44,13 +45,14 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
 
+    // check if subpage is opend
     this.route.params.subscribe((data: Params) => {
       if(data.id != null){
         this.courseClicked(data.id)
 
       }
     })
-
+    // load the list of courses from the server
     this.server.get("courses/", true)
       .then(data => {
         this.data = data
@@ -76,6 +78,8 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  // open the course details in the content Window
+  // it shows the learning Text and the questions
   courseClicked(id: number){
     this.details.clear()
     this.router.navigate(['/course/' + id])
