@@ -80,20 +80,22 @@ export class ServerService {
     //this.headers.append('Authorization', 'Token ' + this.token)
     let options = new RequestOptions({headers: this.makeHeader()})
 
-    return this.http.post(this.baseUrl + type, body, options)
+    return new Promise((resolve, reject) => this.http.post(this.baseUrl + type, body, options)
                   .toPromise()
                   .then(response => {
                     if(!silent){
                       loader.close()
                     }
-                    return response.json()
+                    resolve(response.json())
                   })
                   .catch(err => {
                     if(!silent){
                       loader.close()
                     }
                     this.handleError(err, this.error)
-                  });
+                    reject(err)
+                  })
+                )
   }
 
   private handleError(error: any, dialog) {

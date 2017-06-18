@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 
+import { UserService } from '../service/user.service'
 
 @Component({
   selector: 'app-profile-page',
@@ -14,6 +15,8 @@ export class ProfilePageComponent implements OnInit {
     {name: "Reqeust Mod rights", url: "request_mod" },
     {name: "Statistics", url: "statistics"}
   ]
+
+  constructor(private user: UserService){}
 
   ngOnInit(){
 

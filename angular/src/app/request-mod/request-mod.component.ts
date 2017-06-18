@@ -12,7 +12,6 @@ import { CookieService } from 'angular2-cookie/core';
 })
 export class RequestModComponent implements OnInit {
   reason: string;
-  answer: string;
   errorMessage: string;
   available: boolean;
   loading = true;
@@ -41,9 +40,7 @@ export class RequestModComponent implements OnInit {
       return -1;
     let request = {reason: this.reason}
     this.server.post("user/request_mod", request)
-      .then(answer => {this.answer = answer;
-                        this.available=false})
-      .catch(error => this.errorMessage = error.statusText);
+      .then(answer => {this.available=false})
   }
 
   ngOnInit() {

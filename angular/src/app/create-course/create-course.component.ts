@@ -67,8 +67,10 @@ export class CreateCourseComponent  {
 
     }
     let course = {title: this.title, categorie: this.catId,  modules: saveModules};
-    this.server.post('save/course/', course).then(data => {
+    this.server.post('save/course/', course)
+    .then(data => {
       this.emitter.emit("saved")
+      this.router.navigate(['/course'])
     }).catch(err => {
       console.log(err)
     })
