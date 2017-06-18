@@ -38,12 +38,12 @@ urlpatterns = [
     url(r'^get-course-categories/$', views.getCourseCategories),
 
     url(r'^save/course/$', views.save),
-
-    url(r'^user/statistics$', views.getStatisticsOverview),
-    url(r'^user/request_mod$', views.requestModStatus),
-    url(r'^user/can_request_mod$', views.getUserDetails),
-    url(r'^user/$', views.getUserInfo),
-    url(r'^user/(?P<userID>[0-9]+)/?$', views.getUserDetails),
+    url(r'^user/statistics$', user_view.getStatisticsOverview),
+    url(r'^user/request_mod$', user_view.requestModStatus),
+    url(r'^user/can_request_mod$', user_view.canRequestMod),
+    url(r'^user/$', user_view.getUserInfo),
+    url(r'^user/(?P<userID>[0-9]+)/?$', user_view.getUserDetails),
+    url(r'^current_user/$', user_view.getCurrentUser),
 
     url(r'^list-user/', views.getAllUsers),
 

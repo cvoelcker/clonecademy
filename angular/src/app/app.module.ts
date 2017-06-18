@@ -4,7 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 // Material Style
-import {MdButtonModule, MdCheckboxModule, MdInputModule} from '@angular/material';
+import {MdButtonModule, MdCheckboxModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule} from '@angular/material';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { RouterModule, Routes } from '@angular/router';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
@@ -32,10 +34,18 @@ import { AddQuestionModule } from "./add-question/add-question.module"
 import { QuestionModule } from "./question/question.module";
 import { ProfilesComponent } from './profiles/profiles.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
+import { AdminPageComponent } from './admin-page/admin-page.component';
 
 const appRoutes: Routes = [
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'login',      component: LoginComponent },
+  {
+    path: 'dashboard',
+   component: DashboardComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
   {
     path: '',
     redirectTo: 'login',
@@ -54,6 +64,10 @@ const appRoutes: Routes = [
     component: QuestionComponent,
   },
   {
+    path: "profile",
+    component: ProfilePageComponent
+  },
+  {
     path: "createCourse",
     component: CreateCourseComponent
   },
@@ -66,11 +80,15 @@ const appRoutes: Routes = [
     component: ProfilesComponent,
   },
   {
-    path: "user-detail",
+    path: "admin",
+    component: AdminPageComponent
+  },
+  {
+    path: "admin/user_details",
     component: UserDetailComponent,
   },
   {
-    path: "profile/request_mod",
+    path: "admin/request_mod",
     component: RequestModComponent,
   },
   { path: '**', component: PageNotFoundComponent }
@@ -100,6 +118,8 @@ const appRoutes: Routes = [
     ProfilesComponent,
     UserDetailComponent,
     RequestModComponent,
+    ProfilePageComponent,
+    AdminPageComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -109,11 +129,11 @@ const appRoutes: Routes = [
     MdButtonModule,
     MdCheckboxModule,
     MdInputModule,
+    MdSelectModule,
+    MdTabsModule,
+    BrowserAnimationsModule,
   ],
   exports: [
-    MdButtonModule,
-    MdCheckboxModule,
-    MdInputModule,
   ],
   providers: [ServerService, CookieService],
   bootstrap: [

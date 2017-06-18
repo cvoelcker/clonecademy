@@ -176,12 +176,12 @@ def getStatisticsOverview(request):
 
 
 @api_view(['GET'])
-def getAllUsers(request):
+def getUsers(request, get_list):
     '''
     Returns a list of alluser profile names
     '''
-    users = User.objects.all()
-    serializer = UserSerializer(users, many=True).data
+    user = User.objects.all()
+    user = UserSerializer(user, many=get_list).data
     return Response(serializer)
 
 

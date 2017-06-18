@@ -6,7 +6,7 @@
   <label for="basic" class="control-label">Select Category</label>
 
   <div>
-    <select *ngFor="let c of categories" id="basic" [(ngModel)]="catId" class="selectpicker show-tick form-control">
+    <select *ngFor="let c of categories" id="basic" [(ngModel)]="catId" class="form-control">
       <option [ngValue]="c.id">{{c.name}}</option>
     </select>
   </div>
@@ -14,8 +14,8 @@
 
 <div [class.moduleWrapper]="moduleArray.length > 0" class="test">
   <div class="modules" #modules></div>
-  <button md-raised-button class=" " (click)="addModule()">
-    <i class="material-icons">add</i> add Module
-  </button>
-  <button md-raised-button class=" " (click)="save()"><i class="material-icons">save</i> save</button>
+   <button md-raised-button class=" " (click)="addModule()">
+     <i class="material-icons">add</i> add Module
+   </button>
+   <button md-raised-button class=" " (click)="save()"><i class="material-icons">save</i> save</button>
 </div>
