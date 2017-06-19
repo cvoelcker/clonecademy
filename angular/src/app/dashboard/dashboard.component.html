@@ -6,7 +6,7 @@
       <h2>Dashboard<button md-raised-button *ngIf="user.isModerator()" class="addCourse" routerLink="create_course"><i class="material-icons">add</i> add Course</button><br></h2>
       <div *ngIf="!loading">
         <button md-button class="collapseButton" (click)="collapse = !collapse" ><i [class.right]="collapse" class="arrow"></i>Courses</button>
-        <div id="courses" [class.collapse]="collapse">
+        <div id="courses" [@slideIn]="!collapse">
           <ul>
           <li *ngFor="let c of course.data"><a [routerLink]="'/course/' + c.id">{{c.name}}</a></li>
         </ul>

@@ -11,16 +11,19 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
   animations: [
-    trigger('show', [
-      state( "active", style({
-        display: "none"
-      })),
-      state( "inactive", style({
-        display: "block"
-      })),
-      transition('inactive => active', animate('100ms ease-in')),
-    ])
-  ]
+      trigger('slideIn', [
+          state('1', style({ "height": "*", 'overflow-y': 'hidden' })),
+          state('0', style({ "height": "0",  'overflow-y': 'hidden' })),
+          transition('1 => 0', [
+              style({ height: '*' }),
+              animate(250, style({ height: 0 }))
+          ]),
+          transition('0 => 1', [
+              style({ height: '0' }),
+              animate(250, style({ height: '*' })),
+      ]),
+  ])
+]
 })
 export class DashboardComponent implements OnInit {
   data: any;
