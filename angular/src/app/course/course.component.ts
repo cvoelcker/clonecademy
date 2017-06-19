@@ -30,16 +30,15 @@ export class CourseComponent implements OnInit {
   }
 
   load() {
-
     this.server.get('courses/'+this.id + "/", true)
       .then(data => {
-        this.name = data.name;
-        this.modules = data.modules;
-        this.solved = data.solved;
+        this.name = data['name'];
+        this.modules = data['modules'];
+        this.solved = data['solved'];
 
         let lastModule = this.modules[this.modules.length - 1]
         let lastQuestion = lastModule.question[lastModule.question.length - 1]
-        if(!(data.solved.indexOf(lastQuestion.id) > -1)){
+        if(!(data['solved'].indexOf(lastQuestion.id) > -1)){
           this.completed = false;
         }
         this.loading = false

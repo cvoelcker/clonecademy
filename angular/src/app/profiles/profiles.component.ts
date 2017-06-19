@@ -15,7 +15,8 @@ import { UserDetailComponent } from '../user-detail/user-detail.component'
 })
 export class ProfilesComponent implements OnInit {
 
-  profiles: Array<{username: string, id: number, email: string}>;
+  // Array<{username: string, id: number, email: string}>
+  profiles: any;
 
   profile: number;
 

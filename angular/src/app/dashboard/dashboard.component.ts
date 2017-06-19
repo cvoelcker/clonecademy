@@ -1,6 +1,6 @@
 import { Component, OnInit,} from '@angular/core';
 
-import { ServerService} from '../service/server.service'
+import { CourseService } from '../service/course.service'
 
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
@@ -28,20 +28,12 @@ export class DashboardComponent implements OnInit {
   loading = true;
 
 
-  constructor(private server: ServerService) {
+  constructor(private course: CourseService) {
 
   }
 
   ngOnInit() {
-
-    // load the list of courses from the server
-    this.server.get("courses/", true)
-      .then(data => {
-        this.data = data
-        this.loading = false;
-        }
-      )
-
+    this.course.load().then(() => this.loading = false)
   }
 
 }

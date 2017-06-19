@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from django.contrib.auth.models import User, Group
 from .models import *
 from learning_base.question.models import Question
 from learning_base.serializers import QuestionSerializer
@@ -27,10 +28,10 @@ class UserSerializer(serializers.ModelSerializer):
             last_name=validated_data["lastName"]
         )
 
-class UserGroups(serializer.ModelSerializer):
+class UserGroups(serializers.ModelSerializer):
     groups = GroupSerializer(many=True)
     class Meta:
-        model User
+        model = User
         fields = ('username', 'first_name', "last_name", 'email', 'groups', 'date_joined', )
 
 class ProfileSerializer(serializers.ModelSerializer):

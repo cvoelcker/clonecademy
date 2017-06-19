@@ -18,7 +18,7 @@ export class MultipleChoiceQuestionComponent extends QuestionModule {
     super.ngOnInit()
 
     this.server.get("courses/"+this.courseID+"/"+this.moduleIndex + "/" + this.questionIndex).then(data => {
-      this.answers = data.answers
+      this.answers = data['answers']
       this.hightlightStatus = {}
       for(let ans of this.answers){
         this.hightlightStatus[ans.id] = false

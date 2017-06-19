@@ -54,12 +54,12 @@ export class QuestionComponent implements OnInit {
     this.server.get("courses/"+this.courseID+"/"+this.moduleIndex + "/" + this.questionIndex).then(data => {
 
       this.submitCorrect = false;
-      this.title = data.title
-      this.questionBody = data.question_body
-      this.lastQuestion = data.lastQuestion
-      this.lastModule = data.lastModule
+      this.title = data['title']
+      this.questionBody = data['question_body']
+      this.lastQuestion = data['lastQuestion']
+      this.lastModule = data['lastModule']
       // create Question based on the class
-      this.questionFactory = this.factory.resolveComponentFactory(this.components[data.class])
+      this.questionFactory = this.factory.resolveComponentFactory(this.components[data['class']])
 
       // empty question factory box bevor adding new stuff
       this.question.clear()

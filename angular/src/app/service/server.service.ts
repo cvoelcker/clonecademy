@@ -39,7 +39,7 @@ export class ServerService {
   // call this function to get data from the server
   // the token will be passed
   // if silent is true the loader will not be shown
-  get(type: string, silent = false){
+  get(type: string, silent = false, error = true){
     let loader;
     if(!silent){
       loader = this.dialog.open(LoaderComponent, {
@@ -49,25 +49,29 @@ export class ServerService {
 
 
     let options = new RequestOptions({headers: this.makeHeader()})
-    return this.http.get(this.baseUrl + type, options)
+    return new Promise((resolve, reject) => this.http.get(this.baseUrl + type, options)
       .toPromise()
-      .then(res => {
+      .then(response => {
         if(!silent){
           loader.close()
         }
-        return res.json()
+        resolve(response.json())
       })
       .catch(err => {
         if(!silent){
           loader.close()
         }
-        this.handleError(err, this.error)
+        if(error){
+          this.handleError(err, this.error)
+        }
+        reject(err)
       })
+    )
   }
 
   // call this function to get data from the server
   // if silent is true the loader will not be shown
-  post(type: string, body: any, silent = false){
+  post(type: string, body: any, silent = false, error = true){
     let loader;
     if(!silent){
 
@@ -92,7 +96,9 @@ export class ServerService {
                     if(!silent){
                       loader.close()
                     }
-                    this.handleError(err, this.error)
+                    if(error){
+                      this.handleError(err, this.error)
+                    }
                     reject(err)
                   })
                 )

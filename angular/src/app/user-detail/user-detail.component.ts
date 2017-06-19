@@ -10,7 +10,8 @@ import { ProfilesComponent } from '../profiles/profiles.component'
 
 export class UserDetailComponent {
 
-  user: {username: string, id: number, email: string, group: {}, dateRegistered: Date, dateString: string}
+  // {username: string, id: number, email: string, group: {}, dateRegistered: Date, dateString: string}
+  user: any;
 
   constructor(private server: ServerService) { }
 

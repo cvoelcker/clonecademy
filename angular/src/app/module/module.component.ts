@@ -31,9 +31,9 @@ export class ModuleComponent implements OnInit {
 
   constructor(private server: ServerService, private route: ActivatedRoute) {
     this.server.get("courses/"+this.courseID+"/"+this.moduleIndex).then(data => {
-      this.name = data.name
-      this.questions = data.question;
-      this.learningText = data.learning_text;
+      this.name = data['name']
+      this.questions = data['question'];
+      this.learningText = data['learning_text'];
     })
   }
 

@@ -17,6 +17,7 @@ import { CookieService } from 'angular2-cookie/services/cookies.service';
 
 import { ServerService } from './service/server.service';
 import { UserService } from './service/user.service';
+import { CourseService } from './service/course.service'
 import { ErrorDialog } from "./service/error.service";
 
 import { AppComponent } from './app.component';
@@ -159,6 +160,7 @@ const appRoutes: Routes = [
   providers: [
     ServerService,
     UserService,
+    CourseService,
     CookieService,
     MdDialog,
     ErrorDialog

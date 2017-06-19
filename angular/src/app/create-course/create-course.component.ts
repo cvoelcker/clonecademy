@@ -2,6 +2,8 @@ import { Component, Input, ComponentRef, ViewChild, ViewContainerRef, ComponentF
 import { AddModuleComponent } from '../add-module/add-module.component'
 import { Router } from "@angular/router"
 
+import { CourseService } from '../service/course.service'
+
 import { ServerService } from '../service/server.service'
 @Component({
   selector: 'app-create-course',
@@ -16,12 +18,12 @@ export class CreateCourseComponent  {
   moduleArray: ComponentRef<AddModuleComponent>[] = [];
   length: number;
 
-  categories: {name: string, id: number};
+  categories: {};
   catId: number;
 
   @Output() emitter: EventEmitter<any> = new EventEmitter();
 
-  constructor(private router: Router, private server: ServerService, private componentFactory: ComponentFactoryResolver) {
+  constructor(private router: Router, private server: ServerService, private componentFactory: ComponentFactoryResolver, private course: CourseService) {
     this.childComponent = this.componentFactory.resolveComponentFactory(AddModuleComponent)
     this.server.get("get-course-categories/").then(data => {this.categories = data;}).catch(err => console.log(err))
   }
@@ -69,7 +71,7 @@ export class CreateCourseComponent  {
     let course = {title: this.title, categorie: this.catId,  modules: saveModules};
     this.server.post('save/course/', course)
     .then(data => {
-      this.emitter.emit("saved")
+      this.course.load()
       this.router.navigate(['/course'])
     }).catch(err => {
       console.log(err)

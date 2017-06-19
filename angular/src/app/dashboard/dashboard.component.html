@@ -7,7 +7,7 @@
       <div *ngIf="!loading">
         <button md-button class="collapseButton" (click)="collapse = !collapse" >Courses</button>
         <div id="courses" [class.collapse]="collapse">
-          <div *ngFor="let c of data">
+          <div *ngFor="let c of course.data">
           <a [routerLink]="'/course/' + c.id">{{c.name}}</a>
           </div>
         </div>

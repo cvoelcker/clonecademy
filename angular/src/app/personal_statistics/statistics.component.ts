@@ -8,7 +8,7 @@ import { ServerService} from '../service/server.service';
   styleUrls: ['./statistics.component.scss']
 })
 export class StatisticsComponent implements OnInit {
-  statistics: JSON;
+  statistics: {};
   loading = true
 
   constructor(private server: ServerService) {

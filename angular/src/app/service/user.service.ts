@@ -10,7 +10,7 @@ import {CookieService} from 'angular2-cookie/core';
 @Injectable()
 export class UserService {
 
-  public login: boolean;
+  public login: boolean = false;
   public username: string;
   public dateJoined: Date;
   private id: number;
@@ -22,10 +22,9 @@ export class UserService {
   public loginUser(username: string, password: string){
     return new Promise((resolve, reject) =>  this.server.login(username, password)
       .then(res => {
-        this.loadUser();
         this.login = true;
-        this.router.navigate(['/course']);
-        resolve(true)
+        this.loadUser().then(() => {this.router.navigate(['/course']); resolve(true)});
+
       })
       .catch(res => {
         console.log(res)
@@ -35,14 +34,21 @@ export class UserService {
   }
 
   public loadUser(){
-    this.server.get("current_user/", true).then(data => {
-      this.username = data['username']
-      this.id = data['id']
-      this.email = data['email']
-      this.groups = data['groups']
-      this.dateJoined = new Date(data['date_joined'])
-      this.loaded = true;
-    }).catch(err => console.log(err))
+
+    return new Promise((resolve, reject) => this.server.get("current_user/", true, false).then(data => {
+          this.username = data['username']
+          this.id = data['id']
+          this.email = data['email']
+          this.groups = data['groups']
+          this.dateJoined = new Date(data['date_joined'])
+          this.loaded = true;
+          resolve()
+        })
+        .catch(err => {
+          this.loaded = true;
+          reject()
+        })
+      )
   }
 
   private isInGroup(name: string){
@@ -74,7 +80,7 @@ export class UserService {
 
   constructor(private server: ServerService, private router: Router, private cookie: CookieService ) {
     this.login = this.server.getToken() != null
-    this.loadUser();
+    this.loadUser()
   }
 
 }
