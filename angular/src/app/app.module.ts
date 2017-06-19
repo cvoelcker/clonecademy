@@ -20,6 +20,8 @@ import { UserService } from './service/user.service';
 import { CourseService } from './service/course.service'
 import { ErrorDialog } from "./service/error.service";
 
+import { Admin } from "./injectible/admin.injectible"
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -60,6 +62,10 @@ const appRoutes: Routes = [
      {
        path: "create_course",
        component: CreateCourseComponent,
+     },
+     {
+       path:"page_not_found",
+       component: PageNotFoundComponent,
      },
      {
        path: ":id",
@@ -105,6 +111,9 @@ const appRoutes: Routes = [
   {
     path: "admin",
     component: AdminPageComponent,
+    canActivate: [
+      Admin
+    ],
     children: [
       {
         path: "profiles",
@@ -112,7 +121,14 @@ const appRoutes: Routes = [
       }
     ]
   },
-  { path: '**', component: PageNotFoundComponent }
+  {
+    path: "404",
+    component: PageNotFoundComponent,
+  },
+  {
+    path: '**',
+    redirectTo: "404",
+  }
 ];
 
 
@@ -168,7 +184,8 @@ const appRoutes: Routes = [
     CourseService,
     CookieService,
     MdDialog,
-    ErrorDialog
+    ErrorDialog,
+    Admin
   ],
   bootstrap: [
     AppComponent,

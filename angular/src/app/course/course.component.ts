@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router'
+import { ActivatedRoute, Params, Router } from '@angular/router'
 import { ServerService } from '../service/server.service'
-
+import { CourseService } from '../service/course.service'
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
@@ -18,7 +18,12 @@ export class CourseComponent implements OnInit {
   loading = true;
 
 
-  constructor(private route: ActivatedRoute, private server: ServerService) {
+  constructor(
+    private course: CourseService,
+    private route: ActivatedRoute,
+    private server: ServerService,
+    private router: Router,
+  ) {
 
   }
 
@@ -30,7 +35,8 @@ export class CourseComponent implements OnInit {
   }
 
   load() {
-    this.server.get('courses/'+this.id + "/", true)
+    if(this.course.contains(this.id)){
+      this.server.get('courses/'+this.id + "/", true)
       .then(data => {
         this.name = data['name'];
         this.modules = data['modules'];
@@ -43,6 +49,10 @@ export class CourseComponent implements OnInit {
         }
         this.loading = false
       })
+    }
+    else {
+      this.router.navigate(["/course/page_not_found"])
+    }
   }
 
 

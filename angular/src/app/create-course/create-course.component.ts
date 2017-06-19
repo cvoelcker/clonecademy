@@ -1,8 +1,9 @@
-import { Component, Input, ComponentRef, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, ComponentRef, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory, EventEmitter, Output } from '@angular/core';
 import { AddModuleComponent } from '../add-module/add-module.component'
 import { Router } from "@angular/router"
 
 import { CourseService } from '../service/course.service'
+import { UserService } from "../service/user.service"
 
 import { ServerService } from '../service/server.service'
 @Component({
@@ -10,7 +11,7 @@ import { ServerService } from '../service/server.service'
   templateUrl: './create-course.component.html',
   styleUrls: ['./create-course.component.scss']
 })
-export class CreateCourseComponent  {
+export class CreateCourseComponent implements OnInit {
 
   @Input() title: string;
   @ViewChild('modules', {read: ViewContainerRef}) modules: ViewContainerRef;
@@ -25,7 +26,18 @@ export class CreateCourseComponent  {
 
   @Output() emitter: EventEmitter<any> = new EventEmitter();
 
-  constructor(private router: Router, private server: ServerService, private componentFactory: ComponentFactoryResolver, private course: CourseService) {
+  ngOnInit(){
+    if(!this.user.isModerator())
+    this.router.navigate(["/course/page-not-found"])
+  }
+
+  constructor(
+    private router: Router,
+    private server: ServerService,
+    private componentFactory: ComponentFactoryResolver,
+    private course: CourseService,
+    private user: UserService
+  ) {
     this.childComponent = this.componentFactory.resolveComponentFactory(AddModuleComponent)
     this.server.get("get-course-categories/", true)
       .then(data => {

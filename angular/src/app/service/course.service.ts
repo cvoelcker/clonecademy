@@ -23,4 +23,15 @@ export class CourseService {
     )
   }
 
+  contains(id: number){
+    if(this.data != null){
+      for(let i = 0; i < this.data.length; i++){
+        if(this.data[i]['id'] == id){
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
 }
