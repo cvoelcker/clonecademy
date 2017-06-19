@@ -1,4 +1,4 @@
-
+@import "../../theme";
 
 .addCourse{
   float:right;
@@ -14,4 +14,28 @@
 
 #courses{
   transition: height 0.4s ease-in-out;
+  //border: 1px solid mat-color($shadow);
+  border-top: none;
+  box-shadow: 0px 2px 2px mat-color($shadow);
+  padding: 0;
+  ul {
+    margin: 0;
+    li {
+      transition: background-color 0.4s ease-in-out;
+      &:hover {
+        background-color: mat-color($shadow, 200);
+      }
+      a {
+        width: 100%;
+        display: block;
+        &:hover {
+          color: mat-color($shadow);
+        }
+      }
+    }
+  }
+}
+
+li:nth-child(2n) {
+    background-color: mat-color($accent, 100);
 }
