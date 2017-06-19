@@ -2,17 +2,17 @@
 <h2>
   {{name}} <button  md-raised-button class="startCourse" routerLink="/course/{{ id }}/1/1/"> start Course</button>
 </h2>
-<ul>
-  <li *ngFor="let m of modules; let i = index">
-    <h3><b>{{i + 1}}:</b> {{m.name}}</h3>
+<ol>
+  <li class="module" *ngFor="let m of modules; let i = index">
+    <h3>{{m.name}}</h3>
     <div>{{m.learning_text}}</div>
-    <ul>
-      <li *ngFor="let q of m.question; let j = index">
-        <div class="alert" [class.alert-success]="solved.indexOf(q.id) > -1"><b>{{j + 1}}:</b> {{q.class}}</div>
+    <ol>
+      <li class="question" *ngFor="let q of m.question; let j = index">
+        <div class="alert" [class.alert-success]="solved.indexOf(q.id) > -1">{{q.class}}</div>
       </li>
-    </ul>
+    </ol>
   </li>
-</ul>
+</ol>
 </div>
 <div *ngIf="loading" class="localLoader">
 <md-progress-spinner mode="indeterminate"></md-progress-spinner>
