@@ -18,17 +18,20 @@ export class ProfilesComponent implements OnInit {
   // Array<{username: string, id: number, email: string}>
   profiles: any;
 
-  profile: number;
+  loading = true;
 
   selectedValue = null;
 
   @ViewChild('user', {read: UserDetailComponent}) user: UserDetailComponent;
 
-
   constructor(private server: ServerService, private router: Router) { }
 
   ngOnInit() {
-    this.server.get("list-user/").then(data => this.profiles = data).catch(err => console.log(err))
+    this.server.get("list-user/", true)
+      .then(data => {
+        this.profiles = data;
+        this.loading = false;
+      })
   }
 
 

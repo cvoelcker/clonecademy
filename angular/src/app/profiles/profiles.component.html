@@ -3,4 +3,4 @@
   <option *ngFor="let p of profiles" id="profileSelect" [ngValue]="p.id">{{p.username}}</option>
 </select>
 
-<app-user-detail #user [id] = "selectedValue"></app-user-detail>
+<app-user-detail #user [id]="selectedValue"></app-user-detail>

@@ -11,10 +11,6 @@ import {CookieService} from 'angular2-cookie/core';
 export class UserService {
 
   public login: boolean = false;
-  public username: string;
-  public dateJoined: Date;
-  private id: number;
-  public email: string;
   private groups: Array<{name: string}>;
 
   public loaded = false;
@@ -36,11 +32,7 @@ export class UserService {
   public loadUser(){
 
     return new Promise((resolve, reject) => this.server.get("current_user/", true, false).then(data => {
-          this.username = data['username']
-          this.id = data['id']
-          this.email = data['email']
           this.groups = data['groups']
-          this.dateJoined = new Date(data['date_joined'])
           this.loaded = true;
           resolve()
         })
@@ -68,11 +60,12 @@ export class UserService {
   }
 
   public isModerator(){
-    return this.isInGroup("moderator")
+    return this.isInGroup('admin') || this.isInGroup("moderator")
   }
 
   public logout(){
     this.login = false
+    this.groups = null;
     this.cookie.removeAll();
     this.server.clearToken();
     this.router.navigate(['/login']);

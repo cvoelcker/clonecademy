@@ -1,6 +1,7 @@
-import { Component, OnInit,} from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
 
 import { CourseService } from '../service/course.service'
+import { UserService } from '../service/user.service'
 
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
@@ -27,8 +28,9 @@ export class DashboardComponent implements OnInit {
 
   loading = true;
 
+  @ViewChild('content', {read: ViewContainerRef}) content: ViewContainerRef;
 
-  constructor(private course: CourseService) {
+  constructor(private course: CourseService, private user: UserService) {
 
   }
 

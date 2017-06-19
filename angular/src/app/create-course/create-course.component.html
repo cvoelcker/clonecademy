@@ -1,4 +1,4 @@
-<div class="form-group">
+<div class="form-group" *ngIf="!loading">
   <label for="title">title</label>
   <input type="text" class="form-control" id="title" [(ngModel)]="title" required>
 </div>
@@ -18,4 +18,7 @@
      <i class="material-icons">add</i> add Module
    </button>
    <button md-raised-button class=" " (click)="save()"><i class="material-icons">save</i> save</button>
+</div>
+<div *ngIf="loading" class="localLoader">
+<md-progress-spinner mode="indeterminate"></md-progress-spinner>
 </div>

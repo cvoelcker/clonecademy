@@ -3,7 +3,7 @@
   <div class="row">
 
     <div class ="sidebar col-md-4">
-      <h2>Dashboard<button md-raised-button class="addCourse" routerLink="create_course"><i class="material-icons">add</i> add Course</button><br></h2>
+      <h2>Dashboard<button md-raised-button *ngIf="user.isModerator()" class="addCourse" routerLink="create_course"><i class="material-icons">add</i> add Course</button><br></h2>
       <div *ngIf="!loading">
         <button md-button class="collapseButton" (click)="collapse = !collapse" >Courses</button>
         <div id="courses" [class.collapse]="collapse">
@@ -18,5 +18,5 @@
     </div>
 
     <div class ="content col-md-8">
-      <router-outlet></router-outlet>
+      <router-outlet #content></router-outlet>
     </div>

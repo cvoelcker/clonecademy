@@ -18,6 +18,8 @@ export class CreateCourseComponent  {
   moduleArray: ComponentRef<AddModuleComponent>[] = [];
   length: number;
 
+  loading = true;
+
   categories: {};
   catId: number;
 
@@ -25,7 +27,11 @@ export class CreateCourseComponent  {
 
   constructor(private router: Router, private server: ServerService, private componentFactory: ComponentFactoryResolver, private course: CourseService) {
     this.childComponent = this.componentFactory.resolveComponentFactory(AddModuleComponent)
-    this.server.get("get-course-categories/").then(data => {this.categories = data;}).catch(err => console.log(err))
+    this.server.get("get-course-categories/", true)
+      .then(data => {
+        this.categories = data;
+        this.loading = false;
+      })
   }
 
   addModule(){

@@ -104,12 +104,14 @@ export class ServerService {
                 )
   }
 
+  // error handler will show a popup with the error Message
   private handleError(error: any, dialog) {
     console.error('An error occurred', error);
     dialog.open(error.statusText || error.message)
     return Promise.reject(error.message || error);
   }
 
+  // sends request to server and saves the token from server as cookie for future requests
   public login(name: string, password: string){
 
     let headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json'});

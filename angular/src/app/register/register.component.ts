@@ -29,9 +29,6 @@ export class RegisterComponent {
   newFirstName: string = "";
   newLastName: string = "";
   newAge: number = -1;
-  newGroup: string = "";
-  invalidRegister: boolean;
-  errorMessage: string;
 
 
   ngOnInit() {
@@ -44,6 +41,7 @@ export class RegisterComponent {
     password: new FormControl('password', Validators.required)
   })
 
+  // register a new user. 
   register(value){
 
     if(value.valid && value.value["password"] === value.value['password2']){
@@ -53,10 +51,6 @@ export class RegisterComponent {
         .then(answer => {
           this.user.loginUser(this.newUsername, this.newPassword)
         })
-        .catch(error => {
-          this.invalidRegister = true;
-          this.errorMessage = error.statusText
-        });
     }
     else{
       if(!value.valid){

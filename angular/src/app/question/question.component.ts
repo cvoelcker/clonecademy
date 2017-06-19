@@ -109,6 +109,7 @@ export class QuestionComponent implements OnInit {
     this.router.navigateByUrl("/course/"+this.courseID+"/"+ module + "/" + question)
     this.moduleIndex = module;
     this.questionIndex = question
+    this.submitSend = false;
     this.loadQuestion()
   }
 
