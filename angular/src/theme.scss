@@ -79,6 +79,17 @@ button{
     opacity: 1 !important;
 }
 
+.alert{
+  color: mat-color($shadow) !important;
+  &.alert-false{
+    background-color: transparent;
+  }
+  &.alert-info{
+    background-color: mat-color($accent, 100);
+    border-color: mat-color($accent, 300);
+  }
+}
+
 .error{
   input{
     border-color: mat-color($warn)
