@@ -41,11 +41,12 @@ body{
 a{
   transition: color 0.4s ease;
   cursor: pointer;
+  outline: 0;
 }
 
 a:hover, a:focus, a:active{
   text-decoration: none;
-  color: mat-color($primary)
+  color: mat-color($primary);
 }
 
 *[md-raised-button]{
