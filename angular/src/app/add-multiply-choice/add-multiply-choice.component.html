@@ -7,7 +7,8 @@
   <label for="answers">Answers</label>
   <ul *ngFor="let i of answers; let j = index" id="answers" class="answers">
     <li class="singleQuestion" [class.correct]="i.correct">
-      <div class="alert" [class.alert-success]="i.correct">
+      <div class="alert" [class.alert-success]="i.correct"
+        [class.alert-danger]="!i.correct">
         <md-checkbox type="checkbox" name="isActive" id="feedbackBool" [(ngModel)]="i.correct">
           is this Answer correct?
         </md-checkbox>
