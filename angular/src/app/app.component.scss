@@ -1,28 +1,29 @@
 @import "../_vars";
 
 
+@media(min-width: 768px){
+  .flex{
+    display: flex;
+    flex-flow: column;
+  }
 
-.flex{
-  display: flex;
-  flex-flow: column;
-}
+  .box{
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+  }
 
-.box{
-  display: flex;
-  flex-flow: column;
-  height: 100%;
-}
+  header{
+    flex: 0 1 auto;
+    min-height: 119px;
+  }
 
-header{
-  flex: 0 1 auto;
-  min-height: 119px;
-}
+  main{
+    flex: 1 1 auto;
+    position: relative;
+  }
 
-main{
-  flex: 1 1 auto;
-  position: relative;
-}
-
-footer{
-  flex: 0 1 auto;
+  footer{
+    flex: 0 1 auto;
+  }
 }
