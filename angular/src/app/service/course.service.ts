@@ -14,23 +14,53 @@ export class CourseService {
     return new Promise((resolve, reject) => this.server.get("courses/", true)
       .then(data => {
         this.data = data
+        console.log("test")
         resolve()
         }
       )
       .catch(err => {
-        reject()
+        reject(err)
       })
     )
   }
 
   contains(id: number){
-    if(this.data != null){
-      for(let i = 0; i < this.data.length; i++){
-        if(this.data[i]['id'] == id){
-          return true;
+    return new Promise((resolve, reject) => {
+      if(this.data == null){
+        this.load().then(() => {
+            if(this.check(id)){
+              resolve();
+            }
+            else{
+              reject();
+            }
+          }
+        )
+        .catch(() => {
+          reject()
+        })
+      }
+      else{
+        if(this.check(id)){
+          resolve();
+        }
+        else{
+          reject();
         }
       }
+    })
+
+
+
+  }
+
+  private check(id: number){
+    for(let i = 0; i < this.data.length; i++){
+      if(this.data[i]['id'] == id){
+        return true;
+      }
     }
+
     return false;
   }
 

@@ -35,7 +35,7 @@ export class CourseComponent implements OnInit {
   }
 
   load() {
-    if(this.course.contains(this.id)){
+    this.course.contains(this.id).then(() => {
       this.server.get('courses/'+this.id + "/", true)
       .then(data => {
         this.name = data['name'];
@@ -49,10 +49,11 @@ export class CourseComponent implements OnInit {
         }
         this.loading = false
       })
-    }
-    else {
+    })
+    .catch(() => {
+
       this.router.navigate(["/course/page_not_found"])
-    }
+    })
   }
 
 
