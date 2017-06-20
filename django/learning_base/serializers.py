@@ -104,11 +104,19 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('username', 'email', 'id', 'date_joined')
 
 
-class RequestSerializer(serializers.ModelSerializer):
-    user = UserSerializer
+class ModRequestSerializer(serializers.ModelSerializer):
     class Meta():
         model = ModRequest
         fields = ('user', 'date')
+
+    def create(self, validated_data):
+        print(validated_data)
+        user = validated_data.pop('user')
+        print("Still alive")
+        user = User.objects.filter(id=user).first()
+        new_request = ModRequest(user=user, date=timezone.localdate())
+        new_request.save()
+        return True
 
 
 class TrySerializer(serializers.ModelSerializer):

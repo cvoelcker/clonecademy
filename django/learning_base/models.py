@@ -8,7 +8,7 @@ from polymorphic.models import PolymorphicModel
 # from user_model import models as ub_models
 
 
-def get_link_to_profile(self, user):
+def get_link_to_profile(user):
     '''
     Returns the link to the users profile page
     '''
@@ -18,7 +18,7 @@ def get_link_to_profile(self, user):
 
 def valid_mod_request(user):
     request = ModRequest.objects.filter(user=user)
-    return request.exists() and (request.first().date - timezone(now)).days < -7 
+    return request.exists() and (request.first().date - timezone.localdate()).days < -7 
 
 
 class ModRequest(models.Model):

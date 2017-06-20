@@ -6,22 +6,23 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 
 from learning_base.serializers import *
 from learning_base.multiple_choice.models import MultipleChoiceQuestion
-from learning_base.models import Course, CourseCategory, Module, valid_mod_request
+from learning_base.models import Course, CourseCategory, Module, valid_mod_request, get_link_to_profile
 
 from rest_framework.response import Response
+from django.core.mail import send_mail
 
 # Create your views here.
 
-def CourseView():
+class CourseView():
     pass
 
-def ModuleView():
+class ModuleView():
     pass
 
-def QuestionView():
+class QuestionView():
     pass
 
-def UserView():
+class UserView():
     pass
 
 @api_view(['GET'])
@@ -245,22 +246,29 @@ def requestModStatus(request):
     '''
     data = request.data
     user = request.user
-    if not valid_mod_request(user=user):
-        return Response('User is mod or has sent to many requests',status=403)
+    if valid_mod_request(user=user):
+        return Response('User is mod or has sent to many requests',status=402)
     #TODO: fix if an localization issues arrise
     
-    data['username'] = user
-    data['date'] = timezone.now()
+    data['user'] = user.id
+    data['date'] = str(timezone.localdate())
 
-    new_request = ModRequestSerializer(data).save()
+    new_request = ModRequestSerializer(data=data)
+    
+    if new_request.is_valid():
+        new_request.create(new_request.data)
+    else:
+        print("\n\n\n\n\n\n\n{}\n{}\n\n\n\n\n\n\n".format(data, new_request.errors))
+        return Response('Invalid request', status=500)
+
     send_mail(
         'Moderator rights requested by {}'.format(user.username),
         'The following user {} requested moderator rights for the CloneCademy platform. \n \
         The given reason for this request: \n{}\n \
         If you want to add this user to the moderator group, access the profile {}\
         for the confirmation field.\n \
-        Have a nice day, your CloneCademy bot'.format(
-            user.username, data["reason"], profile.get_link_to_profile()),
+     UserSerializer   Have a nice day, your CloneCademy bot'.format(
+            user.username, data["reason"], get_link_to_profile(user)),
         'bot@clonecademy.de',
         ['test@test.net']
     )
