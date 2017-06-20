@@ -8,22 +8,16 @@
   width: 100%;
 }
 
-
-.collapse{
-}
-
-i {
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    float: left;
-    margin-top: 12px;
-    display: inline-block;
-    padding: 3px;
-}
 .arrow{
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
   transition: transform 0.2s ease-in-out;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  float: left;
+  margin-top: 12px;
+  display: inline-block;
+  padding: 3px;
   &.right {
       transform: rotate(-45deg);
       -webkit-transform: rotate(-45deg);

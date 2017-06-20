@@ -1,7 +1,8 @@
-import { Component, Type, OnInit, Output, EventEmitter, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory } from '@angular/core';
+import { Component, ChangeDetectorRef, Type, OnInit, Output, EventEmitter, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory } from '@angular/core';
 
 import { AddQuestionComponent } from "../add-question/add-question.component"
 
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 import { AddQuestionModule } from '../add-question/add-question.module'
 import { AddMultiplyChoiceComponent } from "../add-multiply-choice/add-multiply-choice.component"
@@ -9,7 +10,25 @@ import { AddMultiplyChoiceComponent } from "../add-multiply-choice/add-multiply-
 @Component({
   selector: 'app-add-module',
   templateUrl: './add-module.component.html',
-  styleUrls: ['./add-module.component.scss']
+  styleUrls: ['./add-module.component.scss'],
+  animations: [
+      trigger('slideIn', [
+          state('1', style({
+            'overflow-x': 'hidden'
+          })),
+          state('0', style({
+            'overflow-x': 'hidden'
+          })),
+          transition('1 => 0', [
+              style({ height: '*' }),
+              animate(250, style({ height: 0 }))
+          ]),
+          transition('0 => 1', [
+              style({ height: '0' }),
+              animate(250, style({ height: '*' })),
+      ]),
+    ])
+  ]
 })
 export class AddModuleComponent implements OnInit {
 
@@ -25,10 +44,12 @@ export class AddModuleComponent implements OnInit {
   questionArray: any[] = [];
   moduleComponent: AddQuestionComponent;
 
+  loading = false;
+
   @ViewChild('module', {read: ViewContainerRef}) module: ViewContainerRef;
 
   @Output() clear: EventEmitter<any> = new EventEmitter();
-  constructor(private factory: ComponentFactoryResolver) {
+  constructor(private ref: ChangeDetectorRef, private factory: ComponentFactoryResolver) {
     this.question = this.factory.resolveComponentFactory(AddQuestionComponent)
   }
 
@@ -48,9 +69,21 @@ export class AddModuleComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngAfterViewInit(){
+    this.loading = true;
+    this.ref.detectChanges()
+  }
+
   // emit remove so parent class can remove this
   close(){
-    this.clear.emit("remove")
+    this.loading = false;
+    //this.clear.emit("remove")
+  }
+
+  remove(event){
+    if(event.toState == "0" && this.loading == false){
+      this.clear.emit("remove")
+    }
   }
 
   // emit up so parent class can change the position
