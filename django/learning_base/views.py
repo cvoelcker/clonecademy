@@ -12,6 +12,18 @@ from rest_framework.response import Response
 
 # Create your views here.
 
+def CourseView():
+    pass
+
+def ModuleView():
+    pass
+
+def QuestionView():
+    pass
+
+def UserView():
+    pass
+
 @api_view(['GET'])
 def getCourses(request):
     courses = Course.objects.all().filter(is_visible=True)
@@ -230,16 +242,17 @@ def requestModStatus(request):
     '''
     Handels the moderator rights request. Expects a reason and extracts the user
     from the request header.
-
-    This class does not use a serializer, as the json is only one element wide and.
     '''
     data = request.data
     user = request.user
     if not valid_mod_request(user=user):
-        return Response('User is mod or has sent to many requests',status=400)
+        return Response('User is mod or has sent to many requests',status=403)
     #TODO: fix if an localization issues arrise
-    profile.requested_mod = datetime.now()
-    profile.save()
+    
+    data['username'] = user
+    data['date'] = timezone.now()
+
+    new_request = ModRequestSerializer(data).save()
     send_mail(
         'Moderator rights requested by {}'.format(user.username),
         'The following user {} requested moderator rights for the CloneCademy platform. \n \
@@ -251,7 +264,7 @@ def requestModStatus(request):
         'bot@clonecademy.de',
         ['test@test.net']
     )
-    return Response("Request send")
+    return Response({"Request": "ok"})
 
 def getCurrentUser(request):
     return getUserDetails(request, request.user.id)

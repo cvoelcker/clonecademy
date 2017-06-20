@@ -103,6 +103,14 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('username', 'email', 'id', 'date_joined')
 
+
+class RequestSerializer(serializers.ModelSerializer):
+    user = UserSerializer
+    class Meta():
+        model = ModRequest
+        fields = ('user', 'date')
+
+
 class TrySerializer(serializers.ModelSerializer):
     '''
     Model serializer for the Try model
