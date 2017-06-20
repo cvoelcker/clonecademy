@@ -35,11 +35,13 @@
   ul {
     margin: 0;
     li {
+      padding: 0;
       transition: background-color 0.4s ease-in-out;
       &:hover {
         background-color: mat-color($shadow, 200);
       }
       a {
+        padding: 0.5em 0;
         width: 100%;
         display: block;
         &:hover {

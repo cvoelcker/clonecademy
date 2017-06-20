@@ -83,6 +83,7 @@ button{
   color: mat-color($shadow) !important;
   &.alert-false{
     background-color: transparent;
+    border: 1px solid;
   }
   &.alert-info{
     background-color: mat-color($accent, 100);
