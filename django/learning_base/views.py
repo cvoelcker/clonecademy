@@ -16,14 +16,38 @@ from django.core.mail import send_mail
 class CourseView():
     pass
 
+
+class CoursesView();
+    pass
+
+
 class ModuleView():
     pass
+
+
+class ModulesView():
+    pass
+
 
 class QuestionView():
     pass
 
+
+class QuestionsView():
+    pass
+
+
 class UserView():
     pass
+
+
+class UsersView():
+    pass
+
+
+class StatisticsView():
+    pass
+
 
 @api_view(['GET'])
 def getCourses(request):
@@ -208,6 +232,7 @@ def getUserDetails(request, userID):
     return Response(user.data)
 
 
+#TODO: kill, use groups, can be got by UserDetails
 @api_view(['GET'])
 def getUserInfo(request):
     value = []
@@ -233,10 +258,12 @@ def createNewUser(request):
     else:
         return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 @api_view(['GET'])
 def canRequestMod(request):
     user = request.user
     return Response(valid_mod_request(user))
+
 
 @api_view(['POST'])
 def requestModStatus(request):
