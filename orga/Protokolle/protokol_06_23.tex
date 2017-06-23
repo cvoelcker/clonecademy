@@ -1,0 +1,85 @@
+\documentclass[colorback, accentcolor=tud1c, paper=a4]{tudexercise}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{multicol}
+
+%opening
+\title{Protokol Auftraggebertreffen \today}
+\subtitle{Claas A. Völcker}
+\subsubtitle{BP Clonecademy}
+\author{Claas A. Völcker}
+
+
+\begin{document}
+	
+\maketitle
+
+\begin{multicols}{2}
+
+\section{Bericht der letzte Iteration}
+\subsection{Design}
+Wir präsentieren das neue Design
+
+Anmerkungen:
+\begin{itemize}
+\item Das Menü zur Nutzerauswahl ein Suchfeld haben und kein reines Dropdown sein
+\end{itemize}
+
+\subsection{Weitere Anmerkungen}
+\begin{itemize}
+\item Kurskategorien sollten bei den Kursen auswählbar sein
+	\begin{itemize}
+	\item z.B. via eines Reiters über der Übersicht im Dashboard
+	\end{itemize}
+\item Bei der Registrierung sollte die Lernsprache auswählbar sein
+\item Der "Get hint" Knopf fehlt noch
+	\begin{itemize}
+	\item Wird in einer eigenen User Story programmiert
+	\end{itemize}
+\item Der Kursfortschritt ist noch nicht ganz klar
+	\begin{itemize}
+	\item Das muss auf der Kursübersicht einsehbar sein (z.B. via Fortschrittsbalken)
+	\end{itemize}
+\end{itemize}
+
+\section{Vorschlag für neue User Stories:}
+\begin{itemize}
+\item Nutzerdaten ändern
+\item Kurs fortführen
+	\begin{itemize}
+	\item Knopf "Kurs starten" wird zu "Fortführen"
+	\item Man kann einen bereits begonnenen Kurs an jeder Stelle, an der man bereits war, wiederholt starten
+	\end{itemize}
+\item Moderatorenrechte vergeben
+\item Neue Fragen
+\item Sprachauswahl bei Registrierung
+	\begin{itemize}
+	\item Klar machen, dass Englisch Primärsprache ist
+	\item Vorschlag: Anzahl der verfügbaren Kurse pro Sprache anzeigen
+	\end{itemize}
+\end{itemize}
+
+\subsection{Ausgewählt}
+\begin{itemize}
+\item Moderatorenrechte vergeben
+\item Kurs fortführen
+\item Sprachauswahl
+\end{itemize}
+
+\section{Zielvereinbarung für die nächste Woche}
+\begin{itemize}
+\item User Stories bearbeiten
+\item Refactoring erstmal abschließen
+\item Deployment ermöglichen
+\end{itemize}
+
+\section{Weitere Planung}
+\begin{itemize}
+\item Vor einem iGEM Teamtreffen können Nutzerstudien gemacht werden
+	\begin{itemize}
+	\item Am Anfang eine kleine Gruppe mit viel Beobachtung
+	\item Auf Leos Laptop, um Screencapture zu ermöglichen
+	\end{itemize}
+\end{itemize}
+\end{multicols}
+\end{document}
