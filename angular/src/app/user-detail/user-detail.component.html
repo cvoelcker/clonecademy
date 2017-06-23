@@ -1,7 +1,0 @@
-<h2>UserDetail!</h2>
-<ul *ngIf="user != undefined">
-  <li>Username: {{user.username}}</li>
-  <li *ngIf="user.email">Email: {{user.email}}</li>
-  <li *ngIf="user.group">group: {{user.group.name}}</li>
-  <li>Date registered: {{user.dateRegistered | date:'d. MMMM y'}}
-</ul>
