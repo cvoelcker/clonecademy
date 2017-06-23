@@ -165,6 +165,7 @@ def callQuestion(request, courseID, moduleIndex, questionIndex):
     if request.method == "GET":
         value = QuestionSerializer(question,  read_only=True).data
         value['title'] = module.name
+        value['learning_text'] = module.learning_text
         # to see if the module is over
         value['lastQuestion'] = int(questionIndex) == len(ordering)
         # to check if the course is over

@@ -10,8 +10,7 @@ import { ServerService } from "../service/server.service"
 })
 export class MultipleChoiceQuestionComponent extends QuestionModule {
 
-  answers: [{id: number, text: string, value: boolean}];
-  hightlightStatus: {};
+  answers: Array<{id: number, text: string, value: boolean}>;
 
   ngOnInit() {
     // to et the courseID, moduleIndex and questionIndex run ngOnInit from parent
@@ -19,17 +18,14 @@ export class MultipleChoiceQuestionComponent extends QuestionModule {
 
     this.server.get("courses/"+this.courseID+"/"+this.moduleIndex + "/" + this.questionIndex).then(data => {
       this.answers = data['answers']
-      this.hightlightStatus = {}
-      for(let ans of this.answers){
-        this.hightlightStatus[ans.id] = false
-      }
     })
   }
 
+  // return array of the marked answers
   submit(): any{
     let sendAnswer = [];
     for (let ans of this.answers){
-      if(this.hightlightStatus[ans.id]){
+      if(ans.value){
         sendAnswer.push(ans.id)
       }
     }

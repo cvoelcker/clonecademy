@@ -21,7 +21,10 @@ export class QuestionComponent implements OnInit {
   moduleIndex: number;
   courseID: number;
   questionIndex: number;
+  // Module variables
   title: string;
+  learning_text: string;
+  
   questionBody: string;
   questionFactory: ComponentFactory<any>;
   questionModule: QuestionModule;
@@ -52,12 +55,12 @@ export class QuestionComponent implements OnInit {
 
   loadQuestion(){
     this.server.get("courses/"+this.courseID+"/"+this.moduleIndex + "/" + this.questionIndex).then(data => {
-
       this.submitCorrect = false;
       this.title = data['title']
       this.questionBody = data['question_body']
       this.lastQuestion = data['lastQuestion']
       this.lastModule = data['lastModule']
+      this.learning_text = data['learning_text']
       // create Question based on the class
       this.questionFactory = this.factory.resolveComponentFactory(this.components[data['class']])
 
