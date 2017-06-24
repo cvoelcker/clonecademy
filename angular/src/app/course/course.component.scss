@@ -3,13 +3,31 @@
 .startCourse{
   float: right;
 }
+
+
 body{
   counter-reset: item;
+}
+
+.alert{
+  border-color: mat-color($shadow);
+  &.success{
+    border-color: #d6e9c6;
+    background-color: #dff0d8;
+  }
 }
 
 ol{
   list-style: none;
   li{
+    position: relative;
+    .startQuestion{
+      position: absolute;
+      right: 8px;
+      left: auto;
+      top: 8px;
+      bottom: 8px;
+    }
     margin-bottom: 5px;
     &.module{
       counter-increment: module;

@@ -14,11 +14,17 @@ export class QuestionModule implements OnInit{
   questionIndex: number
   courseID: number;
 
+  disable = false;
+
   constructor(public server: ServerService, private route: ActivatedRoute) {
   }
 
   submit(): any{
     return "test";
+  }
+
+  block(): void{
+    this.disable = true;
   }
   ngOnInit(){
     this.route.params.subscribe((data: Params) => {

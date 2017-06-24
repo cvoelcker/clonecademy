@@ -13,7 +13,7 @@ export class CourseComponent implements OnInit {
   type: string;
   name: string;
   modules: [any];
-  solved: [number];
+  solved: [number, number];
   completed: boolean = true;
   loading = true;
 
@@ -41,6 +41,7 @@ export class CourseComponent implements OnInit {
         this.name = data['name'];
         this.modules = data['modules'];
         this.solved = data['solved'];
+        console.log(this.solved)
 
         let lastModule = this.modules[this.modules.length - 1]
         let lastQuestion = lastModule.question[lastModule.question.length - 1]

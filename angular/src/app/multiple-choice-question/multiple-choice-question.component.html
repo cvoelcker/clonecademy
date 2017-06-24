@@ -1,5 +1,5 @@
 <ul>
   <li *ngFor="let ans of answers" >
-    <md-checkbox type="checkbox" name="isActive" id="feedbackBool" [(ngModel)]="ans.value">{{ans.text}}</md-checkbox>
+    <md-checkbox [disabled]="disable" type="checkbox" name="isActive" id="feedbackBool" [class.selected]="ans.value" [(ngModel)]="ans.value">{{ans.text}}</md-checkbox>
   </li>
 </ul>

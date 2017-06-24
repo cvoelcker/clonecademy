@@ -24,7 +24,7 @@ export class QuestionComponent implements OnInit {
   // Module variables
   title: string;
   learning_text: string;
-  
+
   questionBody: string;
   questionFactory: ComponentFactory<any>;
   questionModule: QuestionModule;
@@ -83,8 +83,15 @@ export class QuestionComponent implements OnInit {
   }
 
   evaluteAnswer(data){
+
     this.submitCorrect = data['evaluate']
     this.submitSend = true;
+
+    if(this.submitCorrect){
+      // calls block to freeze the question element
+      this.questionModule.block();
+
+    }
 
     if(data['feedback']){
       this.feedback = data['feedback']

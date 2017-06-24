@@ -10,6 +10,7 @@ import { ServerService } from "../service/server.service"
 })
 export class MultipleChoiceQuestionComponent extends QuestionModule {
 
+
   answers: Array<{id: number, text: string, value: boolean}>;
 
   ngOnInit() {

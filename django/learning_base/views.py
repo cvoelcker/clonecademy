@@ -11,6 +11,7 @@ from learning_base.question.multiply_choice.models import MultipleChoiceQuestion
 from learning_base.models import Course, CourseCategory
 
 from user_model.models import Try
+from user_model.serializers import *
 
 
 from rest_framework.response import Response
@@ -35,11 +36,14 @@ def singleCourse(request, courseID):
     data = CourseSerializer(course).data
     solved = []
 
+    data['solved'] = [-1,-1]
+
     for m in course.module.all():
         for q in m.questions.all():
-            if Try.objects.filter(question=q).filter(solved=True).exists():
-                solved.append(q.id)
-    data['solved'] = solved
+            if not Try.objects.filter(question=q).filter(solved=True).exists():
+                data['solved'] = [list(course.module.all()).index(m), list(m.questions.all()).index(q)]
+                break
+
     return Response(data)
 
 

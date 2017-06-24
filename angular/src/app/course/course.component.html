@@ -1,6 +1,11 @@
 <div *ngIf="!loading" >
 <h2>
-  {{name}} <button  md-raised-button class="startCourse" routerLink="/course/{{ id }}/1/1/"> start Course</button>
+  {{name}}
+  <div [ngSwitch]="true">
+    <button *ngSwitchCase="solved[0] == 0 && solved[1] == 0"  md-raised-button class="startCourse" routerLink="/course/{{ id }}/1/1/">start Course</button>
+    <button *ngSwitchCase="solved[0] == -1 || solved[1] == -1" mf-raised-button class="startCourse" [disabled]="true">Course Completed</button>
+    <button *ngSwitchDefault md-raised-button class="startCourse" routerLink="/course/{{id}}/{{solved[0]+1}}/{{solved[1]+1}}">continue</button>
+  </div>
 </h2>
 <ol>
   <li class="module" *ngFor="let m of modules; let i = index">
@@ -8,9 +13,12 @@
     <div class="alert alert-info">{{m.learning_text}}</div>
     <ol>
       <li class="question" *ngFor="let q of m.question; let j = index">
-        <div class="alert"
-          [class.alert-success]="solved.indexOf(q.id) > -1"
-          [class.alert-false]="solved.indexOf(q.id) == -1">{{q.class}}</div>
+        <div class="alert" [class.success]="solved[0] == -1 || i < solved[0] || (i == solved[0] && j < solved[1])">
+          {{q.class}}
+          <button *ngIf="solved[0] == -1 || i < solved[0] || (i == solved[0] && j < solved[1])" class="startQuestion" md-raised-button routerLink="/course/{{id}}/{{i+1}}/{{j+1}}">
+            repeat
+          </button>
+        </div>
       </li>
     </ol>
   </li>

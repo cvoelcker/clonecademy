@@ -79,6 +79,16 @@ button{
     opacity: 1 !important;
 }
 
+md-checkbox{
+  .mat-checkbox-layout{
+    margin: 0;
+    display: block;
+    width: 100%;
+    padding: 0.5em;
+
+  }
+}
+
 .alert{
   color: mat-color($shadow) !important;
   &.alert-false{
