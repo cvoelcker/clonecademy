@@ -8,7 +8,11 @@
         <button md-button class="collapseButton" (click)="collapse = !collapse" ><i [class.right]="collapse" class="arrow"></i>Courses</button>
         <div id="courses" [@slideIn]="!collapse">
           <ul>
-          <li *ngFor="let c of course.data"><a [routerLink]="'/course/' + c.id">{{c.name}}</a></li>
+          <li *ngFor="let c of course.data">
+            <a [routerLink]="'/course/' + c.id" [style.background]="setBackgroundGradient(c)">
+              {{c.name}}
+            </a>
+          </li>
         </ul>
         </div>
       </div>

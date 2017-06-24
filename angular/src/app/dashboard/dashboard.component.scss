@@ -37,21 +37,26 @@
     li {
       padding: 0;
       transition: background-color 0.4s ease-in-out;
+      border-bottom: 2px solid mat-color($shadow);
       &:hover {
         background-color: mat-color($shadow, 200);
       }
       a {
+        box-shadow: 0 0 3px mat-color($shadow);
         padding: 0.5em 0;
         width: 100%;
         display: block;
         &:hover {
           color: mat-color($shadow);
         }
+
+      }
+      &:nth-child(2n) {
+        background-color: mat-color($accent, 200);
+      }
+      &:last-child{
+        border: none;
       }
     }
   }
-}
-
-li:nth-child(2n) {
-    background-color: mat-color($accent, 100);
 }

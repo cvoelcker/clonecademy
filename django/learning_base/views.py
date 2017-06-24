@@ -24,7 +24,20 @@ def getCourses(request):
     if len(courses) <= 0:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    return Response(CourseSerializer(courses, many=True).data)
+    data = []
+
+    for c in courses:
+        course_data = CourseSerializer(c).data
+        course_data['num_questions'] = 0
+        course_data['num_answered'] = 0
+        for m in c.module.all():
+            for q in m.questions.all():
+                course_data['num_questions'] += 1
+                if Try.objects.filter(question=q).filter(solved=True).exists():
+                    course_data['num_answered'] += 1
+        data.append(course_data)
+
+    return Response(data)
 
 @api_view(['GET'])
 def singleCourse(request, courseID):
@@ -34,7 +47,6 @@ def singleCourse(request, courseID):
 
     course = course.first()
     data = CourseSerializer(course).data
-    solved = []
 
     data['solved'] = [-1,-1]
 
@@ -43,6 +55,8 @@ def singleCourse(request, courseID):
             if not Try.objects.filter(question=q).filter(solved=True).exists():
                 data['solved'] = [list(course.module.all()).index(m), list(m.questions.all()).index(q)]
                 break
+        if data['solved'] != [-1, -1]:
+            break
 
     return Response(data)
 

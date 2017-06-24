@@ -14,6 +14,7 @@ export class CourseService {
     return new Promise((resolve, reject) => this.server.get("courses/", true)
       .then(data => {
         this.data = data
+        console.log(data)
         resolve()
         }
       )
@@ -27,8 +28,9 @@ export class CourseService {
     return new Promise((resolve, reject) => {
       if(this.data == null){
         this.load().then(() => {
-            if(this.check(id)){
-              resolve();
+          let value = this.get(id)
+            if(value){
+              resolve(value);
             }
             else{
               reject();
@@ -40,8 +42,9 @@ export class CourseService {
         })
       }
       else{
-        if(this.check(id)){
-          resolve();
+        let value = this.get(id)
+        if(value){
+          resolve(value);
         }
         else{
           reject();
@@ -53,10 +56,11 @@ export class CourseService {
 
   }
 
-  private check(id: number){
+
+  get(id: number){
     for(let i = 0; i < this.data.length; i++){
       if(this.data[i]['id'] == id){
-        return true;
+        return this.data[i];
       }
     }
 

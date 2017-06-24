@@ -25,7 +25,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   ])
 ]
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent{
   data: any;
   collapse: boolean
 
@@ -34,11 +34,17 @@ export class DashboardComponent implements OnInit {
   @ViewChild('content', {read: ViewContainerRef}) content: ViewContainerRef;
 
   constructor(private course: CourseService, private user: UserService) {
+    this.course.load().then(() => this.loading = false)
 
   }
 
-  ngOnInit() {
-    this.course.load().then(() => this.loading = false)
+  setBackgroundGradient(course): string{
+    let percent = (course.num_answered / course.num_questions) * 100
+    if(percent > 0){
+      return 'linear-gradient(90deg, #dff0d8 ' + percent + '%, transparent  5%)';
+
+    }
+    return "";
   }
 
 }

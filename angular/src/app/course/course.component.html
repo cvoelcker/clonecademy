@@ -1,12 +1,20 @@
 <div *ngIf="!loading" >
-<h2>
-  {{name}}
-  <div [ngSwitch]="true">
-    <button *ngSwitchCase="solved[0] == 0 && solved[1] == 0"  md-raised-button class="startCourse" routerLink="/course/{{ id }}/1/1/">start Course</button>
-    <button *ngSwitchCase="solved[0] == -1 || solved[1] == -1" mf-raised-button class="startCourse" [disabled]="true">Course Completed</button>
-    <button *ngSwitchDefault md-raised-button class="startCourse" routerLink="/course/{{id}}/{{solved[0]+1}}/{{solved[1]+1}}">continue</button>
-  </div>
-</h2>
+  <table class="header">
+    <td class="title">
+      <h2>
+        {{name}}
+      </h2>
+    </td>
+    <td class="counter">
+      <span>{{numAnswered}}</span><span>/{{numQuestions}}</span><br>completed
+    </td>
+    <td class="button" [ngSwitch]="true">
+      <button *ngSwitchCase="solved[0] == 0 && solved[1] == 0"  md-raised-button routerLink="/course/{{ id }}/1/1/">start Course</button>
+      <button *ngSwitchCase="solved[0] == -1 || solved[1] == -1" mf-raised-button [disabled]="true">Course Completed</button>
+      <button *ngSwitchDefault md-raised-button routerLink="/course/{{id}}/{{solved[0]+1}}/{{solved[1]+1}}">continue</button>
+    </td>
+  </table>
+
 <ol>
   <li class="module" *ngFor="let m of modules; let i = index">
     <h3>{{m.name}}</h3>
