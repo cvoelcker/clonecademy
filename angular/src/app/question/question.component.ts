@@ -35,14 +35,6 @@ export class QuestionComponent implements OnInit {
   feedback: string;
 
   constructor(private changeDet: ChangeDetectorRef, private router: Router, public server: ServerService, private route: ActivatedRoute, private factory: ComponentFactoryResolver) {
-
-  }
-
-  ngAfterViewInit(){
-  }
-
-  ngOnInit(){
-
     this.route.params.subscribe((data: Params) => {
       this.courseID = data.id,
       this.moduleIndex = data.module,
@@ -50,6 +42,12 @@ export class QuestionComponent implements OnInit {
     })
 
     this.loadQuestion()
+  }
+
+  ngAfterViewInit(){
+  }
+
+  ngOnInit(){
 
   }
 
