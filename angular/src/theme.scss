@@ -9,6 +9,8 @@ $warn: mat-palette($mat-red);
 $shadow: mat-palette($md-ccshadow);
 $font: mat-palette($md-ccshadow);
 
+$green: mat-palette($mat-green);
+
 $custom-theme: mat-light-theme($primary, $accent, $warn);
 
 @include angular-material-theme($custom-theme);
@@ -91,13 +93,21 @@ md-checkbox{
 
 .alert{
   color: mat-color($shadow) !important;
-  &.alert-false{
+  &.false{
     background-color: transparent;
     border: 1px solid;
   }
-  &.alert-info{
+  &.info{
     background-color: mat-color($accent, 100);
     border-color: mat-color($accent, 300);
+  }
+  &.success{
+    background-color: mat-color($green, 100);
+    border-color: mat-color($green, 300);
+  }
+  &.danger{
+    background-color: mat-color($warn, 100);
+    border-color: mat-color($warn, 300);
   }
 }
 

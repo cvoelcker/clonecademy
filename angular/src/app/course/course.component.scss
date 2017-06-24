@@ -37,10 +37,6 @@ body{
 
 .alert{
   border-color: mat-color($shadow);
-  &.success{
-    border-color: #d6e9c6;
-    background-color: #dff0d8;
-  }
 }
 
 ol{

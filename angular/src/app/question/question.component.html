@@ -3,7 +3,7 @@
 </div>
 <table class="row">
   <td class="col-md-4 text">
-    <div class="alert alert-info">{{learning_text}}</div>
+    <div class="alert info">{{learning_text}}</div>
     <div class="alert">{{questionBody}}</div>
   </td>
   <td class="col-md-8">
@@ -12,12 +12,12 @@
 </table>
 <div class="row">
   <div *ngIf='submitCorrect' class="col-md-6">
-    <div class="alert alert-success">
+    <div class="alert success">
       {{feedback}}
     </div>
   </div>
   <div *ngIf='!submitCorrect && submitSend' class="col-md-6">
-    <div class="alert alert-danger">
+    <div class="alert danger">
       Please Try again
     </div>
   </div>

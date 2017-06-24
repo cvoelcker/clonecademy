@@ -41,7 +41,7 @@ export class DashboardComponent{
   setBackgroundGradient(course): string{
     let percent = (course.num_answered / course.num_questions) * 100
     if(percent > 0){
-      return 'linear-gradient(90deg, #dff0d8 ' + percent + '%, transparent  5%)';
+      //return 'linear-gradient(90deg, #dff0d8 ' + percent + '%, transparent  5%)';
 
     }
     return "";

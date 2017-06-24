@@ -10,6 +10,7 @@
           <ul>
           <li *ngFor="let c of course.data">
             <a [routerLink]="'/course/' + c.id" [style.background]="setBackgroundGradient(c)">
+              <div class="progressBar" [style.width.%]="(c.num_answered / c.num_questions) * 100" ></div>
               {{c.name}}
             </a>
           </li>

@@ -10,7 +10,7 @@
     </td>
     <td class="button" [ngSwitch]="true">
       <button *ngSwitchCase="solved[0] == 0 && solved[1] == 0"  md-raised-button routerLink="/course/{{ id }}/1/1/">start Course</button>
-      <button *ngSwitchCase="solved[0] == -1 || solved[1] == -1" mf-raised-button [disabled]="true">Course Completed</button>
+      <button *ngSwitchCase="solved[0] == -1 || solved[1] == -1" md-raised-button [disabled]="true">Course Completed</button>
       <button *ngSwitchDefault md-raised-button routerLink="/course/{{id}}/{{solved[0]+1}}/{{solved[1]+1}}">continue</button>
     </td>
   </table>
@@ -18,7 +18,7 @@
 <ol>
   <li class="module" *ngFor="let m of modules; let i = index">
     <h3>{{m.name}}</h3>
-    <div class="alert alert-info">{{m.learning_text}}</div>
+    <div class="alert info">{{m.learning_text}}</div>
     <ol>
       <li class="question" *ngFor="let q of m.question; let j = index">
         <div class="alert" [class.success]="solved[0] == -1 || i < solved[0] || (i == solved[0] && j < solved[1])">
