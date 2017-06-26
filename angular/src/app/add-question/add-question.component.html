@@ -2,9 +2,9 @@
   <div class="question" #question></div>
   <div>
     <md-checkbox name="isActive" id="feedbackBool" [(ngModel)]="feedbackBool">
-      Custom feedback
+      {{"Custom feedback" | translate}}
     </md-checkbox>
     <textarea *ngIf="feedbackBool" class="feedback" id="feedback" type="textarea" [(ngModel)]="feedback"></textarea>
   </div>
-  <button md-raised-button class=" " (click)="remove()"><i class="material-icons">delete</i> remove Question</button>
+  <button md-raised-button class=" " (click)="remove()"><i class="material-icons">delete</i> {{"remove Question" | translate}}</button>
 </div>

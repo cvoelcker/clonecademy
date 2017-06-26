@@ -2,36 +2,36 @@
 
 <div class="register">
 
-  <h2>Register</h2>
+  <h2>{{"register" | translate}}</h2>
 
   <form #f="ngForm" name="register" (ngSubmit)="register(f)">
       <div class="form-group" [class.error]="!email.valid && f.submitted">
-          <label for="email">E-Mailadress</label>
+          <label for="email">{{"email" | translate}}</label>
           <input type="email" #email="ngModel" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" class="form-control" name="email" [(ngModel)]="newEmail" required />
       </div>
 
       <div class="form-group" [class.error]="!username.valid && f.submitted">
-          <label for="username">Username</label>
+          <label for="username">{{"username" | translate}}</label>
           <input type="text" #username="ngModel" minlength="5" class="form-control" name="username" [(ngModel)]="newUsername" required />
       </div>
 
       <div class="form-group" [class.error]="!password.valid && f.submitted">
-          <label for="newPassword">Password</label>
+          <label for="newPassword">{{"password" | translate}}</label>
           <input type="password" #password="ngModel" minlength="5" class="form-control" name="password" [(ngModel)]="newPassword" required />
       </div>
 
       <div class="form-group" [class.error]="(!password2.valid || password2.value != password.value) && f.submitted">
-          <label for="newPassword_2">Password again</label>
+          <label for="newPassword_2">{{"password again" | translate}}</label>
           <input type="password" #password2="ngModel" minlength="5" class="form-control" name="password2" [(ngModel)]="newPassword2" required />
       </div>
 
       <div class="form-group">
-          <label for="newFirstName">First name (optional)</label>
+          <label for="newFirstName">{{"first name" | translate}} ({{"optional" | translate}})</label>
     <input type="text" class="form-control" name="firstName" [(ngModel)]="newFirstName"/>
       </div>
 
       <div class="form-group">
-          <label for="newLastName">Last name (optional)</label>
+          <label for="newLastName">{{"last name" | translate}} ({{"optional" | translate}})</label>
     <input type="text" class="form-control" name="lastName" [(ngModel)]="newLastName" />
       </div>
 
@@ -41,10 +41,9 @@
       </div>
 
       <div class="form-group">
-          <button [disabled]="loading" type="submit" md-raised-button class=" ">Register</button>
+          <button [disabled]="loading" type="submit" md-raised-button class=" ">{{"register" | translate}}</button>
       </div>
 
   </form>
-  <div class="alert danger" *ngIf="errorMessage != null">{{errorMessage}}</div>
-  <button md-raised-button class="btn-info" routerLink="/login">Login with you account</button>
+  <button md-raised-button class="btn-info" routerLink="/login">{{"Login with you account" | translate}}</button>
 </div>

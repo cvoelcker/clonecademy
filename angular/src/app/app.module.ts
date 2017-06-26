@@ -1,7 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http } from '@angular/http';
+
+// translate Module
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 // Material Style
 import {MdButtonModule, MdCheckboxModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule, MdProgressSpinnerModule} from '@angular/material';
@@ -131,6 +135,9 @@ const appRoutes: Routes = [
   }
 ];
 
+export function createTranslateLoader(http: Http) {
+    return new TranslateHttpLoader(http, './assets/lang/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -163,6 +170,13 @@ const appRoutes: Routes = [
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [Http]
+      }
+    }),
     ReactiveFormsModule,
     BrowserModule,
     FormsModule,

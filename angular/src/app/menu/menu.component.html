@@ -1,10 +1,10 @@
 <nav md-tab-nav-bar *ngIf="user.login">
-  <a md-tab-link *ngIf="user.isAdmin()"  routerLink="/admin/" [routerLinkActive]="['is-active']">Admin</a>
-  <a md-tab-link  routerLink="/profile/" [routerLinkActive]="['is-active']">Profile</a>
-  <a md-tab-link  routerLink="/course/" [routerLinkActive]="['is-active']">Lernen</a>
+  <a md-tab-link *ngIf="user.isAdmin()"  routerLink="/admin/" [routerLinkActive]="['is-active']">{{"admin" | translate}}</a>
+  <a md-tab-link  routerLink="/profile/" [routerLinkActive]="['is-active']">{{"profile" | translate}}</a>
+  <a md-tab-link  routerLink="/course/" [routerLinkActive]="['is-active']">{{"learn" | translate}}</a>
 </nav>
 
 <nav md-tab-nav-bar *ngIf="!user.login">
-  <a md-tab-link routerLink="/login/" [routerLinkActive]="['is-active']">Login</a>
-  <a md-tab-link routerLink="/register/" [routerLinkActive]="['is-active']">Register</a>
+  <a md-tab-link routerLink="/login/" [routerLinkActive]="['is-active']">{{"login" | translate}}</a>
+  <a md-tab-link routerLink="/register/" [routerLinkActive]="['is-active']">{{"register" | translate}}</a>
 </nav>

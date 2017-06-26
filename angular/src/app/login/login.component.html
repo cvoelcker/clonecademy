@@ -1,21 +1,21 @@
 <div class="col-md-6 col-md-offset-3">
   <div class="login">
-    <h2>Login</h2>
+    <h2>{{"login" | translate}}</h2>
     <form #f="ngForm" name="login" (ngSubmit)="login(f)">
         <div  class="form-group" [class.error]="!name.valid && f.submitted">
-            <label for="username">Username</label>
+            <label for="username">{{"username" | translate}}</label>
             <input type="text" #name="ngModel" class="form-control" name="username" [(ngModel)]="username" required />
         </div>
         <div class="form-group" [class.error]="!pw.valid && f.submitted" >
-            <label for="password">Password</label>
+            <label for="password">{{"password" | translate}}</label>
             <input type="password" #pw="ngModel" class="form-control" name="password" [(ngModel)]="password" required />
         </div>
         <div class="form-group">
-            <button type="submit" md-raised-button class=" ">Login</button>
+            <button type="submit" md-raised-button class=" ">{{"login" | translate}}</button>
         </div>
     </form>
 
-    <button md-raised-button class="btn-info" routerLink="/register/">No Account? Register here</button>
+    <button md-raised-button class="btn-info" routerLink="/register/">{{"No Account? Register here" | translate}}</button>
   </div>
 
 </div>

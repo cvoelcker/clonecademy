@@ -3,7 +3,7 @@
   <input type="text" class="form-control" id="title" [(ngModel)]="title" required>
 </div>
 <div class="form-group">
-  <label for="basic" class="control-label">Select Category</label>
+  <label for="basic" class="control-label">{{"select category" | translate}}</label>
 
   <div>
     <select *ngFor="let c of categories" id="basic" [(ngModel)]="catId" class="form-control">
@@ -15,9 +15,9 @@
 <div [class.moduleWrapper]="moduleArray.length > 0" class="test">
   <div class="modules" #modules></div>
    <button md-raised-button class=" " (click)="addModule()">
-     <i class="material-icons">add</i> add Module
+     <i class="material-icons">add</i> {{"add module" | translate}}
    </button>
-   <button md-raised-button class=" " (click)="save()"><i class="material-icons">save</i> save</button>
+   <button md-raised-button class=" " (click)="save()"><i class="material-icons">save</i> {{"save" | translate}}</button>
 </div>
 <div *ngIf="loading" class="localLoader">
 <md-progress-spinner mode="indeterminate"></md-progress-spinner>

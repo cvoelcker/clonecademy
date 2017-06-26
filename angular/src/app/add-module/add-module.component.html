@@ -1,7 +1,7 @@
 <div class="moduleWrapper" [@slideIn]="loading" (@slideIn.done)="remove($event)">
   <div class="form-group row">
     <div class="col-md-10">
-      <label for="title">Module title</label>
+      <label for="title">{{"module title" | translate}}</label>
       <input type="text" class="form-control" id="title" [(ngModel)]="title" required>
     </div>
     <div class="col-md-2 arrows">
@@ -16,7 +16,7 @@
 
   <div class="row">
     <div class="col-md-12">
-      <label for="learningText">Learning Text</label>
+      <label for="learningText">{{"Learning Text" | translate}}</label>
       <textarea  id="learningText" type="textarea" [(ngModel)]="learningText"></textarea>
     </div>
   </div>
@@ -27,7 +27,7 @@
       <div class="module" #module></div>
       <!-- add Question -->
       <div class="form-group">
-        <label for="basic" class="control-label">Select Question Type</label>
+        <label for="basic" class="control-label">{{"Select Question Type" | translate}}</label>
 
         <div class="">
           <select *ngFor="let c of components" id="basic" (click)="addQuestion()" [(ngModel)]="selectedValue" class="selectpicker show-tick form-control">
@@ -40,7 +40,7 @@
   </div>
   <div>
     <button md-raised-button class=" " (click)="close()">
-      <i class="material-icons">delete</i>remove module
+      <i class="material-icons">delete</i>{{"remove module" | translate}}
     </button>
   </div>
 </div>

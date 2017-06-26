@@ -1,0 +1,84 @@
+{
+  "dashboard": "Dashboard",
+  "add Course": "add Course",
+  "courses": "Courses",
+  "module title": "module title",
+  "Learning Text": "Learning Text",
+  "Select Question Type": "Select Question Type",
+  "remove module": "remove module",
+
+  "Add multipe choice Question": "Add multipe choice Question",
+  "Question": "Question",
+  "is this Answer correct?": "is this Answer correct?",
+  "remove": "remove",
+  "add Answer": "add Answer",
+
+  "Custom feedback": "Custom feedback",
+  "remove Question": "remove Question",
+
+  "admin": "Admin",
+
+  "completed": "completed",
+
+  "start Course": "start Course",
+  "course completed": "Course Completed",
+  "continue": "continue",
+  "repeat": "repeat",
+
+  "select category": "select category",
+  "add module": "add module",
+  "save": "save",
+
+  "error": "Error",
+  "close": "close",
+
+  "login": "Login",
+  "register": "Register",
+  "username": "Username",
+  "password": "Password",
+
+  "No Account? Register here": "No Account? Register here",
+  "Login with you account": "Login with you account",
+
+  "profile": "Profile",
+  "learn": "Learn",
+
+  "Error 404": "Error 404",
+  "Woops. Looks like this Page doesn't exist.": "Woops. Looks like this Page doesn't exist.",
+
+  "statistics": "statistics",
+  "question": "Question",
+  "solved": "Solved",
+  "tries": "Tries",
+
+  "user details": "User details",
+  "request mod rights": "Request mod rights",
+  "logout": "Logout",
+
+  "select a profile": "Select a profile",
+
+  "incorrect feedback": "Please try again",
+  "correct feedback": "well done",
+
+  "submit": "submit",
+  "next question": "next question",
+
+  "email": "E-Mail",
+  "username": "Username",
+  "password": "Password",
+  "password again": "Password again",
+  "first name": "First name",
+  "last name": "Last name",
+  "optional": "optional",
+  "group": "Group",
+  "Date registered": "Date registered",
+
+  "Request sent": "Request sent",
+  "Give a reason for the request": "Give a reason for the request",
+  "Reason is required": "Reason is required",
+  "Request moderator access" : "Request moderator access" ,
+
+  "UserDetail": "User details",
+
+  "Unable to log in with provided credentials.": "Unable to log in with provided credentials."
+}

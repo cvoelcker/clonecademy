@@ -2,6 +2,8 @@ import { Component, OnInit, ChangeDetectorRef, Output, EventEmitter, Input, View
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { ServerService } from "../service/server.service"
 
+import {TranslateService} from '@ngx-translate/core';
+
 import { MultipleChoiceQuestionComponent } from "../multiple-choice-question/multiple-choice-question.component"
 
 import { QuestionModule } from "./question.module"
@@ -34,7 +36,7 @@ export class QuestionComponent implements OnInit {
   submitCorrect: boolean;
   feedback: string;
 
-  constructor(private changeDet: ChangeDetectorRef, private router: Router, public server: ServerService, private route: ActivatedRoute, private factory: ComponentFactoryResolver) {
+  constructor(private translate: TranslateService, private changeDet: ChangeDetectorRef, private router: Router, public server: ServerService, private route: ActivatedRoute, private factory: ComponentFactoryResolver) {
     this.route.params.subscribe((data: Params) => {
       this.courseID = data.id,
       this.moduleIndex = data.module,
@@ -95,7 +97,7 @@ export class QuestionComponent implements OnInit {
       this.feedback = data['feedback']
     }
     else{
-      this.feedback = "gut gemacht"
+      this.translate.get("correct feedback").subscribe(data => {this.feedback = data})
     }
   }
 

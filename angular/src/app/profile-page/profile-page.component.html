@@ -1,5 +1,5 @@
 <div class="sidebar col-md-4">
-  <h3 *ngIf="user != undefined">Profile</h3>
+  <h3 *ngIf="user != undefined">{{"profile" | translate}}</h3>
   <ul>
     <li *ngFor="let m of menu">
       <button md-button [routerLinkActive]="['is-active']" [routerLink]="'/profile/' + m.url">{{m.name}}</button>
@@ -7,7 +7,7 @@
   </ul>
   <ul>
     <li>
-      <button md-button (click)="user.logout()">Logout</button>
+      <button md-button (click)="user.logout()">{{"logout" | translate}}</button>
     </li>
   </ul>
 </div>

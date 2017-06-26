@@ -1,7 +1,7 @@
-<h2>UserDetail!</h2>
+<h2>{{"UserDetail" | translate}}</h2>
 <ul *ngIf="user != undefined">
-  <li>Username: {{user.username}}</li>
-  <li *ngIf="user.email">Email: {{user.email}}</li>
-  <li *ngIf="user.group">group: {{user.group.name}}</li>
-  <li>Date registered: {{user.dateRegistered | date:'d. MMMM y'}}
+  <li>{{"username" | translate}}: {{user.username}}</li>
+  <li *ngIf="user.email">{{"email" | translate}}: {{user.email}}</li>
+  <li *ngIf="user.group">{{"group" | translate}}: {{user.group.name}}</li>
+  <li>{{"Date registered" | translate}}: {{user.dateRegistered | date:'d. MMMM y'}}
 </ul>

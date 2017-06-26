@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 
 import { UserService } from './service/user.service'
 
@@ -8,9 +9,11 @@ import { UserService } from './service/user.service'
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-
-  constructor(private user: UserService){}
-
   title = 'Clonecademy';
+
+  constructor(private user: UserService, private translate: TranslateService){
+    translate.setDefaultLang('en');
+    translate.use('en');
+  }
 
 }

@@ -18,13 +18,13 @@
   </div>
   <div *ngIf='!submitCorrect && submitSend' class="col-md-6">
     <div class="alert danger">
-      Please Try again
+      {{"incorrect feedback" | translate}}
     </div>
   </div>
 </div>
 <div class="row bottom">
   <div class="col-md-12">
-    <button md-raised-button [disabled]="submitCorrect" class="btn  " (click)="submit()">submit</button>
-    <button md-raised-button [disabled]="!submitCorrect" class="btn  " (click)="next()">next</button>
+    <button md-raised-button [disabled]="submitCorrect" class="btn  " (click)="submit()">{{"submit" | translate}}</button>
+    <button md-raised-button [disabled]="!submitCorrect" class="btn  " (click)="next()">{{"next question" | translate}}</button>
   </div>
 </div>

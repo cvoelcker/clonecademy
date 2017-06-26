@@ -27,6 +27,7 @@
 
 .singleBox{
   margin-right: 5px;
+  margin-left: 1px;
   margin-bottom: 5px;
   box-shadow: 2px 2px 4px mat-color($shadow);
   .courses{
@@ -37,7 +38,7 @@
 
     ul {
       margin: 0;
-      box-shadow: 0 0 5px mat-color($shadow);
+      //box-shadow: 0 0 5px mat-color($shadow);
       li {
         padding: 0;
         border-bottom: 2px solid mat-color($shadow);
@@ -48,12 +49,12 @@
           display: block;
           position: relative;
           z-index: 1;
-          //color: mat-color($primary);
+          color: white;
           overflow: hidden;
           transition: background-color 0.4s ease-in-out;
           &:hover {
             color: mat-color($primary);
-            background-color: mat-color($shadow, 200);
+            background-color: mat-color($accent, 200);
           }
           &:active{
             color: mat-color($shadow);
@@ -71,9 +72,13 @@
             bottom: 2px;
             height: 5px;
           }
+          &.is-active{
+            background-color: mat-color($accent, 200);
+            color: mat-color($primary);
+          }
         }
         &:nth-child(2n) {
-          background-color: mat-color($accent, 200);
+          background-color: mat-color($shadow, 200);
         }
         &:last-child{
           border: none;
