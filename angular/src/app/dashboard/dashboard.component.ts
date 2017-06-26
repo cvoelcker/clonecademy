@@ -30,12 +30,13 @@ export class DashboardComponent{
   collapse: boolean
 
   loading = true;
+  loadingCat = true;
 
   @ViewChild('content', {read: ViewContainerRef}) content: ViewContainerRef;
 
   constructor(private course: CourseService, private user: UserService) {
     this.course.load().then(() => this.loading = false)
-
+    this.course.getCategory().then(() => this.loadingCat = false)
   }
 
   setBackgroundGradient(course): string{

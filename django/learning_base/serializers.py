@@ -53,6 +53,7 @@ class CourseSerializer(serializers.ModelSerializer):
         value['name'] = obj.name
         value['course_difficulty'] = obj.course_difficulty
         value["id"] = obj.id
+        value['category'] = CourseCategorySerializer(obj.category, many=True).data
 
         ordering = literal_eval(obj.module_order)
         modules = ModuleSerializer(obj.module, many=True, read_only=True).data

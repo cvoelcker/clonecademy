@@ -6,8 +6,23 @@ import { ServerService } from './server.service'
 export class CourseService {
 
   data: any
+  categorys: any;
 
   constructor(private server: ServerService) {
+  }
+
+  getByCat(id: number){
+    let value = [];
+    if(this.data != null){
+      for(let i = 0; i < this.data.length; i++){
+        for(let j = 0; j < this.data[i].category.length; j++){
+          if(this.data[i].category[j].id == id){
+            value.push(this.data[i])
+          }
+        }
+      }
+    }
+    return value;
   }
 
   load(){
@@ -22,6 +37,18 @@ export class CourseService {
         reject(err)
       })
     )
+  }
+
+  getCategory(){
+    return new Promise((resolve, reject) => this.server.get("get-course-categories/", true)
+    .then(data => {
+        this.categorys = data
+        resolve(data)
+      }
+    )
+    .catch(err => {
+        reject(err);
+      }))
   }
 
   contains(id: number){

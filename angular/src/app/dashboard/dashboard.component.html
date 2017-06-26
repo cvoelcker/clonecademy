@@ -1,23 +1,31 @@
 <div class="dashboard">
 
   <div class="row">
-
     <div class ="sidebar col-md-4">
-      <h2>Dashboard<button md-raised-button *ngIf="user.isModerator()" class="addCourse" routerLink="create_course"><i class="material-icons">add</i> add Course</button><br></h2>
-      <div *ngIf="!loading">
-        <button md-button class="collapseButton" (click)="collapse = !collapse" ><i [class.right]="collapse" class="arrow"></i>Courses</button>
-        <div id="courses" [@slideIn]="!collapse">
-          <ul>
-          <li *ngFor="let c of course.data">
-            <a [routerLink]="'/course/' + c.id" [style.background]="setBackgroundGradient(c)">
-              <div class="progressBar" [style.width.%]="(c.num_answered / c.num_questions) * 100" ></div>
-              {{c.name}}
-            </a>
-          </li>
-        </ul>
-        </div>
+      <h2>Dashboard<button md-raised-button *ngIf="user.isModerator()" class="addCourse" routerLink="create_course">
+          <i class="material-icons">add</i> add Course
+        </button><br></h2>
+      <div *ngIf="!loading && !loadingCat">
+          <md-tab-group >
+          <md-tab [label]="category.name" *ngFor="let category of course.categorys">
+            <div class="singleBox">
+              <button md-button class="collapseButton" (click)="collapse = !collapse" ><i [class.right]="collapse" class="arrow"></i>Courses</button>
+              <div class="courses" [@slideIn]="!collapse">
+                <ul>
+                  <li *ngFor="let c of course.getByCat(category.id)">
+                    <a [routerLink]="'/course/' + c.id" [style.background]="setBackgroundGradient(c)">
+                      <div class="progressBar" [style.width.%]="(c.num_answered / c.num_questions) * 100"></div>
+                      {{c.name}}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </md-tab>
+        </md-tab-group>
+
       </div>
-      <div *ngIf="loading" class="localLoader">
+      <div *ngIf="loading || loadingCat" class="localLoader">
         <md-progress-spinner mode="indeterminate"></md-progress-spinner>
       </div>
     </div>
