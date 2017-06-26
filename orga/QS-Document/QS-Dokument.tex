@@ -87,8 +87,40 @@ Um dieses Ziel zu erreichen verwenden wir für den grundlegenden Style der Seite
 Um zum Schluss ein Bedienbares Produkt zu haben, werden die Nutzerstudien in mehreren Iterationen und mit immer wieder neuen Nutzer durchgeführt um Verbessungsvorschläge aus den Vorherigen Studien direkt wieder zu testen.
 
 \section{Veränderbarkeit (Entwurf)}
-Für die Webanwendung CloneCademy ist es wichtig, dass die Anwendung im Nachhinein noch veränderbar ist. Es muss möglich sein, neue Inhalte in die Datenbank einzupflegen und auch den Source Code der Webseite selbst erweitern zu können.
+Für die Webanwendung CloneCademy ist es wichtig, dass die Anwendung im Nachhinein noch veränderbar ist. Es muss möglich sein, neue Inhalte in die Datenbank einzupflegen und auch den Quellcode der Webseite selbst ohne große Mühe erweitern zu können.
 
+Um dieses Ziel zu erfüllen gehen wir wie folgt vor. Auf folgende Punkte wird im Projekt geachtet:
+\begin{description}
+\item Quellcode
+\item Kommentare
+\item Refactoring
+\item Wiki
+\item Codeanalyse Tools
+\end{description}
+
+Es wird ein Beauftragter für das Qualitätsziel gewählt, der für alle Rücksprachen oder Fehler der Ansprechpartner ist und dafür sorgt das die oben genannten Punkte wie unten beschrieben durchgesetzt werden.
+
+\textbf{Quellcode}
+Beim implementieren der Userstories wird darauf geachtet das ein einheitliches von Anfang an bestimmtes Muster durchgezogen wird. Klassennamen, Funktionen, Variablen, Klammersetzung etc. Zum Beispiel:
+Klassennamen beginnen immer mit einem Großbuchstaben und bei mehreren Wörtern als Klassenname, werden diese zusammen geschrieben und jedes weitere Wort beginnt wieder mit einem Großbuchstaben.
+Variablen beginnen immer mit einem Kleinbuchstaben und bestehen im besten Fall aus nur einem Wort.
+Funktionen beginnen wie Variablen mit einem Kleinbuchstaben, bei mehreren Worten wird wie beim Klassennamen jedes weitere Wort mit einem Großbuchstaben angefangen, das erste Wort aber mit einem Kleinbuchstaben.
+
+\textbf{Kommentare}
+Der Code wird durchgehend in englisch kommentiert. Dabei wird beachtet das eine korrekte Sprache benutzt wird. Der beauftragte für das Qualitätsziel ist dafür zuständig bei abgeschlossenen Userstories als Abschluss über den Code zu schauen. Bei unzureichenden Kommentaren wird der Entwickler vom beauftragten kontaktiert und darauf hingewiesen diesem nachzugehen.
+
+\textbf{Refactoring}
+Da bei einem Agilen Projekt es dazu kommen kann, dass der Code sehr schnell unübersichtlich werde kann. Wird vor Abnahme der Userstory ein refactoring vom jeweiligen Entwickler durchgeführt. Dies ist unerlässlich und in diesem Prozess werden unbenutzte Codefragmente entfernt und Quellcode Optimierungen durchgeführt.
+
+\textbf{Wiki}
+Nebenbei wird eine Wiki regelmäßig aktualisiert, wo alle Schnittstellen zwischen Backend und Frontend definiert sind. Das Wiki kann von allen Gruppenmitgliedern editiert werden. Bei großen Änderungen und neuen Einträgen wird der Beauftragte für das Qualitätsziels kontaktiert, dieser schaut sich die Änderungen an und führt gegeben falls Optimierungen durch.
+
+\textbf{Codeanalyse Tools}
+Für die Codeanalyse wird für das Backend und Frontend jeweils die dazugehörigen statischen Codeanalyse Tools verwendet:
+\begin{description}
+\item ng2lint für Angular2
+\item django-lint für Django
+end{description}
 
 
 
