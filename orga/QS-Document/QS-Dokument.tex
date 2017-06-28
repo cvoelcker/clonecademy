@@ -30,7 +30,8 @@
 		<\href{mailto:c.voelcker@stud.tu-darmstadt.de}{c.voelcker@stud.tu-darmstadt.de}>}
 	\titlerow{Teamleiter}{Alexander Nagl
 		<\href{mailto:alexander.nagl@t-online.de}{alexander.nagl@t-online.de}>}
-	\titlerow{iGEM Team TU Darmstadt}{%
+	\titlerow{Auftraggeber}{%
+		iGEM Team TU Darmstadt\\
 		Thea Lotz <\href{mailto:lotz@bio.tu-darmstadt.de}{lotz@bio.tu-darmstadt.de}>\\
 		Fachbereich Biologie}
 	\titlerow{Abgabedatum}{xx.xx.xxxx}}
@@ -41,50 +42,62 @@
 \maketitle
 \tableofcontents
 
+\chapter*{Anmerkungen und Hinweise}
+Die Verfasser dieses Dokumentes verwenden als Maßnahme für die Gleichstellung aller Geschlechter die sogenannte ''gendergerechte Sprache''. Wir weichen nur von dieser Regelung ab, wenn entweder alle Mitglieder einer Gruppe sich ein und demselben Geschlecht zugehörig fühlen oder die Vorgaben der Veranstalter*innen keine Alternative zulassen (z.B. beim Deckblatt).
+
 \chapter{Einleitung}
 
 \emph{CloneCademy} ist ein Projekt für das iGEM-Team der TU Darmstadt. Die \emph{international Genetically Engineered Machine competition} (iGEM) ist ein internationaler Wettbewerb für Studierende auf dem Gebiet der Synthetischen Biologie.
 Dieser wird seit 2003 von der iGEM-Foundation veranstaltet.
 
-Im Rahmen des Wettbewerbs wird eine Online-Lernplattform für das iGEM-Team der TU Darmstadt erstellt. Das Ziel dieser Plattform ist es, durch interaktive Unterrichtseinheiten Prinzipien der Molekularbiologie sowie der syntetischen Biologie zu erlernen, und sowohl eigene Lernfortschritte als auch die anderer Teams, begutachten zu können. Darüber hinaus soll es auch anderen Interessierten (z.B. andere iGEM-Teams, Lehrende an Universitäten und Schulen, etc.) möglich sein, eigene Inhalte einzupflegen und zur Verfügung zu stellen.
+Im Rahmen des Wettbewerbs wird eine Online-Lernplattform für das iGEM-Team der TU Darmstadt erstellt. Das Ziel dieser Plattform ist es, durch interaktive Unterrichtseinheiten Prinzipien der Molekularbiologie sowie der synthetischen Biologie zu erlernen, und sowohl eigene Lernfortschritte als auch die anderer Teams, begutachten zu können. Darüber hinaus soll es auch anderen Interessierten (z.B. andere iGEM-Teams, Lehrende an Universitäten und Schulen, etc.) möglich sein, eigene Inhalte einzupflegen und zur Verfügung zu stellen.
+
+Das Ziel des Projektes ist eine voll funktionsfähige Webanwendung für Rechner. Eine mobile Nutzung der Seite ist nicht Teil des Bachelor Praktikums, eine spätere Implementierung einer plattformübergreifenden Lösung (z.B. einer App) ist jedoch durch Nutzung der REST-Schnittstelle möglich.
+
+Der minimale geplante Funktionsumfang umfasst die Möglichkeit einen Nutzungsaccount auf der Seite anzulegen und eingestellte Kurse zu bearbeiten. Außerdem wird es dedizierte Moderator*innen geben, die Inhalte auf der Webseite hochladen können.
+
+Zusätzlich sind mehrere Erweiterungen geplant. Allem voran soll es möglich sein, unterschiedliche Fragetypen zu nutzen. Als minimales Ziel wird hierfür die Möglichkeit gegeben, Multiple Choice Fragen zu stellen. Weitere Typen werden im laufe des Projektes mit den Auftraggeber*innen bsprochen und beschlossen.
+
+Da auch die Interaktion verschiedener Nutzer*innen und der Lernfortschritt erklärte Ziele der Plattform sind, werden zusätzliche Erweiterungen indiesen Gebeten geplant. Dazu zählen ausführliche Statistiken zu Lernfortschritt und die Möglichkeit, diesen mit anderen Nutzer*innen der Plattform zu teilen und zu vergleichen.
 
 \chapter{Qualitätsziele}
 \section{Datensicherheit (Security)}
 
 Im Rahmen des Projekts CloneCademy wird eine Webanwendung entwickelt, auf die über das Internet zugegriffen werden kann. Daher ist die Sicherung gegen unbefugten Zugriff und Änderung der Daten der Webseite in diesem Projekt das wichtigste Qualitätsziel. Da CloneCademy sowohl persönliche Daten der Nutzer*innen als auch Metadaten über die Nutzung der Plattform und die Inhalte der einzelnen Lerneinheiten in einer Datenbank speichert, ist es sehr wichtig, dass Internetnutzer*innen keine Daten verändern oder einsehen können, solange sie dazu nicht die benötigten Rechte besitzen.
 
-Die größte Bedrohung geht von bekannten Webangriffen und Misskonfigurationen im Backend einer Webseite aus. Während dieses Projekts wird darauf geachtet, dass wir die Plattform gegen die wichtigsten Sicherheitslücken in einer Webanwendung sichern.
+Die größte Bedrohung geht von bekannten Webangriffen und Misskonfigurationen im Backend einer Webseite aus. Während dieses Projekts wird darauf geachtet, dass wir die Plattform gegen die wichtigsten Sicherheitslücken in einer Webanwendung sichern. Da eine umfassende Sicherung gegen alle möglichen Angriffsvektoren und Schwachstellen den Projektumfang weit übersteigen würde, befassen wir uns im Rahmen dieses Projektes vor allem mit der Sicherheit der Nutzeroberfläche und der Schnittstelle.
 
-Diese sind\footnote{Paraphrasiert nach der verbreiteten Liste des Open Web Application Security Project (OWASP) \\
-	Link zum Download:  \href{https://github.com/OWASP/Top10/raw/master/2017/OWASP\%20Top\%2010\%20-\%202017\%20RC1-English.pdf}{https://github.com/OWASP/Top10/raw/master/2017/OWASP\%20Top\%2010\%20-\%202017\%20RC1-English.pdf}}:
+Die betrachtenten Angriffsvektoren\footnote{Paraphrasiert nach der verbreiteten Liste des Open Web Application Security Project (OWASP)\\Link zum Download:  \href{https://github.com/OWASP/Top10/raw/master/2017/OWASP\%20Top\%2010\%20-\%202017\%20RC1-English.pdf}{https://github.com/OWASP/Top10/raw/master/2017/OWASP\%20Top\%2010\%20-\%202017\%20RC1-English.pdf}} sind:
 \begin{enumerate}
 \item Möglichkeiten zur Ausführung fremden Codes (Injection \& Cross-Site Scripting)
-\item Fehler in Authentifizierung und Session-Management
 \item Fehlerhafte Zugriffskontrolle
-\item Sicherheitsrelevante Fehlkonfiguration
-\item Verlust der Vertraulichkeit sensibler Daten
 \item Nutzung von Komponenten mit bekannten Schwachstellen
-\item Ungenügend geschützte Programmierschnittstelle
 \end{enumerate}
 
 Um die Sicherheit der Anwendung zu gewährleisten, folgen wir einem mehrschrittigen Plan.
 
-Ein Entwickler des Teams wird zum Sicherheitsbeauftragten ernannt. Seine Aufgabe ist es, auf die Einhaltung aller Programmierrichtlinien zu achten und Tests zur Validierung aller Schutzziele durchzuführen. Die genaue Vorgehensweise wird im Folgenden detailliert ausgeführt.
+Um die Durchführung der folgenden Maßnahmen sicherzustellen wurde ein Entwickler des Teams zum Sicherheitsbeauftragten ernannt. Seine Aufgabe ist es, auf die Einhaltung aller Programmierrichtlinien zu achten und Tests zur Validierung aller Schutzziele durchzuführen. Die genaue Vorgehensweise wird im Folgenden detailliert ausgeführt.
 
-Während der ersten Gespräche mit den Auftraggeber*innen wurden Nutzerrollen definiert (Admin, Moderator*in und Nutzer*in). In jeder User Story wird festgehalten, ob und welche Zugriffsbeschränkungen einzelne Module der Webseite oder Daten besitzen. Während der Implementierung der jeweiligen Story achten die zuständigen Entwickler darauf, dass diese Vorgaben eingehalten werden. Um dies zu gewährleisten, werden die zur Verfügung gestellten Sicherheitswerkzeuge der genutzten Frameworks (Django, Django REST, Angular2) verwendet.
+Während der ersten Gespräche mit den Auftraggeber*innen wurden Nutzerrollen definiert (Admin, Moderator*in und Nutzer*in). In jeder User Story wird festgehalten, ob und welche Zugriffsbeschränkungen einzelne Module der Webseite oder Daten besitzen. Um die Einhaltung der Nutzer*innenrollen zu ermöglichen, werden die zur Verfügung gestellten Authentifizierungswerkzeuge der genutzten Frameworks (Django, Django REST, Angular2) verwendet. %TODO: Wir müssen das überprüfen.
 
-Während der Implementierung achten alle Entwickler darauf, die Best Practices im Web Development einzuhalten. Als Referenz dafür werden die Handreichungen des Open Web Application Security Project (OWASP)\footnote{\href{https://www.owasp.org/images/0/08/OWASP_SCP_Quick_Reference_Guide_v2.pdf}{https://www.owasp.org/images/0/08/OWASP\_SCP\_Quick\_Reference\_Guide\_v2.pdf}} verwendet. In den wöchentlichen internen Code-Reviews wird die Qualität des Codes hinsichtlich dieser Richtlinien überprüft.
+Während der Implementierung halten alle Entwickler die Best Practices im Web Development ein. Als Referenz dafür werden die Handreichungen des Open Web Application Security Project (OWASP)\footnote{\href{https://www.owasp.org/images/0/08/OWASP_SCP_Quick_Reference_Guide_v2.pdf}{https://www.owasp.org/images/0/08/OWASP\_SCP\_Quick\_Reference\_Guide\_v2.pdf}} verwendet. In den wöchentlichen internen Code-Reviews wird die Qualität des Codes hinsichtlich dieser Richtlinien überprüft.
 
-Um die Qualität des Codes im Python-basierten Backend automatisiert zu testen, wird das verbreitete Werkzeug \emph{bandit}\footnote{\href{https://wiki.openstack.org/wiki/Security/Projects/Bandit}{https://wiki.openstack.org/wiki/Security/Projects/Bandit}} verwendet. Als statisches Analyse-Werkzeug für das Frontend wird \emph{ng2lint}\footnote{\href{https://www.npmjs.com/package/ng2lint}{https://www.npmjs.com/package/ng2lint}} verwendet. Beide Programme unterstützen die Code-Review, indem die gelieferten Meldungen als Grundlage für eine detaillierte Analyse des Codes genutzt werden. Um eine dauerhaft hohe Qualität des Codes zu gewährleisten, werden die Analyse-Tools jede zweite Iteration verwendet. Das Team achtet darauf, alle gefundenen Schwachstellen soweit wie möglich innerhalb der nächsten zwei Iterationen zu beheben und ansonsten eine realistische Einschätzung über die Konsequenzen der gefundenen Fehler an die Auftraggeber*innen zu melden.
+Um die Qualität des Codes im Python-basierten Backend automatisiert zu testen, wird das verbreitete Werkzeug \emph{bandit}\footnote{\href{https://wiki.openstack.org/wiki/Security/Projects/Bandit}{https://wiki.openstack.org/wiki/Security/Projects/Bandit}} verwendet. Als statisches Analyse-Werkzeug für das Frontend wird \emph{ng2lint}\footnote{\href{https://www.npmjs.com/package/ng2lint}{https://www.npmjs.com/package/ng2lint}} verwendet. Beide Programme unterstützen die Code-Review, indem die gelieferten Meldungen als Grundlage für eine detaillierte Analyse des Codes genutzt werden. Zusätzlich wird eine Sicherheits-Checkliste\footnote{siehe Anhang} geführt, die die Best Practices zur sicheren Webentwicklung und das Überprüfen aller Reports der verwendeten Werkzeuge enthält. Um eine dauerhaft hohe Qualität des Codes zu gewährleisten, werden die Analyse-Tools automatisiert bei einem Push auf dem Development Branch des Git Repositories verwendet. Alle gefundenen Schwachstellen werden vor dem finalen Commit auf dem stable Branch zur Abnahme der User Story behoben. Wenn dies nicht möglich ist, wird eine Begründung verfasst und eine realistische Einschätzung über die Risiken der gefundenen Fehler an die Auftraggeber*innen gemeldet. Diese entscheiden, ob die Risiken tragbar sind und die User Story trotz der Sicherheitslücke als erfolgreich gemeldet wird.
 
 Um die tatsächliche Sicherheit des Endproduktes gegen externe Angriffe zu zeigen, wird ein automatisiertes Penetrations-Werkzeug verwendet. Das OWASP empfiehlt hierfür das \emph{Zed Attack Proxy Project}, welches eine Reihe bekannter Angriffe auf die Plattform ausführt und die gefundenen Schwachstellen meldet. Der Sicherheitsbeauftragte führt diese Tests monatlich durch und meldet die Ergebnisse an die jeweiligen Entwickler des betroffenen Moduls, damit diese innerhalb des nächsten Monats behoben werden können. Ist eine Behebung nicht möglich, werden die Konsequenzen dieser Lücke zusammen mit möglichen weiteren Schritten zum Schutz der Anwendung im Betrieb an die Auftraggeber*innen gemeldet.
 
+Da ein Fokus auf Sicherheit zwar wichtig ist, aber Korrekturen erst vorgenommen werden können, sobald das Kernprodukt nicht mehr verändert wird, werden alle vorgestellten Maßnahmen ab Juli durchgeführt.
+
 \section{Bedienbarkeit (Entwurf)}
-CloneCademy muss für jede Benutzerrolle (Admin, Moderator*in, Nutzer*in) bedienbar sein. Um dies zu gewährleisten, müssen alle zugängigen Seiten, intuitiv benutzbar gestaltet werden. Die grundlegende Bedienung der Webseite sollte ohne Einführung und Intuitiv bedienbar sein. Die Lernplatform wird vor allem für Schülern*innen und Studenten*innen im International eingesetzt. Es ist deshalb wichtig eine sehr einfache Bedienung zu schaffen, welche aber auch für eine große Seite komplexe Bedienung ermöglicht.
+CloneCademy muss für alle Benutzer*innen einfach und intuitiv bedienbar sein. Um dies zu gewährleisten, wird das Design aller Bereiche der Webseite nach diesem Kriterium angepasst. Die grundlegende Bedienung der Webseite wird ohne Einführung erlernbar sein und komplizierte Elemente werden mit einer ausreichenden Erklarung versehen. Die Lernplatform wird vor allem von Schülern*innen und Studenten*innen verwendet werden. Deshalb werden diese Gruppen beim Design schwerpunktmäßig beachtet.
 
-Um dieses Ziel zu erreichen verwenden wir für den grundlegenden Style der Seite das Material Design \footnote{href{https://material.angular.io/}{https://material.angular.io/}} für Angular2 und um Buttons übersichtlicher zu machen werden diese mit Icons \footnote{\href{https://material.io/icons/}{https://material.io/icons/}} versehen. Da eine Bedienbare Oberfläche eher subjektiv ist werden wir außerdem Nutzerstudien durchführen. In den Studien werden die Benutzer ohne Einführung mit der Platform konfrontiert und sollen darin verschiedene Aufgaben erfüllen. Durch ein Tracking des Bildschirms während der Studie das Verhalten erfasst um es später zu reflektieren und durch einen paar Fragen nach der Studie wird die Persönliche Meinung der Probanden*innen zusätzlich erfasst.
+Auch für dieses Ziel wurde ein Mitglied des Teams benannt, um die Nutzungsstudien durchzuführen und auf die Einhaltung aller Richtlinien zu achten.
 
-Um zum Schluss ein Bedienbares Produkt zu haben, werden die Nutzerstudien in mehreren Iterationen und mit immer wieder neuen Nutzer durchgeführt um Verbessungsvorschläge aus den Vorherigen Studien direkt wieder zu testen.
+Um das oben formulierte Ziel zu erreichen, verwenden wir als Grundlage für das Design der Seite das Material Design \footnote{href{https://material.angular.io/}{https://material.angular.io/}} für Angular2. Um Knöpfe und andere Schaltflächen übersichtlicher zu machen, werden diese mit Icons\footnote{\href{https://material.io/icons/}{https://material.io/icons/}} versehen. Um ein einheitliches Design nach den Wünschen der Auftrageber*innen zu gewährleisten, wird ein Designdokument\footnote{siehe Anhang} mit bespielhaftem Aufbau einzelner Seiten und Elemente der Webseite angefertigt.
+
+Da die Bedienbarkeit der Oberfläche nicht objektiv gemessen werden kann, werden zuzüglich zu den Designrichtlinien Nutzer*innenstudien\footnote{siehe Anhang} durchgeführt. In den Studien werden die Proband*innen ohne vorherige Erklärung mit der Platform konfrontiert und aufgefordert, verschiedene Aufgaben zu erfüllen. Durch Aufzeichnen des Bildschirms während der Studie wird das Verhalten der Nutzer*innen erfasst um es später zu reflektieren und durch einen Fragebogen nach der Studie wird die persönliche Meinung der Proband*innen zusätzlich erfasst.
+
+Um zum Schluss ein bedienbares Produkt zu haben, werden die Nutzer*innenstudien in mehreren Iterationen und mit unterschiedlichen Gruppen durchgeführt, um Verbessungsvorschläge aus den vorherigen Studien direkt wieder zu testen. Die Hinweise und Erkenntnisse aus den Studien wird verwendet, um das Designdokument zu überarbeiten und zu präzisieren.
 
 \section{Veränderbarkeit (Entwurf)}
 Für die Webanwendung CloneCademy ist es wichtig, dass die Anwendung im Nachhinein noch veränderbar ist. Es muss möglich sein, neue Inhalte in die Datenbank einzupflegen und auch den Source Code der Webseite selbst erweitern zu können.
