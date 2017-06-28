@@ -1,7 +1,7 @@
 <div class="questionWrapper">
   <div class="question" #question></div>
   <div>
-    <md-checkbox name="isActive" id="feedbackBool" [(ngModel)]="feedbackBool">
+    <md-checkbox name="isActive" [(ngModel)]="feedbackBool">
       {{"Custom feedback" | translate}}
     </md-checkbox>
     <textarea *ngIf="feedbackBool" class="feedback" id="feedback" type="textarea" [(ngModel)]="feedback"></textarea>

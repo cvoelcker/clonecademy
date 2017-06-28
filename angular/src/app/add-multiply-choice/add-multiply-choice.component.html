@@ -5,14 +5,14 @@
   <label for="question">{{"Question" | translate}}</label>
   <textarea class="question" id="question" type="textarea" [(ngModel)]="question"></textarea>
   <label for="answers">Answers</label>
-  <ul *ngFor="let i of answers; let j = index" id="answers" class="answers">
-    <li class="singleQuestion" [class.correct]="i.correct">
+  <ul id="answers" class="answers">
+    <li class="singleQuestion" *ngFor="let i of answers; let j = index" >
       <div class="alert" [class.success]="i.correct"
         [class.danger]="!i.correct">
-        <md-checkbox type="checkbox" name="isActive" id="feedbackBool" [(ngModel)]="i.correct">
+        <md-checkbox type="checkbox" name="isActive" [(ngModel)]="i.correct">
           {{"is this Answer correct?" | translate}}
         </md-checkbox>
-        <button md-raised-button class="  remove" (click)="this.answers.splice(j, 1)" >
+        <button md-raised-button class="remove" (click)="this.answers.splice(j, 1)" >
           <i class="material-icons">delete</i>{{"remove" | translate}}
         </button>
         <textarea class="answer" [(ngModel)]="i.text"></textarea>
