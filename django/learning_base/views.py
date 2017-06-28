@@ -33,7 +33,7 @@ def getCourses(request):
         for m in c.module.all():
             for q in m.questions.all():
                 course_data['num_questions'] += 1
-                if Try.objects.filter(question=q).filter(solved=True).exists():
+                if Try.objects.filter(question=q).filter(person=request.user.profile, solved=True).exists():
                     course_data['num_answered'] += 1
         data.append(course_data)
 
