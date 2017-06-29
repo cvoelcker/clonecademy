@@ -24,6 +24,26 @@ class QuestionView():
 
 class UserView():
     pass
+    
+class RequestView(APIView):
+    """
+    STILL IN DEVELOPMENT
+    The RequestView class is used to submit a request for moderator rights.
+
+    The request can be accessed via "clonecademy/user/request/"
+    """
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.IsAdminUser,)
+
+    '''
+    example function
+    '''
+    def get(self, request, format=None):
+        """
+        Return a list of all users.
+        """
+        usernames = [user.username for user in User.objects.all()]
+        return Response(usernames)
 
 @api_view(['GET'])
 def getCourses(request):
@@ -233,6 +253,11 @@ def createNewUser(request):
     else:
         return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+"""
+Mod Request API
+"""
+
 @api_view(['GET'])
 def canRequestMod(request):
     user = request.user
@@ -241,6 +266,7 @@ def canRequestMod(request):
 @api_view(['POST'])
 def requestModStatus(request):
     '''
+    TODO: Should be GET method in ClassBasedView - remember problem with auth/perm!
     Handels the moderator rights request. Expects a reason and extracts the user
     from the request header.
     '''
@@ -272,7 +298,7 @@ def requestModStatus(request):
         'bot@clonecademy.de',
         ['test@test.net']
     )
-    return Response({"Request": "ok"})
+    return Response({"Request": "ok"})  
 
 def getCurrentUser(request):
     return getUserDetails(request, request.user.id)
