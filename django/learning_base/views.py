@@ -1,97 +1,21 @@
 from django.shortcuts import render
 from rest_framework import viewsets, status
 from rest_framework import authentication, permissions
-
-from rest_framework.decorators import api_view, authentication_classes, permission_classes
-from rest_framework.views import APIView
+from rest_framework.decorators import api_view
+from ast import literal_eval
 
 from learning_base.serializers import *
-from learning_base.multiple_choice.models import MultipleChoiceQuestion
-from learning_base.models import Course, CourseCategory, Module, valid_mod_request, get_link_to_profile, is_mod, is_admin
+from learning_base.question.serializer import *
+from learning_base.question.models import Question
+from learning_base.question.multiply_choice.models import MultipleChoiceQuestion
+from learning_base.models import Course, CourseCategory
+
+from user_model.models import Try
+
 
 from rest_framework.response import Response
-from django.core.mail import send_mail
 
 # Create your views here.
-
-class CourseView(APIView):
-    '''
-    '''
-    authentication_classes = (authentication.TokenAuthentication,)
-    permission_classes = (permissions.IsAuthenticated,)
- 
-    pass
-
-
-class MultiCoursesView();
-    pass
-
-
-class QuestionView():
-    pass
-
-
-class UserView(APIView):
-    '''
-    '''
-    authentication_classes = (authentication.TokenAuthentication,)
-    permission_classes = ()
-    
-    def get(self, request, user_id, format=None):
-        '''
-        '''
-        user = request.user
-        if user_id:
-            if request.user.groups.filter(name="moderator").exists():
-                try:
-                    user = User.objects.filter(id=id).first()
-                except Exception as e:
-                    return Response('User not found', status=status.HTTP_404_NOT_FOUND)
-            else:
-                return Response('Access denied', status=status.HTTP_401_UNAUTHORIZED)
-
-        user = UserSerializer(user)
-        return Response(user.data)
-
-    def post(self, request, format=None):
-        '''
-        '''
-        user_serializer = UserSerializer(data=request.data)
-        if user_serializer.is_valid():
-            user = user_serializer.create(request.data)
-            return Response(status=status.HTTP_201_CREATED)
-        else:
-            return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
-
-class MultiUserView(APIView):
-    '''
-    '''
-    authentication_classes = (authentication.TokenAuthentication,)
-    permission_classes = (permissions.IsAuthenticated,)
- 
-    def get(self, request):
-        if not is_mod(request.user):
-            return Response('Acess denied', status=status.HTTP_401_UNAUTHORIZED)
-        users = User.objects.all()
-        data = UserSerializer(users, many=True).data
-        return Response(data)
-
-
-class StatisticsView():
-    pass
-
-
-class RequestView():
-    pass
-
-
-
-
-
-
-
-# TODO: All the below is only kept for reference now
 
 @api_view(['GET'])
 def getCourses(request):
