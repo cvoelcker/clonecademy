@@ -3,11 +3,11 @@
   "add Course": "add Course",
   "courses": "Courses",
   "module title": "module title",
-  "Learning Text": "Learning Text",
+  "module description": "module description",
   "Select Question Type": "Select Question Type",
   "remove module": "remove module",
 
-  "Add multipe choice Question": "Add multipe choice Question",
+  "Add multiple choice Question": "Add multiple choice Question",
   "Question": "Question",
   "is this Answer correct?": "is this Answer correct?",
   "remove": "remove",
@@ -57,6 +57,8 @@
 
   "select a profile": "Select a profile",
 
+  "correct" : "correct",
+  "wrong": "wrong",
   "incorrect feedback": "Please try again",
   "correct feedback": "well done",
 

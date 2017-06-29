@@ -3,28 +3,32 @@
 </div>
 <table class="row">
   <td class="col-md-4 text">
-    <div class="alert info">{{learning_text}}</div>
-    <div class="alert">{{questionBody}}</div>
+    <div class="">
+      <div class="alert">{{learning_text}}</div>
+      <div class="alert info">{{questionBody}}</div>
+    </div>
   </td>
   <td class="col-md-8">
     <div class="question" #question></div>
   </td>
 </table>
-<div class="row">
+<div class="row feedback">
   <div *ngIf='submitCorrect' class="col-md-6">
     <div class="alert success">
+      <h3>{{"correct" | translate}}</h3>
       {{feedback}}
     </div>
   </div>
   <div *ngIf='!submitCorrect && submitSend' class="col-md-6">
     <div class="alert danger">
+      <h3>{{"wrong" | translate}}</h3>
       {{"incorrect feedback" | translate}}
     </div>
   </div>
 </div>
 <div class="row bottom">
   <div class="col-md-12">
-    <button md-raised-button [disabled]="submitCorrect" class="btn  " (click)="submit()">{{"submit" | translate}}</button>
-    <button md-raised-button [disabled]="!submitCorrect" class="btn  " (click)="next()">{{"next question" | translate}}</button>
+    <button md-raised-button *ngIf="!submitCorrect" class="btn  " (click)="submit()">{{"submit" | translate}}</button>
+    <button md-raised-button *ngIf="submitCorrect" class="btn  " (click)="next()">{{"next question" | translate}}</button>
   </div>
 </div>

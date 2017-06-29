@@ -97,7 +97,7 @@ export class AddModuleComponent implements OnInit {
   }
 
   // save all questions in the correct order
-  // append title, and the learning Text and return it
+  // append title, and the module description and return it
   save(){
     let values = [];
     for(let i = 0; i < this.questionArray.length; i++){

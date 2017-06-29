@@ -52,7 +52,7 @@ def singleCourse(request, courseID):
 
     for m in course.module.all():
         for q in m.questions.all():
-            if not Try.objects.filter(question=q).filter(solved=True).exists():
+            if not Try.objects.filter(question=q).filter(person=request.user.profile, solved=True).exists():
                 data['solved'] = [list(course.module.all()).index(m), list(m.questions.all()).index(q)]
                 break
         if data['solved'] != [-1, -1]:
