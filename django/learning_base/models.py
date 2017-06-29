@@ -18,10 +18,21 @@ def get_link_to_profile(user):
 
 def valid_mod_request(user):
     request = ModRequest.objects.filter(user=user)
-    return request.exists() and (request.first().date - timezone.localdate()).days < -7 
+    return request.exists() and (request.first().date - timezone.localdate()).days < -7
+
+
+def is_mod(user):
+    return user.groups.filter(name="moderator").exists()
+
+def is_admin(user):
+    return user.groups.filter((name="admin").exists()
 
 
 class ModRequest(models.Model):
+    '''
+    Represents a moderation request and saves the corresponding user and time to
+    evaluate new requests.
+    '''
     class Meta():
         ordering = ["date",]
 
@@ -35,6 +46,23 @@ class ModRequest(models.Model):
         blank=False,
         default=timezone.now
     )
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE
+    )
+
+    birth_date = models.DateField(
+        blank=True,
+        null = True,
+    )
+
+    def get_age(self):
+        today = timezone.today
+        return today.year - self.birth_date.year - ((today.month, today.day) < \
+            (self.birth_date.month, self.birth_date.day))
 
 
 class CourseCategory(models.Model):

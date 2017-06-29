@@ -3,51 +3,117 @@ from django.shortcuts import render
 from rest_framework import viewsets, status
 from rest_framework import authentication, permissions
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.views import APIView
 
-from learning_base.serializers import *
+import learning_base.serializers as serializer
 from learning_base.multiple_choice.models import MultipleChoiceQuestion
-from learning_base.models import Course, CourseCategory, Module, valid_mod_request, get_link_to_profile
+from learning_base.models import Course, CourseCategory, Module, valid_mod_request, get_link_to_profile, is_mod, is_admin
 
 from rest_framework.response import Response
 from django.core.mail import send_mail
 
 # Create your views here.
 
-class CourseView():
-    pass
+class CourseView(APIView):
+    '''
+    '''
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, course_id, format=None):
+        try:
+            course = Course.objects.filter(id=course_id).first()
+            course_serializer = serializer.CourseSerializer(course)
+            return Response(course_serializer.data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response('Course not found', status=status.HTTP_404_NOT_FOUND)
 
 
-class CoursesView();
-    pass
+class MultiCoursesView():
+    '''
+    '''
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+    
+    def get(self, request, format=None):
+        return Response('Method not allowed', status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
-
-class ModuleView():
-    pass
-
-
-class ModulesView():
-    pass
+    def post(self, request, format=None):
+        r_type = request['type']
+        r_category = request['category']
+        r_lan = request['language']
 
 
 class QuestionView():
     pass
 
 
-class QuestionsView():
-    pass
+class UserView(APIView):
+    '''
+    '''
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = ()
+
+    def get(self, request, user_id, format=None):
+        '''
+        '''
+        user = request.user
+        if user_id:
+            if request.user.groups.filter(name="moderator").exists():
+                try:
+                    user = User.objects.filter(id=id).first()
+                except Exception as e:
+                    return Response('User not found', status=status.HTTP_404_NOT_FOUND)
+            else:
+                return Response('Access denied', status=status.HTTP_401_UNAUTHORIZED)
+
+        user = serializer.UserSerializer(user)
+        return Response(user.data)
+
+    def post(self, request, format=None):
+        '''
+        '''
+        user_serializer = serializer.UserSerializer(data=request.data)
+        if user_serializer.is_valid():
+            user = user_serializer.create(request.data)
+            return Response(status=status.HTTP_201_CREATED)
+        else:
+            return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class UserView():
-    pass
+class MultiUserView(APIView):
+    '''
+    '''
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
 
+    def get(self, request):
+        if not is_mod(request.user):
+            return Response('Acess denied', status=status.HTTP_401_UNAUTHORIZED)
+        users = User.objects.all()
+        data = serializer.UserSerializer(users, many=True).data
+        return Response(data)
 
-class UsersView():
-    pass
 
 
 class StatisticsView():
     pass
 
+
+class RequestView():
+    pass
+
+
+
+
+
+
+
+
+
+
+
+# TODO: All the below is only kept for reference now
 
 @api_view(['GET'])
 def getCourses(request):
@@ -64,7 +130,7 @@ def singleCourse(request, courseID):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     course = course.first()
-    data = CourseSerializer(course).data
+    data = serializer.CourseSerializer(course).data
     solved = []
 
     for m in Module.objects.filter(course=course):
@@ -89,7 +155,7 @@ def callModule(request, courseID, moduleIndex):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == "GET":
-        value = ModuleSerializer(module).data
+        value = serializer.ModuleSerializer(module).data
         return Response(value)
 
 @api_view(['GET'])
@@ -187,7 +253,7 @@ def callQuestion(request, courseID, moduleIndex, questionIndex):
     question = Question.objects.filter(id=int(questionIndex)).first()
 
     if request.method == "GET":
-        value = QuestionSerializer(question, read_only=True).data
+        value = serializer.QuestionSerializer(question, read_only=True).data
         value['title'] = module.name
         # to see if the module is over
         value['lastQuestion'] = int(questionIndex) == module.num_of_questions()
@@ -208,7 +274,7 @@ def getStatisticsOverview(request):
     '''
     Returns the statistics overview for a user
     '''
-    json = StatisticsOverviewSerializer(request.user)
+    json = serializer.StatisticsOverviewSerializer(request.user)
     return Response(json.data)
 
 
@@ -218,7 +284,7 @@ def getUsers(request, get_list):
     Returns a list of alluser profile names
     '''
     user = User.objects.all()
-    user = UserSerializer(user, many=get_list).data
+    user = serializer.UserSerializer(user, many=get_list).data
     return Response(serializer)
 
 
@@ -228,7 +294,7 @@ def getUserDetails(request, userID):
     Returns the user profile info
     '''
     user = User.objects.filter(id=userID).first()
-    user = UserSerializer(user)
+    user = serializer.UserSerializer(user)
     return Response(user.data)
 
 
@@ -251,7 +317,7 @@ def createNewUser(request):
     every consistency check passes, a new user and  new profile is created.
     '''
     # User serialization out of json request data
-    user_serializer = UserSerializer(data=request.data)
+    user_serializer = serializer.UserSerializer(data=request.data)
     if user_serializer.is_valid():
         user = user_serializer.create(request.data)
         return Response(user)
@@ -276,12 +342,12 @@ def requestModStatus(request):
     if valid_mod_request(user=user):
         return Response('User is mod or has sent to many requests',status=402)
     #TODO: fix if an localization issues arrise
-    
+
     data['user'] = user.id
     data['date'] = str(timezone.localdate())
 
-    new_request = ModRequestSerializer(data=data)
-    
+    new_request = serializer.ModRequestSerializer(data=data)
+
     if new_request.is_valid():
         new_request.create(new_request.data)
     else:
