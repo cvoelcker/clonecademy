@@ -34,7 +34,9 @@ export class QuestionComponent implements OnInit {
   lastModule: boolean;
   submitSend: boolean;
   submitCorrect: boolean;
-  feedback: string;
+  correctFeedback: string;
+  wrongFeedback: string;
+  feedbackIterator = 0;
 
   constructor(
     private translate: TranslateService,
@@ -95,14 +97,21 @@ export class QuestionComponent implements OnInit {
     if(this.submitCorrect){
       // calls block to freeze the question element
       this.questionModule.block();
-    }
-
-    if(data['feedback']){
-      this.feedback = data['feedback']
+      // the answer is correct and the correct Feedback will be set
+      if(data['feedback']){
+        this.correctFeedback = data['feedback']
+      }
+      else{
+        this.translate.get("correct feedback").subscribe(data => {this.correctFeedback = data})
+      }
     }
     else{
-      this.translate.get("correct feedback").subscribe(data => {this.feedback = data})
+      this.feedbackIterator = (this.feedbackIterator + 1) % 3;
+      // answer was wrong and the wrong Feedback will be setup
+      this.translate.get("wrong feedback " + this.feedbackIterator).subscribe(data => {this.wrongFeedback = data})
     }
+
+
   }
 
   next(){

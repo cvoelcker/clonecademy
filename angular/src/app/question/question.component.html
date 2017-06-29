@@ -3,7 +3,7 @@
 </div>
 <table class="row">
   <td class="col-md-4 text">
-    <div class="">
+    <div class="textWrapper">
       <div class="alert">{{learning_text}}</div>
       <div class="alert info">{{questionBody}}</div>
     </div>
@@ -16,13 +16,13 @@
   <div *ngIf='submitCorrect' class="col-md-6">
     <div class="alert success">
       <h3>{{"correct" | translate}}</h3>
-      {{feedback}}
+      {{correctFeedback}}
     </div>
   </div>
   <div *ngIf='!submitCorrect && submitSend' class="col-md-6">
     <div class="alert danger">
       <h3>{{"wrong" | translate}}</h3>
-      {{"incorrect feedback" | translate}}
+      {{wrongFeedback}}
     </div>
   </div>
 </div>

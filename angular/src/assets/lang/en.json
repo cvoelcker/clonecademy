@@ -59,7 +59,9 @@
 
   "correct" : "correct",
   "wrong": "wrong",
-  "incorrect feedback": "Please try again",
+  "wrong feedback 0": "Please try again.",
+  "wrong feedback 1": "Oh, good choice but not totaly correct.",
+  "wrong feedback 2": "nice try but you probably just mixed something up.",
   "correct feedback": "well done",
 
   "submit": "submit",

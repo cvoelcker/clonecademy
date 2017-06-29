@@ -15,12 +15,14 @@ export class StatisticsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.server.get("user/statistics", true)
+    this.server.get("user/statistics", true, false)
       .then(data => {
-        this.statistics = data
-        this.loading = false
-        }
-      )
+        this.statistics = data;
+        this.loading = false;
+      })
+        .catch(err => {
+        this.loading = false;
+      })
   }
 
 }

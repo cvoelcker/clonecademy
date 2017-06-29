@@ -3,7 +3,14 @@ table{
   margin-bottom: 1em;
   .text{
     vertical-align: top;
-    //box-shadow: 2px 2px 5px #333;
+    .textWrapper{
+      box-shadow: 1px 1px 5px #333;
+      margin: 0;
+      padding: 0;
+      .alert.info{
+        margin-bottom: 0;
+      }
+    }
   }
 }
 
