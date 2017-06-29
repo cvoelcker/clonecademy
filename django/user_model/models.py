@@ -78,7 +78,7 @@ class Profile(models.Model):
 
 class Try(models.Model):
     person = models.ForeignKey(
-        Profile,
+        User,
         on_delete=models.CASCADE,
         null=False
     )

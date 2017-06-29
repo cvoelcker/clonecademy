@@ -33,7 +33,7 @@ def getCourses(request):
         for m in c.module.all():
             for q in m.questions.all():
                 course_data['num_questions'] += 1
-                if Try.objects.filter(question=q).filter(person=request.user.profile, solved=True).exists():
+                if Try.objects.filter(question=q).filter(person=request.user, solved=True).exists():
                     course_data['num_answered'] += 1
         data.append(course_data)
 
@@ -52,7 +52,7 @@ def singleCourse(request, courseID):
 
     for m in course.module.all():
         for q in m.questions.all():
-            if not Try.objects.filter(question=q).filter(person=request.user.profile, solved=True).exists():
+            if not Try.objects.filter(question=q).filter(person=request.user, solved=True).exists():
                 data['solved'] = [list(course.module.all()).index(m), list(m.questions.all()).index(q)]
                 break
         if data['solved'] != [-1, -1]:
@@ -191,7 +191,7 @@ def callQuestion(request, courseID, moduleIndex, questionIndex):
         return Response(value)
     elif request.method == "POST":
         solved = question.evaluate(request.data)
-        Try(person=request.user.profile, question=question, answer=str(request.data), solved=solved).save()
+        Try(person=request.user, question=question, answer=str(request.data), solved=solved).save()
         response = {"evaluate": solved}
         if solved and question.feedback_is_set:
             response['feedback'] = question.feedback

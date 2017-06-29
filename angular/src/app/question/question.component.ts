@@ -36,17 +36,22 @@ export class QuestionComponent implements OnInit {
   submitCorrect: boolean;
   feedback: string;
 
-  constructor(private translate: TranslateService, private changeDet: ChangeDetectorRef, private router: Router, public server: ServerService, private route: ActivatedRoute, private factory: ComponentFactoryResolver) {
+  constructor(
+    private translate: TranslateService,
+    private changeDet: ChangeDetectorRef,
+    private router: Router,
+    public server: ServerService,
+    private route: ActivatedRoute,
+    private factory: ComponentFactoryResolver
+  ) {
     this.route.params.subscribe((data: Params) => {
-      this.courseID = data.id,
-      this.moduleIndex = data.module,
-      this.questionIndex = data.question
+      this.courseID = Number(data.id);
+      this.moduleIndex = Number(data.module);
+      this.questionIndex = data.question;
     })
 
-    this.loadQuestion()
-  }
+    this.loadQuestion();
 
-  ngAfterViewInit(){
   }
 
   ngOnInit(){
@@ -90,7 +95,6 @@ export class QuestionComponent implements OnInit {
     if(this.submitCorrect){
       // calls block to freeze the question element
       this.questionModule.block();
-
     }
 
     if(data['feedback']){
@@ -102,23 +106,19 @@ export class QuestionComponent implements OnInit {
   }
 
   next(){
-    let module = Number(this.moduleIndex);
-    let question = Number(this.questionIndex);
     if(!this.lastQuestion){
-      question ++
+      this.questionIndex ++;
     }
     else if(!this.lastModule){
-      module ++
-      question = 1;
+      this.moduleIndex ++;
+      this.questionIndex = 1;
     }
     else{
       // TODO add a feedback for the course here
       this.router.navigateByUrl("/course")
       return
     }
-    this.router.navigateByUrl("/course/"+this.courseID+"/"+ module + "/" + question)
-    this.moduleIndex = module;
-    this.questionIndex = question
+    this.router.navigateByUrl("/course/"+this.courseID+"/"+ this.moduleIndex + "/" + this.questionIndex)
     this.submitSend = false;
     this.loadQuestion()
   }
