@@ -1,6 +1,51 @@
 from django.db import models
 from learning_base.question.models import Question
 from django.contrib.contenttypes.models import ContentType
+from django.apps import apps
+from django.contrib.auth.models import User
+from django.utils import timezone
+from polymorphic.models import PolymorphicModel
+# from user_model import models as ub_models
+
+
+def get_link_to_profile(user):
+    '''
+    Returns the link to the users profile page
+    '''
+    #TODO: Implement correct user profile access string
+    return "clonecademy.com/this/users/profile"
+
+
+def valid_mod_request(user):
+    request = ModRequest.objects.filter(user=user)
+    return request.exists() and (request.first().date - timezone.localdate()).days < -7
+
+
+def is_mod(user):
+    return user.groups.filter(name="moderator").exists()
+
+def is_admin(user):
+    return user.groups.filter((name="admin").exists()
+
+
+class ModRequest(models.Model):
+    '''
+    An object representing a posed moderation rights request. It saves the 
+    corresponding user and date and is used to filter permissions.
+    '''
+    class Meta():
+        ordering = ["date",]
+
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        null=False
+    )
+
+    date = models.DateField(
+        blank=False,
+        default=timezone.now
+    )
 
 class CourseCategory(models.Model):
     """
