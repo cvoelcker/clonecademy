@@ -11,6 +11,7 @@ from learning_base.models import Course, CourseCategory, Module, valid_mod_reque
 
 from rest_framework.response import Response
 from django.core.mail import send_mail
+from django.contrib.auth.models import User, Group
 
 # Create your views here.
 
@@ -387,6 +388,21 @@ def requestModStatus(request):
         ['test@test.net']
     )
     return Response({"Request": "ok"})  
+
+
+@api_view(['POST'])
+#@permission_classes((IsAdminUser, )) for some reason the compiler couldn't find the permission class
+def grantModStatus(request):
+    '''resolve divergence between this function which needs a username in the request and the wiki which doesn't
+    '''
+    username = request.data["username"]
+    to_be_promoted = User.objects.get(username = username)
+    mod_group = Group.objects.get(name='moderator')
+    to_be_promoted.groups.add(mod_group)
+    if is_mod(to_be_promoted):
+        return Response("successfully promoted " + username, status=status.HTTP_200_OK)
+    return Response("something went terribly wrong with promoting" + username, status=status.HTTP_500_INTERNAL_SERVER_ERROR
+)
 
 def getCurrentUser(request):
     return getUserDetails(request, request.user.id)

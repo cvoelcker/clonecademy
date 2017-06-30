@@ -41,6 +41,7 @@ urlpatterns = [
     url(r'^user/statistics$', views.getStatisticsOverview),
     url(r'^user/request_mod$', views.requestModStatus),
     url(r'^user/can_request_mod$', views.canRequestMod),
+    url(r'^user/grant_mod/$', views.grantModStatus), #probably change pattern to pass the username to the function call
     url(r'^user/$', views.UserView.as_view()),
     url(r'^user/(?P<userID>[0-9]+)/?$', views.getUserDetails),
     url(r'^current_user/$', views.getCurrentUser),
