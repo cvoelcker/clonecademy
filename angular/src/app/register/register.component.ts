@@ -14,8 +14,12 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 })
 export class RegisterComponent {
 
-  constructor(private error: ErrorDialog, private server: ServerService, private fb: FormBuilder, private user: UserService){
-
+  constructor(
+    private error: ErrorDialog,
+    private server: ServerService,
+    private fb: FormBuilder,
+    private user: UserService
+  ){
   }
 
   /*
@@ -41,9 +45,8 @@ export class RegisterComponent {
     password: new FormControl('password', Validators.required)
   })
 
-  // register a new user. 
+  // register a new user.
   register(value){
-
     if(value.valid && value.value["password"] === value.value['password2']){
       let data = value.value
       delete data['password2']

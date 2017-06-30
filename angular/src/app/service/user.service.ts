@@ -18,8 +18,12 @@ export class UserService {
   public loginUser(username: string, password: string){
     return new Promise((resolve, reject) =>  this.server.login(username, password)
       .then(res => {
-        this.login = true;
-        this.loadUser().then(() => {this.router.navigate(['/course']); resolve(true)});
+        this.loadUser().then(() => {
+          this.router.navigate(['/course']);
+          this.login = true;
+          resolve(true)
+        });
+
 
       })
       .catch(res => {
@@ -44,8 +48,7 @@ export class UserService {
   }
 
   private isInGroup(name: string){
-    if(this.loaded){
-
+    if(this.loaded && this.login){
       for(let i = 0; i < this.groups.length; i++){
         if(this.groups[i].name == name){
           return true;
@@ -73,7 +76,12 @@ export class UserService {
 
   constructor(private server: ServerService, private router: Router, private cookie: CookieService ) {
     this.login = this.server.getToken() != null
-    this.loadUser()
+    if(this.login){
+      this.loadUser()
+    }
+    else{
+      this.loaded = true;
+    }
   }
 
 }

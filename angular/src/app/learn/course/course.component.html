@@ -1,0 +1,37 @@
+<div *ngIf="!loading" >
+  <table class="header">
+    <td class="title">
+      <h2>
+        {{name}}
+      </h2>
+    </td>
+    <td class="counter">
+      <span>{{numAnswered}}</span><span>/{{numQuestions}}</span><br>{{"completed" | translate}}
+    </td>
+  </table>
+  <div class="button" [ngSwitch]="true">
+    <button *ngSwitchCase="solved[0] == 0 && solved[1] == 0"  md-raised-button routerLink="/course/{{ id }}/1/1/">{{"start Course" | translate}}</button>
+    <button *ngSwitchCase="solved[0] == -1 || solved[1] == -1" md-raised-button [disabled]="true">{{"course completed" | translate}}</button>
+    <button *ngSwitchDefault md-raised-button routerLink="/course/{{id}}/{{solved[0]+1}}/{{solved[1]+1}}">{{"continue" | translate}}</button>
+  </div>
+
+<ol>
+  <li class="module" *ngFor="let m of modules; let i = index">
+    <h3>{{m.name}}</h3>
+    <div class="alert info">{{m.learning_text}}</div>
+    <ol>
+      <li class="question" *ngFor="let q of m.question; let j = index">
+        <div class="alert" [class.success]="solved[0] == -1 || i < solved[0] || (i == solved[0] && j < solved[1])">
+          {{q.class}}
+          <button *ngIf="solved[0] == -1 || i < solved[0] || (i == solved[0] && j < solved[1])" class="startQuestion" md-raised-button routerLink="/course/{{id}}/{{i+1}}/{{j+1}}">
+            {{"repeat" | translate}}
+          </button>
+        </div>
+      </li>
+    </ol>
+  </li>
+</ol>
+</div>
+<div *ngIf="loading" class="localLoader">
+<md-progress-spinner mode="indeterminate"></md-progress-spinner>
+</div>

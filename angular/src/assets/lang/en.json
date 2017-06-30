@@ -76,6 +76,11 @@
   "optional": "optional",
   "group": "Group",
   "Date registered": "Date registered",
+  "invalid email": "That is not a valid email adress.",
+  "invalid username": "The Username can only contains digits and numbers. It has to be at least 5 caracters long.",
+  "invalid password": "The Password must be at least have 5 characters.",
+  "password missmatch": "The Password does not match.",
+
 
   "Request sent": "Request sent",
   "Give a reason for the request": "Give a reason for the request",

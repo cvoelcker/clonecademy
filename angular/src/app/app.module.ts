@@ -29,26 +29,28 @@ import { Admin } from "./injectible/admin.injectible"
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './learn/dashboard/dashboard.component';
 import { LoggedInDirective } from './directive/logged-in.directive';
 import { MenuComponent } from './menu/menu.component';
-import { CourseComponent } from './course/course.component';
-import { ModuleComponent } from './module/module.component';
-import { MultipleChoiceQuestionComponent } from './multiple-choice-question/multiple-choice-question.component';
+import { CourseComponent } from './learn/course/course.component';
+import { ModuleComponent } from './learn/module/module.component';
+import { MultipleChoiceQuestionComponent } from './learn/multiple-choice-question/multiple-choice-question.component';
 import { ModuleDirective } from './directive/module.directive';
-import { QuestionComponent } from './question/question.component';
-import { CreateCourseComponent } from './create-course/create-course.component';
-import { AddMultiplyChoiceComponent } from './add-multiply-choice/add-multiply-choice.component';
-import { AddModuleComponent } from './add-module/add-module.component';
-import { AddQuestionComponent } from './add-question/add-question.component';
-import { StatisticsComponent } from './personal_statistics/statistics.component';
-import { RequestModComponent } from './request-mod/request-mod.component';
-import { AddQuestionModule } from "./add-question/add-question.module"
-import { QuestionModule } from "./question/question.module";
-import { ProfilesComponent } from './profiles/profiles.component';
-import { UserDetailComponent } from './user-detail/user-detail.component';
-import { ProfilePageComponent } from './profile-page/profile-page.component';
-import { AdminPageComponent } from './admin-page/admin-page.component';
+import { QuestionComponent } from './learn/question/question.component';
+// course editor
+import { CreateCourseComponent } from './learn/course-editor/create-course/create-course.component';
+import { AddMultiplyChoiceComponent } from './learn/course-editor/add-multiply-choice/add-multiply-choice.component';
+import { AddModuleComponent } from './learn/course-editor/add-module/add-module.component';
+import { AddQuestionComponent } from './learn/course-editor/add-question/add-question.component';
+import { AddQuestionModule } from "./learn/course-editor/add-question/add-question.module"
+
+import { StatisticsComponent } from './profile/personal_statistics/statistics.component';
+import { RequestModComponent } from './profile/request-mod/request-mod.component';
+import { QuestionModule } from "./learn/question/question.module";
+import { ProfilesComponent } from './admin/profiles/profiles.component';
+import { UserDetailComponent } from './admin/user-detail/user-detail.component';
+import { ProfilePageComponent } from './profile/profile-page/profile-page.component';
+import { AdminPageComponent } from './admin/admin-page/admin-page.component';
 import { RegisterComponent } from './register/register.component';
 import { ErrorMessageComponent } from './error-message/error-message.component';
 import { LoaderComponent } from './loader/loader.component';
@@ -122,6 +124,12 @@ const appRoutes: Routes = [
       {
         path: "profiles",
         component: ProfilesComponent,
+        children: [
+          {
+            path: ":id",
+            component: UserDetailComponent
+          }
+        ]
       }
     ]
   },

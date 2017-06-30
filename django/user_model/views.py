@@ -36,7 +36,8 @@ def getAllUsers(request):
 
 @api_view(['GET'])
 def getUserDetails(request, userID):
-    profiles = Profile.objects.filter(id=userID).first()
+    user = User.objects.filter(id=userID).first()
+    profiles = Profile.objects.filter(user=user).first()
     serializer = ProfileSerializer(profiles).data
     #serializer = map(lambda x: x['user'], serializer)
     return Response(serializer['user'])
