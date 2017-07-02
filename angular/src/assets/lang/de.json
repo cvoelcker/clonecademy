@@ -1,0 +1,93 @@
+{
+  "dashboard": "Dashboard",
+  "add Course": "Kurs hinzufügen",
+  "courses": "Kurse",
+  "module title": "Modul Titel",
+  "module description": "Modul Beschreibung",
+  "Select Question Type": "Fragentyp auswählen",
+  "remove module": "Modul entfernen",
+
+  "Add multiple choice Question": "Multiple Choice Frage hinzufügen",
+  "Question": "Frage",
+  "is this Answer correct?": "ist diese Antwort korrekt?",
+  "remove": "Entfernen",
+  "add Answer": "Antwort hinzufügen",
+
+  "Custom feedback": "Benutzerdefinierter Feedback",
+  "remove Question": "Frage entfernen",
+
+  "admin": "Admin",
+
+  "completed": "Abgeschlossen",
+
+  "start Course": "Kurs starten",
+  "course completed": "Kurs abgeschlossen",
+  "continue": "Fortsetzen",
+  "repeat": "Wiederholen",
+
+  "select category": "Kategorie auswählen",
+  "add module": "Modul hinzufügen",
+  "save": "Speichern",
+
+  "error": "Fehler",
+  "close": "Schließen",
+
+  "login": "Anmelden",
+  "register": "Registrieren",
+  "username": "Benutzername",
+  "password": "Passwort",
+
+  "No Account? Register here": "Kein Benutzerkonto? Registriere dich hier!",
+  "Login with you account": "Mit deinem Benutzerkonto anmelden",
+
+  "profile": "Profil",
+  "learn": "Lernen",
+
+  "Error 404": "Error 404",
+  "Woops. Looks like this Page doesn't exist.": "Hopala! Sieht so aus als würde diese Seite nicht existieren.",
+
+  "statistics": "Statistik",
+  "question": "Frage",
+  "solved": "Gelöst",
+  "tries": "Versuche",
+
+  "user details": "Benutzer Details",
+  "request mod rights": "Als Moderator bewerben",
+  "logout": "Abmelden",
+
+  "select a profile": "Profil auswählen",
+
+  "correct" : "Korrekt",
+  "wrong": "Falsch",
+  "wrong feedback 0": "Versuche es nochmal!",
+  "wrong feedback 1": "Oh, gute Auswahl aber noch nicht ganz korrekt.",
+  "wrong feedback 2": "Netter Versuch! Vielleicht hast du was verwechselt?",
+  "correct feedback": "Super!",
+
+  "submit": "Abgeben",
+  "next question": "Nächste Frage",
+
+  "email": "E-Mail",
+  "username": "Benutzername",
+  "password": "Passwort",
+  "password again": "Passwort wiederholen",
+  "first name": "Vorname",
+  "last name": "Nachname",
+  "optional": "Optional",
+  "group": "Gruppe",
+  "Date registered": "Registriert am",
+  "invalid email": "Keine gültige E-Mail",
+  "invalid username": "Der Benutzername darf nur aus Buchstaben und Zahlen existieren und mindesten 5 Zeichen besitzen.",
+  "invalid password": "Das Passwort muss mindesten 5 Zeichen besitzen.",
+  "password missmatch": "Die Passwörter stimmen nicht überein",
+
+
+  "Request sent": "Anfrage gesendet.",
+  "Give a reason for the request": "Gründe für die Bewerbung",
+  "Reason is required": "Grund erforderlich",
+  "Request moderator access" : "Moderator Rechte anfragen." ,
+
+  "UserDetail": "Benutzer Details",
+
+  "Unable to log in with provided credentials.": "Benutzername oder Passwort ungültig."
+}

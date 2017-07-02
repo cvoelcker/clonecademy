@@ -12,8 +12,12 @@ export class AppComponent {
   title = 'Clonecademy';
 
   constructor(private user: UserService, private translate: TranslateService){
+    translate.addLangs(['en', 'de']);
     translate.setDefaultLang('en');
     translate.use('en');
+  }
+  changeLang(lang: string) {
+    this.translate.use(lang);
   }
 
 }
