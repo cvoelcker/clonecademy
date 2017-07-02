@@ -14,7 +14,7 @@ export class ProfilePageComponent implements OnInit {
   // create all items for the list menu
   menu: Array<{name: string, url: string}> = [
     {name: "user details", url: "details"},
-    {name: "reqeust mod rights", url: "request_mod" },
+    {name: "request mod rights", url: "request_mod" },
     {name: "statistics", url: "statistics"}
   ]
 
