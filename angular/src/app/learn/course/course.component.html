@@ -6,7 +6,17 @@
       </h2>
     </td>
     <td class="counter">
-      <span>{{numAnswered}}</span><span>/{{numQuestions}}</span><br>{{"completed" | translate}}
+    <div style="display: block">
+      <canvas baseChart
+              [width]= "50"
+              [height]= "50"
+              [legend]="false"
+              [colors]="pieChartColor"
+              [data]="pieChartData"
+              [labels]="pieChartLabels"
+              [chartType]="pieChartType"
+              (chartHover)="chartHovered($event)"></canvas>
+    </div>
     </td>
   </table>
   <div class="button" [ngSwitch]="true">

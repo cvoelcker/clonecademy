@@ -7,6 +7,9 @@ import { HttpModule, Http } from '@angular/http';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
+//charts Module
+import { ChartsModule } from 'ng2-charts';
+
 // Material Style
 import {MdButtonModule, MdCheckboxModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule, MdProgressSpinnerModule} from '@angular/material';
 
@@ -197,6 +200,7 @@ export function createTranslateLoader(http: Http) {
     MdDialogModule,
     MdProgressSpinnerModule,
     BrowserAnimationsModule,
+    ChartsModule,
   ],
   exports: [
   ],

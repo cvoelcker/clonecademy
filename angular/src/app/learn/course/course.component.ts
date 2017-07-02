@@ -19,6 +19,17 @@ export class CourseComponent implements OnInit {
   numAnswered: number;
   numQuestions: number;
 
+  //Pie
+  public pieChartLabels:string[] = ['answered', 'to do'];
+  public pieChartData:number[];
+  public pieChartType:string = 'pie';
+  public pieChartColor:any = [{backgroundColor: ["#32CD32", "#B22222"] }];
+
+  // events
+public chartHovered(e:any):void {
+  console.log(e);
+}
+
 
   constructor(
     private course: CourseService,
@@ -41,6 +52,7 @@ export class CourseComponent implements OnInit {
       // save the number of answered questions and the amount of questions in the current course
       this.numQuestions = data['num_questions']
       this.numAnswered = data['num_answered']
+      this.pieChartData = [this.numAnswered, this.numQuestions-this.numAnswered]
 
       // send request to server to get the information for the course
       this.server.get('courses/'+this.id + "/", true)
@@ -63,6 +75,8 @@ export class CourseComponent implements OnInit {
       this.router.navigate(["/course/page_not_found"])
     })
   }
+
+
 
 
 
