@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { ServerService } from '../../service/server.service'
 import { CourseService } from '../../service/course.service'
+import { SassHelperComponent } from '../../service/sass-helper/sass-helper'
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.scss']
 })
 export class CourseComponent implements OnInit {
+
+  @ViewChild(SassHelperComponent) private sassHelper: SassHelperComponent;
 
   id: number;
   type: string;
@@ -23,11 +26,10 @@ export class CourseComponent implements OnInit {
   public pieChartLabels:string[] = ['answered', 'to do'];
   public pieChartData:number[];
   public pieChartType:string = 'pie';
-  public pieChartColor:any = [{backgroundColor: ["#32CD32", "#B22222"] }];
+  public pieChartColor:any;
 
   // events
 public chartHovered(e:any):void {
-  console.log(e);
 }
 
 
@@ -40,7 +42,25 @@ public chartHovered(e:any):void {
 
   }
 
+  initChart(){
+    this.pieChartColor = [
+      {
+        backgroundColor: [
+          this.sassHelper.readProperty('warning'),
+          this.sassHelper.readProperty('success')
+        ],
+        strokeColor: '#0f0',
+        hoverBackgroundColor: [
+          this.sassHelper.readProperty('warning-hover'),
+          this.sassHelper.readProperty('success-hover'),
+        ],
+        borderColor: "transparent"
+      },
+    ]
+  }
+
   ngOnInit(){
+    this.initChart()
     this.route.params.subscribe(data => {
       this.id = data.id
       this.load();
@@ -60,7 +80,6 @@ public chartHovered(e:any):void {
         this.name = data['name'];
         this.modules = data['modules'];
         this.solved = data['solved'];
-        console.log(this.solved)
 
         let lastModule = this.modules[this.modules.length - 1]
         let lastQuestion = lastModule.question[lastModule.question.length - 1]

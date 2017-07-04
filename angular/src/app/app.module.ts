@@ -27,6 +27,8 @@ import { UserService } from './service/user.service';
 import { CourseService } from './service/course.service'
 import { ErrorDialog } from "./service/error.service";
 
+import { SassHelperComponent } from './service/sass-helper/sass-helper'
+
 import { Admin } from "./injectible/admin.injectible"
 
 import { AppComponent } from './app.component';
@@ -178,6 +180,7 @@ export function createTranslateLoader(http: Http) {
     RegisterComponent,
     ErrorMessageComponent,
     LoaderComponent,
+    SassHelperComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

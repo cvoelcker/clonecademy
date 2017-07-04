@@ -1,3 +1,4 @@
+<sass-helper></sass-helper>
 <div *ngIf="!loading" >
   <table class="header">
     <td class="title">
@@ -6,10 +7,8 @@
       </h2>
     </td>
     <td class="counter">
-    <div style="display: block">
+    <div class="chart" style="display: block">
       <canvas baseChart
-              [width]= "50"
-              [height]= "50"
               [legend]="false"
               [colors]="pieChartColor"
               [data]="pieChartData"
