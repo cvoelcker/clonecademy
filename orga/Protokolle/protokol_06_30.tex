@@ -1,0 +1,90 @@
+\documentclass[colorback, accentcolor=tud1c, paper=a4]{tudexercise}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{multicol}
+
+%opening
+\title{Protokol Auftraggebertreffen \today}
+\subtitle{Claas A. Völcker}
+\subsubtitle{BP Clonecademy}
+\author{Claas A. Völcker}
+
+
+\begin{document}
+	
+\maketitle
+
+\begin{multicols}{2}
+
+\section{Bericht der letzte Iteration}
+
+\subsection{User Stories}
+\begin{itemize}
+	\item Kursfortschritt anzeigen
+	\begin{itemize}
+		\item abgenommen
+	\end{itemize}
+	\item Kurs fortsetzen
+	\begin{itemize}
+		\item abgenommen
+		\item Anmerkungen: In den Nutzerstudien wurde bemängelt, dass nicht alle Buttons klar plaziert sind
+		\item Der start Course Button könnte die volle Kursübersicht ersetzen
+	\end{itemize}
+	\item Sprache auswählen
+	\begin{itemize}
+		\item abgenommen
+		\item die deutsche Lokalisierung fehlt noch zu Teilen
+	\end{itemize}
+\end{itemize}
+
+\section{Design Anmerkungen}
+\begin{itemize}
+	\item Die Fragenbeantwortung dritteln
+	\begin{itemize}
+		\item 1. Drittel: Dashboard
+		\item 2. Drittel: Fragefenster
+		\item 3. Drittel: Feedbackfenster (wenn kein Feedback vorhanden, leer)
+		\begin{itemize}
+			\item Visuelles Feedback zur Frage (z.B. durch Symbole)
+			\item Möglichkeit, einen Feedbacktext für korrekte Antworten einpflegen
+			\item Feedbacktext sollte Markdown Support haben
+		\end{itemize}
+	\end{itemize}
+	\item Fragentitel sind erwünscht, wenn keine eingeben werden, sollte ein generischer aus dem Modulnamen generiert werden.
+\end{itemize}
+
+
+\section{Vorschlag für neue User Stories}
+\begin{itemize}
+	\item Drag \& Drop
+	\begin{itemize}
+		\item Anschauliche Plasmidkarten werden ins Seafile hochgeladen
+		\item Drag\&Drop Elemente sollten nicht zu viel Informationen über die Lösung verraten
+		\item Beim Klick auf ein Element sollten die Lösungsmöglichkeiten klar ersichtlich sein
+		\item Es könnte mehrere richtige Lösungen geben, es wird überlegt, wie das eingepflegt werden kann
+		\item Vorschlag zum Einpflegen:
+		\begin{itemize}
+			\item Mögliche Antwortfelder auswählbar
+			\item Mögliche ''Stückchen'' auswählbar
+			\item Gültige Kombinationsmöglichkeiten angebe
+		\end{itemize}
+	\end{itemize}
+	\item Markdown Support
+\end{itemize}
+
+\section{Zielvereinbarung für die nächste Woche}
+\begin{itemize}
+	\item Es wird um eine realistische Einschätzung der Machbarkeit von Drag \& Drop bis nächste Woche durch das BP Team gebeten
+	\item BP Team diskutiert über die bessere Plazierung von Knöpfen
+	\item Markdown Support wird angeschaut
+	\item Überarbeitung des Designs der Frageseite ist erwünscht
+	\item User Stories
+\end{itemize}
+
+\section{Weitere Planung}
+\begin{itemize}
+	\item Stabilitätstest wären cool
+\end{itemize}
+
+\end{multicols}
+\end{document}
