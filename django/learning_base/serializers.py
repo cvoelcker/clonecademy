@@ -2,36 +2,26 @@ from rest_framework import serializers
 from .models import *
 from ast import literal_eval
 from learning_base.multiple_choice.models import *
+from learning_base.drag_and_drop.models import *
 from learning_base.multiple_choice.serializer import *
+from learning_base.drag_and_drop.serializer import *
 
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = ('id', )
+        fields = ('title', 'body', 'feedback',)
 
     def to_representation(self, obj):
-        if isinstance(obj, MultipleChoiceQuestion):
-            value = MultipleChoiceQuestionSerializer(obj, context = self.context).to_representation(obj)
-        # to serialize add new serializ classes for module types here
-        else:
-            return super(QuestionSerializer, self).to_representation(obj)
-
-        value['class'] = obj.__class__.__name__
-        return value
-
-class QuestionPreviewSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Question
-        fields = ('id', )
-
-    def to_representation(self, obj):
-        if isinstance(obj, MultipleChoiceQuestion):
-            value = MultipleChoiceQuestionPreviewSerializer(obj, context = self.context).to_representation(obj)
-        # to serialize add new serializ classes for module types here
-        else:
-            return super(QuestionPreviewSerializer, self).to_representation(obj)
-
-        value['class'] = obj.__class__.__name__
+        module = obj.module
+        value = super(QuestionSerializer, self).to_representation(obj)
+        value['type'] = obj.__class__.__name__
+        value['last'] = obj.last_question()
+        value['module'] = module.__str__()
+        value['last_module'] = module.last_module()
+        value['learning_text'] = module.learning_text
+        value['course'] = module.course.__str__()
+        if isinstance(obj, DragAndDropQuestion):
+            value['question_body'] = DragAndDropQuestionSerializer(obj).data
         return value
 
 
@@ -65,7 +55,7 @@ class ModuleSerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ('name', 'course_difficulty', 'id')
+        fields = ('name', 'difficulty', 'id')
 
     #TODO: Can this be refactored and the ordering be done in the frontend?
     #      The serializer is needlessly complicated
@@ -76,7 +66,7 @@ class CourseSerializer(serializers.ModelSerializer):
         """
         value = {}
         value['name'] = obj.name
-        value['course_difficulty'] = obj.course_difficulty
+        value['difficulty'] = obj.difficulty
         value["id"] = obj.id
 
         all_modules = Module.objects.filter(course=obj)

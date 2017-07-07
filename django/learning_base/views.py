@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 
 import learning_base.serializers as serializer
 from learning_base.multiple_choice.models import MultipleChoiceQuestion
-from learning_base.models import Course, CourseCategory, Module, valid_mod_request, get_link_to_profile, is_mod, is_admin
+from learning_base.models import Course, CourseCategory, Module, Question, valid_mod_request, get_link_to_profile, is_mod, is_admin
 
 from rest_framework.response import Response
 from django.core.mail import send_mail
@@ -18,35 +18,90 @@ from django.contrib.auth.models import User, Group
 class CourseView(APIView):
     '''
     '''
-    authentication_classes = (authentication.TokenAuthentication,)
-    permission_classes = (permissions.IsAuthenticated,)
+    #authentication_classes = (authentication.TokenAuthentication,)
+    #permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, course_id, format=None):
         try:
             course = Course.objects.filter(id=course_id).first()
             course_serializer = serializer.CourseSerializer(course)
+            data = course_serializer.data
             return Response(course_serializer.data, status=status.HTTP_200_OK)
         except Exception as e:
             return Response('Course not found', status=status.HTTP_404_NOT_FOUND)
 
+    def post(self, reuest, format=None):
+        data = request.data
+        if data == None:
+            return Response("Request does not contain data", status=status.HTTP_400_BAD_REQUEST)
+        course_serializer = serializer.CourseSerializer(data)
+        if not course_serializer.is_valid():
+            return Response("Data is not valid", status=status.HTTP_400_BAD_REQUEST)
+        else:
+            course_serializer.save()
+        return Response("Course saved", status=status.HTTP_201_CREATED)
 
-class MultiCoursesView():
+
+class MultiCourseView(APIView):
     '''
+    View to see all courses of a language. The post method provides a general interface 
+    with three filter settings.
     '''
-    authentication_classes = (authentication.TokenAuthentication,)
-    permission_classes = (permissions.IsAuthenticated,)
+    #authentication_classes = (authentication.TokenAuthentication,)
+    #permission_classes = (permissions.IsAuthenticated,)
     
     def get(self, request, format=None):
         return Response('Method not allowed', status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def post(self, request, format=None):
-        r_type = request['type']
-        r_category = request['category']
-        r_lan = request['language']
+        try:
+            data = request.data
+            r_type = data['type']
+            r_category = data['category']
+            r_lan = data['language']
+            courses = Course.objects.all()
+            courses = courses.filter(language=r_lan)
+            if r_category != "all":
+                category = Category.objects.filter(name=r_category).first()
+                courses.filter(category=category)
+            if r_type == "mod":
+                courses.filter(responsible_mod=request.user)
+            elif r_type == "started":
+                courses = courses.filter(module__question__try__person=user)
+            data = serializer.CourseSerializer(courses, many=True).data
+            return Response(data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response("Query not possible", status=status.HTTP_404_NOT_FOUND)
 
 
-class QuestionView():
-    pass
+class QuestionView(APIView):
+    '''
+    '''
+    #authentication_classes = (authentication.TokenAuthentication,)
+    #permission_classes = (permissions.IsAuthenticated,)
+    
+    def get(self, request, course_id, module_id, question_id, format=None):
+        try:
+            print("Started")
+            question = Question.objects.filter(
+                id=question_id,
+                module__id=module_id,
+                module__course__id=course_id
+            ).first()
+            if question is None:
+                return Response("Question not found", status=status.HTTP_404_NOT_FOUND)
+            print(question)
+            data = serializer.QuestionSerializer(question)
+            data = data.data
+            print(data)
+            return Response(data, status=status.HTTP_200_OK)
+        except Exception as e:
+            print(e)
+            return Response("Question not found", status=status.HTTP_404_NOT_FOUND)
+
+    def post(self, request, format=None):
+        pass
+
 
 
 class UserView(APIView):

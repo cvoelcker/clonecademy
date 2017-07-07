@@ -1,6 +1,4 @@
 from django.db import models
-from django.contrib.contenttypes.fields import GenericForeignKey
-from django.contrib.contenttypes.models import ContentType
 from django.apps import apps
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -88,6 +86,8 @@ class Course(models.Model):
     together. These questions should have similar topics, difficulty and should form
     a compete unit for learning.
     """
+    #objects = CourseManager()
+
     QUESTION_NAME_LENGTH = 144
 
     EASY = 0
@@ -99,6 +99,13 @@ class Course(models.Model):
         (MODERATE, 'Moderate (college entry)'),
         (DIFFICULT, 'Difficult (college students'),
         (EXPERT, 'Expert (college graduates)')
+    )
+
+    GER = 0
+    ENG = 1
+    LANGUAGES = (
+        (GER, 'German/Deutsch'),
+        (ENG, 'English')
     )
 
     name = models.CharField(
@@ -114,10 +121,16 @@ class Course(models.Model):
         blank = True
     )
 
-    course_difficulty = models.IntegerField(
+    difficulty = models.IntegerField(
         verbose_name='Course difficulty',
         choices=DIFFICULTY,
         default=MODERATE
+    )
+
+    language = models.IntegerField(
+        verbose_name='Course Language',
+        choices=LANGUAGES,
+        default=ENG
     )
 
     responsible_mod = models.ForeignKey(
@@ -144,8 +157,8 @@ class Module(models.Model):
     A Course is made out of many modules and a module and in a Module can be n questions
     """
     class Meta():
-        unique_together = ['module_order', 'course']
-        ordering = ['module_order']
+        unique_together = ['order', 'course']
+        ordering = ['order']
 
     name = models.CharField(
         help_text="A short concise name for the module",
@@ -163,7 +176,7 @@ class Module(models.Model):
         on_delete=models.CASCADE
     )
 
-    module_order = models.IntegerField()
+    order = models.IntegerField()
 
     def __str__(self):
         return self.name
@@ -175,6 +188,11 @@ class Module(models.Model):
 
     def num_of_questions(self):
         return len(Question.objects.filter(module=self))
+    
+    def last_module(self):
+        modules = self.course.module_set
+        return self == modules.last()
+
 
 
 class Question(PolymorphicModel):
@@ -184,25 +202,27 @@ class Question(PolymorphicModel):
     provide feedback to the user.
     """
     class Meta():
-        unique_together = ['module', 'question_order']
-        ordering = ['module', 'question_order']
+        unique_together = ['module', 'order']
+        ordering = ['module', 'order']
 
-    question_title = models.TextField(
+    title = models.TextField(
         verbose_name='Question title',
         help_text="A short and concise name for the question"
     )
 
-    question_body = models.TextField(
+    body = models.TextField(
         verbose_name='Question text',
         help_text="This field can contain markdown syntax"
     )
 
     feedback = models.TextField(
         verbose_name="feedback",
-        help_text="The feedback for the user after a sucessful answer"
+        help_text="The feedback for the user after a sucessful answer",
+        blank=True,
+        null=True
     )
 
-    question_order = models.IntegerField()
+    order = models.IntegerField()
 
     module = models.ForeignKey(
         Module,
@@ -214,8 +234,12 @@ class Question(PolymorphicModel):
     def feedback_is_set(self):
         return len(feedback) != 0
 
+    def last_question(self):
+        questions = self.module.question_set
+        return self == questions.last()
+
     def __str__(self):
-        return self.question_title
+        return self.title
 
 
 class LearningGroup(models.Model):
@@ -234,7 +258,7 @@ class Try(models.Model):
     object is created in the database, detailing answer, wether it was answered
     correctly and the time of the submission.
     '''
-    person = models.ForeignKey(
+    user = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,
         null=True,
@@ -263,3 +287,8 @@ class Try(models.Model):
 
     def __unicode__(self):
         return "Solution_{}_{}_{}".format(self.question, self.solved, self.date)
+
+class CourseManager(models.Manager):
+    def is_started(user):
+        courses = models.Course.objects.filter(module__question__try__person=user)
+        return courses

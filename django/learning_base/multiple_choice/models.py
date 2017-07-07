@@ -6,10 +6,6 @@ class MultipleChoiceQuestion(Question):
     """
     A simple multiple choice question
     """
-
-    def __str__(self):
-        return self.question_body
-
     def numCorrectAnswers(self):
         return len(MultipleChoiceAnswer.objects.filter(is_correct=True))
 
@@ -28,6 +24,9 @@ class MultipleChoiceQuestion(Question):
             if not (ans in data):
                 return False
         return True
+
+    def __str__(self):
+        return self.body
 
 
 class MultipleChoiceAnswer(models.Model):

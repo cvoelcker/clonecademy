@@ -30,10 +30,10 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api-auth', obtain_jwt_token),
 
-    url(r'^courses/$', views.getCourses),
-    url(r'^courses/(?P<courseID>[0-9]+)/?$', views.singleCourse),
-    url(r'^courses/(?P<courseID>[0-9]+)/(?P<moduleIndex>[0-9]+)/?$', views.callModule),
-    url(r'^courses/(?P<courseID>[0-9]+)/(?P<moduleIndex>[0-9]+)/(?P<questionIndex>[0-9]+)/?$', views.callQuestion),
+    url(r'^courses/$', views.MultiCourseView.as_view()),
+    url(r'^courses/(?P<course_id>[0-9]+)/?$', views.CourseView.as_view()),
+    url(r'^courses/(?P<course_id>[0-9]+)/(?P<module_id>[0-9]+)/?$', views.callModule),
+    url(r'^courses/(?P<course_id>[0-9]+)/(?P<module_id>[0-9]+)/(?P<question_id>[0-9]+)/?$', views.QuestionView.as_view()),
 
     url(r'^get-course-categories/$', views.getCourseCategories),
 

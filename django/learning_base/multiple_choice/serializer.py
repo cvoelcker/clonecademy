@@ -11,13 +11,13 @@ class MultipleChoiceAnswersSerializer(serializers.ModelSerializer):
 class MultipleChoiceQuestionPreviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = MultipleChoiceQuestion
-        fields = ('question_body', "id", )
+        fields = ('body', "id", )
 
 
 # TODO: Represent inheritance over models in the serializer
 class MultipleChoiceQuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = MultipleChoiceQuestion
-        fields = ('question_body', 'answers', "id", )
+        fields = ('body', 'answers', "id", )
 
     answers = MultipleChoiceAnswersSerializer(many = True, read_only=True)
