@@ -102,25 +102,53 @@ Es wird ein Beauftragter für das Qualitätsziel gewählt, der für alle Rücksp
 
 \textbf{Quellcode}
 Beim implementieren der Userstories wird darauf geachtet das ein einheitliches von Anfang an bestimmtes Muster durchgezogen wird. Klassennamen, Funktionen, Variablen, Klammersetzung etc. Zum Beispiel:
-Klassennamen beginnen immer mit einem Großbuchstaben und bei mehreren Wörtern als Klassenname, werden diese zusammen geschrieben und jedes weitere Wort beginnt wieder mit einem Großbuchstaben.
-Variablen beginnen immer mit einem Kleinbuchstaben und bestehen im besten Fall aus nur einem Wort.
-Funktionen beginnen wie Variablen mit einem Kleinbuchstaben, bei mehreren Worten wird wie beim Klassennamen jedes weitere Wort mit einem Großbuchstaben angefangen, das erste Wort aber mit einem Kleinbuchstaben.
+\begin{description}
+\item Klassennamen beginnen immer mit einem Großbuchstaben und bei mehreren Wörtern als Klassenname, werden diese zusammen geschrieben und jedes weitere Wort beginnt wieder mit einem Großbuchstaben. Beispiele für Klassennamen: DashboardComponent, ModuleComponent
+\item Variablen beginnen immer mit einem Kleinbuchstaben und bestehen im besten Fall aus nur einem Wort. Beispiele: name, title, question, courseID
+\item Funktionen beginnen wie Variablen mit einem Kleinbuchstaben, bei mehreren Worten wird wie beim Klassennamen jedes weitere Wort mit einem Großbuchstaben angefangen, das erste Wort aber mit einem Kleinbuchstaben. Beispiele: ngOnInit(), login(form), chartHovered(e:any)
+\end{description}
+Das Muster wurde am Anfang bevor die Umsetzung angefangen hat gründlich durchgesprochen und wird auch von allen Entwicklern eingehalten. Wenn was neues implementiert wird, schaut sich der Beauftragte den Quellcode nochmal gründlich an und weist den Entwickler daraufhin, sich an das abgesprochene Muster zuhalten. Falls später doch noch etwas von einem Entwickler gefunden wird,  wird das verbessert und im dazu gehörigen Slack Channel protokolliert.
 
 \textbf{Kommentare}
-Der Code wird durchgehend in englisch kommentiert. Dabei wird beachtet das eine korrekte Sprache benutzt wird. Der beauftragte für das Qualitätsziel ist dafür zuständig bei abgeschlossenen Userstories als Abschluss über den Code zu schauen. Bei unzureichenden Kommentaren wird der Entwickler vom beauftragten kontaktiert und darauf hingewiesen diesem nachzugehen.
+Kommentare haben wie der Quellcode ein einheitliches Muster. Der Code wird durchgehend in englisch kommentiert. Dabei wird beachtet das eine korrekte Sprache benutzt wird. Der beauftragte für das Qualitätsziel ist dafür zuständig bei abgeschlossenen Userstories als Abschluss über den Code zu schauen. Bei jeder Änderung von Code bekommen alle Entwickler automatisch eine Meldung was?, wo? Und wann? Etwas geändert wurde. Der Beauftrage hat dann die Aufgabe die Kommentare abzuchecken. Bei fehlenden Kommentaren wird der Entwickler vom beauftragten kontaktiert und darauf hingewiesen diesem nachzugehen. Ansonsten stellt sich der Beauftrage zwei Fragen:
+\begin{description}
+\item Erleichtern mir die Kommentare das Verständnis für den Quellcode?
+\item Würde jemand der sich mit dem Code gar nicht auskennt damit zurecht finden?
+\end{description}
+Wenn die Kommentare diese Anforderungen nicht erfüllen, teilt der Beauftragte dem Entwickler das mit, damit er es dann nachbessern kann.
+
+
+
 
 \textbf{Refactoring}
-Da bei einem Agilen Projekt es dazu kommen kann, dass der Code sehr schnell unübersichtlich werde kann. Wird vor Abnahme der Userstory ein refactoring vom jeweiligen Entwickler durchgeführt. Dies ist unerlässlich und in diesem Prozess werden unbenutzte Codefragmente entfernt und Quellcode Optimierungen durchgeführt.
+Da bei einem Agilen Projekt es dazu kommen kann, dass der Code sehr schnell unübersichtlich werde kann. Wird vor Abnahme der Userstory ein refactoring vom jeweiligen Entwickler durchgeführt. Dies ist unerlässlich und in diesem Prozess werden unbenutzte Codefragmente entfernt und Quellcode Optimierungen durchgeführt. Bei Änderungen werden die Kommentare darauf abgestimmt.
+
 
 \textbf{Wiki}
-Nebenbei wird eine Wiki regelmäßig aktualisiert, wo alle Schnittstellen zwischen Backend und Frontend definiert sind. Das Wiki kann von allen Gruppenmitgliedern editiert werden. Bei großen Änderungen und neuen Einträgen wird der Beauftragte für das Qualitätsziels kontaktiert, dieser schaut sich die Änderungen an und führt gegeben falls Optimierungen durch.
+Nebenbei wird eine Wiki regelmäßig aktualisiert, wo alle Schnittstellen zwischen Backend und Frontend definiert sind. Das Wiki kann von allen Gruppenmitgliedern editiert werden. Bei großen Änderungen und neuen Einträgen wird der Beauftragte für das Qualitätsziels kontaktiert, dieser schaut sich die Änderungen an und führt gegeben falls Optimierungen durch. Es wird immer darauf geachtet das alles sauber im Wiki geschrieben wird. Spätestens nach dem refactorn wird alles ins Wiki gepflegt.
 
 \textbf{Codeanalyse Tools}
 Für die Codeanalyse wird für das Backend und Frontend jeweils die dazugehörigen statischen Codeanalyse Tools verwendet:
+
+\textbf{ng2lint für Angular2}
+Dieser statische Codeanalyse Tool wurde auf die IDE installiert. Ng2lint ist ein konfigurierbares Tool und wurde für die spezifischen Konventionen vom Projekt angepasst. Damit alles läuft und es keine Fehlermeldung gibt müssen im Projekt Regeln aufgestellt werden, an die sich alle halten müssen mit dieser statischen Codeanalyse können wir z.B. automatisch überprüfen:
 \begin{description}
-\item ng2lint für Angular2.
-\item django-lint für Django.
-end{description}
+\item Das alle Pipes innerhalb des Templates definiert sind
+\item Alle benutzerdefinierten Attribute von Elementen in den Vorlagen werden als Eingänge, Ausgänge oder Anweisungen deklariert.
+\item Alle verwendeten Identifiers sind in den Tamplates in der entsprechenden Symboltabelle enthalten
+\end{descripton}
+
+Vorteile
+\begin{description}
+\item Warnungen erhalten wennn die Best Practices nicht eingehalten werden.
+\item Wenn der Stil, die vom Team abgesprochen wurde nicht eingehalten wird.
+\item Falscher Angular 2 spezifischer Code
+\end{description}
+
+\textbf{django-lint für Django}
+Django Lint ist ein statisches Analyse-Tool, das Projekte und Anwendungen überprüft, die das Django Web Development Framework verwenden.
+
+Es berichtet über gemeinsame Programmierfehler und bad code smells, einschließlich der Überprüfung für nullable CharField-Feldtypen, die Verwendung von spröden oder veralteten Django-Features (wie auto_now_add) sowie das Fehlen von empfohlenen Optionen in settings.py. Es zielt darauf ab, die Entwicklung von hochwertigen wiederverwendbaren Django-Anwendungen zu fördern.
 
 
 
