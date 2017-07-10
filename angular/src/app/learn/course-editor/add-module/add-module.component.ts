@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, Type, OnInit, Output, EventEmitter, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory } from '@angular/core';
+import { Component, ElementRef, ChangeDetectorRef, Type, OnInit, Output, EventEmitter, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory } from '@angular/core';
 
 import { AddQuestionComponent } from "../add-question/add-question.component"
 
@@ -35,14 +35,17 @@ export class AddModuleComponent implements OnInit {
   components: Array<{name: string, component: Type<AddQuestionModule>}> = [
     {name: "Multiple Choice Question", component: AddMultiplyChoiceComponent}
   ]
-  selectedValue: Type<AddQuestionComponent>;
+  selectedValue: Type<AddQuestionComponent> = null;
   id: number;
-  title: string;
-  learningText: string;
+  title: string = "";
+  learningText: string = "";
   selected: boolean;
   question: ComponentFactory<AddQuestionComponent>;
   questionArray: any[] = [];
   moduleComponent: AddQuestionComponent;
+
+  // the parent class set this to true when the save button is pressed
+  form = null;
 
   loading = false;
 
@@ -53,17 +56,18 @@ export class AddModuleComponent implements OnInit {
     this.question = this.factory.resolveComponentFactory(AddQuestionComponent)
   }
 
-  addQuestion(){
-    if(this.selectedValue != undefined){
+  addQuestion(component){
 
       // add the question to the module component and add it to the array so we can edit and save it later
       let question = this.module.createComponent(this.question)
       let q = (<AddQuestionComponent> question.instance)
+      q.form = this.form
       q.emitter.subscribe(data => this.module.detach())
-      q.child = this.selectedValue
+      q.child = component
       q.addQuestion()
       this.questionArray.push(question)
-    }
+      this.selectedValue = null;
+
   }
 
   ngOnInit() {
@@ -96,20 +100,22 @@ export class AddModuleComponent implements OnInit {
     this.clear.emit("down")
   }
 
+
   // save all questions in the correct order
   // append title, and the module description and return it
-  save(){
+  save(form){
+    this.form = form;
     let values = [];
     for(let i = 0; i < this.questionArray.length; i++){
       let tmp = this.questionArray[i];
       let index = this.module.indexOf(this.questionArray[i].hostView)
       if(index >= 0){
-        let save = (<AddQuestionComponent> tmp.instance).save()
+        let save = (<AddQuestionComponent> tmp.instance).save(form)
         save['order'] = index;
         values.push(save)
       }
-
     }
+    
     return {title: this.title, question: values, learningText: this.learningText};
   }
 

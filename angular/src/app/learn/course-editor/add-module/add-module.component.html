@@ -1,46 +1,44 @@
-<div class="moduleWrapper" [@slideIn]="loading" (@slideIn.done)="remove($event)">
-  <div class="form-group row">
-    <div class="col-md-10">
-      <label for="title">{{"module title" | translate}}</label>
-      <input type="text" class="form-control" id="title" [(ngModel)]="title" required>
-    </div>
-    <div class="col-md-2 arrows">
-      <button md-raised-button (click)="up()">
-        <i class="material-icons">keyboard_arrow_up</i>
-      </button>
-      <button md-raised-button (click)="down()">
-      <i class="material-icons">keyboard_arrow_down</i>
-    </button>
-    </div>
-  </div>
+<div  class="moduleWrapper" [@slideIn]="loading" (@slideIn.done)="remove($event)">
+  <ul class="row">
+    <li>
+      <table>
+        <td class="moduleTitle">
+          <md-input-container>
+            <input mdInput placeholder='{{"module title" | translate}}' type="text" #Title="ngModel" [(ngModel)]="title" name="title" required>
+            <md-hint align="start" class="warning" *ngIf="form != null && form.submitted && !Title.valid"><strong>{{'The title of the module is required' | translate}}</strong> </md-hint>
+          </md-input-container>
+        </td>
+        <td class="moduleArrows">
+          <button md-raised-button (click)="up()">
+            <i class="material-icons">keyboard_arrow_up</i>
+          </button>
+          <button md-raised-button (click)="down()">
+          <i class="material-icons">keyboard_arrow_down</i>
+        </button>
+      </td>
+      </table>
+    </li>
 
-  <div class="row">
-    <div class="col-md-12">
-      <label for="learningText">{{"module description" | translate}}</label>
-      <textarea  id="learningText" type="textarea" [(ngModel)]="learningText"></textarea>
-    </div>
-  </div>
-
-  <div>
-
-      <!--<p>add-module works! {{id}}</p>-->
-      <div class="module" #module></div>
-      <!-- add Question -->
-      <div class="form-group">
-        <label for="basic" class="control-label">{{"Select Question Type" | translate}}</label>
-
-        <div class="">
-          <select *ngFor="let c of components" id="basic" (click)="addQuestion()" [(ngModel)]="selectedValue" class="selectpicker show-tick form-control">
-            <option [ngValue]="c.component">{{c.name}}</option>
-          </select>
-        </div>
+    <li>
+      <div>
+        <md-input-container>
+          <textarea mdInput placeholder='{{"module description" | translate}}' type="textarea" #moduleDescription="ngModel" [(ngModel)]="learningText" name="learningText" required></textarea>
+          <md-hint align="start" class="warning" *ngIf="form != null && form.submitted && !moduleDescription.valid"><strong>{{'The module description is required' | translate}}</strong> </md-hint>
+        </md-input-container>
       </div>
-      <!-- / add Question -->
+    </li>
 
-  </div>
-  <div>
-    <button md-raised-button class=" " (click)="close()">
-      <i class="material-icons">delete</i>{{"remove module" | translate}}
-    </button>
-  </div>
+    <li>
+      <div class="module" #module></div>
+          <md-select placeholder='{{"Add Question Type" | translate}}' [(ngModel)]="selectedValue" name="selectedValue">
+            <md-option *ngFor="let c of components"  (click)="addQuestion(c.component)" >{{c.name}}</md-option>
+          </md-select>
+            <md-hint align="start" class="warning" *ngIf="form != null && form.submitted && !(module.length > 0)"><strong>{{'At least one question is required for this module' | translate}}</strong> </md-hint>
+    </li>
+  </ul>
+    <div>
+      <button md-raised-button class=" " (click)="close()">
+        <i class="material-icons">delete</i>{{"remove module" | translate}}
+      </button>
+    </div>
 </div>

@@ -2,9 +2,11 @@
   <h2>
     {{"Add multiple choice Question" | translate}}
   </h2>
-  <label for="question">{{"Question" | translate}}</label>
-  <textarea class="question" id="question" type="textarea" [(ngModel)]="question"></textarea>
-  <label for="answers">Answers</label>
+  <md-input-container>
+    <textarea mdInput placeholder='{{"Question" | translate}}' #Question="ngModel" name="question" type="textarea" [(ngModel)]="question" required></textarea>
+    <md-hint align="start" class="warning" *ngIf="form != null && form.submitted && !Question.valid"><strong>{{'The question is required' | translate}}</strong> </md-hint>
+  </md-input-container>
+  <h3 for="answers">Answers</h3>
   <ul id="answers" class="answers">
     <li class="singleQuestion" *ngFor="let i of answers; let j = index" >
       <div class="alert" [class.success]="i.correct"
@@ -15,9 +17,14 @@
         <button md-raised-button class="remove" (click)="this.answers.splice(j, 1)" >
           <i class="material-icons">delete</i>{{"remove" | translate}}
         </button>
-        <textarea class="answer" [(ngModel)]="i.text"></textarea>
+        <md-input-container>
+          <textarea mdInput placeholder="{{'answer text' | translate}}" class="answer" [(ngModel)]="i.text"></textarea>
+        </md-input-container>
       </div>
     </li>
   </ul>
-  <button md-raised-button class="addAnswer" (click)="addAnswer()"><i class="material-icons">add</i> {{"add Answer" | translate}}</button>
+  <md-hint align="start" class="warning" *ngIf="form != null && form.submitted && !(validAnswer())"><strong>{{'one true Question is required' | translate}}</strong> </md-hint>
+  <div>
+    <button md-raised-button class="addAnswer" (click)="addAnswer()"><i class="material-icons">add</i> {{"add Answer" | translate}}</button>
+  </div>
 </div>

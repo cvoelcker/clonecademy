@@ -2,6 +2,8 @@ import { Component, OnInit, Input, ComponentRef, ViewChild, ViewContainerRef, Co
 import { AddModuleComponent } from '../add-module/add-module.component'
 import { Router } from "@angular/router"
 
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+
 import { CourseService } from '../../../service/course.service'
 import { UserService } from "../../../service/user.service"
 
@@ -13,7 +15,6 @@ import { ServerService } from '../../../service/server.service'
 })
 export class CreateCourseComponent implements OnInit {
 
-  @Input() title: string;
   @ViewChild('modules', {read: ViewContainerRef}) modules: ViewContainerRef;
   childComponent: ComponentFactory<AddModuleComponent>;
   moduleArray: ComponentRef<AddModuleComponent>[] = [];
@@ -28,6 +29,11 @@ export class CreateCourseComponent implements OnInit {
 
   validSave = true;
 
+  public courseForm = new FormGroup({
+    title: new FormControl("title", Validators.required),
+    category: new FormControl('category', Validators.required),
+  })
+
   @Output() emitter: EventEmitter<any> = new EventEmitter();
 
   ngOnInit(){
@@ -41,7 +47,8 @@ export class CreateCourseComponent implements OnInit {
     private server: ServerService,
     private componentFactory: ComponentFactoryResolver,
     private course: CourseService,
-    private user: UserService
+    private user: UserService,
+    private fb: FormBuilder,
   ) {
     this.childComponent = this.componentFactory.resolveComponentFactory(AddModuleComponent)
     this.server.get("get-course-categories/", true)
@@ -81,26 +88,26 @@ export class CreateCourseComponent implements OnInit {
     this.modules.detach(0)
   }
 
-  save(){
-
+  save(f){
     let saveModules = [];
     for(let i = 0; i < this.moduleArray.length; i++){
       let module = this.moduleArray[i];
       let index = this.modules.indexOf(module.hostView);
-      let m = (<AddModuleComponent> module.instance).save();
+      let m = (<AddModuleComponent> module.instance).save(f);
       m['order'] = index
       saveModules.push(m)
-
     }
-    let course = {title: this.title, categorie: this.catId,  modules: saveModules};
-    this.server.post('save/course/', course)
-    .then(data => {
-      this.course.load()
-      this.router.navigate(['/course'])
-    }).catch(err => {
-      console.log(err)
-    })
-
+    if(f.valid){
+      let course = {title: f.value['title'], categorie: f.value['category'],  modules: saveModules};
+      console.log(course)
+      // this.server.post('save/course/', course)
+      // .then(data => {
+      //   this.course.load()
+      //   this.router.navigate(['/course'])
+      // }).catch(err => {
+      //   console.log(err)
+      // })
+    }
   }
 
 

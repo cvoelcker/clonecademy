@@ -1,32 +1,35 @@
-<div class="form-group" *ngIf="!loading">
-  <label for="title">title</label>
-  <input type="text" class="form-control" id="title" [(ngModel)]="title" required>
-</div>
-<div class="form-group">
-  <label for="basic" class="control-label">{{"select category" | translate}}</label>
+<form #f="ngForm"  name="createCourse" (ngSubmit)="save(f)" >
+    <div class="form-group">
+    <md-input-container>
+      <input mdInput placeholder="{{'title' | translate}}" #courseTitle="ngModel" [(ngModel)]="title" name="title" type="text" required>
+      <md-hint align="start" class="warning" *ngIf="f.submitted && !courseTitle.valid"><strong>{{'The title of the course is required' | translate}}</strong> </md-hint>
+    </md-input-container>
 
+    <div>
+      <md-select placeholder='{{"category" | translate}}' #categorie="ngModel" [(ngModel)]="category" name="category" required>
+        <md-option *ngFor="let c of categories"  [value]="c.id">{{c.name}}</md-option>
+      </md-select>
+      <md-hint align="start" class="warning" *ngIf="f.submitted && !categorie.valid"><strong>{{'The category of the course is required' | translate}}</strong> </md-hint>
+    </div>
+  </div>
+
+
+  <div [class.moduleWrapper]="moduleArray.length > 0" >
+    <div class="modules" #modules></div>
+     <button md-raised-button type="button" (click)="addModule()">
+       <i class="material-icons">add</i> {{"add module" | translate}}
+     </button>
+  </div>
   <div>
-    <select *ngFor="let c of categories" id="basic" [(ngModel)]="catId" class="form-control">
-      <option [ngValue]="c.id">{{c.name}}</option>
-    </select>
+    <button type="submit" md-raised-button class="saveButton" [disabled]="length < 1">
+      <i class="material-icons">save</i> {{"save" | translate}}
+      <div class="info">{{'a course must contain at least one module' | translate}}</div>
+    </button>
+    <div class="alert danger" [hidden]="!((length < 1) && error)">
+      {{"a course must contain at least one module" | translate}}
+    </div>
   </div>
-</div>
-
-<div [class.moduleWrapper]="moduleArray.length > 0" class="form-group">
-  <div class="modules" #modules></div>
-   <button md-raised-button class=" " (click)="addModule()">
-     <i class="material-icons">add</i> {{"add module" | translate}}
-   </button>
-</div>
-<div class="form-group">
-  <button md-raised-button class="saveButton" [disabled]="length < 1" (click)="save()" >
-    <i class="material-icons">save</i> {{"save" | translate}}
-    <div class="info">{{'a course must contain at least one module' | translate}}</div>
-  </button>
-  <div class="alert danger" [hidden]="!((length < 1) && error)">
-    {{"a course must contain at least one module" | translate}}
-  </div>
-</div>
+</form>
 <div *ngIf="loading" class="localLoader">
 <md-progress-spinner mode="indeterminate"></md-progress-spinner>
 </div>

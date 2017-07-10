@@ -2,6 +2,8 @@
   "dashboard": "Dashboard",
   "add Course": "Kurs hinzufügen",
   "courses": "Kurse",
+  "title": "Titel",
+  "custom feedback text": "eigener Feedback Text",
   "module title": "Modul Titel",
   "module description": "Modul Beschreibung",
   "Select Question Type": "Fragentyp auswählen",
@@ -9,6 +11,7 @@
 
   "Add multiple choice Question": "Multiple Choice Frage hinzufügen",
   "Question": "Frage",
+  "answer text": "Antworttext",
   "is this Answer correct?": "ist diese Antwort korrekt?",
   "remove": "Entfernen",
   "add Answer": "Antwort hinzufügen",
@@ -25,7 +28,7 @@
   "continue": "Fortsetzen",
   "repeat": "Wiederholen",
 
-  "select category": "Kategorie auswählen",
+  "category": "Kategorie",
   "add module": "Modul hinzufügen",
   "save": "Speichern",
 

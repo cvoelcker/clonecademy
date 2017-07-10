@@ -19,6 +19,12 @@ export class AddQuestionComponent {
   feedback: string;
   feedbackBool: boolean;
 
+  form = null;
+
+  setForm(f){
+    this.form = f;
+  }
+
   constructor(private factory: ComponentFactoryResolver) { }
 
   // add a question to the view
@@ -32,12 +38,14 @@ export class AddQuestionComponent {
     this.questionCopy  = (<AddQuestionModule> question.instance)
   }
 
+
+
   remove(){
     this.emitter.emit("remove")
   }
 
-  save(): any{
-    let response = this.questionCopy.save()
+  save(f): any{
+    let response = this.questionCopy.save(f)
     response['feedbackBool'] = this.feedbackBool
     // check if custom feedback is set and save it if needed
     if(this.feedbackBool){

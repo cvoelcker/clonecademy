@@ -11,7 +11,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { ChartsModule } from 'ng2-charts';
 
 // Material Style
-import {MdButtonModule, MdCheckboxModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule, MdProgressSpinnerModule} from '@angular/material';
+import {MdButtonModule, MdCheckboxModule, MdCardModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule, MdProgressSpinnerModule} from '@angular/material';
 
 import {MdDialog, MdDialogModule} from '@angular/material';
 
@@ -201,6 +201,7 @@ export function createTranslateLoader(http: Http) {
     MdSelectModule,
     MdTabsModule,
     MdDialogModule,
+    MdCardModule,
     MdProgressSpinnerModule,
     BrowserAnimationsModule,
     ChartsModule,

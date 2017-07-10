@@ -6,7 +6,10 @@ import { CommonModule } from '@angular/common';
   template: '<p>implement me</p>',
 })
 export class AddQuestionModule {
-  public save(): any{
+
+  form = null;
+  
+  public save(form): any{
     return "nix";
   }
  }

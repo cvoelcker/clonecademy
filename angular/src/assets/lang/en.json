@@ -2,6 +2,8 @@
   "dashboard": "Dashboard",
   "add Course": "add Course",
   "courses": "Courses",
+  "title": "Title",
+  "custom feedback text": "custom feedback text",
   "module title": "module title",
   "module description": "module description",
   "Select Question Type": "Select Question Type",
@@ -9,6 +11,7 @@
 
   "Add multiple choice Question": "Add multiple choice Question",
   "Question": "Question",
+  "answer text": "Answer text",
   "is this Answer correct?": "is this Answer correct?",
   "remove": "remove",
   "add Answer": "add Answer",
@@ -25,7 +28,7 @@
   "continue": "continue",
   "repeat": "repeat",
 
-  "select category": "select category",
+  "category": "category",
   "add module": "add module",
   "save": "save",
 
@@ -89,5 +92,9 @@
 
   "UserDetail": "User details",
 
-  "Unable to log in with provided credentials.": "Unable to log in with provided credentials."
+  "Unable to log in with provided credentials.": "Unable to log in with provided credentials.",
+
+  "At least one question is required for this module": "At least one question is required for this module",
+  "The title of the module is required": "The title of the module is required",
+  "The module description is required": "The module description is required"
 }

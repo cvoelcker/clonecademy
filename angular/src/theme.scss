@@ -5,7 +5,7 @@
 
 $primary: mat-palette($md-ccred);
 $accent: mat-palette($md-ccback);
-$warn: mat-palette($mat-red);
+$warn: mat-palette($mat-red, 900);
 $shadow: mat-palette($md-ccshadow);
 $font: mat-palette($md-ccshadow);
 
@@ -81,6 +81,11 @@ button{
     opacity: 1 !important;
 }
 
+textarea{
+  resize: vertical;
+  overflow-x: hidden;
+}
+
 md-checkbox{
   .mat-checkbox-layout{
     margin: 0;
@@ -109,6 +114,11 @@ md-checkbox{
     background-color: mat-color($warn, 100);
     border-color: mat-color($warn, 300);
   }
+}
+
+md-hint{
+  color: mat-color($warn);
+  font-size: 14px;
 }
 
 .error{
@@ -167,6 +177,15 @@ md-progress-spinner{
    bottom: 0;
    box-shadow: 0 0 2px;
    width: 66.6666666666666%;
+  }
+}
+
+// labels
+
+md-input-container, md-select{
+  width: 100%;
+  .mat-input-placeholder, .mat-select-placeholder{
+    color: black;
   }
 }
 
