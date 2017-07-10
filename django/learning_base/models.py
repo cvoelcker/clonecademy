@@ -47,9 +47,12 @@ class ModRequest(models.Model):
 
 
 class Profile(models.Model):
+    '''
+    '''
     user = models.OneToOneField(
         User,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        unique=True
     )
 
     birth_date = models.DateField(
@@ -61,6 +64,9 @@ class Profile(models.Model):
         today = timezone.today
         return today.year - self.birth_date.year - ((today.month, today.day) < \
             (self.birth_date.month, self.birth_date.day))
+
+    def __str__(self):
+        return str(self.user)
 
 
 class CourseCategory(models.Model):
@@ -101,8 +107,8 @@ class Course(models.Model):
         (EXPERT, 'Expert (college graduates)')
     )
 
-    GER = 0
-    ENG = 1
+    GER = 'de'
+    ENG = 'en'
     LANGUAGES = (
         (GER, 'German/Deutsch'),
         (ENG, 'English')
@@ -127,8 +133,9 @@ class Course(models.Model):
         default=MODERATE
     )
 
-    language = models.IntegerField(
+    language = models.CharField(
         verbose_name='Course Language',
+        max_length=2,
         choices=LANGUAGES,
         default=ENG
     )

@@ -30,16 +30,22 @@ class CourseView(APIView):
         except Exception as e:
             return Response('Course not found', status=status.HTTP_404_NOT_FOUND)
 
-    def post(self, reuest, format=None):
-        data = request.data
-        if data == None:
-            return Response("Request does not contain data", status=status.HTTP_400_BAD_REQUEST)
-        course_serializer = serializer.CourseSerializer(data)
-        if not course_serializer.is_valid():
-            return Response("Data is not valid", status=status.HTTP_400_BAD_REQUEST)
+    def post(self, request, course_id, format=None):
+        course = Course.objects.filter(id=course_id)
+        if course.exists():
+            #TODO: Implement saving method
+            pass
         else:
-            course_serializer.save()
-        return Response("Course saved", status=status.HTTP_201_CREATED)
+            data = request.data
+            data['mod'] = request.user.id
+            if data == None:
+                return Response("Request does not contain data", status=status.HTTP_400_BAD_REQUEST)
+            course_serializer = serializer.CourseSerializer(data=data)
+            if not course_serializer.is_valid():
+                return Response("Data is not valid", status=status.HTTP_400_BAD_REQUEST)
+            else:
+                course_serializer.create(data)
+            return Response("Course saved", status=status.HTTP_201_CREATED)
 
 
 class MultiCourseView(APIView):
@@ -71,6 +77,7 @@ class MultiCourseView(APIView):
             data = serializer.CourseSerializer(courses, many=True).data
             return Response(data, status=status.HTTP_200_OK)
         except Exception as e:
+            print(e)
             return Response("Query not possible", status=status.HTTP_404_NOT_FOUND)
 
 
@@ -107,18 +114,18 @@ class QuestionView(APIView):
 class UserView(APIView):
     '''
     '''
-    authentication_classes = (authentication.TokenAuthentication,)
-    permission_classes = ()
+    # authentication_classes = (authentication.TokenAuthentication,)
+    # permission_classes = ()
 
     def get(self, request, user_id, format=None):
         '''
         '''
         user = request.user
         if user_id:
-            if request.user.groups.filter(name="moderator").exists():
-                try:
-                    user = User.objects.filter(id=id).first()
-                except Exception as e:
+            if is_mod(user):
+                user = User.objects.filter(id=user_id).first()
+                print(user)
+                if not user:
                     return Response('User not found', status=status.HTTP_404_NOT_FOUND)
             else:
                 return Response('Access denied', status=status.HTTP_401_UNAUTHORIZED)
@@ -126,6 +133,23 @@ class UserView(APIView):
         user = serializer.UserSerializer(user)
         return Response(user.data)
 
+    def post(self, request, user_id, format=None):
+        return Response('Method not allowed', status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+class MultiUserView(APIView):
+    '''
+    '''
+    # authentication_classes = (authentication.TokenAuthentication,)
+    # permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request):
+        if not is_mod(request.user):
+            return Response('Acess denied', status=status.HTTP_401_UNAUTHORIZED)
+        users = User.objects.all()
+        data = serializer.UserSerializer(users, many=True).data
+        return Response(data)
+    
     def post(self, request, format=None):
         '''
         '''
@@ -137,28 +161,11 @@ class UserView(APIView):
             return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class MultiUserView(APIView):
-    '''
-    '''
-    authentication_classes = (authentication.TokenAuthentication,)
-    permission_classes = (permissions.IsAuthenticated,)
-
-    def get(self, request):
-        if not is_mod(request.user):
-            return Response('Acess denied', status=status.HTTP_401_UNAUTHORIZED)
-        users = User.objects.all()
-        data = serializer.UserSerializer(users, many=True).data
-        return Response(data)
-
-
 
 class StatisticsView():
     pass
 
 
-class RequestView():
-    pass
-    
 class RequestView(APIView):
     """
     STILL IN DEVELOPMENT

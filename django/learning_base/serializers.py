@@ -1,6 +1,6 @@
 from rest_framework import serializers
+from rest_framework.exceptions import ParseError
 from .models import *
-from ast import literal_eval
 from learning_base.multiple_choice.models import *
 from learning_base.drag_and_drop.models import *
 from learning_base.multiple_choice.serializer import *
@@ -36,6 +36,10 @@ class ModuleSerializer(serializers.ModelSerializer):
         model = Module
         fields = ('name', 'learning_text')
 
+    def create(self, validated_data):
+        print("still_alive")
+        print(validated_data)
+
     def to_representation(self, obj):
         """
         This function makes the serialization and is needed for the custom order of the question
@@ -46,7 +50,7 @@ class ModuleSerializer(serializers.ModelSerializer):
         value['learning_text'] = obj.learning_text
 
         questions = Question.objects.filter(module=obj)
-        questions = QuestionPreviewSerializer(questions, many=True, read_only=True).data
+        questions = QuestionSerializer(questions, many=True, read_only=True).data
 
         value["questions"] = questions
         return value
@@ -57,12 +61,9 @@ class CourseSerializer(serializers.ModelSerializer):
         model = Course
         fields = ('name', 'difficulty', 'id')
 
-    #TODO: Can this be refactored and the ordering be done in the frontend?
-    #      The serializer is needlessly complicated
-    #      The ordering field in Module Meta should do this
     def to_representation(self, obj):
         """
-        This function makes the serialization and is needed for the custom order of the modules
+        This function serializes the courses.
         """
         value = {}
         value['name'] = obj.name
@@ -74,6 +75,20 @@ class CourseSerializer(serializers.ModelSerializer):
 
         value["modules"] = modules
         return value
+
+    def create(self, validated_data):
+        '''
+        This method is used to save courses together with all modules and questions
+        '''
+        modules = validated_data.pop('modules')
+        course = Course(**validated_data)
+        course.save()
+        module_serializer = ModuleSerializer(data=modules)
+        if not module_serializer.is_valid():
+            raise ParseError(detail="Error in module serialization", code=None)
+        else:
+            module_serializer.save()
+            return True
 
 
 class GroupSerializer(serializers.ModelSerializer):
@@ -92,7 +107,14 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username', 'email', 'id', 'date_joined')
-
+    
+    def create(self, validated_data):
+        profile_data = validated_data.pop('profile')
+        user = User(**validated_data)
+        user.save()
+        profile = Profile(user=user, **profile_data)
+        profile.save()
+        return True
 
 class ModRequestSerializer(serializers.ModelSerializer):
     class Meta():
@@ -100,9 +122,7 @@ class ModRequestSerializer(serializers.ModelSerializer):
         fields = ('user', 'date')
 
     def create(self, validated_data):
-        print(validated_data)
         user = validated_data.pop('user')
-        print("Still alive")
         user = User.objects.filter(id=user).first()
         new_request = ModRequest(user=user, date=timezone.localdate())
         new_request.save()

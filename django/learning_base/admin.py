@@ -1,10 +1,11 @@
 from django.contrib import admin
 
-from .models import CourseCategory, Course, Module, Question, LearningGroup, Try, ModRequest
+from .models import CourseCategory, Course, Module, Question, LearningGroup, Try, ModRequest, Profile
 from learning_base.multiple_choice.models import *
 
 # Register your models here.
 
+admin.site.register(Profile)
 admin.site.register(LearningGroup)
 admin.site.register(Try)
 admin.site.register(Module)
