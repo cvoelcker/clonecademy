@@ -156,6 +156,35 @@ Im folgenden sind die verwendeten Checklisten aufgeführt. Für die Ziele \emph{
 
 \section{Checkliste Datensicherheit}
 
+Grundlegende Fragen klären:
+
+\begin{itemize}
+    \item Programiersprache: Welche Feature und welche Probleme gibt es mit der Technik?
+    \item Kontext: Was muss gesichert werden und wie wertvoll ist es? Welche Angreifer*innen werden befürchtet?
+    \item Zielgruppe: Wer nutzt das Tool, dessen Code reviewt wird? Jemand internes, dem*der vertraut wird, oder eine außenstehende Person?
+    \item Ausfallsicherheit: Welcher Grad von Ausfallsicherheit muss gewährleistet werden?
+\end{itemize}
+
+Bei der Codereview sollte folgendes Bedrohungsmodell vor Augen gehalten werden:
+
+\begin{itemize}
+    \item Angreifende: Befürchtet werden vor allem Nutzende, die bei der Beantwortung der Fragen unerlaubte Methoden benutzen möchten, sowie Dritte, die gespeicherte Nutzerdaten missbrauchen wollen.
+    \item Angriffsoberfläche: Als Oberfläche sollte vor allem die übersichtliche API betrachtet werden.
+    \item Mögliche Angriffe: Da das System im Gegensatz zu z.B. Finanztechnologie als nicht besonders Angriffswert angeschätzt wird, werden die gebrächlichsten Angriffsformen wie zum Beispiel XSS, CSRF, Code und SQL Injection erwartet.
+    \item Als Sicherheitsmaßnahmen wird die korrekte Implementierung von Django, REST und Angular2 verwendet.
+    \item Potentielle technische Auswirkungen: Falsche/Korrupte Daten in der Datebank, v.a. in Trys
+    \item Wichtige wirtschaftliche Auswirkungen: Verlust der Glaubwürdigkeit nach Verlust von privaten Daten
+\end{itemize}
+
+Folgende Fragen sollten zu Jedem Codeabschnitt beantwortet werden:
+
+\begin{itemize}
+    \item html input: Wird jeglicher Input dieser Art korrekt nach Crossitescripts durchsucht bevor er als sicher markiert wird?
+    \item Sind die Djangofeatures zum Schutz vor Cross Site Request Forgery (CSRF) immer aktiviert oder nur in sinnvollem Kontext deaktiviert?
+    \item Ist jede view mit sinnvoller Authentifizierung und Authororisierung versehen, sowie gegebenenfalls auch mit einer Anfragenbegrenzung (Throttling)?
+    \item Werden alle Nutzereingaben nach Fehlern gefiltert?
+    \item Sind alle Security Probleme, die bei der softwarebasierten Analyse aufgetreten sind, behoben worden, oder aus dem Kontext heraus als unkritisch betrachtet worden?
+\end{itemize}
 
 \section{Checkliste Erweiterbarkeit}
 \begin{multicols}{2}
