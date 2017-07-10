@@ -4,6 +4,7 @@
 \usepackage{ngerman}
 \usepackage{parcolumns}
 \usepackage{hyperref}
+\usepackage{multicol}
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{1em}
@@ -56,9 +57,12 @@ Das Ziel des Projektes ist eine voll funktionsfähige Webanwendung für Rechner.
 
 Der minimale geplante Funktionsumfang umfasst die Möglichkeit einen Nutzungsaccount auf der Seite anzulegen und eingestellte Kurse zu bearbeiten. Außerdem wird es dedizierte Moderator*innen geben, die Inhalte auf der Webseite hochladen können.
 
-Zusätzlich sind mehrere Erweiterungen geplant. Allem voran soll es möglich sein, unterschiedliche Fragetypen zu nutzen. Als minimales Ziel wird hierfür die Möglichkeit gegeben, Multiple Choice Fragen zu stellen. Weitere Typen werden im laufe des Projektes mit den Auftraggeber*innen bsprochen und beschlossen.
+Zusätzlich sind mehrere Erweiterungen geplant. Allem voran soll es möglich sein, unterschiedliche Fragetypen zu nutzen. Als minimales Ziel wird hierfür die Möglichkeit gegeben, Multiple Choice Fragen zu stellen. Weitere Arten von Fragen werden im Laufe des Projektes mit den Auftraggeber*innen besprochen und beschlossen.
 
 Da auch die Interaktion verschiedener Nutzer*innen und der Lernfortschritt erklärte Ziele der Plattform sind, werden zusätzliche Erweiterungen indiesen Gebeten geplant. Dazu zählen ausführliche Statistiken zu Lernfortschritt und die Möglichkeit, diesen mit anderen Nutzer*innen der Plattform zu teilen und zu vergleichen.
+
+Das erste Release auf einem Server der Auftraggeber*innen wird Ende Juli/Anfang August stattfinden. Bis dahin soll das oben skizierte Minimale Produkt lauffähig und vollständig sein. Weitere Releases werden dann abhängig von der Geschwindigkeit des Teams geplant.
+
 
 \chapter{Qualitätsziele}
 \section{Datensicherheit (Security)}
@@ -76,99 +80,94 @@ Die betrachtenten Angriffsvektoren\footnote{Paraphrasiert nach der verbreiteten 
 
 Um die Sicherheit der Anwendung zu gewährleisten, folgen wir einem mehrschrittigen Plan.
 
-Um die Durchführung der folgenden Maßnahmen sicherzustellen wurde ein Entwickler des Teams zum Sicherheitsbeauftragten ernannt. Seine Aufgabe ist es, auf die Einhaltung aller Programmierrichtlinien zu achten und Tests zur Validierung aller Schutzziele durchzuführen. Die genaue Vorgehensweise wird im Folgenden detailliert ausgeführt.
+Ein Entwickler des Teams wurde zum Sicherheitsbeauftragten ernannt, der die korrekte Durchführung aller genannten Maßnahmen sicher stellt. Seine Aufgabe ist es, auf die Einhaltung aller Programmierrichtlinien zu achten und Tests zur Validierung der Schutzziele durchzuführen. Die genaue Vorgehensweise wird im Folgenden detailliert ausgeführt.
 
-Während der ersten Gespräche mit den Auftraggeber*innen wurden Nutzerrollen definiert (Admin, Moderator*in und Nutzer*in). In jeder User Story wird festgehalten, ob und welche Zugriffsbeschränkungen einzelne Module der Webseite oder Daten besitzen. Um die Einhaltung der Nutzer*innenrollen zu ermöglichen, werden die zur Verfügung gestellten Authentifizierungswerkzeuge der genutzten Frameworks (Django, Django REST, Angular2) verwendet. %TODO: Wir müssen das überprüfen.
+Während der ersten Gespräche mit den Auftraggeber*innen wurden Nutzerrollen definiert (Admin, Moderator*in und Nutzer*in)\footnote{Detaillierte Beschreibung der Rollen finden sich im Anhang}. In jeder User Story wird festgehalten, ob und welche Zugriffsbeschränkungen einzelne Module der Webseite oder Daten besitzen. Um die Einhaltung der Nutzer*innenrollen zu ermöglichen, werden die zur Verfügung gestellten Authentifizierungswerkzeuge der genutzten Frameworks (Django, Django REST, Angular2) verwendet.
 
 Während der Implementierung halten alle Entwickler die Best Practices im Web Development ein. Als Referenz dafür werden die Handreichungen des Open Web Application Security Project (OWASP)\footnote{\href{https://www.owasp.org/images/0/08/OWASP_SCP_Quick_Reference_Guide_v2.pdf}{https://www.owasp.org/images/0/08/OWASP\_SCP\_Quick\_Reference\_Guide\_v2.pdf}} verwendet. In den wöchentlichen internen Code-Reviews wird die Qualität des Codes hinsichtlich dieser Richtlinien überprüft.
 
 Um die Qualität des Codes im Python-basierten Backend automatisiert zu testen, wird das verbreitete Werkzeug \emph{bandit}\footnote{\href{https://wiki.openstack.org/wiki/Security/Projects/Bandit}{https://wiki.openstack.org/wiki/Security/Projects/Bandit}} verwendet. Als statisches Analyse-Werkzeug für das Frontend wird \emph{ng2lint}\footnote{\href{https://www.npmjs.com/package/ng2lint}{https://www.npmjs.com/package/ng2lint}} verwendet. Beide Programme unterstützen die Code-Review, indem die gelieferten Meldungen als Grundlage für eine detaillierte Analyse des Codes genutzt werden. Zusätzlich wird eine Sicherheits-Checkliste\footnote{siehe Anhang} geführt, die die Best Practices zur sicheren Webentwicklung und das Überprüfen aller Reports der verwendeten Werkzeuge enthält. Um eine dauerhaft hohe Qualität des Codes zu gewährleisten, werden die Analyse-Tools automatisiert bei einem Push auf dem Development Branch des Git Repositories verwendet. Alle gefundenen Schwachstellen werden vor dem finalen Commit auf dem stable Branch zur Abnahme der User Story behoben. Wenn dies nicht möglich ist, wird eine Begründung verfasst und eine realistische Einschätzung über die Risiken der gefundenen Fehler an die Auftraggeber*innen gemeldet. Diese entscheiden, ob die Risiken tragbar sind und die User Story trotz der Sicherheitslücke als erfolgreich gemeldet wird.
 
-Um die tatsächliche Sicherheit des Endproduktes gegen externe Angriffe zu zeigen, wird ein automatisiertes Penetrations-Werkzeug verwendet. Das OWASP empfiehlt hierfür das \emph{Zed Attack Proxy Project}, welches eine Reihe bekannter Angriffe auf die Plattform ausführt und die gefundenen Schwachstellen meldet. Der Sicherheitsbeauftragte führt diese Tests monatlich durch und meldet die Ergebnisse an die jeweiligen Entwickler des betroffenen Moduls, damit diese innerhalb des nächsten Monats behoben werden können. Ist eine Behebung nicht möglich, werden die Konsequenzen dieser Lücke zusammen mit möglichen weiteren Schritten zum Schutz der Anwendung im Betrieb an die Auftraggeber*innen gemeldet.
+Um die tatsächliche Sicherheit des Endproduktes gegen externe Angriffe zu zeigen, wird ein automatisiertes Penetrations-Werkzeug verwendet. Das OWASP empfiehlt hierfür das \emph{Zed Attack Proxy Project}, welches eine Reihe bekannter Angriffe auf die Plattform ausführt und die gefundenen Schwachstellen meldet. Da ein gesamter Test der Anwendung sehr zeitaufwändig ist, führt der Sicherheitsbeauftragte diese Tests monatlich durch und meldet die Ergebnisse an die jeweiligen Entwickler des betroffenen Moduls, damit diese innerhalb des nächsten Monats behoben werden können. Ist eine Behebung nicht möglich, werden die sicherheitsrelevanten Gefahren dieser Lücke zusammen mit möglichen weiteren Schritten zum Schutz der Anwendung im Betrieb an die Auftraggeber*innen gemeldet.
 
 Da ein Fokus auf Sicherheit zwar wichtig ist, aber Korrekturen erst vorgenommen werden können, sobald das Kernprodukt nicht mehr verändert wird, werden alle vorgestellten Maßnahmen ab Juli durchgeführt.
 
 \section{Bedienbarkeit (Entwurf)}
-CloneCademy muss für alle Benutzer*innen einfach und intuitiv bedienbar sein. Um dies zu gewährleisten, wird das Design aller Bereiche der Webseite nach diesem Kriterium angepasst. Die grundlegende Bedienung der Webseite wird ohne Einführung erlernbar sein und komplizierte Elemente werden mit einer ausreichenden Erklarung versehen.
+Clonecademy ist eine Lernplattform und steht als solche einer großen Vielfalt an Benutzer*innen zur Verfügung. Daher muss die Plattform für alle Benutzer*innen einfach und intuitiv bedienbar sein, ohne das eine Einleitung notwendig ist. Um dies zu gewährleisten, wird das Design aller Bereiche der Webseite nach diesem Kriterium evaluiert. Die grundlegende Bedienung der Webseite wird ohne Einführung erlernbar sein und komplizierte Elemente werden mit einer ausreichenden Erklärung versehen.
 
 Auch für dieses Ziel wurde ein Mitglied des Teams benannt, um Nutzungsstudien durchzuführen und auf die Einhaltung aller Richtlinien zu achten.
 
-Um das oben formulierte Ziel zu erreichen, verwenden wir als Grundlage für das Design der Seite das Material Design \footnote{href{https://material.angular.io/}{https://material.angular.io/}} für Angular2. Um Knöpfe und andere Schaltflächen übersichtlicher zu machen, werden diese mit Icons\footnote{\href{https://material.io/icons/}{https://material.io/icons/}} versehen.
+Um das oben formulierte Ziel zu erreichen, verwenden wir als Grundlage für das Design der Seite das Material Design\footnote{href{https://material.angular.io/}{https://material.angular.io/}} für Angular2. Dies sorgt dafür, dass die Webseite einen einheitlichen und übersichtlichen Aufbau hat. Um Knöpfe und andere Schaltflächen übersichtlicher zu machen, werden diese mit Icons\footnote{\href{https://material.io/icons/}{https://material.io/icons/}} versehen. Bei der internen Code Review prüft der zuständige Entwickler bei allen veränderten oder neuen Bereichen der Webseite, ob sie noch den Richtlinien eines einheitlichen Designs entsprechen\footnote{Checkliste siehe Anhang}.
 
-Da die Bedienbarkeit der Oberfläche nicht objektiv gemessen werden kann, werden zuzüglich zu den Designrichtlinien Nutzer*innenstudien\footnote{siehe Anhang} durchgeführt. In den Studien werden die Proband*innen ohne vorherige Erklärung mit der Platform konfrontiert und aufgefordert, verschiedene Aufgaben zu erfüllen. Durch Aufzeichnen des Bildschirms während der Studie wird das Verhalten der Nutzer*innen erfasst um es später zu reflektieren und mit einem Fragebogen nach der Studie wird die persönliche Meinung der Proband*innen zusätzlich erfasst.
 
-Um zum Schluss ein bedienbares Produkt zu haben, werden die Nutzer*innenstudien in mehreren Iterationen und mit unterschiedlichen Personen durchgeführt. Nach jeder Nutzerstudie wird eine Checkliste erstellt mit den Problemen und Verbesserungsvorschläge der Probanden, welche bis zum nächsten treffen mit dem Auftraggeber umgesetzt werden muss. Dieser kann dann die Designänderungen abnehmen und erst durch die abnehme der Designänderungen ist die Iteration der Nutzerstudie abgeschlossen. Zusätzlich sollen die Benutzer im Fragebogen die Platform bewerten, was uns wiederum zeigt wie bedienbar die Platform aktuell ist.
+Da die Bedienbarkeit der Oberfläche nicht objektiv gemessen werden kann, werden zuzüglich zu den Designrichtlinien Nutzungsstudien durchgeführt. In den Studien werden die Proband*innen ohne vorherige Erklärung mit der Platform konfrontiert und aufgefordert, verschiedene Aufgaben zu erfüllen. Durch Aufzeichnen des Bildschirms während der Studie wird das Verhalten der Nutzer*innen erfasst um es später zu reflektieren und mit einem Fragebogen\footnote{siehe Anhang} nach der Studie wird die persönliche Meinung der Proband*innen zusätzlich erfasst.
+
+Um zum Schluss ein von einer Vielzahl unterschiedlicher Nutzer*innen gut bedienbares Produkt zu haben, werden die Nutzungsstudien in mehreren Iterationen und mit unterschiedlichen Gruppen durchgeführt, um Verbessungsvorschläge aus den vorherigen Studien direkt wieder zu testen. 
+
+Nach jeder Nutzerstudie wird eine Checkliste erstellt mit den Problemen und Verbesserungsvorschläge der Probanden, welche bis zum nächsten Treffen mit den Auftraggeber*innen umgesetzt werden muss. Diese können dann die Designänderungen überprüfen und erst durch die Abnahme der Designänderungen ist die Iteration der Studie abgeschlossen.
+
+Die Nutzerstudien erfolgen mindestens eine Woche vor den Releases und wenn die Auftraggeber*innen eine Zwischenevaluation des Designs wünschen.
 
 \section{Veränderbarkeit (Entwurf)}
-Für die Webanwendung CloneCademy ist es wichtig, dass die Anwendung im Nachhinein noch veränderbar ist. Es muss möglich sein, neue Inhalte in die Datenbank einzupflegen und auch den Quellcode der Webseite selbst ohne große Mühe erweitern zu können.
+Für die Webanwendung CloneCademy ist es wichtig, dass die Anwendung im Nachhinein noch veränderbar ist. Es muss möglich sein, neue Inhalte in die Datenbank einzupflegen und auch den Quellcode der Webseite selbst ohne große Mühe erweitern zu können, da eine Lernplattform immer an die neusten Entwicklungen im Bereich eLearning angepasst werden muss.
 
-Um dieses Ziel zu erfüllen gehen wir wie folgt vor. Auf folgende Punkte wird im Projekt geachtet:
+Um diese Erweiterbarkeit zu gewährleisten, wird im Projekt auf folgende Punkte geachtet:
 \begin{itemize}
 	\item Quellcode
 	\item Kommentare
-	\item Refactoring
-	\item Wiki
-	\item Codeanalyse Tools
+	\item externe Dokumentation
 \end{itemize}
 
-Es wird ein Beauftragter für das Qualitätsziel gewählt, der für alle Rücksprachen oder Fehler der Ansprechpartner ist und dafür sorgt das die oben genannten Punkte wie unten beschrieben durchgesetzt werden.
+Es wird ein Verantwortlicher für das Qualitätsziel benannt, der Ansprechpartner für alle Rücksprachen oder Fragen ist und dafür sorgt, dass die QUlaität der oben aufgeführten Bereiche wie unten beschrieben sichergestellt wird.
 
-\textbf{Quellcode}
-Beim implementieren der Userstories wird darauf geachtet das ein einheitliches von Anfang an bestimmtes Muster durchgezogen wird. Klassennamen, Funktionen, Variablen, Klammersetzung etc. Zum Beispiel:
-\begin{itemize}
-\item Klassennamen beginnen immer mit einem Großbuchstaben und bei mehreren Wörtern als Klassenname, werden diese zusammen geschrieben und jedes weitere Wort beginnt wieder mit einem Großbuchstaben. Beispiele für Klassennamen: DashboardComponent, ModuleComponent
-\item Variablen beginnen immer mit einem Kleinbuchstaben und bestehen im besten Fall aus nur einem Wort. Beispiele: name, title, question, courseID
-\item Funktionen beginnen wie Variablen mit einem Kleinbuchstaben, bei mehreren Worten wird wie beim Klassennamen jedes weitere Wort mit einem Großbuchstaben angefangen, das erste Wort aber mit einem Kleinbuchstaben. Beispiele: ngOnInit(), login(form), chartHovered(e:any)
-\end{itemize}
-Das Muster wurde am Anfang bevor die Umsetzung angefangen hat gründlich durchgesprochen und wird auch von allen Entwicklern eingehalten. Wenn was neues implementiert wird, schaut sich der Beauftragte den Quellcode nochmal gründlich an und weist den Entwickler daraufhin, sich an das abgesprochene Muster zuhalten. Falls später doch noch etwas von einem Entwickler gefunden wird,  wird das verbessert und im dazu gehörigen Slack Channel protokolliert.
+\textbf{Qualität des Quellcodes}
+Grundlegend werden während der Entwicklung der Software die StyleGuides der verwendeten Programmiersprachen und Frameworks umgesetzt. Diese sind der \emph{Angular Style Guide}\footnote{https://angular.io/guide/styleguide} für das Frontend und \emph{PEP 8}\footnote{https://www.python.org/dev/peps/pep-0008/} für das Backend. Um die Einhaltung dieser beiden Style Guides zu überprüfen, werden bei jedem Commit statische Analysetools verwendet, welche überprüfen, ob alle Richtlinien umgesetzt wurden.
+
+Diese sind \emph{pep8}\footnote{https://pypi.python.org/pypi/pep8}, welches die Einhaltung der generellen Python Richtlinien überprüft, \emph{django-lint}\footnote{https://pypi.python.org/pypi/django-lint}, welches Framework spezifische Fehler markiert (z.B. Verwendung von veralteten Methoden) und \emph{ng2lint}\footnote{https://www.npmjs.com/package/ng2lint}, welches den Frontend Code überprüft. Alle durch diese Tools gefundenen Fehler werden bis zum nächsten internen Gruppentreffen der Entwickler behoben, bevor der Code zur Abnahme durch die Auftraggeber*innen freigegeben wird.
+
+Bei der internen Code Review vor der Abnahme einer User Story überprüft der für die Erweiterbarkeit zuständige Entwickler, ob alle von den Tools gemeldeten Fehler korrigiert wurden. Sollte dies nicht der Fall sein, müssen alle gefundenen Fehler korrigiert werden, bevor die Userstory dem Auftraggeber zur Abnahme vorgestellt wird.
+
 
 \textbf{Kommentare}
-Kommentare haben wie der Quellcode ein einheitliches Muster. Der Code wird durchgehend in englisch kommentiert. Dabei wird beachtet das eine korrekte Sprache benutzt wird. Der beauftragte für das Qualitätsziel ist dafür zuständig bei abgeschlossenen Userstories als Abschluss über den Code zu schauen. Bei jeder Änderung von Code bekommen alle Entwickler automatisch eine Meldung was?, wo? Und wann? Etwas geändert wurde. Der Beauftrage hat dann die Aufgabe die Kommentare abzuchecken. Bei fehlenden Kommentaren wird der Entwickler vom beauftragten kontaktiert und darauf hingewiesen diesem nachzugehen. Ansonsten stellt sich der Beauftrage zwei Fragen:
-\begin{itemize}
-\item Erleichtern mir die Kommentare das Verständnis für den Quellcode?
-\item Würde jemand der sich mit dem Code gar nicht auskennt damit zurecht finden?
-\end{itemize}
-Wenn die Kommentare diese Anforderungen nicht erfüllen, teilt der Beauftragte dem Entwickler das mit, damit er es dann nachbessern kann.
+Jede Methode und jede Klasse im Code erhält einen Kommentar. Zusätzlich werden unklare Stellen im Code (z.B. komplexe Steuermechanismen oder Abfragen) mit eigenen Erklärungen versehen. Alle Kommentare werden in Englisch verfasst.
 
-
-
-
-\textbf{Refactoring}
-Da bei einem Agilen Projekt es dazu kommen kann, dass der Code sehr schnell unübersichtlich werde kann. Wird vor Abnahme der Userstory ein refactoring vom jeweiligen Entwickler durchgeführt. Dies ist unerlässlich und in diesem Prozess werden unbenutzte Codefragmente entfernt und Quellcode Optimierungen durchgeführt. Bei Änderungen werden die Kommentare darauf abgestimmt.
+Bei der Code Review überprüft der Beauftragte für das QS-Ziel, ob alle Klassen und Methoden kommentiert sind und ob die Kommentare das Verständnis des Codes unterstützen\footnote{Checkliste siehe Anhang}. Zusätzlich markieren alle an der Code Review beteiligten Entwickler die Stellen im Code, die sie nicht für unmittelbar verständlich halten. Diese werden auch mit Kommentaren versehen. Sollte es nicht möglich sein, den gesamten Code ausführlich zu dokumentieren, wird die Userstory den Auftraggeber*innen in dieser Iteration nicht zur Abnahme präsentiert.
 
 
 \textbf{Wiki}
-Nebenbei wird eine Wiki regelmäßig aktualisiert, wo alle Schnittstellen zwischen Backend und Frontend definiert sind. Das Wiki kann von allen Gruppenmitgliedern editiert werden. Bei großen Änderungen und neuen Einträgen wird der Beauftragte für das Qualitätsziels kontaktiert, dieser schaut sich die Änderungen an und führt gegeben falls Optimierungen durch. Es wird immer darauf geachtet das alles sauber im Wiki geschrieben wird. Spätestens nach dem refactorn wird alles ins Wiki gepflegt.
+Das Projekt verwendet zu klaren Trennung zwischen Back- und Frontend eine sogenannte REST-API. Diese stellt einzelne Schnittstellen da, über die die Daten des Backends abgerufen werden können. Diese werden deshalb gesondert dokumentiert, da eine korrekte Implementierung und Nutzung essentiel für das Projkt ist. 
 
-\textbf{Codeanalyse Tools}
-Für die Codeanalyse wird für das Backend und Frontend jeweils die dazugehörigen statischen Codeanalyse Tools verwendet:
+Dazu wird ein Wiki regelmäßig aktualisiert, in dem alle Schnittstellen zwischen Backend und Frontend definiert sind. Ist für eine Userstory eine neue Schnittstelle nötig, wird diese von allen Entwicklern zusammen entworfen und dann im Wiki dokumentiert\footnote{Rahmen im Anhang}. Die Beteiligung aller ist notwendig, da einen Schnittstelle nicht nur für eine spezifische Aufgabe im Rahmen einer Userstory dienen sollte, sondern allgemeine Funktionalitäten bietet.
 
-\textbf{ng2lint für Angular2}
-Dieser statische Codeanalyse Tool wurde auf die IDE installiert. Ng2lint ist ein konfigurierbares Tool und wurde für die spezifischen Konventionen vom Projekt angepasst. Damit alles läuft und es keine Fehlermeldung gibt müssen im Projekt Regeln aufgestellt werden, an die sich alle halten müssen mit dieser statischen Codeanalyse können wir z.B. automatisch überprüfen:
-\begin{itemize}
-\item Das alle Pipes innerhalb des Templates definiert sind
-\item Alle benutzerdefinierten Attribute von Elementen in den Vorlagen werden als Eingänge, Ausgänge oder Anweisungen deklariert.
-\item Alle verwendeten Identifiers sind in den Tamplates in der entsprechenden Symboltabelle enthalten
-\end{itemize}
-
-Vorteile
-\begin{itemize}
-\item Warnungen erhalten wennn die Best Practices nicht eingehalten werden.
-\item Wenn der Stil, die vom Team abgesprochen wurde nicht eingehalten wird.
-\item Falscher Angular 2 spezifischer Code
-\end{itemize}
-
-\textbf{django-lint für Django}
-Django Lint ist ein statisches Analyse-Tool, das Projekte und Anwendungen überprüft, die das Django Web Development Framework verwenden.
-
-Es berichtet über gemeinsame Programmierfehler und bad code smells, einschließlich der Überprüfung für nullable CharField-Feldtypen, die Verwendung von spröden oder veralteten Django-Features (wie auto_now_add) sowie das Fehlen von empfohlenen Optionen in settings.py. Es zielt darauf ab, die Entwicklung von hochwertigen wiederverwendbaren Django-Anwendungen zu fördern.
+Die Dokumentation im Wiki wird spätestens vor den Releases vervollständigt. Dazu überprüft der Beauftragte spätestens zwei Wochen vor Release, ob alle Schnittstellen aufgeführt sind, und ob die Dokumentation den vorgegebenen Rahmen erfüllt. Beim nächsten internen Treffen wird das Wiki auf den aktuellen Stand gebracht und alle Dokumentatoin noch einmal überprüft. Bevor die Dokumentation nicht vollständig ist, wird die Software nicht zum Release freigegeben.
 
 
+\textbf{Testabdeckung}
+Bei Codeerweiterung muss bereits bestehender Code weiterhin funktionieren. Um dies automatisiert zu überprüfen, muss der bereits implementierte Code getestet werden können. Das Team stellt eine umfangreiche Testabdeckung des Codes sicher. Umfangreich heißt in diesem Fall, dass eine vollständige Function Coverage und eine Statement Coverage von mindestens 80\% erreicht wird. Eine Überprüfung der Abdeckung erfolgt im Backend durch das mitgelieferte Testframework des Django-Projekts. Im Frontend werden Tests mit Hilfe des Frameworks Selenium\footnote{http://www.seleniumhq.org/} durchgeführt.
 
+Die Function Coverage wird vor jeder internen Code Review sichergestellt. Die Tests der API Schnittstellen werden bei der Definition der selben geschrieben, damit sie den jeweiligen Entwicklern als Hilfestellung dienen können. Da eine umfassende Statement Coverage während des Projektes nicht zu jeder Zeit implementiert werden kann, wird diese zu jedem Release gefordert. Damit wird gezeigt, dass der Code stabil ist und die Tests können als Basis für die Implementierung der kommenden Userstories verwendet werden.
+
+Eine Userstory wird erst zur Abnahme präsentiert, wenn mindestens für alle durch diese Story verwendeten und neu implementierten Funktionen Tests vorliegen. Ein Release wird erst freigegeben, wenn eine Code Coverage von mindestens 80\% erreicht ist. Die Überprüfung dieser Regeln erfolgt durch den für die Bedienbarkeit zuständigen Entwickler.
 
 
 \appendix
-	\chapter{Anhang}
-		(Am Ende des Projekts nachzureichen)\\
+\chapter{Checklisten}
+\renewcommand{\labelitemi}{\scriptsize$\square$}
+Im folgenden sind die verwendeten Checklisten aufgeführt. Für die Ziele \emph{Datensicherheit} und \emph{Erweiterbarkeit} haben wir einen Checkliste für die interne Code Review ausgearbeitet. Für die Bedienbarkeit wird keine Checkliste bereitgehalten, sondern die Checklisten ergeben sich aus den Rückmeldungen aus den Nutzungsstudien.
+
+\section{Checkliste Datensicherheit}
+
+
+\section{Checkliste Erweiterbarkeit}
+\begin{multicols}{2}
+	\subsection{Code Qualität}
+
+	\subsection{Kommentare}
+
+	\subsection{Tests}
+
+\end{multicols}
+
+\chapter{Fragebögen}
 
 \end{document}
