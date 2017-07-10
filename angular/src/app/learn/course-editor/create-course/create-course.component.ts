@@ -99,14 +99,13 @@ export class CreateCourseComponent implements OnInit {
     }
     if(f.valid){
       let course = {title: f.value['title'], categorie: f.value['category'],  modules: saveModules};
-      console.log(course)
-      // this.server.post('save/course/', course)
-      // .then(data => {
-      //   this.course.load()
-      //   this.router.navigate(['/course'])
-      // }).catch(err => {
-      //   console.log(err)
-      // })
+      this.server.post('save/course/', course)
+      .then(data => {
+        this.course.load()
+        this.router.navigate(['/course'])
+      }).catch(err => {
+        console.log(err)
+      })
     }
   }
 

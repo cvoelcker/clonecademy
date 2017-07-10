@@ -46,13 +46,13 @@ public chartHovered(e:any):void {
     this.pieChartColor = [
       {
         backgroundColor: [
+          this.sassHelper.readProperty('success'),
           this.sassHelper.readProperty('warning'),
-          this.sassHelper.readProperty('success')
         ],
         strokeColor: '#0f0',
         hoverBackgroundColor: [
-          this.sassHelper.readProperty('warning-hover'),
           this.sassHelper.readProperty('success-hover'),
+          this.sassHelper.readProperty('warning-hover'),
         ],
         borderColor: "transparent"
       },

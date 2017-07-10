@@ -68,6 +68,7 @@ export class QuestionComponent implements OnInit {
       this.lastQuestion = data['lastQuestion']
       this.lastModule = data['lastModule']
       this.learning_text = data['learning_text']
+      console.log(data)
       // create Question based on the class
       this.questionFactory = this.factory.resolveComponentFactory(this.components[data['class']])
 

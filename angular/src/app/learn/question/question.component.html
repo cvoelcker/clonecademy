@@ -1,14 +1,12 @@
-<div class="row">
-  <h2 class="col-md-12">{{title}}</h2>
+<div>
+  <h2>{{title}}</h2>
 </div>
-<table class="row">
-  <td class="col-md-4 text">
-    <div class="textWrapper">
+<table>
+  <td class="text">
       <div class="alert">{{learning_text}}</div>
-      <div class="alert info">{{questionBody}}</div>
-    </div>
+      <md-card >{{questionBody}}</md-card>
   </td>
-  <td class="col-md-8">
+  <td>
     <div class="question" #question></div>
   </td>
 </table>

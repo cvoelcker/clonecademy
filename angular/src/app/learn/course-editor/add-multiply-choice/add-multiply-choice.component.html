@@ -25,6 +25,6 @@
   </ul>
   <md-hint align="start" class="warning" *ngIf="form != null && form.submitted && !(validAnswer())"><strong>{{'one true Question is required' | translate}}</strong> </md-hint>
   <div>
-    <button md-raised-button class="addAnswer" (click)="addAnswer()"><i class="material-icons">add</i> {{"add Answer" | translate}}</button>
+    <button md-raised-button type="button" class="addAnswer" (click)="addAnswer()"><i class="material-icons">add</i> {{"add Answer" | translate}}</button>
   </div>
 </div>

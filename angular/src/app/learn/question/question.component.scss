@@ -1,10 +1,13 @@
 table{
   vertical-align: bottom;
   margin-bottom: 1em;
+  width: 100%;
   .text{
+    width: 33.3333333%;
+    padding-right: 1em;
     vertical-align: top;
     .textWrapper{
-      box-shadow: 1px 1px 5px #333;
+      box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
       margin: 0;
       padding: 0;
       .alert.info{

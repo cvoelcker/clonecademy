@@ -9,10 +9,10 @@
           </md-input-container>
         </td>
         <td class="moduleArrows">
-          <button md-raised-button (click)="up()">
+          <button md-raised-button type="button" (click)="up()">
             <i class="material-icons">keyboard_arrow_up</i>
           </button>
-          <button md-raised-button (click)="down()">
+          <button md-raised-button type="button" (click)="down()">
           <i class="material-icons">keyboard_arrow_down</i>
         </button>
       </td>
@@ -37,7 +37,7 @@
     </li>
   </ul>
     <div>
-      <button md-raised-button class=" " (click)="close()">
+      <button md-raised-button type="button" (click)="close()">
         <i class="material-icons">delete</i>{{"remove module" | translate}}
       </button>
     </div>
