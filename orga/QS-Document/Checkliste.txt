@@ -1,0 +1,26 @@
+Checkliste
+Code-Qualität
+1.	Gibt es überflüssigen Code? Wurden diese entfernt?
+2.	Wurden die Best Practices eingehalten?
+3.	Wurden die Projekt StyleGuides eingehalten?
+4.	Sind alle Variablen definiert?
+5.	Gibt es unbenutzte Variablen?
+6.	Ist der Code Fehlerfrei?
+7.	Wurde vor oder nach der Abnahme refactoring durchgeführt?
+8.	Gab es Feedback vom Beauftragten? Wurden diese umgesetzt?
+9.	Sind die Klassen, Funktionen und Variablen angemessen benannt?
+10.	Wurden bereits implementierte Funktionen benutzt? Keine doppelten Funktionen?
+11.	Ist der Code im Editor gut lesbar geschrieben?
+12.	Einheitliche Klammerung und Einrückung beachtet?
+13.	Ist das Layout passend für eine Standardmäßige Bildschirmdimension?
+
+
+Kommentare
+1.	Sind die Kommentare auf Englisch?
+2.	Wurde alles ausreichend Kommentiert? (Klassen, Funktionen)
+3.	Sind die Kommentare verständlich für alle Entwickler?
+4.	Versteht auch ein Laie die Kommentare?
+5.	Wurden die Kommentare förmlich gehalten?
+6.	
+Tests
+1.	
