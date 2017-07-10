@@ -17,18 +17,23 @@ export class CreateCourseComponent implements OnInit {
   @ViewChild('modules', {read: ViewContainerRef}) modules: ViewContainerRef;
   childComponent: ComponentFactory<AddModuleComponent>;
   moduleArray: ComponentRef<AddModuleComponent>[] = [];
-  length: number;
+  length: number = 0;
+  error = false;
 
   loading = true;
 
+
   categories: {};
   catId: number;
+
+  validSave = true;
 
   @Output() emitter: EventEmitter<any> = new EventEmitter();
 
   ngOnInit(){
     if(!this.user.isModerator())
     this.router.navigate(["/course/page-not-found"])
+    this.length = this.modules.length
   }
 
   constructor(
@@ -56,6 +61,7 @@ export class CreateCourseComponent implements OnInit {
       if(data == "remove"){
         this.moduleArray.splice(this.moduleArray.indexOf(moduleSingle), 1)
         moduleSingle.destroy();
+        this.length = this.modules.length;
       }
       else if(data == "up"){
         let index = this.modules.indexOf(moduleComponent.hostView);
@@ -68,7 +74,7 @@ export class CreateCourseComponent implements OnInit {
         this.modules.move(moduleComponent.hostView, i);
       }
     })
-    length = this.modules.length
+    this.length = this.modules.length;
   }
 
   removeCourse(){
@@ -96,5 +102,6 @@ export class CreateCourseComponent implements OnInit {
     })
 
   }
+
 
 }

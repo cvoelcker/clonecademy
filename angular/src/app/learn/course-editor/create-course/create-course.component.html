@@ -12,12 +12,20 @@
   </div>
 </div>
 
-<div [class.moduleWrapper]="moduleArray.length > 0" class="test">
+<div [class.moduleWrapper]="moduleArray.length > 0" class="form-group">
   <div class="modules" #modules></div>
    <button md-raised-button class=" " (click)="addModule()">
      <i class="material-icons">add</i> {{"add module" | translate}}
    </button>
-   <button md-raised-button class=" " (click)="save()"><i class="material-icons">save</i> {{"save" | translate}}</button>
+</div>
+<div class="form-group">
+  <button md-raised-button class="saveButton" [disabled]="length < 1" (click)="save()" >
+    <i class="material-icons">save</i> {{"save" | translate}}
+    <div class="info">{{'a course must contain at least one module' | translate}}</div>
+  </button>
+  <div class="alert danger" [hidden]="!((length < 1) && error)">
+    {{"a course must contain at least one module" | translate}}
+  </div>
 </div>
 <div *ngIf="loading" class="localLoader">
 <md-progress-spinner mode="indeterminate"></md-progress-spinner>
