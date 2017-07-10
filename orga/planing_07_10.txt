@@ -2,7 +2,7 @@ QS-Dokument durchgehen
 QS-Maßnahmen besprechen
 
 Refactoring Stand besprechen
--
+- Donnerstag
 
 Neue User Stories besprechen
 - Konkrete Fragen vereinbaren
@@ -14,11 +14,11 @@ Neue User Stories besprechen
 -- Sind diese dann zufällig generiert? (Wie geht das?)
 
 Internal Code Review vereinbaren
--
+- Mittwoch? Ist gut, Ilhan fragen
 
 Release Planing
 - Anfang August
--
+- Serverintegration machen
 
 Sonstiges:
 - Wir brauchen eine Seite clonecademy.com/courses/<ID>/edit
@@ -30,3 +30,4 @@ Sonstiges:
 
 Git health:
 - Ab Release 1: Feature Branches, pull request vor Abnahme, einpflegen in master ab dann
+
