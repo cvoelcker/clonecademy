@@ -22,6 +22,8 @@ class CourseView(APIView):
     #permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, course_id, format=None):
+        '''
+        '''
         try:
             course = Course.objects.filter(id=course_id).first()
             course_serializer = serializer.CourseSerializer(course)
@@ -31,6 +33,8 @@ class CourseView(APIView):
             return Response('Course not found', status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request, course_id, format=None):
+        '''
+        '''
         course = Course.objects.filter(id=course_id)
         if course.exists():
             #TODO: Implement saving method
@@ -44,6 +48,7 @@ class CourseView(APIView):
             if not course_serializer.is_valid():
                 return Response("Data is not valid", status=status.HTTP_400_BAD_REQUEST)
             else:
+                #TODO: course is not saved correctly, if it has e.g. modules
                 course_serializer.create(data)
             return Response("Course saved", status=status.HTTP_201_CREATED)
 
@@ -57,9 +62,13 @@ class MultiCourseView(APIView):
     #permission_classes = (permissions.IsAuthenticated,)
     
     def get(self, request, format=None):
+        '''
+        '''
         return Response('Method not allowed', status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def post(self, request, format=None):
+        '''
+        '''
         try:
             data = request.data
             r_type = data['type']
@@ -77,7 +86,6 @@ class MultiCourseView(APIView):
             data = serializer.CourseSerializer(courses, many=True).data
             return Response(data, status=status.HTTP_200_OK)
         except Exception as e:
-            print(e)
             return Response("Query not possible", status=status.HTTP_404_NOT_FOUND)
 
 
@@ -88,8 +96,9 @@ class QuestionView(APIView):
     #permission_classes = (permissions.IsAuthenticated,)
     
     def get(self, request, course_id, module_id, question_id, format=None):
+        '''
+        '''
         try:
-            print("Started")
             question = Question.objects.filter(
                 id=question_id,
                 module__id=module_id,
@@ -97,16 +106,15 @@ class QuestionView(APIView):
             ).first()
             if question is None:
                 return Response("Question not found", status=status.HTTP_404_NOT_FOUND)
-            print(question)
             data = serializer.QuestionSerializer(question)
             data = data.data
-            print(data)
             return Response(data, status=status.HTTP_200_OK)
         except Exception as e:
-            print(e)
             return Response("Question not found", status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request, format=None):
+        '''
+        '''
         pass
 
 
@@ -134,6 +142,8 @@ class UserView(APIView):
         return Response(user.data)
 
     def post(self, request, user_id, format=None):
+        '''
+        '''
         return Response('Method not allowed', status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
@@ -144,8 +154,10 @@ class MultiUserView(APIView):
     # permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request):
+        '''
+        '''
         if not is_mod(request.user):
-            return Response('Acess denied', status=status.HTTP_401_UNAUTHORIZED)
+            return Response('Access denied', status=status.HTTP_401_UNAUTHORIZED)
         users = User.objects.all()
         data = serializer.UserSerializer(users, many=True).data
         return Response(data)
@@ -163,10 +175,12 @@ class MultiUserView(APIView):
 
 
 class StatisticsView():
+    #TODO: Implement
     pass
 
 
 class RequestView(APIView):
+    #TODO: This is not going to work
     """
     STILL IN DEVELOPMENT
     The RequestView class is used to submit a request for moderator rights.
@@ -183,6 +197,7 @@ class RequestView(APIView):
         """
         Return a list of all users.
         """
+        #TODO: shouldn't there be a serializer here?
         usernames = [user.username for user in User.objects.all()]
         return Response(usernames)
 
