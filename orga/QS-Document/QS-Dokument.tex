@@ -44,32 +44,32 @@
 \tableofcontents
 
 \chapter*{Anmerkungen und Hinweise}
-Die Verfasser dieses Dokumentes verwenden als Maßnahme für die Gleichstellung aller Geschlechter die sogenannte ''gendergerechte Sprache''. Wir weichen nur von dieser Regelung ab, wenn entweder alle Mitglieder einer Gruppe sich ein und demselben Geschlecht zugehörig fühlen oder die Vorgaben der Veranstalter*innen keine Alternative zulassen (z.B. beim Deckblatt).
+Die Verfasser dieses Dokumentes verwenden als Maßnahme für die Gleichstellung aller Geschlechter die sogenannte "`gendergerechte Sprache"'. Wir weichen nur von dieser Regelung ab, wenn entweder alle Mitglieder einer Gruppe sich ein und demselben Geschlecht zugehörig fühlen oder die Vorgaben der Veranstalter*innen keine Alternative zulassen (z.B. beim Deckblatt).
 
 \chapter{Einleitung}
 
 \emph{CloneCademy} ist ein Projekt für das iGEM-Team der TU Darmstadt. Die \emph{international Genetically Engineered Machine competition} (iGEM) ist ein internationaler Wettbewerb für Studierende auf dem Gebiet der Synthetischen Biologie.
 Dieser wird seit 2003 von der iGEM-Foundation veranstaltet.
 
-Im Rahmen des Wettbewerbs wird eine Online-Lernplattform für das iGEM-Team der TU Darmstadt erstellt. Das Ziel dieser Plattform ist es, durch interaktive Unterrichtseinheiten Prinzipien der Molekularbiologie sowie der synthetischen Biologie zu erlernen, und sowohl eigene Lernfortschritte als auch die anderer Teams, begutachten zu können. Darüber hinaus soll es auch anderen Interessierten (z.B. andere iGEM-Teams, Lehrende an Universitäten und Schulen, etc.) möglich sein, eigene Inhalte einzupflegen und zur Verfügung zu stellen.
+Im Rahmen des Wettbewerbs wird eine Online-Lernplattform für das iGEM-Team der TU Darmstadt erstellt. Das Ziel dieser Plattform ist es, durch interaktive Unterrichtseinheiten Prinzipien der Molekularbiologie sowie der synthetischen Biologie zu erlernen und sowohl eigene Lernfortschritte, als auch die anderer Teams begutachten zu können. Darüber hinaus soll es auch anderen Interessierten (z.B. andere iGEM-Teams, Lehrende an Universitäten und Schulen, etc.) möglich sein, eigene Inhalte einzupflegen und zur Verfügung zu stellen.
 
-Das Ziel des Projektes ist eine voll funktionsfähige Webanwendung für Rechner. Eine mobile Nutzung der Seite ist nicht Teil des Bachelor Praktikums, eine spätere Implementierung einer plattformübergreifenden Lösung (z.B. einer App) ist jedoch durch Nutzung der REST-Schnittstelle möglich.
+Das Ziel des Projektes ist eine voll funktionsfähige Webanwendung für Desktop- und Laptoprechner und die Browser \emph{Firefox} und \emph{Chrome} bereit zu stellen. Eine mobile Nutzung der Seite ist nicht Teil des Bachelor Praktikums, eine spätere Implementierung einer plattformübergreifenden Lösung (z.B. einer App) ist jedoch auf Wunsch der Auftraggeber*innen durch Nutzung der REST-Schnittstelle möglich.
 
 Der minimale geplante Funktionsumfang umfasst die Möglichkeit einen Nutzungsaccount auf der Seite anzulegen und eingestellte Kurse zu bearbeiten. Außerdem wird es dedizierte Moderator*innen geben, die Inhalte auf der Webseite hochladen können.
 
 Zusätzlich sind mehrere Erweiterungen geplant. Allem voran soll es möglich sein, unterschiedliche Fragetypen zu nutzen. Als minimales Ziel wird hierfür die Möglichkeit gegeben, Multiple Choice Fragen zu stellen. Weitere Arten von Fragen werden im Laufe des Projektes mit den Auftraggeber*innen besprochen und beschlossen.
 
-Da auch die Interaktion verschiedener Nutzer*innen und der Lernfortschritt erklärte Ziele der Plattform sind, werden zusätzliche Erweiterungen indiesen Gebeten geplant. Dazu zählen ausführliche Statistiken zu Lernfortschritt und die Möglichkeit, diesen mit anderen Nutzer*innen der Plattform zu teilen und zu vergleichen.
+Da auch die Interaktion verschiedener Nutzer*innen und der Lernfortschritt erklärte Ziele der Plattform sind, sind hierfür zusätzliche Erweiterungen geplant. Dazu zählen ausführliche Statistiken zum Lernfortschritt und die Möglichkeit, diesen mit anderen Nutzer*innen der Plattform zu teilen und zu vergleichen.
 
-Das erste Release auf einem Server der Auftraggeber*innen wird Ende Juli/Anfang August stattfinden. Bis dahin soll das oben skizierte Minimale Produkt lauffähig und vollständig sein. Weitere Releases werden dann abhängig von der Geschwindigkeit des Teams geplant.
+Das erste Release auf einem Server der Auftraggeber*innen wird Ende Juli/Anfang August stattfinden. Bis dahin soll das Produkt die oben genannten minimalen Anforderungen erfüllen und stabil laufen. Weitere Releases werden dann zusammen mit den Auftraggeber*innen abhängig von der Geschwindigkeit des Teams geplant.
 
 
 \chapter{Qualitätsziele}
 \section{Datensicherheit (Security)}
 
-Im Rahmen des Projekts CloneCademy wird eine Webanwendung entwickelt, auf die über das Internet zugegriffen werden kann. Daher ist die Sicherung gegen unbefugten Zugriff und Änderung der Daten der Webseite in diesem Projekt das wichtigste Qualitätsziel. Da CloneCademy sowohl persönliche Daten der Nutzer*innen als auch Metadaten über die Nutzung der Plattform und die Inhalte der einzelnen Lerneinheiten in einer Datenbank speichert, ist es sehr wichtig, dass Internetnutzer*innen keine Daten verändern oder einsehen können, solange sie dazu nicht die benötigten Rechte besitzen.
+Im Rahmen des Projekts CloneCademy wird eine Webanwendung entwickelt, auf welche über das Internet zugegriffen werden kann. Daher ist die Sicherung gegen unbefugten Zugriff und Änderung der Daten der Webseite in diesem Projekt das wichtigste Qualitätsziel. Da CloneCademy sowohl persönliche Daten der Nutzer*innen als auch Metadaten über die Nutzung der Plattform und die Inhalte der einzelnen Lerneinheiten persistent speichert, ist es sehr wichtig, dass Internetnutzer*innen diese Daten nicht verändern oder einsehen können, solange sie dazu nicht die benötigten Rechte besitzen.
 
-Die größte Bedrohung geht von bekannten Webangriffen und Misskonfigurationen im Backend einer Webseite aus. Während dieses Projekts wird darauf geachtet, dass wir die Plattform gegen die wichtigsten Sicherheitslücken in einer Webanwendung sichern. Da eine umfassende Sicherung gegen alle möglichen Angriffsvektoren und Schwachstellen den Projektumfang weit übersteigen würde, befassen wir uns im Rahmen dieses Projektes vor allem mit der Sicherheit der Nutzeroberfläche und der Schnittstelle.
+Die größte Bedrohung geht von bekannten Webangriffen und Misskonfigurationen im Backend einer Webseite aus. Während dieses Projekts wird darauf geachtet, dass die Plattform gegen die wichtigsten Sicherheitslücken einer Webanwendung gesichert ist. Da eine umfassende Sicherung gegen alle möglichen Angriffsvektoren und Schwachstellen den Projektumfang weit übersteigen würde, befassen wir uns im Rahmen dieses Projektes vor allem mit der Sicherheit der Nutzeroberfläche und der Schnittstelle.
 
 Die betrachtenten Angriffsvektoren\footnote{Paraphrasiert nach der verbreiteten Liste des Open Web Application Security Project (OWASP)\\Link zum Download:  \href{https://github.com/OWASP/Top10/raw/master/2017/OWASP\%20Top\%2010\%20-\%202017\%20RC1-English.pdf}{https://github.com/OWASP/Top10/raw/master/2017/OWASP\%20Top\%2010\%20-\%202017\%20RC1-English.pdf}} sind:
 \begin{itemize}
@@ -93,18 +93,17 @@ Um die tatsächliche Sicherheit des Endproduktes gegen externe Angriffe zu zeige
 Da ein Fokus auf Sicherheit zwar wichtig ist, aber Korrekturen erst vorgenommen werden können, sobald das Kernprodukt nicht mehr verändert wird, werden alle vorgestellten Maßnahmen ab Juli durchgeführt.
 
 \section{Bedienbarkeit (Entwurf)}
-Clonecademy ist eine Lernplattform und steht als solche einer großen Vielfalt an Benutzer*innen zur Verfügung. Daher muss die Plattform für alle Benutzer*innen einfach und intuitiv bedienbar sein, ohne das eine Einleitung notwendig ist. Um dies zu gewährleisten, wird das Design aller Bereiche der Webseite nach diesem Kriterium evaluiert. Die grundlegende Bedienung der Webseite wird ohne Einführung erlernbar sein und komplizierte Elemente werden mit einer ausreichenden Erklärung versehen.
+Clonecademy ist eine Lernplattform und steht als solche einer großen Vielfalt an Benutzer*innen zur Verfügung. Daher muss die Plattform für alle Benutzer*innen einfach und intuitiv bedienbar sein, ohne das eine ausführliche Einarbeitung notwendig ist. Um dies zu gewährleisten wird das Design aller Bereiche der Webseite nach diesem Kriterium evaluiert. Die grundlegende Bedienung der Webseite wird ohne Einführung erlernbar sein und komplizierte Elemente werden mit einer ausreichenden Erklärung versehen.
 
 Auch für dieses Ziel wurde ein Mitglied des Teams benannt, um Nutzungsstudien durchzuführen und auf die Einhaltung aller Richtlinien zu achten.
 
-Um das oben formulierte Ziel zu erreichen, verwenden wir als Grundlage für das Design der Seite das Material Design\footnote{href{https://material.angular.io/}{https://material.angular.io/}} für Angular2. Dies sorgt dafür, dass die Webseite einen einheitlichen und übersichtlichen Aufbau hat. Um Knöpfe und andere Schaltflächen übersichtlicher zu machen, werden diese mit Icons\footnote{\href{https://material.io/icons/}{https://material.io/icons/}} versehen. Bei der internen Code Review prüft der zuständige Entwickler bei allen veränderten oder neuen Bereichen der Webseite, ob sie noch den Richtlinien eines einheitlichen Designs entsprechen\footnote{Checkliste siehe Anhang}.
+Um das oben formulierte Ziel zu erreichen, verwenden wir als Grundlage für das Design der Seite das Material Design\footnote{\href{https://material.angular.io/}{https://material.angular.io/}} für Angular2. Dies sorgt dafür, dass die Webseite einen einheitlichen und übersichtlichen Aufbau hat. Um Knöpfe und andere Schaltflächen übersichtlicher zu machen, werden diese mit Icons\footnote{\href{https://material.io/icons/}{https://material.io/icons/}} versehen. Bei der internen Code Review prüft der zuständige Entwickler bei allen veränderten oder neuen Bereichen der Webseite, ob sie noch den Richtlinien eines einheitlichen Designs entsprechen\footnote{Checkliste siehe Anhang}.
 
+Da die Bedienbarkeit der Oberfläche nicht objektiv gemessen werden kann, werden zuzüglich zu den Designrichtlinien Nutzungsstudien durchgeführt. In den Studien setzen sich die Proband*innen ohne vorherige Erklärung mit der Plattform auseinander und werden dazu aufgeforder, verschiedene Aufgaben zu erfüllen. Durch Aufzeichnen des Bildschirms während der Studie wird das Verhalten der Nutzer*innen erfasst, um dieses später zu reflektieren. Zusätzlich wird die persönliche Meinung der Proband*innen nach der Studie mit einem Fragebogen\footnote{siehe Anhang} erfasst.
 
-Da die Bedienbarkeit der Oberfläche nicht objektiv gemessen werden kann, werden zuzüglich zu den Designrichtlinien Nutzungsstudien durchgeführt. In den Studien werden die Proband*innen ohne vorherige Erklärung mit der Platform konfrontiert und aufgefordert, verschiedene Aufgaben zu erfüllen. Durch Aufzeichnen des Bildschirms während der Studie wird das Verhalten der Nutzer*innen erfasst um es später zu reflektieren und mit einem Fragebogen\footnote{siehe Anhang} nach der Studie wird die persönliche Meinung der Proband*innen zusätzlich erfasst.
+Um zum Schluss ein, von einer Vielzahl unterschiedlicher Nutzer*innen, gut bedienbares Produkt zu haben, werden die Nutzungsstudien in mehreren Iterationen und mit unterschiedlichen Gruppen durchgeführt, um Verbessungsvorschläge aus den vorherigen Studien direkt wieder zu testen. 
 
-Um zum Schluss ein von einer Vielzahl unterschiedlicher Nutzer*innen gut bedienbares Produkt zu haben, werden die Nutzungsstudien in mehreren Iterationen und mit unterschiedlichen Gruppen durchgeführt, um Verbessungsvorschläge aus den vorherigen Studien direkt wieder zu testen. 
-
-Nach jeder Nutzerstudie wird eine Checkliste erstellt mit den Problemen und Verbesserungsvorschläge der Probanden, welche bis zum nächsten Treffen mit den Auftraggeber*innen umgesetzt werden muss. Diese können dann die Designänderungen überprüfen und erst durch die Abnahme der Designänderungen ist die Iteration der Studie abgeschlossen.
+Nach jeder Nutzerstudie wird eine Checkliste mit den Problemen und Verbesserungsvorschläge der Probanden erstellt, welche bis zum nächsten Treffen mit den Auftraggeber*innen umgesetzt werden muss. Diese können dann die Designänderungen überprüfen und erst durch die Abnahme der Designänderungen ist die Iteration der Studie abgeschlossen.
 
 Die Nutzerstudien erfolgen mindestens eine Woche vor den Releases und wenn die Auftraggeber*innen eine Zwischenevaluation des Designs wünschen.
 
@@ -118,14 +117,14 @@ Um diese Erweiterbarkeit zu gewährleisten, wird im Projekt auf folgende Punkte 
 	\item externe Dokumentation
 \end{itemize}
 
-Es wird ein Verantwortlicher für das Qualitätsziel benannt, der Ansprechpartner für alle Rücksprachen oder Fragen ist und dafür sorgt, dass die QUlaität der oben aufgeführten Bereiche wie unten beschrieben sichergestellt wird.
+Es wird ein Verantwortlicher für das Qualitätsziel benannt, der Ansprechpartner für alle Rücksprachen oder Fragen ist und dafür sorgt, dass die Qualität der oben aufgeführten Bereiche wie unten beschrieben sichergestellt wird.
 
 \textbf{Qualität des Quellcodes}
-Grundlegend werden während der Entwicklung der Software die StyleGuides der verwendeten Programmiersprachen und Frameworks umgesetzt. Diese sind der \emph{Angular Style Guide}\footnote{https://angular.io/guide/styleguide} für das Frontend und \emph{PEP 8}\footnote{https://www.python.org/dev/peps/pep-0008/} für das Backend. Um die Einhaltung dieser beiden Style Guides zu überprüfen, werden bei jedem Commit statische Analysetools verwendet, welche überprüfen, ob alle Richtlinien umgesetzt wurden.
+Grundlegend werden während der Entwicklung der Software die Styleguides der verwendeten Programmiersprachen und Frameworks umgesetzt. Diese sind der \emph{Angular Style Guide}\footnote{https://angular.io/guide/styleguide} für das Frontend und \emph{PEP 8}\footnote{https://www.python.org/dev/peps/pep-0008/} für das Backend. Um die Einhaltung dieser beiden Styleguides zu überprüfen, werden bei jedem Commit statische Analysetools verwendet, welche überprüfen, ob alle Richtlinien umgesetzt wurden.
 
-Diese sind \emph{pep8}\footnote{https://pypi.python.org/pypi/pep8}, welches die Einhaltung der generellen Python Richtlinien überprüft, \emph{django-lint}\footnote{https://pypi.python.org/pypi/django-lint}, welches Framework spezifische Fehler markiert (z.B. Verwendung von veralteten Methoden) und \emph{ng2lint}\footnote{https://www.npmjs.com/package/ng2lint}, welches den Frontend Code überprüft. Alle durch diese Tools gefundenen Fehler werden bis zum nächsten internen Gruppentreffen der Entwickler behoben, bevor der Code zur Abnahme durch die Auftraggeber*innen freigegeben wird.
+Die verwendeten Tools sind \emph{pep8}\footnote{https://pypi.python.org/pypi/pep8}, welches die Einhaltung der generellen Python Richtlinien überprüft, \emph{django-lint}\footnote{https://pypi.python.org/pypi/django-lint}, welches Framework spezifische Fehler markiert (z.B. Verwendung von veralteten Methoden) und \emph{ng2lint}\footnote{https://www.npmjs.com/package/ng2lint}, welches den Frontend Code überprüft. Alle durch diese Tools gefundenen Fehler werden bis zum nächsten internen Gruppentreffen der Entwickler behoben, bevor der Code zur Abnahme durch die Auftraggeber*innen freigegeben wird.
 
-Bei der internen Code Review vor der Abnahme einer User Story überprüft der für die Erweiterbarkeit zuständige Entwickler, ob alle von den Tools gemeldeten Fehler korrigiert wurden. Sollte dies nicht der Fall sein, müssen alle gefundenen Fehler korrigiert werden, bevor die Userstory dem Auftraggeber zur Abnahme vorgestellt wird.
+Bei der internen Code Review vor der Abnahme einer User Story überprüft der für die Erweiterbarkeit zuständige Entwickler, ob alle von den Tools gemeldeten Fehler korrigiert wurden. Sollte dies nicht der Fall sein, müssen alle gefundenen Fehler korrigiert werden, bevor die Userstory den Auftraggeber*innen zur Abnahme vorgestellt wird.
 
 
 \textbf{Kommentare}
@@ -135,24 +134,24 @@ Bei der Code Review überprüft der Beauftragte für das QS-Ziel, ob alle Klasse
 
 
 \textbf{Wiki}
-Das Projekt verwendet zu klaren Trennung zwischen Back- und Frontend eine sogenannte REST-API. Diese stellt einzelne Schnittstellen da, über die die Daten des Backends abgerufen werden können. Diese werden deshalb gesondert dokumentiert, da eine korrekte Implementierung und Nutzung essentiel für das Projkt ist. 
+Das Projekt verwendet zu klaren Trennung zwischen Back- und Frontend eine sogenannte REST-API. Diese stellt einzelne Schnittstellen da, über die die Daten des Backends abgerufen werden können. Diese werden deshalb gesondert dokumentiert, da eine korrekte Implementierung und Nutzung essentiell für das Projekt ist. 
 
 Dazu wird ein Wiki regelmäßig aktualisiert, in dem alle Schnittstellen zwischen Backend und Frontend definiert sind. Ist für eine Userstory eine neue Schnittstelle nötig, wird diese von allen Entwicklern zusammen entworfen und dann im Wiki dokumentiert\footnote{Rahmen im Anhang}. Die Beteiligung aller ist notwendig, da einen Schnittstelle nicht nur für eine spezifische Aufgabe im Rahmen einer Userstory dienen sollte, sondern allgemeine Funktionalitäten bietet.
 
-Die Dokumentation im Wiki wird spätestens vor den Releases vervollständigt. Dazu überprüft der Beauftragte spätestens zwei Wochen vor Release, ob alle Schnittstellen aufgeführt sind, und ob die Dokumentation den vorgegebenen Rahmen erfüllt. Beim nächsten internen Treffen wird das Wiki auf den aktuellen Stand gebracht und alle Dokumentatoin noch einmal überprüft. Bevor die Dokumentation nicht vollständig ist, wird die Software nicht zum Release freigegeben.
+Die Dokumentation im Wiki wird spätestens vor den Releases vervollständigt. Dazu überprüft der Beauftragte spätestens zwei Wochen vor Release, ob alle Schnittstellen aufgeführt sind, und ob die Dokumentation den vorgegebenen Rahmen erfüllt. Beim nächsten internen Treffen wird das Wiki auf den aktuellen Stand gebracht und alle Dokumentation noch einmal überprüft. Bevor die Dokumentation nicht vollständig ist, wird die Software nicht zum Release freigegeben.
 
 
 \textbf{Testabdeckung}
 Bei Codeerweiterung muss bereits bestehender Code weiterhin funktionieren. Um dies automatisiert zu überprüfen, muss der bereits implementierte Code getestet werden können. Das Team stellt eine umfangreiche Testabdeckung des Codes sicher. Umfangreich heißt in diesem Fall, dass eine vollständige Function Coverage und eine Statement Coverage von mindestens 80\% erreicht wird. Eine Überprüfung der Abdeckung erfolgt im Backend durch das mitgelieferte Testframework des Django-Projekts. Im Frontend werden Tests mit Hilfe des Frameworks Selenium\footnote{http://www.seleniumhq.org/} durchgeführt.
 
-Die Function Coverage wird vor jeder internen Code Review sichergestellt. Die Tests der API Schnittstellen werden bei der Definition der selben geschrieben, damit sie den jeweiligen Entwicklern als Hilfestellung dienen können. Da eine umfassende Statement Coverage während des Projektes nicht zu jeder Zeit implementiert werden kann, wird diese zu jedem Release gefordert. Damit wird gezeigt, dass der Code stabil ist und die Tests können als Basis für die Implementierung der kommenden Userstories verwendet werden.
+Die Function Coverage wird vor jeder internen Code Review sichergestellt. Die Tests der API Schnittstellen werden bei deren Definition geschrieben, damit sie den jeweiligen Entwicklern als Hilfestellung dienen können. Da eine umfassende Statement Coverage während des Projektes nicht zu jeder Zeit implementiert werden kann, ist diese zu jedem Release anzufertigen. Damit wird gezeigt, dass der Code stabil ist und die Tests können als Basis für die Implementierung der kommenden Userstories verwendet werden.
 
 Eine Userstory wird erst zur Abnahme präsentiert, wenn mindestens für alle durch diese Story verwendeten und neu implementierten Funktionen Tests vorliegen. Ein Release wird erst freigegeben, wenn eine Code Coverage von mindestens 80\% erreicht ist. Die Überprüfung dieser Regeln erfolgt durch den für die Bedienbarkeit zuständigen Entwickler.
 
 
 \appendix
 \chapter{Checklisten}
-\renewcommand{\labelitemi}{\scriptsize$\square$}
+
 Im folgenden sind die verwendeten Checklisten aufgeführt. Für die Ziele \emph{Datensicherheit} und \emph{Erweiterbarkeit} haben wir einen Checkliste für die interne Code Review ausgearbeitet. Für die Bedienbarkeit wird keine Checkliste bereitgehalten, sondern die Checklisten ergeben sich aus den Rückmeldungen aus den Nutzungsstudien.
 
 \section{Checkliste Datensicherheit}
@@ -160,14 +159,54 @@ Im folgenden sind die verwendeten Checklisten aufgeführt. Für die Ziele \emph{
 
 \section{Checkliste Erweiterbarkeit}
 \begin{multicols}{2}
+	\renewcommand{\labelitemi}{\scriptsize$\square$}	\renewcommand{\labelitemii}{\scriptsize$\square$}
+	\renewcommand{\labelitemiii}{\scriptsize$\square$}
 	\subsection{Code Qualität}
+	\begin{itemize}
 
+		\item Gibt es Meldungen der Tools?
+		\item Gibt es obsoleten Code?
+		\item Gibt es unbenutzte Variablen?
+		\item Wurden bereits implementierte Funktionen nicht benutzt oder neu implementiert?
+		\item Wurden Hilfsmethoden ausgelagert?
+
+		\item Wurde die Datenbankenstruktur geändert?
+		\begin{itemize}
+			\item Wenn ja, wurden die Änderungen dokumentiert?
+		\end{itemize}
+		\item Für das Backend:
+		\begin{itemize}
+			\item Geben alle Views einen gültigen und passenden Status Code zurück?
+			\item Sind alle Schnittstellen wie abgesprochen implementiert?
+		\begin{itemize}
+			\item Wenn Änderungen vorgenommen wurden: Sind diese begründet und dokumentiert?
+		\end{itemize}
+		\end{itemize}
+		\item Für das Frontend:
+		\begin{itemize}
+			\item Sind alle POST Methoden richtig formatiert?
+		\end{itemize}
+	\end{itemize}
 	\subsection{Kommentare}
+	\begin{itemize}
+		\item Sind alle Klassen kommentiert?
+		\item Sind alle Methoden kommentiert?
+		\item Gibt es weitere schwer verständliche Stellen, die kommentiert werden sollten?
+		\item Sind die Kommentare verständlich für alle Entwickler?
+		\item Ist die Dokumentation im Wiki vollständig?
+	\end{itemize}
 
 	\subsection{Tests}
+	\begin{itemize}
+		\item Sind Tests aller Methoden vorhanden?
+		\item Wie hoch ist die Statement Coverage?
+	\end{itemize}
+
+
 
 \end{multicols}
 
 \chapter{Fragebögen}
+
 
 \end{document}
