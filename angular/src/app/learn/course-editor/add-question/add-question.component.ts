@@ -1,11 +1,13 @@
-import { Component, Type, Output, EventEmitter, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory } from '@angular/core';
+import { Component, Type, Output, ChangeDetectorRef, EventEmitter, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory } from '@angular/core';
 
 import { AddQuestionModule } from './add-question.module'
+import { slideIn } from "../../../animations";
 
 @Component({
   selector: 'app-add-question',
   templateUrl: './add-question.component.html',
-  styleUrls: ['./add-question.component.scss']
+  styleUrls: ['./add-question.component.scss'],
+  animations: [ slideIn ]
 })
 export class AddQuestionComponent {
 
@@ -21,11 +23,18 @@ export class AddQuestionComponent {
 
   form = null;
 
+  loading = false;
+
+  ngAfterViewInit(){
+    this.loading = true;
+    this.ref.detectChanges()
+  }
+
   setForm(f){
     this.form = f;
   }
 
-  constructor(private factory: ComponentFactoryResolver) { }
+  constructor(private factory: ComponentFactoryResolver, private ref: ChangeDetectorRef) { }
 
   // add a question to the view
   addQuestion(){
@@ -40,8 +49,11 @@ export class AddQuestionComponent {
 
 
 
-  remove(){
-    this.emitter.emit("remove")
+  remove(e){
+    if(e != null && e.toState == "0"){
+      this.emitter.emit("remove")
+
+    }
   }
 
   save(f): any{

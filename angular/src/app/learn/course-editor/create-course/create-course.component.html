@@ -20,10 +20,9 @@
        <i class="material-icons">add</i> {{"add module" | translate}}
      </button>
   </div>
-  <div>
-    <button type="submit" md-raised-button class="saveButton" [disabled]="length < 1">
+  <div >
+    <button type="submit" md-raised-button class="saveButton" mdTooltip='{{"a course must contain at least one module" | translate}}'  [disabled]="length < 1">
       <i class="material-icons">save</i> {{"save" | translate}}
-      <div class="info">{{'a course must contain at least one module' | translate}}</div>
     </button>
     <div class="alert danger" [hidden]="!((length < 1) && error)">
       {{"a course must contain at least one module" | translate}}

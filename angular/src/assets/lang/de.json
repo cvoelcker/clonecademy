@@ -8,6 +8,7 @@
   "module description": "Modul Beschreibung",
   "Select Question Type": "Fragentyp auswählen",
   "remove module": "Modul entfernen",
+  "add question": "Frage hinzufügen",
 
   "Add multiple choice Question": "Multiple Choice Frage hinzufügen",
   "Question": "Frage",
@@ -92,5 +93,6 @@
 
   "UserDetail": "Benutzer Details",
 
-  "Unable to log in with provided credentials.": "Benutzername oder Passwort ungültig."
+  "Unable to log in with provided credentials.": "Benutzername oder Passwort ungültig.",
+  "a course must contain at least one module": "Ein Kurs muss mindestens ein Modul enthalten."
 }

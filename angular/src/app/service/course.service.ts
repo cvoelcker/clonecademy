@@ -29,7 +29,6 @@ export class CourseService {
     return new Promise((resolve, reject) => this.server.get("courses/", true)
       .then(data => {
         this.data = data
-        console.log(data)
         resolve()
         }
       )

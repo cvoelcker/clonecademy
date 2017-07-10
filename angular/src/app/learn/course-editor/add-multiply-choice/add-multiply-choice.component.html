@@ -8,13 +8,13 @@
   </md-input-container>
   <h3 for="answers">Answers</h3>
   <ul id="answers" class="answers">
-    <li class="singleQuestion" *ngFor="let i of answers; let j = index" >
+    <li class="singleQuestion" [@slideIn]="answers[j].visible" (@slideIn.done)="removeAnswer($event, j)" *ngFor="let i of answers; let j = index" >
       <div class="alert" [class.success]="i.correct"
         [class.danger]="!i.correct">
         <md-checkbox type="checkbox" name="isActive" [(ngModel)]="i.correct">
           {{"is this Answer correct?" | translate}}
         </md-checkbox>
-        <button md-raised-button class="remove" (click)="this.answers.splice(j, 1)" >
+        <button md-raised-button type="button" class="remove" (click)="slideInFunction(j)" >
           <i class="material-icons">delete</i>{{"remove" | translate}}
         </button>
         <md-input-container>

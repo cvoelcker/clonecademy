@@ -1,4 +1,4 @@
-<md-card class="questionWrapper">
+<md-card class="questionWrapper" [@slideIn]="loading" (@slideIn.done)="remove($event)">
   <div class="question" #question></div>
   <div>
     <md-checkbox name="isActive" [(ngModel)]="feedbackBool">
@@ -8,5 +8,5 @@
       <textarea mdInput placeholder='{{"custom feedback text" | translate}}'  [(ngModel)]="feedback"></textarea>
     </md-input-container>
   </div>
-  <button md-raised-button class=" " (click)="remove()"><i class="material-icons">delete</i> {{"remove Question" | translate}}</button>
+  <button md-raised-button (click)="loading = false"><i class="material-icons">delete</i> {{"remove Question" | translate}}</button>
 </md-card>

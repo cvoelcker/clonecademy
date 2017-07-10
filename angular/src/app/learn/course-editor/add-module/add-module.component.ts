@@ -2,7 +2,7 @@ import { Component, ElementRef, ChangeDetectorRef, Type, OnInit, Output, EventEm
 
 import { AddQuestionComponent } from "../add-question/add-question.component"
 
-import { trigger, state, style, animate, transition } from '@angular/animations';
+import { slideIn } from "../../../animations";
 
 import { AddQuestionModule } from '../add-question/add-question.module'
 import { AddMultiplyChoiceComponent } from "../add-multiply-choice/add-multiply-choice.component"
@@ -11,24 +11,7 @@ import { AddMultiplyChoiceComponent } from "../add-multiply-choice/add-multiply-
   selector: 'app-add-module',
   templateUrl: './add-module.component.html',
   styleUrls: ['./add-module.component.scss'],
-  animations: [
-      trigger('slideIn', [
-          state('1', style({
-            'overflow-x': 'hidden'
-          })),
-          state('0', style({
-            'overflow-x': 'hidden'
-          })),
-          transition('1 => 0', [
-              style({ height: '*' }),
-              animate(250, style({ height: 0 }))
-          ]),
-          transition('0 => 1', [
-              style({ height: '0' }),
-              animate(250, style({ height: '*' })),
-      ]),
-    ])
-  ]
+  animations: [ slideIn ]
 })
 export class AddModuleComponent implements OnInit {
 
@@ -115,7 +98,7 @@ export class AddModuleComponent implements OnInit {
         values.push(save)
       }
     }
-    
+
     return {title: this.title, question: values, learningText: this.learningText};
   }
 

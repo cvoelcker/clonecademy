@@ -1,6 +1,6 @@
 <label for="profileSelect">{{"select a profile" | translate}}</label>
-<select [(ngModel)]="selectedValue" class="selectpicker show-tick form-control">
-  <option *ngFor="let p of profiles" (click)="change(p.id)" id="profileSelect" [ngValue]="p.id">{{p.username}}</option>
-</select>
+<md-select [(ngModel)]="selectedValue" class="selectpicker show-tick form-control">
+  <md-option *ngFor="let p of profiles" (click)="change(p.id)" id="profileSelect" [value]="p.id">{{p.username}}</md-option>
+</md-select>
 
 <router-outlet></router-outlet>
