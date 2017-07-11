@@ -59,6 +59,7 @@ import { AdminPageComponent } from './admin/admin-page/admin-page.component';
 import { RegisterComponent } from './register/register.component';
 import { ErrorMessageComponent } from './error-message/error-message.component';
 import { LoaderComponent } from './loader/loader.component';
+import { EditCourseComponent } from './learn/course-editor/create-course/edit-course.component';
 
 const appRoutes: Routes = [
   {
@@ -80,7 +81,11 @@ const appRoutes: Routes = [
      },
      {
        path: ":id",
-       component: CourseComponent
+       component: CourseComponent,
+     },
+     {
+       path: "edit/:id",
+       component: EditCourseComponent
      }
    ]
   },
@@ -181,6 +186,7 @@ export function createTranslateLoader(http: Http) {
     ErrorMessageComponent,
     LoaderComponent,
     SassHelperComponent,
+    EditCourseComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

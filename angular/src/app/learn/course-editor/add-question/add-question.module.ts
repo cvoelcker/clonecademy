@@ -8,8 +8,17 @@ import { CommonModule } from '@angular/common';
 export class AddQuestionModule {
 
   form = null;
-  
+  question: string;
+
+  answers: any;
+
   public save(form): any{
     return "nix";
+  }
+
+  public edit(questionBody: string, answers: any){
+    this.question = questionBody;
+    this.answers = answers;
+    console.log(answers)
   }
  }

@@ -15,11 +15,10 @@ import { AddMultiplyChoiceComponent } from "../add-multiply-choice/add-multiply-
 })
 export class AddModuleComponent implements OnInit {
 
-  components: Array<{name: string, component: Type<AddQuestionModule>}> = [
-    {name: "Multiple Choice Question", component: AddMultiplyChoiceComponent}
+  components: Array<{name: string, key: string, component: Type<AddQuestionModule>}> = [
+    {name: "Multiple Choice Question", key: 'MultipleChoiceQuestion', component: AddMultiplyChoiceComponent}
   ]
   selectedValue: Type<AddQuestionComponent> = null;
-  id: number;
   title: string = "";
   learningText: string = "";
   selected: boolean;
@@ -39,18 +38,27 @@ export class AddModuleComponent implements OnInit {
     this.question = this.factory.resolveComponentFactory(AddQuestionComponent)
   }
 
-  addQuestion(component){
-
+  addQuestion(component, questionBody?: string, answers?: any, feedback?: string){
       // add the question to the module component and add it to the array so we can edit and save it later
       let question = this.module.createComponent(this.question)
       let q = (<AddQuestionComponent> question.instance)
       q.form = this.form
       q.emitter.subscribe(data => this.module.detach())
       q.child = component
-      q.addQuestion()
+      q.addQuestion(questionBody, answers, feedback)
       this.questionArray.push(question)
       this.selectedValue = null;
+  }
 
+  editQuestion(type: string, questionBody: string, answers: any, feedback: string){
+    let cmp: Type<AddQuestionModule> = null;
+    for(let i = 0; i < this.components.length; i++){
+      if(type === this.components[i].key){
+        cmp = this.components[i].component
+        break;
+      }
+    }
+    this.addQuestion(cmp, questionBody, answers, feedback)
   }
 
   ngOnInit() {

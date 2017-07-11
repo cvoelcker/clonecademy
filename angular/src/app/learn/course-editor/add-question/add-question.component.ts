@@ -37,7 +37,8 @@ export class AddQuestionComponent {
   constructor(private factory: ComponentFactoryResolver, private ref: ChangeDetectorRef) { }
 
   // add a question to the view
-  addQuestion(){
+  addQuestion( questionBody?: string, answers?: any, feedback?: string){
+    //console.log(answers)
     // create factory
     // in the module class child will be set to the question type
     this.questionFactory = this.factory.resolveComponentFactory(this.child)
@@ -45,6 +46,12 @@ export class AddQuestionComponent {
     let question = this.question.createComponent(this.questionFactory)
 
     this.questionCopy  = (<AddQuestionModule> question.instance)
+
+    if(feedback != null){
+      this.feedback = feedback
+      this.feedbackBool = true
+    }
+    this.questionCopy.edit(questionBody, answers);
   }
 
 

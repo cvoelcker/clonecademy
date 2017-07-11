@@ -12,12 +12,12 @@ import { slideIn } from "../../../animations";
 })
 export class AddMultiplyChoiceComponent extends AddQuestionModule {
 
-  question: string;
-  answers: Array<{text: string, correct: boolean, visible: boolean}> = [{text: "", correct: true, visible: true}];
+
+  answers: Array<{text: string, is_correct: boolean, visible: boolean}> = [{text: "", is_correct: true, visible: true}];
 
 
   // the function to save it returns a object
-  // {type: string, question: string, answers: [text: string, correct: boolean]}
+  // {type: string, question: string, answers: [text: string, is_correct: boolean]}
   save(form): any{
     this.form = form;
     let answers = this.answers
@@ -42,12 +42,12 @@ export class AddMultiplyChoiceComponent extends AddQuestionModule {
   }
 
   addAnswer(){
-    this.answers.push({text: "", correct:false, visible: true})
+    this.answers.push({text: "", is_correct:false, visible: true})
   }
 
   validAnswer(): boolean{
     for(let i = 0; i < this.answers.length; i++){
-      if(this.answers[i].correct){
+      if(this.answers[i].is_correct){
         return true;
       }
     }

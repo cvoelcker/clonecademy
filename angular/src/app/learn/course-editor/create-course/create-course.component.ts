@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ComponentRef, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory, EventEmitter, Output } from '@angular/core';
 import { AddModuleComponent } from '../add-module/add-module.component'
-import { Router } from "@angular/router"
+import { Router, ActivatedRoute } from "@angular/router"
 
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
@@ -13,7 +13,7 @@ import { ServerService } from '../../../service/server.service'
   templateUrl: './create-course.component.html',
   styleUrls: ['./create-course.component.scss']
 })
-export class CreateCourseComponent implements OnInit {
+export class CreateCourseComponent {
 
   @ViewChild('modules', {read: ViewContainerRef}) modules: ViewContainerRef;
   childComponent: ComponentFactory<AddModuleComponent>;
@@ -25,7 +25,17 @@ export class CreateCourseComponent implements OnInit {
 
 
   categories: {};
-  catId: number;
+  category: number;
+
+  setCategory(id: number){
+    this.category = id;
+  }
+
+  title: string;
+
+  setTitle(title: string){
+    this.title = title;
+  }
 
   validSave = true;
 
@@ -36,15 +46,17 @@ export class CreateCourseComponent implements OnInit {
 
   @Output() emitter: EventEmitter<any> = new EventEmitter();
 
-  ngOnInit(){
-    if(!this.user.isModerator())
-    this.router.navigate(["/course/page-not-found"])
+  ngAfterViewInit(){
+    if(!this.user.isModerator()){
+      //this.router.navigate(["/course/page-not-found"])
+    }
     this.length = this.modules.length
   }
 
   constructor(
-    private router: Router,
-    private server: ServerService,
+    public router: Router,
+    public route: ActivatedRoute,
+    public server: ServerService,
     private componentFactory: ComponentFactoryResolver,
     private course: CourseService,
     private user: UserService,
@@ -58,9 +70,19 @@ export class CreateCourseComponent implements OnInit {
       })
   }
 
-  addModule(){
+  addModule(title?: string, moduleDescription?: string, questions?: Array<any>){
     let moduleComponent = this.modules.createComponent(this.childComponent);
     let module = (<AddModuleComponent> moduleComponent.instance)
+    if(title != null){
+      module.title = title
+    }
+    if(moduleDescription != null){
+      module.learningText = moduleDescription
+    }
+    for(let i = 0; i < questions.length; i++){
+      let question = questions[i]
+      module.editQuestion(question['class'], question['question_body'], question['answers'], question['feedback'])
+    }
     this.moduleArray.push(moduleComponent)
 
     module.clear.subscribe((data) => {

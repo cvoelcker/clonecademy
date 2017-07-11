@@ -9,9 +9,9 @@
   <h3 for="answers">Answers</h3>
   <ul id="answers" class="answers">
     <li class="singleQuestion" [@slideIn]="answers[j].visible" (@slideIn.done)="removeAnswer($event, j)" *ngFor="let i of answers; let j = index" >
-      <div class="alert" [class.success]="i.correct"
-        [class.danger]="!i.correct">
-        <md-checkbox type="checkbox" name="isActive" [(ngModel)]="i.correct">
+      <div class="alert" [class.success]="i.is_correct"
+        [class.danger]="!i.is_correct">
+        <md-checkbox type="checkbox" name="isActive" [(ngModel)]="i.is_correct">
           {{"is this Answer correct?" | translate}}
         </md-checkbox>
         <button md-raised-button type="button" class="remove" (click)="slideInFunction(j)" >
