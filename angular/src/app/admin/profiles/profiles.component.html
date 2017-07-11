@@ -1,5 +1,4 @@
-<label for="profileSelect">{{"select a profile" | translate}}</label>
-<md-select [(ngModel)]="selectedValue" class="selectpicker show-tick form-control">
+<md-select [(ngModel)]="selectedValue" placeholder='{{"select a profile" | translate}}'>
   <md-option *ngFor="let p of profiles" (click)="change(p.id)" id="profileSelect" [value]="p.id">{{p.username}}</md-option>
 </md-select>
 

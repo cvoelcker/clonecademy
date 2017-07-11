@@ -79,9 +79,11 @@
   "last name": "Last name",
   "optional": "optional",
   "group": "Group",
+  "username requirements": "The Username hast to be at least 5 characters long and only letters and digits are allowed.",
+  "password requirements": "The password must contain at least 5 characters.",
   "Date registered": "Date registered",
   "invalid email": "That is not a valid email adress.",
-  "invalid username": "The Username can only contains digits and numbers. It has to be at least 5 caracters long.",
+  "invalid username": "Invalid Username. It has to be at least 5 caracters long.",
   "invalid password": "The Password must be at least have 5 characters.",
   "password missmatch": "The Password does not match.",
 

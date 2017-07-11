@@ -50,19 +50,11 @@ export class RegisterComponent {
     if(value.valid && value.value["password"] === value.value['password2']){
       let data = value.value
       delete data['password2']
-      this.server.post("register/", data)
+      data['age'] = 0;
+      this.server.post("register/", data, false, false)
         .then(answer => {
           this.user.loginUser(this.newUsername, this.newPassword)
         })
-    }
-    else{
-      if(!value.valid){
-        this.error.open("Email, username and password is required")
-      }
-      else{
-        this.error.open("The password is not matching")
-      }
-
     }
 
   }

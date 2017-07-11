@@ -60,6 +60,9 @@ a:hover, a:focus, a:active{
 
 button{
   color: white !important;
+  &.mat-raised-button{
+
+  }
 }
 
 *[md-button]{
@@ -187,6 +190,10 @@ md-input-container, md-select{
   .mat-input-placeholder, .mat-select-placeholder{
     color: black;
   }
+}
+
+md-input-container{
+  padding-bottom: 1em;
 }
 
 
