@@ -5,16 +5,18 @@
 \usepackage{parcolumns}
 \usepackage{hyperref}
 \usepackage{multicol}
+\usepackage{pdfpages}
+
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{1em}
 
 \newcommand{\titlerow}[2]{
-	\begin{parcolumns}[colwidths={1=.15\linewidth}]{2}
+	\begin{parcolumns}[colwidths={1=.2\linewidth}]{2}
 		\colchunk[1]{#1:}
 		\colchunk[2]{#2}
 	\end{parcolumns}
-	\vspace{0.2cm}
+	\vspace{0.15cm}
 }
 
 \title{CloneCademy}
@@ -44,7 +46,7 @@
 \tableofcontents
 
 \chapter*{Anmerkungen und Hinweise}
-Die Verfasser dieses Dokumentes verwenden als Maßnahme für die Gleichstellung aller Geschlechter die sogenannte "`gendergerechte Sprache"'. Wir weichen nur von dieser Regelung ab, wenn entweder alle Mitglieder einer Gruppe sich ein und demselben Geschlecht zugehörig fühlen oder die Vorgaben der Veranstalter*innen keine Alternative zulassen (z.B. beim Deckblatt).
+Die Verfasser dieses Dokumentes verwenden als Maßnahme für die Gleichstellung aller Personen die sogenannte "`gendergerechte Sprache"'. Als Zeichen der Inklusion aller Geschlechter wird der Stern (*) oder eine Verlaufsform (\emph{Nutzung} statt \emph{Nutzer}) verwendet. Von dieser Regelung wird nur abgewichen, wenn entweder alle Mitglieder einer Gruppe sich ein und demselben Geschlecht zugehörig fühlen (z.B. im Entwicklerteam) oder die Vorgaben der Veranstalter*innen keine Alternative zulassen (z.B. auf dem Deckblatt).
 
 \chapter{Einleitung}
 
@@ -55,17 +57,17 @@ Im Rahmen des Wettbewerbs wird eine Online-Lernplattform für das iGEM-Team der 
 
 Das Ziel des Projektes ist eine voll funktionsfähige Webanwendung für Desktop- und Laptoprechner und die aktuelle Version der Browser \emph{Firefox} und \emph{Chrome} bereit zu stellen. Eine eventuelle Erweiterung der Plattform, auch mobile Endgeräte zu unterstützen, wird durch die Implmentierung einer REST-Schnittstelle ermöglicht.
 
-Als Kernfunktionalität bietet die Plattform Nutzer*innen die Möglichkeit, sich zu registrieren und einen Account anzulegen. Registrierte Nutzer*innen haben dann die Möglichkeit, bereitgestellt Aufgaben zu bearbeiten und Feedback zu erhalten. Zusätzlich haben Nutzer*innen mit Moderationsrechten die Möglichkeit, neue Aufgaben in das System einzupflegen.
+Als Kernfunktionalität bietet die Plattform Nutzer*innen die Möglichkeit, sich zu registrieren und einen Account anzulegen. Registrierte Nutzer*innen haben dann die Möglichkeit, bereitgestellte Aufgaben zu bearbeiten und Feedback zu erhalten. Zusätzlich haben Nutzer*innen mit Moderationsrechten die Möglichkeit, neue Aufgaben in das System einzupflegen und bereits bestehende zu überarbeiten.
 
 
 \chapter{Qualitätsziele}
 \section{Datensicherheit (Security)}
 
-Im Rahmen des Projekts CloneCademy wird eine Webanwendung entwickelt, auf welche über das Internet zugegriffen werden kann. Daher ist die Sicherung gegen unbefugten Zugriff und Änderung der Daten der Webseite in diesem Projekt das wichtigste Qualitätsziel. Da CloneCademy sowohl persönliche Daten der Nutzer*innen als auch Metadaten über die Nutzung der Plattform und die Inhalte der einzelnen Lerneinheiten persistent speichert, ist es sehr wichtig, dass Internetnutzer*innen diese Daten nicht verändern oder einsehen können, solange sie dazu nicht die benötigten Rechte besitzen.
+Im Rahmen des Projekts CloneCademy wird eine Webanwendung entwickelt, auf welche über das Internet zugegriffen werden kann. Daher ist die Sicherung gegen unbefugten Zugriff und unauthorisierte Änderung der Daten in diesem Projekt das wichtigste Qualitätsziel. Da CloneCademy sowohl persönliche Daten der Nutzer*innen als auch Metadaten über die Nutzung der Plattform und die Inhalte der einzelnen Lerneinheiten persistent speichert, ist es sehr wichtig, dass Internetnutzer*innen diese Daten nicht verändern oder einsehen können, solange sie dazu nicht die benötigten Rechte besitzen.
 
-Die größte Bedrohung geht von bekannten Webangriffen und Misskonfigurationen im Backend einer Webseite aus. Während dieses Projekts wird darauf geachtet, dass die Plattform gegen die wichtigsten Sicherheitslücken einer Webanwendung gesichert ist. Dies sind vor allem mögliche Schwachstellen in der Nutzeroberfläche und der REST-Schnittstelle.
+Die größte Bedrohung geht von bekannten Webangriffen und Misskonfigurationen im Backend einer Webseite aus. Während dieses Projekts wird darauf geachtet, dass die Plattform gegen die wichtigsten Sicherheitslücken einer Webanwendung gesichert ist. Dies sind vor allem mögliche Schwachstellen in der Nutzungsoberfläche und der REST-Schnittstelle.
 
-Die betrachtenten Angriffsvektoren\footnote{Paraphrasiert nach der verbreiteten Liste des Open Web Application Security Project (OWASP)\\Link zum Download:  \href{https://github.com/OWASP/Top10/raw/master/2017/OWASP\%20Top\%2010\%20-\%202017\%20RC1-English.pdf}{https://github.com/OWASP/Top10/raw/master/2017/OWASP\%20Top\%2010\%20-\%202017\%20RC1-English.pdf}} sind:
+Die betrachteten Angriffsvektoren\footnote{Paraphrasiert nach der verbreiteten Liste des Open Web Application Security Project (OWASP)\\Link zum Download:  \href{https://github.com/OWASP/Top10/raw/master/2017/OWASP\%20Top\%2010\%20-\%202017\%20RC1-English.pdf}{https://github.com/OWASP/Top10/raw/master/2017/OWASP\%20Top\%2010\%20-\%202017\%20RC1-English.pdf}} sind:
 \begin{itemize}
 \item Möglichkeiten zur Ausführung fremden Codes (Injection \& Cross-Site Scripting)
 \item Fehlerhafte Zugriffskontrolle
@@ -76,29 +78,30 @@ Um die Sicherheit der Anwendung zu gewährleisten, folgen wir einem mehrschritti
 
 Ein Entwickler des Teams wurde zum Sicherheitsbeauftragten ernannt, der die korrekte Durchführung aller genannten Maßnahmen sicherstellt. Seine Aufgabe ist es, die Einhaltung aller Programmierrichtlinien durchzusetzen und Tests zur Validierung der Schutzziele durchzuführen. Die genaue Vorgehensweise wird im Folgenden detailliert ausgeführt.
 
-Um klare Zugriffsbeschränkungen umsetzten zu können, wurden Nutzungsrollen für das Projekt definiert (Administrator*in, Moderator*in und Nutzer*in)\footnote{Detaillierte Beschreibung der Rollen finden sich im Anhang}. In jeder User Story wird festgehalten, ob und welche Zugriffsbeschränkungen einzelne Module der Webseite oder Daten besitzen. Um die Verwaltung der Rechte einzelner Nutzungsrollen zu ermöglichen, werden die zur Verfügung gestellten Authentifizierungswerkzeuge der genutzten Frameworks (Django, Django REST, Angular2) verwendet. Die korrekte Implementierung der Rechteverwaltung wird im Rahmen der Security Reviews überprüft.
+Um klare Zugriffsbeschränkungen umsetzen zu können, wurden Nutzungsrollen für das Projekt definiert (Administrator*in, Moderator*in und Nutzer*in)\footnote{Detaillierte Beschreibungen der Rollen finden sich im Anhang}. In jeder User Story wird festgehalten, ob und welche Zugriffsbeschränkungen einzelne Module der Webseite oder Daten besitzen. Um die Verwaltung der Rechte einzelner Nutzungsrollen zu ermöglichen, werden die zur Verfügung gestellten Authentifizierungswerkzeuge der genutzten Frameworks (Django, Django REST) verwendet. Die korrekte Implementierung der Rechteverwaltung wird im Rahmen der Security Reviews überprüft.
 
 Während der Implementierung halten alle Entwickler die Best Practices im Web Development ein. Als Referenz dafür werden die Handreichungen des Open Web Application Security Project (OWASP)\footnote{\href{https://www.owasp.org/images/0/08/OWASP_SCP_Quick_Reference_Guide_v2.pdf}{https://www.owasp.org/images/0/08/OWASP\_SCP\_Quick\_Reference\_Guide\_v2.pdf}} verwendet. In den wöchentlichen internen Code-Reviews wird die Qualität des Codes hinsichtlich dieser Richtlinien überprüft.
 
 Um die Qualität des Codes im Python-basierten Backend automatisiert zu testen, wird das verbreitete Werkzeug \emph{bandit}\footnote{\href{https://wiki.openstack.org/wiki/Security/Projects/Bandit}{https://wiki.openstack.org/wiki/Security/Projects/Bandit}} verwendet. Als statisches Analyse-Werkzeug für das Frontend wird \emph{ng2lint}\footnote{\href{https://www.npmjs.com/package/ng2lint}{https://www.npmjs.com/package/ng2lint}} verwendet. Beide Programme unterstützen die Code-Review, indem die gelieferten Meldungen als Grundlage für eine detaillierte Analyse des Codes genutzt werden. Zusätzlich wird eine Sicherheits-Checkliste\footnote{siehe Anhang} geführt, an Hand der die Best Practices zur sicheren Webentwicklung und die Überprüfung aller Reports der verwendeten Werkzeuge geprüft wird. Um eine dauerhaft hohe Qualität des Codes zu gewährleisten, werden die Analyse-Tools automatisiert bei einem Push auf dem Development-Branch des verwendeten Versionskontrollsystems Git verwendet. Alle gefundenen Schwachstellen werden vor der Präsentation der User Story zur Abnahme durch die Auftraggeber*innen behoben. Dies ist die Aufgabe der entsprechenden Verantwortlichen für die User Story. Sollte dies nicht möglich sein, wird eine schriftliche Begründung verfasst und eine realistische Einschätzung über die Risiken der gefundenen Fehler an die Auftraggeber*innen gemeldet. Diese entscheiden, ob die Risiken tragbar sind und die User Story trotz der Sicherheitslücke als erfolgreich gemeldet wird.
 
-Um die tatsächliche Sicherheit des Endproduktes gegen externe Angriffe zu zeigen, wird ein automatisiertes Penetrations-Werkzeug verwendet. Das OWASP empfiehlt hierfür das \emph{Zed Attack Proxy Project}, welches eine Reihe bekannter Angriffe auf die Plattform ausführt und die gefundenen Schwachstellen meldet. Der Sicherheitsbeauftragte führt diese Tests zwei Wochen vor einem geplanten Release durch und meldet die Ergebnisse an die jeweiligen Entwickler des betroffenen Moduls, damit diese vor dem Release behoben werden können. Ist eine Behebung nicht möglich, werden die sicherheitsrelevanten Gefahren dieser Lücke zusammen mit möglichen weiteren Schritten zum Schutz der Anwendung im Betrieb an die Auftraggeber*innen gemeldet.
-
+Um die tatsächliche Sicherheit des Endproduktes gegen externe Angriffe zu zeigen, wird ein automatisiertes Penetrations-Werkzeug verwendet. Das OWASP empfiehlt hierfür das \emph{Zed Attack Proxy Project}\footnote{\href{https://www.owasp.org/index.php/OWASP\_Zed\_Attack\_Proxy\_Project}{https://www.owasp.org/index.php/OWASP\_Zed\_Attack\_Proxy\_Project}}, welches eine Reihe bekannter Angriffe auf die Plattform ausführt und die gefundenen Schwachstellen meldet. Der Sicherheitsbeauftragte führt diese Tests zwei Wochen vor einem geplanten Release durch und meldet die Ergebnisse an die jeweiligen Entwickler des betroffenen Moduls, damit diese vor dem Release behoben werden können. Ist eine Behebung nicht möglich, werden die sicherheitsrelevanten Gefahren dieser Lücke zusammen mit möglichen weiteren Schritten zum Schutz der Anwendung im Betrieb an die Auftraggeber*innen gemeldet.
+\pagebreak
 
 \section{Bedienbarkeit}
 CloneCademy ist eine Lernplattform und steht einer sehr heterogenen Gruppe an Nutzer*innen zur Verfügung. Daher muss die Plattform für alle Benutzer*innen einfach und intuitiv bedienbar sein. Das heißt, dass eine Bedienung ohne vorherige Einarbeitung möglich ist und komplexe Aufgaben mit einer Erklärung versehen sind. Um dies zu gewährleisten, wird das Design und der Aufbau aller Bereiche der Webseite nach diesem Kriterium evaluiert.
 
 Auch für dieses Ziel wurde ein Mitglied des Teams benannt, um Nutzungsstudien durchzuführen und die Einhaltung aller Richtlinien durchzusetzen.
 
-Um das oben formulierte Ziel zu erreichen, verwenden wir als Grundlage für das Design der Seite das Material Design\footnote{\href{https://material.angular.io/}{https://material.angular.io/}} für Angular2. Die Verwendung von standardisierten Komponenten sorgt dafür, dass die Webseite einen einheitlichen und übersichtlichen Aufbau hat. Um Knöpfe und andere Schaltflächen übersichtlicher zu machen, werden diese mit Icons\footnote{\href{https://material.io/icons/}{https://material.io/icons/}} versehen. Bei der wöchentlichen internen Code-Review prüft der beauftragte Entwickler anhand der Bedienbarkeits-Checkiste\footnote{siehe Anhang} bei allen veränderten oder neuen Bereichen der Webseite, ob sie den Richtlinien eines einheitlichen Designs entsprechen.
+Um das oben formulierte Ziel zu erreichen, verwenden wir als Grundlage für das Design der Seite das Material Design\footnote{\href{https://material.angular.io/}{https://material.angular.io/}} für Angular2. Die Verwendung von standardisierten Komponenten sorgt dafür, dass die Webseite einen einheitlichen und übersichtlichen Aufbau hat. Um Knöpfe und andere Schaltflächen übersichtlicher zu machen, werden diese mit Icons\footnote{\href{https://material.io/icons/}{https://material.io/icons/}} versehen. Bei der wöchentlichen internen Code-Review prüft der beauftragte Entwickler anhand der Design-Checkliste\footnote{siehe Anhang} bei allen veränderten oder neuen Bereichen der Webseite, ob sie den Richtlinien eines einheitlichen Designs entsprechen.
 
 Da die Bedienbarkeit der Oberfläche nicht objektiv gemessen werden kann, werden zusätzlich zu den Designrichtlinien Nutzungsstudien durchgeführt. In den Studien setzen sich die Proband*innen ohne vorherige Erklärung mit der Plattform auseinander und werden darum gebeten, verschiedene Aufgaben zu erfüllen\footnote{Ablauf siehe Anhang}. Durch Aufzeichnen des Nutzer*innenverhaltens während der Studie durch ein Screen-Capture-Programm wird das Verhalten der Nutzer*innen erfasst, um dieses später zu überprüfen, ob die Aufgaben zielgerichtet gelöst wurden. Zusätzlich wird die persönliche Meinung der Proband*innen nach der Studie mit einem Fragebogen\footnote{siehe Anhang} erfasst und ausgewertet.
 
-Um abschließend ein, von einer Vielzahl unterschiedlicher Nutzer*innen, gut bedienbares Produkt zu haben, werden die Nutzungsstudien in mehreren Iterationen und mit unterschiedlichen Gruppen durchgeführt, um Verbessungsvorschläge aus den vorherigen Studien direkt wieder zu testen. 
+Um abschließend ein, von einer Vielzahl unterschiedlicher Nutzer*innen gut bedienbares, Produkt zu haben, werden die Nutzungsstudien in mehreren Iterationen und mit unterschiedlichen Gruppen durchgeführt, um Verbessungsvorschläge aus den vorherigen Studien direkt wieder zu testen. 
 
 Nach jeder Nutzerstudie wird eine Maßnahmenkatalog mit den Problemen und Verbesserungsvorschlägen der Probanden erstellt, welche ein dafür benannter Entwickler bis zum nächsten Treffen mit den Auftraggeber*innen umsetzt. Diese können dann die Designänderungen überprüfen und erst durch die Abnahme der Designänderungen ist die Iteration der Studie abgeschlossen.
 
 Die Nutzerstudien erfolgen mindestens zwei Wochen vor einem geplanten Release oder wenn die Auftraggeber*innen eine Zwischenevaluation des Designs wünschen.
+\pagebreak
 
 \section{Veränderbarkeit}
 Für die Webanwendung CloneCademy ist es wichtig, dass sie im Nachhinein noch veränderbar ist. Es muss für weitere Entwicklungteams möglich sein, neue Inhalte in die Datenbank einzupflegen und auch den Quellcode der Webseite selbst erweitern und verändern zu können, da die Auftraggeber*innen planen, die Webseite nach dem Abschluss des Bachelorprojektes weiter zu entwickeln.
@@ -108,6 +111,7 @@ Um diese Veränderbarkeit zu gewährleisten, wird im Projekt auf folgende Punkte
 	\item Quellcode
 	\item Kommentare
 	\item externe Dokumentation
+	\item Tests des Codes
 \end{itemize}
 
 Es wird ein Verantwortlicher für das Qualitätsziel benannt, der Ansprechpartner für alle Rücksprachen oder Fragen ist und dafür sorgt, dass die Qualität der oben aufgeführten Bereiche, wie unten beschrieben, sichergestellt wird.
@@ -168,16 +172,15 @@ Alle hierbei gefundenen Mängel werden von den jeweiligen, für den Code im Rahm
 	\item Ende September: entgültiger Release der finalen Software auf dem Server des iGEM-Teams
 \end{itemize}
 
-Alle hierbei gefundenen Mängel werden bis zum Release behoben. Zur Behebung wird ein dedizierter Entwikler benannt, wenn es sich nicht mehr nachvollziehen lässt, in wessen Verantwortlichkeit der Code oder die Dokumentation im Rahmen einer User Story fiel. Ansonsten ist derjenige verantwortlich, der die mangelhafte User Story implementiert hat.
+Alle hierbei gefundenen Mängel werden bis zum jeweiligen Release behoben. Zur Behebung wird ein dedizierter Entwickler benannt, wenn es sich nicht mehr nachvollziehen lässt, in wessen Verantwortlichkeit der Code oder die Dokumentation im Rahmen einer User Story fiel. Ansonsten ist derjenige verantwortlich, der die mangelhafte User Story implementiert hat.
 
 \section{Checklisten}
 
 Im Folgenden sind die verwendeten Checklisten aufgeführt. Für die Ziele \emph{Datensicherheit} und \emph{Erweiterbarkeit} wurde einen Checkliste für die interne Code-Review ausgearbeitet. Für die Bedienbarkeit erfolgt nur eine Überprüfung, ob nur vereinbarte Designelemente verwendet wurden, der Maßnahmenkatalog ergeben sich aus den Rückmeldungen aus den Nutzungsstudien.
 
 \subsection{Checkliste Datensicherheit}
-\begin{multicols}{2}
 Bei der Codereview sollte folgendes Bedrohungsmodell vor Augen gehalten werden:
-
+\begin{multicols}{2}
 \begin{itemize}
     \item Angreifende: Befürchtet werden vor allem Nutzende, die bei der Beantwortung der Fragen unerlaubte Methoden benutzen möchten, sowie Dritte, die gespeicherte Nutzerdaten missbrauchen wollen.
     \item Angriffsoberfläche: Als Oberfläche sollte vor allem die übersichtliche API betrachtet werden.
@@ -185,16 +188,21 @@ Bei der Codereview sollte folgendes Bedrohungsmodell vor Augen gehalten werden:
     \item Als Sicherheitsmaßnahmen wird die korrekte Implementierung von Django, REST und Angular2 verwendet.
     \item Potentielle technische Auswirkungen: Falsche/Korrupte Daten in der Datebank, v.a. in Trys
 \end{itemize}
+\end{multicols}
 
-Folgende Fragen sollten zu Jedem Codeabschnitt beantwortet werden:
-
+Fragen zu jedem Codeabschnitt:
+\begin{multicols}{2}
 \begin{itemize}
 	\renewcommand{\labelitemi}{\scriptsize$\square$}
-    \item html input: Wird jeglicher Input dieser Art korrekt nach Crossitescripts durchsucht bevor er als sicher markiert wird?
-    \item Sind die Djangofeatures zum Schutz vor Cross Site Request Forgery (CSRF) immer aktiviert oder nur in sinnvollem Kontext deaktiviert?
-    \item Ist jede view mit sinnvoller Authentifizierung und Authororisierung versehen, sowie gegebenenfalls auch mit einer Anfragenbegrenzung (Throttling)?
+	\renewcommand{\labelitemii}{\scriptsize$\square$}
+    \item HTML Input: Wird jeglicher Input korrekt nach Cross-Site-Scripts durchsucht, bevor er als sicher markiert wird?
+    \item Sind die Django-Features zum Schutz vor Cross Site Request Forgery (CSRF) aktiviert?
+    \begin{itemize}
+    	\item Wenn deaktiviert: Liegt eine stichhaltige Begründung vor?
+    \end{itemize}
+    \item Ist jede Schnittstelle mit passender Authentifizierung und Authorisierung versehen, sowie gegebenenfalls auch mit einer Anfragenbegrenzung (Throttling)?
     \item Werden alle Nutzereingaben nach Fehlern gefiltert?
-    \item Sind alle Security Probleme, die bei der softwarebasierten Analyse aufgetreten sind, behoben worden, oder aus dem Kontext heraus als unkritisch betrachtet worden?
+    \item Sind alle Security Probleme, die bei der softwarebasierten Analyse aufgetreten sind, behoben, oder aus dem Kontext heraus als unkritisch betrachtet worden?
 \end{itemize}
 \end{multicols}
 \pagebreak
@@ -211,10 +219,6 @@ Folgende Fragen sollten zu Jedem Codeabschnitt beantwortet werden:
 		\item Wurden bereits implementierte Funktionen nicht benutzt oder neu implementiert?
 		\item Wurden Hilfsmethoden ausgelagert?
 
-		\item Wurde die Datenbankenstruktur geändert?
-		\begin{itemize}
-			\item Wenn ja, wurden die Änderungen dokumentiert?
-		\end{itemize}
 		\item Für das Backend:
 		\begin{itemize}
 			\item Geben alle Views einen gültigen und passenden Status Code zurück?
@@ -222,6 +226,10 @@ Folgende Fragen sollten zu Jedem Codeabschnitt beantwortet werden:
 		\begin{itemize}
 			\item Wenn Änderungen vorgenommen wurden: Sind diese begründet und dokumentiert?
 		\end{itemize}
+		\item Wurde die Datenbankenstruktur geändert?
+			\begin{itemize}
+				\item Wenn ja, wurden die Änderungen dokumentiert?
+			\end{itemize}
 		\end{itemize}
 		\item Für das Frontend:
 		\begin{itemize}
@@ -245,7 +253,7 @@ Folgende Fragen sollten zu Jedem Codeabschnitt beantwortet werden:
 \end{multicols}
 
 \section{Informelle Beschreibung der Nutzungsrollen}
-Die konkreten Rechte jeder Nutzungsrolle ergeben sich aus den Beschreibungen der User Stories.
+Die konkreten Rechte jeder Nutzungsrolle ergeben sich aus den Beschreibungen der User Stories. Rechte einer Rolle erhalten auch immer alle Rechte der weniger berechtigten Rollen. Ein*e Administrator*in hat demnach alle Rechte, die auch normale Nutzer*innen und die Moderator*innen besitzen.
 
 \subsection{Nutzer*in}
 Nutzer*innen besitzen ein Account, mit welchem sie sich gegenüber der Webseite authentifizieren können. Sie können Aufgaben lösen und Feedback erhalten. Außerdem haben sie Zugriff auf ihre eigene Nutzerseite, können die eigenen Daten ändern und die ihre Statistik einsehen.
@@ -253,7 +261,7 @@ Nutzer*innen besitzen ein Account, mit welchem sie sich gegenüber der Webseite 
 \subsection{Moderator*in}
 Moderator*innen können neue Lerninhalte auf der Webseite hochladen. Sie sind nur dazu berechtigt, Kurse zu verändern, die sie selbst angelegt haben. Bevor ein angelegter Kurs für alle Nutzer*innen sichtbar wird, muss er durch einen Administrator überprüft werden.
 
-Administartor*innen können einzelnen Moderator*innen das Recht zur Freigabe von Kursen geben. Diese können dann ihre eigenen Kurse sofort, ohne erneute Überprüfung, freischalten.
+Einzelnen Moderator*innen können das Recht zur Freigabe von Kursen erhalten. Diese können dann ihre eigenen Kurse sofort, ohne erneute Überprüfung, freischalten.
 
 \subsection{Administrator*in}
 Administrator*innen haben das Recht, anderen Nutzer*innen zusätzliche Rechte (Moderation, Administration) zu geben und zu entziehen.
@@ -263,14 +271,25 @@ Für jede Schnittstelle muss das Wiki folgendes enthalten:
 \begin{multicols}{2}
 \begin{itemize}
 	\item Name der Schnittstelle
+	\item Beschreibung der Funktionsweise
 	\item erlaubte Methoden (POST/GET)
-	\item erwartete HTML Header Felder
+	\item erwartete Header Felder
 	\item erwartete Parameter aus der URL
-	\item gültige Formatierung des JSON Objekts im Header (bei POST-Methoden)
+	\item gültige Formatierung des JSON Objekts (bei POST-Methoden)
 	\item gültige Formatierung des JSON Objekts in der Antwort
 	\item Übersicht über alle möglichen Antwortcodes 
 \end{itemize}
 \end{multicols}
+\pagebreak
+\section{1. Nutzungsstudien}
+Bislang wurde nur die erste Nutzungsstudie ausgearbeitet. Weitere folgen bei der endgültigen Abgabe des Anhangs.
 
-\section{Fragebögen der Nutzerstudien}
+Die Aufgaben, die die Proband*innen erfüllen sollten waren:
+\begin{itemize}
+	\item Registrieren Sie sich auf der Webseite mit einem neuen Account.
+	\item Loggen Sie sich ein.
+	\item Schließen Sie einen Kurs erfolgreich ab.
+	\item Erstellen Sie einen neuen Kurs.
+\end{itemize}
+	\includepdf[pages=-,pagecommand={},width=\textwidth]{nutzerstudie.pdf}
 \end{document}
