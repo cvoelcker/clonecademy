@@ -17,8 +17,11 @@ export class AddQuestionModule {
   }
 
   public edit(questionBody: string, answers: any){
-    this.question = questionBody;
-    this.answers = answers;
-    console.log(answers)
+    if(questionBody != null){
+      this.question = questionBody;
+    }
+    if(answers != null){
+      this.answers = answers;
+    }
   }
  }

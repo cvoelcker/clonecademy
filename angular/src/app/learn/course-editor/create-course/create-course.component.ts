@@ -79,9 +79,11 @@ export class CreateCourseComponent {
     if(moduleDescription != null){
       module.learningText = moduleDescription
     }
-    for(let i = 0; i < questions.length; i++){
-      let question = questions[i]
-      module.editQuestion(question['class'], question['question_body'], question['answers'], question['feedback'])
+    if(questions != null){
+      for(let i = 0; i < questions.length; i++){
+        let question = questions[i]
+        module.editQuestion(question['class'], question['question_body'], question['answers'], question['feedback'])
+      }
     }
     this.moduleArray.push(moduleComponent)
 
@@ -111,24 +113,34 @@ export class CreateCourseComponent {
   }
 
   save(f){
+    let saveModules = this.saveModules(f)
+    if(f.valid){
+      let course = {title: f.value['title'], categorie: f.value['category'],  modules: saveModules};
+      console.log(course)
+      this.uploadState(course);
+    }
+  }
+
+  saveModules(form){
     let saveModules = [];
     for(let i = 0; i < this.moduleArray.length; i++){
       let module = this.moduleArray[i];
       let index = this.modules.indexOf(module.hostView);
-      let m = (<AddModuleComponent> module.instance).save(f);
+      let m = (<AddModuleComponent> module.instance).save(form);
       m['order'] = index
       saveModules.push(m)
     }
-    if(f.valid){
-      let course = {title: f.value['title'], categorie: f.value['category'],  modules: saveModules};
-      this.server.post('save/course/', course)
-      .then(data => {
-        this.course.load()
-        this.router.navigate(['/course'])
-      }).catch(err => {
-        console.log(err)
-      })
-    }
+    return saveModules
+  }
+
+  uploadState(course){
+    this.server.post('save/course/', course)
+    .then(data => {
+      this.course.load()
+      this.router.navigate(['/course'])
+    }).catch(err => {
+      console.log(err)
+    })
   }
 
 
