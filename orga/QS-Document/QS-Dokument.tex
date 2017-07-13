@@ -86,8 +86,8 @@ Während der Implementierung halten alle Entwickler die Best Practices im Web De
 
 Um die Qualität des Codes im Python-basierten Backend automatisiert zu testen, wird das verbreitete Werkzeug \emph{bandit}\footnote{\href{https://wiki.openstack.org/wiki/Security/Projects/Bandit}{https://wiki.openstack.org/wiki/Security/Projects/Bandit}} verwendet. Als statisches Analyse-Werkzeug für das Frontend wird \emph{ng2lint}\footnote{\href{https://www.npmjs.com/package/ng2lint}{https://www.npmjs.com/package/ng2lint}} verwendet. Beide Programme unterstützen die Code-Review, indem die gelieferten Meldungen als Grundlage für eine detaillierte Analyse des Codes genutzt werden. Zusätzlich wird eine Sicherheits-Checkliste\footnote{siehe Anhang} geführt, an Hand der die Best Practices zur sicheren Webentwicklung und die Überprüfung aller Reports der verwendeten Werkzeuge geprüft wird. Um eine dauerhaft hohe Qualität des Codes zu gewährleisten, werden die Analyse-Tools automatisiert bei einem Push auf dem Development-Branch des verwendeten Versionskontrollsystems Git verwendet. Alle gefundenen Schwachstellen werden vor der Präsentation der User Story zur Abnahme durch die Auftraggeber*innen behoben. Dies ist die Aufgabe der entsprechenden Verantwortlichen für die User Story. Sollte dies nicht möglich sein, wird eine schriftliche Begründung verfasst und eine realistische Einschätzung über die Risiken der gefundenen Fehler an die Auftraggeber*innen gemeldet. Diese entscheiden, ob die Risiken tragbar sind und die User Story trotz der Sicherheitslücke als erfolgreich gemeldet wird.
 
-Um die tatsächliche Sicherheit des Endproduktes gegen externe Angriffe zu zeigen, wird ein automatisiertes Penetrations-Werkzeug verwendet. Das OWASP empfiehlt hierfür das \emph{Zed Attack Proxy Project}\footnote{\href{https://www.owasp.org/index.php/OWASP\_Zed\_Attack\_Proxy\_Project}{https://www.owasp.org/index.php/OWASP\_Zed\_Attack\_Proxy\_Project}}, welches eine Reihe bekannter Angriffe auf die Plattform ausführt und die gefundenen Schwachstellen meldet. Der Sicherheitsbeauftragte führt diese Tests zwei Wochen vor einem geplanten Release durch und meldet die Ergebnisse an die jeweiligen Entwickler des betroffenen Moduls, damit diese vor dem Release behoben werden können. Ist eine Behebung nicht möglich, werden die sicherheitsrelevanten Gefahren dieser Lücke zusammen mit möglichen weiteren Schritten zum Schutz der Anwendung im Betrieb an die Auftraggeber*innen gemeldet.
-\pagebreak
+Um die tatsächliche Sicherheit des Endproduktes gegen externe Angriffe zu zeigen, wird ein automatisiertes Penetrations-Werkzeug verwendet. Das OWASP empfiehlt hierfür das \emph{Zed Attack Proxy Project}\footnote{\href{https://www.owasp.org/index.php/OWASP\_Zed\_Attack\_Proxy\_Project}{https://www.owasp.org/index.php/OWASP\_Zed\_Attack\_Proxy\_Project}}, welches eine Reihe bekannter Angriffe auf die Plattform ausführt und die gefundenen Schwachstellen meldet. Der Sicherheitsbeauftragte führt diese Tests spätestens eine Woche vor einem geplanten Release durch und meldet die Ergebnisse an die jeweiligen Entwickler des betroffenen Moduls, damit diese vor dem Release behoben werden können. Ist eine Behebung nicht möglich, werden die sicherheitsrelevanten Gefahren dieser Lücke zusammen mit möglichen weiteren Schritten zum Schutz der Anwendung im Betrieb an die Auftraggeber*innen gemeldet.
+
 
 \section{Bedienbarkeit}
 CloneCademy ist eine Lernplattform und steht einer sehr heterogenen Gruppe an Nutzer*innen zur Verfügung. Daher muss die Plattform für alle Benutzer*innen einfach und intuitiv bedienbar sein. Das heißt, dass eine Bedienung ohne vorherige Einarbeitung möglich sein muss und komplexe Aufgaben mit einer Erklärung zu versehen sind. Um dies zu gewährleisten, wird das Design und der Aufbau aller Bereiche der Webseite nach diesem Kriterium evaluiert.
@@ -102,8 +102,7 @@ Um abschließend ein, von einer Vielzahl unterschiedlicher Nutzer*innen gut bedi
 
 Nach jeder Nutzerstudie wird ein Maßnahmenkatalog mit den Problemen und Verbesserungsvorschlägen der Probanden erstellt, welche ein dafür benannter Entwickler bis zum nächsten Treffen mit den Auftraggeber*innen umsetzt. Diese können dann die Designänderungen überprüfen und erst durch die Abnahme der Designänderungen ist die Iteration der Studie abgeschlossen.
 
-Die Nutzerstudien erfolgen mindestens zwei Wochen vor einem geplanten Release oder wenn die Auftraggeber*innen eine Zwischenevaluation des Designs wünschen.
-\pagebreak
+Die Nutzerstudien erfolgen mindestens eine Woche vor einem geplanten Release oder wenn die Auftraggeber*innen eine Zwischenevaluation des Designs wünschen.
 
 \section{Veränderbarkeit}
 Für die Webanwendung CloneCademy ist es wichtig, dass sie im Nachhinein noch veränderbar ist. Es muss für weitere Entwicklerteams möglich sein, sowohl neue Inhalte in die Datenbank einzupflegen, als auch den Quellcode der Webseite selbst erweitern und verändern zu können, da die Auftraggeber*innen planen, die Webseite nach dem Abschluss des Bachelorprojektes eigenständig weiterzuentwickeln.
@@ -133,7 +132,7 @@ Das Projekt verwendet zur klaren Trennung zwischen Back- und Frontend eine sogen
 
 Dazu wird ein Wiki geführt, in dem alle Schnittstellen zwischen Backend und Frontend definiert sind. Ist für eine User Story eine neue Schnittstelle nötig, wird diese von allen Entwicklern zusammen entworfen und dann im Wiki dokumentiert.
 
-Die Dokumentation im Wiki ist spätestens vor jedem Release vollständig. Dazu überprüft der Beauftragte spätestens zwei Wochen vor Release, ob alle Schnittstellen aufgeführt sind und ob die Dokumentation den vorgegebenen Rahmen\footnote{siehe Anhang} erfüllt. Beim nächsten internen Treffen wird das Wiki auf den aktuellen Stand gebracht und die gesamte Dokumentation noch einmal überprüft. Bevor die Dokumentation nicht vollständig ist, wird die Software nicht zum Release freigegeben.
+Die Dokumentation im Wiki ist spätestens vor jedem Release vollständig. Dazu überprüft der Beauftragte spätestens eine Woche vor Release, ob alle Schnittstellen aufgeführt sind und ob die Dokumentation den vorgegebenen Rahmen\footnote{siehe Anhang} erfüllt. Beim nächsten internen Treffen wird das Wiki auf den aktuellen Stand gebracht und die gesamte Dokumentation noch einmal überprüft. Bevor die Dokumentation nicht vollständig ist, wird die Software nicht zum Release freigegeben.
 
 
 \textbf{Testabdeckung}
@@ -142,7 +141,6 @@ Bei Codeerweiterung muss bereits bestehender Code weiterhin funktionieren. Um di
 Die Function Coverage wird vor jeder internen Code-Review sichergestellt. Die Tests der API Schnittstellen werden bei deren Definition geschrieben, damit sie den jeweiligen Entwicklern als Vorlage für eine korrekte Implementierung dienen können. Da eine umfassende Statement Coverage während des Projektes nicht zu jeder Zeit implementiert werden kann, ist diese zu jedem Release anzufertigen. Damit wird gezeigt, dass der Code stabil ist und die Tests können als Basis für die Implementierung der kommenden User Stories verwendet werden.
 
 Eine User Story wird erst zur Abnahme präsentiert, wenn für alle Funktionen Tests vorliegen. Ein Release wird erst freigegeben, wenn eine Code Coverage von mindestens 80\% erreicht ist. Die Überprüfung dieser Regeln erfolgt durch den, für das QS-Ziel zuständigen, Entwickler.
-
 
 \appendix
 \chapter{Konkrete Ausführungen des QS-Maßnahmenkatalogs}
@@ -165,7 +163,7 @@ Alle hierbei gefundenen Mängel werden von den jeweiligen, für den Code im Rahm
 	\item Anfang September: geplanter zweiter Release auf dem Server des iGEM-Teams
 	\item Ende September: entgültiger Release der finalen Software auf dem Server des iGEM-Teams
 \end{itemize}
-Zwei Wochen vor jedem Release:
+Eine Woche vor jedem Release:
 \begin{itemize}
 	\item Deadline der Nutzerstudie
 	\item Security Test mit dem \emph{ZED Attack Tool}
@@ -207,10 +205,10 @@ Fragen zu jedem Codeabschnitt:
 \end{multicols}
 \pagebreak
 \subsection{Checkliste Veränderbarkeit}
+\paragraph{Code Qualität}
 \begin{multicols}{2}
 	\renewcommand{\labelitemi}{\scriptsize$\square$}	\renewcommand{\labelitemii}{\scriptsize$\square$}
 	\renewcommand{\labelitemiii}{\scriptsize$\square$}
-	\subsubsection{Code Qualität}
 	\begin{itemize}
 
 		\item Gibt es Meldungen der Tools?
@@ -236,14 +234,15 @@ Fragen zu jedem Codeabschnitt:
 			\item Sind alle POST Methoden richtig formatiert?
 		\end{itemize}
 	\end{itemize}
-	\subsubsection{Kommentare}
+\end{multicols}
+\paragraph{Kommentare}
+\begin{multicols}{2}
 	\begin{itemize}
 		\item Sind alle Klassen kommentiert?
 		\begin{itemize}
 			\item[] Dies umfasst:
 			\item Beschreibung der Verwendung
 			\item Autor
-			\item Datum
 		\end{itemize}
 		\item Sind alle Methoden kommentiert?
 		\begin{itemize}
@@ -258,7 +257,9 @@ Fragen zu jedem Codeabschnitt:
 		\item Ist die Dokumentation im Wiki vollständig?
 	\end{itemize}
 
-	\subsubsection{Tests}
+\end{multicols}
+\paragraph{Tests}
+\begin{multicols}{2}
 	\begin{itemize}
 		\item Sind Tests aller Methoden vorhanden?
 		\item Wie hoch ist die Statement Coverage?
