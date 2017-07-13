@@ -6,6 +6,11 @@ from django.core.exceptions import ValidationError
 from datetime import datetime
 from clonecadamy.settings import FRONT_END_HOSTNAME, PROFILE_PATH
 
+def is_mod(user):
+    return user.groups.filter(name="moderator").exists()
+
+def is_admin(user):
+    return user.groups.filter(name="admin").exists()
 
 class LearningGroup(models.Model):
     """

@@ -32,9 +32,9 @@ urlpatterns = [
     url(r'^api-auth', obtain_jwt_token),
 
     url(r'^courses/$', learning_base_view.getCourses),
-    url(r'^courses/(?P<courseID>[0-9]+)/?$', learning_base_view.singleCourse),
-    url(r'^courses/(?P<courseID>[0-9]+)/(?P<moduleIndex>[0-9]+)/?$', learning_base_view.callModule),
-    url(r'^courses/(?P<courseID>[0-9]+)/(?P<moduleIndex>[0-9]+)/(?P<questionIndex>[0-9]+)/?$', learning_base_view.callQuestion),
+    url(r'^courses/(?P<courseID>[0-9]+)/$', learning_base_view.singleCourse),
+    url(r'^courses/(?P<courseID>[0-9]+)/(?P<moduleIndex>[0-9]+)/$', learning_base_view.callModule),
+    url(r'^courses/(?P<courseID>[0-9]+)/(?P<moduleIndex>[0-9]+)/(?P<questionIndex>[0-9]+)/$', learning_base_view.callQuestion),
 
     url(r'^get-course-categories/$', learning_base_view.getCourseCategories),
 
@@ -44,7 +44,8 @@ urlpatterns = [
     url(r'^user/request_mod$', user_view.requestModStatus),
     url(r'^user/can_request_mod$', user_view.canRequestMod),
     url(r'^user/$', user_view.getUserInfo),
-    url(r'^user/(?P<userID>[0-9]+)/?$', user_view.getUserDetails),
+    url(r'^user/(?P<userID>[0-9]+)/$', user_view.getUserDetails),
+    url(r'^user/(?P<userID>[0-9]+)/grantModStatus$', user_view.grantModStatus),
     url(r'^current_user/$', user_view.getCurrentUser),
 
     url(r'^list-user/', user_view.getAllUsers),
