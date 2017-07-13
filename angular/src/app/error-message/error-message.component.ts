@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, Optional } from '@angular/core';
 
 import {MD_DIALOG_DATA} from '@angular/material';
 
@@ -13,7 +13,7 @@ export class ErrorMessageComponent {
 
   text: string;
 
-  constructor(@Inject(MD_DIALOG_DATA) public data: string, private translate: TranslateService) {
+  constructor(@Optional() @Inject(MD_DIALOG_DATA) public data: string, private translate: TranslateService) {
     translate.get(this.data).subscribe((res) => {this.text = res[this.data]})
   }
 

@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { BaseTest } from '../../../base-test';
+
 import { AddQuestionComponent } from './add-question.component';
 
 describe('AddQuestionComponent', () => {
@@ -7,7 +9,10 @@ describe('AddQuestionComponent', () => {
   let fixture: ComponentFixture<AddQuestionComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
+    let base = new BaseTest();
+      TestBed.configureTestingModule({
+        imports: [ base.imports() ],
+        providers: [base.providers()],
       declarations: [ AddQuestionComponent ]
     })
     .compileComponents();

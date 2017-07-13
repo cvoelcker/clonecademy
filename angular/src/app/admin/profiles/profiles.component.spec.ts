@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { BaseTest } from '../../base-test';
+
 import { ProfilesComponent } from './profiles.component';
 
 describe('ProfilesComponent', () => {
@@ -7,7 +9,10 @@ describe('ProfilesComponent', () => {
   let fixture: ComponentFixture<ProfilesComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
+    let base = new BaseTest();
+      TestBed.configureTestingModule({
+        imports: [ base.imports() ],
+        providers: [base.providers()],
       declarations: [ ProfilesComponent ]
     })
     .compileComponents();

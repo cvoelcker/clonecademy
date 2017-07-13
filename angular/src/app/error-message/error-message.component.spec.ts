@@ -1,5 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { BaseTest } from '../base-test';
+
+import {MdDialog, MdDialogModule } from '@angular/material';
 import { ErrorMessageComponent } from './error-message.component';
 
 describe('ErrorMessageComponent', () => {
@@ -7,7 +10,10 @@ describe('ErrorMessageComponent', () => {
   let fixture: ComponentFixture<ErrorMessageComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
+    let base = new BaseTest();
+      TestBed.configureTestingModule({
+        imports: [ base.imports() ],
+        providers: [base.providers()],
       declarations: [ ErrorMessageComponent ]
     })
     .compileComponents();

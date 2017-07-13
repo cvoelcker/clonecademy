@@ -1,5 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
+
+import { BaseTest } from '../../base-test';
+
 import { QuestionComponent } from './question.component';
 
 describe('QuestionComponent', () => {
@@ -7,9 +11,19 @@ describe('QuestionComponent', () => {
   let fixture: ComponentFixture<QuestionComponent>;
 
   beforeEach(async(() => {
+    let base = new BaseTest();
     TestBed.configureTestingModule({
-      declarations: [ QuestionComponent ]
+      imports: [ base.imports() ],
+      providers: [base.providers()],
+      declarations: [ base.entryComponents([QuestionComponent]) ]
     })
+    TestBed.overrideModule(
+      BrowserDynamicTestingModule, {
+        set: {
+          entryComponents: [base.entryComponents()]
+        }
+      }
+    )
     .compileComponents();
   }));
 
