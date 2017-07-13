@@ -55,15 +55,17 @@ Dieser wird seit 2003 von der iGEM-Foundation veranstaltet.
 
 Im Rahmen des Wettbewerbs wird eine Online-Lernplattform für das iGEM-Team der TU Darmstadt erstellt. Das Ziel dieser Plattform ist es, durch interaktive Unterrichtseinheiten Prinzipien der Molekularbiologie sowie der synthetischen Biologie zu erlernen und sowohl eigene Lernfortschritte, als auch die anderer Teams begutachten zu können. Darüber hinaus soll es auch anderen Interessierten (z.B. andere iGEM-Teams, Lehrende an Universitäten und Schulen, etc.) möglich sein, eigene Inhalte einzupflegen und zur Verfügung zu stellen.
 
-Das Ziel des Projektes ist eine voll funktionsfähige Webanwendung für Desktop- und Laptoprechner und die aktuelle Version der Browser \emph{Firefox} und \emph{Chrome} bereit zu stellen. Eine eventuelle Erweiterung der Plattform, auch mobile Endgeräte zu unterstützen, wird durch die Implmentierung einer REST-Schnittstelle ermöglicht.
+Als Kernfunktionalität bietet die Plattform Nutzer*innen die Möglichkeit, sich zu registrieren und einen Account anzulegen. Registrierte Nutzer*innen können bereitgestellte Aufgaben zu bearbeiten und Feedback zu ihren Antworten erhalten. Zusätzlich können Nutzer*innen mit Moderationsrechten neue Aufgaben in das System einpflegen und bereits bestehende überarbeiten. Die bereitgestellten Aufgabentypen sind Multiple-Choice-, Drag-And-Drop- und Lückentextaufgaben. Außerdem wird im Rahmen des vereinbarten Ziels der \emph{Veränderbarkeit} die Möglichkeit geschaffen, nach Ende des Projektes auch noch weiter Aufgabentypen in die Plattform einzubauen.
 
-Als Kernfunktionalität bietet die Plattform Nutzer*innen die Möglichkeit, sich zu registrieren und einen Account anzulegen. Registrierte Nutzer*innen haben dann die Möglichkeit, bereitgestellte Aufgaben zu bearbeiten und Feedback zu erhalten. Zusätzlich haben Nutzer*innen mit Moderationsrechten die Möglichkeit, neue Aufgaben in das System einzupflegen und bereits bestehende zu überarbeiten.
+Um einen Überblick über ihren bisherigen Lernerfolg zu bekommen, haben Nutzer*innen die Möglichkeit, Statistiken zu ihrer Nutzung der Plattform einzusehen. Den Auftraggeber*innen geben diese Statistiken auch Einblick in die Nutzung und die Qualität ihrer Inhalte, so dass diese weiter verbessert werden können.
+
+Das Ziel des Projektes ist eine voll funktionsfähige Webanwendung für Desktop- und Laptoprechner und die aktuellen Versionen der Browser \emph{Firefox} und \emph{Chrome} bereitzustellen. Eine eventuelle Erweiterung der Plattform, um zum Beispiel auch mobile Endgeräte zu unterstützen, wird durch die Implementierung einer REST-Schnittstelle ermöglicht.
 
 
 \chapter{Qualitätsziele}
 \section{Datensicherheit (Security)}
 
-Im Rahmen des Projekts CloneCademy wird eine Webanwendung entwickelt, auf welche über das Internet zugegriffen werden kann. Daher ist die Sicherung gegen unbefugten Zugriff und unauthorisierte Änderung der Daten in diesem Projekt das wichtigste Qualitätsziel. Da CloneCademy sowohl persönliche Daten der Nutzer*innen als auch Metadaten über die Nutzung der Plattform und die Inhalte der einzelnen Lerneinheiten persistent speichert, ist es sehr wichtig, dass Internetnutzer*innen diese Daten nicht verändern oder einsehen können, solange sie dazu nicht die benötigten Rechte besitzen.
+Im Rahmen des Projekts CloneCademy wird eine Webanwendung entwickelt, auf welche über das Internet zugegriffen werden kann. Daher ist die Sicherung gegen unbefugten Zugriff und unautorisierte Änderung der Daten in diesem Projekt das wichtigste Qualitätsziel. Da CloneCademy sowohl persönliche Daten der Nutzer*innen, als auch Metadaten über die Nutzung der Plattform und die Inhalte der einzelnen Lerneinheiten persistent speichert, ist es sehr wichtig, dass Internetnutzer*innen diese Daten nicht verändern oder einsehen können, solange sie dazu nicht die benötigten Rechte besitzen.
 
 Die größte Bedrohung geht von bekannten Webangriffen und Misskonfigurationen im Backend einer Webseite aus. Während dieses Projekts wird darauf geachtet, dass die Plattform gegen die wichtigsten Sicherheitslücken einer Webanwendung gesichert ist. Dies sind vor allem mögliche Schwachstellen in der Nutzungsoberfläche und der REST-Schnittstelle.
 
@@ -90,13 +92,13 @@ Um die tatsächliche Sicherheit des Endproduktes gegen externe Angriffe zu zeige
 \section{Bedienbarkeit}
 CloneCademy ist eine Lernplattform und steht einer sehr heterogenen Gruppe an Nutzer*innen zur Verfügung. Daher muss die Plattform für alle Benutzer*innen einfach und intuitiv bedienbar sein. Das heißt, dass eine Bedienung ohne vorherige Einarbeitung möglich sein muss und komplexe Aufgaben mit einer Erklärung zu versehen sind. Um dies zu gewährleisten, wird das Design und der Aufbau aller Bereiche der Webseite nach diesem Kriterium evaluiert.
 
-Auch für dieses Ziel wurde ein Mitglied des Teams benannt, um Nutzungsstudien durchzuführen und die Einhaltung aller Richtlinien durchzusetzen.
+Auch für dieses Ziel wurde ein Mitglied des Teams benannt, um Nutzerstudien durchzuführen und die Einhaltung aller Richtlinien durchzusetzen.
 
-Um das oben formulierte Ziel zu erreichen, verwenden wir als Grundlage für das Design der Seite das Material Design\footnote{\href{https://material.angular.io/}{https://material.angular.io/}} für Angular2. Die Verwendung von standardisierten Komponenten sorgt dafür, dass die Webseite einen einheitlichen und übersichtlichen Aufbau hat. Um beispielsweise Knöpfe und andere Schaltflächen übersichtlicher zu gestalten, werden diese mit Icons\footnote{\href{https://material.io/icons/}{https://material.io/icons/}} versehen. Bei der wöchentlichen internen Code-Review prüft der beauftragte Entwickler anhand der Design-Checkliste\footnote{siehe Anhang} bei allen veränderten oder neuen Bereichen der Webseite, ob sie den Richtlinien eines einheitlichen Designs entsprechen.
+Um das oben formulierte Ziel zu erreichen, verwenden wir als Grundlage für das Design der Seite das Material Design\footnote{\href{https://material.angular.io/}{https://material.angular.io/}} für Angular2. Die Verwendung von standardisierten Komponenten sorgt dafür, dass die Webseite einen einheitlichen und übersichtlichen Aufbau hat. Um beispielsweise Knöpfe und andere Schaltflächen übersichtlicher zu gestalten, werden diese mit Icons\footnote{\href{https://material.io/icons/}{https://material.io/icons/}} versehen. Bei der wöchentlichen internen Code-Review prüft der beauftragte Entwickler anhand der Design-Checkliste\footnote{siehe Anhang} bei allen veränderten oder neuen Bereichen der Webseite, ob sie den Richtlinien eines einheitlichen Designs entsprechen. Sollte dies nicht der Fall sein, wird die User Story den Auftraggeber*innen nicht präsentiert, sondern in der nächsten Iteration überarbeitet und erneut geprüft.
 
-Da die Bedienbarkeit der Oberfläche nicht objektiv gemessen werden kann, werden zusätzlich zu den Designrichtlinien Nutzungsstudien durchgeführt. In den Studien setzen sich die Proband*innen ohne vorherige Erklärung mit der Plattform auseinander und werden darum gebeten, verschiedene Aufgaben zu erfüllen\footnote{Ablauf siehe Anhang}. Durch Aufzeichnen des Nutzer*innenverhaltens während der Studie durch ein Screen-Capture-Programm wird das Verhalten der Nutzer*innen erfasst, um dieses später zu überprüfen, ob die Aufgaben zielgerichtet gelöst wurden. Zusätzlich wird die persönliche Meinung der Proband*innen nach der Studie mit einem Fragebogen\footnote{siehe Anhang} erfasst und ausgewertet.
+Da die Bedienbarkeit der Oberfläche nicht objektiv gemessen werden kann, werden zusätzlich zu den Designrichtlinien Nutzerstudien durchgeführt. In den Studien setzen sich die Proband*innen ohne vorherige Erklärung mit der Plattform auseinander und werden darum gebeten, verschiedene Aufgaben zu erfüllen\footnote{Ablauf siehe Anhang}. Während der Studie wird das Verhalten der Nutzer*innen mit Hilfe eines Screen-Capture-Programms erfasst, um später zu überprüfen, ob die Aufgaben zielgerichtet gelöst werden konnten. Zusätzlich wird die persönliche Meinung der Proband*innen nach der Studie mit einem Fragebogen\footnote{siehe Anhang} erfasst und ausgewertet.
 
-Um abschließend ein, von einer Vielzahl unterschiedlicher Nutzer*innen gut bedienbares, Produkt zu haben, werden die Nutzungsstudien in mehreren Iterationen und mit unterschiedlichen Gruppen durchgeführt, um Verbessungsvorschläge aus den vorherigen Studien direkt wieder zu testen. 
+Um abschließend ein, von einer Vielzahl unterschiedlicher Nutzer*innen gut bedienbares, Produkt zu haben, werden die Nutzerstudien in mehreren Iterationen und mit unterschiedlichen Gruppen durchgeführt, um Verbesserungsvorschläge aus den vorherigen Studien direkt wieder zu testen. 
 
 Nach jeder Nutzerstudie wird ein Maßnahmenkatalog mit den Problemen und Verbesserungsvorschlägen der Probanden erstellt, welche ein dafür benannter Entwickler bis zum nächsten Treffen mit den Auftraggeber*innen umsetzt. Diese können dann die Designänderungen überprüfen und erst durch die Abnahme der Designänderungen ist die Iteration der Studie abgeschlossen.
 
@@ -104,7 +106,7 @@ Die Nutzerstudien erfolgen mindestens zwei Wochen vor einem geplanten Release od
 \pagebreak
 
 \section{Veränderbarkeit}
-Für die Webanwendung CloneCademy ist es wichtig, dass sie im Nachhinein noch veränderbar ist. Es muss für weitere Entwicklungteams möglich sein, sowohl neue Inhalte in die Datenbank einzupflegen als auch den Quellcode der Webseite selbst erweitern und verändern zu können, da die Auftraggeber*innen planen, die Webseite nach dem Abschluss des Bachelorprojektes weiter zu entwickeln.
+Für die Webanwendung CloneCademy ist es wichtig, dass sie im Nachhinein noch veränderbar ist. Es muss für weitere Entwicklerteams möglich sein, sowohl neue Inhalte in die Datenbank einzupflegen, als auch den Quellcode der Webseite selbst erweitern und verändern zu können, da die Auftraggeber*innen planen, die Webseite nach dem Abschluss des Bachelorprojektes eigenständig weiterzuentwickeln.
 
 Um diese Veränderbarkeit zu gewährleisten, wird im Projekt auf folgende Punkte geachtet:
 \begin{itemize}
@@ -119,27 +121,27 @@ Es wird ein Verantwortlicher für das Qualitätsziel benannt, der Ansprechpartne
 \textbf{Qualität des Quellcodes}
 Grundlegend werden während der Entwicklung der Software die Styleguides der verwendeten Programmiersprachen und Frameworks umgesetzt. Diese sind der \emph{Angular Style Guide}\footnote{https://angular.io/guide/styleguide} für das Frontend und \emph{PEP 8}\footnote{https://www.python.org/dev/peps/pep-0008/} für das Backend. Um die Einhaltung dieser beiden Richtlinien zu überprüfen, werden bei jedem Push auf dem Development-Branch statische Analyse-Tools verwendet, welche überprüfen, ob alle Richtlinien umgesetzt wurden.
 
-Die verwendeten Tools sind \emph{pep8}\footnote{https://pypi.python.org/pypi/pep8}, welches die Einhaltung der generellen Python Richtlinien überprüft, \emph{django-lint}\footnote{https://pypi.python.org/pypi/django-lint}, welches Framework spezifische Fehler markiert (z.B. Verwendung von veralteten Methoden) und \emph{ng2lint}\footnote{https://www.npmjs.com/package/ng2lint}, welches den Frontend-Code überprüft. Alle durch diese Tools gefundenen Fehler werden bis zum nächsten internen Gruppentreffen von dem für die Nutzerstudie verantwortlichen Entwickler behoben, bevor der Code den Auftraggeber*innen zur Abnahme präsentiert wird.
+Die verwendeten Tools sind \emph{pep8}\footnote{https://pypi.python.org/pypi/pep8}, welches die Einhaltung der generellen Python Richtlinien überprüft, \emph{django-lint}\footnote{https://pypi.python.org/pypi/django-lint}, welches Framework spezifische Fehler markiert (z.B. Verwendung von veralteten Methoden) und \emph{ng2lint}\footnote{https://www.npmjs.com/package/ng2lint}, welches den Frontend-Code überprüft. Alle Fehler, die von diesen Tools gefunden wurden, werden bis zum nächsten internen Gruppentreffen von demjenigen Entwickler behoben, der für die User Story verantwortlich war, bevor der Code den Auftraggeber*innen zur Abnahme präsentiert wird.
 
 \textbf{Kommentare}
 Jede Methode und jede Klasse im Code erhält einen Kommentar. Zusätzlich werden unklare Stellen im Code (z.B. komplexe Steuermechanismen oder Abfragen) mit eigenen Erklärungen versehen. Alle Kommentare werden in Englisch verfasst.
 
-Bei der Code-Review überprüft der Beauftragte anhand der Veränderbarkeits-Checkliste\footnote{siehe Anhang}, ob alle Klassen und Methoden kommentiert sind und ob die Kommentare das Verstehen des Codes unterstützen. Zusätzlich überprüfen alle an der Code-Review beteiligten Entwickler die seit der letzten Review geänderten Stellen im Code auf Verständlichkeit. Ist das nicht der Fall, werden die Kommentare solange bearbeitet und erweitert bis der Verantwortliche zufrieden ist. Den Auftraggeber*innen werden nur vollständig dokumentierte User Stories zur Abnahme präsentiert.
+Bei der Code-Review überprüft der Beauftragte anhand der Veränderbarkeits-Checkliste\footnote{siehe Anhang}, ob alle Klassen und Methoden kommentiert sind und ob die Kommentare das Verstehen des Codes unterstützen. Den Auftraggeber*innen werden nur vollständig dokumentierte User Stories zur Abnahme präsentiert.
 
 \textbf{Wiki}
 Das Projekt verwendet zur klaren Trennung zwischen Back- und Frontend eine sogenannte REST-API. Diese stellt einzelne Schnittstellen dar, über die die Daten des Backends abgerufen und gegebenenfalls verändert oder erweitert werden können. Diese werden deshalb gesondert dokumentiert, da eine korrekte Implementierung und Nutzung essentiell für das Projekt sind. 
 
-Dazu wird ein Wiki regelmäßig aktualisiert, in dem alle Schnittstellen zwischen Backend und Frontend definiert sind. Ist für eine User Story eine neue Schnittstelle nötig, wird diese von allen Entwicklern zusammen entworfen und dann im Wiki dokumentiert.
+Dazu wird ein Wiki geführt, in dem alle Schnittstellen zwischen Backend und Frontend definiert sind. Ist für eine User Story eine neue Schnittstelle nötig, wird diese von allen Entwicklern zusammen entworfen und dann im Wiki dokumentiert.
 
-Die Dokumentation im Wiki ist spätestens vor den Releases vollständig. Dazu überprüft der Beauftragte spätestens zwei Wochen vor Release, ob alle Schnittstellen aufgeführt sind und ob die Dokumentation den vorgegebenen Rahmen\footnote{siehe Anhang} erfüllt. Beim nächsten internen Treffen wird das Wiki auf den aktuellen Stand gebracht und die gesamte Dokumentation noch einmal überprüft. Bevor die Dokumentation nicht vollständig ist, wird die Software nicht zum Release freigegeben.
+Die Dokumentation im Wiki ist spätestens vor jedem Releases vollständig. Dazu überprüft der Beauftragte spätestens zwei Wochen vor Release, ob alle Schnittstellen aufgeführt sind und ob die Dokumentation den vorgegebenen Rahmen\footnote{siehe Anhang} erfüllt. Beim nächsten internen Treffen wird das Wiki auf den aktuellen Stand gebracht und die gesamte Dokumentation noch einmal überprüft. Bevor die Dokumentation nicht vollständig ist, wird die Software nicht zum Release freigegeben.
 
 
 \textbf{Testabdeckung}
 Bei Codeerweiterung muss bereits bestehender Code weiterhin funktionieren. Um dies zu verifizieren, stellt das Team eine umfangreiche Testabdeckung des Codes sicher. Umfangreich heißt in diesem Fall, dass eine vollständige Function Coverage und eine Statement Coverage von mindestens 80\% erreicht wird. Eine Überprüfung der Abdeckung erfolgt im Backend durch das mitgelieferte Testframework des Django-Projekts. Im Frontend werden Tests mit Hilfe des Frameworks Selenium\footnote{http://www.seleniumhq.org/} durchgeführt.
 
-Die Function Coverage wird vor jeder internen Code-Review sichergestellt. Die Tests der API Schnittstellen werden bei deren Definition geschrieben, damit sie den jeweiligen Entwicklern als Hilfestellung dienen können. Da eine umfassende Statement Coverage während des Projektes nicht zu jeder Zeit implementiert werden kann, ist diese zu jedem Release anzufertigen. Damit wird gezeigt, dass der Code stabil ist und die Tests können als Basis für die Implementierung der kommenden User Stories verwendet werden.
+Die Function Coverage wird vor jeder internen Code-Review sichergestellt. Die Tests der API Schnittstellen werden bei deren Definition geschrieben, damit sie den jeweiligen Entwicklern als Vorlage für eine korrekte Implementierung dienen können. Da eine umfassende Statement Coverage während des Projektes nicht zu jeder Zeit implementiert werden kann, ist diese zu jedem Release anzufertigen. Damit wird gezeigt, dass der Code stabil ist und die Tests können als Basis für die Implementierung der kommenden User Stories verwendet werden.
 
-Eine User Story wird erst zur Abnahme präsentiert, wenn mindestens für alle durch diese Story verwendeten und neu implementierten Funktionen Tests vorliegen. Ein Release wird erst freigegeben, wenn eine Code Coverage von mindestens 80\% erreicht ist. Die Überprüfung dieser Regeln erfolgt durch den für die Veränderbarkeit zuständigen Entwickler.
+Eine User Story wird erst zur Abnahme präsentiert, wenn mindestens für alle durch Funktionen, die im Laufe dieser User Story implementiert oder verändert wurden, Tests vorliegen. Ein Release wird erst freigegeben, wenn eine Code Coverage von mindestens 80\% erreicht ist. Die Überprüfung dieser Regeln erfolgt durch den, für das QS-Ziel zuständien, Entwickler.
 
 
 \appendix
@@ -155,26 +157,26 @@ Das Entwicklerteam trifft sich wöchentlich, um den aktuellen Stand des Projekte
 	\item Beschluss, welche User Stories zur Abnahme präsentiert werden
 \end{itemize}
 
-Alle hierbei gefundenen Mängel werden von den jeweiligen, für den Code im Rahmen einer User Story verantwortlichen, Entwickler behoben. Eine User Story wird erst präsentiert, wenn der Code keine Mängel mehr aufweißt.
+Alle hierbei gefundenen Mängel werden von den jeweiligen, für den Code im Rahmen einer User Story verantwortlichen, Entwickler behoben. Eine User Story wird erst präsentiert, wenn der Code keine Mängel mehr aufweist.
 
 \subsection{Kalender}
 \begin{itemize}
 	\item Anfang August: geplanter erster Release auf dem Server des iGEM-Teams
-	\begin{itemize}
-		\item zwei Wochen vorher:
-		\item Deadline der Nutzungsstudie
-		\item Security Test mit dem \emph{ZED Attack Tool}
-		\item Prüfung der Wiki auf Vollständigkeit
-	\end{itemize}
 	\item Anfang September: geplanter zweiter Release auf dem Server des iGEM-Teams
 	\item Ende September: entgültiger Release der finalen Software auf dem Server des iGEM-Teams
 \end{itemize}
+Zwei Wochen vor jedem Release:
+\begin{itemize}
+	\item Deadline der Nutzerstudie
+	\item Security Test mit dem \emph{ZED Attack Tool}
+	\item Prüfung der Wiki auf Vollständigkeit
+\end{itemize}
 
-Alle hierbei gefundenen Mängel werden bis zum jeweiligen Release behoben. Zur Behebung wird ein dedizierter Entwickler benannt, wenn es sich nicht mehr nachvollziehen lässt, in wessen Verantwortlichkeit der Code oder die Dokumentation im Rahmen einer User Story fiel. Ansonsten ist derjenige verantwortlich, der die mangelhafte User Story implementiert hat.
+Alle hierbei gefundenen Mängel werden bis zum jeweiligen Release behoben. Zur Behebung wird ein dedizierter Entwickler benannt.
 
 \section{Checklisten}
 
-Im Folgenden sind die verwendeten Checklisten aufgeführt. Für die Ziele \emph{Datensicherheit} und \emph{Erweiterbarkeit} wurde einen Checkliste für die interne Code-Review ausgearbeitet. Für die Bedienbarkeit erfolgt nur eine Überprüfung, ob nur vereinbarte Designelemente verwendet wurden, der Maßnahmenkatalog ergeben sich aus den Rückmeldungen aus den Nutzungsstudien.
+Im Folgenden sind die verwendeten Checklisten aufgeführt. Für die Ziele \emph{Datensicherheit} und \emph{Veränderbarkeit} wurde jeweils einen Checkliste für die interne Code-Review ausgearbeitet. Außerdem gibt es eine Checkliste, anhand der die Kriterien eines sauberen Designs überprüft werden.
 
 \subsection{Checkliste Datensicherheit}
 Bei der Codereview sollte folgendes Bedrohungsmodell vor Augen gehalten werden:
@@ -182,9 +184,9 @@ Bei der Codereview sollte folgendes Bedrohungsmodell vor Augen gehalten werden:
 \begin{itemize}
     \item Angreifende: Befürchtet werden vor allem Nutzende, die bei der Beantwortung der Fragen unerlaubte Methoden benutzen möchten, sowie Dritte, die gespeicherte Nutzerdaten missbrauchen wollen.
     \item Angriffsoberfläche: Als Oberfläche sollte vor allem die übersichtliche API betrachtet werden.
-    \item Mögliche Angriffe: Da das System im Gegensatz zu z.B. Finanztechnologie als nicht besonders Angriffswert angeschätzt wird, werden die gebrächlichsten Angriffsformen wie zum Beispiel XSS, CSRF, Code und SQL Injection erwartet.
+    \item Mögliche Angriffe: Da das System im Gegensatz zu z.B. Finanztechnologie als nicht besonders risikobehaftet eingeschätzt wird, werden die gebräuchlichsten Angriffsformen wie zum Beispiel XSS, CSRF, Code und SQL Injection erwartet.
     \item Als Sicherheitsmaßnahmen wird die korrekte Implementierung von Django, REST und Angular2 verwendet.
-    \item Potentielle technische Auswirkungen: Falsche/Korrupte Daten in der Datebank, v.a. in Trys
+    \item Potentielle technische Auswirkungen: Falsche/Korrupte Daten in der Datenbank, v.a. in Trys
 \end{itemize}
 \end{multicols}
 
@@ -198,7 +200,7 @@ Fragen zu jedem Codeabschnitt:
     \begin{itemize}
     	\item Wenn deaktiviert: Liegt eine stichhaltige Begründung vor?
     \end{itemize}
-    \item Ist jede Schnittstelle mit passender Authentifizierung und Authorisierung versehen, sowie gegebenenfalls auch mit einer Anfragenbegrenzung (Throttling)?
+    \item Ist jede Schnittstelle mit passender Authentifizierung und Autorisierung versehen, sowie gegebenenfalls auch mit einer Anfragenbegrenzung (Throttling)?
     \item Werden alle Nutzereingaben nach Fehlern gefiltert?
     \item Sind alle Security Probleme, die bei der softwarebasierten Analyse aufgetreten sind, behoben, oder aus dem Kontext heraus als unkritisch betrachtet worden?
 \end{itemize}
@@ -208,7 +210,7 @@ Fragen zu jedem Codeabschnitt:
 \begin{multicols}{2}
 	\renewcommand{\labelitemi}{\scriptsize$\square$}	\renewcommand{\labelitemii}{\scriptsize$\square$}
 	\renewcommand{\labelitemiii}{\scriptsize$\square$}
-	\subsection{Code Qualität}
+	\subsubsection{Code Qualität}
 	\begin{itemize}
 
 		\item Gibt es Meldungen der Tools?
@@ -234,16 +236,29 @@ Fragen zu jedem Codeabschnitt:
 			\item Sind alle POST Methoden richtig formatiert?
 		\end{itemize}
 	\end{itemize}
-	\subsection{Kommentare}
+	\subsubsection{Kommentare}
 	\begin{itemize}
 		\item Sind alle Klassen kommentiert?
+		\begin{itemize}
+			\item[] Dies umfasst:
+			\item Beschreibung der Verwendung
+			\item Autor
+			\item Datum
+		\end{itemize}
 		\item Sind alle Methoden kommentiert?
+		\begin{itemize}
+			\item[] Dies umfasst:
+			\item Beschreibung der Funktion und Verwendung
+			\item Autor
+			\item Eingabeparameter
+			\item Rückgabewert
+		\end{itemize}
 		\item Gibt es weitere schwer verständliche Stellen, die kommentiert werden sollten? (Anmerkungen der anderen Entwickler beachten)
 		\item Sind die Kommentare verständlich für alle Entwickler?
 		\item Ist die Dokumentation im Wiki vollständig?
 	\end{itemize}
 
-	\subsection{Tests}
+	\subsubsection{Tests}
 	\begin{itemize}
 		\item Sind Tests aller Methoden vorhanden?
 		\item Wie hoch ist die Statement Coverage?
@@ -271,16 +286,16 @@ Für jede Schnittstelle muss das Wiki folgendes enthalten:
 	\item Name der Schnittstelle
 	\item Beschreibung der Funktionsweise
 	\item erlaubte Methoden (POST/GET)
-	\item erwartete Header Felder
+	\item erwartete Header-Felder
 	\item erwartete Parameter aus der URL
-	\item gültige Formatierung des JSON Objekts (bei POST-Methoden)
-	\item gültige Formatierung des JSON Objekts in der Antwort
+	\item gültige Formatierung des JSON-Objekts (bei POST-Methoden)
+	\item gültige Formatierung des JSON-Objekts in der Antwort
 	\item Übersicht über alle möglichen Antwortcodes 
 \end{itemize}
 \end{multicols}
 \pagebreak
-\section{1. Nutzungsstudien}
-Bislang wurde nur die erste Nutzungsstudie ausgearbeitet. Weitere folgen bei der endgültigen Abgabe des Anhangs.
+\section{1. Nutzerstudien}
+Bislang wurde nur die erste Nutzerstudie ausgearbeitet. Weitere folgen bei der endgültigen Abgabe des Anhangs.
 
 Die Aufgaben, die die Proband*innen erfüllen sollten waren:
 \begin{itemize}
