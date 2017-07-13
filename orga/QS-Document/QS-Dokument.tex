@@ -55,11 +55,11 @@ Dieser wird seit 2003 von der iGEM-Foundation veranstaltet.
 
 Im Rahmen des Wettbewerbs wird eine Online-Lernplattform für das iGEM-Team der TU Darmstadt erstellt. Das Ziel dieser Plattform ist es, durch interaktive Unterrichtseinheiten Prinzipien der Molekularbiologie sowie der synthetischen Biologie zu erlernen und sowohl eigene Lernfortschritte, als auch die anderer Teams begutachten zu können. Darüber hinaus soll es auch anderen Interessierten (z.B. andere iGEM-Teams, Lehrende an Universitäten und Schulen, etc.) möglich sein, eigene Inhalte einzupflegen und zur Verfügung zu stellen.
 
-Als Kernfunktionalität bietet die Plattform Nutzer*innen die Möglichkeit, sich zu registrieren und einen Account anzulegen. Registrierte Nutzer*innen können bereitgestellte Aufgaben zu bearbeiten und Feedback zu ihren Antworten erhalten. Zusätzlich können Nutzer*innen mit Moderationsrechten neue Aufgaben in das System einpflegen und bereits bestehende überarbeiten. Die bereitgestellten Aufgabentypen sind Multiple-Choice-, Drag-And-Drop- und Lückentextaufgaben. Außerdem wird im Rahmen des vereinbarten Ziels der \emph{Veränderbarkeit} die Möglichkeit geschaffen, nach Ende des Projektes auch noch weiter Aufgabentypen in die Plattform einzubauen.
+Als Kernfunktionalität bietet die Plattform Nutzer*innen die Möglichkeit, sich zu registrieren und einen Account anzulegen. Registrierte Nutzer*innen können bereitgestellte Aufgaben bearbeiten und Feedback zu ihren Antworten erhalten. Zusätzlich können Nutzer*innen mit Moderationsrechten neue Aufgaben in das System einpflegen und bereits bestehende überarbeiten. Die bereitgestellten Aufgabentypen sind Multiple-Choice-, Drag-And-Drop- und Lückentextaufgaben. Außerdem wird im Rahmen des vereinbarten Ziels der \emph{Veränderbarkeit} die Möglichkeit geschaffen, nach Ende des Projektes auch noch weiter Aufgabentypen in die Plattform einzubauen.
 
 Um einen Überblick über ihren bisherigen Lernerfolg zu bekommen, haben Nutzer*innen die Möglichkeit, Statistiken zu ihrer Nutzung der Plattform einzusehen. Den Auftraggeber*innen geben diese Statistiken auch Einblick in die Nutzung und die Qualität ihrer Inhalte, so dass diese weiter verbessert werden können.
 
-Das Ziel des Projektes ist eine voll funktionsfähige Webanwendung für Desktop- und Laptoprechner und die aktuellen Versionen der Browser \emph{Firefox} und \emph{Chrome} bereitzustellen. Eine eventuelle Erweiterung der Plattform, um zum Beispiel auch mobile Endgeräte zu unterstützen, wird durch die Implementierung einer REST-Schnittstelle ermöglicht.
+Das Ziel des Projektes ist eine voll funktionsfähige Webanwendung für die aktuellen Versionen der Browser \emph{Firefox} und \emph{Chrome} auf Desktop- und Laptoprechner bereitzustellen. Eine eventuelle Erweiterung der Plattform, um zum Beispiel auch mobile Endgeräte zu unterstützen, wird durch die Implementierung einer REST-Schnittstelle ermöglicht.
 
 
 \chapter{Qualitätsziele}
@@ -98,7 +98,7 @@ Um das oben formulierte Ziel zu erreichen, verwenden wir als Grundlage für das 
 
 Da die Bedienbarkeit der Oberfläche nicht objektiv gemessen werden kann, werden zusätzlich zu den Designrichtlinien Nutzerstudien durchgeführt. In den Studien setzen sich die Proband*innen ohne vorherige Erklärung mit der Plattform auseinander und werden darum gebeten, verschiedene Aufgaben zu erfüllen\footnote{Ablauf siehe Anhang}. Während der Studie wird das Verhalten der Nutzer*innen mit Hilfe eines Screen-Capture-Programms erfasst, um später zu überprüfen, ob die Aufgaben zielgerichtet gelöst werden konnten. Zusätzlich wird die persönliche Meinung der Proband*innen nach der Studie mit einem Fragebogen\footnote{siehe Anhang} erfasst und ausgewertet.
 
-Um abschließend ein, von einer Vielzahl unterschiedlicher Nutzer*innen gut bedienbares, Produkt zu haben, werden die Nutzerstudien in mehreren Iterationen und mit unterschiedlichen Gruppen durchgeführt, um Verbesserungsvorschläge aus den vorherigen Studien direkt wieder zu testen. 
+Um abschließend ein, von einer Vielzahl unterschiedlicher Nutzer*innen gut bedienbares, Produkt zu haben, werden die Nutzerstudien in mehreren Iterationen und mit unterschiedlichen Gruppen durchgeführt, um Verbesserungsvorschläge aus den vorherigen Studien direkt wieder zu testen.
 
 Nach jeder Nutzerstudie wird ein Maßnahmenkatalog mit den Problemen und Verbesserungsvorschlägen der Probanden erstellt, welche ein dafür benannter Entwickler bis zum nächsten Treffen mit den Auftraggeber*innen umsetzt. Diese können dann die Designänderungen überprüfen und erst durch die Abnahme der Designänderungen ist die Iteration der Studie abgeschlossen.
 
@@ -129,7 +129,7 @@ Jede Methode und jede Klasse im Code erhält einen Kommentar. Zusätzlich werden
 Bei der Code-Review überprüft der Beauftragte anhand der Veränderbarkeits-Checkliste\footnote{siehe Anhang}, ob alle Klassen und Methoden kommentiert sind und ob die Kommentare das Verstehen des Codes unterstützen. Den Auftraggeber*innen werden nur vollständig dokumentierte User Stories zur Abnahme präsentiert.
 
 \textbf{Wiki}
-Das Projekt verwendet zur klaren Trennung zwischen Back- und Frontend eine sogenannte REST-API. Diese stellt einzelne Schnittstellen dar, über die die Daten des Backends abgerufen und gegebenenfalls verändert oder erweitert werden können. Diese werden deshalb gesondert dokumentiert, da eine korrekte Implementierung und Nutzung essentiell für das Projekt sind. 
+Das Projekt verwendet zur klaren Trennung zwischen Back- und Frontend eine sogenannte REST-API. Diese stellt einzelne Schnittstellen dar, über die die Daten des Backends abgerufen und gegebenenfalls verändert oder erweitert werden können. Diese werden deshalb gesondert dokumentiert, da eine korrekte Implementierung und Nutzung essentiell für das Projekt sind.
 
 Dazu wird ein Wiki geführt, in dem alle Schnittstellen zwischen Backend und Frontend definiert sind. Ist für eine User Story eine neue Schnittstelle nötig, wird diese von allen Entwicklern zusammen entworfen und dann im Wiki dokumentiert.
 
@@ -290,7 +290,7 @@ Für jede Schnittstelle muss das Wiki folgendes enthalten:
 	\item erwartete Parameter aus der URL
 	\item gültige Formatierung des JSON-Objekts (bei POST-Methoden)
 	\item gültige Formatierung des JSON-Objekts in der Antwort
-	\item Übersicht über alle möglichen Antwortcodes 
+	\item Übersicht über alle möglichen Antwortcodes
 \end{itemize}
 \end{multicols}
 \pagebreak
