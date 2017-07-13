@@ -2,7 +2,7 @@
   <h3>{{"admin" | translate}}</h3>
   <ul>
     <li *ngFor="let m of menu">
-      <button md-button [routerLink]="'/admin/' + m.url">{{m.name}}</button>
+      <button md-button [routerLinkActive]="['active']" [routerLink]="'/admin/' + m.url">{{m.name}}</button>
     </li>
   </ul>
 </div>

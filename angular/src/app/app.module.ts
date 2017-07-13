@@ -11,9 +11,8 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { ChartsModule } from 'ng2-charts';
 
 // Material Style
-import {MdButtonModule, MdAutocompleteModule, MdCheckboxModule, MdTooltipModule, MdCardModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule, MdProgressSpinnerModule} from '@angular/material';
+import {MdDialog, MdDialogModule, MdButtonModule, MdAutocompleteModule, MdCheckboxModule, MdTooltipModule, MdCardModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule, MdProgressSpinnerModule} from '@angular/material';
 
-import {MdDialog, MdDialogModule} from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -105,11 +104,7 @@ const appRoutes: Routes = [
     path: "profile",
     component: ProfilePageComponent,
     children: [
-      {
-        path: "",
-        redirectTo: "details",
-        pathMatch: "full"
-      },
+
       {
         path: "details",
         component: UserDetailComponent,
@@ -190,6 +185,7 @@ export function createTranslateLoader(http: Http) {
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
+    FormsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -199,7 +195,6 @@ export function createTranslateLoader(http: Http) {
     }),
     ReactiveFormsModule,
     BrowserModule,
-    FormsModule,
     HttpModule,
     MdButtonModule,
     MdCheckboxModule,

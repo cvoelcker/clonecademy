@@ -4,24 +4,24 @@
 
   <h2>{{"register" | translate}}</h2>
 
-  <form #f="ngForm" name="register" (ngSubmit)="register(f)">
+  <form #f name="register" (ngSubmit)="register(f)">
 
         <md-input-container>
-          <input mdInput type="email" placeholder='{{"email" | translate}}' #email="ngModel" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" name="email" [(ngModel)]="newEmail" required />
+          <input mdInput type="email" placeholder='{{"email" | translate}}' #email pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" name="email" [(ngModel)]="newEmail" required />
           <md-hint align="start"  *ngIf="!email.valid && f.submitted" class="warning">
             <strong>{{"invalid email" | translate}}</strong>
           </md-hint>
         </md-input-container>
 
         <md-input-container>
-          <input mdInput placeholder='{{"username" | translate}}' mdTooltip='{{"username requirements" | translate}}' type="text" #username="ngModel" pattern="[a-zA-Z0-9-.]+" minlength="5" name="username" [(ngModel)]="newUsername" required />
+          <input mdInput placeholder='{{"username" | translate}}' mdTooltip='{{"username requirements" | translate}}' type="text" #username pattern="[a-zA-Z0-9-.]+" minlength="5" name="username" [(ngModel)]="newUsername" required />
           <md-hint align="start" *ngIf="!username.valid && f.submitted" class="warning">
             <strong>{{"invalid username" | translate}}</strong>
           </md-hint>
         </md-input-container>
 
       <md-input-container>
-        <input mdInput placeholder='{{"password" | translate}}' mdTooltip='{{"password requirements" | translate}}' type="password" #password="ngModel" minlength="5" name="password" [(ngModel)]="newPassword" required />
+        <input mdInput placeholder='{{"password" | translate}}' mdTooltip='{{"password requirements" | translate}}' type="password" #password minlength="5" name="password" [(ngModel)]="newPassword" required />
         <md-hint align="start" class="warning" *ngIf="!password.valid && f.submitted">
           <strong>{{"invalid password" | translate}}</strong>
         </md-hint>
@@ -29,7 +29,7 @@
       </md-input-container>
 
       <md-input-container>
-        <input mdInput placeholder='{{"password again" | translate}}' type="password" #password2="ngModel" minlength="5" name="password2" [(ngModel)]="newPassword2" required />
+        <input mdInput placeholder='{{"password again" | translate}}' type="password" #password2 minlength="5" name="password2" [(ngModel)]="newPassword2" required />
         <md-hint align="start" class="warning" *ngIf="(password2.value != password.value) && f.submitted">
           <strong>{{"password missmatch" | translate}}</strong>
         </md-hint>

@@ -54,14 +54,15 @@ a:hover, a:focus, a:active{
 *[md-raised-button]{
   background-color: mat-color($primary);
   &:hover{
-    background-color: mat-color($primary, 300)
+    background-color: mat-color($primary, 300);
   }
+    //color: mat-color($shadow) !important
 }
 
 button{
   color: white !important;
-  &.mat-raised-button{
-
+  &.active{
+    background-color: mat-color($primary, 200);
   }
 }
 
@@ -78,7 +79,7 @@ button{
     background-color: mat-color($accent, 300)
   }
 
-  &.is-active{
+  &.active{
     border-bottom: 4px solid mat-color($primary)
   }
     opacity: 1 !important;
@@ -180,6 +181,7 @@ md-progress-spinner{
    bottom: 0;
    box-shadow: 0 0px 2px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
    width: 66.6666666666666%;
+   padding: 1.26em;
   }
 }
 

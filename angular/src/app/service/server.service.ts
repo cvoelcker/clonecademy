@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Headers } from '@angular/http';
+import { HttpModule } from '@angular/http';
 
 import {CookieService} from 'angular2-cookie/core';
 import {MdDialog, MdDialogRef} from '@angular/material';
@@ -8,9 +9,6 @@ import {Observable} from 'rxjs/Rx';
 import { ErrorDialog } from '../service/error.service'
 
 import { LoaderComponent } from '../loader/loader.component';
-
-
-
 
 import 'rxjs/add/operator/toPromise';
 

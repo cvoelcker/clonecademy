@@ -1,4 +1,3 @@
-@import "../../../theme";
 
 .startCourse{
   float: right;
@@ -39,10 +38,6 @@
 
 body{
   counter-reset: item;
-}
-
-.alert{
-  border-color: mat-color($shadow);
 }
 
 ol{
