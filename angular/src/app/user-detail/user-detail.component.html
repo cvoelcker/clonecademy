@@ -1,4 +1,13 @@
+<div class="form-group">
+  <button [disabled]="loading" (click)="grantCurrentUserModStatus()" md-raised-button class=" ">Promote current user</button>
+</div>
+
+
 <h2>UserDetail!</h2>
+
+<!--
+This file set is actually for promoting users and rendering info of the chosen user
+-->
 
   <form name="grantModStatus">
     <div class="form-group" [ngClass]="{ 'has-error': submitted }">
@@ -8,7 +17,7 @@
     </div>
 
     <div class="form-group">
-      <button [disabled]="loading" (click)="grantModStatus()" md-raised-button class=" ">Promote!</button>
+      <button [disabled]="loading" (click)="grantEnteredUserModStatus()" md-raised-button class=" ">Promote user in text field</button>
     </div>
   </form>
 

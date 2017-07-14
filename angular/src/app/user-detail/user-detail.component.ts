@@ -19,12 +19,19 @@ export class UserDetailComponent {
   change(id: number){
     this.server.get("user/"+ id + "/").then(data => {
       this.user = data
-      this.user['dateRegistered'] = new Date(data['date_joined'])
+      this.user.id = id
+      /* this.user['dateRegistered'] = new Date(data['date_joined']) */
       console.log(this.user)
     }).catch(err => console.log(err))
   }
 
-  grantModStatus(){
+  grantCurrentUserModStatus(){
+    console.log(this.user["id"]);
+    this.server.post("user/"+ this.user["id"] + "/grantModStatus/", {})
+      .then(answer => {console.log(answer)})
+  }
+
+  grantEnteredUserModStatus(){
     let usernameJSON = {username: this.usernameToPromote,};
     this.server.post("user/grant_mod/", usernameJSON)
       .then(answer => {console.log(answer)})
