@@ -107,6 +107,9 @@ def getCurrentUser(request):
 def grantModStatus(request, userID):
     '''
     '''
+    # delete when permission_classes work again
+    if not is_admin(request.user):
+        return Response("only admins are allowed to grant moderator rights", status=status.HTTP_403_FORBIDDEN)
     to_be_promoted = User.objects.get(id=userID)
     if is_mod(to_be_promoted):
     #    return Response("the user \" "+ to_be_promoted.username +"\" is already a moderator", status=status.HTTP_200_OK)
