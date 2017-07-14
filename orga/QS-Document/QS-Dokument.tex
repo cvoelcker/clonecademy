@@ -176,6 +176,21 @@ Alle hierbei gefundenen Mängel werden bis zum jeweiligen Release behoben. Zur B
 
 Im Folgenden sind die verwendeten Checklisten aufgeführt. Für die Ziele \emph{Datensicherheit} und \emph{Veränderbarkeit} wurde jeweils einen Checkliste für die interne Code-Review ausgearbeitet. Außerdem gibt es eine Checkliste, anhand der die Kriterien eines sauberen Designs überprüft werden.
 
+\subsection{Checkliste Bedienbarkeit}
+Nach jeder Userstory muss für die Elemente folgende Checkliste beachtet werden:
+\begin{multicols}{2}
+	\begin{itemize}
+		\renewcommand{\labelitemi}{\scriptsize$\square$}
+		\item Wurden nur Elemente des Material Designs verwendet?
+		\item Sind Schaltflächen optisch abgehoben und im gleichen Format wie andere der selben Art?
+		\item Sind Buttons durch ihre Position direkt ersichtlich?
+		\item Ist wichtiger Text von Nebeninformationen abgetrennt und markant sichtbar?
+		\item Sind die Schaltflächen richtig beschriftet und ist durch die Beschriftung erkennbar, was sie machen?
+		\item Sind neue Elemente optisch gut unterscheidbar von vorhandenen Elementen?
+		\item Ist alles in der Mindestauflösung (600x800) erkennbar?
+	\end{itemize}
+\end{multicols}
+
 \subsection{Checkliste Datensicherheit}
 Bei der Codereview sollte folgendes Bedrohungsmodell vor Augen gehalten werden:
 \begin{multicols}{2}
@@ -187,18 +202,6 @@ Bei der Codereview sollte folgendes Bedrohungsmodell vor Augen gehalten werden:
     \item Potentielle technische Auswirkungen: Falsche/Korrupte Daten in der Datenbank, v.a. in Trys
 \end{itemize}
 \end{multicols}
-
-\subsection{Checkliste Bedienbarkeit}
-Nach jeder Userstory muss für die Elemente folgende Checkliste beachtet werden:
-\begin{itemize}
-	\item Wurden die Standarts des Designs eingehalten?
-	\item Sind Schaltflächen optisch abgehoben und im gleichen Format wie andere der selben Art?
-	\item Sind Buttons durch ihre Position direkt ersichtlich?
-	\item Ist wichtiger Text von Nebeninformationen abgetrennt und markant sichtbar?
-	\item Sind die Schaltflächen richtig beschriftet und ist durch die Beschriftung erkennbar, was sie machen?
-	\item Sind neue Elemente optisch gut unterscheidbar von vorhandenen Elementen?
-	\item Ist alles in der Mindestauflösung erkennbar?
-/end{itemize}
 
 Fragen zu jedem Codeabschnitt:
 \begin{multicols}{2}
@@ -215,7 +218,8 @@ Fragen zu jedem Codeabschnitt:
     \item Sind alle Security Probleme, die bei der softwarebasierten Analyse aufgetreten sind, behoben, oder aus dem Kontext heraus als unkritisch betrachtet worden?
 \end{itemize}
 \end{multicols}
-\pagebreak
+
+
 \subsection{Checkliste Veränderbarkeit}
 \paragraph{Code Qualität}
 \begin{multicols}{2}
@@ -307,7 +311,7 @@ Für jede Schnittstelle muss das Wiki folgendes enthalten:
 \end{itemize}
 \end{multicols}
 \pagebreak
-\section{1. Nutzerstudien}
+\section{1. Nutzerstudie}
 Bislang wurde nur die erste Nutzerstudie ausgearbeitet. Weitere folgen bei der endgültigen Abgabe des Anhangs.
 
 Die Aufgaben, die die Proband*innen erfüllen sollten waren:
