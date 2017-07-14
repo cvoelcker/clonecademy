@@ -23,7 +23,7 @@ This file set is actually for promoting users and rendering info of the chosen u
 
 
 <ul *ngIf="user != undefined">
-  <li>Username: {{user.username}}</li>
+  <li>Username: {{user["username"]}}</li>
   <li *ngIf="user.email">Email: {{user.email}}</li>
   <li *ngIf="user.group">group: {{user.group.name}}</li>
   <li>Date registered: {{user.dateRegistered | date:'d. MMMM y'}}

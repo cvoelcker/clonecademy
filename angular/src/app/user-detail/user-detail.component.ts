@@ -18,7 +18,10 @@ export class UserDetailComponent {
 
   change(id: number){
     this.server.get("user/"+ id + "/").then(data => {
+      console.log(data)
       this.user = data
+      this.user["username"] = data["user"].username
+      this.user["email"] = data["user"].email
       this.user.id = id
       /* this.user['dateRegistered'] = new Date(data['date_joined']) */
       console.log(this.user)
