@@ -8,6 +8,8 @@ from django.core.mail import mail_admins, send_mail
 from .serializers import *
 from .models import Try, Profile, is_mod, is_admin
 
+from django.contrib.auth.models import User
+
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -36,10 +38,11 @@ def getAllUsers(request):
 
 @api_view(['GET'])
 def getUserDetails(request, userID):
-    profiles = Profile.objects.filter(id=userID).first()
-    serializer = ProfileSerializer(profiles).data
+    searched_user = User.objects.get(id = userID)
+    profile = Profile.objects.get(user = searched_user)
+    serializer = ProfileSerializer(profile)
     #serializer = map(lambda x: x['user'], serializer)
-    return Response(serializer['user'])
+    return Response(serializer.data)
 
 @api_view(['GET'])
 def getUserInfo(request):
