@@ -12,6 +12,8 @@ export class UserDetailComponent {
 
   user: {username: string, id: number, email: string, group: {}, dateRegistered: Date, dateString: string}
 
+  usernameToPromote: string;
+
   constructor(private server: ServerService) { }
 
   change(id: number){
@@ -21,4 +23,11 @@ export class UserDetailComponent {
       console.log(this.user)
     }).catch(err => console.log(err))
   }
+
+  grantModStatus(){
+    let usernameJSON = {username: this.usernameToPromote,};
+    this.server.post("user/grant_mod/", usernameJSON)
+      .then(answer => {console.log(answer)})
+  }
+
 }

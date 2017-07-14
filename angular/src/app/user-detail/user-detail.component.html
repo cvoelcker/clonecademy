@@ -1,4 +1,18 @@
 <h2>UserDetail!</h2>
+
+  <form name="grantModStatus">
+    <div class="form-group" [ngClass]="{ 'has-error': submitted }">
+      <label for="usernameToPromote">Username of the user you want to promote</label>
+      <input type="text" class="form-control" name="usernameToPromote" [(ngModel)]="usernameToPromote" required />
+      <div *ngIf="submitted " class="help-block">Username is required</div>
+    </div>
+
+    <div class="form-group">
+      <button [disabled]="loading" (click)="grantModStatus()" md-raised-button class=" ">Promote!</button>
+    </div>
+  </form>
+
+
 <ul *ngIf="user != undefined">
   <li>Username: {{user.username}}</li>
   <li *ngIf="user.email">Email: {{user.email}}</li>

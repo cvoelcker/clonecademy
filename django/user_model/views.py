@@ -106,17 +106,20 @@ def getCurrentUser(request):
 #@permission_classes((IsAdminUser, )) for some reason the compiler couldn't find the permission class
 def grantModStatus(request, userID):
     '''
-
-    :param request:
-    :param userID:
-    :return:
     '''
     to_be_promoted = User.objects.get(id=userID)
     if is_mod(to_be_promoted):
+    #    return Response("the user \" "+ to_be_promoted.username +"\" is already a moderator", status=status.HTTP_200_OK)
         return Response("the user \" "+ to_be_promoted.username +"\" is already a moderator", status=status.HTTP_304_NOT_MODIFIED)
     mod_group = Group.objects.get(name='moderator')
     to_be_promoted.groups.add(mod_group)
     if is_mod(to_be_promoted):
         return Response("successfully promoted " + to_be_promoted.username, status=status.HTTP_200_OK)
-    return Response("something went terribly wrong with promoting" + to_be_promoted.username, status=status.HTTP_500_INTERNAL_SERVER_ERROR
-)
+    return Response("something went terribly wrong with promoting" + to_be_promoted.username, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(['POST'])
+def grantModStatusByName(request):
+    '''
+    '''
+    to_be_promoted = User.objects.get(username=request.data["username"])
+    return grantModStatus(request, to_be_promoted.id)
