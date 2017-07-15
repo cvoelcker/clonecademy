@@ -6,11 +6,11 @@ class MultipleChoiceQuestion(Question):
     """
     A simple multiple choice question
     """
-    def numCorrectAnswers(self):
+    def num_correct_answers(self):
         return len(MultipleChoiceAnswer.objects.filter(is_correct=True))
 
-    def notSolvable(self):
-        return self.numCorrectAnswers() == 0
+    def not_solvable(self):
+        return self.num_correct_answers() == 0
 
     def evaluate(self, data):
         answers = map(lambda x: x.id, MultipleChoiceAnswer.objects.filter(question=self, is_correct=True))

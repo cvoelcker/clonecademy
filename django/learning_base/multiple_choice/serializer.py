@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.exceptions import ParseError
 from .models import *
 
 class MultipleChoiceAnswersSerializer(serializers.ModelSerializer):
@@ -6,18 +7,39 @@ class MultipleChoiceAnswersSerializer(serializers.ModelSerializer):
         model = MultipleChoiceAnswer
         fields = ('text', 'id')
 
+    def create(self, validated_data):
+        answer = MultipleChoiceAnswer(**validated_data)
+        answer.question = validated_data['question']
+        answer.save()
 
-# It would be great to have a solution to not copy the serializer for preview
+
 class MultipleChoiceQuestionPreviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = MultipleChoiceQuestion
         fields = ('body', "id", )
 
 
-# TODO: Represent inheritance over models in the serializer
 class MultipleChoiceQuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = MultipleChoiceQuestion
         fields = ('body', 'answers', "id", )
 
     answers = MultipleChoiceAnswersSerializer(many = True, read_only=True)
+
+    def create(self, validated_data):
+        answers = validated_data.pop('answers')
+        question = MultipleChoiceQuestion(**validated_data)
+        question.module = validated_data['module']
+        question.save()
+        for answer in answers:
+            answer['question'] = question
+            answer_serializer = MultipleChoiceAnswersSerializer(data=answer)
+            if not answer_serializer.is_valid():
+                raise ParseError(detail="Error in answer serialization", code=None)
+            else:
+                answer_serializer.create(answer)
+        if question.not_solvable():
+            question.delete()
+            raise ParseError(detail="Unsolvable question {}".format(question.title), code=None)
+        else:
+            return True

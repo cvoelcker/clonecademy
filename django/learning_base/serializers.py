@@ -38,14 +38,12 @@ class QuestionSerializer(serializers.ModelSerializer):
             value['question_body'] = DragAndDropQuestionSerializer(obj).data
         return value
 
-    def create(validated_data):
-        question_type = validated_data.pop['type']
-        module_id = validated_data.pop['module_id']
-        module = Module.objects.filter(id=module_id)
+    def create(self, validated_data):
+        question_type = validated_data.pop('type')
 
         if question_type == 'multiple_choice':
-            pass
-        if question_type == 'drag_and_drop':
+            MultipleChoiceQuestionSerializer().create(validated_data)
+        elif question_type == 'drag_and_drop':
             pass
         else:
             raise ParseError(detail='{} is not a valid question type'.format(question_type))
@@ -60,20 +58,13 @@ class CourseCategorySerializer(serializers.ModelSerializer):
 class ModuleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Module
-        fields = ('name', 'learning_text')
-
-    def create(self, validated_data):
-        print("still_alive")
-        print(validated_data)
+        fields = ('name', 'learning_text', 'id')
 
     def to_representation(self, obj):
         """
         This function makes the serialization and is needed for the custom order of the question
         """
-        value = dict()
-        value['name'] = obj.name
-        value["id"] = obj.id
-        value['learning_text'] = obj.learning_text
+        value = super(ModuleSerializer, self).to_representation(obj)
 
         questions = Question.objects.filter(module=obj)
         questions = QuestionSerializer(questions, many=True, read_only=True).data
@@ -86,20 +77,19 @@ class ModuleSerializer(serializers.ModelSerializer):
         This method is used to save modules and their respective questions
         '''
         questions = validated_data.pop('questions')
-        course_id = validated_data.pop('course_id')
-        course = Course.objects.filter(id=course_id)
         module = Module(**validated_data)
-        module.course = course
+        module.course = validated_data['course']
         module.save()
-        question_serializer = QuestionSerializer(data=modules)
-        if not question_serializer.is_valid():
-            raise ParseError(detail="Error in question serialization", code=None)
-        else:
-            question_serializer.save()
+        for question in questions:
+            question['module'] = module
+            question_serializer = QuestionSerializer(data=question)
+            if not question_serializer.is_valid():
+                raise ParseError(detail="Error in question serialization", code=None)
+            else:
+                question_serializer.create(question)
 
 
 class CourseSerializer(serializers.ModelSerializer):
-    module = ModuleSerializer()
     class Meta:
         model = Course
         fields = ('name', 'difficulty', 'id')
@@ -108,10 +98,7 @@ class CourseSerializer(serializers.ModelSerializer):
         """
         This function serializes the courses.
         """
-        value = {}
-        value['name'] = obj.name
-        value['difficulty'] = obj.difficulty
-        value["id"] = obj.id
+        value = super(CourseSerializer, self).to_representation(obj)
 
         all_modules = Module.objects.filter(course=obj)
         modules = ModuleSerializer(all_modules, many=True, read_only=True).data
@@ -124,14 +111,23 @@ class CourseSerializer(serializers.ModelSerializer):
         This method is used to save courses together with all modules and questions
         '''
         modules = validated_data.pop('modules')
+        category = validated_data.pop('category')
+        category = CourseCategory.objects.get(name=category)
+        validated_data['category'] = category
         course = Course(**validated_data)
         course.save()
-        modules['course_id'] = course.id
-        module_serializer = ModuleSerializer(data=modules)
-        if not module_serializer.is_valid():
-            raise ParseError(detail="Error in module serialization", code=None)
-        else:
-            module_serializer.save()
+        try:
+            for module in modules:
+                module_serializer = ModuleSerializer(data=module)
+                if not module_serializer.is_valid():
+                    raise ParseError(detail="Error in module serialization", code=None)
+                else:
+                    module['course'] = course
+                    module_serializer.create(module)
+            return True
+        except Exception as e:
+            course.delete()
+            raise ParseError(detail=e.detail, code=None)
 
 
 class GroupSerializer(serializers.ModelSerializer):

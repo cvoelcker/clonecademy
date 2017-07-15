@@ -195,8 +195,8 @@ class Module(models.Model):
 
     def num_of_questions(self):
         return len(Question.objects.filter(module=self))
-    
-    def last_module(self):
+
+    def is_last_module(self):
         modules = self.course.module_set
         return self == modules.last()
 

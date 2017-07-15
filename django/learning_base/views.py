@@ -21,9 +21,11 @@ class CourseView(APIView):
     #authentication_classes = (authentication.TokenAuthentication,)
     #permission_classes = (permissions.IsAuthenticated,)
 
-    def get(self, request, course_id, format=None):
+    def get(self, request, course_id=None, format=None):
         '''
         '''
+        if not course_id:
+            return Response('Method not allowed', status=status.HTTP_405_METHOD_NOT_ALLOWED)
         try:
             course = Course.objects.filter(id=course_id).first()
             course_serializer = serializer.CourseSerializer(course)
@@ -32,22 +34,27 @@ class CourseView(APIView):
         except Exception as e:
             return Response('Course not found', status=status.HTTP_404_NOT_FOUND)
 
-    def post(self, request, format=None):
+    def post(self, request, course_id=None, format=None):
         '''
         '''
-        if request.data == None:
-            return Response("Request does not contain data", status=status.HTTP_400_BAD_REQUEST)
         data = request.data
-        if 'id' in data.keys():
-            #TODO: Implement saving method
-            pass
+        if data == None:
+            return Response("Request does not contain data", status=status.HTTP_400_BAD_REQUEST)
+        # This branches saves established courses
+        if course_id:
+            if Course.objects.filter(id=course_id).exists():
+                pass
+            else:
+                return Response('Course not found', status=status.HTTP_404_NOT_FOUND)
+        # This branch saves new courses
         else:
-            data['mod'] = request.user.id
+            if Course.objects.filter(name=data['name']).exists():
+                return Response('Course with that name exists', status=status.HTTP_409_CONFLICT)
+            data['responsible_mod'] = request.user
             course_serializer = serializer.CourseSerializer(data=data)
             if not course_serializer.is_valid():
                 return Response("Data is not valid", status=status.HTTP_400_BAD_REQUEST)
             else:
-                #TODO: course is not saved correctly, if it has e.g. modules
                 course_serializer.create(data)
             return Response("Course saved", status=status.HTTP_201_CREATED)
 
