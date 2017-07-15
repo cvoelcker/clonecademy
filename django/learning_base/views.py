@@ -32,18 +32,17 @@ class CourseView(APIView):
         except Exception as e:
             return Response('Course not found', status=status.HTTP_404_NOT_FOUND)
 
-    def post(self, request, course_id, format=None):
+    def post(self, request, format=None):
         '''
         '''
-        course = Course.objects.filter(id=course_id)
-        if course.exists():
+        if request.data == None:
+            return Response("Request does not contain data", status=status.HTTP_400_BAD_REQUEST)
+        data = request.data
+        if 'id' in data.keys():
             #TODO: Implement saving method
             pass
         else:
-            data = request.data
             data['mod'] = request.user.id
-            if data == None:
-                return Response("Request does not contain data", status=status.HTTP_400_BAD_REQUEST)
             course_serializer = serializer.CourseSerializer(data=data)
             if not course_serializer.is_valid():
                 return Response("Data is not valid", status=status.HTTP_400_BAD_REQUEST)
