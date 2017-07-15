@@ -4,6 +4,7 @@ from rest_framework.test import force_authenticate
 
 from django.contrib.auth.models import User, Group
 from learning_base import views, models, serializers
+import learning_base.multiple_choice as multiple_choice
 
 class MultiCourseViewTest(TestCase):
 
@@ -80,7 +81,89 @@ class CourseViewTest(TestCase):
         response = self.view(request)
         self.assertEqual(response.status_code,201)
         self.assertTrue(models.Course.objects.filter(name='test_2').exists())
-        pass
+
+        request = self.factory.post('/courses/save', 
+                   {'name':'test_2', 
+                    'category':'test',
+                    'difficulty': 2, 
+                    'modules':[],
+                    'language':'en'}, format='json')
+        force_authenticate(request, self.u1)
+        response = self.view(request)
+        self.assertEqual(response.status_code,409)
+
+        request = self.factory.post('/courses/save', 
+                   {'name':'test_3', 
+                    'category':'test',
+                    'difficulty': 2, 
+                    'modules':[
+                        {'name':'a module',
+                         'learning_text':'no way',
+                         'order':3,
+                         'questions':[]},
+                        {'name':'another module',
+                         'learning_text':'appearing first',
+                         'order':2,
+                         'questions':[]}],
+                    'language':'en'}, format='json')
+        force_authenticate(request, self.u1)
+        response = self.view(request)
+        self.assertEqual(response.status_code,201)
+        self.assertTrue(models.Course.objects.filter(name='test_3').exists())
+        self.assertTrue(models.Module.objects.filter(name='a module').exists())
+        self.assertTrue(models.Module.objects.filter(name='another module').exists())
+        
+        request = self.factory.post('/courses/save', 
+                   {'name':'test_4', 
+                    'category':'test',
+                    'difficulty':2, 
+                    'modules':[
+                        {'name':'a module',
+                         'learning_text':'no way',
+                         'order':3,
+                         'questions':[
+                             {'title':'a question',
+                              'body':'some text',
+                              'feedback':'',
+                              'type':'multiple_choice',
+                              'order':1,
+                              'answers':[
+                                  {'text':'nope',
+                                   'is_correct':False}]
+                                 }]}],
+                    'language':'en'}, format='json')
+        force_authenticate(request, self.u1)
+        response = self.view(request)
+        self.assertEquals(response.status_code,400)
+        self.assertFalse(models.Course.objects.filter(name='test_4').exists())
+        self.assertFalse(multiple_choice.models.MultipleChoiceQuestion.objects.filter(title='a question').exists())
+
+        request = self.factory.post('/courses/save', 
+                   {'name':'test_4', 
+                    'category':'test',
+                    'difficulty':2, 
+                    'modules':[
+                        {'name':'a module',
+                         'learning_text':'no way',
+                         'order':3,
+                         'questions':[
+                             {'title':'a question',
+                              'body':'some text',
+                              'feedback':'',
+                              'type':'multiple_choice',
+                              'order':1,
+                              'answers':[
+                                  {'text':'nope',
+                                   'is_correct':True}]
+                                 }]}],
+                    'language':'en'}, format='json')
+        force_authenticate(request, self.u1)
+        response = self.view(request)
+        print(response.data)
+        self.assertEqual(response.status_code,201)
+        self.assertTrue(models.Course.objects.filter(name='test_4').exists())
+        self.assertTrue(multiple_choice.models.MultipleChoiceQuestion.objects.filter(title='a question').exists())
+
 
 #factory = APIRequestFactory()
 #request = factory.post('/notes/', {'title': 'new idea'}, format='json')
