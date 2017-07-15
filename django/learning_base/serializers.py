@@ -29,9 +29,9 @@ class QuestionSerializer(serializers.ModelSerializer):
         module = obj.module
         value = super(QuestionSerializer, self).to_representation(obj)
         value['type'] = obj.__class__.__name__
-        value['last'] = obj.last_question()
+        value['last_question'] = obj.is_last_question()
         value['module'] = module.__str__()
-        value['last_module'] = module.last_module()
+        value['last_module'] = module.is_last_module()
         value['learning_text'] = module.learning_text
         value['course'] = module.course.__str__()
         if isinstance(obj, DragAndDropQuestion):

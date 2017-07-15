@@ -241,7 +241,7 @@ class Question(PolymorphicModel):
     def feedback_is_set(self):
         return len(feedback) != 0
 
-    def last_question(self):
+    def is_last_question(self):
         questions = self.module.question_set
         return self == questions.last()
 
