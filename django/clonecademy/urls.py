@@ -38,7 +38,7 @@ urlpatterns = [
     url(r'^get-course-categories/$', views.getCourseCategories),
 
     url(r'^save/course/$', views.save),
-    url(r'^user/statistics$', views.getStatisticsOverview),
+    url(r'^user/statistics$', views.StatisticsView.as_view()),
     url(r'^user/request_mod$', views.requestModStatus),
     url(r'^user/can_request_mod$', views.canRequestMod),
     url(r'^user/grant_mod/$', views.grantModStatus), #probably change pattern to pass the username to the function call

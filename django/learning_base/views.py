@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 
 import learning_base.serializers as serializer
 from learning_base.multiple_choice.models import MultipleChoiceQuestion
-from learning_base.models import Course, CourseCategory, Module, Question, valid_mod_request, get_link_to_profile, is_mod, is_admin
+from learning_base.models import Course, CourseCategory, Module, Question, Try, valid_mod_request, get_link_to_profile, is_mod, is_admin
 
 from rest_framework.response import Response
 from django.core.mail import send_mail
@@ -179,10 +179,21 @@ class MultiUserView(APIView):
             return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class StatisticsView(APIView):
+    '''
+    A class displaying statistics information for a given user. It is used to access
+    the try object.
+    @author: Claas Voelcker
+    '''
+    def get(self, request, user_id=None):
+        user = request.user if not user_id else User.objects.get(id=user_id)
+        tries = Try.objects.filter(user=user)
+        data = serializer.TrySerializer(tries, many=True).data
+        return Response(data)
 
-class StatisticsView():
-    #TODO: Implement
-    pass
+
+    def post(self, request, format=None):
+        return Response('Method not allowed', status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
 class RequestView(APIView):

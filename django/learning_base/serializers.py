@@ -172,12 +172,12 @@ class TrySerializer(serializers.ModelSerializer):
     '''
     Model serializer for the Try model
     '''
-    person = UserSerializer()
-    question = QuestionSerializer()
+    user = serializers.StringRelatedField()
+    question = serializers.StringRelatedField()
 
     class Meta:
         model = Try
-        fields = ('person', 'question', 'date', 'solved')
+        fields = ('user', 'question', 'date', 'solved')
 
 
 class StatisticsOverviewSerializer(serializers.BaseSerializer):
@@ -189,7 +189,7 @@ class StatisticsOverviewSerializer(serializers.BaseSerializer):
         for question in Question.objects.all():
             question_string = str(question)
             question_entry = dict()
-            try_set = Try.objects.filter(question=question, person=user)
+            try_set = Try.objects.filter(question=question, user=user)
             for _try in try_set:
                 if not question_entry:
                     question_entry = {
