@@ -12,32 +12,21 @@ export class UserDetailComponent {
 
   user: {username: string, id: number, email: string, group: {}, dateRegistered: Date, dateString: string}
 
-  usernameToPromote: string;
+  usernameToPromote: string
 
   constructor(private server: ServerService) { }
 
   change(id: number){
     this.server.get("user/"+ id + "/").then(data => {
-      console.log(data)
       this.user = data
-      this.user["username"] = data["user"].username
-      this.user["email"] = data["user"].email
-      this.user.id = id
-      /* this.user['dateRegistered'] = new Date(data['date_joined']) */
+      this.user['dateRegistered'] = new Date(data['date_joined'])
       console.log(this.user)
     }).catch(err => console.log(err))
   }
 
-  grantCurrentUserModStatus(){
-    console.log(this.user["id"]);
-    this.server.post("user/"+ this.user["id"] + "/grantModStatus/", {})
-      .then(answer => {console.log(answer)})
-  }
-
-  grantEnteredUserModStatus(){
-    let usernameJSON = {username: this.usernameToPromote,};
+  grantModStatus(){
+    let usernameJSON = {username: this.usernameToPromote};
     this.server.post("user/grant_mod/", usernameJSON)
       .then(answer => {console.log(answer)})
   }
-
 }

@@ -1,0 +1,32 @@
+QS-Dokument durchgehen
+QS-Maßnahmen besprechen
+
+Refactoring Stand besprechen
+- Donnerstag
+
+Neue User Stories besprechen
+- Konkrete Fragen vereinbaren
+-- Ist Drag&Drop Arbeitstitel, oder legt das die Funktionsweise fest?
+- Welche Antwort Bilder gibt es?
+-- Vorher festgelegt, oder frei wählbar (hochladen)
+- Welche Antwortschablonen gibt es?
+- Sollen nur "richtige" Teile angezeigt werden, oder zusätzliche, die nicht verwendet werden, um das Lösen zu erschweren?
+-- Sind diese dann zufällig generiert? (Wie geht das?)
+
+Internal Code Review vereinbaren
+- Mittwoch? Ist gut, Ilhan fragen
+
+Release Planing
+- Anfang August
+- Serverintegration machen
+
+Sonstiges:
+- Wir brauchen eine Seite clonecademy.com/courses/<ID>/edit
+-- edit? als Parameter mitgeben
+- get liefert auch richtige Antworten
+- post speichert einen geänderten kurs
+- Löschen von Fragen/Modulen/Kursen muss ermöglicht werden
+- Kurs speichern wird auf /courses/new ausgelagert
+
+Git health:
+- Ab Release 1: Feature Branches, pull request vor Abnahme, einpflegen in master ab dann
