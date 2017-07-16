@@ -237,22 +237,20 @@ class RequestViewTest(TestCase):
         response = self.view(request_1)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data, {"Request": "ok"})
-        self.assertTrue(self.mod_group in self.u1.groups.all())
+        self.assertFalse(self.u1.profile.modrequest_allowed())
 
         request_2 = self.factory.post("user/request_mod",
                                       {"reason": "you need me"}, format='json')
         force_authenticate(request_2, self.u2)
         response = self.view(request_2)
         self.assertEqual(response.status_code, 403)
-        self.assertEqual(response.data, {"Request": "ok"})
-        self.assertTrue(self.mod_group in self.u1.groups.all())
+        self.assertTrue(self.mod_group in self.u2.groups.all())
 
         request_3 = self.factory.post("user/request_mod",
                                       {"reason": "you need me"}, format='json')
         force_authenticate(request_3, self.u3)
         response = self.view(request_3)
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data, {"Request": "ok"})
+        self.assertEqual(response.status_code, 403)
         self.assertFalse(self.mod_group in self.u1.groups.all())
 
         pass

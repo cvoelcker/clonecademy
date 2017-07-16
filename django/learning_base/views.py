@@ -2,56 +2,20 @@ from django.shortcuts import render
 
 from rest_framework import viewsets, status
 from rest_framework import authentication, permissions
-from rest_framework.decorators import api_view, authentication_classes, \
+from rest_framework.decorators import api_view, authentication_classes,\
     permission_classes
 from rest_framework.views import APIView
 
 import learning_base.serializers as serializer
 from learning_base.multiple_choice.models import MultipleChoiceQuestion
-from learning_base.models import Course, CourseCategory, Module, Question, Try, \
-    Profile, valid_mod_request, \
-    get_link_to_profile
+from learning_base.models import Course, CourseCategory, Module, Question, Try,\
+    Profile
 
 from rest_framework.response import Response
 from django.core.mail import send_mail
 from django.contrib.auth.models import User, Group
 
 from django.utils import timezone
-
-
-# Helper functions
-
-def get_link_to_profile(user):
-    '''
-    Returns the link to the users profile page
-    '''
-    # TODO: Implement correct user profile access string
-    return "clonecademy.net/user/{}/".format(user.id)
-
-
-def modrequest_allowed(user):
-    '''
-    Returns True if the user is allowed to request moderator rights
-    '''
-    last_modrequest = Profile.objects.get(user=user).last_modrequest
-    return last_modrequest is None or (
-                                      timezone.localdate() -
-                                      last_modrequest).days >= 7
-
-
-# TODO: Refactor these to a decorator
-def is_mod(user):
-    '''
-    Returns True if the user is in the group moderators
-    '''
-    return user.groups.filter(name="moderator").exists()
-
-
-def is_admin(user):
-    '''
-    Returns True if the user is in the group admin
-    '''
-    return user.groups.filter(name="admin").exists()
 
 
 class CategoryView(APIView):
@@ -299,7 +263,7 @@ class UserView(APIView):
         '''
         user = request.user
         if user_id:
-            if is_mod(user):
+            if user.profile.is_mod():
                 user = User.objects.filter(id=user_id).first()
                 if not user:
                     return Response('User not found',
@@ -342,7 +306,7 @@ class MultiUserView(APIView):
         '''
         Returns all users
         '''
-        if not is_mod(request.user):
+        if not request.user.profile.is_mod():
             return Response('Access denied',
                             status=status.HTTP_401_UNAUTHORIZED)
         users = User.objects.all()
@@ -394,8 +358,8 @@ class RequestView(APIView):
         Returns True if request is allowed and False if request isn't allowed
         or the user is already mod.
         '''
-        return Response(not is_mod(request.user)
-                        and modrequest_allowed(request.user),
+        return Response(not request.user.profile.is_mod()
+                        and request.user.profile.modrequest_allowed(),
                         status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
@@ -407,7 +371,7 @@ class RequestView(APIView):
         data = request.data
         user = request.user
         profile = user.profile
-        if not modrequest_allowed(user=user):
+        if not user.profile.modrequest_allowed():
             return Response('User is mod or has sent too many requests',
                             status=status.HTTP_403_FORBIDDEN)
         # TODO: fix if an localization issues arrise
@@ -421,7 +385,7 @@ class RequestView(APIView):
             If you want to add this user to the moderator group, access the \
             profile {} for the confirmation field.\n \
             Have a nice day, your CloneCademy bot'.format(
-                user.username, data["reason"], get_link_to_profile(user)),
+                user.username, data["reason"], user.profile.get_link_to_profile()),
             'bot@clonecademy.de',
             ['test@test.net']
         )

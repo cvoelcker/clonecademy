@@ -8,20 +8,6 @@ from polymorphic.models import PolymorphicModel
 # from user_model import models as ub_models
 
 
-def get_link_to_profile(user):
-    '''
-    Returns the link to the users profile page
-    TODO: Implement correctly
-    '''
-    return "clonecademy.com/this/users/profile"
-
-
-def valid_mod_request(user):
-    request = ModRequest.objects.filter(user=user)
-    return request.exists() \
-           and (request.first().date - timezone.localdate()).days < -7
-
-
 class Profile(models.Model):
     '''
     '''
@@ -48,6 +34,34 @@ class Profile(models.Model):
 
     def __str__(self):
         return str(self.user)
+
+    def get_link_to_profile(self):
+        '''
+        Returns the link to the users profile page
+        '''
+        # TODO: Implement correct user profile access string
+        return "clonecademy.net/user/{}/".format(self.user.id)
+
+    def modrequest_allowed(self):
+        '''
+        Returns True if the user is allowed to request moderator rights
+        '''
+        return (self.last_modrequest is None or 
+            (timezone.localdate() - self.last_modrequest).days >= 7) and\
+            not self.is_mod()
+
+    # TODO: Refactor these to a decorator
+    def is_mod(self):
+        '''
+        Returns True if the user is in the group moderators
+        '''
+        return self.user.groups.filter(name="moderator").exists()
+
+    def is_admin(self):
+        '''
+        Returns True if the user is in the group admin
+        '''
+        return self.user.groups.filter(name="admin").exists()
 
 
 class CourseCategory(models.Model):
