@@ -9,21 +9,69 @@ from learning_base import views, models, serializers
 import learning_base.multiple_choice as multiple_choice
 
 
-class MultiCourseViewTest(TestCase):
-    def setUp(self):
+class DatabaseMixin():
+    def setup_database(self):
         self.factory = APIRequestFactory()
-        self.view = views.MultiCourseView.as_view()
-
+        
         self.u1 = User(username='admin')
         self.u1.save()
 
         self.category = models.CourseCategory(name="test")
         self.category.save()
+        
         self.c1_test_en = models.Course(name="test_1", category=self.category,
                                         difficulty=0, language='en',
                                         responsible_mod=self.u1,
                                         is_visible=True)
         self.c1_test_en.save()
+
+        self.m1_test = models.Module(name="modue_1", course=self.c1_test_en,
+                                     order=1)
+        self.m1_test.save()
+
+        self.q1_test = multiple_choice.models.MultipleChoiceQuestion(
+                title="",
+                body="a question",
+                feedback="",
+                order=1,
+                module=self.m1_test)
+        self.q1_test.save()
+
+
+class AnswerViewTest(DatabaseMixin, TestCase):
+    def setUp(self):
+        self.view = views.AnswerView.as_view()
+        self.setup_database()
+
+    def test_get(self):
+        request = self.factory.get('/courses/1/1/1/answers') 
+        force_authenticate(request, self.u1)
+        response = self.view(request, 1, 1, 1)
+
+        self.assertEqual(response.data, [])
+
+        answer_1 = multiple_choice.models.MultipleChoiceAnswer(
+                question=self.q1_test,
+                text="something",
+                is_correct=False)
+        answer_1.save()
+        answer_2 = multiple_choice.models.MultipleChoiceAnswer(
+                question=self.q1_test,
+                text="something",
+                is_correct=False)
+        answer_2.save()
+        answer_1_serialized = serializers.AnswerSerializer(answer_1).data
+        answer_2_serialized = serializers.AnswerSerializer(answer_2).data
+        response = self.view(request, 1, 1, 1)
+
+        self.assertEqual(response.data, [answer_1_serialized, answer_2_serialized])
+
+class MultiCourseViewTest(DatabaseMixin, TestCase):
+    def setUp(self):
+        self.factory = APIRequestFactory()
+        self.view = views.MultiCourseView.as_view()
+
+        self.setup_database()
 
     def test_get(self):
         request = self.factory.get('/courses/')
@@ -61,21 +109,12 @@ class MultiCourseViewTest(TestCase):
         self.assertEqual(response_3.status_code, 400)
 
 
-class CourseViewTest(TestCase):
+class CourseViewTest(DatabaseMixin, TestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
         self.view = views.CourseView.as_view()
 
-        self.u1 = User(username='admin')
-        self.u1.save()
-
-        self.category = models.CourseCategory(name="test")
-        self.category.save()
-        self.c1_test_en = models.Course(name="test_1", category=self.category,
-                                        difficulty=0, language='en',
-                                        responsible_mod=self.u1,
-                                        is_visible=True)
-        self.c1_test_en.save()
+        self.setup_database()
 
     def test_get(self):
         c1_test_en_serialized = serializers.CourseSerializer(
@@ -252,18 +291,3 @@ class RequestViewTest(TestCase):
         response = self.view(request_3)
         self.assertEqual(response.status_code, 403)
         self.assertFalse(self.mod_group in self.u1.groups.all())
-
-        pass
-
-# factory = APIRequestFactory()
-# request = factory.post('/notes/', {'title': 'new idea'}, format='json')
-# request = factory.post('/notes/', json.dumps({'title': 'new idea'}), content_type='application/json')
-
-# user = User.objects.get(username='olivia')
-# view = AccountDetail.as_view()
-
-# Make an authenticated request to the view...
-# request = factory.get('/accounts/django-superstars/')
-# force_authenticate(request, user=user)
-# response = view(request)
-# force_authenticate(request, user=user, token=user.token)
