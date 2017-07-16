@@ -248,7 +248,6 @@ class AnswerView(APIView):
             module__id=module_id,
             module__course__id=course_id)
         answers = question.answer_set()
-        print(answers)
         data = serializer.AnswerSerializer(answers, many=True).data
         return Response(data, status=status.HTTP_200_OK)
 
