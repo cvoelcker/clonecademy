@@ -3,43 +3,24 @@ from django.apps import apps
 from django.contrib.auth.models import User
 from django.utils import timezone
 from polymorphic.models import PolymorphicModel
+
+
 # from user_model import models as ub_models
 
 
 def get_link_to_profile(user):
     '''
     Returns the link to the users profile page
+    TODO: Implement correctly
     '''
-    #TODO: Implement correct user profile access string
     return "clonecademy.com/this/users/profile"
 
 
 def valid_mod_request(user):
     request = ModRequest.objects.filter(user=user)
-    return request.exists() and (request.first().date - timezone.localdate()).days < -7
+    return request.exists() \
+           and (request.first().date - timezone.localdate()).days < -7
 
-'''
-No longer needed since the information is stored in the userprofile
-class ModRequest(models.Model):
-    ''
-    Represents a moderation request and saves the corresponding user and time to
-    evaluate new requests.
-    ''
-
-    class Meta():
-        ordering = ["date",]
-
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        null=False
-    )
-
-    date = models.DateField(
-        blank=False,
-        default=timezone.now
-    )
-'''
 
 class Profile(models.Model):
     '''
@@ -51,18 +32,19 @@ class Profile(models.Model):
 
     birth_date = models.DateField(
         blank=True,
-        null = True,
+        null=True,
     )
 
     last_modrequest = models.DateField(
         blank=True,
-        null = True,
+        null=True,
     )
 
     def get_age(self):
         today = timezone.today
-        return today.year - self.birth_date.year - ((today.month, today.day) < \
-            (self.birth_date.month, self.birth_date.day))
+        return today.year - self.birth_date.year \
+               - ((today.month, today.day) <
+                  (self.birth_date.month, self.birth_date.day))
 
     def __str__(self):
         return str(self.user)
@@ -78,7 +60,7 @@ class CourseCategory(models.Model):
         max_length=144
     )
 
-    def getCourses(self):
+    def get_courses(self):
         return self.course_set
 
     def __str__(self):
@@ -87,12 +69,10 @@ class CourseCategory(models.Model):
 
 class Course(models.Model):
     """
-    One course is a group of questions which build on each other and should be solved
-    together. These questions should have similar topics, difficulty and should form
-    a compete unit for learning.
+    One course is a group of questions which build on each other and should be
+    solved together. These questions should have similar topics, difficulty
+    and should form a compete unit for learning.
     """
-    #objects = CourseManager()
-
     QUESTION_NAME_LENGTH = 144
 
     EASY = 0
@@ -123,7 +103,7 @@ class Course(models.Model):
     category = models.ForeignKey(
         CourseCategory,
         null=True,
-        blank = True
+        blank=True
     )
 
     difficulty = models.IntegerField(
@@ -155,13 +135,17 @@ class Course(models.Model):
         return self.name
 
     def num_of_modules(self):
+        '''
+        Returns the number of modules
+        '''
         return len(Module.objects.filter(course=self))
 
 
 class Module(models.Model):
     """
-    A Course is made out of many modules and a module and in a Module can be n questions
+    A Course is made out of several modules and a module contains the questions
     """
+
     class Meta():
         unique_together = ['order', 'course']
         ordering = ['order']
@@ -187,26 +171,27 @@ class Module(models.Model):
     def __str__(self):
         return self.name
 
-    def delete(self):
-        for q in self.questions:
-            q.delete()
-        super(Module, self).delete()
-
     def num_of_questions(self):
-        return len(Question.objects.filter(module=self))
+        '''
+        Returns the number of questions in the module
+        '''
+        return len(self.question_set.all())
 
     def is_last_module(self):
+        '''
+        Returns True if this is the final module in a course
+        '''
         modules = self.course.module_set
         return self == modules.last()
 
 
-
 class Question(PolymorphicModel):
     """
-    A question is the smallest unit of the learning process. A question has a task that
-    can be solved by a user, a correct solution to evaluate the answer and a way to
-    provide feedback to the user.
+    A question is the smallest unit of the learning process. A question has a
+    task that can be solved by a user, a correct solution to evaluate the
+    answer and a way to provide feedback to the user.
     """
+
     class Meta():
         unique_together = ['module', 'order']
         ordering = ['module', 'order']
@@ -252,7 +237,9 @@ class LearningGroup(models.Model):
     """
     A user group (currently not used)
     """
-    name = models.CharField(help_text="The name of the user group", max_length=144)
+    name = models.CharField(
+        help_text="The name of the user group",
+        max_length=144)
 
     def __str__(self):
         return self.name
@@ -260,9 +247,9 @@ class LearningGroup(models.Model):
 
 class Try(models.Model):
     '''
-    A try represents a submission of an answer. Each time an answer is submitted, a Try
-    object is created in the database, detailing answer, wether it was answered
-    correctly and the time of the submission.
+    A try represents a submission of an answer. Each time an answer is
+    submitted, a Try object is created in the database, detailing answer,
+    whether it was answered correctly and the time of the submission.
     '''
     user = models.ForeignKey(
         User,
@@ -292,9 +279,12 @@ class Try(models.Model):
     )
 
     def __unicode__(self):
-        return "Solution_{}_{}_{}".format(self.question, self.solved, self.date)
+        return "Solution_{}_{}_{}".format(
+            self.question, self.solved, self.date)
+
 
 class CourseManager(models.Manager):
     def is_started(user):
-        courses = models.Course.objects.filter(module__question__try__person=user)
+        courses = models.Course.objects.filter(
+            module__question__try__person=user)
         return courses

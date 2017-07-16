@@ -31,6 +31,10 @@ class MultipleChoiceQuestion(Question):
     def answer_set(self):
         return self.multiplechoiceanswer_set.all()
 
+    def get_serializer(self):
+        from learning_base.multiple_choice import serializer
+        return serializer.MultipleChoiceQuestionSerializer
+
 
 class MultipleChoiceAnswer(models.Model):
     """

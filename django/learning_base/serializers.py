@@ -6,16 +6,19 @@ from learning_base.drag_and_drop.models import *
 from learning_base.multiple_choice.serializer import *
 from learning_base.drag_and_drop.serializer import *
 
+
 class AnswerSerializer(serializers.BaseSerializer):
     def to_representation(self, obj):
         serializer = obj.get_serializer()
         return serializer(obj).data
+
 
 class QuestionSerializer(serializers.ModelSerializer):
     '''
     The serializer responsible for the Question object
     @author: Claas Voelcker
     '''
+
     class Meta:
         '''
         Meta information (which fields are serialized for the representation)
@@ -35,14 +38,10 @@ class QuestionSerializer(serializers.ModelSerializer):
         value = super(QuestionSerializer, self).to_representation(obj)
         value['type'] = obj.__class__.__name__
         value['last_question'] = obj.is_last_question()
-        value['module'] = module.__str__()
         value['last_module'] = module.is_last_module()
         value['learning_text'] = module.learning_text
-        value['course'] = module.course.__str__()
-        if isinstance(obj, MultipleChoiceQuestion):
-            value['question_body'] = MultipleChoiceQuestionSerializer(obj).data
-        if isinstance(obj, DragAndDropQuestion):
-            value['question_body'] = DragAndDropQuestionSerializer(obj).data
+        serializer = obj.get_serializer()
+        value['question_body'] = serializer(obj).data
         return value
 
     def create(self, validated_data):
@@ -53,7 +52,9 @@ class QuestionSerializer(serializers.ModelSerializer):
         elif question_type == 'drag_and_drop':
             pass
         else:
-            raise ParseError(detail='{} is not a valid question type'.format(question_type))
+            raise ParseError(
+                detail='{} is not a valid question type'.format(
+                    question_type))
 
 
 class CourseCategorySerializer(serializers.ModelSerializer):
@@ -69,12 +70,14 @@ class ModuleSerializer(serializers.ModelSerializer):
 
     def to_representation(self, obj):
         """
-        This function makes the serialization and is needed for the custom order of the question
+        This function makes the serialization and is needed to correctly
+        display nested objects.
         """
         value = super(ModuleSerializer, self).to_representation(obj)
 
         questions = Question.objects.filter(module=obj)
-        questions = QuestionSerializer(questions, many=True, read_only=True).data
+        questions = QuestionSerializer(
+            questions, many=True, read_only=True).data
 
         value["questions"] = questions
         return value
@@ -91,7 +94,8 @@ class ModuleSerializer(serializers.ModelSerializer):
             question['module'] = module
             question_serializer = QuestionSerializer(data=question)
             if not question_serializer.is_valid():
-                raise ParseError(detail="Error in question serialization", code=None)
+                raise ParseError(
+                    detail="Error in question serialization", code=None)
             else:
                 question_serializer.create(question)
 
@@ -117,7 +121,8 @@ class CourseSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         '''
-        This method is used to save courses together with all modules and questions
+        This method is used to save courses together with all modules and
+        questions.
         '''
         modules = validated_data.pop('modules')
         category = validated_data.pop('category')
@@ -129,7 +134,8 @@ class CourseSerializer(serializers.ModelSerializer):
             for module in modules:
                 module_serializer = ModuleSerializer(data=module)
                 if not module_serializer.is_valid():
-                    raise ParseError(detail="Error in module serialization", code=None)
+                    raise ParseError(
+                        detail="Error in module serialization", code=None)
                 else:
                     module['course'] = course
                     module_serializer.create(module)
@@ -143,26 +149,27 @@ class GroupSerializer(serializers.ModelSerializer):
     '''
     Model serializer for the Group model
     '''
+
     class Meta:
         model = LearningGroup
-        fields = ('name', "id" )
+        fields = ('name', "id")
 
 
 class UserSerializer(serializers.ModelSerializer):
     '''
     Model serializer for the User model
     '''
+
     class Meta:
         model = User
         fields = ('username', 'email', 'id', 'date_joined')
 
     def create(self, validated_data):
         profile_data = validated_data.pop('profile')
-        user = User(**validated_data)
+        user = User.objects.create_user(**validated_data)
         user.save()
         profile = Profile(user=user, **profile_data)
         profile.save()
-        # Profile.objects.create(user=user, **profile_data) might be the way to go for the two upper lines
         return True
 
 
@@ -182,6 +189,7 @@ class StatisticsOverviewSerializer(serializers.BaseSerializer):
     '''
     Longer serializer for the statistics overview
     '''
+
     def to_representation(self, user):
         all_questions = list()
         for question in Question.objects.all():
@@ -197,7 +205,8 @@ class StatisticsOverviewSerializer(serializers.BaseSerializer):
                     }
                 else:
                     question_entry['tries'] += 1
-                    question_entry['solved'] = question_entry['solved'] or _try.solved
+                    question_entry['solved'] = question_entry['solved'] \
+                                               or _try.solved
             if question_entry:
                 all_questions.append(question_entry)
         return all_questions

@@ -32,19 +32,18 @@ urlpatterns = [
 
     url(r'^courses/$', views.MultiCourseView.as_view()),
     url(r'^courses/(?P<course_id>[0-9]+)/?$', views.CourseView.as_view()),
-    url(r'^courses/(?P<course_id>[0-9]+)/(?P<module_id>[0-9]+)/?$', views.callModule),
+    url(r'^courses/(?P<course_id>[0-9]+)/(?P<module_id>[0-9]+)/?$', views.ModuleView.as_view()),
     url(r'^courses/(?P<course_id>[0-9]+)/(?P<module_id>[0-9]+)/(?P<question_id>[0-9]+)/?$', views.QuestionView.as_view()),
     url(r'^courses/(?P<course_id>[0-9]+)/(?P<module_id>[0-9]+)/(?P<question_id>[0-9]+)/?answers', views.AnswerView.as_view()),
     url(r'^course/save$', views.CourseView.as_view()),
-    url(r'^get-course-categories/$', views.getCourseCategories),
+    url(r'^get-course-categories/$', views.CategoryView.as_view()),
 
     url(r'^user/$', views.MultiUserView.as_view()),
     url(r'^user/(?P<user_id>[0-9]+)/?$', views.UserView.as_view()),
     url(r'^user/(?P<user_id>[0-9]+)/statistics$', views.StatisticsView.as_view()),
     url(r'^user/statistics$', views.StatisticsView.as_view()),
-    url(r'^user/request_mod$', views.requestModStatus),
-    url(r'^user/can_request_mod$', views.canRequestMod),
-    url(r'^user/grant_mod/$', views.grantModStatus),
+    url(r'^user/mod_request$', views.RequestView.as_view()),
+    url(r'^user/grant_mod/$', views.RequestView.as_view()),
     url(r'^user/current$', views.UserView.as_view()),
 
     url(r'^register/', views.UserView.as_view())

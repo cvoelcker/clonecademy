@@ -2,6 +2,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import ParseError
 from .models import *
 
+
 class MultipleChoiceAnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = MultipleChoiceAnswer
@@ -16,13 +17,13 @@ class MultipleChoiceAnswerSerializer(serializers.ModelSerializer):
 class MultipleChoiceQuestionPreviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = MultipleChoiceQuestion
-        fields = ('body', "id", )
+        fields = ('body', "id",)
 
 
 class MultipleChoiceQuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = MultipleChoiceQuestion
-        fields = ('body', 'answers', "id", )
+        fields = ('body', 'answers', "id",)
 
     answers = MultipleChoiceAnswerSerializer(many=True, read_only=True)
 
