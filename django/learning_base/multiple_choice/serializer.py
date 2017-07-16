@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import ParseError
 from .models import *
 
-class MultipleChoiceAnswersSerializer(serializers.ModelSerializer):
+class MultipleChoiceAnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = MultipleChoiceAnswer
         fields = ('text', 'id')
@@ -24,7 +24,7 @@ class MultipleChoiceQuestionSerializer(serializers.ModelSerializer):
         model = MultipleChoiceQuestion
         fields = ('body', 'answers', "id", )
 
-    answers = MultipleChoiceAnswersSerializer(many = True, read_only=True)
+    answers = MultipleChoiceAnswerSerializer(many=True, read_only=True)
 
     def create(self, validated_data):
         answers = validated_data.pop('answers')
@@ -33,7 +33,7 @@ class MultipleChoiceQuestionSerializer(serializers.ModelSerializer):
         question.save()
         for answer in answers:
             answer['question'] = question
-            answer_serializer = MultipleChoiceAnswersSerializer(data=answer)
+            answer_serializer = MultipleChoiceAnswerSerializer(data=answer)
             if not answer_serializer.is_valid():
                 raise ParseError(detail="Error in answer serialization", code=None)
             else:

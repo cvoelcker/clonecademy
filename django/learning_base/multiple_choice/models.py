@@ -28,6 +28,9 @@ class MultipleChoiceQuestion(Question):
     def __str__(self):
         return self.body
 
+    def answer_set(self):
+        return self.multiplechoiceanswer_set.all()
+
 
 class MultipleChoiceAnswer(models.Model):
     """
@@ -50,3 +53,7 @@ class MultipleChoiceAnswer(models.Model):
 
     def __str__(self):
         return self.text
+
+    def get_serializer(self):
+        from learning_base.multiple_choice import serializer
+        return serializer.MultipleChoiceAnswerSerializer

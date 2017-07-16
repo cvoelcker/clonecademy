@@ -6,6 +6,11 @@ from learning_base.drag_and_drop.models import *
 from learning_base.multiple_choice.serializer import *
 from learning_base.drag_and_drop.serializer import *
 
+class AnswerSerializer(serializers.BaseSerializer):
+    def to_representation(self, obj):
+        serializer = obj.get_serializer()
+        return serializer(obj).data
+
 class QuestionSerializer(serializers.ModelSerializer):
     '''
     The serializer responsible for the Question object
@@ -34,6 +39,8 @@ class QuestionSerializer(serializers.ModelSerializer):
         value['last_module'] = module.is_last_module()
         value['learning_text'] = module.learning_text
         value['course'] = module.course.__str__()
+        if isinstance(obj, MultipleChoiceQuestion):
+            value['question_body'] = MultipleChoiceQuestionSerializer(obj).data
         if isinstance(obj, DragAndDropQuestion):
             value['question_body'] = DragAndDropQuestionSerializer(obj).data
         return value

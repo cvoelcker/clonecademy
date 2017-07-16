@@ -172,11 +172,11 @@ class QuestionView(APIView):
         and position (last_module and last_question keys)
         '''
         try:
-            question = Question.objects.filter(
+            question = Question.objects.get(
                 id=question_id,
                 module__id=module_id,
                 module__course__id=course_id
-            ).first()
+            )
             if question is None:
                 return Response("Question not found",
                         status=status.HTTP_404_NOT_FOUND)
@@ -200,7 +200,27 @@ class AnswerView(APIView):
     Shows all possible answers to a question.
     @author Claas Voelcker
     '''
-    pass
+    authentication_classes = (authentication.TokenAuthentication,)
+    #permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, course_id, module_id, question_id, format=None):
+        '''
+        Lists the answers for a question
+        '''
+        question = Question.objects.get(
+            id=question_id,
+            module__id=module_id,
+            module__course__id=course_id)
+        answers = question.answer_set()
+        print(answers)
+        data = serializer.AnswerSerializer(answers, many=True).data
+        return Response(data, status=status.HTTP_200_OK)
+
+    def post(self, request, format=None):
+        return Response('Method not allowed',
+                status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        
+
 
 class UserView(APIView):
     '''

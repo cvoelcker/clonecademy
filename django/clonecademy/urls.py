@@ -34,6 +34,7 @@ urlpatterns = [
     url(r'^courses/(?P<course_id>[0-9]+)/?$', views.CourseView.as_view()),
     url(r'^courses/(?P<course_id>[0-9]+)/(?P<module_id>[0-9]+)/?$', views.callModule),
     url(r'^courses/(?P<course_id>[0-9]+)/(?P<module_id>[0-9]+)/(?P<question_id>[0-9]+)/?$', views.QuestionView.as_view()),
+    url(r'^courses/(?P<course_id>[0-9]+)/(?P<module_id>[0-9]+)/(?P<question_id>[0-9]+)/?answers', views.AnswerView.as_view()),
     url(r'^course/save$', views.CourseView.as_view()),
     url(r'^get-course-categories/$', views.getCourseCategories),
 
