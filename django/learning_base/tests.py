@@ -209,21 +209,21 @@ class RequestViewTest(TestCase):
         self.u3.profile.last_modrequest = timezone.localdate()
 
     def test_get(self):
-        "Test for true positive"
+        #Test for true positive
         request_1 = self.factory.get('/user/can_request_mod')
         force_authenticate(request_1, self.u1)
         response = self.view(request_1)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data, True)
 
-        "Test for true negative"
+        #Test for true negative
         request_2 = self.factory.get('/user/can_request_mod')
         force_authenticate(request_2, self.u2)
         response = self.view(request_2)
         self.assertEqual(response.status_code, 200)
         self.assertTrue(not response.data)
 
-        "Test for true negative"
+        #Test for true negative
         request_3 = self.factory.get('/user/can_request_mod')
         force_authenticate(request_3, self.u3)
         response = self.view(request_3)
@@ -252,18 +252,3 @@ class RequestViewTest(TestCase):
         response = self.view(request_3)
         self.assertEqual(response.status_code, 403)
         self.assertFalse(self.mod_group in self.u1.groups.all())
-
-        pass
-
-# factory = APIRequestFactory()
-# request = factory.post('/notes/', {'title': 'new idea'}, format='json')
-# request = factory.post('/notes/', json.dumps({'title': 'new idea'}), content_type='application/json')
-
-# user = User.objects.get(username='olivia')
-# view = AccountDetail.as_view()
-
-# Make an authenticated request to the view...
-# request = factory.get('/accounts/django-superstars/')
-# force_authenticate(request, user=user)
-# response = view(request)
-# force_authenticate(request, user=user, token=user.token)

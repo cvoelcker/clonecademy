@@ -24,8 +24,7 @@ class CategoryView(APIView):
     @author Claas Voelcker
     '''
     authentication_classes = (authentication.TokenAuthentication,)
-
-    # permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, course_id, module_id, format=None):
         '''
@@ -159,8 +158,7 @@ class ModuleView(APIView):
     @author Claas Voelcker
     '''
     authentication_classes = (authentication.TokenAuthentication,)
-
-    # permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, course_id, module_id, format=None):
         '''
@@ -181,6 +179,9 @@ class QuestionView(APIView):
     '''
     authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
+
+    def can_access_question(self, user, question):
+        return (question.is_first_question and question.module.is_first_module) or request.user.try_set.filter(question__order = question.order-1, solved = True).exists()
 
     def get(self, request, course_id, module_id, question_id, format=None):
         '''
@@ -204,11 +205,30 @@ class QuestionView(APIView):
             return Response("Question not found",
                             status=status.HTTP_404_NOT_FOUND)
 
-    def post(self, request, format=None):
+    def post(self, request, course_id, module_id, question_id, format=None):
         '''
         Evaluates the answer to a question.
+        @author Tobias Huber
         '''
-        pass
+        try:
+            question = Question.objects.get(
+                id=question_id,
+                module__id=module_id,
+                module__course__id=course_id
+            )
+        except Exception as e:
+            return Response("Question not found",
+                            status=status.HTTP_404_NOT_FOUND)
+        #deny access if there is a/are previous question(s) and it/they haven't been answered correctly
+        if not(self.can_access_question(request.user, question)):
+            return Response("Previous question(s) haven't been answered correctly yet", status = status.HTTP_403_FORBIDDEN)
+
+        solved = question.evaluate(request.data["answers"])
+        Try(user = request.user, question=question, answer=str(request.data["answers"]), solved=solved).save()
+        response = {"evaluate": solved}
+        if solved and question.feedback_is_set:
+            response['feedback'] = question.feedback
+        return Response(response)
 
 
 class AnswerView(APIView):
@@ -217,8 +237,7 @@ class AnswerView(APIView):
     @author Claas Voelcker
     '''
     authentication_classes = (authentication.TokenAuthentication,)
-
-    # permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, course_id, module_id, question_id, format=None):
         '''
@@ -246,6 +265,7 @@ class UserView(APIView):
     authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
 
+    #TODO: probably should be check_permissions(self, request)
     def get_permissions(self):
         '''
         Overrides the permissions so that the api can register new users.
@@ -350,8 +370,8 @@ class RequestView(APIView):
     The request can be accessed via "clonecademy/user/request/"
     @author Tobias Huber
     """
-    authentication_classes = (authentication.TokenAuthentication,)
-    permission_classes = (permissions.IsAuthenticated,)
+    authentication_classes = ()#(authentication.TokenAuthentication,)
+    permission_classes = ()#(permissions.IsAuthenticated,)
 
     def get(self, request, format=None):
         '''
