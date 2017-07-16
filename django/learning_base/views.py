@@ -7,82 +7,84 @@ from rest_framework.views import APIView
 
 import learning_base.serializers as serializer
 from learning_base.multiple_choice.models import MultipleChoiceQuestion
-from learning_base.models import Course, CourseCategory, Module, Question, Try, valid_mod_request, get_link_to_profile, is_mod, is_admin
+from learning_base.models import Course, CourseCategory, Module, Question, Try, Profile, valid_mod_request, get_link_to_profile
 
 from rest_framework.response import Response
 from django.core.mail import send_mail
 from django.contrib.auth.models import User, Group
 
+from django.utils import timezone
+# Helper functions
+
+def get_link_to_profile(user):
+    '''
+    Returns the link to the users profile page
+    '''
+    #TODO: Implement correct user profile access string
+    return "clonecademy.net/user/{}/".format(user.id)
+
+def modrequest_allowed(user):
+    '''
+    Returns True if the user is allowed to request moderator rights
+    '''
+    last_modrequest = Profile.objects.get(user=user).last_modrequest
+    return last_modrequest is None or (timezone.localdate() - last_modrequest).days >= 7
+
+#TODO: Refactor these to a decorator
+def is_mod(user):
+    '''
+    Returns True if the user is in the group moderators
+    '''
+    return user.groups.filter(name="moderator").exists()
+
+def is_admin(user):
+    '''
+    Returns True if the user is in the group admin
+    '''
+    return user.groups.filter(name="admin").exists()
+
 # Create your views here.
-
-class CourseView(APIView):
-    '''
-    '''
-    #authentication_classes = (authentication.TokenAuthentication,)
-    #permission_classes = (permissions.IsAuthenticated,)
-
-    def get(self, request, course_id=None, format=None):
-        '''
-        '''
-        if not course_id:
-            return Response('Method not allowed', status=status.HTTP_405_METHOD_NOT_ALLOWED)
-        try:
-            course = Course.objects.filter(id=course_id).first()
-            course_serializer = serializer.CourseSerializer(course)
-            data = course_serializer.data
-            return Response(course_serializer.data, status=status.HTTP_200_OK)
-        except Exception as e:
-            return Response('Course not found', status=status.HTTP_404_NOT_FOUND)
-
-    def post(self, request, course_id=None, format=None):
-        '''
-        '''
-        data = request.data
-        if data == None:
-            return Response("Request does not contain data", status=status.HTTP_400_BAD_REQUEST)
-        # This branches saves established courses
-        if course_id:
-            if Course.objects.filter(id=course_id).exists():
-                pass
-            else:
-                return Response('Course not found', status=status.HTTP_404_NOT_FOUND)
-        # This branch saves new courses
-        else:
-            if Course.objects.filter(name=data['name']).exists():
-                return Response('Course with that name exists', status=status.HTTP_409_CONFLICT)
-            data['responsible_mod'] = request.user
-            course_serializer = serializer.CourseSerializer(data=data)
-            if not course_serializer.is_valid():
-                return Response("Data is not valid", status=status.HTTP_400_BAD_REQUEST)
-            else:
-                course_serializer.create(data)
-            return Response("Course saved", status=status.HTTP_201_CREATED)
-
-
 class MultiCourseView(APIView):
     '''
-    View to see all courses of a language. The post method provides a general interface 
+    View to see all courses of a language. The post method provides a general interface
     with three filter settings.
+    @author Claas Voelcker
     '''
-    #authentication_classes = (authentication.TokenAuthentication,)
-    #permission_classes = (permissions.IsAuthenticated,)
-    
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+
     def get(self, request, format=None):
         '''
+        Not implemented
         '''
-        return Response('Method not allowed', status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        return Response('Method not allowed',
+                status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def post(self, request, format=None):
         '''
+        Returns a set of courses detailed by the query. It expects a request with the
+        keys 'language', 'category', 'type'. The returning JSON corresponds to the values.
+        All values can be empty strings, resulting in all courses being returned.
         '''
         try:
+            TYPES = ['mod', 'started']
+            CATEGORIES = map(lambda x: str(x), CourseCategory.objects.all())
+            LANGUAGES = map(lambda x: x[0], Course.LANGUAGES)
             data = request.data
             r_type = data['type']
             r_category = data['category']
             r_lan = data['language']
+
+            # checks whether the query only contains acceptable keys
+            if not ((r_type in TYPES or not r_type)
+                and (r_category in CATEGORIES or not r_category)
+                and (r_lan in LANGUAGES or not r_lan)):
+                return Response("Query not possible",
+                    status=status.HTTP_400_BAD_REQUEST)
+
             courses = Course.objects.all()
             courses = courses.filter(language=r_lan)
-            if r_category != "all":
+            if r_category != "":
                 category = Category.objects.filter(name=r_category).first()
                 courses.filter(category=category)
             if r_type == "mod":
@@ -92,17 +94,82 @@ class MultiCourseView(APIView):
             data = serializer.CourseSerializer(courses, many=True).data
             return Response(data, status=status.HTTP_200_OK)
         except Exception as e:
-            return Response("Query not possible", status=status.HTTP_404_NOT_FOUND)
+            return Response("Query not possible",
+                    status=status.HTTP_400_BAD_REQUEST)
+
+
+class CourseView(APIView):
+    '''
+    Contains all code related to viewing and saving courses.
+    @author Claas Voelcker
+    '''
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, course_id=None, format=None):
+        '''
+        Returns a course if the course_id exists. The cours, it's
+        modules and questions are serialized.
+        '''
+        if not course_id:
+            return Response('Method not allowed',
+                    status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        try:
+            course = Course.objects.filter(id=course_id).first()
+            course_serializer = serializer.CourseSerializer(course)
+            data = course_serializer.data
+            return Response(course_serializer.data,
+                    status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response('Course not found',
+                    status=status.HTTP_404_NOT_FOUND)
+
+    def post(self, request, course_id=None, format=None):
+        '''
+        Saves a course to the database. If the course id is provided,
+        the method updates and existing course, otherwise, a new course
+        is created.
+        '''
+        data = request.data
+        if data == None:
+            return Response("Request does not contain data",
+                    status=status.HTTP_400_BAD_REQUEST)
+        # This branches saves established courses
+        if course_id:
+            if Course.objects.filter(id=course_id).exists():
+                pass
+            else:
+                return Response('Course not found',
+                        status=status.HTTP_404_NOT_FOUND)
+        # This branch saves new courses
+        else:
+            if Course.objects.filter(name=data['name']).exists():
+                return Response('Course with that name exists',
+                        status=status.HTTP_409_CONFLICT)
+            data['responsible_mod'] = request.user
+            course_serializer = serializer.CourseSerializer(data=data)
+            if not course_serializer.is_valid():
+                return Response("Data is not valid",
+                        status=status.HTTP_400_BAD_REQUEST)
+            else:
+                course_serializer.create(data)
+            return Response("Course saved",
+                    status=status.HTTP_201_CREATED)
 
 
 class QuestionView(APIView):
     '''
+    View to show questions and to evaluate them. This does not return the answers,
+    which are given by a seperate class.
+    @author Claas Voelcker
     '''
-    #authentication_classes = (authentication.TokenAuthentication,)
-    #permission_classes = (permissions.IsAuthenticated,)
-    
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+
     def get(self, request, course_id, module_id, question_id, format=None):
         '''
+        Get a question together with additional information about the module
+        and position (last_module and last_question keys)
         '''
         try:
             question = Question.objects.filter(
@@ -111,72 +178,112 @@ class QuestionView(APIView):
                 module__course__id=course_id
             ).first()
             if question is None:
-                return Response("Question not found", status=status.HTTP_404_NOT_FOUND)
+                return Response("Question not found",
+                        status=status.HTTP_404_NOT_FOUND)
             data = serializer.QuestionSerializer(question)
             data = data.data
-            return Response(data, status=status.HTTP_200_OK)
+            return Response(data,
+                    status=status.HTTP_200_OK)
         except Exception as e:
-            return Response("Question not found", status=status.HTTP_404_NOT_FOUND)
+            return Response("Question not found",
+                    status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request, format=None):
         '''
+        Evaluates the answer to a question.
         '''
         pass
 
 
+class AnswerView(APIView):
+    '''
+    Shows all possible answers to a question.
+    @author Claas Voelcker
+    '''
+    pass
 
 class UserView(APIView):
     '''
+    Shows a user profile or registers a new user.
+    @author Claas Voelcker
     '''
-    # authentication_classes = (authentication.TokenAuthentication,)
-    # permission_classes = ()
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+    
+    def get_permissions(self):
+        '''
+        Overrides the permissions so that the api can register new users.
+        Returns the new permission set
+        '''
+        if self.request.method == 'POST':
+            self.permission_classes = (permissions.AllowAny,)
 
+        return super(UserView, self).get_permissions()
+    
     def get(self, request, user_id, format=None):
         '''
+        Shows the profile of any user if the requester is mod,
+        or the profile of the requester
         '''
         user = request.user
         if user_id:
             if is_mod(user):
                 user = User.objects.filter(id=user_id).first()
-                print(user)
                 if not user:
-                    return Response('User not found', status=status.HTTP_404_NOT_FOUND)
+                    return Response('User not found',
+                            status=status.HTTP_404_NOT_FOUND)
             else:
-                return Response('Access denied', status=status.HTTP_401_UNAUTHORIZED)
+                return Response('Access denied',
+                        status=status.HTTP_401_UNAUTHORIZED)
 
         user = serializer.UserSerializer(user)
         return Response(user.data)
 
-    def post(self, request, user_id, format=None):
+    def post(self, request, user_id=None, format=None):
         '''
+        If the user_id field is specified, it updates user information. Otherwise
+        it saves a new user.
         '''
-        return Response('Method not allowed', status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        if user_id:
+            #TODO Implement saving a users data
+            pass
+        else:
+            user_serializer = serializer.UserSerializer(data=request.data)
+            if user_serializer.is_valid():
+                user = user_serializer.create(request.data)
+                return Response('Created a new user',
+                        status=status.HTTP_201_CREATED)
+            else:
+                return Response(user_serializer.errors,
+                        status=status.HTTP_400_BAD_REQUEST)
 
 
 class MultiUserView(APIView):
     '''
+    Shows an overview over all users
+    @author Claas Voelcker
     '''
-    # authentication_classes = (authentication.TokenAuthentication,)
-    # permission_classes = (permissions.IsAuthenticated,)
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request):
         '''
+        Returns all users
         '''
         if not is_mod(request.user):
-            return Response('Access denied', status=status.HTTP_401_UNAUTHORIZED)
+            return Response('Access denied',
+                    status=status.HTTP_401_UNAUTHORIZED)
         users = User.objects.all()
         data = serializer.UserSerializer(users, many=True).data
         return Response(data)
-    
+
     def post(self, request, format=None):
         '''
+        Not implemented
         '''
-        user_serializer = serializer.UserSerializer(data=request.data)
-        if user_serializer.is_valid():
-            user = user_serializer.create(request.data)
-            return Response(status=status.HTTP_201_CREATED)
-        else:
-            return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response('Method not allowed',
+                status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
 
 
 class StatisticsView(APIView):
@@ -185,6 +292,8 @@ class StatisticsView(APIView):
     the try object.
     @author: Claas Voelcker
     '''
+    authentication_classes = (authentication.TokenAuthentication, )
+    permission_classes = (permissions.is_authenticated)
     def get(self, request, user_id=None):
         user = request.user if not user_id else User.objects.get(id=user_id)
         tries = Try.objects.filter(user=user)
@@ -193,30 +302,57 @@ class StatisticsView(APIView):
 
 
     def post(self, request, format=None):
-        return Response('Method not allowed', status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        return Response('Method not allowed',
+                status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
 class RequestView(APIView):
-    #TODO: This is not going to work
+    #TODO: implement proper send_mail()
     """
     STILL IN DEVELOPMENT
     The RequestView class is used to submit a request for moderator rights.
 
     The request can be accessed via "clonecademy/user/request/"
+    @author Tobias Huber
     """
     authentication_classes = (authentication.TokenAuthentication,)
-    permission_classes = (permissions.IsAdminUser,)
+    permission_classes = (permissions.IsAuthenticated,)
 
-    '''
-    example function
-    '''
     def get(self, request, format=None):
-        """
-        Return a list of all users.
-        """
-        #TODO: shouldn't there be a serializer here?
-        usernames = [user.username for user in User.objects.all()]
-        return Response(usernames)
+        '''
+        Returns True if request is allowed and False if request isn't allowed or
+        the user is already mod.
+        '''
+        return Response(not is_mod(request.user)
+                and modrequest_allowed(request.user), status = status.HTTP_200_OK)
+
+    def post(self, request, format=None):
+        '''
+        TODO: Fix problem with auth/perm!
+        Handels the moderator rights request. Expects a reason and extracts the user
+        from the request header.
+        '''
+        data = request.data
+        user = request.user
+        profile = user.profile
+        if not modrequest_allowed(user=user):
+            return Response('User is mod or has sent too many requests',
+                    status=status.HTTP_403_FORBIDDEN)
+        #TODO: fix if an localization issues arrise
+        profile.last_modrequest = timezone.localdate()
+
+        send_mail(
+            'Moderator rights requested by {}'.format(user.username),
+            'The following user {} requested moderator rights for the CloneCademy platform. \n \
+            The given reason for this request: \n{}\n \
+            If you want to add this user to the moderator group, access the profile {}\
+            for the confirmation field.\n \
+            Have a nice day, your CloneCademy bot'.format(
+                user.username, data["reason"], get_link_to_profile(user)),
+            'bot@clonecademy.de',
+            ['test@test.net']
+        )
+        return Response({"Request": "ok"},status=status.HTTP_200_OK)
 
 
 
@@ -467,7 +603,6 @@ def requestModStatus(request):
     if new_request.is_valid():
         new_request.create(new_request.data)
     else:
-        print("\n\n\n\n\n\n\n{}\n{}\n\n\n\n\n\n\n".format(data, new_request.errors))
         return Response('Invalid request', status=500)
 
     send_mail(
@@ -476,12 +611,12 @@ def requestModStatus(request):
         The given reason for this request: \n{}\n \
         If you want to add this user to the moderator group, access the profile {}\
         for the confirmation field.\n \
-     UserSerializer   Have a nice day, your CloneCademy bot'.format(
+        Have a nice day, your CloneCademy bot'.format(
             user.username, data["reason"], get_link_to_profile(user)),
         'bot@clonecademy.de',
         ['test@test.net']
     )
-    return Response({"Request": "ok"})  
+    return Response({"Request": "ok"})
 
 
 @api_view(['POST'])

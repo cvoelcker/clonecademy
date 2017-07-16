@@ -90,9 +90,11 @@ class ModuleSerializer(serializers.ModelSerializer):
 
 
 class CourseSerializer(serializers.ModelSerializer):
+    category = serializers.StringRelatedField()
+
     class Meta:
         model = Course
-        fields = ('name', 'difficulty', 'id')
+        fields = ('name', 'difficulty', 'id', 'language', 'category')
 
     def to_representation(self, obj):
         """
@@ -146,25 +148,14 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username', 'email', 'id', 'date_joined')
-    
+
     def create(self, validated_data):
         profile_data = validated_data.pop('profile')
         user = User(**validated_data)
         user.save()
         profile = Profile(user=user, **profile_data)
         profile.save()
-        return True
-
-class ModRequestSerializer(serializers.ModelSerializer):
-    class Meta():
-        model = ModRequest
-        fields = ('user', 'date')
-
-    def create(self, validated_data):
-        user = validated_data.pop('user')
-        user = User.objects.filter(id=user).first()
-        new_request = ModRequest(user=user, date=timezone.localdate())
-        new_request.save()
+        # Profile.objects.create(user=user, **profile_data) might be the way to go for the two upper lines
         return True
 
 

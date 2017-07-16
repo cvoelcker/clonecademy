@@ -18,19 +18,14 @@ def valid_mod_request(user):
     request = ModRequest.objects.filter(user=user)
     return request.exists() and (request.first().date - timezone.localdate()).days < -7
 
-
-def is_mod(user):
-    return user.groups.filter(name="moderator").exists()
-
-def is_admin(user):
-    return user.groups.filter(name="admin").exists()
-
-
+'''
+No longer needed since the information is stored in the userprofile
 class ModRequest(models.Model):
-    '''
+    ''
     Represents a moderation request and saves the corresponding user and time to
     evaluate new requests.
-    '''
+    ''
+
     class Meta():
         ordering = ["date",]
 
@@ -44,7 +39,7 @@ class ModRequest(models.Model):
         blank=False,
         default=timezone.now
     )
-
+'''
 
 class Profile(models.Model):
     '''
@@ -52,10 +47,14 @@ class Profile(models.Model):
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
-        unique=True
     )
 
     birth_date = models.DateField(
+        blank=True,
+        null = True,
+    )
+
+    last_modrequest = models.DateField(
         blank=True,
         null = True,
     )
