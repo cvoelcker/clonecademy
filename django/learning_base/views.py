@@ -261,7 +261,7 @@ class UserView(APIView):
     Shows a user profile or registers a new user.
     @author Claas Voelcker
     '''
-    authentication_classes = (authentication.TokenAuthentication,)
+    #authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
 
     #TODO: probably should be check_permissions(self, request)
@@ -369,8 +369,8 @@ class RequestView(APIView):
     The request can be accessed via "clonecademy/user/request/"
     @author Tobias Huber
     """
-    authentication_classes = ()#(authentication.TokenAuthentication,)
-    permission_classes = ()#(permissions.IsAuthenticated,)
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, format=None):
         '''
@@ -409,3 +409,35 @@ class RequestView(APIView):
             ['test@test.net']
         )
         return Response({"Request": "ok"}, status=status.HTTP_200_OK)
+
+class GrantModRightsView(APIView):
+    """
+    This View is used to grant a user modrights
+    @author Tobias Huber
+    """
+
+    #authentication_classes=(authentication.TokenAuthentication,);
+    permission_classes = (permissions.IsAdminUser,)
+
+    def get(self, request, user_id, format=None):
+        '''
+        Returns True if given user with a given user_id is a moderator
+        '''
+        return Response(Profile.objects.get(user__id = user_id).is_mod(), status=status.HTTP_200_OK)
+
+    def post(self, request, user_id, format=None):
+        '''
+        Grants a user with a given user id mod rights.
+        User id is taken from the url
+        '''
+        to_be_promoted = User.objects.get(id=user_id)
+        if to_be_promoted.profile.is_mod():
+            #TODO Find out if it is usefull to send a 200 when a user was already mod
+            return Response("the user \" "+ to_be_promoted.username +"\" is already a moderator", status=status.HTTP_200_OK)
+        mod_group = Group.objects.get(name='moderator')
+        to_be_promoted.groups.add(mod_group)
+
+        #may be replaced by tests
+        if not to_be_promoted.profile.is_mod():
+            return Response("something went terribly wrong with promoting" + to_be_promoted.username, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response("successfully promoted " + to_be_promoted.username, status=status.HTTP_200_OK)
