@@ -11,7 +11,7 @@
   </form>
   <div class="error" *ngIf="invalidLogin">Your request could not be sent</div>
   <p *ngIf="error">Request was rejected</p>
-  <div *ngIf="available == false" class="help-block">{{"Request sent" | translate}}</div>
+  <div *ngIf="available == false" class="help-block">{{"Request unavailable (either you have sent a request recently, or you are already a moderator)" | translate}}</div>
 </div>
 <div *ngIf="loading" class="localLoader">
   <md-progress-spinner mode="indeterminate"></md-progress-spinner>

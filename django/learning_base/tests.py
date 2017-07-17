@@ -12,13 +12,13 @@ import learning_base.multiple_choice as multiple_choice
 class DatabaseMixin():
     def setup_database(self):
         self.factory = APIRequestFactory()
-        
+
         self.u1 = User(username='admin')
         self.u1.save()
 
         self.category = models.CourseCategory(name="test")
         self.category.save()
-        
+
         self.c1_test_en = models.Course(name="test_1", category=self.category,
                                         difficulty=0, language='en',
                                         responsible_mod=self.u1,
@@ -44,7 +44,7 @@ class AnswerViewTest(DatabaseMixin, TestCase):
         self.setup_database()
 
     def test_get(self):
-        request = self.factory.get('/courses/1/1/1/answers') 
+        request = self.factory.get('/courses/1/1/1/answers')
         force_authenticate(request, self.u1)
         response = self.view(request, 1, 1, 1)
 
@@ -253,21 +253,21 @@ class RequestViewTest(TestCase):
         force_authenticate(request_1, self.u1)
         response = self.view(request_1)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data, True)
+        self.assertEqual(response.data, {'allowed':True})
 
         "Test for true negative"
         request_2 = self.factory.get('/user/can_request_mod')
         force_authenticate(request_2, self.u2)
         response = self.view(request_2)
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(not response.data)
+        self.assertFalse(not response.data)
 
         "Test for true negative"
         request_3 = self.factory.get('/user/can_request_mod')
         force_authenticate(request_3, self.u3)
         response = self.view(request_3)
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(not response.data)
+        self.assertEqual(response.data, {'allowed':False})
 
     def test_post(self):
         request_1 = self.factory.post("user/request_mod",

@@ -65,8 +65,8 @@ class MultiCourseView(APIView):
         '''
         try:
             TYPES = ['mod', 'started']
-            CATEGORIES = map(lambda x: str(x), CourseCategory.objects.all())
-            LANGUAGES = map(lambda x: x[0], Course.LANGUAGES)
+            CATEGORIES = [str(x) for x in CourseCategory.objects.all()]
+            LANGUAGES = [x[0] for x in Course.LANGUAGES]
             r_type = request.data['type']
             r_category = request.data['category']
             r_lan = request.data['language']
@@ -81,7 +81,7 @@ class MultiCourseView(APIView):
             courses = Course.objects.all()
             courses = courses.filter(language=r_lan)
             if r_category != "":
-                category = Category.objects.filter(name=r_category).first()
+                category = Category.objects.get(name=r_category)
                 courses.filter(category=category)
             if r_type == "mod":
                 courses.filter(responsible_mod=request.user)
@@ -111,7 +111,7 @@ class CourseView(APIView):
             return Response('Method not allowed',
                             status=status.HTTP_405_METHOD_NOT_ALLOWED)
         try:
-            course = Course.objects.filter(id=course_id).first()
+            course = Course.objects.get(id=course_id)
             course_serializer = serializer.CourseSerializer(course)
             data = course_serializer.data
             return Response(course_serializer.data,
@@ -325,7 +325,7 @@ class StatisticsView(APIView):
     @author: Claas Voelcker
     '''
     authentication_classes = (authentication.TokenAuthentication,)
-    permission_classes = (permissions.is_authenticated)
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, user_id=None):
         user = request.user if not user_id else User.objects.get(id=user_id)
@@ -355,8 +355,9 @@ class RequestView(APIView):
         Returns True if request is allowed and False if request isn't allowed
         or the user is already mod.
         '''
-        return Response(not request.user.profile.is_mod()
-                        and request.user.profile.modrequest_allowed(),
+        allowed = not request.user.profile.is_mod()\
+            and request.user.profile.modrequest_allowed()
+        return Response({'allowed': allowed},
                         status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
