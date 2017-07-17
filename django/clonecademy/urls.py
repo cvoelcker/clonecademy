@@ -46,5 +46,5 @@ urlpatterns = [
     url(r'^user/mod_request$', views.RequestView.as_view()),
     url(r'^user/current$', views.UserView.as_view()),
 
-    url(r'^register/$', views.UserView.as_view())
+    url(r'^register/$', views.UserRegisterView.as_view())
 ]

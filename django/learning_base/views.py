@@ -259,10 +259,10 @@ class AnswerView(APIView):
 
 class UserView(APIView):
     '''
-    Shows a user profile or registers a new user.
+    Shows a user profile
     @author Claas Voelcker
     '''
-    authentication_classes = []
+    authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
 
     #TODO: probably should be check_permissions(self, request)
@@ -294,6 +294,15 @@ class UserView(APIView):
 
         user = serializer.UserSerializer(user)
         return Response(user.data)
+
+
+class UserRegisterView(APIView):
+    '''
+    Shows a user profile
+    @author Claas Voelcker
+    '''
+    authentication_classes = []
+    permission_classes = []
 
     def post(self, request, user_id=None, format=None):
         '''
