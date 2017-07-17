@@ -26,12 +26,14 @@ class CategoryView(APIView):
     authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
 
-    def get(self, request, course_id, module_id, format=None):
+    def get(self, request, format=None):
         '''
-        Shows the module
+        Shows the categories
         '''
-        return Response('Method not allowed',
-                        status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        categories = CourseCategory.objects.all()
+        data = serializer.CourseCategorySerializer(categories, many=True).data
+        return Response(data,
+                        status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
         return Response('Method not allowed',
@@ -80,13 +82,13 @@ class MultiCourseView(APIView):
             courses = Course.objects.all()
             courses = courses.filter(language=r_lan)
             if r_category != "":
-                category = Category.objects.filter(name=r_category).first()
-                courses.filter(category=category)
+                category = CourseCategory.objects.filter(name=r_category).first()
+                courses = courses.filter(category=category)
             if r_type == "mod":
                 courses.filter(responsible_mod=request.user)
             elif r_type == "started":
                 courses = courses.filter(module__question__try__person=user)
-            data = serializer.CourseSerializer(courses, many=True).data
+            data = serializer.CourseSerializer(courses, many=True, context={'request': request}).data
             return Response(data, status=status.HTTP_200_OK)
         except Exception as e:
             return Response("Query not possible",
@@ -111,7 +113,7 @@ class CourseView(APIView):
                             status=status.HTTP_405_METHOD_NOT_ALLOWED)
         try:
             course = Course.objects.filter(id=course_id).first()
-            course_serializer = serializer.CourseSerializer(course)
+            course_serializer = serializer.CourseSerializer(course, context={'request': request})
             data = course_serializer.data
             return Response(course_serializer.data,
                             status=status.HTTP_200_OK)
@@ -189,15 +191,17 @@ class QuestionView(APIView):
         and position (last_module and last_question keys)
         '''
         try:
-            question = Question.objects.get(
-                id=question_id,
-                module__id=module_id,
-                module__course__id=course_id
-            )
+            course = Course.objects.get(id=course_id)
+            module = course.module_set.all()[int(module_id)]
+            question = module.question_set.all()[int(question_id)]
+
             if question is None:
                 return Response("Question not found",
                                 status=status.HTTP_404_NOT_FOUND)
-            data = serializer.QuestionSerializer(question)
+            if not self.can_access_question(request.user, question):
+                return Response("Previous question(s) haven't been answered correctly yet", status = status.HTTP_403_FORBIDDEN)
+
+            data = serializer.QuestionSerializer(question, context={'request': request})
             data = data.data
             return Response(data,
                             status=status.HTTP_200_OK)
@@ -211,11 +215,9 @@ class QuestionView(APIView):
         @author Tobias Huber
         '''
         try:
-            question = Question.objects.get(
-                id=question_id,
-                module__id=module_id,
-                module__course__id=course_id
-            )
+            course = Course.objects.get(id=course_id)
+            module = course.module_set.all()[int(module_id)]
+            question = module.question_set.all()[int(question_id)]
         except Exception as e:
             return Response("Question not found",
                             status=status.HTTP_404_NOT_FOUND)
@@ -243,10 +245,9 @@ class AnswerView(APIView):
         '''
         Lists the answers for a question
         '''
-        question = Question.objects.get(
-            id=question_id,
-            module__id=module_id,
-            module__course__id=course_id)
+        course = Course.objects.get(id=course_id)
+        module = course.module_set.all()[int(module_id)]
+        question = module.question_set.all()[int(question_id)]
         answers = question.answer_set()
         data = serializer.AnswerSerializer(answers, many=True).data
         return Response(data, status=status.HTTP_200_OK)
@@ -258,24 +259,24 @@ class AnswerView(APIView):
 
 class UserView(APIView):
     '''
-    Shows a user profile or registers a new user.
+    Shows a user profile
     @author Claas Voelcker
     '''
-    #authentication_classes = (authentication.TokenAuthentication,)
+    authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
 
     #TODO: probably should be check_permissions(self, request)
     def get_permissions(self):
-        '''
-        Overrides the permissions so that the api can register new users.
-        Returns the new permission set
-        '''
-        if self.request.method == 'POST':
-            self.permission_classes = (permissions.AllowAny,)
+       '''
+       Overrides the permissions so that the api can register new users.
+       Returns the new permission set
+       '''
+       if self.request.method == 'POST':
+           self.permission_classes = (permissions.AllowAny,)
 
-        return super(UserView, self).get_permissions()
+       return super(UserView, self).get_permissions()
 
-    def get(self, request, user_id, format=None):
+    def get(self, request, user_id=False, format=None):
         '''
         Shows the profile of any user if the requester is mod,
         or the profile of the requester
@@ -293,6 +294,15 @@ class UserView(APIView):
 
         user = serializer.UserSerializer(user)
         return Response(user.data)
+
+
+class UserRegisterView(APIView):
+    '''
+    Shows a user profile
+    @author Claas Voelcker
+    '''
+    authentication_classes = []
+    permission_classes = []
 
     def post(self, request, user_id=None, format=None):
         '''
@@ -347,7 +357,7 @@ class StatisticsView(APIView):
     @author: Claas Voelcker
     '''
     authentication_classes = (authentication.TokenAuthentication,)
-    permission_classes = (permissions.is_authenticated)
+    permission_classes = (permissions.IsAuthenticated, )
 
     def get(self, request, user_id=None):
         user = request.user if not user_id else User.objects.get(id=user_id)
@@ -377,8 +387,8 @@ class RequestView(APIView):
         Returns True if request is allowed and False if request isn't allowed
         or the user is already mod.
         '''
-        return Response(not request.user.profile.is_mod()
-                        and request.user.profile.modrequest_allowed(),
+        allowed = not request.user.profile.is_mod() and request.user.profile.modrequest_allowed()
+        return Response({'allowed': allowed},
                         status=status.HTTP_200_OK)
 
     def post(self, request, format=None):

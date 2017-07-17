@@ -2,10 +2,14 @@ import { Component, OnInit } from '@angular/core';
 
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
-import { ServerService } from '../service/server.service';
-import { Router } from "@angular/router"
+import { ErrorDialog } from "../service/error.service"
+
+import { UserService } from '../service/user.service';
+import { Router } from "@angular/router";
+import { ServerService } from '../service/server.service'
 
 import { CookieService } from 'angular2-cookie/core';
+
 
 
 @Component({
@@ -31,54 +35,26 @@ export class LoginComponent implements OnInit {
   submitted: boolean;
   invalidLogin: boolean;
 
-  /*
-  variables for register
-  TODO: refactor name and surname to first and last name
-   */
-  newUsername: string;
-  newEmail: string;
-  newPassword: string;
-  newPassword2: string;
-  newFirstName: string = "";
-  newLastName: string = "";
-  newAge: number = -1;
-  newGroup: string = "";
-  invalidRegister: boolean;
-  errorMessage: string;
-
-  showLogin = true;
-
-
-
-  constructor(private cookie: CookieService, private server: ServerService, private router: Router) {
+  constructor(private errorDialog: ErrorDialog, private cookie: CookieService,public server: ServerService, public user: UserService, private router: Router) {
 
   }
 
-  login(){
-    this.server.login(this.username, this.password)
-      .then(res => {this.router.navigate(['/dashboard'])})
-      .catch(res => {this.invalidLogin = true;})
-  }
+  login(form){
+    if(form.valid){
 
-  register(){
-    if (this.newPassword !== this.newPassword2)
-      return -1;
-    let newUserInfo = {username: this.newUsername,
-                        email: this.newEmail,
-                        password: this.newPassword,
-                        first_name: this.newFirstName,
-                        last_name: this.newLastName,
-			age: this.newAge,
-			group: this.newGroup,};
-    this.server.post("register/", newUserInfo)
-      .then(answer => {console.log(answer)})
-      .catch(error => {this.invalidRegister = true;
-                        this.errorMessage = error.statusText});
+      this.user.loginUser(this.username, this.password)
+      .catch(data => {
+        let dialogRef = this.errorDialog.open(data['non_field_errors'])
+      })
+    }
+    else{
+      this.errorDialog.open("Username and password is required")
+    }
   }
 
   ngOnInit() {
     if(this.cookie.get('token') != null){
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/course']);
     }
   }
 

@@ -1,0 +1,41 @@
+
+table{
+  td{
+    vertical-align: middle;
+  }
+}
+.moduleTitle{
+  padding-right: 1.5em;
+}
+.moduleArrows{
+  width: 10%;
+  min-width: 50px;
+  button{
+    width: 100%;
+  }
+}
+
+#learningText{
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  min-height: 5em;
+}
+
+.moduleWrapper{
+  margin: 1em 0;
+  padding: 1em 0;
+}
+
+ul{
+  list-style: none;
+  padding: 0;
+  margin: 1.5em 0;
+  li{
+    padding:0;
+  }
+}
+
+md-select{
+  margin-top: 1.5em;
+}

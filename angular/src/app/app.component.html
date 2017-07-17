@@ -3,13 +3,22 @@
     <h1>
       {{title}}
     </h1>
-    <app-menu></app-menu>
+    <app-menu [hidden]="!user.loaded" #menu></app-menu>
   </header>
-  <main class="container flex">
-    <router-outlet class="content" appLoggedIn>
-    </router-outlet>
+  <main  class="container flex">
+    <div [hidden]="user.loaded" class="localLoader">
+      <md-progress-spinner mode="indeterminate"></md-progress-spinner>
+    </div>
+    <div [hidden]="!user.loaded" >
+      <router-outlet  appLoggedIn>
+      </router-outlet>
+    </div>
   </main>
   <footer class="container flex">
     footer
+    <div class="lang-bar">
+  <button md-raised-button class="btn-info" (click)="changeLang('en')">EN</button>
+  <button md-raised-button class="btn-info" (click)="changeLang('de')">DE</button>
+</div>
   </footer>
 </div>

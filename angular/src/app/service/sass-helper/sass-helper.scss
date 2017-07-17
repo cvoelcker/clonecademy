@@ -1,0 +1,22 @@
+@import '../../../theme';
+
+$prefix: "--"; //Prefix string for custom CSS properties
+
+//Merges a variable name with $prefix
+@function custom-property-name($name) {
+    @return $prefix + $name;
+}
+
+// Defines a custom property
+@mixin define-custom-property($name, $value) {
+    #{custom-property-name($name)}: $value;
+}
+
+div{
+    // Append SASS variables which are desired to be accesible:
+    @include define-custom-property('warning', mat-color($primary, 500));
+    @include define-custom-property('warning-hover', mat-color($primary, 300));
+
+    @include define-custom-property('success', mat-color($green, 500));
+    @include define-custom-property('success-hover', mat-color($green, 300));
+}

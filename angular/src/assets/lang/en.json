@@ -1,0 +1,103 @@
+{
+  "dashboard": "Dashboard",
+  "add Course": "add Course",
+  "courses": "Courses",
+  "title": "Title",
+  "custom feedback text": "custom feedback text",
+  "module title": "module title",
+  "module description": "module description",
+  "Select Question Type": "Select Question Type",
+  "remove module": "remove module",
+  "add question": "add question",
+
+  "Add multiple choice Question": "Add multiple choice Question",
+  "Question": "Question",
+  "answer text": "Answer text",
+  "is this Answer correct?": "is this Answer correct?",
+  "remove": "remove",
+  "add Answer": "add Answer",
+
+  "Custom feedback": "Custom feedback",
+  "remove Question": "remove Question",
+
+  "admin": "Admin",
+
+  "completed": "completed",
+
+  "start Course": "start Course",
+  "course completed": "Course Completed",
+  "continue": "continue",
+  "repeat": "repeat",
+
+  "category": "category",
+  "add module": "add module",
+  "save": "save",
+
+  "error": "Error",
+  "close": "close",
+
+  "login": "Login",
+  "register": "Register",
+  "username": "Username",
+  "password": "Password",
+
+  "No Account? Register here": "No Account? Register here",
+  "Login with you account": "Login with you account",
+
+  "profile": "Profile",
+  "learn": "Learn",
+
+  "Error 404": "Error 404",
+  "Woops. Looks like this Page doesn't exist.": "Woops. Looks like this Page doesn't exist.",
+
+  "statistics": "statistics",
+  "question": "Question",
+  "solved": "Solved",
+  "tries": "Tries",
+
+  "user details": "User details",
+  "request mod rights": "Request mod rights",
+  "logout": "Logout",
+
+  "select a profile": "Select a profile",
+
+  "correct" : "correct",
+  "wrong": "wrong",
+  "wrong feedback 0": "Please try again.",
+  "wrong feedback 1": "Oh, good choice but not totaly correct.",
+  "wrong feedback 2": "nice try but you probably just mixed something up.",
+  "correct feedback": "well done",
+
+  "submit": "submit",
+  "next question": "next question",
+
+  "email": "E-Mail",
+  "username": "Username",
+  "password": "Password",
+  "password again": "Password again",
+  "first name": "First name",
+  "last name": "Last name",
+  "optional": "optional",
+  "group": "Group",
+  "username requirements": "The Username hast to be at least 5 characters long and only letters and digits are allowed.",
+  "password requirements": "The password must contain at least 5 characters.",
+  "Date registered": "Date registered",
+  "invalid email": "That is not a valid email adress.",
+  "invalid username": "Invalid Username. It has to be at least 5 caracters long.",
+  "invalid password": "The Password must be at least have 5 characters.",
+  "password missmatch": "The Password does not match.",
+
+
+  "Request sent": "Request sent",
+  "Give a reason for the request": "Give a reason for the request",
+  "Reason is required": "Reason is required",
+  "Request moderator access" : "Request moderator access" ,
+
+  "UserDetail": "User details",
+
+  "Unable to log in with provided credentials.": "Unable to log in with provided credentials.",
+
+  "At least one question is required for this module": "At least one question is required for this module",
+  "The title of the module is required": "The title of the module is required",
+  "The module description is required": "The module description is required"
+}

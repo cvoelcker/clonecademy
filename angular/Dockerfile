@@ -1,5 +1,5 @@
 # Last.Backend angular example image
-FROM node:7.10.0
+FROM node:8.0.0
 
 RUN mkdir /angular
 WORKDIR /angular
@@ -7,3 +7,5 @@ WORKDIR /angular
 COPY package.json /angular/
 
 ADD . /angular
+
+RUN npm i -s

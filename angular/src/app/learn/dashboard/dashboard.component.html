@@ -1,0 +1,40 @@
+<div class="dashboard">
+
+  <div class="row">
+    <div class ="sidebar col-md-4">
+      <h2>{{ "dashboard" | translate}}</h2>
+      <button md-raised-button *ngIf="user.isModerator()" class="addCourse" routerLink="create_course">
+        <i class="material-icons">add</i> {{"add Course" | translate}}
+      </button><br>
+      <div *ngIf="!loading && !loadingCat">
+          <md-tab-group >
+          <md-tab [label]="category.name" *ngFor="let category of course.categorys">
+            <div class="singleBox">
+              <button md-button class="collapseButton" (click)="collapse = !collapse" ><i [class.right]="collapse" class="arrow"></i>{{"courses" | translate}}</button>
+              <div class="courses" [@slideIn]="!collapse">
+                <ul>
+                  <li *ngFor="let c of course.data[category.name]">
+                    <a
+                    [routerLink]="'/course/' + c.id"
+                    [style.background]="setBackgroundGradient(c)"
+                    [routerLinkActive]="['active']"
+                    >
+                      <div class="progressBar" [style.width.%]="(c.num_answered / c.num_questions) * 100"></div>
+                      {{c.name}}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </md-tab>
+        </md-tab-group>
+
+      </div>
+      <div *ngIf="loading || loadingCat" class="localLoader">
+        <md-progress-spinner mode="indeterminate"></md-progress-spinner>
+      </div>
+    </div>
+
+    <div class ="content col-md-8">
+      <router-outlet #content></router-outlet>
+    </div>

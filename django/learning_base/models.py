@@ -46,7 +46,7 @@ class Profile(models.Model):
         '''
         Returns True if the user is allowed to request moderator rights
         '''
-        return (self.last_modrequest is None or 
+        return (self.last_modrequest is None or
             (timezone.localdate() - self.last_modrequest).days >= 7) and\
             not self.is_mod()
 
@@ -71,7 +71,8 @@ class CourseCategory(models.Model):
     """
     name = models.CharField(
         help_text="Name of the category (e.g. biochemistry)",
-        max_length=144
+        max_length=144,
+        unique=True,
     )
 
     def get_courses(self):
@@ -87,6 +88,9 @@ class Course(models.Model):
     solved together. These questions should have similar topics, difficulty
     and should form a compete unit for learning.
     """
+    class Meta:
+        unique_together = ['category', 'name']
+
     QUESTION_NAME_LENGTH = 144
 
     EASY = 0
@@ -216,7 +220,9 @@ class Question(PolymorphicModel):
 
     title = models.TextField(
         verbose_name='Question title',
-        help_text="A short and concise name for the question"
+        help_text="A short and concise name for the question",
+        blank=True,
+        null=True
     )
 
     body = models.TextField(

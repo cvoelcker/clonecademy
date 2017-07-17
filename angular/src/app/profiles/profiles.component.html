@@ -1,6 +1,0 @@
-<label for="profileSelect">Select a profile</label>
-<select [(ngModel)]="selectedValue" (change)="user.change(selectedValue)" class="selectpicker show-tick form-control">
-  <option *ngFor="let p of profiles" id="profileSelect" [ngValue]="p.id">{{p.username}}</option>
-</select>
-
-<app-user-detail #user [id] = "selectedValue"></app-user-detail>

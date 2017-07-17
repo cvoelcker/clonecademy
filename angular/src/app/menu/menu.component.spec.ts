@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { BaseTest } from '../base-test';
+
 import { MenuComponent } from './menu.component';
 
 describe('MenuComponent', () => {
@@ -7,8 +9,11 @@ describe('MenuComponent', () => {
   let fixture: ComponentFixture<MenuComponent>;
 
   beforeEach(async(() => {
+    let base = new BaseTest();
     TestBed.configureTestingModule({
-      declarations: [ MenuComponent ]
+      imports: [ base.imports() ],
+      providers: [base.providers()],
+      declarations: [ MenuComponent ],
     })
     .compileComponents();
   }));

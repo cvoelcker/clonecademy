@@ -1,5 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { BaseTest } from '../base-test';
+
+
 import { LoginComponent } from './login.component';
 
 describe('LoginComponent', () => {
@@ -7,8 +10,11 @@ describe('LoginComponent', () => {
   let fixture: ComponentFixture<LoginComponent>;
 
   beforeEach(async(() => {
+    let base = new BaseTest();
     TestBed.configureTestingModule({
-      declarations: [ LoginComponent ]
+      imports: [ base.imports() ],
+      providers: [base.providers()],
+      declarations: [ LoginComponent]
     })
     .compileComponents();
   }));

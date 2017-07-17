@@ -5,15 +5,23 @@
 
 $primary: mat-palette($md-ccred);
 $accent: mat-palette($md-ccback);
-$warn: mat-palette($mat-red);
+$warn: mat-palette($mat-red, 900);
+$shadow: mat-palette($md-ccshadow);
 $font: mat-palette($md-ccshadow);
+
+$green: mat-palette($mat-green);
 
 $custom-theme: mat-light-theme($primary, $accent, $warn);
 
 @include angular-material-theme($custom-theme);
 
+
+body{
+  font-family: "Helvetica"
+}
+
 main, footer{
-  background-color: #ddd;
+  background-color: mat-color($shadow, 100);
 }
 
 header{
@@ -21,24 +29,41 @@ header{
 }
 
 main{
-  //box-shadow: 0px 0px 3px mat-color($accent);
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-bottom: 1em;
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+body{
+  overflow-y: hidden;
+
 }
 
 a{
   transition: color 0.4s ease;
+  cursor: pointer;
+  outline: 0;
 }
 
 a:hover, a:focus, a:active{
   text-decoration: none;
-  color: mat-color($primary)
+  color: mat-color($primary);
 }
 
 *[md-raised-button]{
   background-color: mat-color($primary);
+  &:hover{
+    background-color: mat-color($primary, 300);
+  }
+    //color: mat-color($shadow) !important
 }
 
 button{
   color: white !important;
+  &.active{
+    background-color: mat-color($primary, 200);
+  }
 }
 
 *[md-button]{
@@ -47,11 +72,167 @@ button{
 
 *[md-tab-link]{
 
-    text-decoration: none;
-    color: mat-color($font);
+  text-decoration: none;
+  color: mat-color($font);
 
-  &.is-active{
+  &:hover{
+    background-color: mat-color($accent, 300)
+  }
+
+  &.active{
     border-bottom: 4px solid mat-color($primary)
   }
     opacity: 1 !important;
+}
+
+textarea{
+  resize: vertical;
+  overflow-x: hidden;
+}
+
+md-checkbox{
+  .mat-checkbox-layout{
+    margin: 0;
+    display: block;
+    width: 100%;
+    padding: 0.5em;
+
+  }
+}
+
+.alert{
+  color: mat-color($shadow) !important;
+  &.false{
+    background-color: transparent;
+    border: 1px solid;
+  }
+  &.info{
+    background-color: mat-color($accent, 100);
+    border-color: mat-color($accent, 300);
+  }
+  &.success{
+    background-color: mat-color($green, 100);
+    border-color: mat-color($green, 300);
+  }
+  &.danger{
+    background-color: mat-color($warn, 100);
+    border-color: mat-color($warn, 300);
+  }
+}
+
+md-hint{
+  color: mat-color($warn);
+  font-size: 14px;
+}
+
+.error{
+  input{
+    border-color: mat-color($warn)
+  }
+}
+
+
+// the style for the local Loader which will only be shown in the boxes and set to the center of the parent box
+.localLoader{
+  width: 100%;
+  text-align: center;
+}
+
+md-progress-spinner{
+  margin: auto;
+}
+
+.sidebar{
+  ul{
+    list-style: none;
+    padding: 0;
+    li{
+      padding: 0.5em 0;
+      text-align: center;
+      button{
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media(min-width: 768px){
+  // sidebar for the Menu
+  .sidebar{
+    position: absolute;
+    left: 0;
+    top:0;
+    right: auto;
+    bottom: 0;
+    box-sizing: border-box;
+    overflow: auto;
+    overflow-x: hidden;
+    box-shadow: 0 2px 2px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
+    width: 33.3333333333%;
+  }
+
+  .content {
+   box-sizing: border-box;
+   overflow-y: auto;
+   position: absolute;
+   right: 0;
+   left: auto;
+   top: 0;
+   bottom: 0;
+   box-shadow: 0 0px 2px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
+   width: 66.6666666666666%;
+   padding: 1.26em;
+  }
+}
+
+// labels
+
+md-input-container, md-select{
+  width: 100%;
+  .mat-input-placeholder, .mat-select-placeholder{
+    color: black;
+  }
+}
+
+md-input-container{
+  padding-bottom: 1em;
+}
+
+
+app-add-module{
+  display:block;
+  margin: 0 -15px;
+  padding: 0 15px;
+
+  &:nth-child(2n){
+    background-color: mat-color($shadow, 200);
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
+  }
+}
+
+// buttons
+
+.info{
+  //display: none;
+}
+
+*[disabled]{
+  position: relative;
+  .info{
+    display: block;
+    opacity: 0;
+    position: absolute;
+    bottom: auto;
+    left: 0;
+    right: auto;
+    top: 2em;
+    background-color: mat-color($shadow);
+    border-radius: 2px;
+    padding: 0 1em;
+    transition: opacity 0.4s ease;
+  }
+}
+
+*[disabled]:hover .info{
+  opacity: 1;
 }

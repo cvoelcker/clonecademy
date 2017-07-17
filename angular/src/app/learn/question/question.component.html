@@ -1,0 +1,32 @@
+<div>
+  <h2>{{title}}</h2>
+</div>
+<table>
+  <td class="text">
+      <div class="alert">{{learning_text}}</div>
+      <md-card >{{questionBody}}</md-card>
+  </td>
+  <td>
+    <div class="question" #question></div>
+  </td>
+</table>
+<div class="row feedback">
+  <div *ngIf='submitCorrect' class="col-md-6">
+    <div class="alert success">
+      <h3>{{"correct" | translate}}</h3>
+      {{correctFeedback}}
+    </div>
+  </div>
+  <div *ngIf='!submitCorrect && submitSend' class="col-md-6">
+    <div class="alert danger">
+      <h3>{{"wrong" | translate}}</h3>
+      {{wrongFeedback}}
+    </div>
+  </div>
+</div>
+<div class="row bottom">
+  <div class="col-md-12">
+    <button md-raised-button *ngIf="!submitCorrect" class="btn  " (click)="submit()">{{"submit" | translate}}</button>
+    <button md-raised-button *ngIf="submitCorrect" class="btn  " (click)="next()">{{"next question" | translate}}</button>
+  </div>
+</div>

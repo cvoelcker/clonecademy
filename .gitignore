@@ -92,6 +92,7 @@ ENV/
 
 #Angular
 angular/node_modules
+angular/karma-*
 .DS_Store
 gen_docs.disable
 test.disable

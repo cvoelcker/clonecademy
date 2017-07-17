@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import {CookieService} from 'angular2-cookie/core';
+
+import { UserService } from '../service/user.service'
 
 @Component({
   selector: 'app-menu',
@@ -8,9 +11,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
+  login: boolean;
 
-  constructor() {
-
+  constructor(private cookie: CookieService, private user: UserService){
+    this.login = this.cookie.get("token") != null
   }
 
   ngOnInit() {

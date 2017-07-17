@@ -1,0 +1,18 @@
+<h2>{{"request mod rights" | translate}}</h2>
+<div *ngIf="!loading">
+  <form *ngIf="available" name="form">
+      <div [ngClass]="{ 'has-error': submitted }">
+        <md-input-container>
+          <input mdInput placeholder='{{"Give a reason for the request" | translate}}' type="text" id="reasonInput" name="reason" [(ngModel)]="reason" required />
+          <div *ngIf="submitted " class="help-block">{{"Reason is required" | translate}}</div>
+        </md-input-container>
+      </div>
+      <button [disabled]="loading" (click)="send_request()" md-raised-button>{{"Request moderator access" | translate}}</button>
+  </form>
+  <div class="error" *ngIf="invalidLogin">Your request could not be sent</div>
+  <p *ngIf="error">Request was rejected</p>
+  <div *ngIf="available == false" class="help-block">{{"Request unavailable (either you have sent a request recently, or you are already a moderator)" | translate}}</div>
+</div>
+<div *ngIf="loading" class="localLoader">
+  <md-progress-spinner mode="indeterminate"></md-progress-spinner>
+</div>
