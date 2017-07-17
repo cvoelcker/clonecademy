@@ -191,6 +191,10 @@ class Module(models.Model):
         '''
         return len(self.question_set.all())
 
+    def is_first_module(self):
+        modules = self.course.module_set
+        return self == modules.first()
+
     def is_last_module(self):
         '''
         Returns True if this is the final module in a course
@@ -238,6 +242,10 @@ class Question(PolymorphicModel):
 
     def feedback_is_set(self):
         return len(feedback) != 0
+
+    def is_first_question(self):
+        questions = self.module.question_set
+        return self == questions.first()
 
     def is_last_question(self):
         questions = self.module.question_set

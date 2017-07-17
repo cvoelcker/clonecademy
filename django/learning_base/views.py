@@ -24,8 +24,7 @@ class CategoryView(APIView):
     @author Claas Voelcker
     '''
     authentication_classes = (authentication.TokenAuthentication,)
-
-    # permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, course_id, module_id, format=None):
         '''
@@ -159,8 +158,7 @@ class ModuleView(APIView):
     @author Claas Voelcker
     '''
     authentication_classes = (authentication.TokenAuthentication,)
-
-    # permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, course_id, module_id, format=None):
         '''
@@ -181,6 +179,9 @@ class QuestionView(APIView):
     '''
     authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
+
+    def can_access_question(self, user, question):
+        return (question.is_first_question and question.module.is_first_module) or request.user.try_set.filter(question__order = question.order-1, solved = True).exists()
 
     def get(self, request, course_id, module_id, question_id, format=None):
         '''
@@ -204,11 +205,30 @@ class QuestionView(APIView):
             return Response("Question not found",
                             status=status.HTTP_404_NOT_FOUND)
 
-    def post(self, request, format=None):
+    def post(self, request, course_id, module_id, question_id, format=None):
         '''
         Evaluates the answer to a question.
+        @author Tobias Huber
         '''
-        pass
+        try:
+            question = Question.objects.get(
+                id=question_id,
+                module__id=module_id,
+                module__course__id=course_id
+            )
+        except Exception as e:
+            return Response("Question not found",
+                            status=status.HTTP_404_NOT_FOUND)
+        #deny access if there is a/are previous question(s) and it/they haven't been answered correctly
+        if not(self.can_access_question(request.user, question)):
+            return Response("Previous question(s) haven't been answered correctly yet", status = status.HTTP_403_FORBIDDEN)
+
+        solved = question.evaluate(request.data["answers"])
+        Try(user = request.user, question=question, answer=str(request.data["answers"]), solved=solved).save()
+        response = {"evaluate": solved}
+        if solved and question.feedback_is_set:
+            response['feedback'] = question.feedback
+        return Response(response)
 
 
 class AnswerView(APIView):
@@ -217,8 +237,7 @@ class AnswerView(APIView):
     @author Claas Voelcker
     '''
     authentication_classes = (authentication.TokenAuthentication,)
-
-    # permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, course_id, module_id, question_id, format=None):
         '''
@@ -242,9 +261,10 @@ class UserView(APIView):
     Shows a user profile or registers a new user.
     @author Claas Voelcker
     '''
-    authentication_classes = (authentication.TokenAuthentication,)
+    #authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
 
+    #TODO: probably should be check_permissions(self, request)
     def get_permissions(self):
         '''
         Overrides the permissions so that the api can register new users.
@@ -389,3 +409,35 @@ class RequestView(APIView):
             ['test@test.net']
         )
         return Response({"Request": "ok"}, status=status.HTTP_200_OK)
+
+class GrantModRightsView(APIView):
+    """
+    This View is used to grant a user modrights
+    @author Tobias Huber
+    """
+
+    #authentication_classes=(authentication.TokenAuthentication,);
+    permission_classes = (permissions.IsAdminUser,)
+
+    def get(self, request, user_id, format=None):
+        '''
+        Returns True if given user with a given user_id is a moderator
+        '''
+        return Response(Profile.objects.get(user__id = user_id).is_mod(), status=status.HTTP_200_OK)
+
+    def post(self, request, user_id, format=None):
+        '''
+        Grants a user with a given user id mod rights.
+        User id is taken from the url
+        '''
+        to_be_promoted = User.objects.get(id=user_id)
+        if to_be_promoted.profile.is_mod():
+            #TODO Find out if it is usefull to send a 200 when a user was already mod
+            return Response("the user \" "+ to_be_promoted.username +"\" is already a moderator", status=status.HTTP_200_OK)
+        mod_group = Group.objects.get(name='moderator')
+        to_be_promoted.groups.add(mod_group)
+
+        #may be replaced by tests
+        if not to_be_promoted.profile.is_mod():
+            return Response("something went terribly wrong with promoting" + to_be_promoted.username, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response("successfully promoted " + to_be_promoted.username, status=status.HTTP_200_OK)
