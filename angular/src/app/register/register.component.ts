@@ -14,6 +14,9 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 })
 export class RegisterComponent {
 
+  languages: Array<{id: string, name: string}> = [{id: "en", name: "English"}, {id: "de", name: "Deutsch"}]
+
+
   constructor(
     private error: ErrorDialog,
     private server: ServerService,
@@ -49,8 +52,9 @@ export class RegisterComponent {
   register(value){
     if(value.valid && value.value["password"] === value.value['password2']){
       let data = value.value
-      delete data['password2']
-      data['age'] = 0;
+      delete data['password2'];
+      data['groups'] = [];
+      data['profile'] = {};
       this.server.post("register/", data, false, false)
         .then(answer => {
           this.user.loginUser(this.newUsername, this.newPassword)

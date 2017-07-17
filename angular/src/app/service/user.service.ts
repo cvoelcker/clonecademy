@@ -11,7 +11,7 @@ import {CookieService} from 'angular2-cookie/core';
 export class UserService {
 
   public login: boolean = false;
-  private groups: Array<{name: string}>;
+  private groups: Array<string>;
 
   public loaded = false;
 
@@ -35,7 +35,7 @@ export class UserService {
 
   public loadUser(){
 
-    return new Promise((resolve, reject) => this.server.get("current_user/", true, false).then(data => {
+    return new Promise((resolve, reject) => this.server.get("user/current", true, false).then(data => {
           this.groups = data['groups']
           this.loaded = true;
           resolve()
@@ -50,7 +50,7 @@ export class UserService {
   private isInGroup(name: string){
     if(this.loaded && this.login){
       for(let i = 0; i < this.groups.length; i++){
-        if(this.groups[i].name == name){
+        if(this.groups[i] == name){
           return true;
         }
       }

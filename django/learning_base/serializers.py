@@ -34,6 +34,7 @@ class QuestionSerializer(serializers.ModelSerializer):
         Output:
             value: a valid json object containing all required fields
         '''
+
         module = obj.module
         value = super(QuestionSerializer, self).to_representation(obj)
         value['type'] = obj.__class__.__name__
@@ -42,6 +43,11 @@ class QuestionSerializer(serializers.ModelSerializer):
         value['learning_text'] = module.learning_text
         serializer = obj.get_serializer()
         value['question_body'] = serializer(obj).data
+        user = self.context['request'].user
+        value['solved'] = obj.try_set.filter(solved=True)
+        value['solved'] = value['solved'].filter(user=user)
+        value['solved'] = value['solved'].exists()
+
         return value
 
     def create(self, validated_data):
@@ -73,11 +79,12 @@ class ModuleSerializer(serializers.ModelSerializer):
         This function makes the serialization and is needed to correctly
         display nested objects.
         """
+
         value = super(ModuleSerializer, self).to_representation(obj)
 
         questions = Question.objects.filter(module=obj)
         questions = QuestionSerializer(
-            questions, many=True, read_only=True).data
+            questions, many=True, read_only=True, context=self.context).data
 
         value["questions"] = questions
         return value
@@ -111,12 +118,22 @@ class CourseSerializer(serializers.ModelSerializer):
         """
         This function serializes the courses.
         """
+
         value = super(CourseSerializer, self).to_representation(obj)
 
-        all_modules = Module.objects.filter(course=obj)
-        modules = ModuleSerializer(all_modules, many=True, read_only=True).data
+        all_modules = obj.module_set.all()
+        modules = ModuleSerializer(all_modules, many=True, read_only=True, context=self.context).data
 
-        value["modules"] = modules
+        value['modules'] = modules
+
+        num_questions = 0
+        num_answered = 0
+        for module in modules:
+            for question in module['questions']:
+                if question['solved']: num_answered += 1
+                num_questions += 1
+        value['num_answered'] = num_answered
+        value['num_questions'] = num_questions
         return value
 
     def create(self, validated_data):
@@ -160,12 +177,19 @@ class UserSerializer(serializers.ModelSerializer):
     Model serializer for the User model
     '''
 
+    groups = serializers.StringRelatedField(many=True)
     class Meta:
         model = User
-        fields = ('username', 'email', 'id', 'date_joined')
+        fields = ('username', 'email', 'id', 'date_joined', 'groups')
+
+    def validate_groups(self, value):
+        return value
 
     def create(self, validated_data):
         profile_data = validated_data.pop('profile')
+        validated_data.pop('groups')
+        # TODO add language to profile
+        validated_data.pop('language')
         user = User.objects.create_user(**validated_data)
         user.save()
         profile = Profile(user=user, **profile_data)

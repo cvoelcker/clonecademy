@@ -1,4 +1,4 @@
-import { Component, Type, Output, ChangeDetectorRef, EventEmitter, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory } from '@angular/core';
+import { Component, OnInit, Type, Output, ChangeDetectorRef, EventEmitter, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory } from '@angular/core';
 
 import { AddQuestionModule } from './add-question.module'
 import { slideIn } from "../../../animations";
@@ -9,7 +9,7 @@ import { slideIn } from "../../../animations";
   styleUrls: ['./add-question.component.scss'],
   animations: [ slideIn ]
 })
-export class AddQuestionComponent {
+export class AddQuestionComponent implements OnInit {
 
   @Output() emitter: EventEmitter<any> = new EventEmitter();
   public child: Type<AddQuestionModule>;
@@ -17,7 +17,7 @@ export class AddQuestionComponent {
   questionFactory: ComponentFactory<AddQuestionModule>;
 
   questionCopy: AddQuestionModule
-
+  questionBody = "";
   feedback: string;
   feedbackBool: boolean;
 
@@ -25,7 +25,7 @@ export class AddQuestionComponent {
 
   loading = false;
 
-  ngAfterViewInit(){
+  ngOnInit(){
     this.loading = true;
     this.ref.detectChanges()
   }
@@ -46,12 +46,7 @@ export class AddQuestionComponent {
     let question = this.question.createComponent(this.questionFactory)
 
     this.questionCopy  = (<AddQuestionModule> question.instance)
-
-    if(feedback != null){
-      this.feedback = feedback
-      this.feedbackBool = true
-    }
-    this.questionCopy.edit(questionBody, answers);
+    this.questionCopy.edit(answers);
   }
 
 
@@ -65,10 +60,12 @@ export class AddQuestionComponent {
 
   save(f): any{
     let response = this.questionCopy.save(f)
-    response['feedbackBool'] = this.feedbackBool
     // check if custom feedback is set and save it if needed
-    if(this.feedbackBool){
-      response['feedback'] = this.feedback;
+    response['body'] = this.questionBody;
+    response['feedback'] = this.feedback;
+    response['title'] = ""
+    if(response['feedback'] == undefined){
+      response['feedback'] = "";
     }
 
     return response

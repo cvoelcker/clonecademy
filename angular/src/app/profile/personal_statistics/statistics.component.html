@@ -1,9 +1,9 @@
 <h2>{{"statistics" | translate}}</h2>
 <div *ngIf="!loading">
   <table>
-    <th>{{"question" | translate}}</th><th>{{"solved" | translate}}</th><th>{{"tries" | translate}}</th>
+    <th>{{"question" | translate}}</th><th>{{"solved" | translate}}</th><th>{{"date" | translate}}</th>
     <tr *ngFor="let stat of statistics">
-      <td>{{stat.question}}</td><td>{{stat.solved}}</td><td>{{stat.tries}}</td>
+      <td>{{stat.question}}</td><td>{{stat.solved}}</td><td>{{ stat.date | date:'d. MMMM y'}}</td>
     </tr>
   </table>
 </div>

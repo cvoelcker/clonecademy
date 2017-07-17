@@ -17,7 +17,7 @@ export class AddMultiplyChoiceComponent extends AddQuestionModule {
 
 
   // the function to save it returns a object
-  // {type: string, question: string, answers: [text: string, is_correct: boolean]}
+  // {type: string, answers: [text: string, is_correct: boolean]}
   save(form): any{
     this.form = form;
     let answers = this.answers
@@ -25,8 +25,7 @@ export class AddMultiplyChoiceComponent extends AddQuestionModule {
       delete answers[i].visible
     }
     return {
-      type: "MultiplyChoiceQuestion",
-      question: this.question,
+      type: "multiple_choice",
       answers: answers
     };
   }

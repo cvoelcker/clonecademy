@@ -61,21 +61,21 @@ export class QuestionComponent implements OnInit {
   }
 
   loadQuestion(){
-    this.server.get("courses/"+this.courseID+"/"+this.moduleIndex + "/" + this.questionIndex).then(data => {
+    this.server.get("courses/"+this.courseID+"/"+ (Number(this.moduleIndex) -1) + "/" + (Number(this.questionIndex) - 1 )).then(data => {
       this.submitCorrect = false;
       this.title = data['title']
-      this.questionBody = data['question_body']
-      this.lastQuestion = data['lastQuestion']
-      this.lastModule = data['lastModule']
+      this.questionBody = data['body']
+      this.lastQuestion = data['last_question']
+      this.lastModule = data['last_module']
       this.learning_text = data['learning_text']
-      console.log(data)
       // create Question based on the class
-      this.questionFactory = this.factory.resolveComponentFactory(this.components[data['class']])
+      this.questionFactory = this.factory.resolveComponentFactory(this.components[data['type']])
 
       // empty question factory box bevor adding new stuff
       this.question.clear()
       let question = this.question.createComponent(this.questionFactory)
       this.questionModule = (<QuestionModule> question.instance)
+      this.questionModule.data = data['question_body']
       this.changeDet.detectChanges()
 
     })
@@ -84,8 +84,8 @@ export class QuestionComponent implements OnInit {
 
   submit(){
 
-    let data = this.questionModule.submit();
-    this.server.post("courses/"+this.courseID+"/"+this.moduleIndex + "/" + this.questionIndex, data)
+    let data = {answers: this.questionModule.submit()};
+    this.server.post("courses/"+this.courseID+"/"+ (Number(this.moduleIndex) -1 ) + "/" + (Number(this.questionIndex) -1), data)
       .then(data => this.evaluteAnswer(data))
       .catch(err => console.log(err))
   }
@@ -99,7 +99,7 @@ export class QuestionComponent implements OnInit {
       // calls block to freeze the question element
       this.questionModule.block();
       // the answer is correct and the correct Feedback will be set
-      if(data['feedback']){
+      if(data['feedback'] != ""){
         this.correctFeedback = data['feedback']
       }
       else{
@@ -126,7 +126,7 @@ export class QuestionComponent implements OnInit {
     else{
       // TODO add a feedback for the course here
       this.router.navigateByUrl("/course")
-      return
+      return;
     }
     this.router.navigateByUrl("/course/"+this.courseID+"/"+ this.moduleIndex + "/" + this.questionIndex)
     this.submitSend = false;

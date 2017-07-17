@@ -14,6 +14,8 @@ export class QuestionModule implements OnInit{
   questionIndex: number
   courseID: number;
 
+  data: any;
+
   disable = false;
 
   constructor(public server: ServerService, private route: ActivatedRoute) {

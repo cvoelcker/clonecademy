@@ -23,9 +23,13 @@ class MultipleChoiceQuestionPreviewSerializer(serializers.ModelSerializer):
 class MultipleChoiceQuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = MultipleChoiceQuestion
-        fields = ('body', 'answers', "id",)
+        fields = ('id',)
 
-    answers = MultipleChoiceAnswerSerializer(many=True, read_only=True)
+    def to_representation(self, obj):
+        values = super(MultipleChoiceQuestionSerializer, self).to_representation(obj)
+        answers = obj.answer_set()
+        values['answers'] = MultipleChoiceAnswerSerializer(answers, many=True).data
+        return values
 
     def create(self, validated_data):
         answers = validated_data.pop('answers')

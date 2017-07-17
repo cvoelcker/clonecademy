@@ -16,9 +16,9 @@ export class CourseComponent implements OnInit {
   type: string;
   name: string;
   modules: [any];
-  solved: [number, number];
-  completed: boolean = true;
+  completed: boolean = false;
   loading = true;
+  lastCourse = [1, 1];
   numAnswered: number;
   numQuestions: number;
 
@@ -68,28 +68,45 @@ public chartHovered(e:any):void {
   }
 
   load() {
-    this.course.contains(this.id).then((data) => {
       // save the number of answered questions and the amount of questions in the current course
-      this.numQuestions = data['num_questions']
-      this.numAnswered = data['num_answered']
-      this.pieChartData = [this.numAnswered, this.numQuestions-this.numAnswered]
 
+
+      this.completed = false;
+      this.loading = true;
+      this.modules = undefined;
+      this.name = "";
       // send request to server to get the information for the course
-      this.server.get('courses/'+this.id + "/", true)
+      this.server.get('courses/'+this.id + "/", true, false)
       .then(data => {
+        this.numQuestions = data['num_questions']
+        this.numAnswered = data['num_answered']
+        this.pieChartData = [this.numAnswered, this.numQuestions-this.numAnswered]
         this.name = data['name'];
         this.modules = data['modules'];
-        this.solved = data['solved'];
 
         let lastModule = this.modules[this.modules.length - 1]
-        let lastQuestion = lastModule.question[lastModule.question.length - 1]
-        if(!(data['solved'].indexOf(lastQuestion.id) > -1)){
-          this.completed = false;
+        if(lastModule != undefined){
+
+          let lastQuestion = lastModule.questions[lastModule.questions.length - 1]
+          if(lastQuestion.solved == true){
+            this.completed = true;
+          }
+        }
+        else {
+          this.completed = true;
+        }
+        if(!this.completed){
+          for(let i = 0; i < this.modules.length; i++){
+            for(let j = 0; j < this.modules[i].questions.length; j++){
+              if(this.modules[i].questions[j].solved){
+                this.lastCourse = [i+1, j+1];
+              }
+            }
+          }
         }
         this.loading = false
       })
-    })
-    .catch(() => {
+    .catch((error) => {
 
       this.router.navigate(["/course/page_not_found"])
     })

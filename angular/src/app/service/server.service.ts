@@ -30,7 +30,7 @@ export class ServerService {
 
   private makeHeader(){
     // the jwt token is the string given from django after login
-    return new Headers({'Authorization': "JWT " + this.cookie.get("token"), 'Accept': 'application/json', 'Content-Type': 'application/json'});
+    return new Headers({'Authorization': "Token " + this.cookie.get("token"), 'Accept': 'application/json', 'Content-Type': 'application/json'});
 
   }
 

@@ -17,7 +17,7 @@ import { MultipleChoiceQuestionComponent } from "../multiple-choice-question/mul
 export class ModuleComponent implements OnInit {
 
   components = {
-    "MultipleChoiceQuestion" : MultipleChoiceQuestionComponent
+    "multiple_choice" : MultipleChoiceQuestionComponent
     // add new qustion types here
   }
   name: any;

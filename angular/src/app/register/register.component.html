@@ -4,7 +4,7 @@
 
   <h2>{{"register" | translate}}</h2>
 
-  <form #f name="register" (ngSubmit)="register(f)">
+  <form #f="ngForm" name="register" (ngSubmit)="register(f)">
 
         <md-input-container>
           <input mdInput type="email" placeholder='{{"email" | translate}}' #email pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" name="email" [(ngModel)]="newEmail" required />
@@ -33,15 +33,21 @@
         <md-hint align="start" class="warning" *ngIf="(password2.value != password.value) && f.submitted">
           <strong>{{"password missmatch" | translate}}</strong>
         </md-hint>
+      </md-input-container>
 
+      <div>
+        <md-select placeholder='{{"language" | translate}}' #language="ngModel" [(ngModel)]="lng" name="language" required>
+          <md-option *ngFor="let l of languages"  [value]="l.id">{{l.name}}</md-option>
+        </md-select>
+        <md-hint align="start" class="warning" *ngIf="f.submitted && !language.valid"><strong>{{'The category of the course is required' | translate}}</strong> </md-hint>
+      </div>
+
+      <md-input-container>
+        <input mdInput placeholder='{{"first name" | translate}} ({{"optional" | translate}})' type="text" name="first_name" [(ngModel)]="newFirstName"/>
       </md-input-container>
 
       <md-input-container>
-        <input mdInput placeholder='{{"first name" | translate}} ({{"optional" | translate}})' type="text" name="firstName" [(ngModel)]="newFirstName"/>
-      </md-input-container>
-
-      <md-input-container>
-          <input mdInput placeholder='{{"last name" | translate}} ({{"optional" | translate}})' type="text" name="lastName" [(ngModel)]="newLastName" />
+          <input mdInput placeholder='{{"last name" | translate}} ({{"optional" | translate}})' type="text" name="last_name" [(ngModel)]="newLastName" />
       </md-input-container>
 
       <button [disabled]="loading" type="submit" md-raised-button class=" ">{{"register" | translate}}</button>

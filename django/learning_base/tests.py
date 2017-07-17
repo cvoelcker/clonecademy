@@ -12,13 +12,13 @@ import learning_base.multiple_choice as multiple_choice
 class DatabaseMixin():
     def setup_database(self):
         self.factory = APIRequestFactory()
-        
+
         self.u1 = User(username='admin')
         self.u1.save()
 
         self.category = models.CourseCategory(name="test")
         self.category.save()
-        
+
         self.c1_test_en = models.Course(name="test_1", category=self.category,
                                         difficulty=0, language='en',
                                         responsible_mod=self.u1,
@@ -44,9 +44,9 @@ class AnswerViewTest(DatabaseMixin, TestCase):
         self.setup_database()
 
     def test_get(self):
-        request = self.factory.get('/courses/1/1/1/answers') 
+        request = self.factory.get('/courses/1/1/1/answers')
         force_authenticate(request, self.u1)
-        response = self.view(request, 1, 1, 1)
+        response = self.view(request, 1, 0, 0)
 
         self.assertEqual(response.data, [])
 
@@ -62,7 +62,7 @@ class AnswerViewTest(DatabaseMixin, TestCase):
         answer_2.save()
         answer_1_serialized = serializers.AnswerSerializer(answer_1).data
         answer_2_serialized = serializers.AnswerSerializer(answer_2).data
-        response = self.view(request, 1, 1, 1)
+        response = self.view(request, 1, 0, 0)
 
         self.assertEqual(response.data, [answer_1_serialized, answer_2_serialized])
 
@@ -80,12 +80,11 @@ class MultiCourseViewTest(DatabaseMixin, TestCase):
         self.assertEqual(response.status_code, 405)
 
     def test_post(self):
-        c1_test_en_serialized = serializers.CourseSerializer(
-            self.c1_test_en).data
-
         request_1 = self.factory.post('/courses/', {'type': '',
                                                     'language': 'de',
                                                     'category': ''})
+        request_1.user = self.u1
+
         request_2 = self.factory.post('/courses/', {'type': '',
                                                     'language': 'en',
                                                     'category': ''})
@@ -95,6 +94,9 @@ class MultiCourseViewTest(DatabaseMixin, TestCase):
         force_authenticate(request_1, self.u1)
         force_authenticate(request_2, self.u1)
         force_authenticate(request_3, self.u1)
+
+        c1_test_en_serialized = serializers.CourseSerializer(
+            self.c1_test_en, context={'request': request_1}).data
 
         response_1 = self.view(request_1)
         response_2 = self.view(request_2)
@@ -117,10 +119,13 @@ class CourseViewTest(DatabaseMixin, TestCase):
         self.setup_database()
 
     def test_get(self):
-        c1_test_en_serialized = serializers.CourseSerializer(
-            self.c1_test_en).data
         request = self.factory.get('/courses/1')
+        request.user = self.u1
         force_authenticate(request, self.u1)
+
+        c1_test_en_serialized = serializers.CourseSerializer(
+            self.c1_test_en, context={'request': request}).data
+
         response = self.view(request, course_id=1)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data, c1_test_en_serialized)
@@ -248,26 +253,26 @@ class RequestViewTest(TestCase):
         self.u3.profile.last_modrequest = timezone.localdate()
 
     def test_get(self):
-        "Test for true positive"
+        #Test for true positive
         request_1 = self.factory.get('/user/can_request_mod')
         force_authenticate(request_1, self.u1)
         response = self.view(request_1)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data, True)
+        self.assertEqual(response.data, {'allowed':True})
 
-        "Test for true negative"
+        #Test for true negative
         request_2 = self.factory.get('/user/can_request_mod')
         force_authenticate(request_2, self.u2)
         response = self.view(request_2)
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(not response.data)
+        self.assertFalse(not response.data)
 
-        "Test for true negative"
+        #Test for true negative
         request_3 = self.factory.get('/user/can_request_mod')
         force_authenticate(request_3, self.u3)
         response = self.view(request_3)
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(not response.data)
+        self.assertEqual(response.data, {'allowed':False})
 
     def test_post(self):
         request_1 = self.factory.post("user/request_mod",

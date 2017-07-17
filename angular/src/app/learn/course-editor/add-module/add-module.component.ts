@@ -16,7 +16,7 @@ import { AddMultiplyChoiceComponent } from "../add-multiply-choice/add-multiply-
 export class AddModuleComponent implements OnInit {
 
   components: Array<{name: string, key: string, component: Type<AddQuestionModule>}> = [
-    {name: "Multiple Choice Question", key: 'MultipleChoiceQuestion', component: AddMultiplyChoiceComponent}
+    {name: "Multiple Choice Question", key: 'multiple_choice', component: AddMultiplyChoiceComponent}
   ]
   selectedValue: Type<AddQuestionComponent> = null;
   title: string = "";
@@ -107,7 +107,7 @@ export class AddModuleComponent implements OnInit {
       }
     }
 
-    return {title: this.title, question: values, learningText: this.learningText};
+    return {name: this.title, questions: values, learning_text: this.learningText};
   }
 
 }
