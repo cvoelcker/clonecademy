@@ -42,6 +42,7 @@ class QuestionSerializer(serializers.ModelSerializer):
         value['learning_text'] = module.learning_text
         serializer = obj.get_serializer()
         value['question_body'] = serializer(obj).data
+        value['solved'] = obj.try_set.filter(solved=True).exists()
         return value
 
     def create(self, validated_data):
@@ -113,7 +114,7 @@ class CourseSerializer(serializers.ModelSerializer):
         """
         value = super(CourseSerializer, self).to_representation(obj)
 
-        all_modules = Module.objects.filter(course=obj)
+        all_modules = obj.module_set.all()
         modules = ModuleSerializer(all_modules, many=True, read_only=True).data
 
         value["modules"] = modules

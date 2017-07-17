@@ -68,21 +68,23 @@ class MultiCourseView(APIView):
             CATEGORIES = [str(x) for x in CourseCategory.objects.all()]
             LANGUAGES = [x[0] for x in Course.LANGUAGES]
             r_type = request.data['type']
+
             r_category = request.data['category']
+
             r_lan = request.data['language']
 
             # checks whether the query only contains acceptable keys
             if not ((r_type in TYPES or not r_type)
-                    and (r_category in CATEGORIES or not r_category)
                     and (r_lan in LANGUAGES or not r_lan)):
                 return Response("Query not possible",
                                 status=status.HTTP_400_BAD_REQUEST)
 
             courses = Course.objects.all()
             courses = courses.filter(language=r_lan)
-            if r_category != "":
-                category = Category.objects.get(name=r_category)
-                courses.filter(category=category)
+
+            if request.data['category']:
+                category = CourseCategory.objects.get(name=request.data['category'])
+                courses = courses.filter(category=category)
             if r_type == "mod":
                 courses.filter(responsible_mod=request.user)
             elif r_type == "started":

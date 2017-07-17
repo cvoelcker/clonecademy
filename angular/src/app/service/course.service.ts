@@ -5,37 +5,32 @@ import { ServerService } from './server.service'
 @Injectable()
 export class CourseService {
 
-  data: any
+  data = {};
   categorys: any;
 
   constructor(private server: ServerService) {
   }
 
-  getByCat(id: number){
-    let value = [];
-    if(this.data != null){
-      for(let i = 0; i < this.data.length; i++){
-        for(let j = 0; j < this.data[i].category.length; j++){
-          if(this.data[i].category[j].id == id){
-            value.push(this.data[i])
-          }
-        }
-      }
-    }
-    return value;
-  }
 
   load(){
-    return new Promise((resolve, reject) => this.server.post("courses/", {"type":"", "category":"", "language":"en"}, true)
-      .then(data => {
-        this.data = data
-        resolve()
-        }
-      )
-      .catch(err => {
-        reject(err)
+    return new  Promise((resolve, reject) => {
+      this.getCategory().then(() => {
+        for( let i = 0; i < this.categorys.length; i++){
+          this.server.post("courses/", {"type":"", "category":this.categorys[i].name, "language":"en"}, true)
+          .then(data => {
+            this.data[this.categorys[i].name] = data
+            if(i == this.categorys.length -1){
+              resolve()
+            }
+          }
+        )
+        .catch(err => {
+          reject(err)
+        })
+      }
       })
-    )
+    })
+
   }
 
   getCategory(){
@@ -84,9 +79,14 @@ export class CourseService {
 
 
   get(id: number){
-    for(let i = 0; i < this.data.length; i++){
-      if(this.data[i]['id'] == id){
-        return this.data[i];
+    for(let i = 0; i < this.categorys.length; i++){
+      for(let j = 0; j < this.data[this.categorys[i].name].length; j++){
+        console.log(this.data[this.categorys[i].name][j]['id'] == Number(id))
+        console.log(Number(id))
+        if(this.data[this.categorys[i].name][j]['id'] == Number(id)){
+          return this.data[this.categorys[i].name][j];
+        }
+
       }
     }
 

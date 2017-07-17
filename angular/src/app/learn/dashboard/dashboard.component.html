@@ -12,7 +12,7 @@
               <button md-button class="collapseButton" (click)="collapse = !collapse" ><i [class.right]="collapse" class="arrow"></i>{{"courses" | translate}}</button>
               <div class="courses" [@slideIn]="!collapse">
                 <ul>
-                  <li *ngFor="let c of course.getByCat(category.id)">
+                  <li *ngFor="let c of course.data[category.name]">
                     <a
                     [routerLink]="'/course/' + c.id"
                     [style.background]="setBackgroundGradient(c)"
