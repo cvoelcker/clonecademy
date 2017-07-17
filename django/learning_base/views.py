@@ -24,15 +24,16 @@ class CategoryView(APIView):
     @author Claas Voelcker
     '''
     authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
 
-    # permission_classes = (permissions.IsAuthenticated,)
-
-    def get(self, request, course_id, module_id, format=None):
+    def get(self, request, format=None):
         '''
-        Shows the module
+        Shows the categories
         '''
-        return Response('Method not allowed',
-                        status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        categories = CourseCategory.objects.all()
+        serialized = serializer.CourseCategorySerializer(categories, many=True)
+        return Response(serialized.data,
+                        status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
         return Response('Method not allowed',
@@ -66,10 +67,9 @@ class MultiCourseView(APIView):
             TYPES = ['mod', 'started']
             CATEGORIES = map(lambda x: str(x), CourseCategory.objects.all())
             LANGUAGES = map(lambda x: x[0], Course.LANGUAGES)
-            data = request.data
-            r_type = data['type']
-            r_category = data['category']
-            r_lan = data['language']
+            r_type = request.data['type']
+            r_category = request.data['category']
+            r_lan = request.data['language']
 
             # checks whether the query only contains acceptable keys
             if not ((r_type in TYPES or not r_type)
@@ -159,8 +159,7 @@ class ModuleView(APIView):
     @author Claas Voelcker
     '''
     authentication_classes = (authentication.TokenAuthentication,)
-
-    # permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, course_id, module_id, format=None):
         '''
@@ -217,8 +216,7 @@ class AnswerView(APIView):
     @author Claas Voelcker
     '''
     authentication_classes = (authentication.TokenAuthentication,)
-
-    # permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, course_id, module_id, question_id, format=None):
         '''
@@ -255,7 +253,7 @@ class UserView(APIView):
 
         return super(UserView, self).get_permissions()
 
-    def get(self, request, user_id, format=None):
+    def get(self, request, user_id=None, format=None):
         '''
         Shows the profile of any user if the requester is mod,
         or the profile of the requester

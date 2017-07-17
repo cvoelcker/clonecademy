@@ -160,9 +160,10 @@ class UserSerializer(serializers.ModelSerializer):
     Model serializer for the User model
     '''
 
+    groups = serializers.StringRelatedField(many=True)
     class Meta:
         model = User
-        fields = ('username', 'email', 'id', 'date_joined')
+        fields = ('username', 'email', 'id', 'date_joined', 'groups')
 
     def create(self, validated_data):
         profile_data = validated_data.pop('profile')

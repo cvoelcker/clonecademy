@@ -26,7 +26,7 @@ export class CourseService {
   }
 
   load(){
-    return new Promise((resolve, reject) => this.server.get("courses/", true)
+    return new Promise((resolve, reject) => this.server.post("courses/", {"type":"", "category":"", "language":"en"}, true)
       .then(data => {
         this.data = data
         resolve()
