@@ -80,12 +80,11 @@ class MultiCourseViewTest(DatabaseMixin, TestCase):
         self.assertEqual(response.status_code, 405)
 
     def test_post(self):
-        c1_test_en_serialized = serializers.CourseSerializer(
-            self.c1_test_en).data
-
         request_1 = self.factory.post('/courses/', {'type': '',
                                                     'language': 'de',
                                                     'category': ''})
+        request_1.user = self.u1
+
         request_2 = self.factory.post('/courses/', {'type': '',
                                                     'language': 'en',
                                                     'category': ''})
@@ -95,6 +94,9 @@ class MultiCourseViewTest(DatabaseMixin, TestCase):
         force_authenticate(request_1, self.u1)
         force_authenticate(request_2, self.u1)
         force_authenticate(request_3, self.u1)
+
+        c1_test_en_serialized = serializers.CourseSerializer(
+            self.c1_test_en, context={'request': request_1}).data
 
         response_1 = self.view(request_1)
         response_2 = self.view(request_2)
@@ -117,10 +119,13 @@ class CourseViewTest(DatabaseMixin, TestCase):
         self.setup_database()
 
     def test_get(self):
-        c1_test_en_serialized = serializers.CourseSerializer(
-            self.c1_test_en).data
         request = self.factory.get('/courses/1')
+        request.user = self.u1
         force_authenticate(request, self.u1)
+
+        c1_test_en_serialized = serializers.CourseSerializer(
+            self.c1_test_en, context={'request': request}).data
+
         response = self.view(request, course_id=1)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data, c1_test_en_serialized)

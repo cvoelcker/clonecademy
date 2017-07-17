@@ -34,6 +34,7 @@ class QuestionSerializer(serializers.ModelSerializer):
         Output:
             value: a valid json object containing all required fields
         '''
+
         module = obj.module
         value = super(QuestionSerializer, self).to_representation(obj)
         value['type'] = obj.__class__.__name__
@@ -42,7 +43,15 @@ class QuestionSerializer(serializers.ModelSerializer):
         value['learning_text'] = module.learning_text
         serializer = obj.get_serializer()
         value['question_body'] = serializer(obj).data
-        value['solved'] = obj.try_set.filter(solved=True).exists()
+
+        user = self.context['request'].user
+
+        value['solved'] = obj.try_set.filter(solved=True)
+
+        value['solved'] = value['solved'].filter(user=user)
+        
+        value['solved'] = value['solved'].exists()
+
         return value
 
     def create(self, validated_data):
@@ -74,11 +83,12 @@ class ModuleSerializer(serializers.ModelSerializer):
         This function makes the serialization and is needed to correctly
         display nested objects.
         """
+
         value = super(ModuleSerializer, self).to_representation(obj)
 
         questions = Question.objects.filter(module=obj)
         questions = QuestionSerializer(
-            questions, many=True, read_only=True).data
+            questions, many=True, read_only=True, context=self.context).data
 
         value["questions"] = questions
         return value
@@ -112,10 +122,11 @@ class CourseSerializer(serializers.ModelSerializer):
         """
         This function serializes the courses.
         """
+
         value = super(CourseSerializer, self).to_representation(obj)
 
         all_modules = obj.module_set.all()
-        modules = ModuleSerializer(all_modules, many=True, read_only=True).data
+        modules = ModuleSerializer(all_modules, many=True, read_only=True, context=self.context).data
 
         value["modules"] = modules
         return value

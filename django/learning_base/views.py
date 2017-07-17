@@ -88,7 +88,7 @@ class MultiCourseView(APIView):
                 courses.filter(responsible_mod=request.user)
             elif r_type == "started":
                 courses = courses.filter(module__question__try__person=user)
-            data = serializer.CourseSerializer(courses, many=True).data
+            data = serializer.CourseSerializer(courses, many=True, context={'request': request}).data
             return Response(data, status=status.HTTP_200_OK)
         except Exception as e:
             return Response("Query not possible",
@@ -113,7 +113,7 @@ class CourseView(APIView):
                             status=status.HTTP_405_METHOD_NOT_ALLOWED)
         try:
             course = Course.objects.filter(id=course_id).first()
-            course_serializer = serializer.CourseSerializer(course)
+            course_serializer = serializer.CourseSerializer(course, context={'request': request})
             data = course_serializer.data
             return Response(course_serializer.data,
                             status=status.HTTP_200_OK)
@@ -201,7 +201,7 @@ class QuestionView(APIView):
             if not self.can_access_question(request.user, question):
                 return Response("Previous question(s) haven't been answered correctly yet", status = status.HTTP_403_FORBIDDEN)
 
-            data = serializer.QuestionSerializer(question)
+            data = serializer.QuestionSerializer(question, context={'request': request})
             data = data.data
             return Response(data,
                             status=status.HTTP_200_OK)
