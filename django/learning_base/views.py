@@ -190,9 +190,12 @@ class QuestionView(APIView):
         '''
         try:
             course = Course.objects.get(id=course_id)
-            module = course.module_set.all()[module_id]
-            question = module.question_set.all()[question_id]
+            module = course.module_set.all()[int(module_id)]
+            question = module.question_set.all()[int(question_id)]
+
+            print(question)
             if question is None:
+                print('Dammit')
                 return Response("Question not found",
                                 status=status.HTTP_404_NOT_FOUND)
             data = serializer.QuestionSerializer(question)
@@ -200,6 +203,7 @@ class QuestionView(APIView):
             return Response(data,
                             status=status.HTTP_200_OK)
         except Exception as e:
+            print(e)
             return Response("Question not found",
                             status=status.HTTP_404_NOT_FOUND)
 
@@ -223,8 +227,8 @@ class AnswerView(APIView):
         Lists the answers for a question
         '''
         course = Course.objects.get(id=course_id)
-        module = course.module_set.all()[module_id]
-        question = module.question_set.all()[question_id]
+        module = course.module_set.all()[int(module_id)]
+        question = module.question_set.all()[int(question_id)]
         answers = question.answer_set()
         data = serializer.AnswerSerializer(answers, many=True).data
         return Response(data, status=status.HTTP_200_OK)
