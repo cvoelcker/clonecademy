@@ -189,11 +189,9 @@ class QuestionView(APIView):
         and position (last_module and last_question keys)
         '''
         try:
-            question = Question.objects.get(
-                id=question_id,
-                module__id=module_id,
-                module__course__id=course_id
-            )
+            course = Course.objects.get(id=course_id)
+            module = course.module_set.all()[module_id]
+            question = module.question_set.all()[question_id]
             if question is None:
                 return Response("Question not found",
                                 status=status.HTTP_404_NOT_FOUND)
