@@ -1,6 +1,6 @@
 import { browser, by, element } from 'protractor';
 
-export class ClonecademyClientPage {
+export class ClonecademyPage {
   navigateTo() {
     return browser.get('/');
   }

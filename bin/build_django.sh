@@ -1,8 +1,12 @@
 #!/bin/bash
-
-DIR="/home/leonhard/Uni/17_Sommer/BP/local"
+DIR=$(dirname $(dirname $(readlink -f ${BASH_SOURCE[0]})))
 
 cd $DIR
-cd django/
+cd django
+
 docker-compose build
+docker-compose run django python3 manage.py makemigrations
+
+docker-compose run django python3 manage.py makemigrations learning_base
+
 docker-compose run django python3 manage.py migrate

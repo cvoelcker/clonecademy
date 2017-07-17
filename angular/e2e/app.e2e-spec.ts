@@ -1,14 +1,16 @@
-import { ClonecademyClientPage } from './app.po';
+import { ClonecademyPage } from './app.po';
 
-describe('clonecademy-client App', () => {
-  let page: ClonecademyClientPage;
+describe('clonecademy App', () => {
+  let page: ClonecademyPage;
 
   beforeEach(() => {
-    page = new ClonecademyClientPage();
+    page = new ClonecademyPage();
   });
 
-  it('should display message saying app works', () => {
+  it('should display welcome message', done => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    page.getParagraphText()
+      .then(msg => expect(msg).toEqual('Welcome to app!!'))
+      .then(done, done.fail);
   });
 });

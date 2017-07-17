@@ -1,15 +1,19 @@
 # clonecadamy
 
-Für die erste Installation das Script `/bin/setup_scripts.sh` ausführen. 
-In den Dateien build_angular.sh und build_django.sh die variable DIR auf die Absolute Adresse des clonecademy ordner setzen.
-Das script verlinkt die bash files in euren /bin/usr/ Ordner und danach könnt ihr die scripte einfach ohne das .sh von überall aus ausführen.
+## Installation
+If you have this package inside your home folder just go on. Otherwise you have to
+To install all run `bin/setup_script.sh`. It installes Docker if required and sets links to the /usr/bin folder to start the images from anywhere.
 
-# Vorbedingungen 
-Es muss `docker-compose` auf dem PC installiert sein.
+`clonecademy_build` builds the docker container for angular and django
 
-Durch `clonecademy_build` werden alle abhängigkeiten heruntergeladen und installiert
+`clonecademy_start` starts the containers and if you have atom installed you can add atom as parameter. This will open the folder with atom
 
-Zum Starten des Frameworks einfach `clonecademy_start` eingeben
+`clonecademy_stop` stopps all container.
 
-Um das ganze wieder zu beenden `clonecademy_stop` eingeben
+If you want to start, stop or build single parts you can use `start_angular` `stop_angular` `build_angular` `start_django` `stop_django` `build_django`.
 
+## django
+To run a script on django you can user `run_django` and add your script. It is simmilar to `python manag.py`
+
+## angular
+If you want to run a script on the angular docker use `run_angular`.

@@ -5,8 +5,8 @@ services:
       context: .
       dockerfile: Dockerfile
     image: angular-clonecademy:dev
-    command: ng serve --host 0.0.0.0 --port 3000
+    command: npm start
     volumes:
-      - .:/clonecademy-client
+      - .:/angular
     ports:
       - "3000:3000"

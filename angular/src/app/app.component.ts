@@ -1,13 +1,23 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
 
-import { TestComponent } from './test/test.component';
+import { UserService } from './service/user.service'
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'app works!';
+  title = 'Clonecademy';
+
+  constructor(private user: UserService, private translate: TranslateService){
+    translate.addLangs(['en', 'de']);
+    translate.setDefaultLang('en');
+    translate.use('en');
+  }
+  changeLang(lang: string) {
+    this.translate.use(lang);
+  }
+
 }

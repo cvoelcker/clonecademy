@@ -1,6 +1,6 @@
 #!/bin/bash
-DIR="/home/leonhard/Uni/17_Sommer/BP/local"
+DIR=$(dirname $(dirname $(readlink -f ${BASH_SOURCE[0]})))
 
 cd $DIR
-cd angular/
+cd angular
 docker-compose up -d
