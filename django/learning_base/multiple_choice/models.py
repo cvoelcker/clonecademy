@@ -13,17 +13,16 @@ class MultipleChoiceQuestion(Question):
         return self.num_correct_answers() == 0
 
     def evaluate(self, data):
-        answers = map(lambda x: x.id, MultipleChoiceAnswer.objects.filter(question=self, is_correct=True))
+        """
+        data: Map of answers
+        returns True if and only if the array of provided answers are exactly
+        the correct answers
+        @author Tobias Huber
+        """
 
-        # if the the array length of the answers is not equal to the correct answers it cant be correct
-        if len(data) != len(answers):
-            return False
-
-        # check if all correct answers exist in the array of user answers
-        for ans in answers:
-            if not (ans in data):
-                return False
-        return True
+        "get all correct answers, map them to their id and make a (mathematical) set out of it"
+        answers = set([x.id for x in self.multiplechoiceanswer_set.filter(is_correct=True)])
+        return answers == set(data)
 
     def __str__(self):
         return self.body

@@ -248,21 +248,21 @@ class RequestViewTest(TestCase):
         self.u3.profile.last_modrequest = timezone.localdate()
 
     def test_get(self):
-        "Test for true positive"
+        #Test for true positive
         request_1 = self.factory.get('/user/can_request_mod')
         force_authenticate(request_1, self.u1)
         response = self.view(request_1)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data, {'allowed':True})
 
-        "Test for true negative"
+        #Test for true negative
         request_2 = self.factory.get('/user/can_request_mod')
         force_authenticate(request_2, self.u2)
         response = self.view(request_2)
         self.assertEqual(response.status_code, 200)
         self.assertFalse(not response.data)
 
-        "Test for true negative"
+        #Test for true negative
         request_3 = self.factory.get('/user/can_request_mod')
         force_authenticate(request_3, self.u3)
         response = self.view(request_3)

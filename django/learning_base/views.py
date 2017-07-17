@@ -26,13 +26,13 @@ class CategoryView(APIView):
     authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
 
-    def get(self, request, format=None):
+    def get(self, request, course_id, module_id, format=None):
         '''
         Shows the categories
         '''
         categories = CourseCategory.objects.all()
-        serialized = serializer.CourseCategorySerializer(categories, many=True)
-        return Response(serialized.data,
+        data = serializer.CourseCategorySerializer(categories, many=True).data
+        return Response(data,
                         status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
@@ -65,25 +65,24 @@ class MultiCourseView(APIView):
         '''
         try:
             TYPES = ['mod', 'started']
-            CATEGORIES = [str(x) for x in CourseCategory.objects.all()]
-            LANGUAGES = [x[0] for x in Course.LANGUAGES]
-            r_type = request.data['type']
-
-            r_category = request.data['category']
-
-            r_lan = request.data['language']
+            CATEGORIES = map(lambda x: str(x), CourseCategory.objects.all())
+            LANGUAGES = map(lambda x: x[0], Course.LANGUAGES)
+            data = request.data
+            r_type = data['type']
+            r_category = data['category']
+            r_lan = data['language']
 
             # checks whether the query only contains acceptable keys
             if not ((r_type in TYPES or not r_type)
+                    and (r_category in CATEGORIES or not r_category)
                     and (r_lan in LANGUAGES or not r_lan)):
                 return Response("Query not possible",
                                 status=status.HTTP_400_BAD_REQUEST)
 
             courses = Course.objects.all()
             courses = courses.filter(language=r_lan)
-
-            if request.data['category']:
-                category = CourseCategory.objects.get(name=request.data['category'])
+            if r_category != "":
+                category = CourseCategory.objects.filter(name=r_category).first()
                 courses = courses.filter(category=category)
             if r_type == "mod":
                 courses.filter(responsible_mod=request.user)
@@ -113,7 +112,7 @@ class CourseView(APIView):
             return Response('Method not allowed',
                             status=status.HTTP_405_METHOD_NOT_ALLOWED)
         try:
-            course = Course.objects.get(id=course_id)
+            course = Course.objects.filter(id=course_id).first()
             course_serializer = serializer.CourseSerializer(course)
             data = course_serializer.data
             return Response(course_serializer.data,
@@ -183,6 +182,9 @@ class QuestionView(APIView):
     authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
 
+    def can_access_question(self, user, question):
+        return (question.is_first_question and question.module.is_first_module) or request.user.try_set.filter(question__order = question.order-1, solved = True).exists()
+
     def get(self, request, course_id, module_id, question_id, format=None):
         '''
         Get a question together with additional information about the module
@@ -193,25 +195,42 @@ class QuestionView(APIView):
             module = course.module_set.all()[int(module_id)]
             question = module.question_set.all()[int(question_id)]
 
-            print(question)
             if question is None:
-                print('Dammit')
                 return Response("Question not found",
                                 status=status.HTTP_404_NOT_FOUND)
+            if not self.can_access_question(request.user, question):
+                return Response("Previous question(s) haven't been answered correctly yet", status = status.HTTP_403_FORBIDDEN)
+
             data = serializer.QuestionSerializer(question)
             data = data.data
             return Response(data,
                             status=status.HTTP_200_OK)
         except Exception as e:
-            print(e)
             return Response("Question not found",
                             status=status.HTTP_404_NOT_FOUND)
 
-    def post(self, request, format=None):
+    def post(self, request, course_id, module_id, question_id, format=None):
         '''
         Evaluates the answer to a question.
+        @author Tobias Huber
         '''
-        pass
+        try:
+            course = Course.objects.get(id=course_id)
+            module = course.module_set.all()[int(module_id)]
+            question = module.question_set.all()[int(question_id)]
+        except Exception as e:
+            return Response("Question not found",
+                            status=status.HTTP_404_NOT_FOUND)
+        #deny access if there is a/are previous question(s) and it/they haven't been answered correctly
+        if not(self.can_access_question(request.user, question)):
+            return Response("Previous question(s) haven't been answered correctly yet", status = status.HTTP_403_FORBIDDEN)
+
+        solved = question.evaluate(request.data["answers"])
+        Try(user = request.user, question=question, answer=str(request.data["answers"]), solved=solved).save()
+        response = {"evaluate": solved}
+        if solved and question.feedback_is_set:
+            response['feedback'] = question.feedback
+        return Response(response)
 
 
 class AnswerView(APIView):
@@ -243,9 +262,10 @@ class UserView(APIView):
     Shows a user profile or registers a new user.
     @author Claas Voelcker
     '''
-    authentication_classes = (authentication.TokenAuthentication,)
+    #authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
 
+    #TODO: probably should be check_permissions(self, request)
     def get_permissions(self):
         '''
         Overrides the permissions so that the api can register new users.
@@ -256,7 +276,7 @@ class UserView(APIView):
 
         return super(UserView, self).get_permissions()
 
-    def get(self, request, user_id=None, format=None):
+    def get(self, request, user_id, format=None):
         '''
         Shows the profile of any user if the requester is mod,
         or the profile of the requester
@@ -328,7 +348,7 @@ class StatisticsView(APIView):
     @author: Claas Voelcker
     '''
     authentication_classes = (authentication.TokenAuthentication,)
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.is_authenticated)
 
     def get(self, request, user_id=None):
         user = request.user if not user_id else User.objects.get(id=user_id)
@@ -358,8 +378,7 @@ class RequestView(APIView):
         Returns True if request is allowed and False if request isn't allowed
         or the user is already mod.
         '''
-        allowed = not request.user.profile.is_mod()\
-            and request.user.profile.modrequest_allowed()
+        allowed = not request.user.profile.is_mod() and request.user.profile.modrequest_allowed()
         return Response({'allowed': allowed},
                         status=status.HTTP_200_OK)
 
@@ -391,3 +410,35 @@ class RequestView(APIView):
             ['test@test.net']
         )
         return Response({"Request": "ok"}, status=status.HTTP_200_OK)
+
+class GrantModRightsView(APIView):
+    """
+    This View is used to grant a user modrights
+    @author Tobias Huber
+    """
+
+    #authentication_classes=(authentication.TokenAuthentication,);
+    permission_classes = (permissions.IsAdminUser,)
+
+    def get(self, request, user_id, format=None):
+        '''
+        Returns True if given user with a given user_id is a moderator
+        '''
+        return Response(Profile.objects.get(user__id = user_id).is_mod(), status=status.HTTP_200_OK)
+
+    def post(self, request, user_id, format=None):
+        '''
+        Grants a user with a given user id mod rights.
+        User id is taken from the url
+        '''
+        to_be_promoted = User.objects.get(id=user_id)
+        if to_be_promoted.profile.is_mod():
+            #TODO Find out if it is usefull to send a 200 when a user was already mod
+            return Response("the user \" "+ to_be_promoted.username +"\" is already a moderator", status=status.HTTP_200_OK)
+        mod_group = Group.objects.get(name='moderator')
+        to_be_promoted.groups.add(mod_group)
+
+        #may be replaced by tests
+        if not to_be_promoted.profile.is_mod():
+            return Response("something went terribly wrong with promoting" + to_be_promoted.username, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response("successfully promoted " + to_be_promoted.username, status=status.HTTP_200_OK)
