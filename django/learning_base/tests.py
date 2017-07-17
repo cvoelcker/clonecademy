@@ -46,7 +46,7 @@ class AnswerViewTest(DatabaseMixin, TestCase):
     def test_get(self):
         request = self.factory.get('/courses/1/1/1/answers')
         force_authenticate(request, self.u1)
-        response = self.view(request, 1, 1, 1)
+        response = self.view(request, 1, 0, 0)
 
         self.assertEqual(response.data, [])
 
@@ -62,7 +62,7 @@ class AnswerViewTest(DatabaseMixin, TestCase):
         answer_2.save()
         answer_1_serialized = serializers.AnswerSerializer(answer_1).data
         answer_2_serialized = serializers.AnswerSerializer(answer_2).data
-        response = self.view(request, 1, 1, 1)
+        response = self.view(request, 1, 0, 0)
 
         self.assertEqual(response.data, [answer_1_serialized, answer_2_serialized])
 

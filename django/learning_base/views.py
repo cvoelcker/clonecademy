@@ -222,10 +222,9 @@ class AnswerView(APIView):
         '''
         Lists the answers for a question
         '''
-        question = Question.objects.get(
-            id=question_id,
-            module__id=module_id,
-            module__course__id=course_id)
+        course = Course.objects.get(id=course_id)
+        module = course.module_set.all()[module_id]
+        question = module.question_set.all()[question_id]
         answers = question.answer_set()
         data = serializer.AnswerSerializer(answers, many=True).data
         return Response(data, status=status.HTTP_200_OK)
