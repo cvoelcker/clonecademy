@@ -50,12 +50,11 @@ export class RegisterComponent {
 
   // register a new user.
   register(value){
-    console.log(value)
     if(value.valid && value.value["password"] === value.value['password2']){
       let data = value.value
-      delete data['password2']
-      data['profile'] = null;
-      data['age'] = 0;
+      delete data['password2'];
+      data['groups'] = [];
+      data['profile'] = {};
       this.server.post("register/", data, false, false)
         .then(answer => {
           this.user.loginUser(this.newUsername, this.newPassword)

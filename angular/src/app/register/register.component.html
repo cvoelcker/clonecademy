@@ -43,11 +43,11 @@
       </div>
 
       <md-input-container>
-        <input mdInput placeholder='{{"first name" | translate}} ({{"optional" | translate}})' type="text" name="firstName" [(ngModel)]="newFirstName"/>
+        <input mdInput placeholder='{{"first name" | translate}} ({{"optional" | translate}})' type="text" name="first_name" [(ngModel)]="newFirstName"/>
       </md-input-container>
 
       <md-input-container>
-          <input mdInput placeholder='{{"last name" | translate}} ({{"optional" | translate}})' type="text" name="lastName" [(ngModel)]="newLastName" />
+          <input mdInput placeholder='{{"last name" | translate}} ({{"optional" | translate}})' type="text" name="last_name" [(ngModel)]="newLastName" />
       </md-input-container>
 
       <button [disabled]="loading" type="submit" md-raised-button class=" ">{{"register" | translate}}</button>
