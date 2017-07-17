@@ -262,19 +262,19 @@ class UserView(APIView):
     Shows a user profile or registers a new user.
     @author Claas Voelcker
     '''
-    #authentication_classes = (authentication.TokenAuthentication,)
+    authentication_classes = []
     permission_classes = (permissions.IsAuthenticated,)
 
     #TODO: probably should be check_permissions(self, request)
     def get_permissions(self):
-        '''
-        Overrides the permissions so that the api can register new users.
-        Returns the new permission set
-        '''
-        if self.request.method == 'POST':
-            self.permission_classes = (permissions.AllowAny,)
+       '''
+       Overrides the permissions so that the api can register new users.
+       Returns the new permission set
+       '''
+       if self.request.method == 'POST':
+           self.permission_classes = (permissions.AllowAny,)
 
-        return super(UserView, self).get_permissions()
+       return super(UserView, self).get_permissions()
 
     def get(self, request, user_id=False, format=None):
         '''

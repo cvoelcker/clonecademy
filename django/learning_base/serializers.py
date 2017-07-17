@@ -166,8 +166,14 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('username', 'email', 'id', 'date_joined', 'groups')
 
+    def validate_groups(self, value):
+        return value
+
     def create(self, validated_data):
         profile_data = validated_data.pop('profile')
+        validated_data.pop('groups')
+        # TODO add language to profile
+        validated_data.pop('language')
         user = User.objects.create_user(**validated_data)
         user.save()
         profile = Profile(user=user, **profile_data)
