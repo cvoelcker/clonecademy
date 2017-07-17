@@ -17,7 +17,7 @@ export class CourseService {
       this.getCategory().then(() => {
         for( let i = 0; i < this.categorys.length; i++){
           this.server.post("courses/", {"type":"", "category":this.categorys[i].name, "language":"en"}, true)
-          .then(data => {
+          .then((data) => {
             this.data[this.categorys[i].name] = data
             if(i == this.categorys.length -1){
               resolve()
@@ -81,8 +81,6 @@ export class CourseService {
   get(id: number){
     for(let i = 0; i < this.categorys.length; i++){
       for(let j = 0; j < this.data[this.categorys[i].name].length; j++){
-        console.log(this.data[this.categorys[i].name][j]['id'] == Number(id))
-        console.log(Number(id))
         if(this.data[this.categorys[i].name][j]['id'] == Number(id)){
           return this.data[this.categorys[i].name][j];
         }
