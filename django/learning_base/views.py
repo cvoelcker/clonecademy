@@ -348,7 +348,7 @@ class StatisticsView(APIView):
     @author: Claas Voelcker
     '''
     authentication_classes = (authentication.TokenAuthentication,)
-    permission_classes = (permissions.is_authenticated)
+    permission_classes = (permissions.IsAuthenticated, )
 
     def get(self, request, user_id=None):
         user = request.user if not user_id else User.objects.get(id=user_id)

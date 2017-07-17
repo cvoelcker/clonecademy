@@ -2,9 +2,10 @@
 
   <div class="row">
     <div class ="sidebar col-md-4">
-      <h2>{{ "dashboard" | translate}}<button md-raised-button *ngIf="user.isModerator()" class="addCourse" routerLink="create_course">
-          <i class="material-icons">add</i> {{"add Course" | translate}}
-        </button><br></h2>
+      <h2>{{ "dashboard" | translate}}</h2>
+      <button md-raised-button *ngIf="user.isModerator()" class="addCourse" routerLink="create_course">
+        <i class="material-icons">add</i> {{"add Course" | translate}}
+      </button><br>
       <div *ngIf="!loading && !loadingCat">
           <md-tab-group >
           <md-tab [label]="category.name" *ngFor="let category of course.categorys">

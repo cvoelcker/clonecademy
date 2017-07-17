@@ -220,7 +220,9 @@ class Question(PolymorphicModel):
 
     title = models.TextField(
         verbose_name='Question title',
-        help_text="A short and concise name for the question"
+        help_text="A short and concise name for the question",
+        blank=True,
+        null=True
     )
 
     body = models.TextField(

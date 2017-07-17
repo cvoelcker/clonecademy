@@ -17,7 +17,11 @@ export class StatisticsComponent implements OnInit {
   ngOnInit() {
     this.server.get("user/statistics", true, false)
       .then(data => {
+        console.log(data)
         this.statistics = data;
+        for(let s in this.statistics){
+          s["date"] = new Date(s["date"]);
+        }
         this.loading = false;
       })
         .catch(err => {

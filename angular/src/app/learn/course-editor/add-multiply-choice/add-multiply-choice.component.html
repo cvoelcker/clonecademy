@@ -1,11 +1,4 @@
-<div>
-  <h2>
-    {{"Add multiple choice Question" | translate}}
-  </h2>
-  <md-input-container>
-    <textarea mdInput placeholder='{{"Question" | translate}}' #Question="ngModel" name="question" type="textarea" [(ngModel)]="question" required></textarea>
-    <md-hint align="start" class="warning" *ngIf="form != null && form.submitted && !Question.valid"><strong>{{'The question is required' | translate}}</strong> </md-hint>
-  </md-input-container>
+<div>  
   <h3 for="answers">Answers</h3>
   <ul id="answers" class="answers">
     <li class="singleQuestion" [@slideIn]="answers[j].visible" (@slideIn.done)="removeAnswer($event, j)" *ngFor="let i of answers; let j = index" >

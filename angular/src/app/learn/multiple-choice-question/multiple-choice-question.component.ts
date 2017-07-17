@@ -16,16 +16,12 @@ export class MultipleChoiceQuestionComponent extends QuestionModule {
   ngOnInit() {
     // to et the courseID, moduleIndex and questionIndex run ngOnInit from parent
     super.ngOnInit()
-
-    this.server.get("courses/"+this.courseID+"/"+this.moduleIndex + "/" + this.questionIndex).then(data => {
-      this.answers = data['answers']
-    })
   }
 
   // return array of the marked answers
   submit(): any{
     let sendAnswer = [];
-    for (let ans of this.answers){
+    for (let ans of this.data.answers){
       if(ans.value){
         sendAnswer.push(ans.id)
       }

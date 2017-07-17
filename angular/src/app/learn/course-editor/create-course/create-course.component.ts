@@ -23,9 +23,13 @@ export class CreateCourseComponent {
 
   loading = true;
 
-
+  languages: Array<{id: string, name: string}> = [{id: "en", name: "English"}, {id: "de", name: "Deutsch"}]
+  lng: string;
   categories: {};
   category: number;
+
+  difficultys: Array<{value: number, name: string}> = [{value: 0, name: "Easy"}, {value: 1, name: "moderate"}, {value: 2, name: "difficult"}, {value: 3, name: "expert"}]
+  diff: number;
 
   setCategory(id: number){
     this.category = id;
@@ -115,8 +119,8 @@ export class CreateCourseComponent {
   save(f){
     let saveModules = this.saveModules(f)
     if(f.valid){
-      let course = {title: f.value['title'], categorie: f.value['category'],  modules: saveModules};
-      console.log(course)
+      let course = {name: f.value['title'], difficulty: f.value['difficulty'], language: f.value["language"], category: f.value['category'],  modules: saveModules};
+      //console.log(course)
       this.uploadState(course);
     }
   }
@@ -134,7 +138,7 @@ export class CreateCourseComponent {
   }
 
   uploadState(course){
-    this.server.post('save/course/', course)
+    this.server.post('courses/save', course)
     .then(data => {
       this.course.load()
       this.router.navigate(['/course'])
