@@ -26,7 +26,7 @@ class CategoryView(APIView):
     authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
 
-    def get(self, request, course_id, module_id, format=None):
+    def get(self, request, format=None):
         '''
         Shows the categories
         '''
@@ -276,7 +276,7 @@ class UserView(APIView):
 
         return super(UserView, self).get_permissions()
 
-    def get(self, request, user_id, format=None):
+    def get(self, request, user_id=False, format=None):
         '''
         Shows the profile of any user if the requester is mod,
         or the profile of the requester
