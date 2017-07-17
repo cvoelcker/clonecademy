@@ -14,6 +14,9 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 })
 export class RegisterComponent {
 
+  languages: Array<{id: string, name: string}> = [{id: "en", name: "English"}, {id: "de", name: "Deutsch"}]
+
+
   constructor(
     private error: ErrorDialog,
     private server: ServerService,

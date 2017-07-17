@@ -33,8 +33,14 @@
         <md-hint align="start" class="warning" *ngIf="(password2.value != password.value) && f.submitted">
           <strong>{{"password missmatch" | translate}}</strong>
         </md-hint>
-
       </md-input-container>
+
+      <div>
+        <md-select placeholder='{{"language" | translate}}' #language="ngModel" [(ngModel)]="lng" name="language" required>
+          <md-option *ngFor="let l of languages"  [value]="l.id">{{l.name}}</md-option>
+        </md-select>
+        <md-hint align="start" class="warning" *ngIf="f.submitted && !language.valid"><strong>{{'The category of the course is required' | translate}}</strong> </md-hint>
+      </div>
 
       <md-input-container>
         <input mdInput placeholder='{{"first name" | translate}} ({{"optional" | translate}})' type="text" name="firstName" [(ngModel)]="newFirstName"/>
