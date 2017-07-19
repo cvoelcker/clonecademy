@@ -95,6 +95,36 @@ class MultiCourseView(APIView):
                             status=status.HTTP_400_BAD_REQUEST)
 
 
+class CourseEditView(APIView):
+    '''
+    contains all the code related to edit a courses
+    @author Leonhard Wiedmann
+    '''
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request, course_id=None, format=None):
+        '''
+        Returns all the information about a course with the answers and the solutions
+        '''
+        if not course_id:
+            return Response('Method not allowed',
+                            status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+        try:
+            course = Course.objects.filter(id=course_id).first()
+            course_serializer = serializer.CourseEditSerializer(course, context={'request': request})
+            data = course_serializer.data;
+            return Response(data)
+
+        except Exception as e:
+            return Response('Course not found',
+                            status=status.HTTP_404_NOT_FOUND)
+
+    def post(self, request, course_id=None, format=None):
+        return Response("test")
+
+
 class CourseView(APIView):
     '''
     Contains all code related to viewing and saving courses.

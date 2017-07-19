@@ -34,6 +34,9 @@ class MultipleChoiceQuestion(Question):
         from learning_base.multiple_choice import serializer
         return serializer.MultipleChoiceQuestionSerializer
 
+    def get_edit_serializer(self):
+        from learning_base.multiple_choice import serializer
+        return serializer.MultipleChoiceQuestionEditSerializer
 
 class MultipleChoiceAnswer(models.Model):
     """
@@ -60,3 +63,7 @@ class MultipleChoiceAnswer(models.Model):
     def get_serializer(self):
         from learning_base.multiple_choice import serializer
         return serializer.MultipleChoiceAnswerSerializer
+
+    def get_edit_serializer(self):
+        from learning_base.multiple_choice import serializer
+        return serializer.MultipleChoiceAnswerEditSerializer
