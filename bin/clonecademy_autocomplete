@@ -8,7 +8,7 @@ _apport-bug ()
 
 
     # available options
-    dashoptions='-h help -s start -p pause -b build -rm remove angular django'
+    dashoptions='-t test -h help -s start -p pause -b build -rm remove angular django'
 
     case "$prev" in
     clonecademy)
@@ -22,7 +22,7 @@ _apport-bug ()
 
     ;;
     angular | django)
-        dashoptions="-s start -p pause -b build -rm remove -r run -h help"
+        dashoptions="-t test -s start -p pause -b build -rm remove -r run -h help"
         COMPREPLY=( $( compgen -W "$dashoptions" -- $cur ) )
     ;;
     *)

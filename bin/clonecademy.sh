@@ -83,6 +83,12 @@ function runDjango {
 	docker-compose run django python manage.py $@
 }
 
+function testAngular {
+	cd $DIR/angular
+	DATE=`date +%Y-%m-%d`
+	docker-compose run angular npm test
+}
+
 case $1 in
 	-h | help)
 		help "containers"
@@ -105,6 +111,9 @@ case $1 in
 		removeAngular
 		removeDjango
 	;;
+	-t | test)
+		testAngular
+	;;
 	angular)
 		case $2 in
 			-s | start)
@@ -125,6 +134,9 @@ case $1 in
 			;;
 			-r | run)
 			runAngular ${*:3}
+			;;
+			-t | test)
+			testAngular
 			;;
 			*)
 			startAngular
