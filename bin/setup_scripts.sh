@@ -8,55 +8,53 @@ fi
 
 
 if ! hash docker-compose 2>/dev/null; then
-  sudo apt-get remove docker docker-engine
-  sudo apt-get update
-  sudo apt-get install -y linux-image-extra-$(uname -r) linux-image-extra-virtual
-  sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+  apt-get remove docker docker-engine
+  apt-get update
+  apt-get install -y linux-image-extra-$(uname -r) linux-image-extra-virtual
+  apt-get install -y apt-transport-https ca-certificates curl software-properties-common
   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
   if [[ $(uname -m) == *'64' ]]; then
-    sudo add-apt-repository \
+    add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
    $(lsb_release -cs) \
    stable"
  else
-   sudo add-apt-repository \
+   add-apt-repository \
    "deb [arch=armhf] https://download.docker.com/linux/ubuntu \
    $(lsb_release -cs) \
    stable"
  fi
- sudo apt-get update
- sudo apt-get install -y docker docker-compose
+ apt-get update
+ apt-get install -y docker docker-compose
 fi
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+echo "do you want to install the scripts to your local bin folder"
+echo "[y/N]"
+read confirm
 
 share="/usr/local/bin"
 
-rm 2>/dev/null $share/build_*
-sudo chmod +x $DIR/build_*
-sudo ln -s $DIR"/build_angular.sh" $share/build_angular
-sudo ln -s $DIR"/build_django.sh" $share/build_django
-
-rm 2>/dev/null $share/start_*
-sudo chmod +x $DIR/start_*
-sudo ln -s $DIR"/start_angular.sh" $share/start_angular
-sudo ln -s $DIR"/start_django.sh" $share/start_django
-
-rm 2>/dev/null $share/stop_*
-sudo chmod +x $DIR/stop_*
-sudo ln -s $DIR"/stop_angular.sh" $share/stop_angular
-sudo ln -s $DIR"/stop_django.sh" $share/stop_django
-
+# leftover from the old install script
 rm 2>/dev/null $share/run_*
-sudo chmod +x $DIR/run_*
-sudo ln -s $DIR"/run_angular.sh" $share/run_angular
-sudo ln -s $DIR"/run_django.sh" $share/run_django
-
+rm 2>/dev/null $share/start_*
+rm 2>/dev/null $share/build_*
+rm 2>/dev/null $share/stop_*
 rm 2>/dev/null $share/clonecademy_*
-sudo chmod +x $DIR/clonecademy_*
-sudo ln -s $DIR"/clonecademy_build.sh" $share/clonecademy_build
-sudo ln -s $DIR"/clonecademy_dev.sh" $share/clonecademy_start
-sudo ln -s $DIR"/clonecademy_stop.sh"  $share/clonecademy_stop
 
-echo "you have to be member of the docker group or run all scripts as root \n"
+if [ $confirm == "y" ] ||  [ $confirm == "Y" ]
+  then
+
+  DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+  rm 2>/dev/null $share/clonecademy
+  chmod +x $DIR"/clonecademy.sh"
+  ln -s $DIR"/clonecademy.sh" $share/clonecademy
+
+  cp $DIR/clonecademy_autocomplete /etc/bash_completion.d/clonecademy_autocomplete
+  echo "you can start the containers with clonecademy start"
+  echo "to get more information run clonecademy help"
+  echo ""
+fi
+
+echo "you have to be member of the docker group or run all scripts as root"
 echo "run: sudo usermod -a -G docker your-user-name"

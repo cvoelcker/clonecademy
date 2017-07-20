@@ -1,0 +1,36 @@
+_apport-bug ()
+{
+    local cur dashoptions prev param
+
+    COMPREPLY=()
+    cur=`_get_cword`
+    prev=${COMP_WORDS[COMP_CWORD-1]}
+
+
+    # available options
+    dashoptions='-h help -s start -p pause -b build -rm remove angular django'
+
+    case "$prev" in
+    clonecademy)
+        case "$cur" in
+        *)
+            # no parameter given
+            COMPREPLY=( $( compgen -W "$dashoptions" -- $cur ) )
+
+        ;;
+        esac
+
+    ;;
+    angular | django)
+        dashoptions="-s start -p pause -b build -rm remove -r run -h help"
+        COMPREPLY=( $( compgen -W "$dashoptions" -- $cur ) )
+    ;;
+    *)
+        # standalone parameters
+        return 0
+
+    ;;
+    esac
+}
+
+complete -F _apport-bug -o filenames -o dirnames clonecademy
