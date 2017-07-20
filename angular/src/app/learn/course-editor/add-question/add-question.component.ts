@@ -46,7 +46,10 @@ export class AddQuestionComponent implements OnInit {
     // create new question
     let question = this.question.createComponent(this.questionFactory)
     this.questionBody = questionBody
-
+    if(feedback != ""){
+      this.feedbackBool = true;
+      this.feedback = feedback
+    }
     this.id = id;
 
     this.questionCopy  = (<AddQuestionModule> question.instance)
@@ -65,7 +68,7 @@ export class AddQuestionComponent implements OnInit {
   save(f): any{
     let response = this.questionCopy.save(f)
     // check if custom feedback is set and save it if needed
-  
+
     response['id'] = this.id;
 
     response['body'] = this.questionBody;
