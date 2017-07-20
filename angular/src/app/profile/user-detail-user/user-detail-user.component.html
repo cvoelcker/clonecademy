@@ -18,30 +18,31 @@
     </md-input-container>
 
     <md-input-container>
-      <input mdInput placeholder='{{"newPassword" | translate}}' type="password" name="password" [(ngModel)]="newPassword"/>
-      <md-hint align="start"  *ngIf="newPassword!=newPassword2 && e.submitted" class="warning">
+      <input mdInput placeholder='{{"newPassword" | translate}}' mdTooltip='{{"password requirements" | translate}}' type="password" #password minlength="5" name="password" [(ngModel)]="newPassword"/>
+      <md-hint align="start"  *ngIf="newPassword!=newPassword2  && e.submitted" class="warning">
         <strong>{{"password missmatch" | translate}}</strong>
       </md-hint>
     </md-input-container>
 
     <md-input-container>
-        <input mdInput placeholder='{{"newPasswordagain" | translate}}' type="password" name="password2" [(ngModel)]="newPassword2" />
+        <input mdInput placeholder='{{"newPasswordagain" | translate}}' mdTooltip='{{"password requirements" | translate}}' type="password" #password minlength="5" name="password2" [(ngModel)]="newPassword2" />
         <md-hint align="start"  *ngIf="newPassword!=newPassword2 && e.submitted" class="warning">
           <strong>{{"password missmatch" | translate}}</strong>
         </md-hint>
     </md-input-container>
+
+    <div>
+      <md-select placeholder='{{"language" | translate}}' #language="ngModel" mdTooltip='{{"language tipp" | translate}}' [(ngModel)]="lng" name="language" required>
+        <md-option *ngFor="let l of languages"  [value]="l.id">{{l.name}}</md-option>
+      </md-select>
+      <md-hint align="start" class="warning" *ngIf="e.submitted && !language.valid"><strong>{{'The category of the course is required' | translate}}</strong> </md-hint>
+    </div>
 
     <md-input-container>
         <input mdInput placeholder='{{"oldPassword" | translate}}' type="password" name="oldpassword" [(ngModel)]="oldPassword" />
     </md-input-container>
 
 
-    <div>
-      <md-select placeholder='{{"language" | translate}}' #language="ngModel" [(ngModel)]="lng" name="language" required>
-        <md-option *ngFor="let l of languages"  [value]="l.id">{{l.name}}</md-option>
-      </md-select>
-      <md-hint align="start" class="warning" *ngIf="e.submitted && !language.valid"><strong>{{'The category of the course is required' | translate}}</strong> </md-hint>
-    </div>
 
     <button [disabled]="loading" type="submit" md-raised-button class=" "><i class="material-icons" >save</i> {{"save" | translate}}</button>
 

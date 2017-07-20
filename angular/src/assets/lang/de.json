@@ -40,6 +40,8 @@
   "register": "Registrieren",
   "username": "Benutzername",
   "password": "Passwort",
+  "language": "Sprache",
+  "language tipp": "Du bekommst nur Kurse in deiner ausgewählten Sprache angezeigt.",
 
   "No Account? Register here": "Kein Benutzerkonto? Registriere dich hier!",
   "Login with you account": "Mit deinem Benutzerkonto anmelden",
