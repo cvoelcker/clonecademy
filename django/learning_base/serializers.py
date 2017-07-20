@@ -182,21 +182,33 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('username', 'email', 'id', 'date_joined', 'groups', 'first_name', 'last_name')
 
-    def validate_groups(self, value):
-        return value
+    #def validate_groups(self, value):
+    #    return value
 
     def create(self, validated_data):
         profile_data = validated_data.pop('profile')
         validated_data.pop('groups')
         # TODO add language to profile
         profile_data['language'] = validated_data.pop('language')
-        profile_data['first_name'] = validated_data.pop('first_name')
-        profile_data['first_name'] = validated_data.pop('first_name')
         user = User.objects.create_user(**validated_data)
-        user.save()
         profile = Profile(user=user, **profile_data)
         profile.save()
         return True
+
+    def update(self, instance, validated_data):
+        """
+        Updates a given user instance
+        Note: Only updates
+        @author Tobias Huber
+        Thoughts: Add birth_date when neccessary
+        """
+        #instance.username = validated_data["username"]
+        instance.email = validated_data["email"]
+        instance.first_name = validated_data["first_name"]
+        instance.last_name = validated_data["last_name"]
+        instance.set_password(validated_data["password"])
+        instance.profile.language = validated_data["language"]
+        instance.save()
 
 
 class TrySerializer(serializers.ModelSerializer):
