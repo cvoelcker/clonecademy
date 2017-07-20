@@ -92,6 +92,8 @@ class ModuleEditSerializer(serializers.ModelSerializer):
         value['questions'] = QuestionEditSerializer(questions, many=True).data
         return value
 
+
+
 class ModuleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Module
@@ -157,6 +159,7 @@ class CourseSerializer(serializers.ModelSerializer):
                 num_questions += 1
         value['num_answered'] = num_answered
         value['num_questions'] = num_questions
+        value['responsible_mod'] = obj.responsible_mod.id
         return value
 
     def create(self, validated_data):

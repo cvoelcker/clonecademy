@@ -22,6 +22,12 @@
                       <div class="progressBar" [style.width.%]="(c.num_answered / c.num_questions) * 100"></div>
                       {{c.name}}
                     </a>
+                    <button md-button
+                    class="editCourse"
+                    *ngIf="user.isAdmin() || c.responsible_mod == user.id"
+                    [routerLink]="'/course/edit/' + c.id">
+                      <i class="material-icons">mode_edit</i>
+                    </button>
                   </li>
                 </ul>
               </div>

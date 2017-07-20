@@ -114,7 +114,6 @@ class Course(models.Model):
     name = models.CharField(
         verbose_name='Course name',
         help_text="A short concise name for the course",
-        unique=True,
         max_length=144
     )
 

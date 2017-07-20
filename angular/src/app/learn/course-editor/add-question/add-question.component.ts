@@ -45,8 +45,12 @@ export class AddQuestionComponent implements OnInit {
     this.questionFactory = this.factory.resolveComponentFactory(this.child)
     // create new question
     let question = this.question.createComponent(this.questionFactory)
+
+    // set the question text
     this.questionBody = questionBody
-    if(feedback != ""){
+
+    // check if the feedback is set and if true set the feedback text
+    if(feedback != undefined && feedback != ""){
       this.feedbackBool = true;
       this.feedback = feedback
     }

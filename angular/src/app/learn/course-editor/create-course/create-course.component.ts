@@ -22,6 +22,11 @@ export class CreateCourseComponent {
   error = false;
 
   loading = true;
+  loadCourse: boolean;
+
+  setCourseTrue(b: boolean){
+    this.loadCourse = b
+  }
 
   languages: Array<{id: string, name: string}> = [{id: "en", name: "English"}, {id: "de", name: "Deutsch"}]
   lng: string;
@@ -82,6 +87,11 @@ export class CreateCourseComponent {
       })
   }
 
+  clearModule(){
+    this.modules.clear();
+    this.moduleArray = [];
+  }
+
   addModule(id?: number, title?: string, moduleDescription?: string, questions?: Array<any>){
     let moduleComponent = this.modules.createComponent(this.childComponent);
     let module = (<AddModuleComponent> moduleComponent.instance)
@@ -97,7 +107,6 @@ export class CreateCourseComponent {
     if(questions != null){
       for(let i = 0; i < questions.length; i++){
         let question = questions[i]
-        console.log(question)
         module.editQuestion(question['type'], question['title'], question['id'], question['body'], question['question_body'], question['feedback'])
       }
     }

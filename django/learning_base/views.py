@@ -159,29 +159,23 @@ class CourseView(APIView):
         '''
         data = request.data
         if data is None:
-            return Response("Request does not contain data",
+            return Response({"error": "Request does not contain data"},
+                            status=status.HTTP_404_BAD_REQUEST)
+
+        id = data.get('id')
+        # This branch saves new courses or edites existing courses
+        if (id is None) and Course.objects.filter(name=data['name']).exists():
+            return Response('Course with that name exists',
+                            status=status.HTTP_409_CONFLICT)
+        data['responsible_mod'] = request.user
+        course_serializer = serializer.CourseSerializer(data=data)
+        if not course_serializer.is_valid():
+            return Response({"error": course_serializer.errors},
                             status=status.HTTP_400_BAD_REQUEST)
-        # This branches saves established courses
-        if course_id:
-            if Course.objects.filter(id=course_id).exists():
-                pass
-            else:
-                return Response('Course not found',
-                                status=status.HTTP_404_NOT_FOUND)
-        # This branch saves new courses
         else:
-            if Course.objects.filter(name=data['name']).exists():
-                return Response('Course with that name exists',
-                                status=status.HTTP_409_CONFLICT)
-            data['responsible_mod'] = request.user
-            course_serializer = serializer.CourseSerializer(data=data)
-            if not course_serializer.is_valid():
-                return Response("Data is not valid",
-                                status=status.HTTP_400_BAD_REQUEST)
-            else:
-                course_serializer.create(data)
-            return Response("Course saved",
-                            status=status.HTTP_201_CREATED)
+            course_serializer.create(data)
+        return Response({"error": "Course saved"},
+                        status=status.HTTP_201_CREATED)
 
 
 class ModuleView(APIView):

@@ -15,8 +15,10 @@ import { QuestionModule } from "./question.module"
 })
 export class QuestionComponent implements OnInit {
 
+  // add new question types here to load them
+  // QUESTION FACTORY COMPONENT
   components = {
-    MultipleChoiceQuestion: MultipleChoiceQuestionComponent
+    multiple_choice: MultipleChoiceQuestionComponent
   }
 
   @ViewChild('question', {read: ViewContainerRef}) question: ViewContainerRef;

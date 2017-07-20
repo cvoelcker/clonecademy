@@ -13,11 +13,6 @@ export class MultipleChoiceQuestionComponent extends QuestionModule {
 
   answers: Array<{id: number, text: string, value: boolean}>;
 
-  ngOnInit() {
-    // to et the courseID, moduleIndex and questionIndex run ngOnInit from parent
-    super.ngOnInit()
-  }
-
   // return array of the marked answers
   submit(): any{
     let sendAnswer = [];
