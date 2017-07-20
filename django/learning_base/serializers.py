@@ -208,7 +208,7 @@ class UserSerializer(serializers.ModelSerializer):
         instance.last_name = validated_data["last_name"]
         instance.set_password(validated_data["password"])
         profile = instance.profile
-        #profile.language = validated_data["language"]
+        profile.language = validated_data["language"]
         profile.save()
         instance.save()
         return True

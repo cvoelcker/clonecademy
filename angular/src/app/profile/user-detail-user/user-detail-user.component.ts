@@ -13,6 +13,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 })
 
 export class UserDetailUserComponent {
+  languages: Array<{id: string, name: string}> = [{id: "en", name: "English"}, {id: "de", name: "Deutsch"}]
   // {username: string, id: number, email: string, group: {}, dateRegistered: Date, dateString: string}
 
   constructor(
@@ -24,8 +25,9 @@ export class UserDetailUserComponent {
       }
 
       edit(value){
+        if(value.valid && value.value["password"] === value.value['password2']){
           let data = value.value
-          this.server.post("user/current", data, false, false)
+          this.server.post("user/current", data, false, false)}
         }
 
   }

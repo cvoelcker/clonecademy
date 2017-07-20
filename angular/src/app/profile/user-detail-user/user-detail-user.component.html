@@ -4,9 +4,9 @@
 
       <md-input-container>
         <input mdInput type="email" placeholder='{{"email" | translate}}' #email pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" name="email" [(ngModel)]="user.data.email"/>
-        <!-- <md-hint align="start"  *ngIf="!email.valid && e.submitted" class="warning"> -->
-          <!-- <strong>{{"invalid email" | translate}}</strong>
-        </md-hint> -->
+        <md-hint align="start"  *ngIf="!email.valid && e.submitted" class="warning">
+          <strong>{{"invalid email" | translate}}</strong>
+        </md-hint>
       </md-input-container>
 
     <md-input-container>
@@ -19,10 +19,16 @@
 
     <md-input-container>
       <input mdInput placeholder='{{"newPassword" | translate}}' type="password" name="password" [(ngModel)]="newPassword"/>
+      <md-hint align="start"  *ngIf="newPassword!=newPassword2 && e.submitted" class="warning">
+        <strong>{{"password missmatch" | translate}}</strong>
+      </md-hint>
     </md-input-container>
 
     <md-input-container>
         <input mdInput placeholder='{{"newPasswordagain" | translate}}' type="password" name="password2" [(ngModel)]="newPassword2" />
+        <md-hint align="start"  *ngIf="newPassword!=newPassword2 && e.submitted" class="warning">
+          <strong>{{"password missmatch" | translate}}</strong>
+        </md-hint>
     </md-input-container>
 
     <md-input-container>
@@ -30,12 +36,12 @@
     </md-input-container>
 
 
-    <!-- <div>
+    <div>
       <md-select placeholder='{{"language" | translate}}' #language="ngModel" [(ngModel)]="lng" name="language" required>
         <md-option *ngFor="let l of languages"  [value]="l.id">{{l.name}}</md-option>
       </md-select>
-      <md-hint align="start" class="warning" *ngIf="f.submitted && !language.valid"><strong>{{'The category of the course is required' | translate}}</strong> </md-hint>
-    </div> -->
+      <md-hint align="start" class="warning" *ngIf="e.submitted && !language.valid"><strong>{{'The category of the course is required' | translate}}</strong> </md-hint>
+    </div>
 
     <button [disabled]="loading" type="submit" md-raised-button class=" "><i class="material-icons" >save</i> {{"save" | translate}}</button>
 
