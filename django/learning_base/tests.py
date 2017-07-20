@@ -6,7 +6,7 @@ from rest_framework.test import force_authenticate
 
 from django.contrib.auth.models import User, Group
 from learning_base import views, models, serializers
-import learning_base.multiple_choice as multiple_choice
+import learning_base.multiple_choice as MultipleChoiceQuestion
 
 
 class DatabaseMixin():
@@ -29,7 +29,7 @@ class DatabaseMixin():
                                      order=1)
         self.m1_test.save()
 
-        self.q1_test = multiple_choice.models.MultipleChoiceQuestion(
+        self.q1_test = MultipleChoiceQuestion.models.MultipleChoiceQuestion(
                 title="",
                 body="a question",
                 feedback="",
@@ -50,12 +50,12 @@ class AnswerViewTest(DatabaseMixin, TestCase):
 
         self.assertEqual(response.data, [])
 
-        answer_1 = multiple_choice.models.MultipleChoiceAnswer(
+        answer_1 = MultipleChoiceQuestion.models.MultipleChoiceAnswer(
                 question=self.q1_test,
                 text="something",
                 is_correct=False)
         answer_1.save()
-        answer_2 = multiple_choice.models.MultipleChoiceAnswer(
+        answer_2 = MultipleChoiceQuestion.models.MultipleChoiceAnswer(
                 question=self.q1_test,
                 text="something",
                 is_correct=False)
@@ -187,7 +187,7 @@ class CourseViewTest(DatabaseMixin, TestCase):
                       {'title': 'a question',
                        'body': 'some text',
                        'feedback': '',
-                       'type': 'multiple_choice',
+                       'type': 'MultipleChoiceQuestion',
                        'order': 1,
                        'answers': [
                            {'text': 'nope',
@@ -198,7 +198,7 @@ class CourseViewTest(DatabaseMixin, TestCase):
         self.assertEquals(response.status_code, 400)
         self.assertFalse(models.Course.objects.filter(name='test_4').exists())
         self.assertFalse(
-            multiple_choice.models.MultipleChoiceQuestion.objects.filter(
+            MultipleChoiceQuestion.models.MultipleChoiceQuestion.objects.filter(
                 title='a question').exists())
 
         request = self.factory.post('/courses/save',
@@ -213,7 +213,7 @@ class CourseViewTest(DatabaseMixin, TestCase):
                                               {'title': 'a question',
                                                'body': 'some text',
                                                'feedback': '',
-                                               'type': 'multiple_choice',
+                                               'type': 'MultipleChoiceQuestion',
                                                'order': 1,
                                                'answers': [
                                                    {'text': 'nope',
@@ -225,7 +225,7 @@ class CourseViewTest(DatabaseMixin, TestCase):
         self.assertEqual(response.status_code, 201)
         self.assertTrue(models.Course.objects.filter(name='test_4').exists())
         self.assertTrue(
-            multiple_choice.models.MultipleChoiceQuestion.objects.filter(
+            MultipleChoiceQuestion.models.MultipleChoiceQuestion.objects.filter(
                 title='a question').exists())
 
 

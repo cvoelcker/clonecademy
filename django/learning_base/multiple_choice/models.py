@@ -6,6 +6,7 @@ class MultipleChoiceQuestion(Question):
     """
     A simple multiple choice question
     """
+    __name__ = "multiple_choice"
     def num_correct_answers(self):
         return len(MultipleChoiceAnswer.objects.filter(is_correct=True))
 
@@ -61,9 +62,9 @@ class MultipleChoiceAnswer(models.Model):
         return self.text
 
     def get_serializer(self):
-        from learning_base.multiple_choice import serializer
+        from learning_base.MultipleChoiceQuestion import serializer
         return serializer.MultipleChoiceAnswerSerializer
 
     def get_edit_serializer(self):
-        from learning_base.multiple_choice import serializer
+        from learning_base.MultipleChoiceQuestion import serializer
         return serializer.MultipleChoiceAnswerEditSerializer

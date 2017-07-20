@@ -65,11 +65,12 @@ class QuestionSerializer(serializers.ModelSerializer):
 class QuestionEditSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = ("title", "body", "feedback")
+        fields = ("title", "body", 'id', "feedback")
 
     def to_representation(self, obj):
         value = super(QuestionEditSerializer, self).to_representation(obj)
-        serializer = obj.get_serializer()
+        value['type'] = obj.__class__.__name__
+        serializer = obj.get_edit_serializer()
         value['question_body'] = serializer(obj).data
         return value
 
