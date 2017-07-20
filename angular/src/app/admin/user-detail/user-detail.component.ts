@@ -1,6 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { ServerService } from '../../service/server.service';
+import { UserService } from '../../service/user.service';
 import { ProfilesComponent } from '../profiles/profiles.component'
 
 @Component({
@@ -15,9 +16,15 @@ export class UserDetailComponent {
   user: any;
   id: number;
 
+  loading = true;
+
   constructor(
     private route: ActivatedRoute,
     private server: ServerService,
+<<<<<<< Updated upstream
+=======
+    private userService: UserService,
+>>>>>>> Stashed changes
     private router: Router,
   ) {
     this.route.params.subscribe(data => {
@@ -26,12 +33,10 @@ export class UserDetailComponent {
     })
   }
 
+  ngOnInit() {
+      this.loading = false;
+  }
+
   change(id: number){
-    this.server.get("user/"+ id + "/")
-    .then(data => {
-      this.user = data
-      this.user['dateRegistered'] = new Date(data['date_joined'])
-    })
-    .catch(err => console.log(err))
   }
 }

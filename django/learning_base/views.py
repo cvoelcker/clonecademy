@@ -266,15 +266,15 @@ class UserView(APIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     #TODO: probably should be check_permissions(self, request)
-    def get_permissions(self):
-       '''
-       Overrides the permissions so that the api can register new users.
-       Returns the new permission set
-       '''
-       if self.request.method == 'POST':
-           self.permission_classes = (permissions.AllowAny,)
-
-       return super(UserView, self).get_permissions()
+    # def get_permissions(self):
+    #    '''
+    #    Overrides the permissions so that the api can register new users.
+    #    Returns the new permission set
+    #    '''
+    #    if self.request.method == 'POST':
+    #        self.permission_classes = (permissions.AllowAny,)
+    #
+    #    return super(UserView, self).get_permissions()
 
     def get(self, request, user_id=False, format=None):
         '''
@@ -294,6 +294,17 @@ class UserView(APIView):
 
         user = serializer.UserSerializer(user)
         return Response(user.data)
+
+    def post(self, request, format=None):
+        user = request.user
+        user_serializer = serializer.UserSerializer(user, data=request.data partial=True)
+        if user_serializer.is_valid():
+            user = user_serializer.update(data = request.data)
+            return Response('Updated user '+user.username,
+                            status=status.HTTP_200_OK)
+        else:
+            return Response(user_serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
 
 
 class UserRegisterView(APIView):
