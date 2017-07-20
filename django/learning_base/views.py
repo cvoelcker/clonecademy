@@ -266,20 +266,23 @@ class UserView(APIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     #TODO: probably should be check_permissions(self, request)
-    def get_permissions(self):
-       '''
-       Overrides the permissions so that the api can register new users.
-       Returns the new permission set
-       '''
-       if self.request.method == 'POST':
-           self.permission_classes = (permissions.AllowAny,)
+    #def get_permissions(self):
+    #   '''
+    #   Overrides the permissions so that the api can register new users.
+    #   Returns the new permission set
+    #   '''
+    #   if self.request.method == 'POST':
+    #       self.permission_classes = (permissions.AllowAny,)
 
-       return super(UserView, self).get_permissions()
+    #   return super(UserView, self).get_permissions()
 
     def get(self, request, user_id=False, format=None):
         '''
         Shows the profile of any user if the requester is mod,
         or the profile of the requester
+
+        TODO: Refactor this if user.profile.is_mod() out of it
+        AFAIK is this not the right behaviour - TH
         '''
         user = request.user
         if user_id:
@@ -295,6 +298,26 @@ class UserView(APIView):
         user = serializer.UserSerializer(user)
         return Response(user.data)
 
+    def post(self, request, format=None):
+        '''
+        Post is used to update the profile of a given user
+        (Guess: patch is the actual method we want to go for)
+        @author Tobias Huber
+        '''
+        user = request.user
+        if not user.profile:
+            return Repsonse("Profile not found!",
+                            status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+        user_serializer = UserSerializer(user, request.data, partial=True)
+
+        if user_serializer.is_valid():
+            user = user_serializer.update(request.data)
+            return Response('successfully updated user',
+                            status=status.HTTP_200_OK)
+        else:
+            return Response(user_serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
+
 
 class UserRegisterView(APIView):
     '''
@@ -308,6 +331,8 @@ class UserRegisterView(APIView):
         '''
         If the user_id field is specified, it updates user information.
         Otherwise it saves a new user.
+
+        This behaviour isn't smart since this view doesn't require any authentication
         '''
         if user_id:
             # TODO Implement saving a users data
