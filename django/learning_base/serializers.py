@@ -182,8 +182,18 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('username', 'email', 'id', 'date_joined', 'groups', 'first_name', 'last_name')
 
-    #def validate_groups(self, value):
-    #    return value
+    def validate(self, data):
+        """
+        validate given passwords
+        """
+        if self.context.request.method=="POST":
+            if "oldpassword" in data:
+                if not request.user.check_password(request.data["oldpassword"]):
+                    raise serializers.ValidationError("incorrect password @key oldpassword")
+            else:
+                if "password" in data:
+                    raise serializers.ValidationError("when changing password the old password must be given with the key oldpassword")
+        return data
 
     def create(self, validated_data):
         profile_data = validated_data.pop('profile')
@@ -206,7 +216,8 @@ class UserSerializer(serializers.ModelSerializer):
         instance.email = validated_data["email"]
         instance.first_name = validated_data["first_name"]
         instance.last_name = validated_data["last_name"]
-        instance.set_password(validated_data["password"])
+        if "password" in validated_data:
+            instance.set_password(validated_data["password"])
         profile = instance.profile
         profile.language = validated_data["language"]
         profile.save()
