@@ -1,12 +1,12 @@
-<h2>{{"UserDetail" | translate}}{{user.data.username}}</h2>
+<h2 *ngIf="user.data != undefined">{{"UserDetail" | translate}}{{user.data.username}}</h2>
 
-<form #f="ngForm" name="register" (ngSubmit)="register(f)">
+<form #e="ngForm" name="edit" (ngSubmit)="edit(e)" *ngIf="user.data != undefined">
 
       <md-input-container>
         <input mdInput type="email" placeholder='{{"email" | translate}}' #email pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" name="email" [(ngModel)]="user.data.email"/>
-        <md-hint align="start"  *ngIf="!email.valid && f.submitted" class="warning">
-          <strong>{{"invalid email" | translate}}</strong>
-        </md-hint>
+        <!-- <md-hint align="start"  *ngIf="!email.valid && e.submitted" class="warning"> -->
+          <!-- <strong>{{"invalid email" | translate}}</strong>
+        </md-hint> -->
       </md-input-container>
 
     <md-input-container>
@@ -17,6 +17,26 @@
         <input mdInput placeholder='{{"last name" | translate}}' type="text" name="last_name" [(ngModel)]="user.data.last_name" />
     </md-input-container>
 
-    <button [disabled]="loading" type="submit" md-raised-button class=" ">Edit Profile</button>
+    <md-input-container>
+      <input mdInput placeholder='{{"newPassword" | translate}}' type="text" name="password" [(ngModel)]="newPassword"/>
+    </md-input-container>
+
+    <md-input-container>
+        <input mdInput placeholder='{{"newPasswordagain" | translate}}' type="text" name="password2" [(ngModel)]="newPassword2" />
+    </md-input-container>
+
+    <md-input-container>
+        <input mdInput placeholder='{{"oldPassword" | translate}}' type="text" name="oldpassword" [(ngModel)]="oldPassword" />
+    </md-input-container>
+
+
+    <!-- <div>
+      <md-select placeholder='{{"language" | translate}}' #language="ngModel" [(ngModel)]="lng" name="language" required>
+        <md-option *ngFor="let l of languages"  [value]="l.id">{{l.name}}</md-option>
+      </md-select>
+      <md-hint align="start" class="warning" *ngIf="f.submitted && !language.valid"><strong>{{'The category of the course is required' | translate}}</strong> </md-hint>
+    </div> -->
+
+    <button [disabled]="loading" type="submit" md-raised-button class=" "><i class="material-icons" >save</i> {{"save" | translate}}</button>
 
 </form>

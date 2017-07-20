@@ -92,6 +92,9 @@
   "Request moderator access" : "Moderator Rechte anfragen." ,
 
   "UserDetail": "Benutzer Details für ",
+  "newPassword": "Neues Passwort",
+  "newPasswordagain": "Neues Passwort wiederholen",
+  "oldPassword": "Altes Passwort zum authentifizieren",
 
   "Unable to log in with provided credentials.": "Benutzername oder Passwort ungültig.",
   "a course must contain at least one module": "Ein Kurs muss mindestens ein Modul enthalten."

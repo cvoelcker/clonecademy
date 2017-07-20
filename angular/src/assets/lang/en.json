@@ -94,6 +94,9 @@
   "Request moderator access" : "Request moderator access" ,
 
   "UserDetail": "User details for ",
+  "newPassword": "New Password",
+  "newPasswordagain": "New Password again",
+    "oldPassword": "Old Password for authentication",
 
   "Unable to log in with provided credentials.": "Unable to log in with provided credentials.",
 
