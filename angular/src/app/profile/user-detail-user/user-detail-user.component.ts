@@ -25,7 +25,7 @@ export class UserDetailUserComponent {
 
       edit(value){
           let data = value.value
-          this.server.post("/user/current", data, false, false)
+          this.server.post("user/current", data, false, false)
         }
 
   }
