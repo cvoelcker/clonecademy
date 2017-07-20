@@ -301,7 +301,7 @@ class UserView(APIView):
 
         user_serializer = serializer.UserSerializer(user, data=data, partial=True)
         if user_serializer.is_valid():
-            user_serializer = user_serializer.update(user, validated_data=user_serializer.validated_data)
+            user_serializer = user_serializer.update(user, validated_data=request.data)
             return Response('Updated user '+user.username,
                             status=status.HTTP_200_OK)
         else:
