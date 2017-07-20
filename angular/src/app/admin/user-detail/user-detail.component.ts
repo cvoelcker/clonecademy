@@ -14,6 +14,7 @@ export class UserDetailComponent {
   // {username: string, id: number, email: string, group: {}, dateRegistered: Date, dateString: string}
   user: any;
   id: number;
+  isMod = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,6 +32,16 @@ export class UserDetailComponent {
     .then(data => {
       this.user = data
       this.user['dateRegistered'] = new Date(data['date_joined'])
+      this.isMod = (-1 != this.user["groups"].indexOf("moderator"));
+    })
+    .catch(err => console.log(err))
+  }
+
+  promote(){
+    this.server.post("user/"+ this.id + "/grantmodrights", {})
+    .then(answer => {
+      this.isMod = true;
+      console.log(answer)
     })
     .catch(err => console.log(err))
   }
