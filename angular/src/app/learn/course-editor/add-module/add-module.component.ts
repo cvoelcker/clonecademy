@@ -25,6 +25,7 @@ export class AddModuleComponent implements OnInit {
   question: ComponentFactory<AddQuestionComponent>;
   questionArray: any[] = [];
   moduleComponent: AddQuestionComponent;
+  id: number;
 
   // the parent class set this to true when the save button is pressed
   form = null;
@@ -38,19 +39,19 @@ export class AddModuleComponent implements OnInit {
     this.question = this.factory.resolveComponentFactory(AddQuestionComponent)
   }
 
-  addQuestion(component, questionBody?: string, answers?: any, feedback?: string){
+  addQuestion(component, id?: number, questionBody?: string, body?: any, feedback?: string){
       // add the question to the module component and add it to the array so we can edit and save it later
       let question = this.module.createComponent(this.question)
       let q = (<AddQuestionComponent> question.instance)
       q.form = this.form
       q.emitter.subscribe(data => this.module.detach())
       q.child = component
-      q.addQuestion(questionBody, answers, feedback)
+      q.addQuestion(id, questionBody, body, feedback)
       this.questionArray.push(question)
       this.selectedValue = null;
   }
 
-  editQuestion(type: string, questionBody: string, answers: any, feedback: string){
+  editQuestion(type: string, title: string, id:number, questionBody: string, body: any, feedback: string){
     let cmp: Type<AddQuestionModule> = null;
     for(let i = 0; i < this.components.length; i++){
       if(type === this.components[i].key){
@@ -58,7 +59,7 @@ export class AddModuleComponent implements OnInit {
         break;
       }
     }
-    this.addQuestion(cmp, questionBody, answers, feedback)
+    this.addQuestion(cmp, id, questionBody, body, feedback)
   }
 
   ngOnInit() {
@@ -107,7 +108,7 @@ export class AddModuleComponent implements OnInit {
       }
     }
 
-    return {name: this.title, questions: values, learning_text: this.learningText};
+    return {name: this.title, questions: values, id: this.id,  learning_text: this.learningText};
   }
 
 }

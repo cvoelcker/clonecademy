@@ -35,6 +35,14 @@ export class CreateCourseComponent {
     this.category = id;
   }
 
+  setLanguage(id: string){
+    this.lng = id
+  }
+
+  setDifficulty(id: number){
+    this.diff = id
+  }
+
   title: string;
 
   setTitle(title: string){
@@ -74,9 +82,12 @@ export class CreateCourseComponent {
       })
   }
 
-  addModule(title?: string, moduleDescription?: string, questions?: Array<any>){
+  addModule(id?: number, title?: string, moduleDescription?: string, questions?: Array<any>){
     let moduleComponent = this.modules.createComponent(this.childComponent);
     let module = (<AddModuleComponent> moduleComponent.instance)
+
+    module.id = id
+
     if(title != null){
       module.title = title
     }
@@ -86,7 +97,8 @@ export class CreateCourseComponent {
     if(questions != null){
       for(let i = 0; i < questions.length; i++){
         let question = questions[i]
-        module.editQuestion(question['class'], question['question_body'], question['answers'], question['feedback'])
+        console.log(question)
+        module.editQuestion(question['type'], question['title'], question['id'], question['body'], question['question_body'], question['feedback'])
       }
     }
     this.moduleArray.push(moduleComponent)
@@ -120,6 +132,7 @@ export class CreateCourseComponent {
     let saveModules = this.saveModules(f)
     if(f.valid){
       let course = {name: f.value['title'], difficulty: f.value['difficulty'], language: f.value["language"], category: f.value['category'],  modules: saveModules};
+
       //console.log(course)
       this.uploadState(course);
     }

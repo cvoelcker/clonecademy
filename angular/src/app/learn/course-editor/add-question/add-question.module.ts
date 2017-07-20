@@ -9,15 +9,15 @@ export class AddQuestionModule {
 
   form = null;
 
-  answers: any;
+  body: any;
 
   public save(form): any{
     return "nix";
   }
 
-  public edit( answers: any){
-    if(answers != null){
-      this.answers = answers;
+  public edit( body: any){
+    if(body != null){
+      this.body = body;
     }
   }
  }

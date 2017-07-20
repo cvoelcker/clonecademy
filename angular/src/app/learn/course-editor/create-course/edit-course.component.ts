@@ -20,14 +20,25 @@ export class EditCourseComponent extends CreateCourseComponent {
 
   load(){
     this.server.get('courses/'+(Number(this.id))+'/edit', true, false).then(data => {
-      console.log(data)
-      super.setCategory(data['category'][0])
+      super.setCategory(data['category'])
       super.setTitle(data['name'])
-      for(let i = 0; i < data['module'].length; i++){
-        let module = data['module'][i]
-        super.addModule(module['name'], module['learning_text'], module['questions'])
+      super.setLanguage(data['language'])
+      super.setDifficulty(data['difficulty'])
+      for(let i = 0; i < data['modules'].length; i++){
+        let module = data['modules'][i]
+        super.addModule(module['id'], module['name'], module['learning_text'], module['questions'])
       }
     })
+  }
+
+  save(f){
+    let saveModules = this.saveModules(f)
+    if(f.valid){
+      let course = {id: Number(this.id), name: f.value['title'], difficulty: f.value['difficulty'], language: f.value["language"], category: f.value['category'],  modules: saveModules};
+
+      console.log(course)
+      //this.uploadState(course);
+    }
   }
 
 }

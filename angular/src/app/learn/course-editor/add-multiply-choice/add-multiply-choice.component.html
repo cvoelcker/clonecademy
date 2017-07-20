@@ -1,7 +1,7 @@
-<div>  
+<div>
   <h3 for="answers">Answers</h3>
   <ul id="answers" class="answers">
-    <li class="singleQuestion" [@slideIn]="answers[j].visible" (@slideIn.done)="removeAnswer($event, j)" *ngFor="let i of answers; let j = index" >
+    <li class="singleQuestion" [@slideIn]="body.answers[j].visible" (@slideIn.done)="removeAnswer($event, j)" *ngFor="let i of body.answers; let j = index" >
       <div class="alert" [class.success]="i.is_correct"
         [class.danger]="!i.is_correct">
         <md-checkbox type="checkbox" name="isActive" [(ngModel)]="i.is_correct">
