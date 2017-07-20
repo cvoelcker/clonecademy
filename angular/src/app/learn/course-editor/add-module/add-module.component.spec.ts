@@ -22,7 +22,7 @@ describe('AddModuleComponent', () => {
       TestBed.configureTestingModule({
         imports: [ base.imports() ],
         providers: [base.providers()],
-      declarations: [ AddModuleComponent, ErrorMessageComponent, LoaderComponent, AddQuestionComponent ]
+        declarations: [ AddModuleComponent, ErrorMessageComponent, LoaderComponent, AddQuestionComponent ]
     })
     TestBed.overrideModule(
       BrowserDynamicTestingModule, {

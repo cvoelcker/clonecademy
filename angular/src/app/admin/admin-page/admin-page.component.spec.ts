@@ -15,14 +15,14 @@ describe('AdminPageComponent', () => {
   beforeEach(async(() => {
     let base = new BaseTest();
       TestBed.configureTestingModule({
-        imports: [ base.imports() ],
-        providers: [base.providers()],
-      declarations: [ AdminPageComponent, ErrorMessageComponent, LoaderComponent ]
+        imports: base.imports(),
+        providers: base.providers(),
+        declarations: [ AdminPageComponent, ErrorMessageComponent, LoaderComponent, ]
     })
     TestBed.overrideModule(
       BrowserDynamicTestingModule, {
         set: {
-          entryComponents: [base.entryComponents(), LoaderComponent]
+          entryComponents: base.entryComponents()
         }
       }
     )
