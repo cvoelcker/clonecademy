@@ -13,6 +13,8 @@ export class UserService {
   public login: boolean = false;
   private groups: Array<string>;
 
+  public data: any;
+
   public loaded = false;
 
   public loginUser(username: string, password: string){
@@ -38,6 +40,7 @@ export class UserService {
     return new Promise((resolve, reject) => this.server.get("user/current", true, false).then(data => {
           this.groups = data['groups']
           this.loaded = true;
+          this.data = data;
           resolve()
         })
         .catch(err => {

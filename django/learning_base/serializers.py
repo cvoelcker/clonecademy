@@ -180,7 +180,7 @@ class UserSerializer(serializers.ModelSerializer):
     groups = serializers.StringRelatedField(many=True)
     class Meta:
         model = User
-        fields = ('username', 'email', 'id', 'date_joined', 'groups')
+        fields = ('username', 'email', 'id', 'date_joined', 'groups', 'first_name', 'last_name')
 
     def validate_groups(self, value):
         return value
@@ -189,7 +189,9 @@ class UserSerializer(serializers.ModelSerializer):
         profile_data = validated_data.pop('profile')
         validated_data.pop('groups')
         # TODO add language to profile
-        validated_data.pop('language')
+        profile_data['language'] = validated_data.pop('language')
+        profile_data['first_name'] = validated_data.pop('first_name')
+        profile_data['first_name'] = validated_data.pop('first_name')
         user = User.objects.create_user(**validated_data)
         user.save()
         profile = Profile(user=user, **profile_data)

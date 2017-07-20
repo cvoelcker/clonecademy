@@ -45,7 +45,8 @@ export class RegisterComponent {
   public registerForm = new FormGroup({
     email: new FormControl("email", Validators.email),
     username: new FormControl('username', Validators.required),
-    password: new FormControl('password', Validators.required)
+    password: new FormControl('password', Validators.required),
+    language: new FormControl('language', Validators.required)
   })
 
   // register a new user.
