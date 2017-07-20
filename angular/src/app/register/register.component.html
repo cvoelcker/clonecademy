@@ -36,7 +36,7 @@
       </md-input-container>
 
       <div>
-        <md-select placeholder='{{"language" | translate}}' #language="ngModel" [(ngModel)]="lng" name="language" required>
+        <md-select placeholder='{{"language" | translate}}' #language="ngModel" mdTooltip='{{"language tipp" | translate}}' [(ngModel)]="lng" name="language" required>
           <md-option *ngFor="let l of languages"  [value]="l.id">{{l.name}}</md-option>
         </md-select>
         <md-hint align="start" class="warning" *ngIf="f.submitted && !language.valid"><strong>{{'The category of the course is required' | translate}}</strong> </md-hint>

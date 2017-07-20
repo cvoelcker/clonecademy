@@ -40,6 +40,8 @@
   "register": "Register",
   "username": "Username",
   "password": "Password",
+  "language": "Language",
+  "language tipp": "You will only get Courses in the Language you chose.",
 
   "No Account? Register here": "No Account? Register here",
   "Login with you account": "Login with you account",
