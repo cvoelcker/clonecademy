@@ -5,12 +5,10 @@
   <li *ngIf="user.group">{{"group" | translate}}: {{user.group.name}}</li>
   <li>{{"Date registered" | translate}}: {{user.dateRegistered | date:'d. MMMM y'}}
 </ul>
-<<<<<<< Updated upstream
-=======
+
 
 
 <!--- Check for Translation -->
 <h3>{{"GrantModRights" | translate}}<h3>
   <button (click)="promote()" md-raised-button class=" ">{{"promote" | translate}} "{{user.username}}"</button>
   <div *ngIf="available == false" class="help-block">{{"Request unavailable the selected user is already a moderator" | translate}}</div>
->>>>>>> Stashed changes

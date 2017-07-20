@@ -198,7 +198,7 @@ class UserSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         """
         Updates a given user instance
-        Note: Only updates
+        Note: Only updates fields changeable by user
         @author Tobias Huber
         Thoughts: Add birth_date when neccessary
         """
@@ -207,8 +207,11 @@ class UserSerializer(serializers.ModelSerializer):
         instance.first_name = validated_data["first_name"]
         instance.last_name = validated_data["last_name"]
         instance.set_password(validated_data["password"])
-        instance.profile.language = validated_data["language"]
+        profile = instance.profile
+        #profile.language = validated_data["language"]
+        profile.save()
         instance.save()
+        return True
 
 
 class TrySerializer(serializers.ModelSerializer):

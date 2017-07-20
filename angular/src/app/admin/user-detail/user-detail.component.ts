@@ -21,10 +21,6 @@ export class UserDetailComponent {
   constructor(
     private route: ActivatedRoute,
     private server: ServerService,
-<<<<<<< Updated upstream
-=======
-    private userService: UserService,
->>>>>>> Stashed changes
     private router: Router,
   ) {
     this.route.params.subscribe(data => {

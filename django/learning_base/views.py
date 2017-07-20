@@ -297,9 +297,9 @@ class UserView(APIView):
 
     def post(self, request, format=None):
         user = request.user
-        user_serializer = serializer.UserSerializer(user, data=request.data partial=True)
+        user_serializer = serializer.UserSerializer(user, data=request.data, partial=True)
         if user_serializer.is_valid():
-            user = user_serializer.update(data = request.data)
+            user_serializer = user_serializer.update(user, validated_data=request.data)
             return Response('Updated user '+user.username,
                             status=status.HTTP_200_OK)
         else:
