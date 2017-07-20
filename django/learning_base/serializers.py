@@ -186,13 +186,14 @@ class UserSerializer(serializers.ModelSerializer):
         """
         validate given passwords
         """
-        if self.context.request.method=="POST":
-            if "oldpassword" in data:
-                if not request.user.check_password(request.data["oldpassword"]):
-                    raise serializers.ValidationError("incorrect password @key oldpassword")
-            else:
-                if "password" in data:
-                    raise serializers.ValidationError("when changing password the old password must be given with the key oldpassword")
+        if "request" in self.context:
+            if self.context["request"].method=="POST":
+                if "oldpassword" in data:
+                    if not request.user.check_password(request.data["oldpassword"]):
+                        raise serializers.ValidationError("incorrect password @key oldpassword")
+                else:
+                    if "password" in data:
+                        raise serializers.ValidationError("when changing password the old password must be given with the key oldpassword")
         return data
 
     def create(self, validated_data):
