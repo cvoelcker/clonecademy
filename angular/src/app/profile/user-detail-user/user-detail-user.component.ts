@@ -6,6 +6,8 @@ import { ProfilePageComponent } from '../profile-page/profile-page.component';
 import { ErrorDialog } from "../../service/error.service"
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
+import {TranslateService} from '@ngx-translate/core';
+
 @Component({
   selector: 'app-user-detail-user',
   templateUrl: './user-detail-user.component.html',
@@ -19,6 +21,7 @@ export class UserDetailUserComponent {
   constructor(
     private user: UserService,
     private server: ServerService,
+    private translate: TranslateService,
     ) {}
 
     ngOnInit() {
@@ -27,7 +30,10 @@ export class UserDetailUserComponent {
       edit(value){
         if(value.valid && value.value["password"] === value.value['password2']){
           let data = value.value
-          this.server.post("user/current", data, false, false)}
+          this.server.post("user/current", data).then(() => {
+            this.translate.use(data['language'])
+            data['oldpassword'] = ""
+          })}
         }
 
   }

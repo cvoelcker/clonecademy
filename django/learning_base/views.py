@@ -290,27 +290,6 @@ class UserView(APIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     #TODO: probably should be check_permissions(self, request)
-<<<<<<< HEAD
-    #def get_permissions(self):
-    #   '''
-    #   Overrides the permissions so that the api can register new users.
-    #   Returns the new permission set
-    #   '''
-    #   if self.request.method == 'POST':
-    #       self.permission_classes = (permissions.AllowAny,)
-
-    #   return super(UserView, self).get_permissions()
-=======
-    # def get_permissions(self):
-    #    '''
-    #    Overrides the permissions so that the api can register new users.
-    #    Returns the new permission set
-    #    '''
-    #    if self.request.method == 'POST':
-    #        self.permission_classes = (permissions.AllowAny,)
-    #
-    #    return super(UserView, self).get_permissions()
->>>>>>> origin/us-15b
 
     def get(self, request, user_id=False, format=None):
         '''
@@ -335,22 +314,11 @@ class UserView(APIView):
         return Response(user.data)
 
     def post(self, request, format=None):
-<<<<<<< HEAD
         '''
         Post is used to update the profile of a given user
         (Guess: patch is the actual method we want to go for)
         @author Tobias Huber
         '''
-        user = request.user
-        if not user.profile:
-            return Repsonse("Profile not found!",
-                            status = status.HTTP_500_INTERNAL_SERVER_ERROR)
-        user_serializer = UserSerializer(user, request.data, partial=True)
-
-        if user_serializer.is_valid():
-            user = user_serializer.update(request.data)
-            return Response('successfully updated user',
-=======
         user = request.user
         data = request.data
 
@@ -358,7 +326,7 @@ class UserView(APIView):
         if user_serializer.is_valid():
             user_serializer = user_serializer.update(user, validated_data=request.data)
             return Response('Updated user '+user.username,
->>>>>>> origin/us-15b
+
                             status=status.HTTP_200_OK)
         else:
             return Response(user_serializer.errors,

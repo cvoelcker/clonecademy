@@ -2,7 +2,7 @@
   <h3 *ngIf="user != undefined">{{"profile" | translate}}</h3>
   <ul>
     <li *ngFor="let m of menu">
-      <button md-button [routerLinkActive]="['active']" [routerLink]="'/profile/' + m.url">{{m.name}}</button>
+      <button md-button [routerLinkActive]="['active']" [routerLink]="'/profile/' + m.url">{{m.name | translate}}</button>
     </li>
   </ul>
   <ul>

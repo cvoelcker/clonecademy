@@ -19,10 +19,10 @@ export class ProfilePageComponent implements OnInit {
   ]
 
   constructor(private user: UserService, private translate: TranslateService){
-    for(let i = 0; i < this.menu.length; i++){
-      this.translate.get(this.menu[i].name).subscribe(data => {
-        this.menu[i].name = data})
-    }
+    // for(let i = 0; i < this.menu.length; i++){
+    //   this.translate.get(this.menu[i].name).subscribe(data => {
+    //     this.menu[i].name = data})
+    // }
   }
 
   ngOnInit(){

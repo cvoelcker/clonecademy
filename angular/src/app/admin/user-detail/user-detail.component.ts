@@ -35,7 +35,6 @@ export class UserDetailComponent {
   }
 
   change(id: number){
-<<<<<<< HEAD
     this.server.get("user/"+ id + "/")
     .then(data => {
       this.user = data
@@ -52,7 +51,5 @@ export class UserDetailComponent {
       console.log(answer)
     })
     .catch(err => console.log(err))
-=======
->>>>>>> origin/us-15b
   }
 }

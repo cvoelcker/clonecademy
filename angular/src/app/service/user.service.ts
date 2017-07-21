@@ -6,6 +6,8 @@ import { Router } from "@angular/router"
 
 import {CookieService} from 'angular2-cookie/core';
 
+import {TranslateService} from '@ngx-translate/core';
+
 
 @Injectable()
 export class UserService {
@@ -14,6 +16,7 @@ export class UserService {
   public data: any;
   private groups: Array<string>;
   public id: number;
+  public language: string = "en";
 
   public loaded = false;
 
@@ -42,11 +45,8 @@ export class UserService {
 
           this.data = data;
           this.loaded = true;
-<<<<<<< HEAD
           this.id = data['id']
-=======
-          this.data = data;
->>>>>>> origin/us-15b
+          this.translate.use(data['language']);
           resolve()
         })
         .catch(err => {
@@ -83,7 +83,7 @@ export class UserService {
     this.router.navigate(['/login']);
   }
 
-  constructor(private server: ServerService, private router: Router, private cookie: CookieService ) {
+  constructor(private translate: TranslateService, private server: ServerService, private router: Router, private cookie: CookieService ) {
     this.login = this.server.getToken() != null
     if(this.login){
       this.loadUser()

@@ -222,6 +222,14 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('username', 'email', 'id', 'date_joined', 'groups', 'first_name', 'last_name')
 
+    def to_representation(self, obj):
+        value = super(UserSerializer, self).to_representation(obj)
+
+        p = Profile.objects.filter(user=obj).first()
+        value['language'] = p.language
+        return value
+
+
     def validate(self, data):
         """
         validate given passwords
