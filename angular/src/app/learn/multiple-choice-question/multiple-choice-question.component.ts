@@ -10,13 +10,8 @@ import { ServerService } from "../../service/server.service"
 })
 export class MultipleChoiceQuestionComponent extends QuestionModule {
 
-
+  data = {answers: [{value: "a", id: -1}]}
   answers: Array<{id: number, text: string, value: boolean}>;
-
-  ngOnInit() {
-    // to et the courseID, moduleIndex and questionIndex run ngOnInit from parent
-    super.ngOnInit()
-  }
 
   // return array of the marked answers
   submit(): any{

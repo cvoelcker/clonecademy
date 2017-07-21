@@ -26,18 +26,24 @@
 
 <ol>
   <li class="module" *ngFor="let m of modules; let i = index">
-    <h3>{{m.name}}</h3>
-    <div class="alert info">{{m.learning_text}}</div>
-    <ol>
-      <li class="question" *ngFor="let q of m.questions; let j = index">
-        <div class="alert" [class.success]="q.solved">
-          {{q.type}}
-          <button *ngIf="q.solved" class="startQuestion" md-raised-button routerLink="/course/{{id}}/{{i+1}}/{{j+1}}">
-            {{"repeat" | translate}}
-          </button>
-        </div>
-      </li>
-    </ol>
+    <md-card>
+      <md-card-header>
+        <md-card-title>{{m.name}}</md-card-title>
+        <md-card-subtitle>{{m.learning_text}}</md-card-subtitle>
+      </md-card-header>
+      <md-card-content>
+        <ol>
+          <li class="question" *ngFor="let q of m.questions; let j = index">
+            <div class="alert" [class.success]="q.solved">
+              {{q.type}}
+              <button *ngIf="q.solved" class="startQuestion" md-raised-button routerLink="/course/{{id}}/{{i+1}}/{{j+1}}">
+                {{"repeat" | translate}}
+              </button>
+            </div>
+          </li>
+        </ol>
+      </md-card-content>
+    </md-card>
   </li>
 </ol>
 </div>

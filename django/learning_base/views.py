@@ -95,6 +95,36 @@ class MultiCourseView(APIView):
                             status=status.HTTP_400_BAD_REQUEST)
 
 
+class CourseEditView(APIView):
+    '''
+    contains all the code related to edit a courses
+    @author Leonhard Wiedmann
+    '''
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request, course_id=None, format=None):
+        '''
+        Returns all the information about a course with the answers and the solutions
+        '''
+        if not course_id:
+            return Response('Method not allowed',
+                            status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+        try:
+            course = Course.objects.filter(id=course_id).first()
+            course_serializer = serializer.CourseEditSerializer(course, context={'request': request})
+            data = course_serializer.data;
+            return Response(data)
+
+        except Exception as e:
+            return Response('Course not found',
+                            status=status.HTTP_404_NOT_FOUND)
+
+    def post(self, request, course_id=None, format=None):
+        return Response("test")
+
+
 class CourseView(APIView):
     '''
     Contains all code related to viewing and saving courses.
@@ -129,29 +159,23 @@ class CourseView(APIView):
         '''
         data = request.data
         if data is None:
-            return Response("Request does not contain data",
+            return Response({"error": "Request does not contain data"},
+                            status=status.HTTP_404_BAD_REQUEST)
+
+        id = data.get('id')
+        # This branch saves new courses or edites existing courses
+        if (id is None) and Course.objects.filter(name=data['name']).exists():
+            return Response('Course with that name exists',
+                            status=status.HTTP_409_CONFLICT)
+        data['responsible_mod'] = request.user
+        course_serializer = serializer.CourseSerializer(data=data)
+        if not course_serializer.is_valid():
+            return Response({"error": course_serializer.errors},
                             status=status.HTTP_400_BAD_REQUEST)
-        # This branches saves established courses
-        if course_id:
-            if Course.objects.filter(id=course_id).exists():
-                pass
-            else:
-                return Response('Course not found',
-                                status=status.HTTP_404_NOT_FOUND)
-        # This branch saves new courses
         else:
-            if Course.objects.filter(name=data['name']).exists():
-                return Response('Course with that name exists',
-                                status=status.HTTP_409_CONFLICT)
-            data['responsible_mod'] = request.user
-            course_serializer = serializer.CourseSerializer(data=data)
-            if not course_serializer.is_valid():
-                return Response("Data is not valid",
-                                status=status.HTTP_400_BAD_REQUEST)
-            else:
-                course_serializer.create(data)
-            return Response("Course saved",
-                            status=status.HTTP_201_CREATED)
+            course_serializer.create(data)
+        return Response({"error": "Course saved"},
+                        status=status.HTTP_201_CREATED)
 
 
 class ModuleView(APIView):

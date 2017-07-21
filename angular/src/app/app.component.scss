@@ -14,16 +14,13 @@
   }
 
   header{
-    flex: 0 1 auto;
-    min-height: 119px;
+    width: 100%;
+    position: relative;
   }
 
   main{
     flex: 1 1 auto;
     position: relative;
-  }
-
-  footer{
-    flex: 0 1 auto;
+    width: 100;
   }
 }

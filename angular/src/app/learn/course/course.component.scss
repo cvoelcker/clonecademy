@@ -42,6 +42,7 @@ body{
 
 ol{
   list-style: none;
+  padding: 1em 0;
   li{
     position: relative;
     .startQuestion{
@@ -51,13 +52,13 @@ ol{
       top: 8px;
       bottom: 8px;
     }
-    margin-bottom: 5px;
+    margin-bottom: 2em;
+    margin-top: 1em;
     &.module{
       counter-increment: module;
-      h3:before{
+      md-card-title:before{
         content: counter(module) ": ";
         font-weight: bold;
-        margin-left: -1.3em;
         width: 1.3em;
         display: inline-block;
 

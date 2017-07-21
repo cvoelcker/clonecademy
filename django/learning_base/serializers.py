@@ -62,11 +62,36 @@ class QuestionSerializer(serializers.ModelSerializer):
                 detail='{} is not a valid question type'.format(
                     question_type))
 
+class QuestionEditSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Question
+        fields = ("title", "body", 'id', "feedback")
+
+    def to_representation(self, obj):
+        value = super(QuestionEditSerializer, self).to_representation(obj)
+        value['type'] = obj.__class__.__name__
+        serializer = obj.get_edit_serializer()
+        value['question_body'] = serializer(obj).data
+        return value
+
 
 class CourseCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = CourseCategory
         fields = ('name', "id",)
+
+class ModuleEditSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Module
+        fields = ('name', "id", "learning_text", "order")
+
+    def to_representation(self, obj):
+        value = super(ModuleEditSerializer, self).to_representation(obj)
+
+        questions = obj.question_set.all()
+        value['questions'] = QuestionEditSerializer(questions, many=True).data
+        return value
+
 
 
 class ModuleSerializer(serializers.ModelSerializer):
@@ -134,6 +159,7 @@ class CourseSerializer(serializers.ModelSerializer):
                 num_questions += 1
         value['num_answered'] = num_answered
         value['num_questions'] = num_questions
+        value['responsible_mod'] = obj.responsible_mod.id
         return value
 
     def create(self, validated_data):
@@ -161,6 +187,20 @@ class CourseSerializer(serializers.ModelSerializer):
             course.delete()
             raise ParseError(detail=e.detail, code=None)
 
+
+class CourseEditSerializer(serializers.ModelSerializer):
+    category = serializers.StringRelatedField()
+
+    class Meta:
+        model = Course
+        fields = ("name", "id", "category", "difficulty", "language", "responsible_mod", "is_visible")
+
+    def to_representation(self, obj):
+        value = super(CourseEditSerializer, self).to_representation(obj)
+        all_modules = obj.module_set.all()
+        modules = ModuleEditSerializer(all_modules, many=True).data
+        value['modules'] = modules
+        return value
 
 class GroupSerializer(serializers.ModelSerializer):
     '''

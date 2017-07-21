@@ -1,7 +1,7 @@
 <div class="dashboard">
 
   <div class="row">
-    <div class ="sidebar col-md-4">
+    <div class ="sidebar">
       <h2>{{ "dashboard" | translate}}</h2>
       <button md-raised-button *ngIf="user.isModerator()" class="addCourse" routerLink="create_course">
         <i class="material-icons">add</i> {{"add Course" | translate}}
@@ -22,6 +22,12 @@
                       <div class="progressBar" [style.width.%]="(c.num_answered / c.num_questions) * 100"></div>
                       {{c.name}}
                     </a>
+                    <button md-button
+                    class="editCourse"
+                    *ngIf="user.isAdmin() || c.responsible_mod == user.id"
+                    [routerLink]="'/course/edit/' + c.id">
+                      <i class="material-icons">mode_edit</i>
+                    </button>
                   </li>
                 </ul>
               </div>
@@ -35,6 +41,6 @@
       </div>
     </div>
 
-    <div class ="content col-md-8">
+    <div class ="content">
       <router-outlet #content></router-outlet>
     </div>

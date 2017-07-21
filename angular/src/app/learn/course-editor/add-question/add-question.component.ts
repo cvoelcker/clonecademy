@@ -20,6 +20,7 @@ export class AddQuestionComponent implements OnInit {
   questionBody = "";
   feedback: string;
   feedbackBool: boolean;
+  id: number;
 
   form = null;
 
@@ -37,7 +38,7 @@ export class AddQuestionComponent implements OnInit {
   constructor(private factory: ComponentFactoryResolver, private ref: ChangeDetectorRef) { }
 
   // add a question to the view
-  addQuestion( questionBody?: string, answers?: any, feedback?: string){
+  addQuestion(id?: number, questionBody?: string, body?: any, feedback?: string){
     //console.log(answers)
     // create factory
     // in the module class child will be set to the question type
@@ -45,8 +46,18 @@ export class AddQuestionComponent implements OnInit {
     // create new question
     let question = this.question.createComponent(this.questionFactory)
 
+    // set the question text
+    this.questionBody = questionBody
+
+    // check if the feedback is set and if true set the feedback text
+    if(feedback != undefined && feedback != ""){
+      this.feedbackBool = true;
+      this.feedback = feedback
+    }
+    this.id = id;
+
     this.questionCopy  = (<AddQuestionModule> question.instance)
-    this.questionCopy.edit(answers);
+    this.questionCopy.edit(body);
   }
 
 
@@ -61,8 +72,16 @@ export class AddQuestionComponent implements OnInit {
   save(f): any{
     let response = this.questionCopy.save(f)
     // check if custom feedback is set and save it if needed
+
+    response['id'] = this.id;
+
     response['body'] = this.questionBody;
-    response['feedback'] = this.feedback;
+    if(this.feedbackBool){
+      response['feedback'] = this.feedback;
+    }
+    else{
+      response['feedback'] = ''
+    }
     response['title'] = ""
     if(response['feedback'] == undefined){
       response['feedback'] = "";

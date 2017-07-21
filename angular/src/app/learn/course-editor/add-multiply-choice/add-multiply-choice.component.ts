@@ -12,15 +12,17 @@ import { slideIn } from "../../../animations";
 })
 export class AddMultiplyChoiceComponent extends AddQuestionModule {
 
+  body = {
+    answers: [{text: "", is_correct: true, visible: true, id: null}]
 
-  answers: Array<{text: string, is_correct: boolean, visible: boolean}> = [{text: "", is_correct: true, visible: true}];
+  }
 
 
   // the function to save it returns a object
   // {type: string, answers: [text: string, is_correct: boolean]}
   save(form): any{
     this.form = form;
-    let answers = this.answers
+    let answers = this.body.answers
     for(let i = 0; i < answers.length; i++){
       delete answers[i].visible
     }
@@ -31,22 +33,22 @@ export class AddMultiplyChoiceComponent extends AddQuestionModule {
   }
 
   removeAnswer(event, index: number){
-    if(this.answers[index] != null && this.answers[index].visible == false){
-      this.answers.splice(index, 1);
+    if(this.body.answers[index] != null && this.body.answers[index].visible == false){
+      this.body.answers.splice(index, 1);
     }
   }
 
   slideInFunction(index: number){
-    this.answers[index].visible = false;
+    this.body['answers'][index].visible = false;
   }
 
   addAnswer(){
-    this.answers.push({text: "", is_correct:false, visible: true})
+    this.body.answers.push({text: "", is_correct:false, visible: true, id: null})
   }
 
   validAnswer(): boolean{
-    for(let i = 0; i < this.answers.length; i++){
-      if(this.answers[i].is_correct){
+    for(let i = 0; i < this.body.answers.length; i++){
+      if(this.body.answers[i].is_correct){
         return true;
       }
     }

@@ -14,7 +14,9 @@ export class ErrorMessageComponent {
   text: string;
 
   constructor(@Optional() @Inject(MD_DIALOG_DATA) public data: string, private translate: TranslateService) {
-    translate.get(this.data).subscribe((res) => {this.text = res[this.data]})
+    if(data != undefined){
+      translate.get(this.data).subscribe((res) => {this.text = res[this.data]})
+    }
   }
 
   ngOnInit() {
