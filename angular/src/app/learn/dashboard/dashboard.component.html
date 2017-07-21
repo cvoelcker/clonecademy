@@ -1,7 +1,7 @@
 <div class="dashboard">
 
   <div class="row">
-    <div class ="sidebar col-md-4">
+    <div class ="sidebar">
       <h2>{{ "dashboard" | translate}}</h2>
       <button md-raised-button *ngIf="user.isModerator()" class="addCourse" routerLink="create_course">
         <i class="material-icons">add</i> {{"add Course" | translate}}
@@ -41,6 +41,6 @@
       </div>
     </div>
 
-    <div class ="content col-md-8">
+    <div class ="content">
       <router-outlet #content></router-outlet>
     </div>

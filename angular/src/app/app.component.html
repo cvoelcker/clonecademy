@@ -1,11 +1,11 @@
 <div class="box">
-  <header class="container">
+  <header>
     <h1>
       {{title}}
     </h1>
     <app-menu [hidden]="!user.loaded" #menu></app-menu>
   </header>
-  <main  class="container flex">
+  <main  class="flex">
     <div [hidden]="user.loaded" class="localLoader">
       <md-progress-spinner mode="indeterminate"></md-progress-spinner>
     </div>
@@ -14,11 +14,4 @@
       </router-outlet>
     </div>
   </main>
-  <footer class="container flex">
-    footer
-    <div class="lang-bar">
-  <button md-raised-button class="btn-info" (click)="changeLang('en')">EN</button>
-  <button md-raised-button class="btn-info" (click)="changeLang('de')">DE</button>
-</div>
-  </footer>
 </div>

@@ -76,7 +76,12 @@ export class AddQuestionComponent implements OnInit {
     response['id'] = this.id;
 
     response['body'] = this.questionBody;
-    response['feedback'] = this.feedback;
+    if(this.feedbackBool){
+      response['feedback'] = this.feedback;
+    }
+    else{
+      response['feedback'] = ''
+    }
     response['title'] = ""
     if(response['feedback'] == undefined){
       response['feedback'] = "";
