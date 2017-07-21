@@ -53,6 +53,7 @@ import { RequestModComponent } from './profile/request-mod/request-mod.component
 import { QuestionModule } from "./learn/question/question.module";
 import { ProfilesComponent } from './admin/profiles/profiles.component';
 import { UserDetailComponent } from './admin/user-detail/user-detail.component';
+import { UserDetailUserComponent } from './profile/user-detail-user/user-detail-user.component'
 import { ProfilePageComponent } from './profile/profile-page/profile-page.component';
 import { AdminPageComponent } from './admin/admin-page/admin-page.component';
 import { RegisterComponent } from './register/register.component';
@@ -107,7 +108,7 @@ const appRoutes: Routes = [
 
       {
         path: "details",
-        component: UserDetailComponent,
+        component: UserDetailUserComponent,
       },
       {
         path: "request_mod",
@@ -182,6 +183,7 @@ export function createTranslateLoader(http: Http) {
     LoaderComponent,
     SassHelperComponent,
     EditCourseComponent,
+    UserDetailUserComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

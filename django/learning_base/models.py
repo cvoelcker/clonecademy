@@ -26,6 +26,12 @@ class Profile(models.Model):
         null=True,
     )
 
+    language = models.CharField(
+        verbose_name='Language',
+        max_length=2,
+        default="en"
+    )
+
     def get_age(self):
         today = timezone.today
         return today.year - self.birth_date.year \

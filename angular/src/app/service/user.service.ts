@@ -11,6 +11,7 @@ import {CookieService} from 'angular2-cookie/core';
 export class UserService {
 
   public login: boolean = false;
+  public data: any;
   private groups: Array<string>;
   public id: number;
 
@@ -37,9 +38,15 @@ export class UserService {
   public loadUser(){
 
     return new Promise((resolve, reject) => this.server.get("user/current", true, false).then(data => {
-          this.groups = data['groups']
+          this.groups = data['groups'];
+
+          this.data = data;
           this.loaded = true;
+<<<<<<< HEAD
           this.id = data['id']
+=======
+          this.data = data;
+>>>>>>> origin/us-15b
           resolve()
         })
         .catch(err => {

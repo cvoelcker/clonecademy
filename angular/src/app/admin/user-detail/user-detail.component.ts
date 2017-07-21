@@ -1,6 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { ServerService } from '../../service/server.service';
+import { UserService } from '../../service/user.service';
 import { ProfilesComponent } from '../profiles/profiles.component'
 
 @Component({
@@ -16,6 +17,8 @@ export class UserDetailComponent {
   id: number;
   isMod = false;
 
+  loading = true;
+
   constructor(
     private route: ActivatedRoute,
     private server: ServerService,
@@ -27,7 +30,12 @@ export class UserDetailComponent {
     })
   }
 
+  ngOnInit() {
+      this.loading = false;
+  }
+
   change(id: number){
+<<<<<<< HEAD
     this.server.get("user/"+ id + "/")
     .then(data => {
       this.user = data
@@ -44,5 +52,7 @@ export class UserDetailComponent {
       console.log(answer)
     })
     .catch(err => console.log(err))
+=======
+>>>>>>> origin/us-15b
   }
 }

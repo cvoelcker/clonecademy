@@ -40,6 +40,8 @@
   "register": "Register",
   "username": "Username",
   "password": "Password",
+  "language": "Language",
+  "language tipp": "You will only get Courses in the Language you chose.",
 
   "No Account? Register here": "No Account? Register here",
   "Login with you account": "Login with you account",
@@ -93,7 +95,10 @@
   "Reason is required": "Reason is required",
   "Request moderator access" : "Request moderator access" ,
 
-  "UserDetail": "User details",
+  "UserDetail": "User details for ",
+  "newPassword": "New Password",
+  "newPasswordagain": "New Password again",
+    "oldPassword": "Old Password for authentication",
 
   "Unable to log in with provided credentials.": "Unable to log in with provided credentials.",
 

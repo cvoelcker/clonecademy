@@ -1,0 +1,49 @@
+<h2 *ngIf="user.data != undefined">{{"UserDetail" | translate}}{{user.data.username}}</h2>
+
+<form #e="ngForm" name="edit" (ngSubmit)="edit(e)" *ngIf="user.data != undefined">
+
+      <md-input-container>
+        <input mdInput type="email" placeholder='{{"email" | translate}}' #email pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" name="email" [(ngModel)]="user.data.email"/>
+        <md-hint align="start"  *ngIf="!email.valid && e.submitted" class="warning">
+          <strong>{{"invalid email" | translate}}</strong>
+        </md-hint>
+      </md-input-container>
+
+    <md-input-container>
+      <input mdInput placeholder='{{"first name" | translate}}' type="text" name="first_name" [(ngModel)]="user.data.first_name"/>
+    </md-input-container>
+
+    <md-input-container>
+        <input mdInput placeholder='{{"last name" | translate}}' type="text" name="last_name" [(ngModel)]="user.data.last_name" />
+    </md-input-container>
+
+    <md-input-container>
+      <input mdInput placeholder='{{"newPassword" | translate}}' mdTooltip='{{"password requirements" | translate}}' type="password" #password minlength="5" name="password" [(ngModel)]="newPassword"/>
+      <md-hint align="start"  *ngIf="newPassword!=newPassword2  && e.submitted" class="warning">
+        <strong>{{"password missmatch" | translate}}</strong>
+      </md-hint>
+    </md-input-container>
+
+    <md-input-container>
+        <input mdInput placeholder='{{"newPasswordagain" | translate}}' mdTooltip='{{"password requirements" | translate}}' type="password" #password minlength="5" name="password2" [(ngModel)]="newPassword2" />
+        <md-hint align="start"  *ngIf="newPassword!=newPassword2 && e.submitted" class="warning">
+          <strong>{{"password missmatch" | translate}}</strong>
+        </md-hint>
+    </md-input-container>
+
+    <div>
+      <md-select placeholder='{{"language" | translate}}' #language="ngModel" mdTooltip='{{"language tipp" | translate}}' [(ngModel)]="lng" name="language" required>
+        <md-option *ngFor="let l of languages"  [value]="l.id">{{l.name}}</md-option>
+      </md-select>
+      <md-hint align="start" class="warning" *ngIf="e.submitted && !language.valid"><strong>{{'The category of the course is required' | translate}}</strong> </md-hint>
+    </div>
+
+    <md-input-container>
+        <input mdInput placeholder='{{"oldPassword" | translate}}' type="password" name="oldpassword" [(ngModel)]="oldPassword" />
+    </md-input-container>
+
+
+
+    <button [disabled]="loading" type="submit" md-raised-button class=" "><i class="material-icons" >save</i> {{"save" | translate}}</button>
+
+</form>

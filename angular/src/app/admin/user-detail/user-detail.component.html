@@ -6,6 +6,7 @@
   <li>{{"Date registered" | translate}}: {{user.dateRegistered | date:'d. MMMM y'}}
 </ul>
 
+<<<<<<< HEAD
 <br>
 <br>
 <h3>{{"Grant Moderator Rights"| translate}}</h3>
@@ -13,3 +14,11 @@
 <div class="error" *ngIf="invalidLogin">Your request could not be sent</div>
 <p *ngIf="error">Request was rejected</p>
 <div *ngIf="isMod" class="help-block">{{"Request unavailable - user is already mod!" | translate}}</div>
+=======
+
+
+<!--- Check for Translation -->
+<h3>{{"GrantModRights" | translate}}<h3>
+  <button (click)="promote()" md-raised-button class=" ">{{"promote" | translate}} "{{user.username}}"</button>
+  <div *ngIf="available == false" class="help-block">{{"Request unavailable the selected user is already a moderator" | translate}}</div>
+>>>>>>> origin/us-15b

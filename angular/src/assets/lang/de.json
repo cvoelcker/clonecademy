@@ -40,6 +40,8 @@
   "register": "Registrieren",
   "username": "Benutzername",
   "password": "Passwort",
+  "language": "Sprache",
+  "language tipp": "Du bekommst nur Kurse in deiner ausgewählten Sprache angezeigt.",
 
   "No Account? Register here": "Kein Benutzerkonto? Registriere dich hier!",
   "Login with you account": "Mit deinem Benutzerkonto anmelden",
@@ -91,7 +93,10 @@
   "Reason is required": "Grund erforderlich",
   "Request moderator access" : "Moderator Rechte anfragen." ,
 
-  "UserDetail": "Benutzer Details",
+  "UserDetail": "Benutzer Details für ",
+  "newPassword": "Neues Passwort",
+  "newPasswordagain": "Neues Passwort wiederholen",
+  "oldPassword": "Altes Passwort zum authentifizieren",
 
   "Unable to log in with provided credentials.": "Benutzername oder Passwort ungültig.",
   "a course must contain at least one module": "Ein Kurs muss mindestens ein Modul enthalten."
