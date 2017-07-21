@@ -171,5 +171,7 @@ case $1 in
 	;;
 	*)
 		help "containers"
+		echo "angular       to run the command only in the angular container"
+		echo "django        to run the command only in the django container"
 	;;
 esac
