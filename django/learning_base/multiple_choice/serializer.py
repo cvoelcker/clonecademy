@@ -2,6 +2,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import ParseError
 from .models import *
 
+from base64 import b64decode
 
 class MultipleChoiceAnswerSerializer(serializers.ModelSerializer):
     class Meta:
@@ -27,7 +28,7 @@ class MultipleChoiceAnswerEditSerializer(serializers.ModelSerializer):
 class MultipleChoiceQuestionEditSerializer(serializers.ModelSerializer):
     class Meta:
         model = MultipleChoiceQuestion
-        fields = ("id", )
+        fields = ("id", 'question_image', 'answer_image')
 
     def to_representation(self, obj):
         values = super(MultipleChoiceQuestionEditSerializer, self).to_representation(obj)
@@ -40,7 +41,7 @@ class MultipleChoiceQuestionEditSerializer(serializers.ModelSerializer):
 class MultipleChoiceQuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = MultipleChoiceQuestion
-        fields = ('id',)
+        fields = ('id', 'question_image')
 
     def to_representation(self, obj):
         values = super(MultipleChoiceQuestionSerializer, self).to_representation(obj)
@@ -53,6 +54,7 @@ class MultipleChoiceQuestionSerializer(serializers.ModelSerializer):
         question = MultipleChoiceQuestion(**validated_data)
         question.module = validated_data['module']
         question.save()
+
         for answer in answers:
             answer['question'] = question
             answer_serializer = MultipleChoiceAnswerSerializer(data=answer)

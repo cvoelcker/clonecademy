@@ -23,3 +23,13 @@ textarea{
 .addAnswer{
   margin: 1em 0;
 }
+
+.imageUpload{
+  button{
+    display: block;
+    img:{
+      display: block;
+      width: 100%;
+    }
+  }
+}

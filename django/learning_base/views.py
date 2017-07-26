@@ -118,7 +118,7 @@ class CourseEditView(APIView):
             return Response(data)
 
         except Exception as e:
-            return Response('Course not found',
+            return Response({ 'error': str(e)},
                             status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request, course_id=None, format=None):

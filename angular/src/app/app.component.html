@@ -9,7 +9,7 @@
     <div [hidden]="user.loaded" class="localLoader">
       <md-progress-spinner mode="indeterminate"></md-progress-spinner>
     </div>
-    <div [hidden]="!user.loaded" >
+    <div [hidden]="!user.loaded" class="contentWrapper">
       <router-outlet  appLoggedIn>
       </router-outlet>
     </div>

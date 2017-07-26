@@ -7,6 +7,19 @@ class MultipleChoiceQuestion(Question):
     A simple multiple choice question
     """
     __name__ = "multiple_choice"
+
+    question_image = models.CharField(
+        max_length=255,
+        verbose_name = "The Image for the question",
+        blank = True,
+    )
+
+    answer_image = models.CharField(
+        max_length=255,
+        verbose_name = "The Image for the question",
+        blank = True,
+    )
+
     def num_correct_answers(self):
         return len(MultipleChoiceAnswer.objects.filter(is_correct=True))
 

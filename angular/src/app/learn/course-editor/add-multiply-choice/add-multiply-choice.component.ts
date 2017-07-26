@@ -13,8 +13,49 @@ import { slideIn } from "../../../animations";
 export class AddMultiplyChoiceComponent extends AddQuestionModule {
 
   body = {
-    answers: [{text: "", is_correct: true, visible: true, id: null}]
+    answers: [{text: "", is_correct: true, visible: true, id: null}],
+    question_image: '',
+    answer_image: ''
+  }
 
+  url: string = "";
+
+  compInfo: string = "Loading";
+
+  file: any = null;
+
+  questionImage(event):void {
+    if(event.target.files && event.target.files[0]){
+
+      //new fileReader
+      var fileReader = new FileReader();
+      //try to read file, this part does not work at all, need a solution
+      fileReader.onload =(e) => {
+        this.body.question_image = e.target['result']
+
+      }
+
+      fileReader.readAsDataURL(event.target.files[0])
+    }
+	}
+
+  answerImage(event):void {
+    if(event.target.files && event.target.files[0]){
+
+      //new fileReader
+      var fileReader = new FileReader();
+      //try to read file, this part does not work at all, need a solution
+      fileReader.onload =(e) => {
+        this.body.answer_image = e.target['result']
+
+      }
+
+      fileReader.readAsDataURL(event.target.files[0])
+    }
+	}
+
+  triggerFile(fileInput){
+    fileInput.click()
   }
 
 
@@ -28,6 +69,8 @@ export class AddMultiplyChoiceComponent extends AddQuestionModule {
     }
     return {
       type: "multiple_choice",
+      question_image: this.body.question_image,
+      answer_image: this.body.answer_image,
       answers: answers
     };
   }
