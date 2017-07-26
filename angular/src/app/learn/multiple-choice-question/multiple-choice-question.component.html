@@ -5,8 +5,7 @@
     type="checkbox"
     name="isActive"
     [class.selected]="ans.value"
-    [(ngModel)]="ans.value">
-      {{ans.text}}
+    [(ngModel)]="ans.value"><markdown class="answerText" [data]="ans.text"></markdown>
     </md-checkbox>
   </li>
 </ul>

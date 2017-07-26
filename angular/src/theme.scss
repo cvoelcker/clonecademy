@@ -251,3 +251,44 @@ app-add-module{
 *[disabled]:hover .info{
   opacity: 1;
 }
+
+
+// this needs to be here because of the MarkdownModule
+// it will create a p inside the markdown without reference to the current class
+.answerText{
+  *{
+    display: inline;
+  }
+  .arrow{
+    //border: 1px solid #333;
+    border-right: none;
+    position: relative;
+    display: inline-block;
+    width: auto;
+    line-height: 1.5em;
+    padding: 0 0.5em;
+    //border-radius: 2px;
+    background-color: white;
+    z-index: 99;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
+
+    &::before{
+      display: block;
+      position: absolute;
+      right: -0.9em;
+      top:0;
+      bottom: 0;
+      left: auto;
+      content: "";
+      height: 1.5em;
+      width: 1.5em;
+      z-index: 9;
+      //background-color: #333;
+      box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
+
+      transform: rotate(-45deg);
+      //border-right: 20px solid transparent;
+      //border-top: 1px solid #333
+    }
+  }
+}

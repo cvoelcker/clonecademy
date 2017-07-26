@@ -10,6 +10,9 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 //charts Module
 import { ChartsModule } from 'ng2-charts';
 
+//markdown
+import { MarkdownModule } from 'angular2-markdown';
+
 // Material Style
 import {MdDialog, MdDialogModule, MdButtonModule, MdAutocompleteModule, MdCheckboxModule, MdTooltipModule, MdCardModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule, MdProgressSpinnerModule} from '@angular/material';
 
@@ -195,6 +198,7 @@ export function createTranslateLoader(http: Http) {
         deps: [Http]
       }
     }),
+    MarkdownModule.forRoot(),
     ReactiveFormsModule,
     BrowserModule,
     HttpModule,

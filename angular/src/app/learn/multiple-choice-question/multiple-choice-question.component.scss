@@ -23,6 +23,12 @@ ul {
         box-shadow: none;
         background-color: mat-color($accent, 100);
       }
+      .answerText{
+        display: inline;
+        p{
+          display: inline;
+        }
+      }
     }
   }
 }

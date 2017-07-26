@@ -29,7 +29,7 @@
     <md-card>
       <md-card-header>
         <md-card-title>{{m.name}}</md-card-title>
-        <md-card-subtitle>{{m.learning_text}}</md-card-subtitle>
+        <md-card-subtitle><markdown [data]="m.learning_text"></markdown></md-card-subtitle>
       </md-card-header>
       <md-card-content>
         <ol>
