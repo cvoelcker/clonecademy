@@ -253,6 +253,7 @@ class QuestionView(APIView):
         Try(user = request.user, question=question, answer=str(request.data["answers"]), solved=solved).save()
         response = {"evaluate": solved}
         if solved and question.feedback_is_set:
+            response['custom_feedback'] = question.custom_feedback()
             response['feedback'] = question.feedback
         return Response(response)
 

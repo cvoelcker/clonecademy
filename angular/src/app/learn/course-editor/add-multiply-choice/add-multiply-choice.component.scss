@@ -25,11 +25,9 @@ textarea{
 }
 
 .imageUpload{
-  button{
-    display: block;
-    img:{
+    img{
+      padding: 1em 0;
       display: block;
       width: 100%;
-    }
   }
 }

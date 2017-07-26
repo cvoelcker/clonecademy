@@ -26,3 +26,20 @@ ul {
     }
   }
 }
+
+.answers{
+  width: 50%;
+  float: left;
+  padding-right: 1em;
+}
+.fullWidth{
+  width: 100%;
+  padding: 0;
+}
+.image {
+  width: 50%;
+  float: left;
+  img{
+    width: 100%;
+  }
+}

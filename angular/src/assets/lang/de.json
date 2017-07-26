@@ -11,6 +11,9 @@
   "add question": "Frage hinzufügen",
 
   "Add multiple choice Question": "Multiple Choice Frage hinzufügen",
+  "add image to question": "füge ein Bild zur Frage hinzu",
+  "add image to answer": "füge ein Bild zu Antwort hinzu",
+  "remove image": "Bild löschen",
   "Question": "Frage",
   "answer text": "Antworttext",
   "is this Answer correct?": "ist diese Antwort korrekt?",

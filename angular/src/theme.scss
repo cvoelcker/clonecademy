@@ -28,7 +28,7 @@ header{
   app-menu{
     position: absolute;
     left: auto;
-    right: 0;
+    right: 2em;
     bottom: 0;
     top: auto;
   }
@@ -44,6 +44,7 @@ main{
   overflow-y: auto;
   padding-bottom: 1em;
   margin-left: 2em;
+  margin-right: 2em;
 }
 
 body{

@@ -13,6 +13,7 @@ export class QuestionModule implements OnInit{
   moduleIndex: number;
   questionIndex: number
   courseID: number;
+  feedback: any;
 
   data: any;
 

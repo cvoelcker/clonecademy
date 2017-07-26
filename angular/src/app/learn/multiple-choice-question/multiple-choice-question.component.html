@@ -1,4 +1,4 @@
-<ul>
+<ul class="answers" [class.fullWidth]="data.question_image == '' && (feedback == '' || feedback == undefined)">
   <li *ngFor="let ans of data.answers" >
     <md-checkbox
     [disabled]="disable"
@@ -10,3 +10,7 @@
     </md-checkbox>
   </li>
 </ul>
+<div class="image">
+  <img [src]="data.question_image" [hidden]="data.question_image == '' || (feedback != '' && feedback != undefined)">
+  <img [src]="feedback" *ngIf="feedback != undefined && feedback != ''">
+</div>

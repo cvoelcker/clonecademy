@@ -100,6 +100,8 @@ export class QuestionComponent implements OnInit {
     if(this.submitCorrect){
       // calls block to freeze the question element
       this.questionModule.block();
+      this.questionModule.feedback = data.custom_feedback
+      
       // the answer is correct and the correct Feedback will be set
       if(data['feedback'] != ""){
         this.correctFeedback = data['feedback']

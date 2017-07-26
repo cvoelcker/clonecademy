@@ -262,6 +262,9 @@ class Question(PolymorphicModel):
         questions = self.module.question_set
         return self == questions.last()
 
+    def custom_feedback(self):
+        return ""
+
     def __str__(self):
         return self.title
 

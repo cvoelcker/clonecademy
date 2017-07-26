@@ -52,6 +52,9 @@ class MultipleChoiceQuestion(Question):
         from learning_base.multiple_choice import serializer
         return serializer.MultipleChoiceQuestionEditSerializer
 
+    def custom_feedback(self):
+        return self.answer_image
+
 class MultipleChoiceAnswer(models.Model):
     """
     A possible answer to a multiple choice question
@@ -70,6 +73,8 @@ class MultipleChoiceAnswer(models.Model):
         verbose_name='is the answer correct?',
         default=False
     )
+
+
 
     def __str__(self):
         return self.text
