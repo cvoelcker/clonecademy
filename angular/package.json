@@ -24,6 +24,7 @@
     "@ngx-translate/http-loader": "^0.1.0",
     "angular2-markdown": "^1.6.0",
     "chart.js": "^2.6.0",
+    "common-tags": "^1.4.0",
     "core-js": "^2.4.1",
     "intl": "^1.2.5",
     "magic-string": "^0.22.2",
