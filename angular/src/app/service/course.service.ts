@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { ServerService } from './server.service'
+import { UserService } from './user.service';
 
 @Injectable()
 export class CourseService {
@@ -8,7 +9,7 @@ export class CourseService {
   data = {};
   categorys: any;
 
-  constructor(private server: ServerService) {
+  constructor(private server: ServerService, private user: UserService) {
   }
 
 
@@ -16,7 +17,7 @@ export class CourseService {
     return new  Promise((resolve, reject) => {
       this.getCategory().then(() => {
         for( let i = 0; i < this.categorys.length; i++){
-          this.server.post("courses/", {"type":"", "category":this.categorys[i].name, "language":"en"}, true)
+          this.server.post("courses/", {"type":"", "category":this.categorys[i].name, "language": this.user.language}, true)
           .then((data) => {
             this.data[this.categorys[i].name] = data
             if(i == this.categorys.length -1){

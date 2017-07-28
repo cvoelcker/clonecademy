@@ -42,10 +42,10 @@ export class UserService {
 
     return new Promise((resolve, reject) => this.server.get("user/current", true, false).then(data => {
           this.groups = data['groups'];
-
           this.data = data;
           this.loaded = true;
           this.id = data['id']
+          this.language = data['language']
           this.translate.use(data['language']);
           resolve()
         })
@@ -81,6 +81,12 @@ export class UserService {
     this.cookie.removeAll();
     this.server.clearToken();
     this.router.navigate(['/login']);
+  }
+
+  public edit(data){
+    this.server.post("user/current", data).then(() => {
+      this.translate.use(data['language'])
+    })
   }
 
   constructor(private translate: TranslateService, private server: ServerService, private router: Router, private cookie: CookieService ) {

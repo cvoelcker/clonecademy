@@ -3,7 +3,7 @@
 <form #e="ngForm" name="edit" (ngSubmit)="edit(e)" *ngIf="user.data != undefined">
 
       <md-input-container>
-        <input mdInput type="email" placeholder='{{"email" | translate}}' #email pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" name="email" [(ngModel)]="user.data.email"/>
+        <input mdInput type="email" placeholder='{{"email" | translate}}' #email="ngModel" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" name="email" [(ngModel)]="user.data.email"/>
         <md-hint align="start"  *ngIf="!email.valid && e.submitted" class="warning">
           <strong>{{"invalid email" | translate}}</strong>
         </md-hint>
@@ -39,7 +39,8 @@
     </div>
 
     <md-input-container>
-        <input mdInput placeholder='{{"oldPassword" | translate}}' type="password" name="oldpassword" [(ngModel)]="oldPassword" />
+        <input mdInput placeholder='{{"oldPassword" | translate}}' #oldpassword="ngModel" type="password" name="oldpassword" [(ngModel)]="oldPassword" required/>
+        <md-hint align="start" class="warning" *ngIf="e.submitted && !oldpassword.valid"><strong>{{'password required' | translate}}</strong> </md-hint>
     </md-input-container>
 
 

@@ -25,6 +25,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   ])
 ]
 })
+
 export class DashboardComponent{
   data: any;
   collapse: boolean
@@ -34,10 +35,12 @@ export class DashboardComponent{
 
   @ViewChild('content', {read: ViewContainerRef}) content: ViewContainerRef;
 
-  constructor(private course: CourseService, private user: UserService) {
+  ngAfterViewInit(){
     this.course.load().then(() => this.loading = false)
     this.course.getCategory().then(() => this.loadingCat = false)
   }
+
+  constructor(private course: CourseService, private user: UserService) {}
 
   setBackgroundGradient(course): string{
     let percent = (course.num_answered / course.num_questions) * 100

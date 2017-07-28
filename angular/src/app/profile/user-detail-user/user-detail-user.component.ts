@@ -27,13 +27,11 @@ export class UserDetailUserComponent {
     ngOnInit() {
       }
 
-      edit(value){
-        if(value.valid && value.value["password"] === value.value['password2']){
-          let data = value.value
-          this.server.post("user/current", data).then(() => {
-            this.translate.use(data['language'])
-            data['oldpassword'] = ""
-          })}
-        }
+    edit(value){
+      if(value.valid && value.value["password"] === value.value['password2']){
+        let data = value.value
+        this.user.edit(data)
+      }
+    }
 
   }

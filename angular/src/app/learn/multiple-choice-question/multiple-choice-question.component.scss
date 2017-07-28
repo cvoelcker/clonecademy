@@ -21,7 +21,7 @@ ul {
       display: block;
       &.selected{
         box-shadow: none;
-        background-color: mat-color($accent, 100);
+        background-color: $button;
       }
       .answerText{
         display: inline;

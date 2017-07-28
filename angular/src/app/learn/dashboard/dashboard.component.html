@@ -10,8 +10,8 @@
           <md-tab-group >
           <md-tab [label]="category.name" *ngFor="let category of course.categorys">
             <div class="singleBox">
-              <button md-button class="collapseButton" (click)="collapse = !collapse" ><i [class.right]="collapse" class="arrow"></i>{{"courses" | translate}}</button>
-              <div class="courses" [@slideIn]="!collapse">
+              <button md-button class="collapseButton" (click)="category.collapse = !category.collapse" ><i [class.right]="category.collapse" class="arrow"></i>{{"courses" | translate}}</button>
+              <div class="courses" [@slideIn]="!category.collapse">
                 <ul>
                   <li *ngFor="let c of course.data[category.name]">
                     <a

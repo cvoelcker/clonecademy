@@ -89,6 +89,7 @@
   "invalid username": "Der Benutzername darf nur aus Buchstaben und Zahlen existieren und mindesten 5 Zeichen besitzen.",
   "invalid password": "Das Passwort muss mindesten 5 Zeichen besitzen.",
   "password missmatch": "Die Passwörter stimmen nicht überein",
+  "password required": "Das Passwort wird benötigt",
 
 
   "Request sent": "Anfrage gesendet.",

@@ -1,6 +1,3 @@
-@import "../_vars";
-
-
 @media(min-width: 768px){
   .flex{
     display: flex;
@@ -25,5 +22,15 @@
     .contentWrapper{
       height: 100%;
     }
+  }
+}
+$header-height: 45px;
+$header-margin-bot: 10px;
+header{
+  #logo, h1{
+    height: $header-height;
+    margin-bottom: $header-margin-bot;
+    display: inline-block;
+
   }
 }

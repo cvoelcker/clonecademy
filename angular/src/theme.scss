@@ -3,29 +3,40 @@
 
 @include mat-core();
 
-$primary: mat-palette($md-ccred);
+@import url(https://fonts.googleapis.com/css?family=Raleway);
+
+$primary: #002d54;
+$warn: #d4043b;
+$button: #bbd6ed;
+$white: #eaf1f6;
+$black: #000000;
 $accent: mat-palette($md-ccback);
-$warn: mat-palette($mat-red, 900);
 $shadow: mat-palette($md-ccshadow);
 $font: mat-palette($md-ccshadow);
+$link: mat-palette($mat-blue);
+$link-active: mat-palette($md-ccred);
 
 $green: mat-palette($mat-green);
 
-$custom-theme: mat-light-theme($primary, $accent, $warn);
+$custom-theme: mat-light-theme(mat-palette($mat-blue), mat-palette($mat-red));
 
 @include angular-material-theme($custom-theme);
 
 
 body{
-  font-family: "Helvetica"
+  font-family: "Raleway"
 }
 
 
 header{
-  background-color: mat-color($accent);
+  background-color: $primary;
+  color: $white;
   padding-left: 2em;
   position: relative;
   app-menu{
+    .mat-tab-link{
+      color: $white;
+    }
     position: absolute;
     left: auto;
     right: 2em;
@@ -44,7 +55,7 @@ main{
   overflow-y: auto;
   padding-bottom: 1em;
   margin-left: 2em;
-  margin-right: 2em;
+  //margin-right: 2em;
 }
 
 body{
@@ -53,37 +64,46 @@ body{
 }
 
 a{
+  color: lieghten($primary, 10%);
   transition: color 0.4s ease;
   cursor: pointer;
   outline: 0;
 }
 
-a:hover, a:focus, a:active{
+a:hover, a:focus, a:active, a.active{
   text-decoration: none;
-  color: mat-color($primary);
+  color: $primary;
 }
 
 *[md-raised-button]{
-  background-color: mat-color($primary);
+  background-color: $button;
   &:hover{
-    background-color: mat-color($primary, 300);
+    background-color: darken($button, 5%);
   }
     //color: mat-color($shadow) !important
 }
 
 button{
-  color: white !important;
+  color: $black;;
   &.active{
-    background-color: mat-color($primary, 200);
+    background-color: darken($button, 5%);
   }
 }
 
 *[md-button]{
-  background-color: mat-color($primary);
+  background-color: $button;
 }
 
 .mat-tab-label-container, .mat-tab-header-pagination{
   background-color: #f5f5f5;
+}
+
+.mat-tab-label-active{
+  color: $primary;
+}
+
+.cdk-overlay-pane{
+  background-color: white;
 }
 
 *[md-tab-link]{
@@ -92,11 +112,11 @@ button{
   color: mat-color($font);
 
   &:hover{
-    background-color: mat-color($accent, 300)
+    background-color: lighten($primary, 5%);
   }
 
   &.active{
-    border-bottom: 4px solid mat-color($primary)
+    border-bottom: 4px solid $button
   }
     opacity: 1 !important;
 }
@@ -112,39 +132,40 @@ md-checkbox{
     display: block;
     width: 100%;
     padding: 0.5em;
-
   }
+  &.selected {
+    .mat-checkbox-background{
+      background-color: $primary !important;
+    }
+  }
+  &.mat-checkbox{
+        .mat-ripple-element{
+          opacity: 0.5;
+          background-color: lighten($primary, 5%) !important;
+        }
+    }
 }
 
 .alert{
-  color: mat-color($shadow) !important;
-  border-color: mat-color($shadow);
+  border-radius: 0;
   &.false{
     background-color: transparent;
-    border: 1px solid;
-  }
-  &.info{
-    background-color: mat-color($accent, 100);
-    border-color: mat-color($accent, 300);
   }
   &.success{
-    background-color: mat-color($green, 100);
-    border-color: mat-color($green, 300);
+    background-color: lighten($button, 10%);
   }
   &.danger{
-    background-color: mat-color($warn, 100);
-    border-color: mat-color($warn, 300);
+    background-color: lighten($warn, 50%);
   }
 }
 
 md-hint{
-  color: mat-color($warn);
+  color: $warn;
   font-size: 14px;
 }
 
 .error{
   input{
-    border-color: mat-color($warn)
   }
 }
 
@@ -205,7 +226,10 @@ md-progress-spinner{
 md-input-container, md-select{
   width: 100%;
   .mat-input-placeholder, .mat-select-placeholder{
-    color: black;
+    color: lighten($primary, 5%);
+  }
+  .mat-input-infix{
+    border-bottom: 1px solid $black;
   }
 }
 

@@ -101,7 +101,8 @@
   "UserDetail": "User details for ",
   "newPassword": "New Password",
   "newPasswordagain": "New Password again",
-    "oldPassword": "Old Password for authentication",
+  "oldPassword": "Old Password for authentication",
+  "password required": "The password is required!",
 
   "Unable to log in with provided credentials.": "Unable to log in with provided credentials.",
 

@@ -61,7 +61,14 @@ ol{
         font-weight: bold;
         width: 1.3em;
         display: inline-block;
-
+      }
+      .mat-card-content{
+        margin-left: -24px;
+        margin-right: -24px;
+        .alert{
+          padding-left: 24px;
+          padding-right: 24px;
+        }
       }
 
     }
