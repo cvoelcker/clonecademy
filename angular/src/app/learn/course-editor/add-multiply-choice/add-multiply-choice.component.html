@@ -1,6 +1,5 @@
 <div>
   <div class="imageUpload">
-    <h3>Image for the Question</h3>
     <input  type="file" #QuestionInput style="display:none" (change)="questionImage($event)" accept="image/*"/>
     <div>
       <button md-raised-button type="button" (click)="triggerFile(QuestionInput)"><i class="material-icons">image</i>{{" add image to question" | translate}}</button>
@@ -8,7 +7,7 @@
     </div>
     <img [src]="body.question_image" alt="Preview" *ngIf="body.question_image != ''">
   </div>
-  <h3 for="answers">Answers</h3>
+  <h3 for="answers">{{"answers" | translate}}</h3>
   <ul id="answers" class="answers">
     <li class="singleQuestion" [@slideIn]="body.answers[j].visible" (@slideIn.done)="removeAnswer($event, j)" *ngFor="let i of body.answers; let j = index" >
       <div class="alert" [class.success]="i.is_correct"
@@ -30,7 +29,7 @@
     <button md-raised-button type="button" class="addAnswer" (click)="addAnswer()"><i class="material-icons">add</i> {{"add Answer" | translate}}</button>
   </div>
   <div class="imageUpload">
-    <h3>Image for the Answer</h3>
+    <h3>{{"Image for the feedback" | translate}}</h3>
     <input  type="file" #AnswerInput style="display:none" (change)="answerImage($event)" accept="image/*"/>
     <div>
       <button md-raised-button type="button" (click)="triggerFile(AnswerInput)"><i class="material-icons">image</i>{{"add image to answer" | translate}}</button>

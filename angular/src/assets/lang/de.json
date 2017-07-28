@@ -12,7 +12,9 @@
 
   "Add multiple choice Question": "Multiple Choice Frage hinzufügen",
   "add image to question": "füge ein Bild zur Frage hinzu",
-  "add image to answer": "füge ein Bild zu Antwort hinzu",
+  "add image to answer": "füge ein Bild zum feedback hinzu",
+  "answers": "Antworten",
+  "Image for the feedback": "Bild für das Feedback",
   "remove image": "Bild löschen",
   "Question": "Frage",
   "answer text": "Antworttext",

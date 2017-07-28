@@ -12,7 +12,9 @@
 
   "Add multiple choice Question": "Add multiple choice Question",
   "add image to question": "Add image to question",
-  "add image to answer": "Add image to answer",
+  "add image to answer": "Add image to feedback",
+  "answers": "answers",
+  "Image for the feedback": "Image for the feedback",
   "remove image": "remove image",
   "Question": "Question",
   "answer text": "Answer text",

@@ -47,12 +47,12 @@ public chartHovered(e:any):void {
       {
         backgroundColor: [
           this.sassHelper.readProperty('success'),
-          this.sassHelper.readProperty('warning'),
+          "white"
         ],
         strokeColor: '#0f0',
         hoverBackgroundColor: [
           this.sassHelper.readProperty('success-hover'),
-          this.sassHelper.readProperty('warning-hover'),
+          "white"
         ],
         borderColor: "transparent"
       },
