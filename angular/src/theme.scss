@@ -79,6 +79,7 @@ a:hover, a:focus, a:active, a.active{
   background-color: $button;
   &:hover{
     background-color: darken($button, 5%);
+    color: $black;
   }
     //color: mat-color($shadow) !important
 }
@@ -87,6 +88,7 @@ button{
   color: $black;;
   &.active{
     background-color: darken($button, 5%);
+    color: $black;
   }
 }
 
