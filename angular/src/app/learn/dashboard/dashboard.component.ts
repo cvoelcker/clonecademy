@@ -36,6 +36,8 @@ export class DashboardComponent{
   @ViewChild('content', {read: ViewContainerRef}) content: ViewContainerRef;
 
   ngAfterViewInit(){
+    this.loading = true;
+    this.loadingCat = true;
     this.course.load().then(() => this.loading = false)
     this.course.getCategory().then(() => this.loadingCat = false)
   }
