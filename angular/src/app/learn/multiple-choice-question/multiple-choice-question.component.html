@@ -10,6 +10,6 @@
   </li>
 </ul>
 <div class="image">
-  <img [src]="data.question_image" [hidden]="data.question_image == '' || (feedback != '' && feedback != undefined)">
+  <img [src]="data.question_image" *ngIf="data.question_image != undefined && data.question_image != '' && (feedback == '' || feedback == undefined)">
   <img [src]="feedback" *ngIf="feedback != undefined && feedback != ''">
 </div>

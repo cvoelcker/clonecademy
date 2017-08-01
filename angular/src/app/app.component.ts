@@ -9,7 +9,7 @@ import { UserService } from './service/user.service'
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'Clonecademy';
+  title = 'CloneCademy';
 
   constructor(private user: UserService, private translate: TranslateService){
     translate.addLangs(['en', 'de']);

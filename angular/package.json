@@ -42,7 +42,6 @@
     "@types/jasmine": "2.5.45",
     "@types/node": "^6.0.78",
     "angular2-cookie": "^1.2.6",
-    "bootstrap": "^3.3.7",
     "codelyzer": "~3.0.1",
     "jasmine-core": "^2.6.4",
     "jasmine-spec-reporter": "^4.1.1",

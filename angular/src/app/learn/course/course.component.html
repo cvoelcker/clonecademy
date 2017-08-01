@@ -6,7 +6,7 @@
         {{name}}
       </h2>
     </td>
-    <td class="counter">
+    <!--<td class="counter">
     <div class="chart" style="display: block">
       <canvas baseChart
               [legend]="false"
@@ -16,7 +16,7 @@
               [chartType]="pieChartType"
               (chartHover)="chartHovered($event)"></canvas>
     </div>
-    </td>
+  </td>-->
   </table>
   <div class="button" [ngSwitch]="true">
     <button *ngSwitchCase="!completed && modules[0] != undefined && !modules[0].questions[0].solved"  md-raised-button routerLink="/course/{{ id }}/1/1/">{{"start Course" | translate}}</button>

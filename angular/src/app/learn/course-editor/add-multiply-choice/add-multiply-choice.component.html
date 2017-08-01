@@ -5,7 +5,7 @@
       <button md-raised-button type="button" (click)="triggerFile(QuestionInput)"><i class="material-icons">image</i>{{" add image to question" | translate}}</button>
       <button md-raised-button type="button" *ngIf="body.question_image != ''" (click)="body.question_image = ''">{{"remove image" | translate}}</button>
     </div>
-    <img [src]="body.question_image" alt="Preview" *ngIf="body.question_image != ''">
+    <img [src]="body.question_image" alt="Preview" *ngIf="body.question_image != undefined && body.question_image != ''">
   </div>
   <h3 for="answers">{{"answers" | translate}}</h3>
   <ul id="answers" class="answers">
@@ -35,6 +35,6 @@
       <button md-raised-button type="button" (click)="triggerFile(AnswerInput)"><i class="material-icons">image</i>{{"add image to answer" | translate}}</button>
       <button md-raised-button type="button" *ngIf="body.answer_image != ''" (click)="body.answer_image = ''">{{"remove image" | translate}}</button>
     </div>
-    <img [src]="body.answer_image" alt="Preview" *ngIf="body.answer_image != ''">
+    <img [src]="body.answer_image" alt="Preview" *ngIf="body.answer_image != undefined && body.answer_image != ''">
   </div>
 </div>

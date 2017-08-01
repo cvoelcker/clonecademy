@@ -1,33 +1,21 @@
 <div>
   <h2>{{title}}</h2>
 </div>
-<table>
-  <td class="text">
-      <div class="alert">
-        <markdown [data]="learning_text">
-        </markdown>
-      </div>
-      <md-card ><markdown [data]="questionBody"></markdown></md-card>
-  </td>
-  <td>
-    <div class="question" #question></div>
-  </td>
-</table>
-<div class="row feedback">
-  <div *ngIf='submitCorrect' class="col-md-6">
-    <div class="alert success">
-      <h3>{{"correct" | translate}}</h3>
-      <markdown [data]="correctFeedback"></markdown>
-    </div>
-  </div>
-  <div *ngIf='!submitCorrect && submitSend' class="col-md-6">
-    <div class="alert danger">
-      <h3>{{"wrong" | translate}}</h3>
-      <markdown [data]="wrongFeedback"></markdown>
-    </div>
-  </div>
+<div class="questionWrapper">
+  <table>
+    <td class="text">
+        <div class="alert">
+          <markdown [data]="learning_text" *ngIf="learning_text != undefined">
+          </markdown>
+        </div>
+        <md-card ><markdown [data]="questionBody" *ngIf="questionBody != undefined"></markdown></md-card>
+    </td>
+    <td>
+      <div class="question" #question></div>
+    </td>
+  </table>
 </div>
-<div class="row bottom">
+<div class="footer">
   <div class="col-md-12">
     <button md-raised-button *ngIf="!submitCorrect" class="btn  " (click)="submit()">{{"submit" | translate}}</button>
     <button md-raised-button *ngIf="submitCorrect" class="btn  " (click)="next()">{{"next question" | translate}}</button>

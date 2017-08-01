@@ -5,17 +5,20 @@ import {MD_DIALOG_DATA} from '@angular/material';
 import {TranslateService} from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-error-message',
-  templateUrl: './error-message.component.html',
-  styleUrls: ['./error-message.component.sass']
+  selector: 'wrong-feedback-message',
+  templateUrl: './wrong-feedback.component.html',
+  styleUrls: ['./wrong-feedback.component.sass']
 })
-export class ErrorMessageComponent {
+export class WrongFeedbackComponent {
 
-  text: string;
+  text: string = "test";
 
   constructor(@Optional() @Inject(MD_DIALOG_DATA) public data: string, private translate: TranslateService) {
     if(data != undefined){
-      translate.get(data).subscribe((res) => {this.text = res})
+      console.log(data['text'])
+      translate.get(data['text']).subscribe((res) => {
+        this.text = res
+      })
     }
   }
 

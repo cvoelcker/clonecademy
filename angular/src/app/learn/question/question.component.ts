@@ -1,12 +1,18 @@
 import { Component, OnInit, ChangeDetectorRef, Output, EventEmitter, Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { ServerService } from "../../service/server.service"
+import {MdDialog} from '@angular/material';
 
 import {TranslateService} from '@ngx-translate/core';
 
 import { MultipleChoiceQuestionComponent } from "../multiple-choice-question/multiple-choice-question.component"
 
-import { QuestionModule } from "./question.module"
+
+import { WrongFeedbackComponent } from './wrong-feedback/wrong-feedback.component';
+import { CorrectFeedbackComponent } from './correct-feedback/correct-feedback.component';
+import { QuestionModule } from "./question.module";
+
+
 
 @Component({
   selector: 'app-question',
@@ -46,14 +52,14 @@ export class QuestionComponent implements OnInit {
     private router: Router,
     public server: ServerService,
     private route: ActivatedRoute,
-    private factory: ComponentFactoryResolver
+    private factory: ComponentFactoryResolver,
+    private dialog: MdDialog
   ) {
     this.route.params.subscribe((data: Params) => {
       this.courseID = Number(data.id);
       this.moduleIndex = Number(data.module);
       this.questionIndex = data.question;
     })
-
     this.loadQuestion();
 
   }
@@ -70,21 +76,25 @@ export class QuestionComponent implements OnInit {
       this.lastQuestion = data['last_question']
       this.lastModule = data['last_module']
       this.learning_text = data['learning_text']
+
       // create Question based on the class
       this.questionFactory = this.factory.resolveComponentFactory(this.components[data['type']])
 
       // empty question factory box bevor adding new stuff
-      this.question.clear()
+      if(this.question.length > 0){
+        this.question.clear()
+
+      }
       let question = this.question.createComponent(this.questionFactory)
       this.questionModule = (<QuestionModule> question.instance)
       this.questionModule.data = data['question_body']
       this.changeDet.detectChanges()
-
     })
   }
 
 
   submit(){
+
 
     let data = {answers: this.questionModule.submit()};
     this.server.post("courses/"+this.courseID+"/"+ (Number(this.moduleIndex) -1 ) + "/" + (Number(this.questionIndex) -1), data)
@@ -101,7 +111,7 @@ export class QuestionComponent implements OnInit {
       // calls block to freeze the question element
       this.questionModule.block();
       this.questionModule.feedback = data.custom_feedback
-      
+
       // the answer is correct and the correct Feedback will be set
       if(data['feedback'] != ""){
         this.correctFeedback = data['feedback']
@@ -113,7 +123,13 @@ export class QuestionComponent implements OnInit {
     else{
       this.feedbackIterator = (this.feedbackIterator + 1) % 3;
       // answer was wrong and the wrong Feedback will be setup
-      this.translate.get("wrong feedback " + this.feedbackIterator).subscribe(data => {this.wrongFeedback = data})
+      let text = "";
+      this.translate.get("wrong feedback " + this.feedbackIterator).subscribe(data => {text = data})
+      let dialogRef = this.dialog.open(WrongFeedbackComponent, {
+        data: {
+          text: text
+        }
+      })
     }
 
 

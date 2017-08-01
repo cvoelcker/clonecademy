@@ -33,5 +33,4 @@ export class UserDetailUserComponent {
         this.user.edit(data)
       }
     }
-
   }

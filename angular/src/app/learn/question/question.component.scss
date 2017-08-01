@@ -17,6 +17,26 @@ table{
   }
 }
 
+.questionWrapper{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 60px;
+  overflow-y: scroll;
+}
+
+.footer{
+  margin: 1em 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: auto;
+}
+
+
+
 .feedback{
   h3{
     margin-top: 0;
