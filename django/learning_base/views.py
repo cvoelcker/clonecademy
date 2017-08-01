@@ -297,8 +297,9 @@ class UserView(APIView):
         Shows the profile of any user if the requester is mod,
         or the profile of the requester
 
-        TODO: Refactor this if user.profile.is_mod() out of it
-        AFAIK is this not the right behaviour - TH
+        TODO: Refactor this user.profile.is_mod() out of it
+        AFAIK is this not the right behaviour
+        but rather overriding REST functions is -TH
         '''
         user = request.user
         if user_id:
@@ -323,11 +324,16 @@ class UserView(APIView):
         user = request.user
         data = request.data
 
+        if "oldpassword" in data:
+            if not request.user.check_password(request.data["oldpassword"]):
+                return Response({"ans":"given password is incorrect"}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({"ans":"password is required"}, status=status.HTTP_400_BAD_REQUEST)
+
         user_serializer = serializer.UserSerializer(user, data=data, partial=True)
         if user_serializer.is_valid():
             user_serializer = user_serializer.update(user, validated_data=request.data)
-            return Response('Updated user '+user.username,
-
+            return Response({"ans":'Updated user '+user.username},
                             status=status.HTTP_200_OK)
         else:
             return Response(user_serializer.errors,

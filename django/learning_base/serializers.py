@@ -229,11 +229,13 @@ class UserSerializer(serializers.ModelSerializer):
         value['language'] = p.language
         return value
 
-
+    """
+    code doesn't work properly. Nevertheless validation of input data should be
+    dealt with in the "validate" function in the future
     def validate(self, data):
-        """
+        ""
         validate given passwords
-        """
+        ""
         if "request" in self.context:
             if self.context["request"].method=="POST":
                 if "oldpassword" in data:
@@ -243,6 +245,7 @@ class UserSerializer(serializers.ModelSerializer):
                     if "password" in data:
                         raise serializers.ValidationError("when changing password the old password must be given with the key oldpassword")
         return data
+    """
 
     def create(self, validated_data):
         profile_data = validated_data.pop('profile')
