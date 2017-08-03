@@ -1,0 +1,13 @@
+= Installation Guide =
+Before you can install the software, you need to setup an .ini file with all password in production. This makes shure, that all passwords are unique in the setup.
+
+= Database Password =
+The database password needs to be entered in the docker-compose.yml and the settings_secret in the fields database password. If they are left empty, a random password will be generated and written in the password_dump.txt after installation.
+
+= Admin Mail =
+To make sure that the admin recieves mails of errors and logs, the admins mail account data needs to be written in the settings_production.py and the settings_secrets.py.
+
+= Installation =
+To run the installation, simply run ./install.sh . Everything should be setup as needed. If there are any errors, try running all commands in the setup file seperatly.
+
+After installation, the server can be started with the command docker-compose up

@@ -15,7 +15,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class ServerService {
 
-  private baseUrl = 'http://0.0.0.0:8000/'
+private baseUrl = '/api/'
 
   getBaseUrl(){
     return this.baseUrl;

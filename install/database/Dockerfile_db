@@ -1,0 +1,5 @@
+FROM library/postgres
+
+ENV POSTGRES_USER django
+ENV POSTGRES_PASSWORD secret_password
+ENV POSTGRES_DB clonecademy
