@@ -8,14 +8,12 @@ class MultipleChoiceQuestion(Question):
     """
     __name__ = "multiple_choice"
 
-    question_image = models.CharField(
-        max_length=255,
+    question_image = models.TextField(
         verbose_name = "The Image for the question",
         blank = True,
     )
 
-    answer_image = models.CharField(
-        max_length=255,
+    answer_image = models.TextField(
         verbose_name = "The Image for the question",
         blank = True,
     )
@@ -74,6 +72,10 @@ class MultipleChoiceAnswer(models.Model):
         default=False
     )
 
+    img = models.TextField(
+        verbose_name = "The Image for the answer",
+        blank=True
+    )
 
 
     def __str__(self):
