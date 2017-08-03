@@ -38,8 +38,9 @@ export class DashboardComponent{
   ngAfterViewInit(){
     this.loading = true;
     this.loadingCat = true;
-    this.course.load().then(() => this.loading = false)
-    this.course.getCategory().then(() => this.loadingCat = false)
+    this.course.load().then(() => {this.loading = false, this.loadingCat = false})
+
+    //this.course.getCategory().then(() => this.loadingCat = false)
   }
 
   constructor(private course: CourseService, private user: UserService) {}
