@@ -1,0 +1,30 @@
+ version: '2'
+ services:
+   db:
+    environment:
+      - database_password=secret_password
+    volumes:
+      - /var/lib/clonecademy/postgres-data:/var/lib/postgresql/data
+    build:
+      context: database
+      dockerfile: Dockerfile_db
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+   django:
+    environment:
+      - ADMIN_PASSWD=admin
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: django-clonecademy:dev
+    command: /bin/bash /setup/setup.sh
+    volumes:
+      - .:/django
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+    links:
+      - db
+
