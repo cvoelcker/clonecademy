@@ -4,21 +4,36 @@ import { AddQuestionModule } from "../add-question/add-question.module"
 
 import { slideIn } from "../../../animations";
 
+import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
+
 @Component({
   selector: 'app-add-multiply-choice',
   templateUrl: './add-multiply-choice.component.html',
   styleUrls: ['./add-multiply-choice.component.scss'],
-  animations: [ slideIn ]
+  animations: [ slideIn ],
 })
 export class AddMultiplyChoiceComponent extends AddQuestionModule {
 
   body = {
-    answers: [{text: "", is_correct: true, visible: true, id: null}],
+    answers: [{text: "", is_correct: true, visible: true, id: null, img: ''}],
     question_image: '',
     answer_image: ''
   }
 
   url: string = "";
+
+  cropperSettings: CropperSettings;
+
+  constructor(){
+    super()
+    this.cropperSettings = new CropperSettings();
+    this.cropperSettings.width = 100;
+    this.cropperSettings.height = 100;
+    this.cropperSettings.croppedWidth =100;
+    this.cropperSettings.croppedHeight = 100;
+    this.cropperSettings.canvasWidth = 400;
+    this.cropperSettings.canvasHeight = 300;
+  }
 
   compInfo: string = "Loading";
 
@@ -39,7 +54,7 @@ export class AddMultiplyChoiceComponent extends AddQuestionModule {
     }
 	}
 
-  answerImage(event):void {
+  feedbackImage(event):void {
     if(event.target.files && event.target.files[0]){
 
       //new fileReader
@@ -54,6 +69,27 @@ export class AddMultiplyChoiceComponent extends AddQuestionModule {
     }
 	}
 
+  answerImage(event): void{
+    if(event.target.files && event.target.files[0]){
+
+      //new fileReader
+      var fileReader = new FileReader();
+      //try to read file, this part does not work at all, need a solution
+      fileReader.onload =(e) => {
+        this.body.answers[this.index].img = e.target['result']
+
+      }
+
+      fileReader.readAsDataURL(event.target.files[0])
+    }
+  }
+
+  index: number = 0;
+  triggerAnswer(fileInput, index){
+    this.index = index;
+    fileInput.click();
+  }
+
   triggerFile(fileInput){
     fileInput.click()
   }
@@ -65,6 +101,7 @@ export class AddMultiplyChoiceComponent extends AddQuestionModule {
     this.form = form;
     let answers = this.body.answers
     for(let i = 0; i < answers.length; i++){
+      answers[i].img.length
       delete answers[i].visible
     }
     return {
@@ -86,7 +123,7 @@ export class AddMultiplyChoiceComponent extends AddQuestionModule {
   }
 
   addAnswer(){
-    this.body.answers.push({text: "", is_correct:false, visible: true, id: null})
+    this.body.answers.push({text: "", is_correct:false, visible: true, id: null, img: ""})
   }
 
   validAnswer(): boolean{

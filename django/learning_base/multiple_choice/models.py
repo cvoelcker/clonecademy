@@ -74,6 +74,11 @@ class MultipleChoiceAnswer(models.Model):
         default=False
     )
 
+    img = models.CharField(
+        max_length=255,
+        verbose_name = "The Image for the answer",
+        blank=True
+    )
 
 
     def __str__(self):

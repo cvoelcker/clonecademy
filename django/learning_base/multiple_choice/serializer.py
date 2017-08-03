@@ -7,7 +7,7 @@ from base64 import b64decode
 class MultipleChoiceAnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = MultipleChoiceAnswer
-        fields = ('text', 'id')
+        fields = ('text', 'id', 'img')
 
     def create(self, validated_data):
         answer = MultipleChoiceAnswer(**validated_data)
@@ -59,7 +59,7 @@ class MultipleChoiceQuestionSerializer(serializers.ModelSerializer):
             answer['question'] = question
             answer_serializer = MultipleChoiceAnswerSerializer(data=answer)
             if not answer_serializer.is_valid():
-                raise ParseError(detail="Error in answer serialization", code=None)
+                raise ParseError(detail=answer_serializer.errors, code=None)
             else:
                 answer_serializer.create(answer)
         if question.not_solvable():
