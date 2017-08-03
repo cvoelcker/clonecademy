@@ -1,0 +1,35 @@
+\begin{itemize}
+
+
+\item HTML Input: Wird jeglicher Input korrekt nach Cross-Site-Scripts durchsucht, bevor er als sicher markiert wird?
+
+Anmerkung: Alle Views, die keinen HTML-Input filtern, werden nicht aufgelistet.
+
+UserView post wird korrekt validiert.
+
+\item Sind die Django-Features zum Schutz vor Cross Site Request Forgery (CSRF) aktiviert?
+
+Ja, genauer gesagt, es wurde nicht explizit deaktiviert.
+
+
+\item Ist jede Schnittstelle mit passender Authentifizierung und Autorisierung versehen, sowie gegebenenfalls auch mit einer Anfragenbegrenzung (Throttling)?
+
+UserView: Die Klassen sind korrekt gesetzt.
+Course Edit View: waren nicht gesetzt, wurden ergänzt
+
+
+\item Werden alle Nutzereingaben nach Fehlern gefiltert?
+
+UserView (Backend): Ja, nur nicht in der validate() methode des Serializers, die dennoch aufgerufen wird. In der Zukunft sollte das umstrukturiert werden.
+
+Edit-course.* (Frontend):
+Die einzige fehlerhafte nämlich die leere Eingabe wird mit entsprechenden required-Tags geprüft.
+
+CourseEditView (Backend): Einziger UserInput wird vom serializer geprüft
+
+\item Sind alle Security Probleme, die bei der softwarebasierten Analyse aufgetreten sind, behoben, oder aus dem Kontext heraus als unkritisch betrachhtet worden?
+
+Ja, der einzige Fehler, dass zur Zeit alle hosts Anfragen stellen dürfen, wird beim deployment behoben.
+
+\end{itemize}
+
