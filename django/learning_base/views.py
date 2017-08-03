@@ -100,8 +100,8 @@ class CourseEditView(APIView):
     contains all the code related to edit a courses
     @author Leonhard Wiedmann
     '''
-    authentication_classes = []
-    permission_classes = []
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.IsAdminUser,)
 
     def get(self, request, course_id=None, format=None):
         '''
@@ -290,8 +290,6 @@ class UserView(APIView):
     authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
 
-    #TODO: probably should be check_permissions(self, request)
-
     def get(self, request, user_id=False, format=None):
         '''
         Shows the profile of any user if the requester is mod,
@@ -300,6 +298,7 @@ class UserView(APIView):
         TODO: Refactor this user.profile.is_mod() out of it
         AFAIK is this not the right behaviour
         but rather overriding REST functions is -TH
+        #TODO: probably should be check_permissions(self, request)
         '''
         user = request.user
         if user_id:
@@ -326,9 +325,9 @@ class UserView(APIView):
 
         if "oldpassword" in data:
             if not request.user.check_password(request.data["oldpassword"]):
-                return Response({"ans":"given password is incorrect"}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"error":"given password is incorrect"}, status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response({"ans":"password is required"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error":"password is required"}, status=status.HTTP_400_BAD_REQUEST)
 
         user_serializer = serializer.UserSerializer(user, data=data, partial=True)
         if user_serializer.is_valid():
@@ -356,7 +355,7 @@ class UserRegisterView(APIView):
         This behaviour isn't smart since this view doesn't require any authentication
         '''
         if user_id:
-            # TODO Implement saving a users data
+            # TODO Implement saving a uorsers data
             pass
         else:
             user_serializer = serializer.UserSerializer(data=request.data)
