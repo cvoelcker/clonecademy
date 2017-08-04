@@ -1,0 +1,58 @@
+\documentclass[colorback, accentcolor=tud1c, paper=a4]{tudexercise}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{multicol}
+
+%opening
+\title{Protokoll Auftraggebertreffen \today}
+\subtitle{Claas Völcker}
+\subsubtitle{BP Clonecademy}
+\author{Claas Völcker}
+
+\begin{document}
+
+\maketitle
+
+\begin{multicols}{2}
+
+\section*{Bericht der letzte Iteration}
+\subsection*{User Stories}
+\begin{itemize}
+	\item bei den Nutzerprofil Änderungen wird die Passwortbestätigung nun korrekt überprüft
+	\item Kurs bearbeiten: Bild hochladen funktioniert zur Zeit nur als .jpg außerdem wird das Bild nicht angezeigt
+
+\end{itemize}
+
+\subsection*{Deployment}
+\begin{itemize}
+	\item Das beste wäre, wenn die WebSite am Montag aus dem Internet erreichbar wäre.
+	\item Wir merken an, dass wir keine Sicherheit garntieren können.
+	\item Als größte Gefahr wird ein (D)DoS eingeschätzt, der möglicherweise nur die VM abschießt, und nicht die gesamte Serverhardware lahmlegt.
+	
+\end{itemize}
+
+\subsection*{Wettbewerbsjury}
+\begin{itemize}
+	\item Beim iGem Wettbewerb werden Juror*innen wenig Zeit haben sich die WebSite anzusehen.
+	\item Es wird angestrebt eine leicht zugängliche Demo auch ohne Log-in bereit zu stellen.
+
+\end{itemize}
+
+\section*{Kommende Iteration}
+\begin{itemize}
+	\item Bilder: Müssen bis Montag angezeigt werden
+	\item Infofragetyp: Nur Fragetext, keine Antwortmögli chkeiten, nur auf weiter drücken
+	\item Kurs bearbeiten Seite: soll "übersichtlicher" werden: Module und andere Elemente sollen einklappbar sein
+	\item Introseite: statische HTML Seite, die Hardgecoded auf dem Server liegt.
+	\item Fragen beantworten: Navigation zwischen Fragen in einem Kurs soll möglich sein.
+
+\end{itemize}
+
+\section*{Weitere Planung}
+\begin{itemize}
+	\item 
+	\item Es wird angestrebt bis Ende August alle relevanten Features einzubringen und nach der zweiten Septemberwoche definitiv keine weiteren Features zu implementieren.
+\end{itemize}
+
+\end{multicols}
+\end{document}
