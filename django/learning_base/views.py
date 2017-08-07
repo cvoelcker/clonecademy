@@ -7,7 +7,6 @@ from rest_framework.decorators import api_view, authentication_classes,\
 from rest_framework.views import APIView
 
 import learning_base.serializers as serializer
-from learning_base.multiple_choice.models import MultipleChoiceQuestion
 from learning_base.models import Course, CourseCategory, Module, Question, Try,\
     Profile
 
