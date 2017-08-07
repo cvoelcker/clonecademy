@@ -6,6 +6,7 @@ import {MdDialog} from '@angular/material';
 import {TranslateService} from '@ngx-translate/core';
 
 import { MultipleChoiceQuestionComponent } from "../multiple-choice-question/multiple-choice-question.component"
+import { InformationTextComponent } from "../info-text/info-text.component"
 
 
 import { WrongFeedbackComponent } from './wrong-feedback/wrong-feedback.component';
@@ -24,7 +25,8 @@ export class QuestionComponent implements OnInit {
   // add new question types here to load them
   // QUESTION FACTORY COMPONENT
   components = {
-    multiple_choice: MultipleChoiceQuestionComponent
+    multiple_choice: MultipleChoiceQuestionComponent,
+    information_text: InformationTextComponent
   }
 
   @ViewChild('question', {read: ViewContainerRef}) question: ViewContainerRef;

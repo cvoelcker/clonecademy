@@ -16,6 +16,7 @@ import { MarkdownModule } from 'angular2-markdown';
 // Material Style
 import {MdDialog, MdDialogModule, MdButtonModule, MdAutocompleteModule, MdCheckboxModule, MdTooltipModule, MdCardModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule, MdProgressSpinnerModule} from '@angular/material';
 
+import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -190,7 +191,8 @@ export function createTranslateLoader(http: Http) {
     LoaderComponent,
     SassHelperComponent,
     EditCourseComponent,
-    UserDetailUserComponent
+    UserDetailUserComponent,
+    ImageCropperComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

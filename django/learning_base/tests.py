@@ -7,6 +7,7 @@ from rest_framework.test import force_authenticate
 from django.contrib.auth.models import User, Group
 from learning_base import views, models, serializers
 import learning_base.multiple_choice as MultipleChoiceQuestion
+import learning_base.info as InformationText
 
 
 class DatabaseMixin():
@@ -36,7 +37,13 @@ class DatabaseMixin():
                 order=1,
                 module=self.m1_test)
         self.q1_test.save()
-
+        self.q2_test = InformationText.models.InformationText(
+                title="",
+                body="an information text",
+                feedback="",
+                order=2,
+                module=self.m1_test)
+        self.q2_test.save()
 
 class AnswerViewTest(DatabaseMixin, TestCase):
     def setUp(self):
@@ -213,7 +220,7 @@ class CourseViewTest(DatabaseMixin, TestCase):
                                               {'title': 'a question',
                                                'body': 'some text',
                                                'feedback': '',
-                                               'type': 'MultipleChoiceQuestion',
+                                               'type': 'multiple_choice',
                                                'order': 1,
                                                'answers': [
                                                    {'text': 'nope',
@@ -227,6 +234,31 @@ class CourseViewTest(DatabaseMixin, TestCase):
         self.assertTrue(
             MultipleChoiceQuestion.models.MultipleChoiceQuestion.objects.filter(
                 title='a question').exists())
+
+    def test_information_text(self):
+        request = self.factory.post('/courses/save',
+                                    {'name': 'test_4',
+                                     'category': 'test',
+                                     'difficulty': 2,
+                                     'modules': [
+                                         {'name': 'a module',
+                                          'learning_text': 'no way',
+                                          'order': 3,
+                                          'questions': [
+                                              {'title': 'a question',
+                                               'body': 'some text',
+                                               'feedback': '',
+                                               'type': 'info_text',
+                                               'order': 1,
+                                               }]}],
+                                     'language': 'en'}, format='json')
+        force_authenticate(request, self.u1)
+        response = self.view(request)
+        self.assertEqual(response.status_code, 201)
+        self.assertTrue(models.Course.objects.filter(name='test_4').exists())
+        self.assertTrue(
+                InformationText.models.InformationText.objects.filter(
+                    title='a question').exists())
 
 
 class RequestViewTest(TestCase):

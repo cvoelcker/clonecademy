@@ -8,6 +8,7 @@
     <img [src]="body.question_image" alt="Preview" *ngIf="body.question_image != undefined && body.question_image != ''">
   </div>
   <h3 for="answers">{{"answers" | translate}}</h3>
+  <input  type="file" #AnswerInput style="display:none" (change)="answerImage($event)" accept="image/*"/>
   <ul id="answers" class="answers">
     <li class="singleQuestion" [@slideIn]="body.answers[j].visible" (@slideIn.done)="removeAnswer($event, j)" *ngFor="let i of body.answers; let j = index" >
       <div class="alert" [class.success]="i.is_correct"
@@ -15,6 +16,14 @@
         <md-checkbox type="checkbox" name="isActive" [(ngModel)]="i.is_correct">
           {{"is this Answer correct?" | translate}}
         </md-checkbox>
+        <div class="imageUpload">
+          <div>
+            <button md-raised-button type="button" (click)="triggerAnswer(AnswerInput, j)"><i class="material-icons">image</i>{{" add image to answer" | translate}}</button>
+            <button md-raised-button type="button" *ngIf="i.img != ''" (click)="i.img = ''">{{"remove image" | translate}}</button>
+          </div>
+          <!--<img-cropper [image]="i.img" [settings]="cropperSettings"></img-cropper><br>-->
+          <img [src]="i.img" alt="Preview" *ngIf="i.img != undefined && i.img != ''">
+        </div>
         <button md-raised-button type="button" class="remove" (click)="slideInFunction(j)" >
           <i class="material-icons">delete</i>{{"remove" | translate}}
         </button>
@@ -30,9 +39,9 @@
   </div>
   <div class="imageUpload">
     <h3>{{"Image for the feedback" | translate}}</h3>
-    <input  type="file" #AnswerInput style="display:none" (change)="answerImage($event)" accept="image/*"/>
+    <input  type="file" #FeedbackInput style="display:none" (change)="feedbackImage($event)" accept="image/*"/>
     <div>
-      <button md-raised-button type="button" (click)="triggerFile(AnswerInput)"><i class="material-icons">image</i>{{"add image to answer" | translate}}</button>
+      <button md-raised-button type="button" (click)="triggerFile(FeedbackInput)"><i class="material-icons">image</i>{{"add image to answer" | translate}}</button>
       <button md-raised-button type="button" *ngIf="body.answer_image != ''" (click)="body.answer_image = ''">{{"remove image" | translate}}</button>
     </div>
     <img [src]="body.answer_image" alt="Preview" *ngIf="body.answer_image != undefined && body.answer_image != ''">
