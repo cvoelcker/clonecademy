@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 
 from rest_framework import viewsets, status
 from rest_framework import authentication, permissions
@@ -414,6 +415,62 @@ class StatisticsView(APIView):
         return Response('Method not allowed',
                         status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
+class StatisticsDownloadView(APIView):
+    '''
+    A class returning the statistics information in the given format. It is used to
+    access the try object.
+    @author: Leonhard Wiedmann
+    '''
+    authentication_classes =  (authentication.TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated, )
+
+    def get(self, request, user_id=None):
+        return Response({"error": 'Method not allowed'},
+                        status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+    def post(self, request, format=None):
+        import time, csv
+        data = request.data
+        user = request.user
+
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="'+ time.strftime("%d/%m/%Y") + '-'+ user.username + '.csv"'
+        tries = Try.objects.all()
+
+        groups = user.groups.values_list('name', flat=True)
+
+        # admins can get all statistics of all users
+        # if 'admin' in groups and 'user_id' in data:
+        #     tries.filter(user__id=data['user_id'])
+
+        # A moderator can get all tries of his created courses
+        if 'moderator' in groups and 'course' in data:
+            course = Course.objects.filter(responsible_mod=user, id=data['course'])
+            if not course.exists():
+                return Response({'error': 'invalid Course ID'},
+                                status=status.HTTP_405_METHOD_NOT_ALLOWED)
+            tries = tries.filter(question__module__course=course.first())
+        else:
+            tries = tries.filter(user=user)
+
+        if 'date' in data and 'start' in data['date'] and 'end' in data['date']:
+            tries = tries.filter(date__range=[date['start'], date['end']])
+
+        # filter just for solved tries
+        if 'solved' in data:
+            tries = tries.filter(solved=data['solved'])
+
+        # filter for a specific category
+        if 'category' in data:
+            tries = tries.filter(question__module__course__category__name=data['category'])
+
+        data = serializer.TrySerializer(tries, many=True).data
+        writer = csv.writer(response)
+        writer.writerow(['question', 'date', 'solved'])
+        for row in data:
+            writer.writerow([row['question'], row['date'], row['solved']])
+        return response
 
 class RequestView(APIView):
     # TODO: implement proper send_mail()
