@@ -1,5 +1,5 @@
 <nav md-tab-nav-bar >
-  <a md-tab-link >info</a>
+  <!--<a md-tab-link >info</a>-->
   <span *ngIf="user.login">
     <a md-tab-link *ngIf="user.isAdmin()"  routerLink="/admin/" [routerLinkActive]="['active']">{{"admin" | translate}}</a>
     <a md-tab-link  routerLink="/profile/" [routerLinkActive]="['active']">{{"profile" | translate}}</a>
