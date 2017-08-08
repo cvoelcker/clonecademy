@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgModule } from '@angular/core';
 
 
-import { BaseTest } from '../base-test';
+import { BaseTest } from '../../../../base-test';
 
 import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
 

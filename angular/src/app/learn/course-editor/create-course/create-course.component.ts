@@ -33,7 +33,13 @@ export class CreateCourseComponent {
   categories: {};
   category: number;
 
-  difficultys: Array<{value: number, name: string}> = [{value: 0, name: "Easy"}, {value: 1, name: "moderate"}, {value: 2, name: "difficult"}, {value: 3, name: "expert"}]
+  difficultys: Array<{value: number, name: string}> = [
+    {value: 0, name: "Easy"},
+    {value: 1, name: "moderate"},
+    {value: 2, name: "difficult"},
+    {value: 3, name: "expert"}
+  ]
+
   diff: number;
 
   setCategory(id: number){
@@ -54,14 +60,11 @@ export class CreateCourseComponent {
     this.title = title;
   }
 
-  validSave = true;
-
   public courseForm = new FormGroup({
     title: new FormControl("title", Validators.required),
     category: new FormControl('category', Validators.required),
   })
 
-  @Output() emitter: EventEmitter<any> = new EventEmitter();
 
   ngAfterViewInit(){
     if(!this.user.isModerator()){

@@ -4,7 +4,7 @@ import { BaseTest } from '../../base-test';
 
 import { UserDetailComponent } from './user-detail.component';
 
-describe('AdminPageComponent', () => {
+describe('User Detail Component', () => {
   let component: UserDetailUserComponent;
   let fixture: ComponentFixture<UserDetailUserComponent>;
 

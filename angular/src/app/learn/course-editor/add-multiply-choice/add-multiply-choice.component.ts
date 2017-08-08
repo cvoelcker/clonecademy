@@ -39,32 +39,15 @@ export class AddMultiplyChoiceComponent extends AddQuestionModule {
 
   file: any = null;
 
-  questionImage(event):void {
+  setImage(event, key):void {
     if(event.target.files && event.target.files[0]){
 
       //new fileReader
       var fileReader = new FileReader();
       //try to read file, this part does not work at all, need a solution
       fileReader.onload =(e) => {
-        this.body.question_image = e.target['result']
-
+        this.body[key] = e.target['result']
       }
-
-      fileReader.readAsDataURL(event.target.files[0])
-    }
-	}
-
-  feedbackImage(event):void {
-    if(event.target.files && event.target.files[0]){
-
-      //new fileReader
-      var fileReader = new FileReader();
-      //try to read file, this part does not work at all, need a solution
-      fileReader.onload =(e) => {
-        this.body.answer_image = e.target['result']
-
-      }
-
       fileReader.readAsDataURL(event.target.files[0])
     }
 	}
@@ -101,7 +84,9 @@ export class AddMultiplyChoiceComponent extends AddQuestionModule {
     this.form = form;
     let answers = this.body.answers
     for(let i = 0; i < answers.length; i++){
-      answers[i].img.length
+      if (answers[i].img == null){
+        answers[i].img = ""
+      }
       delete answers[i].visible
     }
     return {

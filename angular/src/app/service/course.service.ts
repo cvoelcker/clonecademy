@@ -73,9 +73,6 @@ export class CourseService {
         }
       }
     })
-
-
-
   }
 
 

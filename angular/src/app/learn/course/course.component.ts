@@ -31,8 +31,6 @@ export class CourseComponent implements OnInit {
   // events
 public chartHovered(e:any):void {
 }
-
-
   constructor(
     private course: CourseService,
     private route: ActivatedRoute,
@@ -63,11 +61,11 @@ public chartHovered(e:any):void {
     this.initChart()
     this.route.params.subscribe(data => {
       this.id = data.id
-      this.load();
+      this.load(data.id);
     })
   }
 
-  load() {
+  load(id: number) {
       // save the number of answered questions and the amount of questions in the current course
 
 
@@ -76,7 +74,7 @@ public chartHovered(e:any):void {
       this.modules = undefined;
       this.name = "";
       // send request to server to get the information for the course
-      this.server.get('courses/'+this.id + "/", true, false)
+      this.server.get('courses/'+ id + "/", true, false)
       .then(data => {
         this.numQuestions = data['num_questions']
         this.numAnswered = data['num_answered']
@@ -111,10 +109,4 @@ public chartHovered(e:any):void {
       this.router.navigate(["/course/page_not_found"])
     })
   }
-
-
-
-
-
-
 }

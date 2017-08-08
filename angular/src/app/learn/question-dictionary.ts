@@ -30,5 +30,12 @@ export class QuestionDictionary {
       AddInformationTextComponent,
     ]
   }
+  questionComponents = [
+    MultipleChoiceQuestionComponent,
+    InformationTextComponent,
+
+    AddMultiplyChoiceComponent,
+    AddInformationTextComponent,
+  ]
 
 }

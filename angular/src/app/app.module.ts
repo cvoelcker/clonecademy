@@ -163,6 +163,8 @@ export function createTranslateLoader(http: Http) {
     return new TranslateHttpLoader(http, './assets/lang/', '.json');
 }
 
+let QuestionList = new QuestionDictionary().questionComponents
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -180,7 +182,7 @@ export function createTranslateLoader(http: Http) {
     AddQuestionComponent,
     StatisticsComponent,
     QuestionModule,
-    new QuestionDictionary().getQuestionComponents(),
+    QuestionList,
     AddQuestionModule,
     ProfilesComponent,
     UserDetailComponent,
@@ -255,7 +257,7 @@ export function createTranslateLoader(http: Http) {
     // admin Page components
     ProfilesComponent,
     // you have to add all modules for questions here
-    new QuestionDictionary().getQuestionComponents(),
+    QuestionList,
   ]
 })
 export class AppModule { }
