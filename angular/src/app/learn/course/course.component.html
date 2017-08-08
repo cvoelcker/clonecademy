@@ -21,7 +21,7 @@
   <div class="button" [ngSwitch]="true">
     <button *ngSwitchCase="!completed && modules[0] != undefined && !modules[0].questions[0].solved"  md-raised-button routerLink="/course/{{ id }}/1/1/">{{"start Course" | translate}}</button>
     <button *ngSwitchCase="completed" md-raised-button [disabled]="true">{{"course completed" | translate}}</button>
-    <button *ngSwitchDefault md-raised-button routerLink="/course/{{ id }}/{{ lastCourse[0] }}/{{ lastCourse[1] }}/">{{"continue" | translate}}</button>
+    <button *ngSwitchDefault md-raised-button routerLink="/course/{{ id }}/{{ lastCourse[0] }}/{{ lastCourse[1] + 1 }}/">{{"continue" | translate}}</button>
   </div>
 
 <ol>

@@ -41,8 +41,6 @@ import { DashboardComponent } from './learn/dashboard/dashboard.component';
 import { LoggedInDirective } from './directive/logged-in.directive';
 import { MenuComponent } from './menu/menu.component';
 import { CourseComponent } from './learn/course/course.component';
-import { ModuleComponent } from './learn/module/module.component';
-
 
 import { MultipleChoiceQuestionComponent } from './learn/multiple-choice-question/multiple-choice-question.component';
 import { QuestionDictionary } from './learn/question-dictionary';
@@ -70,6 +68,7 @@ import { WrongFeedbackComponent } from './learn/question/wrong-feedback/wrong-fe
 import { CorrectFeedbackComponent } from './learn/question/correct-feedback/correct-feedback.component';
 import { LoaderComponent } from './loader/loader.component';
 import { EditCourseComponent } from './learn/course-editor/create-course/edit-course.component';
+import { StaticPageComponent } from './static-page/static-page.component';
 
 const appRoutes: Routes = [
   {
@@ -154,9 +153,9 @@ const appRoutes: Routes = [
     component: PageNotFoundComponent,
   },
   {
-    path: '**',
-    redirectTo: "404",
-  }
+    path: ':page',
+    component: StaticPageComponent
+  },
 ];
 
 export function createTranslateLoader(http: Http) {
@@ -174,7 +173,6 @@ let QuestionList = new QuestionDictionary().questionComponents
     LoggedInDirective,
     MenuComponent,
     CourseComponent,
-    ModuleComponent,
     ModuleDirective,
     QuestionComponent,
     CreateCourseComponent,
@@ -198,6 +196,7 @@ let QuestionList = new QuestionDictionary().questionComponents
     EditCourseComponent,
     UserDetailUserComponent,
     ImageCropperComponent,
+    StaticPageComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

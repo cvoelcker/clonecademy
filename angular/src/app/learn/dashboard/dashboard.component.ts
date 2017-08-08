@@ -5,7 +5,6 @@ import { UserService } from '../../service/user.service'
 
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -39,19 +38,9 @@ export class DashboardComponent{
     this.loading = true;
     this.loadingCat = true;
     this.course.load().then(() => {this.loading = false, this.loadingCat = false})
-
-    //this.course.getCategory().then(() => this.loadingCat = false)
   }
 
   constructor(private course: CourseService, private user: UserService) {}
 
-  setBackgroundGradient(course): string{
-    let percent = (course.num_answered / course.num_questions) * 100
-    if(percent > 0){
-      //return 'linear-gradient(90deg, #dff0d8 ' + percent + '%, transparent  5%)';
-
-    }
-    return "";
-  }
 
 }

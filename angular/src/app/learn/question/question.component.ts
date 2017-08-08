@@ -86,8 +86,10 @@ export class QuestionComponent implements OnInit {
         this.question.clear()
 
       }
+      // load the current question Type on the screen
       let question = this.question.createComponent(this.questionFactory)
       this.questionModule = (<QuestionModule> question.instance)
+      // give the question its data
       this.questionModule.data = data['question_body']
       this.changeDet.detectChanges()
     })
@@ -132,14 +134,14 @@ export class QuestionComponent implements OnInit {
         }
       })
     }
-
-
   }
 
   next(){
+    // if this is not the last question of a module add 1 to the index
     if(!this.lastQuestion){
       this.questionIndex ++;
     }
+    // if this is the last Question but not the last module add one to module and start the question counter at 1
     else if(!this.lastModule){
       this.moduleIndex ++;
       this.questionIndex = 1;
