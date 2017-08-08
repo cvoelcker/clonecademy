@@ -13,6 +13,8 @@ import { WrongFeedbackComponent } from './wrong-feedback/wrong-feedback.componen
 import { CorrectFeedbackComponent } from './correct-feedback/correct-feedback.component';
 import { QuestionModule } from "./question.module";
 
+import { QuestionDictionary } from '../question-dictionary';
+
 
 
 @Component({
@@ -24,10 +26,7 @@ export class QuestionComponent implements OnInit {
 
   // add new question types here to load them
   // QUESTION FACTORY COMPONENT
-  components = {
-    multiple_choice: MultipleChoiceQuestionComponent,
-    information_text: InformationTextComponent
-  }
+  components = new QuestionDictionary().components
 
   @ViewChild('question', {read: ViewContainerRef}) question: ViewContainerRef;
   moduleIndex: number;

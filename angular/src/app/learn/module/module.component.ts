@@ -7,7 +7,7 @@ import { ModuleDirective } from '../../directive/module.directive'
 
 
 import { QuestionComponent } from "../question/question.component"
-import { MultipleChoiceQuestionComponent } from "../multiple-choice-question/multiple-choice-question.component"
+import { QuestionDictionary } from '../question-dictionary';
 
 @Component({
   selector: 'app-module',
@@ -16,10 +16,7 @@ import { MultipleChoiceQuestionComponent } from "../multiple-choice-question/mul
 })
 export class ModuleComponent implements OnInit {
 
-  components = {
-    "multiple_choice" : MultipleChoiceQuestionComponent
-    // add new qustion types here
-  }
+  components = new QuestionDictionary().components
   name: any;
   courseID: number;
   moduleIndex: number;

@@ -5,8 +5,7 @@ import { AddQuestionComponent } from "../add-question/add-question.component"
 import { slideIn } from "../../../animations";
 
 import { AddQuestionModule } from '../add-question/add-question.module'
-import { AddMultiplyChoiceComponent } from "../add-multiply-choice/add-multiply-choice.component"
-import { AddInformationTextComponent } from "../add-info-text/add-info-text.component"
+import { QuestionDictionary } from '../../question-dictionary';
 
 @Component({
   selector: 'app-add-module',
@@ -16,10 +15,7 @@ import { AddInformationTextComponent } from "../add-info-text/add-info-text.comp
 })
 export class AddModuleComponent implements OnInit {
 
-  components: Array<{name: string, key: string, component: Type<AddQuestionModule>}> = [
-    {name: "Multiple Choice Question", key: 'multiple_choice', component: AddMultiplyChoiceComponent},
-    {name: "Information Text", key: 'info_text', component: AddInformationTextComponent}
-  ]
+  components: Array<{name: string, key: string, component: Type<AddQuestionModule>}> = new QuestionDictionary().detailComponents;
   selectedValue: Type<AddQuestionComponent> = null;
   title: string = "";
   learningText: string = "";

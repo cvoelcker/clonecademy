@@ -42,7 +42,11 @@ import { LoggedInDirective } from './directive/logged-in.directive';
 import { MenuComponent } from './menu/menu.component';
 import { CourseComponent } from './learn/course/course.component';
 import { ModuleComponent } from './learn/module/module.component';
+
+
 import { MultipleChoiceQuestionComponent } from './learn/multiple-choice-question/multiple-choice-question.component';
+import { QuestionDictionary } from './learn/question-dictionary';
+
 import { ModuleDirective } from './directive/module.directive';
 import { QuestionComponent } from './learn/question/question.component';
 // course editor
@@ -169,15 +173,14 @@ export function createTranslateLoader(http: Http) {
     MenuComponent,
     CourseComponent,
     ModuleComponent,
-    MultipleChoiceQuestionComponent,
     ModuleDirective,
     QuestionComponent,
     CreateCourseComponent,
-    AddMultiplyChoiceComponent,
     AddModuleComponent,
     AddQuestionComponent,
     StatisticsComponent,
     QuestionModule,
+    new QuestionDictionary().getQuestionComponents(),
     AddQuestionModule,
     ProfilesComponent,
     UserDetailComponent,
@@ -192,7 +195,7 @@ export function createTranslateLoader(http: Http) {
     SassHelperComponent,
     EditCourseComponent,
     UserDetailUserComponent,
-    ImageCropperComponent
+    ImageCropperComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -239,7 +242,6 @@ export function createTranslateLoader(http: Http) {
     AddModuleComponent,
     AddQuestionModule,
     AddQuestionComponent,
-    AddMultiplyChoiceComponent,
     ErrorMessageComponent,
     WrongFeedbackComponent,
     CorrectFeedbackComponent,
@@ -253,7 +255,7 @@ export function createTranslateLoader(http: Http) {
     // admin Page components
     ProfilesComponent,
     // you have to add all modules for questions here
-    MultipleChoiceQuestionComponent
+    new QuestionDictionary().getQuestionComponents(),
   ]
 })
 export class AppModule { }
