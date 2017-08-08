@@ -1,10 +1,9 @@
 from rest_framework import serializers
 from rest_framework.exceptions import ParseError
 from .models import *
-from learning_base.multiple_choice.models import *
-from learning_base.drag_and_drop.models import *
 from learning_base.multiple_choice.serializer import *
-from learning_base.drag_and_drop.serializer import *
+from learning_base.info.serializer import *
+
 
 
 class AnswerSerializer(serializers.BaseSerializer):
@@ -55,8 +54,8 @@ class QuestionSerializer(serializers.ModelSerializer):
 
         if question_type == 'multiple_choice':
             MultipleChoiceQuestionSerializer().create(validated_data)
-        elif question_type == 'drag_and_drop':
-            pass
+        elif question_type == 'info_text':
+            InformationTextSerializer().create(validated_data)
         else:
             raise ParseError(
                 detail='{} is not a valid question type'.format(
