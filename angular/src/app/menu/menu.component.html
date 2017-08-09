@@ -1,5 +1,4 @@
 <nav md-tab-nav-bar >
-  <!--<a md-tab-link >info</a>-->
   <span *ngIf="user.login">
     <a md-tab-link *ngIf="user.isAdmin()"  routerLink="/admin/" [routerLinkActive]="['active']">{{"admin" | translate}}</a>
     <a md-tab-link  routerLink="/profile/" [routerLinkActive]="['active']">{{"profile" | translate}}</a>
@@ -10,4 +9,13 @@
     <a md-tab-link routerLink="/login/" [routerLinkActive]="['active']">{{"login" | translate}}</a>
     <a md-tab-link routerLink="/register/" [routerLinkActive]="['active']">{{"register" | translate}}</a>
   </span>
+
+  <button md-icon-button [mdMenuTriggerFor]="menu" [routerLinkActive]="['active']">
+    <md-icon>info</md-icon>
+  </button>
+  <md-menu  #menu="mdMenu">
+    <button *ngFor="let l of links" md-menu-item [routerLink]="'/' + l.url" [routerLinkActive]="['active']">
+      <span>{{ l.name }}</span>
+    </button>
+  </md-menu>
 </nav>

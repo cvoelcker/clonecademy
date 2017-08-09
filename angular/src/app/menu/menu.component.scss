@@ -1,4 +1,4 @@
-@import "../../_vars";
+
 
 nav{
   padding: 0;
@@ -6,3 +6,7 @@ nav{
   margin: 0;
   width: 100%;
 }
+
+button.active{
+    background-color: white;
+  }

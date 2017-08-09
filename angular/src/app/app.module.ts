@@ -14,7 +14,7 @@ import { ChartsModule } from 'ng2-charts';
 import { MarkdownModule } from 'angular2-markdown';
 
 // Material Style
-import {MdDialog, MdDialogModule, MdButtonModule, MdAutocompleteModule, MdCheckboxModule, MdTooltipModule, MdCardModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule, MdProgressSpinnerModule} from '@angular/material';
+import {MdDialog, MdDialogModule, MdIconModule, MdMenuModule, MdButtonModule, MdAutocompleteModule, MdCheckboxModule, MdTooltipModule, MdCardModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule, MdProgressSpinnerModule} from '@angular/material';
 
 import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
 
@@ -222,6 +222,8 @@ let QuestionList = QuestionDictionary.questionComponents
     MdTooltipModule,
     MdAutocompleteModule,
     MdProgressSpinnerModule,
+    MdMenuModule,
+    MdIconModule,
     BrowserAnimationsModule,
     ChartsModule,
   ],
