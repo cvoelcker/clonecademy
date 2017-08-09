@@ -1,9 +1,11 @@
 <div class="box">
   <header>
-    <img src="assets/logo.png" id="logo">
+    <span routerLink="/course" >
+      <img src="assets/logo.png" id="logo">
     <h1>
       {{title}}
     </h1>
+  </span>
     <app-menu [hidden]="!user.loaded" #menu></app-menu>
   </header>
   <main  class="flex">

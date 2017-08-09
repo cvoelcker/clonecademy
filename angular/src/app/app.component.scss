@@ -28,6 +28,10 @@
 $header-height: 45px;
 $header-margin-bot: 10px;
 header{
+  span{
+    cursor: pointer;
+    outline:0;  
+  }
   #logo, h1{
     height: $header-height;
     margin-bottom: $header-margin-bot;

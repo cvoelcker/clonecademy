@@ -10,7 +10,6 @@ ul{
 
 ul {
   margin: 0;
-  margin-top: -1em;
   list-style-type: none;
   padding: 0;
   li{
@@ -46,6 +45,7 @@ ul {
   padding: 0;
 }
 .image {
+  margin-top: 1em;
   width: 50%;
   float: left;
   img{
