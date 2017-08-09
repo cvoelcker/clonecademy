@@ -13,7 +13,7 @@ class MultipleChoiceQuestion(Question):
         blank = True,
     )
 
-    answer_image = models.TextField(
+    feedback_image = models.TextField(
         verbose_name = "The Image for the question",
         blank = True,
     )
@@ -51,7 +51,7 @@ class MultipleChoiceQuestion(Question):
         return serializer.MultipleChoiceQuestionEditSerializer
 
     def custom_feedback(self):
-        return self.answer_image
+        return self.feedback_image
 
 class MultipleChoiceAnswer(models.Model):
     """

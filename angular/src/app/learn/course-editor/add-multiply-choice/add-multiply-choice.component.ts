@@ -4,7 +4,8 @@ import { AddQuestionModule } from "../add-question/add-question.module"
 
 import { slideIn } from "../../../animations";
 
-import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
+import {MdDialog, MdDialogRef} from '@angular/material';
+import { ImageCropperDialogComponent } from '../../../image-cropper/image-cropper.component';
 
 @Component({
   selector: 'app-add-multiply-choice',
@@ -17,27 +18,35 @@ export class AddMultiplyChoiceComponent extends AddQuestionModule {
   body = {
     answers: [{text: "", is_correct: true, visible: true, id: null, img: ''}],
     question_image: '',
-    answer_image: ''
+    feedback_image: ''
   }
 
   url: string = "";
 
-  cropperSettings: CropperSettings;
-
-  constructor(){
+  constructor(public dialog: MdDialog){
     super()
-    this.cropperSettings = new CropperSettings();
-    this.cropperSettings.width = 100;
-    this.cropperSettings.height = 100;
-    this.cropperSettings.croppedWidth =100;
-    this.cropperSettings.croppedHeight = 100;
-    this.cropperSettings.canvasWidth = 400;
-    this.cropperSettings.canvasHeight = 300;
   }
 
   compInfo: string = "Loading";
 
   file: any = null;
+
+  openImageDialog(width: number, height: number, key: string, answers = false){
+    let dialogRef = this.dialog.open(ImageCropperDialogComponent, {
+      data: {
+        width: width,
+        height: height
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(answers){
+        this.body.answers[key].img = result
+      }
+      else{
+        this.body[key] = result
+      }
+    });
+  }
 
   setImage(event, key):void {
     if(event.target.files && event.target.files[0]){
@@ -92,7 +101,7 @@ export class AddMultiplyChoiceComponent extends AddQuestionModule {
     return {
       type: "multiple_choice",
       question_image: this.body.question_image,
-      answer_image: this.body.answer_image,
+      feedback_image: this.body.feedback_image,
       answers: answers
     };
   }

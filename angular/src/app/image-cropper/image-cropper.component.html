@@ -1,0 +1,19 @@
+<div class="error-msg">
+  <h2 md-dialog-title>Edit Image</h2>
+  <md-dialog-content>
+    <div class="file-upload">
+      <span class="text">upload</span>
+      <input id="custom-input" type="file" (change)="fileChangeListener($event)">
+  </div>
+  <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+  <br>
+  <span class="result rounded" *ngIf="data.image" >
+      <img [src]="data.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
+  </span>
+  </md-dialog-content>
+  <md-dialog-actions>
+    <!-- Can optionally provide a result for the closing dialog. -->
+    <button md-button md-dialog-close>{{"abort" | translate}}</button>
+    <button md-button (click)="dialogRef.close(data.image)">{{"save" | translate}}</button>
+  </md-dialog-actions>
+</div>

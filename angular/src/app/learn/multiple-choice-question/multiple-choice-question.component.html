@@ -5,7 +5,9 @@
     type="checkbox"
     name="isActive"
     [class.selected]="ans.value"
-    [(ngModel)]="ans.value"><markdown class="answerText" [data]="ans.text"></markdown>
+    [(ngModel)]="ans.value">
+    <img *ngIf="ans.img != undefined" [src]="ans.img">
+    <markdown class="answerText" [data]="ans.text"></markdown>
     </md-checkbox>
   </li>
 </ul>

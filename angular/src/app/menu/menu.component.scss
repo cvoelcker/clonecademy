@@ -1,12 +1,17 @@
+@import '../../_vars';
 
-
-nav{
+av{
   padding: 0;
   text-align: right;
   margin: 0;
   width: 100%;
 }
 
-button.active{
-    background-color: white;
+.mat-menu-item{
+  padding: 0 0.05em;
+  margin: 0 0.5em;
+  &.active{
+    border-bottom: 2px solid $primary;
   }
+
+}

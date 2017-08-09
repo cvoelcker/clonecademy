@@ -4,8 +4,6 @@ import { AddQuestionModule } from "../add-question/add-question.module"
 
 import { slideIn } from "../../../animations";
 
-import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
-
 @Component({
   selector: 'app-add-info-text',
   templateUrl: './add-info-text.component.html',

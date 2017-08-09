@@ -23,12 +23,12 @@ class MultipleChoiceQuestionPreviewSerializer(serializers.ModelSerializer):
 class MultipleChoiceAnswerEditSerializer(serializers.ModelSerializer):
     class Meta:
         model = MultipleChoiceAnswer
-        fields = ("text", "id", "is_correct")
+        fields = ("text", "id", "is_correct", "img")
 
 class MultipleChoiceQuestionEditSerializer(serializers.ModelSerializer):
     class Meta:
         model = MultipleChoiceQuestion
-        fields = ("id", 'question_image', 'answer_image')
+        fields = ("id", 'question_image', 'feedback_image')
 
     def to_representation(self, obj):
         values = super(MultipleChoiceQuestionEditSerializer, self).to_representation(obj)

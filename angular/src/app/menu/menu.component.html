@@ -14,8 +14,8 @@
     <md-icon>info</md-icon>
   </button>
   <md-menu  #menu="mdMenu">
-    <button *ngFor="let l of links" md-menu-item [routerLink]="'/' + l.url" [routerLinkActive]="['active']">
+    <a *ngFor="let l of links" md-menu-item [routerLink]="'/' + l.url" [routerLinkActive]="['active']">
       <span>{{ l.name }}</span>
-    </button>
+    </a>
   </md-menu>
 </nav>

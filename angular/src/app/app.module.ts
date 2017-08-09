@@ -69,6 +69,7 @@ import { CorrectFeedbackComponent } from './learn/question/correct-feedback/corr
 import { LoaderComponent } from './loader/loader.component';
 import { EditCourseComponent } from './learn/course-editor/create-course/edit-course.component';
 import { StaticPageComponent } from './static-page/static-page.component';
+import { ImageCropperDialogComponent } from "./image-cropper/image-cropper.component"
 
 const appRoutes: Routes = [
   {
@@ -195,6 +196,7 @@ let QuestionList = QuestionDictionary.questionComponents
     SassHelperComponent,
     EditCourseComponent,
     UserDetailUserComponent,
+    ImageCropperDialogComponent,
     ImageCropperComponent,
     StaticPageComponent,
   ],
@@ -251,6 +253,7 @@ let QuestionList = QuestionDictionary.questionComponents
     LoaderComponent,
     CourseComponent,
     CreateCourseComponent,
+    ImageCropperDialogComponent,
     // profile page components
     StatisticsComponent,
     RequestModComponent,
