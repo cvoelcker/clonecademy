@@ -24,9 +24,8 @@ import { QuestionDictionary } from '../question-dictionary';
 })
 export class QuestionComponent implements OnInit {
 
-  // add new question types here to load them
   // QUESTION FACTORY COMPONENT
-  components = new QuestionDictionary().components
+  components = QuestionDictionary.components
 
   @ViewChild('question', {read: ViewContainerRef}) question: ViewContainerRef;
   moduleIndex: number;

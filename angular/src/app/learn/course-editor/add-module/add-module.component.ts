@@ -15,7 +15,7 @@ import { QuestionDictionary } from '../../question-dictionary';
 })
 export class AddModuleComponent implements OnInit {
 
-  components: Array<{name: string, key: string, component: Type<AddQuestionModule>}> = new QuestionDictionary().detailComponents;
+  components: Array<{name: string, key: string, component: Type<AddQuestionModule>}> = QuestionDictionary.detailComponents;
   selectedValue: Type<AddQuestionComponent> = null;
   title: string = "";
   learningText: string = "";

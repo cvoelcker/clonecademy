@@ -9,33 +9,21 @@ import { MultipleChoiceQuestionComponent } from "./multiple-choice-question/mult
 import { InformationTextComponent } from './info-text/info-text.component'
 
 
-export class QuestionDictionary {
-  detailComponents: Array<{name: string, key: string, component: Type<AddQuestionModule>}> = [
+export const QuestionDictionary = {
+  detailComponents: [
     {name: "Multiple Choice Question", key: 'multiple_choice', component: AddMultiplyChoiceComponent},
     {name: "Information Text", key: 'info_text', component: AddInformationTextComponent}
-  ]
-
-  components = {
+  ],
+  components: {
     "multiple_choice" : MultipleChoiceQuestionComponent,
-    "info_text": InformationTextComponent
+    "info_text": InformationTextComponent,
     // add new qustion types here
-  }
-
-  getQuestionComponents(){
-    return [
-      MultipleChoiceQuestionComponent,
-      InformationTextComponent,
-
-      AddMultiplyChoiceComponent,
-      AddInformationTextComponent,
-    ]
-  }
-  questionComponents = [
+  },
+  questionComponents: [
     MultipleChoiceQuestionComponent,
     InformationTextComponent,
 
     AddMultiplyChoiceComponent,
     AddInformationTextComponent,
   ]
-
 }
