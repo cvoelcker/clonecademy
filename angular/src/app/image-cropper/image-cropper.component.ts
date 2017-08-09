@@ -23,8 +23,10 @@ export class ImageCropperDialogComponent{
 
   constructor(@Optional() @Inject(MD_DIALOG_DATA) public input: {height: number, width: number}, public dialogRef: MdDialogRef<ImageCropperDialogComponent>) {
       this.cropperSettings = new CropperSettings();
-      this.cropperSettings.fileType = "image/**"
+      this.cropperSettings.fileType = "image/*"
       if(input.width && input.height ){
+        this.cropperSettings.canvasWidth = 500;
+        this.cropperSettings.canvasHeight = 300;
         this.cropperSettings.croppedWidth = input.width;
         this.cropperSettings.croppedHeight = input.height;
       }
@@ -39,7 +41,7 @@ export class ImageCropperDialogComponent{
     var that = this;
     myReader.onloadend = function (loadEvent:any) {
         image.src = loadEvent.target.result;
-        that.data = image;
+        //that.data = image;
         that.cropper.setImage(image);
 
     };

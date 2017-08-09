@@ -39,51 +39,16 @@ export class AddMultiplyChoiceComponent extends AddQuestionModule {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(answers){
-        this.body.answers[key].img = result
-      }
-      else{
-        this.body[key] = result
+      if(result){
+        if(answers){
+          this.body.answers[key].img = result
+        }
+        else{
+          this.body[key] = result
+        }
+
       }
     });
-  }
-
-  setImage(event, key):void {
-    if(event.target.files && event.target.files[0]){
-
-      //new fileReader
-      var fileReader = new FileReader();
-      //try to read file, this part does not work at all, need a solution
-      fileReader.onload =(e) => {
-        this.body[key] = e.target['result']
-      }
-      fileReader.readAsDataURL(event.target.files[0])
-    }
-	}
-
-  answerImage(event): void{
-    if(event.target.files && event.target.files[0]){
-
-      //new fileReader
-      var fileReader = new FileReader();
-      //try to read file, this part does not work at all, need a solution
-      fileReader.onload =(e) => {
-        this.body.answers[this.index].img = e.target['result']
-
-      }
-
-      fileReader.readAsDataURL(event.target.files[0])
-    }
-  }
-
-  index: number = 0;
-  triggerAnswer(fileInput, index){
-    this.index = index;
-    fileInput.click();
-  }
-
-  triggerFile(fileInput){
-    fileInput.click()
   }
 
 

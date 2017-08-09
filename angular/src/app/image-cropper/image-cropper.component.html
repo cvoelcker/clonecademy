@@ -1,12 +1,11 @@
-<div class="error-msg">
+<div class="imgCropper" [style.width.px]="cropperSettings.canvasWidth + cropperSettings.croppedWidth + 20">
   <h2 md-dialog-title>Edit Image</h2>
-  <md-dialog-content>
+  <md-dialog-content >
     <div class="file-upload">
       <span class="text">upload</span>
       <input id="custom-input" type="file" (change)="fileChangeListener($event)">
   </div>
-  <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
-  <br>
+  <img-cropper class="img-cropper" #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
   <span class="result rounded" *ngIf="data.image" >
       <img [src]="data.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
   </span>
