@@ -110,5 +110,7 @@
 
   "At least one question is required for this module": "At least one question is required for this module",
   "The title of the module is required": "The title of the module is required",
-  "The module description is required": "The module description is required"
+  "The module description is required": "The module description is required",
+
+  "download": "download"
 }
