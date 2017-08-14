@@ -1,10 +1,12 @@
-import { Component, OnInit, ChangeDetectorRef, Output, EventEmitter, Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, Output, EventEmitter, Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory } from '@angular/core';
+import { trigger, state, style, animate, transition } from '@angular/animations';
+
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { ServerService } from "../../service/server.service"
 import {MdDialog} from '@angular/material';
 
 import {TranslateService} from '@ngx-translate/core';
-
+import {MdSidenavModule} from '@angular/material';
 import { MultipleChoiceQuestionComponent } from "../multiple-choice-question/multiple-choice-question.component"
 import { InformationTextComponent } from "../info-text/info-text.component"
 
@@ -15,14 +17,30 @@ import { QuestionModule } from "./question.module";
 
 import { QuestionDictionary } from '../question-dictionary';
 
-
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
-  styleUrls: ['./question.component.scss']
+  styleUrls: ['./question.component.scss'],
+  animations: [ trigger('slideIn', [
+        state('1', style({
+          'left': '0',
+        })),
+        state('0', style({
+          'left': '-200px',
+        })),
+        transition('1 => 0', [
+            style({ left: '0' }),
+            animate(250, style({ left: '-200px' }))
+        ]),
+        transition('* => 1', [
+            style({ left: '-200px' }),
+            animate(250, style({ left: '0' })),
+    ])])
+  ]
 })
-export class QuestionComponent implements OnInit {
+export class QuestionComponent implements OnInit, OnDestroy{
 
   // QUESTION FACTORY COMPONENT
   components = QuestionDictionary.components
@@ -46,9 +64,11 @@ export class QuestionComponent implements OnInit {
   wrongFeedback: string;
   feedbackIterator = 0;
 
+  dashboard = false;
+  private ngUnsubscribe: Subject<void> = new Subject<void>(); // = new Subject(); in Typescript 2.2-2.4
+
   constructor(
     private translate: TranslateService,
-    private changeDet: ChangeDetectorRef,
     private router: Router,
     public server: ServerService,
     private route: ActivatedRoute,
@@ -61,11 +81,17 @@ export class QuestionComponent implements OnInit {
       this.questionIndex = data.question;
     })
     this.loadQuestion();
-
   }
 
   ngOnInit(){
+    this.router.events.takeUntil(this.ngUnsubscribe).subscribe((event) => {
+      this.loadQuestion()
+    })
+  }
 
+  ngOnDestroy(){
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   loadQuestion(){
@@ -90,14 +116,11 @@ export class QuestionComponent implements OnInit {
       this.questionModule = (<QuestionModule> question.instance)
       // give the question its data
       this.questionModule.data = data['question_body']
-      this.changeDet.detectChanges()
     })
   }
 
 
   submit(){
-
-
     let data = {answers: this.questionModule.submit()};
     this.server.post("courses/"+this.courseID+"/"+ (Number(this.moduleIndex) -1 ) + "/" + (Number(this.questionIndex) -1), data)
       .then(data => this.evaluteAnswer(data))

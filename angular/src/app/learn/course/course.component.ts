@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { ServerService } from '../../service/server.service'
 import { CourseService } from '../../service/course.service'
@@ -21,6 +21,7 @@ export class CourseComponent implements OnInit {
   lastCourse = [1, 1];
   numAnswered: number;
   numQuestions: number;
+  @Input() sidemenu: any;
 
   //Pie
   // public pieChartLabels:string[] = ['answered', 'to do'];
@@ -38,6 +39,12 @@ public chartHovered(e:any):void {
     private router: Router,
   ) {
 
+  }
+
+  closeSidemenu(){
+    if(this.sidemenu){
+      this.sidemenu.close()
+    }
   }
   //
   // initChart(){

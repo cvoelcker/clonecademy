@@ -1,7 +1,9 @@
 <div appLoggedIn>
-  <h2>{{title}}</h2>
 </div>
-<div class="questionWrapper">
+<md-sidenav-container class="questionWrapper">
+  <md-sidenav #sidenav>
+    <app-course [sidemenu]="sidenav"></app-course>
+  </md-sidenav>
   <table>
     <td class="text">
         <div class="alert">
@@ -14,10 +16,10 @@
       <div class="question" #question></div>
     </td>
   </table>
-</div>
-<div class="footer">
-  <div class="col-md-12">
-    <button md-raised-button *ngIf="!submitCorrect" class="btn  " (click)="submit()">{{"submit" | translate}}</button>
-    <button md-raised-button *ngIf="submitCorrect" class="btn  " (click)="next()">{{"next question" | translate}}</button>
+
+  <div class="footer">
+    <button md-raised-button *ngIf="!submitCorrect" (click)="submit()">{{"submit" | translate}}</button>
+    <button md-raised-button *ngIf="submitCorrect" (click)="next()">{{"next question" | translate}}</button>
+    <button md-raised-button (click)="sidenav.open()" [disabled]="submitCorrect">Dashboard</button>
   </div>
-</div>
+</md-sidenav-container>

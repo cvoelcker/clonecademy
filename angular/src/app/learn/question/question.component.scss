@@ -21,12 +21,21 @@ table{
 }
 
 .questionWrapper{
+  height: 100%;
+}
+
+table{
   position: absolute;
   left: 0;
+  top:0;
   right: 0;
-  top: 0;
   bottom: 60px;
-  overflow-y: scroll;
+  display: block;
+  overflow: scroll;
+}
+
+md-sidenav{
+  width: 300px;
 }
 
 .footer{
