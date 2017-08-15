@@ -31,19 +31,20 @@ class DatabaseMixin():
         self.m1_test.save()
 
         self.q1_test = MultipleChoiceQuestion.models.MultipleChoiceQuestion(
-                title="",
-                body="a question",
-                feedback="",
-                order=1,
-                module=self.m1_test)
+            title="",
+            body="a question",
+            feedback="",
+            order=1,
+            module=self.m1_test)
         self.q1_test.save()
         self.q2_test = InformationText.models.InformationText(
-                title="",
-                body="an information text",
-                feedback="",
-                order=2,
-                module=self.m1_test)
+            title="",
+            body="an information text",
+            feedback="",
+            order=2,
+            module=self.m1_test)
         self.q2_test.save()
+
 
 class AnswerViewTest(DatabaseMixin, TestCase):
     def setUp(self):
@@ -58,20 +59,22 @@ class AnswerViewTest(DatabaseMixin, TestCase):
         self.assertEqual(response.data, [])
 
         answer_1 = MultipleChoiceQuestion.models.MultipleChoiceAnswer(
-                question=self.q1_test,
-                text="something",
-                is_correct=False)
+            question=self.q1_test,
+            text="something",
+            is_correct=False)
         answer_1.save()
         answer_2 = MultipleChoiceQuestion.models.MultipleChoiceAnswer(
-                question=self.q1_test,
-                text="something",
-                is_correct=False)
+            question=self.q1_test,
+            text="something",
+            is_correct=False)
         answer_2.save()
         answer_1_serialized = serializers.AnswerSerializer(answer_1).data
         answer_2_serialized = serializers.AnswerSerializer(answer_2).data
         response = self.view(request, 1, 0, 0)
 
-        self.assertEqual(response.data, [answer_1_serialized, answer_2_serialized])
+        self.assertEqual(response.data,
+                         [answer_1_serialized, answer_2_serialized])
+
 
 class MultiCourseViewTest(DatabaseMixin, TestCase):
     def setUp(self):
@@ -257,8 +260,8 @@ class CourseViewTest(DatabaseMixin, TestCase):
         self.assertEqual(response.status_code, 201)
         self.assertTrue(models.Course.objects.filter(name='test_4').exists())
         self.assertTrue(
-                InformationText.models.InformationText.objects.filter(
-                    title='a question').exists())
+            InformationText.models.InformationText.objects.filter(
+                title='a question').exists())
 
 
 class RequestViewTest(TestCase):
@@ -285,26 +288,26 @@ class RequestViewTest(TestCase):
         self.u3.profile.last_modrequest = timezone.localdate()
 
     def test_get(self):
-        #Test for true positive
+        # Test for true positive
         request_1 = self.factory.get('/user/can_request_mod')
         force_authenticate(request_1, self.u1)
         response = self.view(request_1)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data, {'allowed':True})
+        self.assertEqual(response.data, {'allowed': True})
 
-        #Test for true negative
+        # Test for true negative
         request_2 = self.factory.get('/user/can_request_mod')
         force_authenticate(request_2, self.u2)
         response = self.view(request_2)
         self.assertEqual(response.status_code, 200)
         self.assertFalse(not response.data)
 
-        #Test for true negative
+        # Test for true negative
         request_3 = self.factory.get('/user/can_request_mod')
         force_authenticate(request_3, self.u3)
         response = self.view(request_3)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data, {'allowed':False})
+        self.assertEqual(response.data, {'allowed': False})
 
     def test_post(self):
         request_1 = self.factory.post("user/request_mod",

@@ -1,1 +1,8 @@
-<div></div>
+<div class="panel panel-default">
+  <div class="panel-body">
+<markdown class="text" [data]="data.text_field"></markdown>
+<div class="image">
+  <img [src]="data.image" *ngIf="data.image != undefined && data.image != '' && (feedback == '' || feedback == undefined)">
+</div>
+</div>
+</div>

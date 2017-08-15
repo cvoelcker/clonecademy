@@ -5,7 +5,6 @@ from learning_base.multiple_choice.serializer import *
 from learning_base.info.serializer import *
 
 
-
 class AnswerSerializer(serializers.BaseSerializer):
     def to_representation(self, obj):
         serializer = obj.get_serializer()
@@ -61,6 +60,7 @@ class QuestionSerializer(serializers.ModelSerializer):
                 detail='{} is not a valid question type'.format(
                     question_type))
 
+
 class QuestionEditSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
@@ -79,6 +79,7 @@ class CourseCategorySerializer(serializers.ModelSerializer):
         model = CourseCategory
         fields = ('name', "id",)
 
+
 class ModuleEditSerializer(serializers.ModelSerializer):
     class Meta:
         model = Module
@@ -90,7 +91,6 @@ class ModuleEditSerializer(serializers.ModelSerializer):
         questions = obj.question_set.all()
         value['questions'] = QuestionEditSerializer(questions, many=True).data
         return value
-
 
 
 class ModuleSerializer(serializers.ModelSerializer):
@@ -146,7 +146,8 @@ class CourseSerializer(serializers.ModelSerializer):
         value = super(CourseSerializer, self).to_representation(obj)
 
         all_modules = obj.module_set.all()
-        modules = ModuleSerializer(all_modules, many=True, read_only=True, context=self.context).data
+        modules = ModuleSerializer(all_modules, many=True, read_only=True,
+                                   context=self.context).data
 
         value['modules'] = modules
 
@@ -192,7 +193,9 @@ class CourseEditSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Course
-        fields = ("name", "id", "category", "difficulty", "language", "responsible_mod", "is_visible")
+        fields = (
+        "name", "id", "category", "difficulty", "language", "responsible_mod",
+        "is_visible")
 
     def to_representation(self, obj):
         value = super(CourseEditSerializer, self).to_representation(obj)
@@ -200,6 +203,7 @@ class CourseEditSerializer(serializers.ModelSerializer):
         modules = ModuleEditSerializer(all_modules, many=True).data
         value['modules'] = modules
         return value
+
 
 class GroupSerializer(serializers.ModelSerializer):
     '''
@@ -217,9 +221,12 @@ class UserSerializer(serializers.ModelSerializer):
     '''
 
     groups = serializers.StringRelatedField(many=True)
+
     class Meta:
         model = User
-        fields = ('username', 'email', 'id', 'date_joined', 'groups', 'first_name', 'last_name')
+        fields = (
+        'username', 'email', 'id', 'date_joined', 'groups', 'first_name',
+        'last_name')
 
     def to_representation(self, obj):
         value = super(UserSerializer, self).to_representation(obj)
@@ -263,7 +270,7 @@ class UserSerializer(serializers.ModelSerializer):
         @author Tobias Huber
         Thoughts: Add birth_date when neccessary
         """
-        #instance.username = validated_data["username"]
+        # instance.username = validated_data["username"]
         instance.email = validated_data["email"]
         instance.first_name = validated_data["first_name"]
         instance.last_name = validated_data["last_name"]
