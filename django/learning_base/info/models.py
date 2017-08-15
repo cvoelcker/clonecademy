@@ -10,7 +10,7 @@ class InformationText(Question):
     @author: Claas Voelcker
     """
 
-    __name__ = "information_text"
+    __name__ = "info_text"
 
     visible = models.BooleanField(
             default = True
@@ -31,4 +31,4 @@ class InformationText(Question):
 
     def get_edit_serializer(self):
         from learning_base.info import serializer
-        return serializer.InformationTextEditSerializer
+        return serializer.InformationTextSerializer

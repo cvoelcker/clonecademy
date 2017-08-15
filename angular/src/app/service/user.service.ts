@@ -51,6 +51,7 @@ export class UserService {
         })
         .catch(err => {
           this.loaded = true;
+          this.logout()
           reject()
         })
       )

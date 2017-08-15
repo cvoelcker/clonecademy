@@ -191,14 +191,14 @@ md-progress-spinner{
   // sidebar for the Menu
   .sidebar{
     position: absolute;
-    left: 0;
+    left: 2em;
     top:0;
     right: auto;
     bottom: 0;
     box-sizing: border-box;
     overflow: auto;
     overflow-x: hidden;
-    width: 33.3333333333%;
+    width: calc(33.3333333333% - 2em);
   }
 
   .content {

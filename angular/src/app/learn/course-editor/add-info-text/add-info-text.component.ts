@@ -13,7 +13,7 @@ import { slideIn } from "../../../animations";
 export class AddInformationTextComponent extends AddQuestionModule {
 
   body = {
-    visible: '',
+    visible: true,
   }
 
   url: string = "";

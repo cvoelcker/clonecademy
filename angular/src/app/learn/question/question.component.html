@@ -4,18 +4,20 @@
   <md-sidenav #sidenav>
     <app-course [sidemenu]="sidenav"></app-course>
   </md-sidenav>
-  <table>
-    <td class="text">
-        <div class="alert">
-          <markdown [data]="learning_text" *ngIf="learning_text != undefined">
-          </markdown>
-        </div>
-        <md-card ><markdown [data]="questionBody" *ngIf="questionBody != undefined"></markdown></md-card>
-    </td>
-    <td class="question">
-      <div class="question" #question></div>
-    </td>
-  </table>
+  <div class="content">
+    <table>
+      <td class="text">
+          <div class="alert">
+            <markdown [data]="learning_text" *ngIf="learning_text != undefined">
+            </markdown>
+          </div>
+          <md-card ><markdown [data]="questionBody" *ngIf="questionBody != undefined"></markdown></md-card>
+      </td>
+      <td class="question">
+        <div class="question" #question></div>
+      </td>
+    </table>
+  </div>
 
   <div class="footer">
     <button md-raised-button *ngIf="!submitCorrect" (click)="submit()">{{"submit" | translate}}</button>
