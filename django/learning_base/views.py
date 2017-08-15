@@ -545,7 +545,8 @@ class RequestView(APIView):
                 user.username, data["reason"],
                 user.profile.get_link_to_profile()),
             'bot@clonecademy.de',
-            ['test@test.net']
+            [admin.email for
+                admin in Group.objects.get(name="admin").user_set.all()]
         )
         return Response({"Request": "ok"}, status=status.HTTP_200_OK)
 
@@ -585,7 +586,7 @@ class GrantModRightsView(APIView):
         # may be replaced by tests
         if not to_be_promoted.profile.is_mod():
             return Response(
-                "something went terribly wrong with promoting" + to_be_promoted.username,
+                "Something went wrong with promoting" + to_be_promoted.username,
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response("successfully promoted " + to_be_promoted.username,
                         status=status.HTTP_200_OK)

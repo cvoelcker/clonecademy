@@ -9,7 +9,6 @@ from learning_base import views, models, serializers
 import learning_base.multiple_choice as MultipleChoiceQuestion
 import learning_base.info as InformationText
 
-
 class DatabaseMixin():
     def setup_database(self):
         self.factory = APIRequestFactory()
@@ -44,6 +43,9 @@ class DatabaseMixin():
             order=2,
             module=self.m1_test)
         self.q2_test.save()
+
+        Group(name="admin").save()
+        print(Group.objects.all())
 
 
 class AnswerViewTest(DatabaseMixin, TestCase):
@@ -264,7 +266,7 @@ class CourseViewTest(DatabaseMixin, TestCase):
                 title='a question').exists())
 
 
-class RequestViewTest(TestCase):
+class RequestViewTest(DatabaseMixin, TestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
         self.view = views.RequestView.as_view()
@@ -286,6 +288,8 @@ class RequestViewTest(TestCase):
         self.u3_profile = models.Profile(user=self.u3)
         self.u3_profile.save()
         self.u3.profile.last_modrequest = timezone.localdate()
+
+        Group(name="admin").save()
 
     def test_get(self):
         # Test for true positive

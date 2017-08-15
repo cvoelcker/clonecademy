@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'clonecademy.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite.3'),
+        'NAME': os.path.join(BASE_DIR, 'database/db.sqlite.3'),
     }
 }
 
