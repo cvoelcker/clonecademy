@@ -1,15 +1,13 @@
  version: '2'
  services:
    django:
-    environment:
-      - ADMIN_PASSWD=admin
     build:
       context: .
       dockerfile: Dockerfile
     image: django-clonecademy:dev
     command: /bin/bash /setup/setup.sh
     volumes:
-      - .:/django
+      - /home/iliricon/clonecademy/database:/home/docker/django/database
     ports:
       - "80:80"
 
