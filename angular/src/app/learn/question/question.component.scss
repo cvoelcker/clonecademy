@@ -15,19 +15,37 @@ table{
       }
     }
   }
+  .question{
+    vertical-align: top;
+  }
 }
 
 .questionWrapper{
+  height: 100%;
+}
+
+table{
+
+}
+
+md-sidenav{
+  width: 300px;
+  padding: 0 0.5em;
+}
+
+.content{
   position: absolute;
   left: 0;
+  top:0;
   right: 0;
-  top: 0;
   bottom: 60px;
-  overflow-y: scroll;
+  overflow: scroll;
+  width: 100%;
+  padding: 0 2em;
 }
 
 .footer{
-  margin: 1em 0;
+  margin: 1em 2em;
   position: absolute;
   left: 0;
   right: 0;

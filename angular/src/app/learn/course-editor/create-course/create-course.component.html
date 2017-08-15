@@ -32,7 +32,7 @@
   <div [class.moduleWrapper]="moduleArray.length > 0" >
     <div class="modules" #modules></div>
      <button md-raised-button type="button" (click)="addModule()">
-       <i class="material-icons">add</i> {{"add module" | translate}}
+       <md-icon>add</md-icon> {{"add module" | translate}}
      </button>
   </div>
   <div >
@@ -40,7 +40,7 @@
       {{"Please check the from there is something wrong." | translate}}
     </div>
     <button type="submit" md-raised-button class="saveButton" mdTooltip='{{"a course must contain at least one module" | translate}}'  [disabled]="length < 1">
-      <i class="material-icons">save</i> {{"save" | translate}}
+      <md-icon>save</md-icon> {{"save" | translate}}
     </button>
   </div>
 </form>

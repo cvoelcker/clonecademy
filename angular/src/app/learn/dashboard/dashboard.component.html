@@ -1,10 +1,10 @@
-<div class="dashboard">
+<div class="dashboard" appLoggedIn>
 
   <div class="row">
     <div class ="sidebar">
       <h2>{{ "dashboard" | translate}}</h2>
       <button md-raised-button *ngIf="user.isModerator()" class="addCourse" routerLink="create_course">
-        <i class="material-icons">add</i> {{"add Course" | translate}}
+        <md-icon>add</md-icon> {{"add Course" | translate}}
       </button><br>
       <div *ngIf="!loading && !loadingCat">
           <md-tab-group >
@@ -16,7 +16,6 @@
                   <li *ngFor="let c of course.data[category.name]">
                     <a
                     [routerLink]="'/course/' + c.id"
-                    [style.background]="setBackgroundGradient(c)"
                     [routerLinkActive]="['active']"
                     >
                       <div class="progressBar" [style.width.%]="(c.num_answered / c.num_questions) * 100"></div>
@@ -26,7 +25,7 @@
                     class="editCourse"
                     *ngIf="user.isAdmin() || c.responsible_mod == user.id"
                     [routerLink]="'/course/edit/' + c.id">
-                      <i class="material-icons">mode_edit</i>
+                      <md-icon>mode_edit</md-icon>
                     </button>
                   </li>
                 </ul>

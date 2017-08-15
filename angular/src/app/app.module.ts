@@ -14,7 +14,7 @@ import { ChartsModule } from 'ng2-charts';
 import { MarkdownModule } from 'angular2-markdown';
 
 // Material Style
-import {MdDialog, MdDialogModule, MdButtonModule, MdAutocompleteModule, MdCheckboxModule, MdTooltipModule, MdCardModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule, MdProgressSpinnerModule} from '@angular/material';
+import {MdSidenavModule, MdDialog, MdDialogModule, MdIconModule, MdMenuModule, MdButtonModule, MdAutocompleteModule, MdCheckboxModule, MdTooltipModule, MdCardModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule, MdProgressSpinnerModule} from '@angular/material';
 
 import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
 
@@ -41,13 +41,17 @@ import { DashboardComponent } from './learn/dashboard/dashboard.component';
 import { LoggedInDirective } from './directive/logged-in.directive';
 import { MenuComponent } from './menu/menu.component';
 import { CourseComponent } from './learn/course/course.component';
-import { ModuleComponent } from './learn/module/module.component';
+
 import { MultipleChoiceQuestionComponent } from './learn/multiple-choice-question/multiple-choice-question.component';
+import { InformationTextComponent } from './learn/info-text/info-text.component';
+import { QuestionDictionary } from './learn/question-dictionary';
+
 import { ModuleDirective } from './directive/module.directive';
 import { QuestionComponent } from './learn/question/question.component';
 // course editor
 import { CreateCourseComponent } from './learn/course-editor/create-course/create-course.component';
 import { AddMultiplyChoiceComponent } from './learn/course-editor/add-multiply-choice/add-multiply-choice.component';
+import { AddInformationTextComponent } from './learn/course-editor/add-info-text/add-info-text.component';
 import { AddModuleComponent } from './learn/course-editor/add-module/add-module.component';
 import { AddQuestionComponent } from './learn/course-editor/add-question/add-question.component';
 import { AddQuestionModule } from "./learn/course-editor/add-question/add-question.module"
@@ -66,6 +70,8 @@ import { WrongFeedbackComponent } from './learn/question/wrong-feedback/wrong-fe
 import { CorrectFeedbackComponent } from './learn/question/correct-feedback/correct-feedback.component';
 import { LoaderComponent } from './loader/loader.component';
 import { EditCourseComponent } from './learn/course-editor/create-course/edit-course.component';
+import { StaticPageComponent } from './static-page/static-page.component';
+import { ImageCropperDialogComponent } from "./image-cropper/image-cropper.component"
 
 const appRoutes: Routes = [
   {
@@ -150,14 +156,16 @@ const appRoutes: Routes = [
     component: PageNotFoundComponent,
   },
   {
-    path: '**',
-    redirectTo: "404",
-  }
+    path: ':page',
+    component: StaticPageComponent
+  },
 ];
 
 export function createTranslateLoader(http: Http) {
     return new TranslateHttpLoader(http, './assets/lang/', '.json');
 }
+
+let QuestionList = QuestionDictionary.questionComponents
 
 @NgModule({
   declarations: [
@@ -168,16 +176,14 @@ export function createTranslateLoader(http: Http) {
     LoggedInDirective,
     MenuComponent,
     CourseComponent,
-    ModuleComponent,
-    MultipleChoiceQuestionComponent,
     ModuleDirective,
     QuestionComponent,
     CreateCourseComponent,
-    AddMultiplyChoiceComponent,
     AddModuleComponent,
     AddQuestionComponent,
     StatisticsComponent,
     QuestionModule,
+    QuestionList,
     AddQuestionModule,
     ProfilesComponent,
     UserDetailComponent,
@@ -192,7 +198,9 @@ export function createTranslateLoader(http: Http) {
     SassHelperComponent,
     EditCourseComponent,
     UserDetailUserComponent,
-    ImageCropperComponent
+    ImageCropperDialogComponent,
+    ImageCropperComponent,
+    StaticPageComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -216,8 +224,11 @@ export function createTranslateLoader(http: Http) {
     MdDialogModule,
     MdCardModule,
     MdTooltipModule,
+    MdSidenavModule,
     MdAutocompleteModule,
     MdProgressSpinnerModule,
+    MdMenuModule,
+    MdIconModule,
     BrowserAnimationsModule,
     ChartsModule,
   ],
@@ -239,13 +250,13 @@ export function createTranslateLoader(http: Http) {
     AddModuleComponent,
     AddQuestionModule,
     AddQuestionComponent,
-    AddMultiplyChoiceComponent,
     ErrorMessageComponent,
     WrongFeedbackComponent,
     CorrectFeedbackComponent,
     LoaderComponent,
     CourseComponent,
     CreateCourseComponent,
+    ImageCropperDialogComponent,
     // profile page components
     StatisticsComponent,
     RequestModComponent,
@@ -253,7 +264,7 @@ export function createTranslateLoader(http: Http) {
     // admin Page components
     ProfilesComponent,
     // you have to add all modules for questions here
-    MultipleChoiceQuestionComponent
+    QuestionList,
   ]
 })
 export class AppModule { }

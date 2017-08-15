@@ -1,11 +1,11 @@
-@import "../../../theme";
+@import "../../../_vars";
 
 table{
   width: 100%;
   th{
-    border-bottom: 1px solid mat-color($shadow);
+    border-bottom: 1px solid $shadow;
   }
   tr:nth-child(2n){
-    background-color: mat-color($shadow, 200)
+    background-color: lighten($shadow, 50%);
   }
 }

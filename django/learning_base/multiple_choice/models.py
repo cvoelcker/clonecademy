@@ -9,13 +9,13 @@ class MultipleChoiceQuestion(Question):
     __name__ = "multiple_choice"
 
     question_image = models.TextField(
-        verbose_name = "The Image for the question",
-        blank = True,
+        verbose_name="The Image for the question",
+        blank=True,
     )
 
-    answer_image = models.TextField(
-        verbose_name = "The Image for the question",
-        blank = True,
+    feedback_image = models.TextField(
+        verbose_name="The Image for the question",
+        blank=True,
     )
 
     def num_correct_answers(self):
@@ -33,7 +33,8 @@ class MultipleChoiceQuestion(Question):
         """
 
         "get all correct answers, map them to their id and make a (mathematical) set out of it"
-        answers = set([x.id for x in self.multiplechoiceanswer_set.filter(is_correct=True)])
+        answers = set([x.id for x in
+                       self.multiplechoiceanswer_set.filter(is_correct=True)])
         return answers == set(data)
 
     def __str__(self):
@@ -51,7 +52,8 @@ class MultipleChoiceQuestion(Question):
         return serializer.MultipleChoiceQuestionEditSerializer
 
     def custom_feedback(self):
-        return self.answer_image
+        return self.feedback_image
+
 
 class MultipleChoiceAnswer(models.Model):
     """
@@ -73,10 +75,9 @@ class MultipleChoiceAnswer(models.Model):
     )
 
     img = models.TextField(
-        verbose_name = "The Image for the answer",
+        verbose_name="The Image for the answer",
         blank=True
     )
-
 
     def __str__(self):
         return self.text

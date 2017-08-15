@@ -41,10 +41,9 @@ export class LoginComponent implements OnInit {
 
   login(form){
     if(form.valid){
-
       this.user.loginUser(this.username, this.password)
       .catch(data => {
-        let dialogRef = this.errorDialog.open(data['non_field_errors'])
+        let dialogRef = this.errorDialog.open(data['non_field_errors'][0])
       })
     }
     else{

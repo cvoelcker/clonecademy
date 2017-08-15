@@ -105,5 +105,7 @@
   "oldPassword": "Altes Passwort zum authentifizieren",
 
   "Unable to log in with provided credentials.": "Benutzername oder Passwort ungültig.",
-  "a course must contain at least one module": "Ein Kurs muss mindestens ein Modul enthalten."
+  "a course must contain at least one module": "Ein Kurs muss mindestens ein Modul enthalten.",
+
+  "download": "Download"
 }

@@ -44,6 +44,7 @@ urlpatterns = [
     url(r'^user/(?P<user_id>[0-9]+)/grantmodrights$', views.GrantModRightsView.as_view()),
     url(r'^user/(?P<user_id>[0-9]+)/statistics$', views.StatisticsView.as_view()),
     url(r'^user/statistics$', views.StatisticsView.as_view()),
+    url(r'^user/statistics/download$', views.StatisticsDownloadView.as_view()),
     url(r'^user/mod_request$', views.RequestView.as_view()),
     url(r'^user/current$', views.UserView.as_view()),
 

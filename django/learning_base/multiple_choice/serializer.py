@@ -4,6 +4,7 @@ from .models import *
 
 from base64 import b64decode
 
+
 class MultipleChoiceAnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = MultipleChoiceAnswer
@@ -20,22 +21,25 @@ class MultipleChoiceQuestionPreviewSerializer(serializers.ModelSerializer):
         model = MultipleChoiceQuestion
         fields = ('body', "id",)
 
+
 class MultipleChoiceAnswerEditSerializer(serializers.ModelSerializer):
     class Meta:
         model = MultipleChoiceAnswer
-        fields = ("text", "id", "is_correct")
+        fields = ("text", "id", "is_correct", "img")
+
 
 class MultipleChoiceQuestionEditSerializer(serializers.ModelSerializer):
     class Meta:
         model = MultipleChoiceQuestion
-        fields = ("id", 'question_image', 'answer_image')
+        fields = ("id", 'question_image', 'feedback_image')
 
     def to_representation(self, obj):
-        values = super(MultipleChoiceQuestionEditSerializer, self).to_representation(obj)
+        values = super(MultipleChoiceQuestionEditSerializer,
+                       self).to_representation(obj)
         answers = obj.answer_set()
-        values['answers'] = MultipleChoiceAnswerEditSerializer(answers, many=True).data
+        values['answers'] = MultipleChoiceAnswerEditSerializer(answers,
+                                                               many=True).data
         return values
-
 
 
 class MultipleChoiceQuestionSerializer(serializers.ModelSerializer):
@@ -44,9 +48,11 @@ class MultipleChoiceQuestionSerializer(serializers.ModelSerializer):
         fields = ('id', 'question_image')
 
     def to_representation(self, obj):
-        values = super(MultipleChoiceQuestionSerializer, self).to_representation(obj)
+        values = super(MultipleChoiceQuestionSerializer,
+                       self).to_representation(obj)
         answers = obj.answer_set()
-        values['answers'] = MultipleChoiceAnswerSerializer(answers, many=True).data
+        values['answers'] = MultipleChoiceAnswerSerializer(answers,
+                                                           many=True).data
         return values
 
     def create(self, validated_data):
@@ -64,6 +70,8 @@ class MultipleChoiceQuestionSerializer(serializers.ModelSerializer):
                 answer_serializer.create(answer)
         if question.not_solvable():
             question.delete()
-            raise ParseError(detail="Unsolvable question {}".format(question.title), code=None)
+            raise ParseError(
+                detail="Unsolvable question {}".format(question.title),
+                code=None)
         else:
             return True

@@ -2,26 +2,26 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgModule } from '@angular/core';
 
 
-import { BaseTest } from '../base-test';
+import { BaseTest } from '../../../../base-test';
 
 import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
 
-import { LoaderComponent } from '../loader/loader.component';
+import { LoaderComponent } from '../../loader/loader.component';
 import {MdDialog, MdDialogModule, MdDialogRef } from '@angular/material';
-import { ErrorMessageComponent } from './error-message.component';
+import { ErrorMessageComponent } from './wrong-feedback.component';
 
 @NgModule({
-    declarations: [ErrorMessageComponent],
-    entryComponents: [ErrorMessageComponent],
+    declarations: [WrongFeedbackComponent],
+    entryComponents: [WrongFeedbackComponent],
     imports: [new BaseTest().imports()],
-    exports: [ErrorMessageComponent],
+    exports: [WrongFeedbackComponent],
 })
 class TestModule { }
 
 describe('ErrorMessageComponent', () => {
 
   let dialog: MdDialog;
-  let component: ErrorMessageComponent;
+  let component: WrongFeedbackComponent;
   let fixture: ComponentFixture<ErrorMessageComponent>;
 
   beforeEach(async(() => {
@@ -32,7 +32,7 @@ describe('ErrorMessageComponent', () => {
     TestBed.overrideModule(
       BrowserDynamicTestingModule, {
         set: {
-          entryComponents: [ErrorMessageComponent]
+          entryComponents: [WrongFeedbackComponent]
         }
       }
     )
@@ -41,7 +41,7 @@ describe('ErrorMessageComponent', () => {
 
   beforeEach(() => {
         dialog = TestBed.get(MdDialog);
-        let dialogRef = dialog.open(ErrorMessageComponent);
+        let dialogRef = dialog.open(WrongFeedbackComponent);
 
         component = dialogRef.componentInstance;
     });

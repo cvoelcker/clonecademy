@@ -1,23 +1,27 @@
-<div>
-  <h2>{{title}}</h2>
+<div appLoggedIn>
 </div>
-<div class="questionWrapper">
-  <table>
-    <td class="text">
-        <div class="alert">
-          <markdown [data]="learning_text" *ngIf="learning_text != undefined">
-          </markdown>
-        </div>
-        <md-card ><markdown [data]="questionBody" *ngIf="questionBody != undefined"></markdown></md-card>
-    </td>
-<!--    <td>
-      <div class="question" #question></div>
-    </td>-->
-  </table>
-</div>
-<div class="footer">
-  <div class="col-md-12">
-    <button md-raised-button *ngIf="!submitCorrect" class="btn  " (click)="submit()">{{"submit" | translate}}</button>
-    <button md-raised-button *ngIf="submitCorrect" class="btn  " (click)="next()">{{"next question" | translate}}</button>
+<md-sidenav-container class="questionWrapper">
+  <md-sidenav #sidenav>
+    <app-course [sidemenu]="sidenav"></app-course>
+  </md-sidenav>
+  <div class="content">
+    <table>
+      <td class="text">
+          <div class="alert">
+            <markdown [data]="learning_text" *ngIf="learning_text != undefined">
+            </markdown>
+          </div>
+          <md-card ><markdown [data]="questionBody" *ngIf="questionBody != undefined"></markdown></md-card>
+      </td>
+      <td class="question">
+        <div class="question" #question></div>
+      </td>
+    </table>
   </div>
-</div>
+
+  <div class="footer">
+    <button md-raised-button *ngIf="!submitCorrect" (click)="submit()">{{"submit" | translate}}</button>
+    <button md-raised-button *ngIf="submitCorrect" (click)="next()">{{"next question" | translate}}</button>
+    <button md-raised-button (click)="sidenav.open()" [disabled]="submitCorrect">Dashboard</button>
+  </div>
+</md-sidenav-container>

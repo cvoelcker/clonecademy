@@ -16,6 +16,12 @@ textarea{
   .remove{
     float: right;
   }
+  .imageUpload img{
+    max-height: 35px;
+    padding: 0;
+    margin: 1em 0;
+    width: auto;
+  }
   textarea{
     margin-top: 1em;
   }

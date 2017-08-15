@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { ServerService } from '../../service/server.service'
 import { CourseService } from '../../service/course.service'
@@ -21,18 +21,17 @@ export class CourseComponent implements OnInit {
   lastCourse = [1, 1];
   numAnswered: number;
   numQuestions: number;
+  @Input() sidemenu: any;
 
   //Pie
-  public pieChartLabels:string[] = ['answered', 'to do'];
-  public pieChartData:number[];
-  public pieChartType:string = 'pie';
-  public pieChartColor:any;
+  // public pieChartLabels:string[] = ['answered', 'to do'];
+  // public pieChartData:number[];
+  // public pieChartType:string = 'pie';
+  // public pieChartColor:any;
 
   // events
 public chartHovered(e:any):void {
 }
-
-
   constructor(
     private course: CourseService,
     private route: ActivatedRoute,
@@ -42,47 +41,51 @@ public chartHovered(e:any):void {
 
   }
 
-  initChart(){
-    this.pieChartColor = [
-      {
-        backgroundColor: [
-          this.sassHelper.readProperty('success'),
-          "white"
-        ],
-        strokeColor: '#0f0',
-        hoverBackgroundColor: [
-          this.sassHelper.readProperty('success-hover'),
-          "white"
-        ],
-        borderColor: "transparent"
-      },
-    ]
+  closeSidemenu(){
+    if(this.sidemenu){
+      this.sidemenu.close()
+    }
   }
+  //
+  // initChart(){
+  //   this.pieChartColor = [
+  //     {
+  //       backgroundColor: [
+  //         this.sassHelper.readProperty('success'),
+  //         "white"
+  //       ],
+  //       strokeColor: '#0f0',
+  //       hoverBackgroundColor: [
+  //         this.sassHelper.readProperty('success-hover'),
+  //         "white"
+  //       ],
+  //       borderColor: "transparent"
+  //     },
+  //   ]
+  // }
 
   ngOnInit(){
-    this.initChart()
+    //this.initChart()
     this.route.params.subscribe(data => {
       this.id = data.id
-      this.load();
+      this.load(data.id);
     })
   }
 
-  load() {
+  load(id: number) {
       // save the number of answered questions and the amount of questions in the current course
-
-
       this.completed = false;
       this.loading = true;
       this.modules = undefined;
       this.name = "";
       // send request to server to get the information for the course
-      this.server.get('courses/'+this.id + "/", true, false)
+      this.server.get('courses/'+ id + "/", true, false)
       .then(data => {
         this.numQuestions = data['num_questions']
         this.numAnswered = data['num_answered']
-        this.pieChartData = [this.numAnswered, this.numQuestions-this.numAnswered]
         this.name = data['name'];
         this.modules = data['modules'];
+        //this.pieChartData = [this.numAnswered, this.numQuestions-this.numAnswered]
 
         let lastModule = this.modules[this.modules.length - 1]
         if(lastModule != undefined){
@@ -111,10 +114,4 @@ public chartHovered(e:any):void {
       this.router.navigate(["/course/page_not_found"])
     })
   }
-
-
-
-
-
-
 }

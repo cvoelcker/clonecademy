@@ -3,11 +3,11 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
 
-import { BaseTest } from '../../base-test';
+import { BaseTest } from '../../../base-test';
 
 import { InformationTextComponent } from './info-text.component';
 
-describe('MultipleChoiceQuestionComponent', () => {
+describe('InformationText Component', () => {
   let component: InformationTextComponent;
   let fixture: ComponentFixture<InformationTextComponent>;
 

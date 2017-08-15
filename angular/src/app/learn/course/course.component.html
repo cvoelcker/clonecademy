@@ -18,11 +18,15 @@
     </div>
   </td>-->
   </table>
-  <div class="button" [ngSwitch]="true">
+  <div class="button" [ngSwitch]="true" *ngIf="sidemenu == undefined">
     <button *ngSwitchCase="!completed && modules[0] != undefined && !modules[0].questions[0].solved"  md-raised-button routerLink="/course/{{ id }}/1/1/">{{"start Course" | translate}}</button>
     <button *ngSwitchCase="completed" md-raised-button [disabled]="true">{{"course completed" | translate}}</button>
-    <button *ngSwitchDefault md-raised-button routerLink="/course/{{ id }}/{{ lastCourse[0] }}/{{ lastCourse[1] }}/">{{"continue" | translate}}</button>
+    <button *ngSwitchDefault md-raised-button routerLink="/course/{{ id }}/{{ lastCourse[0] }}/{{ lastCourse[1] + 1 }}/">{{"continue" | translate}}</button>
   </div>
+  <div class="button" *ngIf="sidemenu != undefined">
+    <button md-raised-button (click)="closeSidemenu()">{{"continue" | translate}}</button>
+  </div>
+
 
 <ol>
   <li class="module" *ngFor="let m of modules; let i = index">
@@ -36,7 +40,12 @@
           <li class="question" *ngFor="let q of m.questions; let j = index">
             <div class="alert" [class.success]="q.solved">
               {{q.type}}
-              <button *ngIf="q.solved" class="startQuestion" md-raised-button routerLink="/course/{{id}}/{{i+1}}/{{j+1}}">
+              <button
+              md-raised-button
+              *ngIf="q.solved || (m.questions[j - 1] != undefined && m.questions[j - 1].solved && sidemenu != undefined) || (sidemenu != undefined && modules[i-1] != undefined && modules[i-1].questions[modules[i-1].questions.length - 1].solved && j <= 0) || (i == 0 && j == 0 && sidemenu != undefined) "
+              class="startQuestion"
+              (click)="closeSidemenu()"
+              routerLink="/course/{{id}}/{{i+1}}/{{j+1}}">
                 {{"repeat" | translate}}
               </button>
             </div>

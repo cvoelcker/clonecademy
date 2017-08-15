@@ -17,6 +17,10 @@ export class ServerService {
 
 private baseUrl = '/api/'
 
+  getBaseUrl(){
+    return this.baseUrl;
+  }
+
   headers = new Headers({'Accept': 'application/json', 'Content-Type': 'application/json'});
 
   private token: string;
@@ -88,7 +92,14 @@ private baseUrl = '/api/'
                     if(!silent){
                       loader.close()
                     }
-                    resolve(response.json())
+
+                    try{
+                      response = response.json()
+
+                    } catch(e){
+                    }
+                    resolve(response)
+
                   })
                   .catch(err => {
                     if(!silent){

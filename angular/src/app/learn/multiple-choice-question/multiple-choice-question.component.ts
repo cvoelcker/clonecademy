@@ -11,7 +11,6 @@ import { ServerService } from "../../service/server.service"
 export class MultipleChoiceQuestionComponent extends QuestionModule {
 
   data = {answers: [{value: "a", id: -1}]}
-  answers: Array<{id: number, text: string, value: boolean}>;
 
   // return array of the marked answers
   submit(): any{

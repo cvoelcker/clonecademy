@@ -31,20 +31,26 @@ export class UserDetailComponent {
   }
 
   ngOnInit() {
-      this.loading = false;
+
   }
 
   change(id: number){
+    this.loading = true;
+    // load the current user
     this.server.get("user/"+ id + "/")
     .then(data => {
       this.user = data
       this.user['dateRegistered'] = new Date(data['date_joined'])
       this.isMod = (-1 != this.user["groups"].indexOf("moderator"));
+
+      // show the spinning loader until the user is loaded
+      this.loading = false;
     })
     .catch(err => console.log(err))
   }
 
   promote(){
+    // this funktion call the backend and promote the user
     this.server.post("user/"+ this.id + "/grantmodrights", {})
     .then(answer => {
       this.isMod = true;

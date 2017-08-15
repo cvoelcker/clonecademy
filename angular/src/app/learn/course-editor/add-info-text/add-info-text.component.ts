@@ -4,8 +4,6 @@ import { AddQuestionModule } from "../add-question/add-question.module"
 
 import { slideIn } from "../../../animations";
 
-import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
-
 @Component({
   selector: 'app-add-info-text',
   templateUrl: './add-info-text.component.html',
@@ -15,7 +13,8 @@ import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
 export class AddInformationTextComponent extends AddQuestionModule {
 
   body = {
-    visible: '',
+    visible: true,
+    text: '',
   }
 
   url: string = "";
@@ -34,6 +33,7 @@ export class AddInformationTextComponent extends AddQuestionModule {
     return {
       type: "info_text",
       visible: this.body.visible,
+      text_field: this.body.text,
     };
   }
 }

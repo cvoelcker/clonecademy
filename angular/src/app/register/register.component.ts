@@ -51,6 +51,7 @@ export class RegisterComponent {
 
   // register a new user.
   register(value){
+    console.log(value.value)
     if(value.valid && value.value["password"] === value.value['password2']){
       let data = value.value
       delete data['password2'];

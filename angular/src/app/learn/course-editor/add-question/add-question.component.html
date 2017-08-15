@@ -3,7 +3,7 @@
     {{"Add Question" | translate}}
   </h2>
   <md-input-container>
-    <input mdInput placeholder='{{"Question" | translate}}' #Question="ngModel" name="questionBody" type="textarea" [(ngModel)]="questionBody" required />
+	  <textarea mdInput placeholder='{{"Question" | translate}}' #Question="ngModel" name="questionBody" type="textarea" [(ngModel)]="questionBody" required></textarea>
     <md-hint align="start" class="warning" *ngIf="form != null && form.submitted && !Body.valid"><strong>{{'The question is required' | translate}}</strong></md-hint>
   </md-input-container>
   <div class="question" #question></div>
@@ -15,5 +15,5 @@
       <input mdInput placeholder='{{"custom feedback text" | translate}}'  [(ngModel)]="feedback" />
     </md-input-container>
   </div>
-  <button md-raised-button (click)="loading = false"><i class="material-icons">delete</i> {{"remove Question" | translate}}</button>
+  <button md-raised-button (click)="loading = false"><md-icon>delete</md-icon> {{"remove Question" | translate}}</button>
 </md-card>

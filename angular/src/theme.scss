@@ -5,16 +5,7 @@
 
 @import url(https://fonts.googleapis.com/css?family=Raleway);
 
-$primary: #002d54;
-$warn: #d4043b;
-$button: #bbd6ed;
-$white: #eaf1f6;
-$black: #000000;
-$accent: mat-palette($md-ccback);
-$shadow: mat-palette($md-ccshadow);
-$font: mat-palette($md-ccshadow);
 $link: mat-palette($mat-blue);
-$link-active: mat-palette($md-ccred);
 
 $green: mat-palette($mat-green);
 
@@ -111,7 +102,7 @@ button{
 *[md-tab-link]{
 
   text-decoration: none;
-  color: mat-color($font);
+  color: $black;
 
   &:hover{
     background-color: lighten($primary, 5%);
@@ -200,14 +191,14 @@ md-progress-spinner{
   // sidebar for the Menu
   .sidebar{
     position: absolute;
-    left: 0;
+    left: 2em;
     top:0;
     right: auto;
     bottom: 0;
     box-sizing: border-box;
     overflow: auto;
     overflow-x: hidden;
-    width: 33.3333333333%;
+    width: calc(33.3333333333% - 2em);
   }
 
   .content {
@@ -267,7 +258,7 @@ app-add-module{
     left: 0;
     right: auto;
     top: 2em;
-    background-color: mat-color($shadow);
+    background-color: $shadow;
     border-radius: 2px;
     padding: 0 1em;
     transition: opacity 0.4s ease;

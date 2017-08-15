@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ServerService } from "../../service/server.service"
 import { ActivatedRoute, Params } from '@angular/router'
 
@@ -7,7 +7,7 @@ import { ActivatedRoute, Params } from '@angular/router'
   selector: 'app-MultipleChoiceQuestion',
   template: '<p>Implement me</p>',
 })
-export class QuestionModule implements OnInit{
+export class QuestionModule{
 
   questionText: string;
   moduleIndex: number;
@@ -22,18 +22,13 @@ export class QuestionModule implements OnInit{
   constructor(public server: ServerService, private route: ActivatedRoute) {
   }
 
+  // this has to be set on every subfunction
   submit(): any{
     return "test";
   }
 
+  // after succesfull submit this function will be called to deactivate buttons
   block(): void{
     this.disable = true;
-  }
-  ngOnInit(){
-    this.route.params.subscribe((data: Params) => {
-      this.courseID = data.id,
-      this.moduleIndex = data.module,
-      this.questionIndex = data.question
-    })
   }
  }
