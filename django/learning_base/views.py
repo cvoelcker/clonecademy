@@ -1,15 +1,11 @@
-from django.shortcuts import render
 from django.http import HttpResponse
 
-from rest_framework import viewsets, status
+from rest_framework import status
 from rest_framework import authentication, permissions
-from rest_framework.decorators import api_view, authentication_classes,\
-    permission_classes
 from rest_framework.views import APIView
 
 import learning_base.serializers as serializer
-from learning_base.models import Course, CourseCategory, Module, Question, Try,\
-    Profile
+from learning_base.models import Course, CourseCategory, Try, Profile
 
 from rest_framework.response import Response
 from django.core.mail import send_mail
@@ -82,13 +78,15 @@ class MultiCourseView(APIView):
             courses = Course.objects.all()
             courses = courses.filter(language=r_lan)
             if r_category != "":
-                category = CourseCategory.objects.filter(name=r_category).first()
+                category = CourseCategory.objects.filter(
+                    name=r_category).first()
                 courses = courses.filter(category=category)
             if r_type == "mod":
                 courses.filter(responsible_mod=request.user)
             elif r_type == "started":
                 courses = courses.filter(module__question__try__person=user)
-            data = serializer.CourseSerializer(courses, many=True, context={'request': request}).data
+            data = serializer.CourseSerializer(courses, many=True, context={
+                'request': request}).data
             return Response(data, status=status.HTTP_200_OK)
         except Exception as e:
             return Response("Query not possible",
@@ -105,7 +103,8 @@ class CourseEditView(APIView):
 
     def get(self, request, course_id=None, format=None):
         '''
-        Returns all the information about a course with the answers and the solutions
+        Returns all the information about a course with the answers and the
+        solutions
         '''
         if not course_id:
             return Response('Method not allowed',
@@ -113,12 +112,15 @@ class CourseEditView(APIView):
 
         try:
             course = Course.objects.filter(id=course_id).first()
-            course_serializer = serializer.CourseEditSerializer(course, context={'request': request})
+            course_serializer = serializer.CourseEditSerializer(
+                course,
+                context={
+                    'request': request})
             data = course_serializer.data;
             return Response(data)
 
         except Exception as e:
-            return Response({ 'error': str(e)},
+            return Response({'error': str(e)},
                             status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request, course_id=None, format=None):
@@ -143,7 +145,8 @@ class CourseView(APIView):
                             status=status.HTTP_405_METHOD_NOT_ALLOWED)
         try:
             course = Course.objects.filter(id=course_id).first()
-            course_serializer = serializer.CourseSerializer(course, context={'request': request})
+            course_serializer = serializer.CourseSerializer(course, context={
+                'request': request})
             data = course_serializer.data
             return Response(course_serializer.data,
                             status=status.HTTP_200_OK)
@@ -201,6 +204,7 @@ class ModuleView(APIView):
         return Response('Method not allowed',
                         status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
+
 class QuestionView(APIView):
     '''
     View to show questions and to evaluate them. This does not return the
@@ -211,7 +215,10 @@ class QuestionView(APIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     def can_access_question(self, user, question):
-        return (question.is_first_question and question.module.is_first_module) or request.user.try_set.filter(question__order = question.order-1, solved = True).exists()
+        return (
+                   question.is_first_question and
+                   question.module.is_first_module) or user.try_set.filter(
+            question__order=question.order - 1, solved=True).exists()
 
     def get(self, request, course_id, module_id, question_id, format=None):
         '''
@@ -227,9 +234,12 @@ class QuestionView(APIView):
                 return Response("Question not found",
                                 status=status.HTTP_404_NOT_FOUND)
             if not self.can_access_question(request.user, question):
-                return Response("Previous question(s) haven't been answered correctly yet", status = status.HTTP_403_FORBIDDEN)
+                return Response(
+                    "Previous question(s) haven't been answered correctly yet",
+                    status=status.HTTP_403_FORBIDDEN)
 
-            data = serializer.QuestionSerializer(question, context={'request': request})
+            data = serializer.QuestionSerializer(question,
+                                                 context={'request': request})
             data = data.data
             return Response(data,
                             status=status.HTTP_200_OK)
@@ -249,12 +259,16 @@ class QuestionView(APIView):
         except Exception as e:
             return Response("Question not found",
                             status=status.HTTP_404_NOT_FOUND)
-        #deny access if there is a/are previous question(s) and it/they haven't been answered correctly
-        if not(self.can_access_question(request.user, question)):
-            return Response("Previous question(s) haven't been answered correctly yet", status = status.HTTP_403_FORBIDDEN)
+        # deny access if there is a/are previous question(s) and it/they
+        # haven't been answered correctly
+        if not (self.can_access_question(request.user, question)):
+            return Response(
+                "Previous question(s) haven't been answered correctly yet",
+                status=status.HTTP_403_FORBIDDEN)
 
         solved = question.evaluate(request.data["answers"])
-        Try(user = request.user, question=question, answer=str(request.data["answers"]), solved=solved).save()
+        Try(user=request.user, question=question,
+            answer=str(request.data["answers"]), solved=solved).save()
         response = {"evaluate": solved}
         if solved and question.feedback_is_set:
             response['custom_feedback'] = question.custom_feedback()
@@ -329,14 +343,19 @@ class UserView(APIView):
 
         if "oldpassword" in data:
             if not request.user.check_password(request.data["oldpassword"]):
-                return Response({"error":"given password is incorrect"}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"error": "given password is incorrect"},
+                                status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response({"error":"password is required"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "password is required"},
+                            status=status.HTTP_400_BAD_REQUEST)
 
-        user_serializer = serializer.UserSerializer(user, data=data, partial=True)
+        user_serializer = serializer.UserSerializer(user, data=data,
+                                                    partial=True)
         if user_serializer.is_valid():
-            user_serializer = user_serializer.update(user, validated_data=request.data)
-            return Response({"ans":'Updated user '+user.username},
+            user_serializer = user_serializer.update(
+                user,
+                validated_data=request.data)
+            return Response({"ans": 'Updated user ' + user.username},
                             status=status.HTTP_200_OK)
         else:
             return Response(user_serializer.errors,
@@ -356,11 +375,12 @@ class UserRegisterView(APIView):
         If the user_id field is specified, it updates user information.
         Otherwise it saves a new user.
 
-        This behaviour isn't smart since this view doesn't require any authentication
+        This behaviour isn't smart since this view doesn't require any
+        authentication
         '''
         if user_id:
-            # TODO Implement saving a uorsers data
-            pass
+            return Response('Please use the UserView to update data',
+                            status=status.HTTP_403_FORBIDDEN)
         else:
             user_serializer = serializer.UserSerializer(data=request.data)
             if user_serializer.is_valid():
@@ -406,7 +426,7 @@ class StatisticsView(APIView):
     @author: Claas Voelcker
     '''
     authentication_classes = (authentication.TokenAuthentication,)
-    permission_classes = (permissions.IsAuthenticated, )
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, user_id=None):
         user = request.user if not user_id else User.objects.get(id=user_id)
@@ -418,19 +438,19 @@ class StatisticsView(APIView):
         return Response('Method not allowed',
                         status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
+
 class StatisticsDownloadView(APIView):
     '''
     A class returning the statistics information in the given format. It is used to
     access the try object.
     @author: Leonhard Wiedmann
     '''
-    authentication_classes =  (authentication.TokenAuthentication,)
-    permission_classes = (permissions.IsAuthenticated, )
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, user_id=None):
         return Response({"error": 'Method not allowed'},
                         status=status.HTTP_405_METHOD_NOT_ALLOWED)
-
 
     def post(self, request, format=None):
         import time, csv
@@ -438,7 +458,9 @@ class StatisticsDownloadView(APIView):
         user = request.user
 
         response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = 'attachment; filename="'+ time.strftime("%d/%m/%Y") + '-'+ user.username + '.csv"'
+        response[
+            'Content-Disposition'] = 'attachment; filename="' + time.strftime(
+            "%d/%m/%Y") + '-' + user.username + '.csv"'
         tries = Try.objects.all()
 
         groups = user.groups.values_list('name', flat=True)
@@ -449,7 +471,8 @@ class StatisticsDownloadView(APIView):
 
         # A moderator can get all tries of his created courses
         if 'moderator' in groups and 'course' in data:
-            course = Course.objects.filter(responsible_mod=user, id=data['course'])
+            course = Course.objects.filter(responsible_mod=user,
+                                           id=data['course'])
             if not course.exists():
                 return Response({'error': 'invalid Course ID'},
                                 status=status.HTTP_405_METHOD_NOT_ALLOWED)
@@ -457,8 +480,10 @@ class StatisticsDownloadView(APIView):
         else:
             tries = tries.filter(user=user)
 
-        if 'date' in data and 'start' in data['date'] and 'end' in data['date']:
-            tries = tries.filter(date__range=[date['start'], date['end']])
+        if 'date' in data and 'start' in data['date'] and 'end' in data[
+            'date']:
+            tries = tries.filter(
+                date__range=[data['date']['start'], data['date']['end']])
 
         # filter just for solved tries
         if 'solved' in data:
@@ -466,7 +491,8 @@ class StatisticsDownloadView(APIView):
 
         # filter for a specific category
         if 'category' in data:
-            tries = tries.filter(question__module__course__category__name=data['category'])
+            tries = tries.filter(
+                question__module__course__category__name=data['category'])
 
         data = serializer.TrySerializer(tries, many=True).data
         writer = csv.writer(response)
@@ -474,6 +500,7 @@ class StatisticsDownloadView(APIView):
         for row in data:
             writer.writerow([row['question'], row['date'], row['solved']])
         return response
+
 
 class RequestView(APIView):
     # TODO: implement proper send_mail()
@@ -519,11 +546,14 @@ class RequestView(APIView):
             If you want to add this user to the moderator group, access the \
             profile {} for the confirmation field.\n \
             Have a nice day, your CloneCademy bot'.format(
-                user.username, data["reason"], user.profile.get_link_to_profile()),
+                user.username, data["reason"],
+                user.profile.get_link_to_profile()),
             'bot@clonecademy.de',
-            ['test@test.net']
+            [admin.email for
+                admin in Group.objects.get(name="admin").user_set.all()]
         )
         return Response({"Request": "ok"}, status=status.HTTP_200_OK)
+
 
 class GrantModRightsView(APIView):
     """
@@ -531,14 +561,15 @@ class GrantModRightsView(APIView):
     @author Tobias Huber
     """
 
-    #authentication_classes=(authentication.TokenAuthentication,);
+    # authentication_classes=(authentication.TokenAuthentication,);
     permission_classes = (permissions.IsAdminUser,)
 
     def get(self, request, user_id, format=None):
         '''
         Returns True if given user with a given user_id is a moderator
         '''
-        return Response(Profile.objects.get(user__id = user_id).is_mod(), status=status.HTTP_200_OK)
+        return Response(Profile.objects.get(user__id=user_id).is_mod(),
+                        status=status.HTTP_200_OK)
 
     def post(self, request, user_id, format=None):
         '''
@@ -547,12 +578,19 @@ class GrantModRightsView(APIView):
         '''
         to_be_promoted = User.objects.get(id=user_id)
         if to_be_promoted.profile.is_mod():
-            #TODO Find out if it is usefull to send a 200 when a user was already mod
-            return Response("the user \" "+ to_be_promoted.username +"\" is already a moderator", status=status.HTTP_200_OK)
+            # TODO Find out if it is useful to send a 200 when a user
+            # was already mod
+            return Response(
+                "the user \" " + to_be_promoted.username +
+                "\" is already a moderator",
+                status=status.HTTP_200_OK)
         mod_group = Group.objects.get(name='moderator')
         to_be_promoted.groups.add(mod_group)
 
-        #may be replaced by tests
+        # may be replaced by tests
         if not to_be_promoted.profile.is_mod():
-            return Response("something went terribly wrong with promoting" + to_be_promoted.username, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        return Response("successfully promoted " + to_be_promoted.username, status=status.HTTP_200_OK)
+            return Response(
+                "Something went wrong with promoting" + to_be_promoted.username,
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response("successfully promoted " + to_be_promoted.username,
+                        status=status.HTTP_200_OK)

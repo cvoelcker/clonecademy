@@ -14,6 +14,7 @@ export class AddInformationTextComponent extends AddQuestionModule {
 
   body = {
     visible: true,
+    text: '',
   }
 
   url: string = "";
@@ -32,6 +33,7 @@ export class AddInformationTextComponent extends AddQuestionModule {
     return {
       type: "info_text",
       visible: this.body.visible,
+      text_field: this.body.text,
     };
   }
 }

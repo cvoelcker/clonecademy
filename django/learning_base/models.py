@@ -53,8 +53,8 @@ class Profile(models.Model):
         Returns True if the user is allowed to request moderator rights
         '''
         return (self.last_modrequest is None or
-            (timezone.localdate() - self.last_modrequest).days >= 7) and\
-            not self.is_mod()
+                (timezone.localdate() - self.last_modrequest).days >= 7) and \
+               not self.is_mod()
 
     # TODO: Refactor these to a decorator
     def is_mod(self):
@@ -94,6 +94,7 @@ class Course(models.Model):
     solved together. These questions should have similar topics, difficulty
     and should form a compete unit for learning.
     """
+
     class Meta:
         unique_together = ['category', 'name']
 
