@@ -4,6 +4,9 @@
     <li *ngFor="let m of menu">
       <button md-button [routerLinkActive]="['active']" [routerLink]="'/admin/' + m.url">{{m.name}}</button>
     </li>
+    <li>
+      <button md-button (click)="server.downloadStatistics()"><md-icon>save</md-icon> {{"download statistics" | translate}}</button>
+    </li>
   </ul>
 </div>
 <div class="content">

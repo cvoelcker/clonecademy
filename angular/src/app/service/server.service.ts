@@ -157,6 +157,29 @@ export class ServerService {
     return this.token;
   }
 
+  downloadStatistics(request = {}){
+    request['format'] = 'csv'
+    this.post("user/statistics", request)
+    .then(data => {
+      // create the file to download
+      let blob = new Blob([data["_body"]], {type: "text/csv"});
+      let downloadData = URL.createObjectURL(blob)
+      // create a button which will be clicked to download
+      // at the moment it looks like this is the only workaround for a download dialog
+      var anchor = document.createElement("a");
+      // set download name
+      anchor.download = "statistics.csv";
+      anchor.href = downloadData;
+      // hide button
+      anchor.setAttribute('visibility', "hidden")
+      anchor.setAttribute("display", "none")
+      // add button to body, activate the download and remove the button again
+      document.body.appendChild(anchor)
+      anchor.click();
+      document.body.removeChild(anchor)
+    })
+  }
+
 }
 
 export class User{
