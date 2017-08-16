@@ -147,7 +147,20 @@ class CourseViewTest(DatabaseMixin, TestCase):
                                     {'name': 'test_2',
                                      'category': 'test',
                                      'difficulty': 2,
-                                     'modules': [],
+                                     'modules': [{'name': 'a module',
+                                      'learning_text': 'no way',
+                                      'order': 3,
+                                      'questions': [
+                                          {'title': 'a question',
+                                           'body': 'some text',
+                                           'feedback': '',
+                                           'type': 'multiple_choice',
+                                           'order': 1,
+                                           'answers': [
+                                               {'text': 'nope',
+                                                'is_correct': True},
+                                               {'text': 'nope',
+                                                'is_correct': False}]}]}],
                                      'language': 'en'}, format='json')
         force_authenticate(request, self.u1)
         response = self.view(request)
@@ -158,7 +171,18 @@ class CourseViewTest(DatabaseMixin, TestCase):
                                     {'name': 'test_2',
                                      'category': 'test',
                                      'difficulty': 2,
-                                     'modules': [],
+                                     'modules': [{'name': 'a module',
+                                      'learning_text': 'no way',
+                                      'order': 3,
+                                      'questions': [
+                                          {'title': 'a question',
+                                           'body': 'some text',
+                                           'feedback': '',
+                                           'type': 'MultipleChoiceQuestion',
+                                           'order': 1,
+                                           'answers': [
+                                               {'text': 'nope',
+                                                'is_correct': False}]}]}],
                                      'language': 'en'}, format='json')
         force_authenticate(request, self.u1)
         response = self.view(request)
@@ -186,32 +210,30 @@ class CourseViewTest(DatabaseMixin, TestCase):
         self.assertTrue(
             models.Module.objects.filter(name='another module').exists())
 
-        request = self.factory.post(
-            '/courses/save',
-            {'name': 'test_4',
-             'category': 'test',
-             'difficulty': 2,
-             'modules': [
-                 {'name': 'a module',
-                  'learning_text': 'no way',
-                  'order': 3,
-                  'questions': [
-                      {'title': 'a question',
-                       'body': 'some text',
-                       'feedback': '',
-                       'type': 'MultipleChoiceQuestion',
-                       'order': 1,
-                       'answers': [
-                           {'text': 'nope',
-                            'is_correct': False}]}]}],
-             'language': 'en'}, format='json')
+        request = self.factory.post('/courses/save',
+                                    {'name': 'test_4',
+                                     'category': 'test',
+                                     'difficulty': 2,
+                                     'modules': [{'name': 'any module',
+                                      'learning_text': 'no way',
+                                      'order': 0,
+                                      'questions': [
+                                          {'title': 'some question',
+                                           'body': 'any text',
+                                           'feedback': '',
+                                           'type': 'multiple_choice',
+                                           'order': 1,
+                                           'answers': [
+                                               {'text': 'this is not correct',
+                                                'is_correct': False}]}]}],
+                                     'language': 'en'}, format='json')
         force_authenticate(request, self.u1)
         response = self.view(request)
         self.assertEquals(response.status_code, 400)
         self.assertFalse(models.Course.objects.filter(name='test_4').exists())
         self.assertFalse(
             MultipleChoiceQuestion.models.MultipleChoiceQuestion.objects.filter(
-                title='a question').exists())
+                title='any module').exists())
 
         request = self.factory.post('/courses/save',
                                     {'name': 'test_4',

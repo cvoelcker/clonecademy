@@ -19,7 +19,7 @@ class MultipleChoiceQuestion(Question):
     )
 
     def num_correct_answers(self):
-        return len(MultipleChoiceAnswer.objects.filter(is_correct=True))
+        return len(MultipleChoiceAnswer.objects.filter(question=self, is_correct=True))
 
     def not_solvable(self):
         return self.num_correct_answers() == 0

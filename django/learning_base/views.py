@@ -186,7 +186,7 @@ class CourseView(APIView):
                 course_serializer.create(data)
                 return Response({"success": "Course saved"},
                                 status=status.HTTP_201_CREATED)
-            except Exception as e:
+            except ParseError as e:
                 return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 

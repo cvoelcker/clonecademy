@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from rest_framework.exceptions import ParseError
+from rest_framework import status
+
 from .models import *
 from learning_base.multiple_choice.serializer import *
 from learning_base.info.serializer import *
@@ -186,7 +188,7 @@ class CourseSerializer(serializers.ModelSerializer):
                     module['course'] = course
                     module_serializer.create(module)
             return True
-        except Exception as e:
+        except ParseError as e:
             course.delete()
             raise ParseError(detail=e.detail, code=None)
 
