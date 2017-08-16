@@ -52,6 +52,7 @@ class QuestionSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         question_type = validated_data.pop('type')
+        print(validated_data)
 
         if question_type == 'multiple_choice':
             MultipleChoiceQuestionSerializer().create(validated_data)
