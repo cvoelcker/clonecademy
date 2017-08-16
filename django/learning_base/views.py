@@ -167,7 +167,11 @@ class CourseView(APIView):
         if (id is None) and Course.objects.filter(name=data['name']).exists():
             return Response('Course with that name exists',
                             status=status.HTTP_409_CONFLICT)
-        data['responsible_mod'] = request.user
+        if id is None:
+            data['responsible_mod'] = request.user
+        else:
+            data['responsible_mod'] = Course.objects.filter(id=id).first().responsible_mod
+
         course_serializer = serializer.CourseSerializer(data=data)
         if not course_serializer.is_valid():
             return Response({"error": course_serializer.errors},

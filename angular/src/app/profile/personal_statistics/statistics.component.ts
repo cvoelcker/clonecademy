@@ -18,7 +18,7 @@ export class StatisticsComponent implements OnInit {
 
   constructor(private server: ServerService, private cookie: CookieService, private http: Http) {
   }
-  
+
   ngOnInit() {
     this.server.get("user/statistics", true, false)
       .then(data => {
@@ -38,13 +38,13 @@ export class StatisticsComponent implements OnInit {
     .then(data => {
       // create the file to download
       let blob = new Blob([data["_body"]], {type: "text/csv"});
-      var url = URL.createObjectURL(blob)
+      let downloadData = URL.createObjectURL(blob)
       // create a button which will be clicked to download
       // at the moment it looks like this is the only workaround for a download dialog
       var anchor = document.createElement("a");
       // set download name
       anchor.download = "statistics.csv";
-      anchor.href = url;
+      anchor.href = downloadData;
       // hide button
       anchor.setAttribute('visibility', "hidden")
       anchor.setAttribute("display", "none")
