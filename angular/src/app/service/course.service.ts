@@ -89,4 +89,20 @@ export class CourseService {
     return false;
   }
 
+  /**
+  Returns all courses that a user has started already
+  @author Claas Voelcker
+  **/
+  get_started(): {}[] {
+    let courses: {}[] = []
+    for(let i = 0; i < this.categorys.length; i++){
+      for(let j = 0; j < this.data[this.categorys[i].name].length; j++){
+        if(this.data[this.categorys[i].name][j]['num_answered'] > 0) {
+          courses.push(this.data[this.categorys[i].name][j])
+        }
+      }
+    }
+    return courses
+  }
+
 }

@@ -322,6 +322,6 @@ class Try(models.Model):
 
 class CourseManager(models.Manager):
     def is_started(user):
-        courses = models.Course.objects.filter(
-            module__question__try__person=user)
-        return courses
+        courses = Course.objects.filter(
+            module__question__try__user=user)
+        return courses.distinct()

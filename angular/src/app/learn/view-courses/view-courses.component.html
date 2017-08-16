@@ -1,0 +1,13 @@
+<div class="wrapper">
+  <div *ngIf="!loading && !loadingCat">
+      <div *ngFor="let c of courses" class="card">
+        <div class="card-body">
+            <!--Title-->
+            <h4 class="card-title">{{c.name}}</h4>
+            <!--Text-->
+            <p class="card-text">{{c.category}}: {{c.difficulty}}</p>
+            <a href="#" class="btn btn-primary">Button</a>
+        </div>
+    </div>
+  </div>
+</div>

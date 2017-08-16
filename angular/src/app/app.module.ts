@@ -71,7 +71,11 @@ import { CorrectFeedbackComponent } from './learn/question/correct-feedback/corr
 import { LoaderComponent } from './loader/loader.component';
 import { EditCourseComponent } from './learn/course-editor/create-course/edit-course.component';
 import { StaticPageComponent } from './static-page/static-page.component';
-import { ImageCropperDialogComponent } from "./image-cropper/image-cropper.component"
+import { ImageCropperDialogComponent } from "./image-cropper/image-cropper.component";
+
+// Viewing started courses on the welcome page
+import { CourseViewComponent } from "./learn/view-courses/view-courses.component";
+
 
 const appRoutes: Routes = [
   {
@@ -83,6 +87,10 @@ const appRoutes: Routes = [
     path: 'course',
    component: DashboardComponent,
    children: [
+     {
+       path: "",
+       component: CourseViewComponent,
+     },
      {
        path: "create_course",
        component: CreateCourseComponent,
@@ -201,6 +209,7 @@ let QuestionList = QuestionDictionary.questionComponents
     ImageCropperDialogComponent,
     ImageCropperComponent,
     StaticPageComponent,
+    CourseViewComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -265,6 +274,7 @@ let QuestionList = QuestionDictionary.questionComponents
     ProfilesComponent,
     // you have to add all modules for questions here
     QuestionList,
+    CourseViewComponent,
   ]
 })
 export class AppModule { }

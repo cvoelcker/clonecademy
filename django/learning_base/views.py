@@ -7,7 +7,7 @@ from rest_framework.exceptions import ParseError
 
 
 import learning_base.serializers as serializer
-from learning_base.models import Course, CourseCategory, Try, Profile
+from learning_base.models import Course, CourseCategory, Try, Profile, CourseManager
 
 from rest_framework.response import Response
 from django.core.mail import send_mail
@@ -84,9 +84,9 @@ class MultiCourseView(APIView):
                     name=r_category).first()
                 courses = courses.filter(category=category)
             if r_type == "mod":
-                courses.filter(responsible_mod=request.user)
+                courses = courses.filter(responsible_mod=request.user)
             elif r_type == "started":
-                courses = courses.filter(module__question__try__person=user)
+                courses = CourseManager.is_started(request.user)
             data = serializer.CourseSerializer(courses, many=True, context={
                 'request': request}).data
             return Response(data, status=status.HTTP_200_OK)
