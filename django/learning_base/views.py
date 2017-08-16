@@ -448,22 +448,27 @@ class StatisticsView(APIView):
 
         groups = user.groups.values_list('name', flat=True)
 
-        # admins can get all statistics of all users
+        # the simplest call is if the user just wants its statistic
         if 'id' in data and data['id'] == user.id:
             tries = tries.filter(user=user)
 
+        # A moderator can get all statistics of his created courses
+        # with 'get_courses' as in put the it will return all courses created by this user
+        elif ('moderator' in groups or 'admin' in groups) and 'get_courses' in data:
+            tries = tries.filter(question__module__course__responsible_mod=user)
+
+        # admins can get all statistics of all users
         elif 'admin' in groups:
             if 'id' in data:
                 tries.filter(user__id=data['id'])
-
-        # A moderator can get all tries of his created courses
-        elif 'moderator' in groups:
-            tries = tries.filter(question__module__course__responsible_mod=user)
-            if 'course' in data:
-                tries = tries.filter(question__module__course__id=data['course'])
         else:
             return Response({"error": "invalid userID"}, status=HTTP_401_UNAUTHORIZED)
 
+        # return all statistics after prefiltering for this course
+        if 'course' in data:
+            tries = tries.filter(question__module__course__id=data['course'])
+
+        # get the statistics for a spicific time
         if 'date' in data and 'start' in data['date'] and 'end' in data[
             'date']:
             tries = tries.filter(
