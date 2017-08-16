@@ -168,6 +168,9 @@ class CourseSerializer(serializers.ModelSerializer):
         questions.
         '''
         modules = validated_data.pop('modules')
+        # check if course is empty and raise error if so
+        if len(modules) <= 0:
+            raise ParseError(detail="Course needs to have at least one module", code=None)
         category = validated_data.pop('category')
         category = CourseCategory.objects.get(name=category)
         validated_data['category'] = category

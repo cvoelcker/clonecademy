@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from rest_framework import status
 from rest_framework import authentication, permissions
 from rest_framework.views import APIView
+from rest_framework.exceptions import ParseError
+
 
 import learning_base.serializers as serializer
 from learning_base.models import Course, CourseCategory, Try, Profile
@@ -180,9 +182,13 @@ class CourseView(APIView):
             return Response({"error": course_serializer.errors},
                             status=status.HTTP_400_BAD_REQUEST)
         else:
-            course_serializer.create(data)
-        return Response({"error": "Course saved"},
-                        status=status.HTTP_201_CREATED)
+            try:
+                course_serializer.create(data)
+                return Response({"success": "Course saved"},
+                                status=status.HTTP_201_CREATED)
+            except Exception as e:
+                return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 class ModuleView(APIView):
