@@ -2,24 +2,24 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BaseTest } from '../../../base-test';
 
-import { AddMultiplyChoiceComponent } from './add-multiply-choice.component';
+import { AddInformationTextComponent } from './add-info-text.component';
 
 describe('AddMultiplyChoiceComponent', () => {
-  let component: AddMultiplyChoiceComponent;
-  let fixture: ComponentFixture<AddMultiplyChoiceComponent>;
+  let component: AddInformationTextComponent;
+  let fixture: ComponentFixture<AddInformationTextComponent>;
 
   beforeEach(async(() => {
     let base = new BaseTest();
       TestBed.configureTestingModule({
         imports: [ base.imports() ],
         providers: [base.providers()],
-      declarations: [ AddMultiplyChoiceComponent ]
+      declarations: [ AddInformationTextComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddMultiplyChoiceComponent);
+    fixture = TestBed.createComponent(AddInformationTextComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -9,4 +9,10 @@ class InformationTextSerializer(serializers.ModelSerializer):
 
     class Meta():
         model = InformationText
-        fields = ('text_field',)
+        fields = ('text_field', 'image',)
+
+    def create(self, validated_data):
+        question = InformationText(**validated_data)
+        question.module = validated_data['module']
+        question.save()
+        return True

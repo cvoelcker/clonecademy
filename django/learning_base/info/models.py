@@ -12,8 +12,8 @@ class InformationText(Question):
 
     __name__ = "info_text"
 
-    visible = models.BooleanField(
-        default=True
+    image = models.TextField(
+        blank=True,
     )
 
     text_field = models.TextField()
