@@ -1,6 +1,6 @@
 <div>
   <md-input-container>
-    <textarea mdInput placeholder='{{"Text" | translate}}' #Question="ngModel" name="text_field" type="textarea" [(ngModel)]="text_field" required></textarea>
+    <textarea mdInput placeholder='{{"Text" | translate}}' #Question="ngModel" name="text_field" type="textarea" [(ngModel)]="body.text_field" required></textarea>
     <md-hint align="start" class="warning" *ngIf="form != null && form.submitted"><strong>{{'The question is required' | translate}}</strong></md-hint>
   </md-input-container>
 
