@@ -14,6 +14,6 @@ export class InformationTextComponent extends QuestionModule {
 
   // return array of the marked answers
   submit(): any{
-    return this.data;
+    return true;
   }
 }
