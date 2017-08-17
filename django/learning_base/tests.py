@@ -6,8 +6,9 @@ from rest_framework.test import force_authenticate
 
 from django.contrib.auth.models import User, Group
 from learning_base import views, models, serializers
-import learning_base.multiple_choice as MultipleChoiceQuestion
+import learning_base.multiple_choice as MultipleChoice
 import learning_base.info as InformationText
+
 
 class DatabaseMixin():
     def setup_database(self):
@@ -25,17 +26,31 @@ class DatabaseMixin():
                                         is_visible=True)
         self.c1_test_en.save()
 
-        self.m1_test = models.Module(name="modue_1", course=self.c1_test_en,
+        self.m1_test = models.Module(name="module_1", course=self.c1_test_en,
                                      order=1)
         self.m1_test.save()
 
-        self.q1_test = MultipleChoiceQuestion.models.MultipleChoiceQuestion(
+        self.q1_test = MultipleChoice.models.MultipleChoiceQuestion(
             title="",
             body="a question",
             feedback="",
             order=1,
             module=self.m1_test)
         self.q1_test.save()
+
+        self.a1_test = MultipleChoice.models.MultipleChoiceAnswer(
+            question=self.q1_test,
+            text="something",
+            is_correct=False
+        )
+        self.a1_test.save()
+
+        self.a2_test = MultipleChoice.models.MultipleChoiceAnswer(
+            question=self.q1_test,
+            text="something",
+            is_correct=True)
+        self.a2_test.save()
+
         self.q2_test = InformationText.models.InformationText(
             title="",
             body="an information text",
@@ -45,7 +60,6 @@ class DatabaseMixin():
         self.q2_test.save()
 
         Group(name="admin").save()
-        print(Group.objects.all())
 
 
 class AnswerViewTest(DatabaseMixin, TestCase):
@@ -58,21 +72,8 @@ class AnswerViewTest(DatabaseMixin, TestCase):
         force_authenticate(request, self.u1)
         response = self.view(request, 1, 0, 0)
 
-        self.assertEqual(response.data, [])
-
-        answer_1 = MultipleChoiceQuestion.models.MultipleChoiceAnswer(
-            question=self.q1_test,
-            text="something",
-            is_correct=False)
-        answer_1.save()
-        answer_2 = MultipleChoiceQuestion.models.MultipleChoiceAnswer(
-            question=self.q1_test,
-            text="something",
-            is_correct=False)
-        answer_2.save()
-        answer_1_serialized = serializers.AnswerSerializer(answer_1).data
-        answer_2_serialized = serializers.AnswerSerializer(answer_2).data
-        response = self.view(request, 1, 0, 0)
+        answer_1_serialized = serializers.AnswerSerializer(self.a1_test).data
+        answer_2_serialized = serializers.AnswerSerializer(self.a2_test).data
 
         self.assertEqual(response.data,
                          [answer_1_serialized, answer_2_serialized])
@@ -148,19 +149,19 @@ class CourseViewTest(DatabaseMixin, TestCase):
                                      'category': 'test',
                                      'difficulty': 2,
                                      'modules': [{'name': 'a module',
-                                      'learning_text': 'no way',
-                                      'order': 3,
-                                      'questions': [
-                                          {'title': 'a question',
-                                           'body': 'some text',
-                                           'feedback': '',
-                                           'type': 'multiple_choice',
-                                           'order': 1,
-                                           'answers': [
-                                               {'text': 'nope',
-                                                'is_correct': True},
-                                               {'text': 'nope',
-                                                'is_correct': False}]}]}],
+                                                  'learning_text': 'no way',
+                                                  'order': 3,
+                                                  'questions': [
+                                                      {'title': 'a question',
+                                                       'body': 'some text',
+                                                       'feedback': '',
+                                                       'type': 'multiple_choice',
+                                                       'order': 1,
+                                                       'answers': [
+                                                           {'text': 'nope',
+                                                            'is_correct': True},
+                                                           {'text': 'nope',
+                                                            'is_correct': False}]}]}],
                                      'language': 'en'}, format='json')
         force_authenticate(request, self.u1)
         response = self.view(request)
@@ -172,17 +173,17 @@ class CourseViewTest(DatabaseMixin, TestCase):
                                      'category': 'test',
                                      'difficulty': 2,
                                      'modules': [{'name': 'a module',
-                                      'learning_text': 'no way',
-                                      'order': 3,
-                                      'questions': [
-                                          {'title': 'a question',
-                                           'body': 'some text',
-                                           'feedback': '',
-                                           'type': 'MultipleChoiceQuestion',
-                                           'order': 1,
-                                           'answers': [
-                                               {'text': 'nope',
-                                                'is_correct': False}]}]}],
+                                                  'learning_text': 'no way',
+                                                  'order': 3,
+                                                  'questions': [
+                                                      {'title': 'a question',
+                                                       'body': 'some text',
+                                                       'feedback': '',
+                                                       'type': 'MultipleChoiceQuestion',
+                                                       'order': 1,
+                                                       'answers': [
+                                                           {'text': 'nope',
+                                                            'is_correct': False}]}]}],
                                      'language': 'en'}, format='json')
         force_authenticate(request, self.u1)
         response = self.view(request)
@@ -215,24 +216,26 @@ class CourseViewTest(DatabaseMixin, TestCase):
                                      'category': 'test',
                                      'difficulty': 2,
                                      'modules': [{'name': 'any module',
-                                      'learning_text': 'no way',
-                                      'order': 0,
-                                      'questions': [
-                                          {'title': 'some question',
-                                           'body': 'any text',
-                                           'feedback': '',
-                                           'type': 'multiple_choice',
-                                           'order': 1,
-                                           'answers': [
-                                               {'text': 'this is not correct',
-                                                'is_correct': False}]}]}],
+                                                  'learning_text': 'no way',
+                                                  'order': 0,
+                                                  'questions': [
+                                                      {
+                                                          'title': 'some question',
+                                                          'body': 'any text',
+                                                          'feedback': '',
+                                                          'type': 'multiple_choice',
+                                                          'order': 1,
+                                                          'answers': [
+                                                              {
+                                                                  'text': 'this is not correct',
+                                                                  'is_correct': False}]}]}],
                                      'language': 'en'}, format='json')
         force_authenticate(request, self.u1)
         response = self.view(request)
         self.assertEquals(response.status_code, 400)
         self.assertFalse(models.Course.objects.filter(name='test_4').exists())
         self.assertFalse(
-            MultipleChoiceQuestion.models.MultipleChoiceQuestion.objects.filter(
+            MultipleChoice.models.MultipleChoiceQuestion.objects.filter(
                 title='any module').exists())
 
         request = self.factory.post('/courses/save',
@@ -259,7 +262,7 @@ class CourseViewTest(DatabaseMixin, TestCase):
         self.assertEqual(response.status_code, 201)
         self.assertTrue(models.Course.objects.filter(name='test_4').exists())
         self.assertTrue(
-            MultipleChoiceQuestion.models.MultipleChoiceQuestion.objects.filter(
+            MultipleChoice.models.MultipleChoiceQuestion.objects.filter(
                 title='a question').exists())
 
     def test_information_text(self):
@@ -357,3 +360,68 @@ class RequestViewTest(DatabaseMixin, TestCase):
         response = self.view(request_3)
         self.assertEqual(response.status_code, 403)
         self.assertFalse(self.mod_group in self.u1.groups.all())
+
+
+class QuestionViewTest(DatabaseMixin, TestCase):
+    def setUp(self):
+        self.factory = APIRequestFactory()
+        self.view = views.QuestionView.as_view()
+
+        self.setup_database()
+
+    def test_get(self):
+        # Test for true positive
+        request_1 = self.factory.get('/course/1/1/1')
+        force_authenticate(request_1, self.u1)
+        response = self.view(request_1, course_id=1, module_id=0,
+                             question_id=0)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data,
+                         serializers.QuestionSerializer(self.q1_test, context={
+                             'request': request_1}).data)
+
+        # Test for true negative
+        response = self.view(request_1, course_id=1, module_id=0,
+                             question_id=128)
+        self.assertEqual(response.status_code, 404)
+
+        # Test for outer catch
+        response = self.view(request_1, course_id=128, module_id=128,
+                             question_id=128)
+        self.assertEqual(response.status_code, 404)
+
+        # Test for can't access
+        response = self.view(request_1, course_id=1, module_id=0,
+                             question_id=1)
+        self.assertEqual(response.status_code, 403)
+
+    def test_post(self):
+        request_1 = self.factory.post('', {'answers': [0, 1]})
+        request_1.user = self.u1
+        force_authenticate(request_1, self.u1)
+        response = self.view(request_1, course_id=1, module_id=0,
+                             question_id=0)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, {"evaluate": False})
+
+        can = views.QuestionView().can_access_question(self.u1, self.q2_test)
+        self.assertFalse(can)
+
+        # Test doesn't work because of weird behavior of testing API
+        #
+        # request_1 = self.factory.post('', {'answers': [2]})
+        # request_1.user = self.u1
+        # force_authenticate(request_1, self.u1)
+        # response = self.view(request_1, course_id=1, module_id=0,
+        #                      question_id=0)
+
+        # can = views.QuestionView().can_access_question(self.u1, self.q2_test)
+        # self.assertTrue(can)
+
+    def test_can_access_question(self):
+        can = views.QuestionView().can_access_question(self.u1, self.q1_test)
+        self.assertTrue(can)
+
+        can = views.QuestionView().can_access_question(self.u1, self.q2_test)
+        self.assertFalse(can)

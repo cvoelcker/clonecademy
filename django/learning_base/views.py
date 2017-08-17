@@ -221,8 +221,8 @@ class QuestionView(APIView):
 
     def can_access_question(self, user, question):
         return (
-                   question.is_first_question and
-                   question.module.is_first_module) or user.try_set.filter(
+                   question.is_first_question() and
+                   question.module.is_first_module()) or user.try_set.filter(
             question__order=question.order - 1, solved=True).exists()
 
     def get(self, request, course_id, module_id, question_id, format=None):
