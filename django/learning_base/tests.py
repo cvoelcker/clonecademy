@@ -45,7 +45,7 @@ class DatabaseMixin():
         self.q2_test.save()
 
         Group(name="admin").save()
-        print(Group.objects.all())
+
 
 
 class AnswerViewTest(DatabaseMixin, TestCase):
@@ -286,6 +286,184 @@ class CourseViewTest(DatabaseMixin, TestCase):
         self.assertTrue(
             InformationText.models.InformationText.objects.filter(
                 title='a question').exists())
+
+class CourseEditViewTest(DatabaseMixin, TestCase):
+
+    def setUp(self):
+        self.factory = APIRequestFactory()
+        self.view = views.CourseView.as_view()
+
+        self.setup_database()
+
+    def test_deleting_question(self):
+        courseData = {
+                    'name': 'edit_1',
+                    'category': 'test',
+                    'difficulty': 2,
+                    'responsible_mod': 1,
+                    'responsible_mod': self.u1,
+                    'modules': [
+                        {
+                        'name': 'a module',
+                        'learning_text': 'no way',
+                        'order': 3,
+                        'questions':[
+                            {
+                            'title': 'a question',
+                            'body': 'some text',
+                            'feedback': '',
+                            'type': 'multiple_choice',
+                            'order': 1,
+                            'answers':[
+                                {
+                                'text': 'true',
+                                'is_correct': True
+                                },
+                                {
+                                'text': 'nope',
+                                'is_correct': False
+                                }
+                            ]
+                            },
+                            {
+                            'title': 'this one will be removed',
+                            'body': 'some text',
+                            'feedback': '',
+                            'type': 'multiple_choice',
+                            'order': 2,
+                            'answers': [
+                                {
+                                'text': 'true',
+                                'is_correct': True
+                                },
+                                {
+                                'text': 'nope',
+                                'is_correct': False
+                                }
+                            ]
+                            }
+                        ]
+                        }
+                    ],
+                    'language': 'en'}
+
+        course = serializers.CourseSerializer(data=courseData)
+        if not course.is_valid():
+            self.assertTrue(False)
+        course.create(courseData)
+        self.assertTrue(models.Course.objects.filter(name='edit_1').exists())
+
+        request = self.factory.get('/courses/')
+        request.user = self.u1
+        edit = serializers.CourseEditSerializer(models.Course.objects.filter(name="edit_1").first()).data
+
+        del edit['modules'][0]['questions'][1]
+
+        import json
+        data = json.loads(json.dumps(edit))
+
+        data['modules'][0]['questions'][0]['answers'] = data['modules'][0]['questions'][0]['question_body']['answers']
+
+        del data['modules'][0]['questions'][0]['question_body']
+
+        data['modules'][0]['questions'][0]['order'] = 0
+
+        data['responsible_mod'] = self.u1
+        course = serializers.CourseSerializer(data=data)
+        if not course.is_valid():
+            self.assertTrue(False)
+        course.create(data)
+
+        self.assertFalse(models.Question.objects.filter(title='this one will be removed').exists())
+
+
+    def test_deleting_module(self):
+        courseData = {
+                    'name': 'edit_2',
+                    'category': 'test',
+                    'difficulty': 2,
+                    'responsible_mod': 1,
+                    'responsible_mod': self.u1,
+                    'modules': [
+                        {
+                        'name': 'a module',
+                        'learning_text': 'no way',
+                        'order': 3,
+                        'questions':[
+                            {
+                            'title': 'a question',
+                            'body': 'some text',
+                            'feedback': '',
+                            'type': 'multiple_choice',
+                            'order': 1,
+                            'answers':[
+                                {
+                                'text': 'true',
+                                'is_correct': True
+                                },
+                                {
+                                'text': 'nope',
+                                'is_correct': False
+                                }
+                            ]
+                            },
+                        ]
+                        },
+                        {
+                        'name': 'another module',
+                        'learning_text': 'no way',
+                        'order': 4,
+                        'questions':[
+                            {
+                            'title': 'a question',
+                            'body': 'some text',
+                            'feedback': '',
+                            'type': 'multiple_choice',
+                            'order': 1,
+                            'answers':[
+                                {
+                                'text': 'true',
+                                'is_correct': True
+                                },
+                                {
+                                'text': 'nope',
+                                'is_correct': False
+                                }
+                            ]
+                            },
+                        ]
+                        }
+                    ],
+                    'language': 'en'}
+
+        course = serializers.CourseSerializer(data=courseData)
+        if not course.is_valid():
+            self.assertTrue(False)
+        course.create(courseData)
+        self.assertTrue(models.Course.objects.filter(name='edit_2').exists())
+
+        request = self.factory.get('/courses/')
+        request.user = self.u1
+        edit = serializers.CourseEditSerializer(models.Course.objects.filter(name="edit_2").first()).data
+
+        del edit['modules'][1]
+
+        import json
+        data = json.loads(json.dumps(edit))
+
+        data['modules'][0]['questions'][0]['answers'] = data['modules'][0]['questions'][0]['question_body']['answers']
+
+        del data['modules'][0]['questions'][0]['question_body']
+
+        data['modules'][0]['questions'][0]['order'] = 0
+
+        data['responsible_mod'] = self.u1
+        course = serializers.CourseSerializer(data=data)
+        if not course.is_valid():
+            self.assertTrue(False)
+        course.create(data)
+
+        self.assertFalse(models.Module.objects.filter(name='another module').exists())
 
 
 class RequestViewTest(DatabaseMixin, TestCase):

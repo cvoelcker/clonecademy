@@ -52,7 +52,6 @@ class QuestionSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         question_type = validated_data.pop('type')
-        print(validated_data)
 
         if question_type == 'multiple_choice':
             MultipleChoiceQuestionSerializer().create(validated_data)
@@ -121,6 +120,21 @@ class ModuleSerializer(serializers.ModelSerializer):
         This method is used to save modules and their respective questions
         '''
         questions = validated_data.pop('questions')
+
+        question_id = []
+        # create a array with the ids for all questions of this module
+        for quest in questions:
+            if 'id' in quest:
+                question_id.append(quest['id'])
+
+        # check if this is a edit or creation of a new module
+        if question_id != []:
+            # get all questions for the current module
+            queryQuestions = Question.objects.filter(module_id=validated_data['id'])
+            # iterate over the questions and if the questions does not exist in the edited module it will be removed
+            for q in queryQuestions:
+                if q.id not in question_id:
+                    q.delete()
         module = Module(**validated_data)
         module.course = validated_data['course']
         module.save()
@@ -171,6 +185,7 @@ class CourseSerializer(serializers.ModelSerializer):
         questions.
         '''
         modules = validated_data.pop('modules')
+
         # check if course is empty and raise error if so
         if len(modules) <= 0:
             raise ParseError(detail="Course needs to have at least one module", code=None)
@@ -179,6 +194,21 @@ class CourseSerializer(serializers.ModelSerializer):
         validated_data['category'] = category
         course = Course(**validated_data)
         course.save()
+
+        # create a array with the ids for all module ids of this course
+        module_id = []
+        for m in modules:
+            if 'id' in m:
+                module_id.append(m['id'])
+
+        # check if this is a edit or creation of a new course
+        if module_id != []:
+            # get all modules for the current course
+            moduleQuery = Module.objects.filter(course_id=validated_data['id'])
+            # iterate over the modules and if the modules does not exist in the edited course it will be removed
+            for m in moduleQuery:
+                if m.id not in module_id:
+                    m.delete()
         try:
             for module in modules:
                 module_serializer = ModuleSerializer(data=module)
