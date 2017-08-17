@@ -126,5 +126,5 @@ npm-debug.log
 *.synctex.gz
 
 #Django
-*.sqlite.3
+db.sqlite.3
 /django/database

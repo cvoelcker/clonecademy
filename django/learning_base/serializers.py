@@ -52,7 +52,6 @@ class QuestionSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         question_type = validated_data.pop('type')
-
         if question_type == 'multiple_choice':
             MultipleChoiceQuestionSerializer().create(validated_data)
         elif question_type == 'info_text':
@@ -170,9 +169,17 @@ class CourseSerializer(serializers.ModelSerializer):
 
         num_questions = 0
         num_answered = 0
+        count_question = 0
+        count_module = 0
         for module in modules:
+            count_module += 1
             for question in module['questions']:
-                if question['solved']: num_answered += 1
+                count_question += 1
+                if question['solved']:
+                    num_answered += 1
+                else:
+                    value['next_question'] = count_question
+                    value['current_module'] = count_module
                 num_questions += 1
         value['num_answered'] = num_answered
         value['num_questions'] = num_questions
