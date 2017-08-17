@@ -64,8 +64,7 @@ export class AddQuestionComponent implements OnInit {
 
   remove(e){
     if(e != null && e.toState == "0"){
-      this.emitter.emit("remove")
-
+      //this.emitter.emit("remove")
     }
   }
 

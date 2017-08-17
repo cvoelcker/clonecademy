@@ -2,9 +2,11 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 
 export const slideIn = trigger('slideIn', [
       state('1', style({
+        'display': 'block',
         'overflow': 'hidden',
       })),
       state('0', style({
+        'display': 'none',
         'overflow': 'hidden',
       })),
       transition('1 => 0', [
