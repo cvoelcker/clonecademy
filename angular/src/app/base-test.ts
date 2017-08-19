@@ -1,7 +1,7 @@
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {MdDialog, MdDialogModule, MdButtonModule, MdAutocompleteModule, MdCheckboxModule, MdTooltipModule, MdCardModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule, MdProgressSpinnerModule} from '@angular/material';
+import { MdSidenavModule, MdMenuModule, MdDialog, MdDialogModule, MdButtonModule, MdAutocompleteModule, MdCheckboxModule, MdTooltipModule, MdCardModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule, MdProgressSpinnerModule} from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -15,6 +15,8 @@ import { LoaderComponent } from './loader/loader.component';
 import { ServerService } from './service/server.service';
 import { UserService } from './service/user.service';
 import { CourseService}  from './service/course.service';
+
+import { MarkdownModule } from 'angular2-markdown';
 
 import { HttpModule, Http } from '@angular/http';
 
@@ -37,6 +39,7 @@ export class BaseTest{
         deps: [Http]
       }
     }),
+    MarkdownModule.forRoot(),
     FormsModule,
     MdButtonModule,
     MdCheckboxModule,
@@ -48,7 +51,9 @@ export class BaseTest{
     MdTooltipModule,
     MdAutocompleteModule,
     MdProgressSpinnerModule,
+    MdMenuModule,
     HttpModule,
+    MdSidenavModule,
     ReactiveFormsModule,
     RouterTestingModule,
     BrowserAnimationsModule]

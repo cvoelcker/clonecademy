@@ -25,7 +25,8 @@ export class CourseViewComponent{
     this.course.load().then(() => {
       this.loading = false,
       this.loadingCat = false,
-      this.courses = this.course.get_started()})
+      this.courses = this.course.get_started()
+    })
   }
 
   constructor(private course: CourseService, private user: UserService) {

@@ -80,7 +80,6 @@ export class UserService {
     this.login = false
     this.groups = null;
     this.cookie.removeAll();
-    this.server.clearToken();
     this.router.navigate(['/login']);
   }
 
@@ -92,7 +91,7 @@ export class UserService {
   }
 
   constructor(private translate: TranslateService, private server: ServerService, private router: Router, private cookie: CookieService ) {
-    this.login = this.server.getToken() != null
+    this.login = this.cookie.get("token") != null
     if(this.login){
       this.loadUser()
     }

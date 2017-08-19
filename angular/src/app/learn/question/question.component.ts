@@ -3,16 +3,15 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { ServerService } from "../../service/server.service"
-import {MdDialog} from '@angular/material';
+import { MdDialog } from '@angular/material';
 
-import {TranslateService} from '@ngx-translate/core';
-import {MdSidenavModule} from '@angular/material';
+import { TranslateService } from '@ngx-translate/core';
+import { MdSidenavModule } from '@angular/material';
 import { MultipleChoiceQuestionComponent } from "../multiple-choice-question/multiple-choice-question.component"
 import { InformationTextComponent } from "../info-text/info-text.component"
 
 
 import { WrongFeedbackComponent } from './wrong-feedback/wrong-feedback.component';
-import { CorrectFeedbackComponent } from './correct-feedback/correct-feedback.component';
 import { QuestionModule } from "./question.module";
 
 import { QuestionDictionary } from '../question-dictionary';

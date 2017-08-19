@@ -1,18 +1,22 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Http, RequestOptions } from '@angular/http';
+import { Http } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
+
+import { BaseTest } from '../base-test';
 
 import { StaticPageComponent } from './static-page.component';
 
-describe('StaticPageComponent', () => {
+describe('StaticPage Component', () => {
   let component: StaticPageComponent;
   let fixture: ComponentFixture<StaticPageComponent>;
 
   beforeEach(async(() => {
+    let base = new BaseTest();
     TestBed.configureTestingModule({
+      imports: [ base.imports() ],
       declarations: [ StaticPageComponent ],
-      providers: [Http, RequestOptions, Router, ActivatedRoute]
+      providers: [base.providers()],
     })
     .compileComponents();
   }));

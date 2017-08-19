@@ -18,13 +18,13 @@ describe('InformationText Component', () => {
         providers: [base.providers()],
         declarations: [ base.entryComponents([InformationTextComponent]) ]
       })
-      TestBed.overrideModule(
-        BrowserDynamicTestingModule, {
-          set: {
-            entryComponents: [base.entryComponents()]
-          }
-        }
-      )
+      // TestBed.overrideModule(
+      //   BrowserDynamicTestingModule, {
+      //     set: {
+      //       entryComponents: [base.entryComponents()]
+      //     }
+      //   }
+      // )
       .compileComponents();
   }));
 

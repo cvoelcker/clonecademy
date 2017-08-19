@@ -21,21 +21,14 @@ export class ServerService {
     return this.baseUrl;
   }
 
-  headers = new Headers({'Accept': 'application/json', 'Content-Type': 'application/json'});
-
-  private token: string;
-
   private loader: MdDialogRef<LoaderComponent>
 
-
   constructor(private http: Http, private cookie: CookieService, private dialog: MdDialog, private error: ErrorDialog) {
-    this.token = this.cookie.get("token")
   }
 
   private makeHeader(){
     // the jwt token is the string given from django after login
     return new Headers({'Authorization': "Token " + this.cookie.get("token"), 'Accept': 'application/json', 'Content-Type': 'application/json'});
-
   }
 
   // call this function to get data from the server
@@ -48,7 +41,6 @@ export class ServerService {
         disableClose: true
       })
     }
-
 
     let options = new RequestOptions({headers: this.makeHeader()})
     return new Promise((resolve, reject) => this.http.get(this.baseUrl + type, options)
@@ -83,7 +75,7 @@ export class ServerService {
     }
 
     body = JSON.stringify(body)
-    //this.headers.append('Authorization', 'Token ' + this.token)
+
     let options = new RequestOptions({headers: this.makeHeader()})
 
     return new Promise((resolve, reject) => this.http.post(this.baseUrl + type, body, options)
@@ -133,7 +125,6 @@ export class ServerService {
       .subscribe(
         (res) => {
           let response = res.json();
-          this.token = response.token
           this.cookie.put("token", response.token);
           this.cookie.put("username", name);
           resolve(response);
@@ -141,20 +132,6 @@ export class ServerService {
         (err) => {
           reject(err.json())
         }))
-  }
-
-  public register(username: string, password: string, email: string, firstName: string, lastName:string, ) {
-    /** TODO: implement ??? or maybe not ???
-     * check wether or not the function in app.component.ts is sufficient
-     */
-  }
-
-  public clearToken(){
-    this.token = null;
-  }
-
-  public getToken(){
-    return this.token;
   }
 
   downloadStatistics(request = {}){
@@ -180,9 +157,4 @@ export class ServerService {
     })
   }
 
-}
-
-export class User{
-  token: string;
-  non_field_errors: string;
 }

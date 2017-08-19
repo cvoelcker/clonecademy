@@ -6,7 +6,7 @@ import { BaseTest } from '../../base-test';
 
 import { QuestionComponent } from './question.component';
 
-describe('QuestionComponent', () => {
+describe('Question Component', () => {
   let component: QuestionComponent;
   let fixture: ComponentFixture<QuestionComponent>;
 

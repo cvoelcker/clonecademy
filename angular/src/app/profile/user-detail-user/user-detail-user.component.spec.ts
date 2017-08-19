@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BaseTest } from '../../base-test';
 
-import { UserDetailComponent } from './user-detail.component';
+import { UserDetailUserComponent } from './user-detail-user.component';
 
 describe('User Detail Component', () => {
   let component: UserDetailUserComponent;
@@ -13,13 +13,13 @@ describe('User Detail Component', () => {
       TestBed.configureTestingModule({
         imports: [ base.imports() ],
         providers: [base.providers()],
-      declarations: [ UserDetailComponent ]
+      declarations: [ UserDetailUserComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UserDetailComponent);
+    fixture = TestBed.createComponent(UserDetailUserComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

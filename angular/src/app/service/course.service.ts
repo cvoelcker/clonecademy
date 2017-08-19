@@ -12,7 +12,10 @@ export class CourseService {
   constructor(private server: ServerService, private user: UserService) {
   }
 
-
+  /**
+  load Courses for all categorys for the current user language
+  after loading sorts course for every category in data variable
+  **/
   load(){
     return new  Promise((resolve, reject) => {
       this.getCategory().then(() => {
@@ -21,6 +24,7 @@ export class CourseService {
           .then((data) => {
             this.data[this.categorys[i].name] = data
             if(i == this.categorys.length -1){
+              console.log(this.data)
               resolve()
             }
           }
@@ -34,6 +38,10 @@ export class CourseService {
 
   }
 
+  /**
+  get all categories from server
+  will store all categories in the categories variable as array
+  **/
   getCategory(){
     return new Promise((resolve, reject) => this.server.get("get-course-categories/", true)
     .then(data => {
@@ -46,6 +54,10 @@ export class CourseService {
       }))
   }
 
+  /**
+  returns promise and resolve if this course exists.
+  Loads the courses if current not loaded.
+  **/
   contains(id: number){
     return new Promise((resolve, reject) => {
       if(this.data == null){
@@ -75,7 +87,9 @@ export class CourseService {
     })
   }
 
-
+  /**
+  Returns the course by id
+  **/
   get(id: number){
     for(let i = 0; i < this.categorys.length; i++){
       for(let j = 0; j < this.data[this.categorys[i].name].length; j++){

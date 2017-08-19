@@ -2,13 +2,13 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgModule } from '@angular/core';
 
 
-import { BaseTest } from '../../../../base-test';
+import { BaseTest } from '../../../base-test';
 
 import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
 
-import { LoaderComponent } from '../../loader/loader.component';
+import { LoaderComponent } from '../../../loader/loader.component';
 import {MdDialog, MdDialogModule, MdDialogRef } from '@angular/material';
-import { ErrorMessageComponent } from './wrong-feedback.component';
+import { WrongFeedbackComponent } from './wrong-feedback.component';
 
 @NgModule({
     declarations: [WrongFeedbackComponent],
@@ -18,11 +18,11 @@ import { ErrorMessageComponent } from './wrong-feedback.component';
 })
 class TestModule { }
 
-describe('ErrorMessageComponent', () => {
+describe('WrongFeedbackComponent', () => {
 
   let dialog: MdDialog;
   let component: WrongFeedbackComponent;
-  let fixture: ComponentFixture<ErrorMessageComponent>;
+  let fixture: ComponentFixture<WrongFeedbackComponent>;
 
   beforeEach(async(() => {
     let base = new BaseTest();

@@ -1,17 +1,20 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { Http } from '@angular/http';
+import { BaseTest } from '../base-test';
+
 
 import { ServerService } from './server.service';
 
 describe('ServerService', () => {
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [ServerService]
+    let base = new BaseTest();
+      TestBed.configureTestingModule({
+      imports: [ base.imports() ],
+      providers: [base.providers([ServerService])],
     });
   });
 
-  // it('should be created', inject([ServerService], (service: ServerService) => {
-  //   expect(service).toBeTruthy();
-  // }));
+  it('should be created', inject([ServerService], (service: ServerService) => {
+    expect(service).toBeTruthy();
+  }));
 });

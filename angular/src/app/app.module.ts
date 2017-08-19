@@ -67,7 +67,6 @@ import { AdminPageComponent } from './admin/admin-page/admin-page.component';
 import { RegisterComponent } from './register/register.component';
 import { ErrorMessageComponent } from './error-message/error-message.component';
 import { WrongFeedbackComponent } from './learn/question/wrong-feedback/wrong-feedback.component';
-import { CorrectFeedbackComponent } from './learn/question/correct-feedback/correct-feedback.component';
 import { LoaderComponent } from './loader/loader.component';
 import { EditCourseComponent } from './learn/course-editor/create-course/edit-course.component';
 import { StaticPageComponent } from './static-page/static-page.component';
@@ -201,7 +200,6 @@ let QuestionList = QuestionDictionary.questionComponents
     RegisterComponent,
     ErrorMessageComponent,
     WrongFeedbackComponent,
-    CorrectFeedbackComponent,
     LoaderComponent,
     SassHelperComponent,
     EditCourseComponent,
@@ -261,7 +259,6 @@ let QuestionList = QuestionDictionary.questionComponents
     AddQuestionComponent,
     ErrorMessageComponent,
     WrongFeedbackComponent,
-    CorrectFeedbackComponent,
     LoaderComponent,
     CourseComponent,
     CreateCourseComponent,
