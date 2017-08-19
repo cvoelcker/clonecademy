@@ -42,16 +42,12 @@ import { LoggedInDirective } from './directive/logged-in.directive';
 import { MenuComponent } from './menu/menu.component';
 import { CourseComponent } from './learn/course/course.component';
 
-import { MultipleChoiceQuestionComponent } from './learn/multiple-choice-question/multiple-choice-question.component';
-import { InformationTextComponent } from './learn/info-text/info-text.component';
 import { QuestionDictionary } from './learn/question-dictionary';
 
 import { ModuleDirective } from './directive/module.directive';
 import { QuestionComponent } from './learn/question/question.component';
 // course editor
 import { CreateCourseComponent } from './learn/course-editor/create-course/create-course.component';
-import { AddMultiplyChoiceComponent } from './learn/course-editor/add-multiply-choice/add-multiply-choice.component';
-import { AddInformationTextComponent } from './learn/course-editor/add-info-text/add-info-text.component';
 import { AddModuleComponent } from './learn/course-editor/add-module/add-module.component';
 import { AddQuestionComponent } from './learn/course-editor/add-question/add-question.component';
 import { AddQuestionModule } from "./learn/course-editor/add-question/add-question.module"

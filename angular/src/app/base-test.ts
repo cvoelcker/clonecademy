@@ -1,6 +1,6 @@
-import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MdSidenavModule, MdMenuModule, MdDialog, MdDialogModule, MdButtonModule, MdAutocompleteModule, MdCheckboxModule, MdTooltipModule, MdCardModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule, MdProgressSpinnerModule} from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -21,7 +21,6 @@ import { MarkdownModule } from 'angular2-markdown';
 import { HttpModule, Http } from '@angular/http';
 
 import { ErrorDialog } from "./service/error.service"
-
 
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 

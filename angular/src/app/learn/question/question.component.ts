@@ -10,7 +10,6 @@ import { MdSidenavModule } from '@angular/material';
 import { MultipleChoiceQuestionComponent } from "../multiple-choice-question/multiple-choice-question.component"
 import { InformationTextComponent } from "../info-text/info-text.component"
 
-
 import { WrongFeedbackComponent } from './wrong-feedback/wrong-feedback.component';
 import { QuestionModule } from "./question.module";
 
@@ -95,27 +94,31 @@ export class QuestionComponent implements OnInit, OnDestroy{
 
   loadQuestion(){
     this.server.get("courses/"+this.courseID+"/"+ (Number(this.moduleIndex) -1) + "/" + (Number(this.questionIndex) - 1 )).then(data => {
-      this.submitCorrect = false;
-      this.title = data['title']
-      this.questionBody = data['body']
-      this.lastQuestion = data['last_question']
-      this.lastModule = data['last_module']
-      this.learning_text = data['learning_text']
-
-      // create Question based on the class
-      this.questionFactory = this.factory.resolveComponentFactory(this.components[data['type']])
-
-      // empty question factory box bevor adding new stuff
-      if(this.question.length > 0){
-        this.question.clear()
-
-      }
-      // load the current question Type on the screen
-      let question = this.question.createComponent(this.questionFactory)
-      this.questionModule = (<QuestionModule> question.instance)
-      // give the question its data
-      this.questionModule.data = data['question_body']
+      this.setupQuestion(data)
     })
+  }
+
+  setupQuestion(data){
+    this.submitCorrect = false;
+    this.title = data['title']
+    this.questionBody = data['body']
+    this.lastQuestion = data['last_question']
+    this.lastModule = data['last_module']
+    this.learning_text = data['learning_text']
+
+    // create Question based on the class
+    this.questionFactory = this.factory.resolveComponentFactory(this.components[data['type']])
+
+    // empty question factory box bevor adding new stuff
+    if(this.question.length > 0){
+      this.question.clear()
+
+    }
+    // load the current question Type on the screen
+    let question = this.question.createComponent(this.questionFactory)
+    this.questionModule = (<QuestionModule> question.instance)
+    // give the question its data
+    this.questionModule.data = data['question_body']
   }
 
 

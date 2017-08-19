@@ -8,13 +8,13 @@
     <table>
       <td class="text">
           <div class="alert">
-            <markdown [data]="learning_text" *ngIf="learning_text != undefined">
+            <markdown id="learning_text" [data]="learning_text" *ngIf="learning_text != undefined">
             </markdown>
           </div>
-          <md-card ><markdown [data]="questionBody" *ngIf="questionBody != undefined"></markdown></md-card>
+          <md-card ><markdown id="question_text" [data]="questionBody" *ngIf="questionBody != undefined"></markdown></md-card>
       </td>
       <td class="question">
-        <div class="question" #question></div>
+        <div id="question" #question></div>
       </td>
     </table>
   </div>
@@ -22,6 +22,6 @@
   <div class="footer">
     <button md-raised-button *ngIf="!submitCorrect" (click)="submit()">{{"submit" | translate}}</button>
     <button md-raised-button *ngIf="submitCorrect" (click)="next()">{{"next question" | translate}}</button>
-    <button md-raised-button (click)="sidenav.open()" [disabled]="submitCorrect">Dashboard</button>
+    <button md-raised-button (click)="sidenav.open()" [disabled]="submitCorrect">{{"dashboard" | translate}}</button>
   </div>
 </md-sidenav-container>

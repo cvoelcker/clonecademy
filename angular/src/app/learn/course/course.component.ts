@@ -2,15 +2,12 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { ServerService } from '../../service/server.service'
 import { CourseService } from '../../service/course.service'
-import { SassHelperComponent } from '../../service/sass-helper/sass-helper'
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.scss']
 })
 export class CourseComponent implements OnInit {
-
-  @ViewChild(SassHelperComponent) private sassHelper: SassHelperComponent;
 
   id: number;
   type: string;
