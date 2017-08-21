@@ -1,0 +1,149 @@
+\documentclass[colorback, accentcolor=tud1c, paper=a4]{tudexercise}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{multicol}
+
+%opening
+\title{Protokoll Auftraggebertreffen \today}
+\subtitle{Claas Völcker}
+\subsubtitle{BP Clonecademy}
+\author{Claas Völcker}
+
+\begin{document}
+
+\maketitle
+
+\section*{User Stories}
+\begin{multicols}{2}
+\begin{itemize}
+	\item Info Fragetyp einpflegen - abgenommen
+	\item Info Fragetyp anzeigen - abgenommen
+	\begin{itemize}
+		\item Bild sollte 2/3 der Seite einnehmen, der Text kommt auf die rechte Seite (siehe Designänderungen). 
+	\end{itemize}
+	\item Static Pages - abgenommen
+	\begin{itemize}
+		\item Der Knopf in der Kopfleiste wird direkt auf die ''About'' Seite verlinken, die anderen statischen Seiten werden in der Fußleiste verlinkt.
+		\item Es soll folgende Seiten geben ''Privacy Policy'', ''Terms'', ''Contact'', ''About'', ''Impressum''
+	\end{itemize}
+	\item Statistik exportieren - abgenommen
+	\item Dashboard im Kurs anzeigen - abgenommen
+	\begin{itemize}
+		\item Kann größer gemacht werden (1/3 der Seite)
+		\item Weitere US:
+		\begin{itemize}
+			\item Knopf der aufs Kursübergreifende Dashboard führt (''Zurück'' Icon)
+			\item Daneben: Moderator Name mit Profil
+			\item Daneben: Dashboard schließen
+			\item Kurs, Kursbeschreibung, Modultitel, Modulbeschreibung als ausklappbares Feld, Fragentitel (mit Navigations-Knöpfen)
+			\item Aktuelle Frage sollte auch hervorgehoben werden
+			\item Dashboard Knopf kleiner
+		\end{itemize}
+	\end{itemize}
+	\item Zusätzliche Funktionalität: YouTube Videos
+	\begin{itemize}
+		\item YouTube Videos können anstelle des Bildes in einen InfoText eingebaut werden.
+		\item Am Ende soll es die Möglichkeit geben, zwei Fragetypen auszuwählen ''InfoText (YouTube)'' und ''InfoText (Bild)''
+	\end{itemize}
+	\item Antwortmöglichkeiten Bilder einpflegen - abgenommen
+	\begin{itemize}
+		\item In der Fragenbeantwortung sollten die Antwortbilder größer sein
+	\end{itemize}
+\end{itemize}
+\end{multicols}
+\section*{Änderungen \& Neue Features}
+\begin{multicols}{2}
+
+Alle Änderungen finden sich en detail handschriftlich im Seafile!
+\begin{itemize}
+	\item Navbar (von links nach rechts)
+	\begin{itemize}
+		\item About/information
+		\item Learn
+		\item Profile
+	\end{itemize}
+	\item Fragen Anzeigen
+	\begin{itemize}
+		\item Fragebeschreibung und Fragestellung in zwei verschiedenen Boxen anzeigen
+		\item Daraus resultiert, dass es Fragentitel, Fragentext und Fragestellung gibt
+		\item Kursbeschreibung soll hinzugefügt werden
+		\item Kursbeschreibung muss eine Zeichenbeschränkung erhalten (144 Zeichen?)
+	\end{itemize}
+	\item Fußleiste in einer Frage
+	\begin{enumerate}
+		\item Dashboard (umbenannt zu Overview)
+		\item Fragetitel
+		\item Vor-Zurück Pfeile (in der Mitte Fragenummer/Anzahl von Fragen)
+	\end{enumerate}
+	\item Fußleiste außerhalb
+	\begin{itemize}
+		\item Static Page Buttons
+		\item Copyright \& Siteinformation (Name)
+		\item Social Media Accounts der iGEM Gruppe
+		\item Farbe: Wie Header
+	\end{itemize}
+	\item Profile
+	\begin{itemize}
+		\item Dropdown aus dem Knopf 
+		\item Nutzerbild (default wäre z.B. stylisierter DNA Strang)
+		\item Punktzahl (siehe Achievements)
+		\item ''View Profile'' Schaltfläche
+		\item Logout
+	\end{itemize}
+	\item Statistiken
+	\begin{itemize}
+		\item Vom aktuellen Standpunkt aus 7 Tage zurück: Wie viele Fragen wurden beantwortet
+		\item Kreisdiagramm Aufteilung auf Kategorien
+		\begin{itemize}
+			\item Kurse müssen Farben haben
+		\end{itemize}
+	\end{itemize}
+	\item Quiz
+	\begin{itemize}
+		\item Nur die mittlere Spalte (also Antwortmöglichkeiten)
+		\item Nur die Fragestellungen werden angezeigt, keine Texte und Beschreibungen
+		\item Auswertung wie gehabt
+		\item Keine Möglichkeit zur Navigation
+		\item Jeder Kurs hat optional ein Quiz (min. 10 Fragen) am Ende
+		\item Optional ein Bild anzeigen 
+		\item Die Antwort einer einmal beantwortete Quizfrage kann nicht nochmal ge'ndert werden, es sei denn man startet das Quiz von vorne
+	\end{itemize}
+	\item Vorschläge der BP Gruppe
+	\begin{itemize}
+		\item Password recovery in Profile or Login
+		\item Moderatorenrechte entziehen
+		\begin{itemize}
+			\item Die Kurse können dann vorläufig nur noch von Admins bearbeitet werden 
+		\end{itemize}
+		\item Adminrechte vergeben oder entziehen
+		\item Kategorien bearbeiten für Admins
+		\begin{itemize}
+			\item Kategorien löschen benötigt eine Warnung, da alle Kurse in dieser Kategorie mit gelöscht werden.
+		\end{itemize}
+		\item Übersicht über die Kurse auf der Frontpage
+		\begin{itemize}
+			\item Kurstitel und -beschreibung
+			\item aktuelles Modul
+			\item Knopf zum Fortführen
+			\item Fortschrittsanzeige
+		\end{itemize}
+	\item In Sidenav Moderatorenkurse anzeigen
+	\end{itemize}
+\end{itemize}
+
+\end{multicols}
+\section*{Kommende Iteration}
+\begin{multicols}{2}
+\begin{itemize}
+	\item Footer Redesign
+	\item Besprochene Änderungen und Redesign (Dashboard, Infotext)
+	\item Password recovery im Login
+	\item Moderatorenrechte entziehen
+	\item Adminrechte vergeben oder entziehen
+	\item Kategorien bearbeiten für Admins
+	\item ''Learn'' Seite Übersicht
+	\item Statistik
+\end{itemize}
+
+\end{multicols}
+\end{document}
