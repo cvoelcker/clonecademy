@@ -34,7 +34,7 @@ class CategoryView(APIView):
                         status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
-        return Response('Method not allowed',
+        return Response({"ans":'Method not allowed'},
                         status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
@@ -51,7 +51,7 @@ class MultiCourseView(APIView):
         """
         Not implemented
         """
-        return Response('Method not allowed',
+        return Response({"ans":'Method not allowed'},
                         status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def post(self, request, format=None):
@@ -74,7 +74,7 @@ class MultiCourseView(APIView):
             if not ((r_type in TYPES or not r_type)
                     and (r_category in CATEGORIES or not r_category)
                     and (r_lan in LANGUAGES or not r_lan)):
-                return Response("Query not possible",
+                return Response({"ans":"Query not possible"},
                                 status=status.HTTP_400_BAD_REQUEST)
 
             courses = Course.objects.all()
@@ -91,7 +91,7 @@ class MultiCourseView(APIView):
                 'request': request}).data
             return Response(data, status=status.HTTP_200_OK)
         except Exception as e:
-            return Response("Query not possible",
+            return Response({"ans":"Query not possible"},
                             status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -109,7 +109,7 @@ class CourseEditView(APIView):
         solutions
         """
         if not course_id:
-            return Response('Method not allowed',
+            return Response({"ans":'Method not allowed'},
                             status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
         try:
@@ -122,6 +122,7 @@ class CourseEditView(APIView):
             return Response(data)
 
         except Exception as e:
+            #TODO: Try if the conformate "ans" instead of "error" works as good as this
             return Response({'error': str(e)},
                             status=status.HTTP_404_NOT_FOUND)
 
@@ -143,7 +144,7 @@ class CourseView(APIView):
         modules and questions are serialized.
         """
         if not course_id:
-            return Response('Method not allowed',
+            return Response({"ans":'Method not allowed'},
                             status=status.HTTP_405_METHOD_NOT_ALLOWED)
         try:
             course = Course.objects.filter(id=course_id).first()
@@ -153,7 +154,7 @@ class CourseView(APIView):
             return Response(course_serializer.data,
                             status=status.HTTP_200_OK)
         except Exception as e:
-            return Response('Course not found',
+            return Response({"ans":'Course not found'},
                             status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request, course_id=None, format=None):
@@ -170,7 +171,7 @@ class CourseView(APIView):
         id = data.get('id')
         # This branch saves new courses or edites existing courses
         if (id is None) and Course.objects.filter(name=data['name']).exists():
-            return Response('Course with that name exists',
+            return Response({"ans":'Course with that name exists'},
                             status=status.HTTP_409_CONFLICT)
         if id is None:
             data['responsible_mod'] = request.user
@@ -204,11 +205,11 @@ class ModuleView(APIView):
         """
         Shows the module
         """
-        return Response('Method not allowed',
+        return Response({"ans":'Method not allowed'},
                         status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def post(self, request, format=None):
-        return Response('Method not allowed',
+        return Response({"ans":'Method not allowed'},
                         status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
@@ -250,11 +251,11 @@ class QuestionView(APIView):
             question = module.question_set.all()[int(question_id)]
 
             if question is None:
-                return Response("Question not found",
+                return Response({"ans":"Question not found"},
                                 status=status.HTTP_404_NOT_FOUND)
             if not self.can_access_question(request.user, question):
-                return Response(
-                    "Previous question(s) haven't been answered correctly yet",
+                return Response({"ans":
+                    "Previous question(s) haven't been answered correctly yet"},
                     status=status.HTTP_403_FORBIDDEN)
 
             data = serializer.QuestionSerializer(question,
@@ -275,13 +276,13 @@ class QuestionView(APIView):
             module = course.module_set.all()[int(module_id)]
             question = module.question_set.all()[int(question_id)]
         except Exception as e:
-            return Response("Question not found",
+            return Response({"ans":"Question not found"},
                             status=status.HTTP_404_NOT_FOUND)
         # deny access if there is a/are previous question(s) and it/they
         # haven't been answered correctly
         if not (self.can_access_question(request.user, question)):
-            return Response(
-                "Previous question(s) haven't been answered correctly yet",
+            return Response({"ans":
+                "Previous question(s) haven't been answered correctly yet"},
                 status=status.HTTP_403_FORBIDDEN)
 
         solved = question.evaluate(request.data["answers"])
@@ -314,7 +315,7 @@ class AnswerView(APIView):
         return Response(data, status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
-        return Response('Method not allowed',
+        return Response({"ans":'Method not allowed'},
                         status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
@@ -341,10 +342,10 @@ class UserView(APIView):
             if user.profile.is_mod():
                 user = User.objects.filter(id=user_id).first()
                 if not user:
-                    return Response('User not found',
+                    return Response({"ans":'User not found'},
                                     status=status.HTTP_404_NOT_FOUND)
             else:
-                return Response('Access denied',
+                return Response({"ans":'Access denied'},
                                 status=status.HTTP_401_UNAUTHORIZED)
 
         user = serializer.UserSerializer(user)
@@ -397,13 +398,13 @@ class UserRegisterView(APIView):
         authentication
         """
         if user_id:
-            return Response('Please use the UserView to update data',
+            return Response({"ans":'Please use the UserView to update data'},
                             status=status.HTTP_403_FORBIDDEN)
         else:
             user_serializer = serializer.UserSerializer(data=request.data)
             if user_serializer.is_valid():
                 user = user_serializer.create(request.data)
-                return Response('Created a new user',
+                return Response({"ans":'Created a new user'},
                                 status=status.HTTP_201_CREATED)
             else:
                 return Response(user_serializer.errors,
@@ -423,7 +424,7 @@ class MultiUserView(APIView):
         Returns all users
         """
         if not request.user.profile.is_mod():
-            return Response('Access denied',
+            return Response({"ans":'Access denied'},
                             status=status.HTTP_401_UNAUTHORIZED)
         users = User.objects.all()
         data = serializer.UserSerializer(users, many=True).data
@@ -433,7 +434,7 @@ class MultiUserView(APIView):
         """
         Not implemented
         """
-        return Response('Method not allowed',
+        return Response({"ans":'Method not allowed'},
                         status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
@@ -547,7 +548,7 @@ class RequestView(APIView):
         user = request.user
         profile = user.profile
         if not user.profile.modrequest_allowed():
-            return Response('User is mod or has sent too many requests',
+            return Response({"ans":'User is mod or has sent too many requests'},
                             status=status.HTTP_403_FORBIDDEN)
         # TODO: fix if an localization issues arrise
         profile.last_modrequest = timezone.localdate()
@@ -594,17 +595,17 @@ class GrantModRightsView(APIView):
         if to_be_promoted.profile.is_mod():
             # TODO Find out if it is useful to send a 200 when a user
             # was already mod
-            return Response(
+            return Response({"ans":
                 "the user \" " + to_be_promoted.username +
-                "\" is already a moderator",
+                "\" is already a moderator"},
                 status=status.HTTP_200_OK)
         mod_group = Group.objects.get(name='moderator')
         to_be_promoted.groups.add(mod_group)
 
         # may be replaced by tests
         if not to_be_promoted.profile.is_mod():
-            return Response(
-                "Something went wrong with promoting" + to_be_promoted.username,
+            return Response({"ans":
+                "Something went wrong with promoting" + to_be_promoted.username},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        return Response("successfully promoted " + to_be_promoted.username,
+        return Response({"ans":"successfully promoted " + to_be_promoted.username},
                         status=status.HTTP_200_OK)
