@@ -1,0 +1,1289 @@
+[
+{
+    "model": "contenttypes.contenttype",
+    "pk": 1,
+    "fields": {
+        "app_label": "admin",
+        "model": "logentry"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 2,
+    "fields": {
+        "app_label": "auth",
+        "model": "permission"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 3,
+    "fields": {
+        "app_label": "auth",
+        "model": "group"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 4,
+    "fields": {
+        "app_label": "auth",
+        "model": "user"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 5,
+    "fields": {
+        "app_label": "contenttypes",
+        "model": "contenttype"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 6,
+    "fields": {
+        "app_label": "sessions",
+        "model": "session"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 7,
+    "fields": {
+        "app_label": "authtoken",
+        "model": "token"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 8,
+    "fields": {
+        "app_label": "learning_base",
+        "model": "course"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 9,
+    "fields": {
+        "app_label": "learning_base",
+        "model": "coursecategory"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 10,
+    "fields": {
+        "app_label": "learning_base",
+        "model": "learninggroup"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 11,
+    "fields": {
+        "app_label": "learning_base",
+        "model": "module"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 12,
+    "fields": {
+        "app_label": "learning_base",
+        "model": "multiplechoiceanswer"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 13,
+    "fields": {
+        "app_label": "learning_base",
+        "model": "profile"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 14,
+    "fields": {
+        "app_label": "learning_base",
+        "model": "question"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 15,
+    "fields": {
+        "app_label": "learning_base",
+        "model": "try"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 16,
+    "fields": {
+        "app_label": "learning_base",
+        "model": "informationtext"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 17,
+    "fields": {
+        "app_label": "learning_base",
+        "model": "multiplechoicequestion"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "77nt9squupzw60yv7nrobic1bvp44cz6",
+    "fields": {
+        "session_data": "MDhiNTA2YzdiYzEwMjY5ZWU2NjU3Nzk2YWExYmYzZTEwZTgzNjZmMjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJmNmUwMTdmZjg5ODRkYzQ0NTQzN2JlY2ZiOTI5ODJhOWUzMTlkYWJmIn0=",
+        "expire_date": "2017-09-05T09:49:12.602Z"
+    }
+},
+{
+    "model": "learning_base.coursecategory",
+    "pk": 1,
+    "fields": {
+        "name": "General"
+    }
+},
+{
+    "model": "learning_base.coursecategory",
+    "pk": 2,
+    "fields": {
+        "name": "Safety & Ethics"
+    }
+},
+{
+    "model": "learning_base.coursecategory",
+    "pk": 3,
+    "fields": {
+        "name": "Biotechnology"
+    }
+},
+{
+    "model": "learning_base.coursecategory",
+    "pk": 4,
+    "fields": {
+        "name": "iGEM"
+    }
+},
+{
+    "model": "learning_base.module",
+    "pk": 1,
+    "fields": {
+        "name": "Introductory Information",
+        "learning_text": "This is some introductory information about iGEM",
+        "course": 1,
+        "order": 1,
+        "description": "We have a general problem here"
+    }
+},
+{
+    "model": "learning_base.module",
+    "pk": 2,
+    "fields": {
+        "name": "iGEM - History",
+        "learning_text": "This is a course about iGEMs history.",
+        "course": 1,
+        "order": 2,
+        "description": "This is a course about iGEMs history."
+    }
+},
+{
+    "model": "learning_base.question",
+    "pk": 1,
+    "fields": {
+        "polymorphic_ctype": 16,
+        "title": "iGEM - Introduction",
+        "text": "The introduction to iGEM is difficult.",
+        "question": "How difficult is the introduction to iGEM?",
+        "feedback": "It is very difficult!",
+        "order": 1,
+        "module": 1
+    }
+},
+{
+    "model": "learning_base.question",
+    "pk": 2,
+    "fields": {
+        "polymorphic_ctype": 17,
+        "title": "The histroy is long",
+        "text": "Bla bla bla dates blablabla boring stuff",
+        "question": "Is this boring?",
+        "feedback": "",
+        "order": 2,
+        "module": 2
+    }
+},
+{
+    "model": "learning_base.question",
+    "pk": 3,
+    "fields": {
+        "polymorphic_ctype": 17,
+        "title": "Stuff",
+        "text": "Stuff Stuff Stuff",
+        "question": "Is this stuff??",
+        "feedback": "Juo, more stuff",
+        "order": 3,
+        "module": 1
+    }
+},
+{
+    "model": "learning_base.question",
+    "pk": 4,
+    "fields": {
+        "polymorphic_ctype": 17,
+        "title": "Set the tatas free!",
+        "text": "Tatas are important for our society",
+        "question": "Should the tatas be set free?",
+        "feedback": "DO you even lift, bruh?",
+        "order": 5,
+        "module": 1
+    }
+},
+{
+    "model": "learning_base.multiplechoicequestion",
+    "pk": 3,
+    "fields": {
+        "question_image": "",
+        "feedback_image": ""
+    }
+},
+{
+    "model": "learning_base.multiplechoicequestion",
+    "pk": 4,
+    "fields": {
+        "question_image": "",
+        "feedback_image": ""
+    }
+},
+{
+    "model": "learning_base.multiplechoicequestion",
+    "pk": 2,
+    "fields": {
+        "question_image": "",
+        "feedback_image": ""
+    }
+},
+{
+    "model": "learning_base.multiplechoiceanswer",
+    "pk": 1,
+    "fields": {
+        "question": 2,
+        "text": "Correct",
+        "is_correct": true,
+        "img": ""
+    }
+},
+{
+    "model": "learning_base.multiplechoiceanswer",
+    "pk": 2,
+    "fields": {
+        "question": 3,
+        "text": "Correct",
+        "is_correct": true,
+        "img": ""
+    }
+},
+{
+    "model": "learning_base.multiplechoiceanswer",
+    "pk": 3,
+    "fields": {
+        "question": 4,
+        "text": "YAS QUEEN!",
+        "is_correct": true,
+        "img": ""
+    }
+},
+{
+    "model": "learning_base.multiplechoiceanswer",
+    "pk": 4,
+    "fields": {
+        "question": 2,
+        "text": "No way",
+        "is_correct": false,
+        "img": ""
+    }
+},
+{
+    "model": "learning_base.multiplechoiceanswer",
+    "pk": 5,
+    "fields": {
+        "question": 3,
+        "text": "Nort sure",
+        "is_correct": false,
+        "img": ""
+    }
+},
+{
+    "model": "learning_base.multiplechoiceanswer",
+    "pk": 6,
+    "fields": {
+        "question": 4,
+        "text": "NO F*** YOU",
+        "is_correct": false,
+        "img": ""
+    }
+},
+{
+    "model": "learning_base.informationtext",
+    "pk": 1,
+    "fields": {
+        "image": "",
+        "text_field": "Whatever"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 1,
+    "fields": {
+        "name": "Can add log entry",
+        "content_type": 1,
+        "codename": "add_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 2,
+    "fields": {
+        "name": "Can change log entry",
+        "content_type": 1,
+        "codename": "change_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 3,
+    "fields": {
+        "name": "Can delete log entry",
+        "content_type": 1,
+        "codename": "delete_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 4,
+    "fields": {
+        "name": "Can add permission",
+        "content_type": 2,
+        "codename": "add_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 5,
+    "fields": {
+        "name": "Can change permission",
+        "content_type": 2,
+        "codename": "change_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 6,
+    "fields": {
+        "name": "Can delete permission",
+        "content_type": 2,
+        "codename": "delete_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 7,
+    "fields": {
+        "name": "Can add group",
+        "content_type": 3,
+        "codename": "add_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 8,
+    "fields": {
+        "name": "Can change group",
+        "content_type": 3,
+        "codename": "change_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 9,
+    "fields": {
+        "name": "Can delete group",
+        "content_type": 3,
+        "codename": "delete_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 10,
+    "fields": {
+        "name": "Can add user",
+        "content_type": 4,
+        "codename": "add_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 11,
+    "fields": {
+        "name": "Can change user",
+        "content_type": 4,
+        "codename": "change_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 12,
+    "fields": {
+        "name": "Can delete user",
+        "content_type": 4,
+        "codename": "delete_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 13,
+    "fields": {
+        "name": "Can add content type",
+        "content_type": 5,
+        "codename": "add_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 14,
+    "fields": {
+        "name": "Can change content type",
+        "content_type": 5,
+        "codename": "change_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 15,
+    "fields": {
+        "name": "Can delete content type",
+        "content_type": 5,
+        "codename": "delete_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 16,
+    "fields": {
+        "name": "Can add session",
+        "content_type": 6,
+        "codename": "add_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 17,
+    "fields": {
+        "name": "Can change session",
+        "content_type": 6,
+        "codename": "change_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 18,
+    "fields": {
+        "name": "Can delete session",
+        "content_type": 6,
+        "codename": "delete_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 19,
+    "fields": {
+        "name": "Can add Token",
+        "content_type": 7,
+        "codename": "add_token"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 20,
+    "fields": {
+        "name": "Can change Token",
+        "content_type": 7,
+        "codename": "change_token"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 21,
+    "fields": {
+        "name": "Can delete Token",
+        "content_type": 7,
+        "codename": "delete_token"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 22,
+    "fields": {
+        "name": "Can add course",
+        "content_type": 8,
+        "codename": "add_course"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 23,
+    "fields": {
+        "name": "Can change course",
+        "content_type": 8,
+        "codename": "change_course"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 24,
+    "fields": {
+        "name": "Can delete course",
+        "content_type": 8,
+        "codename": "delete_course"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 25,
+    "fields": {
+        "name": "Can add course category",
+        "content_type": 9,
+        "codename": "add_coursecategory"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 26,
+    "fields": {
+        "name": "Can change course category",
+        "content_type": 9,
+        "codename": "change_coursecategory"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 27,
+    "fields": {
+        "name": "Can delete course category",
+        "content_type": 9,
+        "codename": "delete_coursecategory"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 28,
+    "fields": {
+        "name": "Can add learning group",
+        "content_type": 10,
+        "codename": "add_learninggroup"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 29,
+    "fields": {
+        "name": "Can change learning group",
+        "content_type": 10,
+        "codename": "change_learninggroup"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 30,
+    "fields": {
+        "name": "Can delete learning group",
+        "content_type": 10,
+        "codename": "delete_learninggroup"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 31,
+    "fields": {
+        "name": "Can add module",
+        "content_type": 11,
+        "codename": "add_module"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 32,
+    "fields": {
+        "name": "Can change module",
+        "content_type": 11,
+        "codename": "change_module"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 33,
+    "fields": {
+        "name": "Can delete module",
+        "content_type": 11,
+        "codename": "delete_module"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 34,
+    "fields": {
+        "name": "Can add multiple choice answer",
+        "content_type": 12,
+        "codename": "add_multiplechoiceanswer"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 35,
+    "fields": {
+        "name": "Can change multiple choice answer",
+        "content_type": 12,
+        "codename": "change_multiplechoiceanswer"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 36,
+    "fields": {
+        "name": "Can delete multiple choice answer",
+        "content_type": 12,
+        "codename": "delete_multiplechoiceanswer"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 37,
+    "fields": {
+        "name": "Can add profile",
+        "content_type": 13,
+        "codename": "add_profile"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 38,
+    "fields": {
+        "name": "Can change profile",
+        "content_type": 13,
+        "codename": "change_profile"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 39,
+    "fields": {
+        "name": "Can delete profile",
+        "content_type": 13,
+        "codename": "delete_profile"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 40,
+    "fields": {
+        "name": "Can add question",
+        "content_type": 14,
+        "codename": "add_question"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 41,
+    "fields": {
+        "name": "Can change question",
+        "content_type": 14,
+        "codename": "change_question"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 42,
+    "fields": {
+        "name": "Can delete question",
+        "content_type": 14,
+        "codename": "delete_question"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 43,
+    "fields": {
+        "name": "Can add try",
+        "content_type": 15,
+        "codename": "add_try"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 44,
+    "fields": {
+        "name": "Can change try",
+        "content_type": 15,
+        "codename": "change_try"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 45,
+    "fields": {
+        "name": "Can delete try",
+        "content_type": 15,
+        "codename": "delete_try"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 46,
+    "fields": {
+        "name": "Can add information text",
+        "content_type": 16,
+        "codename": "add_informationtext"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 47,
+    "fields": {
+        "name": "Can change information text",
+        "content_type": 16,
+        "codename": "change_informationtext"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 48,
+    "fields": {
+        "name": "Can delete information text",
+        "content_type": 16,
+        "codename": "delete_informationtext"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 49,
+    "fields": {
+        "name": "Can add multiple choice question",
+        "content_type": 17,
+        "codename": "add_multiplechoicequestion"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 50,
+    "fields": {
+        "name": "Can change multiple choice question",
+        "content_type": 17,
+        "codename": "change_multiplechoicequestion"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 51,
+    "fields": {
+        "name": "Can delete multiple choice question",
+        "content_type": 17,
+        "codename": "delete_multiplechoicequestion"
+    }
+},
+{
+    "model": "auth.group",
+    "pk": 1,
+    "fields": {
+        "name": "admin",
+        "permissions": []
+    }
+},
+{
+    "model": "auth.group",
+    "pk": 2,
+    "fields": {
+        "name": "moderator",
+        "permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$36000$iDCuoRRkWt7Q$sWSTY4yQGu5+4SJprOSS6t+kaQM7/P3g2NxlfuYC0Qs=",
+        "last_login": "2017-08-22T09:49:12Z",
+        "is_superuser": true,
+        "username": "iliricon",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2017-08-22T09:48:50Z",
+        "groups": [
+            1,
+            2
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$36000$l4waykzZ975r$0/Sbjz7pFNvh4ab700I3kQq2hFwQg0kwjQteBxo2/Yc=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "user",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2017-08-22T10:14:50.074Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$36000$df9e4gdVEjTC$5Qtjhu0XwDe6ugiEOMwZmj0xWNDo8bMDdbgJcwkeE4I=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "mod",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2017-08-22T10:15:15Z",
+        "groups": [
+            2
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "authtoken.token",
+    "pk": "81fc587059262c337fcefb3471c427b92dafd603",
+    "fields": {
+        "user": 1,
+        "created": "2017-08-22T09:56:48.916Z"
+    }
+},
+{
+    "model": "learning_base.profile",
+    "pk": 1,
+    "fields": {
+        "user": 1,
+        "birth_date": null,
+        "last_modrequest": null,
+        "language": "en"
+    }
+},
+{
+    "model": "learning_base.profile",
+    "pk": 2,
+    "fields": {
+        "user": 2,
+        "birth_date": null,
+        "last_modrequest": null,
+        "language": "en"
+    }
+},
+{
+    "model": "learning_base.profile",
+    "pk": 3,
+    "fields": {
+        "user": 3,
+        "birth_date": null,
+        "last_modrequest": null,
+        "language": "en"
+    }
+},
+{
+    "model": "learning_base.course",
+    "pk": 1,
+    "fields": {
+        "name": "iGEM - Introduction",
+        "category": 4,
+        "difficulty": 1,
+        "language": "en",
+        "responsible_mod": 1,
+        "is_visible": true,
+        "description": null
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 1,
+    "fields": {
+        "action_time": "2017-08-22T09:49:20.007Z",
+        "user": 1,
+        "content_type": 13,
+        "object_id": "1",
+        "object_repr": "iliricon",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 2,
+    "fields": {
+        "action_time": "2017-08-22T09:49:34.527Z",
+        "user": 1,
+        "content_type": 9,
+        "object_id": "1",
+        "object_repr": "General",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 3,
+    "fields": {
+        "action_time": "2017-08-22T09:49:38.432Z",
+        "user": 1,
+        "content_type": 9,
+        "object_id": "2",
+        "object_repr": "Safety & Ethics",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 4,
+    "fields": {
+        "action_time": "2017-08-22T09:49:44.947Z",
+        "user": 1,
+        "content_type": 9,
+        "object_id": "3",
+        "object_repr": "Biotechnology",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 5,
+    "fields": {
+        "action_time": "2017-08-22T09:49:50.617Z",
+        "user": 1,
+        "content_type": 9,
+        "object_id": "4",
+        "object_repr": "iGEM",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 6,
+    "fields": {
+        "action_time": "2017-08-22T09:50:10.337Z",
+        "user": 1,
+        "content_type": 8,
+        "object_id": "1",
+        "object_repr": "iGEM - Introduction",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 7,
+    "fields": {
+        "action_time": "2017-08-22T09:50:52.849Z",
+        "user": 1,
+        "content_type": 11,
+        "object_id": "1",
+        "object_repr": "Introductory Information",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 8,
+    "fields": {
+        "action_time": "2017-08-22T09:51:34.142Z",
+        "user": 1,
+        "content_type": 11,
+        "object_id": "2",
+        "object_repr": "iGEM - History",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 9,
+    "fields": {
+        "action_time": "2017-08-22T09:52:51.440Z",
+        "user": 1,
+        "content_type": 16,
+        "object_id": "1",
+        "object_repr": "Learning text 1",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 10,
+    "fields": {
+        "action_time": "2017-08-22T09:54:35.097Z",
+        "user": 1,
+        "content_type": 17,
+        "object_id": "2",
+        "object_repr": "The histroy is long",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 11,
+    "fields": {
+        "action_time": "2017-08-22T09:55:07.632Z",
+        "user": 1,
+        "content_type": 17,
+        "object_id": "3",
+        "object_repr": "Stuff",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 12,
+    "fields": {
+        "action_time": "2017-08-22T09:55:51.391Z",
+        "user": 1,
+        "content_type": 17,
+        "object_id": "4",
+        "object_repr": "Set the tatas free!",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 13,
+    "fields": {
+        "action_time": "2017-08-22T09:56:05.955Z",
+        "user": 1,
+        "content_type": 12,
+        "object_id": "1",
+        "object_repr": "Correct",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 14,
+    "fields": {
+        "action_time": "2017-08-22T09:56:14.462Z",
+        "user": 1,
+        "content_type": 12,
+        "object_id": "2",
+        "object_repr": "Correct",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 15,
+    "fields": {
+        "action_time": "2017-08-22T09:56:24.821Z",
+        "user": 1,
+        "content_type": 12,
+        "object_id": "3",
+        "object_repr": "YAS QUEEN!",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 16,
+    "fields": {
+        "action_time": "2017-08-22T09:56:30.381Z",
+        "user": 1,
+        "content_type": 12,
+        "object_id": "4",
+        "object_repr": "No way",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 17,
+    "fields": {
+        "action_time": "2017-08-22T09:56:35.637Z",
+        "user": 1,
+        "content_type": 12,
+        "object_id": "5",
+        "object_repr": "Nort sure",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 18,
+    "fields": {
+        "action_time": "2017-08-22T09:56:44.926Z",
+        "user": 1,
+        "content_type": 12,
+        "object_id": "6",
+        "object_repr": "NO F*** YOU",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 19,
+    "fields": {
+        "action_time": "2017-08-22T10:14:22.157Z",
+        "user": 1,
+        "content_type": 3,
+        "object_id": "1",
+        "object_repr": "admin",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 20,
+    "fields": {
+        "action_time": "2017-08-22T10:14:25.631Z",
+        "user": 1,
+        "content_type": 3,
+        "object_id": "2",
+        "object_repr": "moderator",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 21,
+    "fields": {
+        "action_time": "2017-08-22T10:14:35.854Z",
+        "user": 1,
+        "content_type": 4,
+        "object_id": "1",
+        "object_repr": "iliricon",
+        "action_flag": 2,
+        "change_message": "[]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 22,
+    "fields": {
+        "action_time": "2017-08-22T10:14:50.114Z",
+        "user": 1,
+        "content_type": 4,
+        "object_id": "2",
+        "object_repr": "user",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 23,
+    "fields": {
+        "action_time": "2017-08-22T10:14:58.690Z",
+        "user": 1,
+        "content_type": 13,
+        "object_id": "2",
+        "object_repr": "user",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 24,
+    "fields": {
+        "action_time": "2017-08-22T10:15:15.155Z",
+        "user": 1,
+        "content_type": 4,
+        "object_id": "3",
+        "object_repr": "mod",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 25,
+    "fields": {
+        "action_time": "2017-08-22T10:15:20.562Z",
+        "user": 1,
+        "content_type": 4,
+        "object_id": "3",
+        "object_repr": "mod",
+        "action_flag": 2,
+        "change_message": "[]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 26,
+    "fields": {
+        "action_time": "2017-08-22T10:15:29.328Z",
+        "user": 1,
+        "content_type": 13,
+        "object_id": "3",
+        "object_repr": "mod",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 27,
+    "fields": {
+        "action_time": "2017-08-22T10:36:24.112Z",
+        "user": 1,
+        "content_type": 8,
+        "object_id": "1",
+        "object_repr": "iGEM - Introduction",
+        "action_flag": 2,
+        "change_message": "[]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 28,
+    "fields": {
+        "action_time": "2017-08-22T10:37:01.281Z",
+        "user": 1,
+        "content_type": 17,
+        "object_id": "2",
+        "object_repr": "The histroy is long",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"module\"]}}]"
+    }
+}
+]

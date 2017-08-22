@@ -14,26 +14,26 @@ class AnswerSerializer(serializers.BaseSerializer):
 
 
 class QuestionSerializer(serializers.ModelSerializer):
-    '''
+    """
     The serializer responsible for the Question object
     @author: Claas Voelcker
-    '''
+    """
 
     class Meta:
-        '''
+        """
         Meta information (which fields are serialized for the representation)
-        '''
+        """
         model = Question
-        fields = ('title', 'body', 'feedback',)
+        fields = ('title', 'text', 'feedback',)
 
     def to_representation(self, obj):
-        '''
+        """
         Appends additional information to the model.
         Input:
             obj: The object that should be serialized (Question)
         Output:
             value: a valid json object containing all required fields
-        '''
+        """
 
         module = obj.module
         value = super(QuestionSerializer, self).to_representation(obj)
@@ -65,7 +65,7 @@ class QuestionSerializer(serializers.ModelSerializer):
 class QuestionEditSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = ("title", "body", 'id', "feedback")
+        fields = ("title", "text", 'id', "feedback")
 
     def to_representation(self, obj):
         value = super(QuestionEditSerializer, self).to_representation(obj)
@@ -115,9 +115,9 @@ class ModuleSerializer(serializers.ModelSerializer):
         return value
 
     def create(self, validated_data):
-        '''
+        """
         This method is used to save modules and their respective questions
-        '''
+        """
         questions = validated_data.pop('questions')
 
         question_id = []
@@ -187,10 +187,10 @@ class CourseSerializer(serializers.ModelSerializer):
         return value
 
     def create(self, validated_data):
-        '''
+        """
         This method is used to save courses together with all modules and
         questions.
-        '''
+        """
         modules = validated_data.pop('modules')
 
         # check if course is empty and raise error if so
@@ -249,9 +249,9 @@ class CourseEditSerializer(serializers.ModelSerializer):
 
 
 class GroupSerializer(serializers.ModelSerializer):
-    '''
+    """
     Model serializer for the Group model
-    '''
+    """
 
     class Meta:
         model = LearningGroup
@@ -259,9 +259,9 @@ class GroupSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    '''
+    """
     Model serializer for the User model
-    '''
+    """
 
     groups = serializers.StringRelatedField(many=True)
 
@@ -327,9 +327,9 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class TrySerializer(serializers.ModelSerializer):
-    '''
+    """
     Model serializer for the Try model
-    '''
+    """
     user = serializers.StringRelatedField()
     question = serializers.StringRelatedField()
 
@@ -339,9 +339,9 @@ class TrySerializer(serializers.ModelSerializer):
 
 
 class StatisticsOverviewSerializer(serializers.BaseSerializer):
-    '''
+    """
     Longer serializer for the statistics overview
-    '''
+    """
 
     def to_representation(self, user):
         all_questions = list()

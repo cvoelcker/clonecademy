@@ -32,7 +32,7 @@ class DatabaseMixin():
 
         self.q1_test = MultipleChoice.models.MultipleChoiceQuestion(
             title="",
-            body="a question",
+            text="a question",
             feedback="",
             order=1,
             module=self.m1_test)
@@ -53,7 +53,7 @@ class DatabaseMixin():
 
         self.q2_test = InformationText.models.InformationText(
             title="",
-            body="an information text",
+            text="an information text",
             feedback="",
             order=2,
             module=self.m1_test)
@@ -153,7 +153,7 @@ class CourseViewTest(DatabaseMixin, TestCase):
                                                   'order': 3,
                                                   'questions': [
                                                       {'title': 'a question',
-                                                       'body': 'some text',
+                                                       'text': 'some text',
                                                        'feedback': '',
                                                        'type': 'multiple_choice',
                                                        'order': 1,
@@ -177,7 +177,7 @@ class CourseViewTest(DatabaseMixin, TestCase):
                                                   'order': 3,
                                                   'questions': [
                                                       {'title': 'a question',
-                                                       'body': 'some text',
+                                                       'text': 'some text',
                                                        'feedback': '',
                                                        'type': 'MultipleChoiceQuestion',
                                                        'order': 1,
@@ -221,7 +221,7 @@ class CourseViewTest(DatabaseMixin, TestCase):
                                                   'questions': [
                                                       {
                                                           'title': 'some question',
-                                                          'body': 'any text',
+                                                          'text': 'any text',
                                                           'feedback': '',
                                                           'type': 'multiple_choice',
                                                           'order': 1,
@@ -248,7 +248,7 @@ class CourseViewTest(DatabaseMixin, TestCase):
                                           'order': 3,
                                           'questions': [
                                               {'title': 'a question',
-                                               'body': 'some text',
+                                               'text': 'some text',
                                                'feedback': '',
                                                'type': 'multiple_choice',
                                                'order': 1,
@@ -276,7 +276,7 @@ class CourseViewTest(DatabaseMixin, TestCase):
                                           'order': 3,
                                           'questions': [
                                               {'title': 'a question',
-                                               'body': 'some text',
+                                               'text': 'some text',
                                                'feedback': '',
                                                'type': 'info_text',
                                                'order': 1,
@@ -313,7 +313,7 @@ class CourseEditViewTest(DatabaseMixin, TestCase):
                         'questions':[
                             {
                             'title': 'a question',
-                            'body': 'some text',
+                            'text': 'some text',
                             'feedback': '',
                             'type': 'multiple_choice',
                             'order': 1,
@@ -330,7 +330,7 @@ class CourseEditViewTest(DatabaseMixin, TestCase):
                             },
                             {
                             'title': 'this one will be removed',
-                            'body': 'some text',
+                            'text': 'some text',
                             'feedback': '',
                             'type': 'multiple_choice',
                             'order': 2,
@@ -395,7 +395,7 @@ class CourseEditViewTest(DatabaseMixin, TestCase):
                         'questions':[
                             {
                             'title': 'a question',
-                            'body': 'some text',
+                            'text': 'some text',
                             'feedback': '',
                             'type': 'multiple_choice',
                             'order': 1,
@@ -419,7 +419,7 @@ class CourseEditViewTest(DatabaseMixin, TestCase):
                         'questions':[
                             {
                             'title': 'a question',
-                            'body': 'some text',
+                            'text': 'some text',
                             'feedback': '',
                             'type': 'multiple_choice',
                             'order': 1,

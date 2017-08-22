@@ -16,7 +16,7 @@ export class AddQuestionComponent implements OnInit {
   @ViewChild('question', {read: ViewContainerRef}) question: ViewContainerRef;
   questionFactory: ComponentFactory<AddQuestionModule>;
 
-  questionCopy: AddQuestionModule
+  questionCopy: AddQuestionModule;
   questionBody = "";
   feedback: string;
   feedbackBool: boolean;
@@ -74,7 +74,7 @@ export class AddQuestionComponent implements OnInit {
 
     response['id'] = this.id;
 
-    response['body'] = this.questionBody;
+    response['text'] = this.questionBody;
     if(this.feedbackBool){
       response['feedback'] = this.feedback;
     }

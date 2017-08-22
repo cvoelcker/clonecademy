@@ -38,7 +38,7 @@ class MultipleChoiceQuestion(Question):
         return answers == set(data)
 
     def __str__(self):
-        return self.body
+        return self.title
 
     def answer_set(self):
         return self.multiplechoiceanswer_set.all()

@@ -1,5 +1,4 @@
 from django.db import models
-from django.apps import apps
 from django.contrib.auth.models import User
 from django.utils import timezone
 from polymorphic.models import PolymorphicModel
@@ -9,8 +8,8 @@ from polymorphic.models import PolymorphicModel
 
 
 class Profile(models.Model):
-    '''
-    '''
+    """
+    """
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
@@ -42,31 +41,31 @@ class Profile(models.Model):
         return str(self.user)
 
     def get_link_to_profile(self):
-        '''
+        """
         Returns the link to the users profile page
-        '''
+        """
         # TODO: Implement correct user profile access string
         return "clonecademy.net/user/{}/".format(self.user.id)
 
     def modrequest_allowed(self):
-        '''
+        """
         Returns True if the user is allowed to request moderator rights
-        '''
+        """
         return (self.last_modrequest is None or
                 (timezone.localdate() - self.last_modrequest).days >= 7) and \
                not self.is_mod()
 
     # TODO: Refactor these to a decorator
     def is_mod(self):
-        '''
+        """
         Returns True if the user is in the group moderators
-        '''
+        """
         return self.user.groups.filter(name="moderator").exists()
 
     def is_admin(self):
-        '''
+        """
         Returns True if the user is in the group admin
-        '''
+        """
         return self.user.groups.filter(name="admin").exists()
 
 
@@ -155,13 +154,19 @@ class Course(models.Model):
         default=False
     )
 
+    description = models.CharField(
+        max_length=144,
+        null=True,
+        blank=True
+    )
+
     def __str__(self):
         return self.name
 
     def num_of_modules(self):
-        '''
+        """
         Returns the number of modules
-        '''
+        """
         return len(Module.objects.filter(course=self))
 
 
@@ -192,13 +197,19 @@ class Module(models.Model):
 
     order = models.IntegerField()
 
+    description = models.CharField(
+        max_length=144,
+        null=True,
+        blank=True
+    )
+
     def __str__(self):
         return self.name
 
     def num_of_questions(self):
-        '''
+        """
         Returns the number of questions in the module
-        '''
+        """
         return len(self.question_set.all())
 
     def is_first_module(self):
@@ -206,9 +217,9 @@ class Module(models.Model):
         return self == modules.first()
 
     def is_last_module(self):
-        '''
+        """
         Returns True if this is the final module in a course
-        '''
+        """
         modules = self.course.module_set
         return self == modules.last()
 
@@ -220,7 +231,7 @@ class Question(PolymorphicModel):
     answer and a way to provide feedback to the user.
     """
 
-    class Meta():
+    class Meta:
         unique_together = ['module', 'order']
         ordering = ['module', 'order']
 
@@ -231,9 +242,16 @@ class Question(PolymorphicModel):
         null=True
     )
 
-    body = models.TextField(
+    text = models.TextField(
         verbose_name='Question text',
         help_text="This field can contain markdown syntax"
+    )
+
+    question = models.TextField(
+        verbose_name='Question',
+        help_text="This field can contain markdown syntax",
+        blank=True,
+        null=True
     )
 
     feedback = models.TextField(
@@ -252,19 +270,21 @@ class Question(PolymorphicModel):
         on_delete=models.CASCADE
     )
 
-    def feedback_is_set(self):
-        return len(feedback) != 0
-
     def is_first_question(self):
+        """
+        Checks whether this is the first question in the module
+        :return: whether this is the first question or not
+        """
         questions = self.module.question_set
         return self == questions.first()
 
     def is_last_question(self):
+        """
+        Checks whether this is the last question in the module
+        :return: whether this is the last question or not
+        """
         questions = self.module.question_set
         return self == questions.last()
-
-    def custom_feedback(self):
-        return ""
 
     def __str__(self):
         return self.title
@@ -283,11 +303,11 @@ class LearningGroup(models.Model):
 
 
 class Try(models.Model):
-    '''
+    """
     A try represents a submission of an answer. Each time an answer is
     submitted, a Try object is created in the database, detailing answer,
     whether it was answered correctly and the time of the submission.
-    '''
+    """
     user = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,

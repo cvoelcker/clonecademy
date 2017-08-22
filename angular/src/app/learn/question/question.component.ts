@@ -101,7 +101,7 @@ export class QuestionComponent implements OnInit, OnDestroy{
   setupQuestion(data){
     this.submitCorrect = false;
     this.title = data['title']
-    this.questionBody = data['body']
+    this.questionBody = data['text']
     this.lastQuestion = data['last_question']
     this.lastModule = data['last_module']
     this.learning_text = data['learning_text']
