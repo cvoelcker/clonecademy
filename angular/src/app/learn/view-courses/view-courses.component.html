@@ -1,13 +1,18 @@
 <div class="wrapper">
   <div *ngIf="!loading && !loadingCat">
-      <div *ngFor="let c of courses" class="card">
-        <div class="card-body">
-            <!--Title-->
-            <h4 class="card-title">{{c.name}}</h4>
-            <!--Text-->
-            <p class="card-text">{{c.category}}: {{c.difficulty}}</p>
-            <a href="#" class="btn btn-primary">Button</a>
+    <md-card *ngFor="let c of courses">
+      <md-card-title>
+        {{c.name}}
+      </md-card-title>
+      <md-card-content>
+        <p class="card-text">{{c.category}}: {{c.difficulty}}</p>
+        <div class="button">
+          <button md-raised-button
+                  routerLink="/course/{{ c.id }}/">
+            {{"continue" | translate}}
+          </button>
         </div>
-    </div>
+      </md-card-content>
+    </md-card>
   </div>
 </div>
