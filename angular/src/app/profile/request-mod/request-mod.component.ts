@@ -36,7 +36,7 @@ export class RequestModComponent implements OnInit {
     if (!this.available)
       return -1;
     let request = {reason: this.reason}
-    this.server.post("user/request_mod", request)
+    this.server.post("user/mod_request", request)
       .then(answer => {this.available=false})
   }
 
