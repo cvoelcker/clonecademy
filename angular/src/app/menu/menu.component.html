@@ -10,12 +10,7 @@
     <a md-tab-link routerLink="/register/" [routerLinkActive]="['active']">{{"register" | translate}}</a>
   </span>
 
-  <button md-icon-button [mdMenuTriggerFor]="menu" [routerLinkActive]="['active']">
+  <button md-icon-button routerLink="/about">
     <md-icon>info</md-icon>
   </button>
-  <md-menu  #menu="mdMenu">
-    <a *ngFor="let l of links" md-menu-item [routerLink]="'/' + l.url" [routerLinkActive]="['active']">
-      <span>{{ l.name }}</span>
-    </a>
-  </md-menu>
 </nav>

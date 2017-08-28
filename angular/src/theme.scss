@@ -54,6 +54,20 @@ body{
 
 }
 
+$footer-height: 50px;
+
+footer{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top:auto;
+  height: $footer-height;
+  background-color: $primary;
+  color: $white;
+  overflow: hidden;
+}
+
 a{
   color: lieghten($primary, 10%);
   transition: color 0.4s ease;
@@ -194,7 +208,7 @@ md-progress-spinner{
     left: 2em;
     top:0;
     right: auto;
-    bottom: 0;
+    bottom: $footer-height;
     box-sizing: border-box;
     overflow: auto;
     overflow-x: hidden;
@@ -208,7 +222,7 @@ md-progress-spinner{
    right: 0;
    left: auto;
    top: 0;
-   bottom: 0;
+   bottom: $footer-height;
    width: 66.6666666666666%;
    padding: 1.26em;
   }

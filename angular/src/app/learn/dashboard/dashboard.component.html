@@ -1,45 +1,47 @@
-<div class="dashboard" appLoggedIn>
 
-  <div class="row">
-    <div class ="sidebar">
-      <h2>{{ "dashboard" | translate}}</h2>
-      <button md-raised-button *ngIf="user.isModerator()" class="addCourse" routerLink="create_course">
-        <md-icon>add</md-icon> {{"add Course" | translate}}
-      </button><br>
-      <div *ngIf="!loading && !loadingCat">
-          <md-tab-group >
-          <md-tab [label]="category.name" *ngFor="let category of course.categorys">
-            <div class="singleBox">
-              <button md-button class="collapseButton" (click)="category.collapse = !category.collapse" ><i [class.right]="category.collapse" class="arrow"></i>{{"courses" | translate}}</button>
-              <div class="courses" [@slideIn]="!category.collapse">
-                <ul>
-                  <li *ngFor="let c of course.data[category.name]">
-                    <a
-                    [routerLink]="'/course/' + c.id"
-                    [routerLinkActive]="['active']"
-                    >
-                      <div class="progressBar" [style.width.%]="(c.num_answered / c.num_questions) * 100"></div>
-                      {{c.name}}
-                    </a>
-                    <button md-button
-                    class="editCourse"
-                    *ngIf="user.isAdmin() || c.responsible_mod == user.id"
-                    [routerLink]="'/course/edit/' + c.id">
-                      <md-icon>mode_edit</md-icon>
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </md-tab>
-        </md-tab-group>
-
+<div class ="sidebar" appLoggedIn>
+<h2>{{ "dashboard" | translate}}</h2>
+<button md-raised-button *ngIf="user.isModerator()" class="addCourse" routerLink="create_course">
+  <md-icon>add</md-icon> {{"add Course" | translate}}
+</button><br>
+<div *ngIf="!loading && !loadingCat">
+    <md-tab-group >
+    <md-tab [label]="category.name" *ngFor="let category of course.categorys">
+      <div class="singleBox">
+        <button md-button class="collapseButton" (click)="category.collapse = !category.collapse" ><i [class.right]="category.collapse" class="arrow"></i>{{"courses" | translate}}</button>
+        <div class="courses" [@slideIn]="!category.collapse">
+          <ul>
+            <li *ngFor="let c of course.data[category.name]">
+              <a
+              [routerLink]="'/course/' + c.id"
+              [routerLinkActive]="['active']"
+              >
+                <div class="progressBar" [style.width.%]="(c.num_answered / c.num_questions) * 100"></div>
+                {{c.name}}
+              </a>
+              <button md-button
+              class="editCourse"
+              *ngIf="user.isAdmin() || c.responsible_mod == user.id"
+              [routerLink]="'/course/edit/' + c.id">
+                <md-icon>mode_edit</md-icon>
+              </button>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div *ngIf="loading || loadingCat" class="localLoader">
-        <md-progress-spinner mode="indeterminate"></md-progress-spinner>
-      </div>
-    </div>
+    </md-tab>
+  </md-tab-group>
 
-    <div class ="content">
-      <router-outlet #content></router-outlet>
-    </div>
+</div>
+<div *ngIf="loading || loadingCat" class="localLoader">
+  <md-progress-spinner mode="indeterminate"></md-progress-spinner>
+</div>
+</div>
+
+<div class ="content">
+<router-outlet #content></router-outlet>
+</div>
+
+<footer>
+<app-footer-mainpage></app-footer-mainpage>
+</footer>
