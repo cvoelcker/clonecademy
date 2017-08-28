@@ -7,6 +7,7 @@ import { AddInformationTextComponent } from './course-editor/add-info-text/add-i
 
 import { MultipleChoiceQuestionComponent } from "./multiple-choice-question/multiple-choice-question.component"
 import { InformationTextComponent } from './info-text/info-text.component'
+import { InformationYoutubeComponent } from './info-youtube/info-youtube.component'
 
 
 export const QuestionDictionary = {
@@ -17,12 +18,12 @@ export const QuestionDictionary = {
   components: {
     "multiple_choice" : MultipleChoiceQuestionComponent,
     "info_text": InformationTextComponent,
-    // add new qustion types here
+    "info_text_youtube": InformationYoutubeComponent,
   },
   questionComponents: [
     MultipleChoiceQuestionComponent,
     InformationTextComponent,
-
+    InformationYoutubeComponent,
     AddMultiplyChoiceComponent,
     AddInformationTextComponent,
   ]

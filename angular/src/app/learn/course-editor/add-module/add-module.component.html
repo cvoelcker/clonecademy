@@ -34,7 +34,7 @@
             <md-option *ngFor="let c of components"  (click)="addQuestion(c.component)" >{{c.name}}</md-option>
           </md-select>
             <md-hint align="start" class="warning" *ngIf="form != null && form.submitted && (module.length <= 0)">
-              <strong>{{'At least one question is required for this module' | translate}}</strong>
+              <strong>{{'At least one question is required for self module' | translate}}</strong>
             </md-hint>
     </li>
   </ul>

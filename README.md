@@ -1,7 +1,7 @@
 # clonecadamy
 
 ## Installation
-If you have this package inside your home folder just go on. Otherwise you have to
+If you have self package inside your home folder just go on. Otherwise you have to
 To install all run `bin/setup_script.sh`. It installes Docker if required and sets links to the /usr/bin folder to start the images from anywhere.
 
 `clonecademy_build` builds the docker container for angular and django

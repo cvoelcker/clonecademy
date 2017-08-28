@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ServerService } from "../../service/server.service"
 import { ActivatedRoute, Params } from '@angular/router'
+import {DomSanitizer} from '@angular/platform-browser';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class QuestionModule{
 
   disable = false;
 
-  constructor(public server: ServerService, private route: ActivatedRoute) {
+  constructor(public server: ServerService, private route: ActivatedRoute, public sanitizer: DomSanitizer) {
   }
 
   // this has to be set on every subfunction
