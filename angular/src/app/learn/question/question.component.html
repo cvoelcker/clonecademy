@@ -19,9 +19,21 @@
     </table>
   </div>
 
-  <div class="footer">
-    <button md-raised-button *ngIf="!submitCorrect" (click)="submit()">{{"submit" | translate}}</button>
-    <button md-raised-button *ngIf="submitCorrect" (click)="next()">{{"next question" | translate}}</button>
-    <button md-raised-button (click)="sidenav.open()" [disabled]="submitCorrect">{{"dashboard" | translate}}</button>
-  </div>
+  <footer>
+    <table>
+      <th>
+        <button md-raised-button (click)="sidenav.open()">{{"dashboard" | translate}}</button>
+      </th>
+      <th class="middle">
+        <md-card class="module" *ngFor="let m of progress">
+          <div class="question" [mdTooltip]="q" mdTooltipPosition="above" [class.correct]="q != ''" *ngFor="let q of m">
+          </div>
+        </md-card>
+      </th>
+      <th class="end">
+        <button md-raised-button *ngIf="!submitCorrect" (click)="submit()">{{"submit" | translate}}</button>
+        <button md-raised-button *ngIf="submitCorrect" (click)="next()">{{"next question" | translate}}</button>
+      </th>
+    </table>
+  </footer>
 </md-sidenav-container>

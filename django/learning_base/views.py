@@ -219,23 +219,18 @@ class QuestionView(APIView):
     answers, which are given by a separate class.
     @author Claas Voelcker
     """
-    authentication_classes = (authentication.TokenAuthentication,)
+    authentication_classes =  (authentication.TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
 
-    def can_access_question(self, user, question):
+    def can_access_question(self, user, question, module_id, question_id):
         module = question.module
         course = module.course
-
-        first_question = (
-            question.is_first_question() and module.is_first_module())
+        first_question = int(module_id) <= 0 and int(question_id) <= 0
         if first_question:
             return True
-        elif not first_question and Try.objects.filter(user=user, question=
-        module.question_set.all()[question.id - 1]):
+        elif module_id > 0 and len(module.question_set.all()) < question_id and Try.objects.filter(user=user, question=module.question_set.all()[question_id - 1], solved=True).exists():
             return True
-        elif not module.is_first_module() and Try.objects.filter(
-                user=user, question=
-                course.module_set.all()[module.id - 1].question_set.all()[0]):
+        elif not module.is_first_module() and Try.objects.filter(user=user,solved=True, question=course.module_set.all()[module_id - 1].question_set.all()[0]).exists():
             return True
         else:
             return False
@@ -252,18 +247,18 @@ class QuestionView(APIView):
 
             if question is None:
                 return Response({"ans":"Question not found"},
-                                status=status.HTTP_404_NOT_FOUND)
-            if not self.can_access_question(request.user, question):
+                status=status.HTTP_404_NOT_FOUND)
+            if not self.can_access_question(request.user, question, module_id, question_id):
                 return Response({"ans":
-                    "Previous question(s) haven't been answered correctly yet"},
-                    status=status.HTTP_403_FORBIDDEN)
+                "Previous question(s) haven't been answered correctly yet"},
+                status=status.HTTP_403_FORBIDDEN)
 
             data = serializer.QuestionSerializer(question,
                                                  context={'request': request})
             data = data.data
             return Response(data, status=status.HTTP_200_OK)
         except Exception as e:
-            return Response({"error": Exception},
+            return Response({"error": str(e)},
                             status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request, course_id, module_id, question_id, format=None):
@@ -280,7 +275,7 @@ class QuestionView(APIView):
                             status=status.HTTP_404_NOT_FOUND)
         # deny access if there is a/are previous question(s) and it/they
         # haven't been answered correctly
-        if not (self.can_access_question(request.user, question)):
+        if not (self.can_access_question(request.user, question, module_id, question_id)):
             return Response({"ans":
                 "Previous question(s) haven't been answered correctly yet"},
                 status=status.HTTP_403_FORBIDDEN)

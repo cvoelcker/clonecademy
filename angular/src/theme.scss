@@ -64,12 +64,11 @@ footer{
   top:auto;
   height: $footer-height;
   background-color: $primary;
-  color: $white;
   overflow: hidden;
 }
 
 a{
-  color: lieghten($primary, 10%);
+  color: ligthen($primary, 10%);
   transition: color 0.4s ease;
   cursor: pointer;
   outline: 0;
@@ -107,10 +106,6 @@ button{
 
 .mat-tab-label-active{
   color: $primary;
-}
-
-.cdk-overlay-pane{
-  background-color: white;
 }
 
 *[md-tab-link]{

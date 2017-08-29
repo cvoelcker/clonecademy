@@ -71,7 +71,6 @@ import { ImageCropperDialogComponent } from "./image-cropper/image-cropper.compo
 // Viewing started courses on the welcome page
 import { CourseViewComponent } from "./learn/view-courses/view-courses.component";
 import { FooterMainpageComponent } from './footer-mainpage/footer-mainpage.component';
-import { FooterQuestionComponent } from './footer-question/footer-question.component';
 
 
 const appRoutes: Routes = [
@@ -207,7 +206,6 @@ let QuestionList = QuestionDictionary.questionComponents
     StaticPageComponent,
     CourseViewComponent,
     FooterMainpageComponent,
-    FooterQuestionComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

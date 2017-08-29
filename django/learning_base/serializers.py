@@ -38,6 +38,24 @@ class QuestionSerializer(serializers.ModelSerializer):
         module = obj.module
         value = super(QuestionSerializer, self).to_representation(obj)
         value['type'] = obj.__class__.__name__
+
+        value['progress'] = []
+        answered_question_before = True
+        for module in obj.module.course.module_set.all():
+            m = []
+            for question in module.question_set.all():
+                if answered_question_before and question.try_set.filter(solved=True).exists():
+                    if question.title is not '':
+                        m.append(question.title)
+                    else:
+                        m.append("solved")
+
+                else:
+                    answered_question_before = False
+                    m.append("")
+            value['progress'].append(m)
+
+
         value['last_question'] = obj.is_last_question()
         value['last_module'] = module.is_last_module()
         value['learning_text'] = module.learning_text

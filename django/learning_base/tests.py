@@ -583,7 +583,7 @@ class QuestionViewTest(DatabaseMixin, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data, {"evaluate": False})
 
-        can = views.QuestionView().can_access_question(self.u1, self.q2_test)
+        can = views.QuestionView().can_access_question(self.u1, self.q2_test, 1, 1)
         self.assertFalse(can)
 
         # Test doesn't work because of weird behavior of testing API
@@ -598,8 +598,8 @@ class QuestionViewTest(DatabaseMixin, TestCase):
         # self.assertTrue(can)
 
     def test_can_access_question(self):
-        can = views.QuestionView().can_access_question(self.u1, self.q1_test)
+        can = views.QuestionView().can_access_question(self.u1, self.q1_test, 0, 0)
         self.assertTrue(can)
 
-        can = views.QuestionView().can_access_question(self.u1, self.q2_test)
+        can = views.QuestionView().can_access_question(self.u1, self.q2_test, 2, 1)
         self.assertFalse(can)
