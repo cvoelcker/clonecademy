@@ -554,7 +554,7 @@ class RequestView(APIView):
                 status=status.HTTP_403_FORBIDDEN)
         # TODO: fix if an localization issues arrise
         profile.last_modrequest = timezone.localdate()
-
+        profile.save()
         send_mail(
             'Moderator rights requested by {}'.format(user.username),
             'The following user {} requested moderator rights for the \
