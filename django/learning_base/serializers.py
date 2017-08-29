@@ -234,6 +234,8 @@ class CourseSerializer(serializers.ModelSerializer):
             for m in moduleQuery:
                 if m.id not in module_id:
                     m.delete()
+        else:
+            raise ParseError(detail="no Empty course allowed", code=None)
         try:
             for module in modules:
                 module_serializer = ModuleSerializer(data=module)
