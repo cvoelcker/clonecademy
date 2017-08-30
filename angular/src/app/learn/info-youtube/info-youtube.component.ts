@@ -12,9 +12,14 @@ export class InformationYoutubeComponent extends QuestionModule {
 
   data: {};
 
+  /**
+   * Builds the url and circumvents sanitation (actual sanitation is done before saving the url to database)
+   * @author Claas Voelcker
+   * @returns {SafeResourceUrl} a sanitized utb url
+   */
   get_video_url(): SafeResourceUrl {
-    console.log(this.data["url"])
-    return this.sanitizer.bypassSecurityTrustResourceUrl(this.data["url"]);
+    let url = "https://www.youtube.com/embed/" + this.data["url"] + "?rel=0&amp;showinfo=0"
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
   // return array of the marked answers

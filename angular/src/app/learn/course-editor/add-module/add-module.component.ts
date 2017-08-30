@@ -1,4 +1,4 @@
-import { Component, ElementRef, ChangeDetectorRef, Type, OnInit, Output, EventEmitter, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory } from '@angular/core';
+import { Component, ChangeDetectorRef, Type, OnInit, Output, EventEmitter, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory } from '@angular/core';
 
 import { AddQuestionComponent } from "../add-question/add-question.component"
 
@@ -42,6 +42,7 @@ export class AddModuleComponent implements OnInit {
       let question = this.module.createComponent(this.question)
       let q = (<AddQuestionComponent> question.instance)
       q.form = this.form
+      console.log(this.form)
       q.emitter.subscribe(data => this.module.detach())
       q.child = component
       q.addQuestion(id, questionBody, body, feedback)

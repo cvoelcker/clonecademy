@@ -1,5 +1,5 @@
 <div [hidden]="loading && (loadCourse != undefined || !loadCourse)">
-<form #f="ngForm"  name="createCourse" (ngSubmit)="save(f)" >
+<form #f="ngForm" name="createCourse" (ngSubmit)="save(f)" ngNativeValidate>
     <div class="form-group">
     <md-input-container>
       <input mdInput placeholder="{{'title' | translate}}" #courseTitle="ngModel" [(ngModel)]="title" name="title" type="text" required>
