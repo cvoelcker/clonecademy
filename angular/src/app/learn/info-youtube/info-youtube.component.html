@@ -1,3 +1,3 @@
-<div class="video">
-  <iframe [src]="get_video_url()" height="900" frameborder="0" allowfullscreen></iframe>
+<div *ngIf="data != undefined" class="video">
+  <iframe [src]="url" height="900" frameborder="0" allowfullscreen></iframe>
 </div>

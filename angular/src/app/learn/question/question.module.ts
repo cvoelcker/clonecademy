@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { ServerService } from "../../service/server.service"
-import { ActivatedRoute, Params } from '@angular/router'
+import {Component, Input} from '@angular/core';
+import {ServerService} from '../../service/server.service'
+import {ActivatedRoute, Params} from '@angular/router'
 import {DomSanitizer} from '@angular/platform-browser';
 
 
@@ -8,7 +8,7 @@ import {DomSanitizer} from '@angular/platform-browser';
   selector: 'app-MultipleChoiceQuestion',
   template: '<p>Implement me</p>',
 })
-export class QuestionModule{
+export class QuestionModule {
 
   questionText: string;
   moduleIndex: number;
@@ -20,16 +20,16 @@ export class QuestionModule{
 
   disable = false;
 
-  constructor(public server: ServerService, private route: ActivatedRoute, public sanitizer: DomSanitizer) {
+  constructor(public server: ServerService, public route: ActivatedRoute, public sanitizer: DomSanitizer) {
   }
 
   // this has to be set on every subfunction
-  submit(): any{
-    return "test";
+  submit(): any {
+    return 'test';
   }
 
-  // after succesfull submit this function will be called to deactivate buttons
-  block(): void{
+  // after successful submit this function will be called to deactivate buttons
+  block(): void {
     this.disable = true;
   }
- }
+}
