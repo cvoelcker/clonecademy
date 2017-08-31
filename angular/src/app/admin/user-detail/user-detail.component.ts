@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { ServerService } from '../../service/server.service';
 import { UserService } from '../../service/user.service';
@@ -20,12 +20,16 @@ export class UserDetailComponent {
 
   loading = true;
 
+  position = 'before';
+
   constructor(
     private route: ActivatedRoute,
     private server: ServerService,
     private router: Router,
   ) {
     this.route.params.subscribe(data => {
+      console.log("the user-detail constructor is called, brings this data:")
+      console.log(data)
       this.id = data.id
       this.change(this.id);
     })
