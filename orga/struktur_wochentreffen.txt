@@ -1,0 +1,11 @@
+Agenda
+
+TOP 1: Bericht der letzten Woche - Userstories und Code vorstellen
+TOP 2: Checklisten (Veränderbarkeit, Design, Security) mit Beauftragten bearbeiten
+TOP 3: Bugs Entwicklern zuweisen
+TOP 4: 2 Wochen Ziel besprechen
+TOP 5: Ziel für die nächste WOche besprechen
+TOP 6: Userstories überlegen, zuweisen, schätzen, schreiben
+TOP 7: Kritik
+TOP 8: Lob
+TOP 9: Sonstiges
