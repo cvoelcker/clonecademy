@@ -136,6 +136,14 @@
     }
 },
 {
+    "model": "contenttypes.contenttype",
+    "pk": 18,
+    "fields": {
+        "app_label": "learning_base",
+        "model": "informationyoutube"
+    }
+},
+{
     "model": "sessions.session",
     "pk": "77nt9squupzw60yv7nrobic1bvp44cz6",
     "fields": {
@@ -194,6 +202,17 @@
     }
 },
 {
+    "model": "learning_base.module",
+    "pk": 3,
+    "fields": {
+        "name": "Module with Video",
+        "learning_text": "This module contains a great video",
+        "course": 2,
+        "order": 0,
+        "description": null
+    }
+},
+{
     "model": "learning_base.question",
     "pk": 1,
     "fields": {
@@ -243,6 +262,19 @@
         "feedback": "DO you even lift, bruh?",
         "order": 5,
         "module": 1
+    }
+},
+{
+    "model": "learning_base.question",
+    "pk": 5,
+    "fields": {
+        "polymorphic_ctype": 18,
+        "title": "",
+        "text": "Great Video",
+        "question": null,
+        "feedback": "",
+        "order": 0,
+        "module": 3
     }
 },
 {
@@ -335,6 +367,14 @@
     "fields": {
         "image": "",
         "text_field": "Whatever"
+    }
+},
+{
+    "model": "learning_base.informationyoutube",
+    "pk": 5,
+    "fields": {
+        "url": "KHhswxo6xow",
+        "text_field": "This is the best iGEM video"
     }
 },
 {
@@ -797,6 +837,33 @@
     }
 },
 {
+    "model": "auth.permission",
+    "pk": 52,
+    "fields": {
+        "name": "Can add information youtube",
+        "content_type": 18,
+        "codename": "add_informationyoutube"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 53,
+    "fields": {
+        "name": "Can change information youtube",
+        "content_type": 18,
+        "codename": "change_informationyoutube"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 54,
+    "fields": {
+        "name": "Can delete information youtube",
+        "content_type": 18,
+        "codename": "delete_informationyoutube"
+    }
+},
+{
     "model": "auth.group",
     "pk": 1,
     "fields": {
@@ -919,6 +986,19 @@
         "language": "en",
         "responsible_mod": 1,
         "is_visible": true,
+        "description": null
+    }
+},
+{
+    "model": "learning_base.course",
+    "pk": 2,
+    "fields": {
+        "name": "Video Testing Course",
+        "category": 1,
+        "difficulty": 0,
+        "language": "en",
+        "responsible_mod": 1,
+        "is_visible": false,
         "description": null
     }
 },
