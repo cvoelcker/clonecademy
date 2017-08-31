@@ -228,12 +228,12 @@ class QuestionView(APIView):
         first_question = int(module_id) <= 0 and int(question_id) <= 0
         if first_question:
             return True
-        elif not first_question and Try.objects.filter(
+        elif not first_question and question.get_previous_in_order() and Try.objects.filter(
                 user=user,
                 question=question.get_previous_in_order(),
                 solved=True):
             return True
-        elif not module.is_first_module() and Try.objects.filter(
+        elif not module.is_first_module() and module.get_previous_in_order() and Try.objects.filter(
                 user=user,
                 question=module.get_previous_in_order().question_set.all()[0],
                 solved=True):

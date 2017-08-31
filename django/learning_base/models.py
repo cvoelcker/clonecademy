@@ -218,6 +218,8 @@ class Module(models.Model):
         :return: the previous module in the same course
         """
         modules = self.course.module_set.all()
+        if list(modules).index(self) <= 0:
+            return False
         return modules[list(modules).index(self) - 1]
 
     def is_first_module(self):
@@ -304,6 +306,8 @@ class Question(PolymorphicModel):
         :return: the previous question in the same module
         """
         questions = self.module.question_set.all()
+        if list(questions).index(self) <= 0:
+            return False
         return questions[list(questions).index(self) - 1]
 
     def __str__(self):
