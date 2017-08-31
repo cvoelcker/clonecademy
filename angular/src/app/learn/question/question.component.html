@@ -25,8 +25,10 @@
         <button md-raised-button (click)="sidenav.open()">{{"dashboard" | translate}}</button>
       </th>
       <th class="middle">
-        <md-card class="module" *ngFor="let m of progress">
-          <div class="question" [mdTooltip]="q" mdTooltipPosition="above" [class.correct]="q != ''" *ngFor="let q of m">
+        <md-card class="module" *ngFor="let m of progress" [style.width.%]="((m.length / allQuestionsInCourse) * 100) - 1">
+          <div class="wrapper">
+            <div class="question" [mdTooltip]="q.title" mdTooltipPosition="above" [class.correct]="q['solved']" *ngFor="let q of m">
+            </div>
           </div>
         </md-card>
       </th>
