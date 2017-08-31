@@ -16,6 +16,7 @@ export class UserDetailComponent {
   user: any;
   id: number;
   isMod = false;
+  isAdmin = false;
 
   loading = true;
 
@@ -42,6 +43,7 @@ export class UserDetailComponent {
       this.user = data
       this.user['dateRegistered'] = new Date(data['date_joined'])
       this.isMod = (-1 != this.user["groups"].indexOf("moderator"));
+      this.isAdmin = (-1 != this.user["groups"].indexOf("admin"));
 
       // show the spinning loader until the user is loaded
       this.loading = false;
@@ -49,11 +51,41 @@ export class UserDetailComponent {
     .catch(err => console.log(err))
   }
 
-  promote(){
-    // this funktion call the backend and promote the user
-    this.server.post("user/"+ this.id + "/grantmodrights", {})
+  promoteToModerator(){
+    this.server.post("user/"+ this.id + "/rights", {"right":"moderator",
+                                                    "action":"promote"})
     .then(answer => {
       this.isMod = true;
+      console.log(answer)
+    })
+    .catch(err => console.log(err))
+  }
+
+  promoteToAdmin(){
+    this.server.post("user/"+ this.id + "/rights", {"right":"admin",
+                                                    "action":"promote"})
+    .then(answer => {
+      this.isAdmin = true;
+      console.log(answer)
+    })
+    .catch(err => console.log(err))
+  }
+
+  demoteToUser(){
+    this.server.post("user/"+ this.id + "/rights", {"right":"moderator",
+                                                    "action":"demote"})
+    .then(answer => {
+      this.isMod = false;
+      console.log(answer)
+    })
+    .catch(err => console.log(err))
+  }
+
+  demoteToModerator(){
+    this.server.post("user/"+ this.id + "/rights", {"right":"admin",
+                                                    "action":"demote"})
+    .then(answer => {
+      this.isAdmin = false;
       console.log(answer)
     })
     .catch(err => console.log(err))
