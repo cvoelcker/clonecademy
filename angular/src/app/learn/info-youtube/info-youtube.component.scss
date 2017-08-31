@@ -1,0 +1,20 @@
+@import "../../../theme";
+
+.video {
+  position: relative;
+  padding-bottom: 56.25%; /* Default for 1600x900 videos 16:9 ratio*/
+  padding-top: 0px;
+  height: 0;
+  overflow: hidden;
+  width: 100%;
+  float: left;
+  margin-top: 1em;
+  margin-left: 1em;
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
