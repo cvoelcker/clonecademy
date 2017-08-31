@@ -25,7 +25,7 @@ class QuestionSerializer(serializers.ModelSerializer):
         Meta information (which fields are serialized for the representation)
         """
         model = Question
-        fields = ('title', 'text', 'feedback',)
+        fields = ('title', 'text', 'question', 'feedback',)
 
     def to_representation(self, obj):
         """
@@ -85,7 +85,7 @@ class QuestionSerializer(serializers.ModelSerializer):
 class QuestionEditSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = ("title", "text", 'id', "feedback")
+        fields = ('title', 'question', 'text', 'id', 'feedback')
 
     def to_representation(self, obj):
         value = super(QuestionEditSerializer, self).to_representation(obj)
@@ -98,13 +98,13 @@ class QuestionEditSerializer(serializers.ModelSerializer):
 class CourseCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = CourseCategory
-        fields = ('name', "id",)
+        fields = ('name', 'id',)
 
 
 class ModuleEditSerializer(serializers.ModelSerializer):
     class Meta:
         model = Module
-        fields = ('name', "id", "learning_text", "order")
+        fields = ('name', 'id', 'learning_text', 'order')
 
     def to_representation(self, obj):
         value = super(ModuleEditSerializer, self).to_representation(obj)
@@ -174,7 +174,8 @@ class CourseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Course
-        fields = ('name', 'difficulty', 'id', 'language', 'category')
+        fields = ('name', 'description', 'difficulty', 'id', 'language',
+                  'category')
 
     def to_representation(self, obj):
         """
@@ -262,9 +263,9 @@ class CourseEditSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = (
-            "name", "id", "category", "difficulty", "language",
-            "responsible_mod",
-            "is_visible")
+            'name', 'id', 'description', 'category', 'difficulty', 'language',
+            'responsible_mod',
+            'is_visible')
 
     def to_representation(self, obj):
         value = super(CourseEditSerializer, self).to_representation(obj)
@@ -275,7 +276,7 @@ class CourseEditSerializer(serializers.ModelSerializer):
 
 
 class GroupSerializer(serializers.ModelSerializer):
-    """
+    """"
     Model serializer for the Group model
     """
 
