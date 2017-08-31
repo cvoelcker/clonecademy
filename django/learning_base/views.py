@@ -70,9 +70,9 @@ class MultiCourseView(APIView):
             r_lan = data['language']
 
             # checks whether the query only contains acceptable keys
-            if not ((r_type in TYPES or not r_type)
-                    and (r_category in CATEGORIES or not r_category)
-                    and (r_lan in LANGUAGES or not r_lan)):
+            if not ((r_type in TYPES or not r_type) and
+                    (r_category in CATEGORIES or not r_category) and
+                    (r_lan in LANGUAGES or not r_lan)):
                 return Response({"ans": "Query not possible"},
                                 status=status.HTTP_400_BAD_REQUEST)
 
@@ -117,7 +117,7 @@ class CourseEditView(APIView):
                 course,
                 context={
                     'request': request})
-            data = course_serializer.data;
+            data = course_serializer.data
             return Response(data)
 
         except Exception as e:
@@ -219,7 +219,7 @@ class QuestionView(APIView):
     answers, which are given by a separate class.
     @author Claas Voelcker
     """
-    authentication_classes =  (authentication.TokenAuthentication,)
+    authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
 
     def can_access_question(self, user, question, module_id, question_id):
@@ -252,12 +252,13 @@ class QuestionView(APIView):
             question = module.question_set.all()[int(question_id)]
 
             if question is None:
-                return Response({"ans":"Question not found"},
-                status=status.HTTP_404_NOT_FOUND)
-            if not self.can_access_question(request.user, question, module_id, question_id):
-                return Response({"ans":
-                "Previous question(s) haven't been answered correctly yet"},
-                status=status.HTTP_403_FORBIDDEN)
+                return Response({"ans": "Question not found"},
+                                status=status.HTTP_404_NOT_FOUND)
+            if not self.can_access_question(request.user, question, module_id,
+                                            question_id):
+                return Response({"ans": "Previous question(s) haven't been "
+                                        "answered correctly yet"},
+                                status=status.HTTP_403_FORBIDDEN)
             data = serializer.QuestionSerializer(question,
                                                  context={'request': request})
             data = data.data
@@ -280,9 +281,11 @@ class QuestionView(APIView):
                             status=status.HTTP_404_NOT_FOUND)
         # deny access if there is a/are previous question(s) and it/they
         # haven't been answered correctly
-        if not (self.can_access_question(request.user, question, module_id, question_id)):
+        if not (self.can_access_question(request.user, question, module_id,
+                                         question_id)):
             return Response({"ans":
-                                 "Previous question(s) haven't been answered correctly yet"},
+                            "Previous question(s) haven't been answered"
+                             " correctly yet"},
                             status=status.HTTP_403_FORBIDDEN)
 
         solved = question.evaluate(request.data["answers"])
@@ -454,13 +457,16 @@ class StatisticsView(APIView):
         return Response(data)
 
     def post(self, request, format=None):
-        import time, csv
+        import time
+        import csv
         data = request.data
         user = request.user
 
         tries = Try.objects.all()
 
         groups = user.groups.values_list('name', flat=True)
+
+        is_mod = 'moderator' in groups or 'admin' in groups
 
         # the simplest call is if the user just wants its statistic
         if 'id' in data and data['id'] == user.id:
@@ -469,8 +475,7 @@ class StatisticsView(APIView):
         # A moderator can get all statistics of his created courses
         # with 'get_courses' as in put the it will return all courses created
         # by this user
-        elif ('moderator' in groups or 'admin' in groups) and \
-                        'get_courses' in data:
+        elif is_mod and 'get_courses' in data:
             tries = tries.filter(
                 question__module__course__responsible_mod=user)
 

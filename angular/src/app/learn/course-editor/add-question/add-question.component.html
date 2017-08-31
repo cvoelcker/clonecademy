@@ -1,4 +1,18 @@
-<md-card class="questionWrapper" [@slideIn]="loading" (@slideIn.done)="remove($event)">
+<expansion-panels-container>
+    <expansion-panel>
+        <expansion-panel-title>
+            {{questionBody}}
+        </expansion-panel-title>
+
+        <expansion-panel-description-hidden>
+            Edit this Question here.
+        </expansion-panel-description-hidden>
+
+        <expansion-panel-description-toggled>
+        </expansion-panel-description-toggled>
+
+        <expansion-panel-content>
+<div class="questionWrapper" [@slideIn]="loading" (@slideIn.done)="remove($event)">
   <h2>
     {{"Add Question" | translate}}
   </h2>
@@ -16,4 +30,7 @@
     </md-input-container>
   </div>
   <button md-raised-button (click)="loading = false"><md-icon>delete</md-icon> {{"remove Question" | translate}}</button>
-</md-card>
+</div>
+</expansion-panel-content>
+</expansion-panel>
+</expansion-panels-container>

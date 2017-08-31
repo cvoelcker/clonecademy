@@ -33,9 +33,9 @@ class Profile(models.Model):
 
     def get_age(self):
         today = timezone.today
-        return today.year - self.birth_date.year \
-               - ((today.month, today.day) <
-                  (self.birth_date.month, self.birth_date.day))
+        return today.year - self.birth_date.year - ((today.month, today.day) <
+                                                    (self.birth_date.month,
+                                                     self.birth_date.day))
 
     def __str__(self):
         return str(self.user)
@@ -51,9 +51,9 @@ class Profile(models.Model):
         """
         Returns True if the user is allowed to request moderator rights
         """
-        return (self.last_modrequest is None or
-                (timezone.localdate() - self.last_modrequest).days >= 7) and \
-               not self.is_mod()
+        return (self.last_modrequest is None or (
+                timezone.localdate() - self.last_modrequest).days >= 7) and \
+            not self.is_mod()
 
     # TODO: Refactor these to a decorator
     def is_mod(self):

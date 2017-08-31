@@ -7,6 +7,11 @@ import { slideIn } from "../../../animations";
 import { AddQuestionModule } from '../add-question/add-question.module'
 import { QuestionDictionary } from '../../question-dictionary';
 
+import { trigger, state, style, animate, transition } from '@angular/animations';
+
+import { ExpansionPanelsModule } from 'ng2-expansion-panels';
+
+
 @Component({
   selector: 'app-add-module',
   templateUrl: './add-module.component.html',
@@ -24,6 +29,7 @@ export class AddModuleComponent implements OnInit {
   questionArray: any[] = [];
   moduleComponent: AddQuestionComponent;
   id: number;
+  collapse: boolean;
 
   // the parent class set this to true when the save button is pressed
   form = null;

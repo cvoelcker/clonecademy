@@ -14,6 +14,8 @@ import { ChartsModule } from 'ng2-charts';
 import { MarkdownModule } from 'angular2-markdown';
 
 // Material Style
+import { ExpansionPanelsModule } from 'ng2-expansion-panels';
+
 import {MdSidenavModule, MdDialog, MdDialogModule, MdIconModule, MdMenuModule, MdButtonModule, MdAutocompleteModule, MdCheckboxModule, MdTooltipModule, MdCardModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule, MdProgressSpinnerModule} from '@angular/material';
 
 import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
@@ -236,6 +238,7 @@ let QuestionList = QuestionDictionary.questionComponents
     MdIconModule,
     BrowserAnimationsModule,
     ChartsModule,
+    ExpansionPanelsModule,
   ],
   exports: [
   ],
