@@ -6,6 +6,7 @@ from rest_framework.test import force_authenticate
 
 from django.contrib.auth.models import User, Group
 from learning_base import views, models, serializers
+from learning_base.models import Profile
 import learning_base.multiple_choice as MultipleChoice
 import learning_base.info as InformationText
 
@@ -14,8 +15,14 @@ class DatabaseMixin():
     def setup_database(self):
         self.factory = APIRequestFactory()
 
+        self.admin_group = Group.objects.create(name="admin")
+
         self.u1 = User(username='admin')
         self.u1.save()
+        self.u1.groups.add(self.admin_group)
+        self.u1_profile = Profile.objects.create(user=self.u1)
+        self.u1.save()
+
 
         self.category = models.CourseCategory(name="test")
         self.category.save()
@@ -58,8 +65,6 @@ class DatabaseMixin():
             order=2,
             module=self.m1_test)
         self.q2_test.save()
-
-        Group(name="admin").save()
 
 
 class AnswerViewTest(DatabaseMixin, TestCase):
@@ -627,7 +632,7 @@ class UserRightsViewTest(DatabaseMixin, TestCase):
 
         # for some reason does the next loc throw an error, stating that the post
         # misses the positional argument user_id which is clearly given with the url
-        
+
         response = self.view(request)
         assertEqual(response.status_code, 200)
         assertFalse(self.u1_profile.is_mod())

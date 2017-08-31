@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from rest_framework import status
 from rest_framework import authentication, permissions
 from rest_framework.views import APIView
-from rest_framework.exceptions import ParseError
+from rest_framework.exceptions import ParseError, PermissionDenied
 from rest_framework.response import Response
 
 from learning_base import custom_permissions
@@ -101,7 +101,7 @@ class CourseEditView(APIView):
     @author Leonhard Wiedmann
     """
     authentication_classes = (authentication.TokenAuthentication,)
-    permission_classes = (permissions.IsAdminUser,)
+    permission_classes = (custom_permissions.IsAdmin,)
 
     def get(self, request, course_id=None, format=None):
         """
@@ -136,7 +136,7 @@ class CourseView(APIView):
     @author Claas Voelcker
     """
     authentication_classes = (authentication.TokenAuthentication,)
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (custom_permissions.IsAdminOrReadOnly,)
 
     def get(self, request, course_id=None, format=None):
         """
@@ -327,29 +327,26 @@ class UserView(APIView):
         Shows the profile of any user if the requester is mod,
         or the profile of the requester
 
-        TODO: Refactor this user.profile.is_mod() out of it
-        AFAIK is this not the right behaviour
-        but rather overriding REST functions is -TH
-        #TODO: probably should be check_permissions(self, request)
+        TODO: if the behaviour that an admin should be allowed to access a user
+        when a user_id is provided in the URL will be used again, a custom_permission
+        should be written.
         """
         user = request.user
         if user_id:
-            if user.profile.is_mod():
+            if user.profile.is_admin():
                 user = User.objects.filter(id=user_id).first()
                 if not user:
                     return Response({"ans":'User not found'},
                                     status=status.HTTP_404_NOT_FOUND)
             else:
-                return Response({"ans":'Access denied'},
-                                status=status.HTTP_401_UNAUTHORIZED)
+                raise PermissionDenied(detail=None, code=None)
 
         user = serializer.UserSerializer(user)
         return Response(user.data)
 
     def post(self, request, format=None):
         """
-        Post is used to update the profile of a given user
-        (Guess: patch is the actual method we want to go for)
+        Post is used to update the profile of the requesting user
         @author Tobias Huber
         """
         user = request.user
@@ -418,9 +415,10 @@ class MultiUserView(APIView):
         """
         Returns all users
         """
-        if not request.user.profile.is_mod():
-            return Response({"ans":'Access denied'},
-                            status=status.HTTP_401_UNAUTHORIZED)
+        """
+        if not request.user.profile.is_admin():
+            raise PermissionDenied(detail=None, code=None)
+        """
         users = User.objects.all()
         data = serializer.UserSerializer(users, many=True).data
         return Response(data)
@@ -535,7 +533,6 @@ class RequestView(APIView):
 
     def post(self, request, format=None):
         """
-        TODO: Fix problem with auth/perm!
         Handels the moderator rights request. Expects a reason and extracts the
         user from the request header.
         """
@@ -582,7 +579,7 @@ class UserRightsView(APIView):
     I do not understand.
     """
 
-    #authentication_classes=(authentication.BaseAuthentication,)
+    authentication_classes=(authentication.TokenAuthentication,)
     permission_classes=(custom_permissions.IsAdmin,)
 
     def post(self, request, user_id, format=None):
