@@ -5,6 +5,7 @@ from rest_framework import status
 from .models import *
 from learning_base.multiple_choice.serializer import *
 from learning_base.info.serializer import *
+from learning_base.custom_validators import user_by_id_exists
 
 
 class AnswerSerializer(serializers.BaseSerializer):

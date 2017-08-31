@@ -4,15 +4,15 @@ from rest_framework import status
 from rest_framework import authentication, permissions
 from rest_framework.views import APIView
 from rest_framework.exceptions import ParseError
+from rest_framework.response import Response
 
+from learning_base import custom_permissions
 import learning_base.serializers as serializer
 from learning_base.models import Course, CourseCategory, Try, Profile, \
     CourseManager
 
-from rest_framework.response import Response
 from django.core.mail import send_mail
 from django.contrib.auth.models import User, Group
-
 from django.utils import timezone
 
 
@@ -412,7 +412,7 @@ class MultiUserView(APIView):
     @author Claas Voelcker
     """
     authentication_classes = (authentication.TokenAuthentication,)
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (custom_permissions.IsAdmin,)
 
     def get(self, request):
         """
@@ -565,42 +565,59 @@ class RequestView(APIView):
         return Response({"Request": "ok"}, status=status.HTTP_200_OK)
 
 
-class GrantModRightsView(APIView):
+class UserRightsView(APIView):
     """
-    This View is used to grant a user modrights
-    @author Tobias Huber
+    Used to promote or demote a given user (by id)
+
+    This View is used to grant or revoke specific rights (user|moderator|admin)
+    The POST data must include the following fields
+    {"right": "moderator"|"admin",
+    "action": "promote"|"demote"}.
+    Returns the request.data if validation failed.
+
+    The user_id is to be provided in the url.
+
+    TODO: try the generic.create APIView. Its behaviour isn't really different
+    from the current. It just provides additional success-headers in a way
+    I do not understand.
     """
 
-    # authentication_classes=(authentication.TokenAuthentication,);
-    permission_classes = (permissions.IsAdminUser,)
+    #authentication_classes=(authentication.BaseAuthentication,)
+    permission_classes=(custom_permissions.IsAdmin,)
+
+    def post(self, request, user_id, format=None):
+        data = request.data
+        right_choices = ['moderator','admin']
+        action_choices = ['promote','demote']
+        errors = {}
+
+        #validation
+        if not data["right"] or not(data["right"] in right_choices):
+            errors["right"] = "this field is required and must be one of the following options"+', '.join(right_choices)
+        if not data["action"] or not(data["action"] in action_choices):
+            errors["action"] = "this field is required and must be one of the following options"+', '.join(action_choices)
+        if not User.objects.filter(id=user_id).exists():
+            errors["id"] = "a user with the id '"+user_id+"' does not exist"
+        if errors:
+            return Response(errors, status=status.HTTP_400_BAD_REQUEST)
+
+        #actual behaviour
+        user = User.objects.get(id=user_id)
+        group = Group.objects.get(name=data["right"])
+        action = data["action"]
+        if (action == "promote"):
+            user.groups.add(group)
+            #if a moderator shall not be in the moderator usergroup if he/she is promoted to an admin:
+            #if data[right] == "admin" and user.groups.filter(name="moderator").exists():
+                #user.groups.remove(Group.objects.get(name="moderator"))
+        elif (action == "demote"):
+            user.groups.remove(group)
+        return Response(serializer.UserSerializer(user).data)
 
     def get(self, request, user_id, format=None):
         """
-        Returns True if given user with a given user_id is a moderator
+        This API is for debug only. It comes in quite handy with the browsable API
         """
-        return Response(Profile.objects.get(user__id=user_id).is_mod(),
-                        status=status.HTTP_200_OK)
-
-    def post(self, request, user_id, format=None):
-        """
-        Grants a user with a given user id mod rights.
-        User id is taken from the url
-        """
-        to_be_promoted = User.objects.get(id=user_id)
-        if to_be_promoted.profile.is_mod():
-            # TODO Find out if it is useful to send a 200 when a user
-            # was already mod
-            return Response({"ans":
-                "the user \" " + to_be_promoted.username +
-                "\" is already a moderator"},
-                status=status.HTTP_200_OK)
-        mod_group = Group.objects.get(name='moderator')
-        to_be_promoted.groups.add(mod_group)
-
-        # may be replaced by tests
-        if not to_be_promoted.profile.is_mod():
-            return Response({"ans":
-                "Something went wrong with promoting" + to_be_promoted.username},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        return Response({"ans":"successfully promoted " + to_be_promoted.username},
-                        status=status.HTTP_200_OK)
+        user = User.objects.get(id=user_id)
+        print(user)
+        return Response({"username":user.username, "is_mod?":user.groups.filter(name="moderator").exists(), "is_admin?":user.groups.filter(name="admin").exists()})
