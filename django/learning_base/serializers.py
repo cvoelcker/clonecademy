@@ -44,7 +44,8 @@ class QuestionSerializer(serializers.ModelSerializer):
         for module in obj.module.course.module_set.all():
             m = []
             for question in module.question_set.all():
-                if answered_question_before and question.try_set.filter(solved=True).exists():
+                if answered_question_before and question.try_set.filter(
+                        solved=True).exists():
                     if question.title is not '':
                         m.append(question.title)
                     else:
@@ -54,7 +55,6 @@ class QuestionSerializer(serializers.ModelSerializer):
                     answered_question_before = False
                     m.append("")
             value['progress'].append(m)
-
 
         value['last_question'] = obj.is_last_question()
         value['last_module'] = module.is_last_module()
@@ -367,7 +367,7 @@ class StatisticsOverviewSerializer(serializers.BaseSerializer):
                 else:
                     question_entry['tries'] += 1
                     question_entry['solved'] = question_entry['solved'] \
-                                               or _try.solved
+                        or _try.solved
             if question_entry:
                 all_questions.append(question_entry)
         return all_questions
