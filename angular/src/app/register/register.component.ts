@@ -27,7 +27,6 @@ export class RegisterComponent {
 
   /*
   variables for register
-  TODO: refactor name and surname to first and last name
    */
   newUsername: string;
   newEmail: string;
@@ -51,7 +50,6 @@ export class RegisterComponent {
 
   // register a new user.
   register(value){
-    console.log(value.value)
     if(value.valid && value.value["password"] === value.value['password2']){
       let data = value.value
       delete data['password2'];

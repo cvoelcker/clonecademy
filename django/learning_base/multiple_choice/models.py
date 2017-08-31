@@ -19,7 +19,8 @@ class MultipleChoiceQuestion(Question):
     )
 
     def num_correct_answers(self):
-        return len(MultipleChoiceAnswer.objects.filter(question=self, is_correct=True))
+        return len(MultipleChoiceAnswer.objects.filter(
+            question=self, is_correct=True))
 
     def not_solvable(self):
         return self.num_correct_answers() == 0
@@ -32,7 +33,8 @@ class MultipleChoiceQuestion(Question):
         @author Tobias Huber
         """
 
-        "get all correct answers, map them to their id and make a (mathematical) set out of it"
+        # get all correct answers, map them to their id and make a
+        # (mathematical) set out of it"
         answers = set([x.id for x in
                        self.multiplechoiceanswer_set.filter(is_correct=True)])
         return answers == set(data)
@@ -44,11 +46,11 @@ class MultipleChoiceQuestion(Question):
         return self.multiplechoiceanswer_set.all()
 
     def get_serializer(self):
-        from learning_base.multiple_choice import serializer
+        from . import serializer
         return serializer.MultipleChoiceQuestionSerializer
 
     def get_edit_serializer(self):
-        from learning_base.multiple_choice import serializer
+        from . import serializer
         return serializer.MultipleChoiceQuestionEditSerializer
 
     def custom_feedback(self):

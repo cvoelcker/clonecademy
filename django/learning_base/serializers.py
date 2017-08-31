@@ -1,10 +1,11 @@
 from rest_framework import serializers
 from rest_framework.exceptions import ParseError
-from rest_framework import status
 
+from .info.serializer import InformationYoutubeSerializer, \
+    InformationTextSerializer
+from .multiple_choice.serializer import \
+    MultipleChoiceQuestionSerializer
 from .models import *
-from learning_base.multiple_choice.serializer import *
-from learning_base.info.serializer import *
 
 
 class AnswerSerializer(serializers.BaseSerializer):
@@ -34,10 +35,27 @@ class QuestionSerializer(serializers.ModelSerializer):
         Output:
             value: a valid json object containing all required fields
         """
-
         module = obj.module
         value = super(QuestionSerializer, self).to_representation(obj)
         value['type'] = obj.__class__.__name__
+
+        value['progress'] = []
+        answered_question_before = True
+        for module in obj.module.course.module_set.all():
+            m = []
+            for question in module.question_set.all():
+                if answered_question_before and question.try_set.filter(
+                        solved=True).exists():
+                    if question.title is not '':
+                        m.append(question.title)
+                    else:
+                        m.append("solved")
+
+                else:
+                    answered_question_before = False
+                    m.append("")
+            value['progress'].append(m)
+
         value['last_question'] = obj.is_last_question()
         value['last_module'] = module.is_last_module()
         value['learning_text'] = module.learning_text
@@ -56,6 +74,8 @@ class QuestionSerializer(serializers.ModelSerializer):
             MultipleChoiceQuestionSerializer().create(validated_data)
         elif question_type == 'info_text':
             InformationTextSerializer().create(validated_data)
+        elif question_type == 'info_text_youtube':
+            InformationYoutubeSerializer().create(validated_data)
         else:
             raise ParseError(
                 detail='{} is not a valid question type'.format(
@@ -127,11 +147,13 @@ class ModuleSerializer(serializers.ModelSerializer):
                 question_id.append(quest['id'])
 
         # check if this is a edit or creation of a new module
-        if question_id != []:
+        if question_id:
             # get all questions for the current module
-            queryQuestions = Question.objects.filter(module_id=validated_data['id'])
-            # iterate over the questions and if the questions does not exist in the edited module it will be removed
-            for q in queryQuestions:
+            query_questions = Question.objects.filter(
+                module_id=validated_data['id'])
+            # iterate over the questions and if the questions does not exist in
+            # the edited module it will be removed
+            for q in query_questions:
                 if q.id not in question_id:
                     q.delete()
         module = Module(**validated_data)
@@ -195,7 +217,8 @@ class CourseSerializer(serializers.ModelSerializer):
 
         # check if course is empty and raise error if so
         if len(modules) <= 0:
-            raise ParseError(detail="Course needs to have at least one module", code=None)
+            raise ParseError(detail="Course needs to have at least one module",
+                             code=None)
         category = validated_data.pop('category')
         category = CourseCategory.objects.get(name=category)
         validated_data['category'] = category
@@ -209,11 +232,13 @@ class CourseSerializer(serializers.ModelSerializer):
                 module_id.append(m['id'])
 
         # check if this is a edit or creation of a new course
-        if module_id != []:
+        if module_id:
             # get all modules for the current course
-            moduleQuery = Module.objects.filter(course_id=validated_data['id'])
-            # iterate over the modules and if the modules does not exist in the edited course it will be removed
-            for m in moduleQuery:
+            module_query = Module.objects.filter(
+                course_id=validated_data['id'])
+            # iterate over the modules and if the modules does not exist in the
+            # edited course it will be removed
+            for m in module_query:
                 if m.id not in module_id:
                     m.delete()
         try:
@@ -237,8 +262,9 @@ class CourseEditSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = (
-        "name", "id", "category", "difficulty", "language", "responsible_mod",
-        "is_visible")
+            "name", "id", "category", "difficulty", "language",
+            "responsible_mod",
+            "is_visible")
 
     def to_representation(self, obj):
         value = super(CourseEditSerializer, self).to_representation(obj)
@@ -268,8 +294,8 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = (
-        'username', 'email', 'id', 'date_joined', 'groups', 'first_name',
-        'last_name')
+            'username', 'email', 'id', 'date_joined', 'groups', 'first_name',
+            'last_name')
 
     def to_representation(self, obj):
         value = super(UserSerializer, self).to_representation(obj)
@@ -277,24 +303,6 @@ class UserSerializer(serializers.ModelSerializer):
         p = Profile.objects.filter(user=obj).first()
         value['language'] = p.language
         return value
-
-    """
-    code doesn't work properly. Nevertheless validation of input data should be
-    dealt with in the "validate" function in the future
-    def validate(self, data):
-        ""
-        validate given passwords
-        ""
-        if "request" in self.context:
-            if self.context["request"].method=="POST":
-                if "oldpassword" in data:
-                    if not request.user.check_password(request.data["oldpassword"]):
-                        raise serializers.ValidationError("incorrect password @key oldpassword")
-                else:
-                    if "password" in data:
-                        raise serializers.ValidationError("when changing password the old password must be given with the key oldpassword")
-        return data
-    """
 
     def create(self, validated_data):
         profile_data = validated_data.pop('profile')
@@ -359,7 +367,7 @@ class StatisticsOverviewSerializer(serializers.BaseSerializer):
                 else:
                     question_entry['tries'] += 1
                     question_entry['solved'] = question_entry['solved'] \
-                                               or _try.solved
+                        or _try.solved
             if question_entry:
                 all_questions.append(question_entry)
         return all_questions

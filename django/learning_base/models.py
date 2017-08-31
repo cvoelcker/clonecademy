@@ -33,9 +33,9 @@ class Profile(models.Model):
 
     def get_age(self):
         today = timezone.today
-        return today.year - self.birth_date.year \
-               - ((today.month, today.day) <
-                  (self.birth_date.month, self.birth_date.day))
+        return today.year - self.birth_date.year - ((today.month, today.day) <
+                                                    (self.birth_date.month,
+                                                     self.birth_date.day))
 
     def __str__(self):
         return str(self.user)
@@ -51,9 +51,9 @@ class Profile(models.Model):
         """
         Returns True if the user is allowed to request moderator rights
         """
-        return (self.last_modrequest is None or
-                (timezone.localdate() - self.last_modrequest).days >= 7) and \
-               not self.is_mod()
+        return (self.last_modrequest is None or (
+                timezone.localdate() - self.last_modrequest).days >= 7) and \
+            not self.is_mod()
 
     # TODO: Refactor these to a decorator
     def is_mod(self):
@@ -212,7 +212,19 @@ class Module(models.Model):
         """
         return len(self.question_set.all())
 
+    def get_previous_in_order(self):
+        """
+        Gets the previous module in the ordering
+        :return: the previous module in the same course
+        """
+        modules = self.course.module_set.all()
+        return modules[list(modules).index(self) - 1]
+
     def is_first_module(self):
+        """
+        checks whether the given module is the first in a course
+        :return: True, iff this module has the lowest order in the course
+        """
         modules = self.course.module_set
         return self == modules.first()
 
@@ -285,6 +297,14 @@ class Question(PolymorphicModel):
         """
         questions = self.module.question_set
         return self == questions.last()
+
+    def get_previous_in_order(self):
+        """
+        Returns the previous question in the course
+        :return: the previous question in the same module
+        """
+        questions = self.module.question_set.all()
+        return questions[list(questions).index(self) - 1]
 
     def __str__(self):
         return self.title

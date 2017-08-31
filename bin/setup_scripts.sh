@@ -2,7 +2,7 @@
 
 
 if [ "$(id -u)" != "0" ]; then
-  echo "permissions error: run this script as root user"
+  echo "permissions error: run self script as root user"
   exit
 fi
 

@@ -70,7 +70,7 @@ function buildDjango {
 function noBuildError {
 	echo "someting went wrong."
 	echo "is the"$1"container installed."
-	echo "Run 'clonecademy build' or 'clonecademy "$1" build' to start build this container"
+	echo "Run 'clonecademy build' or 'clonecademy "$1" build' to start build self container"
 }
 
 function runAngular {

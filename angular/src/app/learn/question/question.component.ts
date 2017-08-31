@@ -61,6 +61,7 @@ export class QuestionComponent implements OnInit, OnDestroy{
   correctFeedback: string;
   wrongFeedback: string;
   feedbackIterator = 0;
+  progress: Array<Array<string>>
 
   dashboard = false;
   private ngUnsubscribe: Subject<void> = new Subject<void>(); // = new Subject(); in Typescript 2.2-2.4
@@ -105,6 +106,7 @@ export class QuestionComponent implements OnInit, OnDestroy{
     this.lastQuestion = data['last_question']
     this.lastModule = data['last_module']
     this.learning_text = data['learning_text']
+    this.progress = data['progress']
 
     // create Question based on the class
     this.questionFactory = this.factory.resolveComponentFactory(this.components[data['type']])
@@ -139,6 +141,12 @@ export class QuestionComponent implements OnInit, OnDestroy{
       this.questionModule.block();
       this.questionModule.feedback = data.custom_feedback
 
+      if (this.title != ""){
+        this.progress[this.moduleIndex - 1][this.questionIndex - 1] = this.title
+      }
+      else {
+        this.progress[this.moduleIndex - 1][this.questionIndex - 1] = "solved"
+      }
       // the answer is correct and the correct Feedback will be set
       if(data['feedback'] != ""){
         this.correctFeedback = data['feedback']

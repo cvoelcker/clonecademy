@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { QuestionModule } from "../question/question.module"
-import { ServerService } from "../../service/server.service"
 
 @Component({
   selector: 'app-MultipleChoiceQuestion',
