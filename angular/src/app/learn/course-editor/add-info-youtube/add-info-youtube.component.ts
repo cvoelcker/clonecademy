@@ -22,8 +22,6 @@ export class AddInformationYoutubeComponent extends AddQuestionModule {
     url: '',
   };
 
-  url: string = '';
-
   constructor(public dialog: MdDialog) {
     super()
   }

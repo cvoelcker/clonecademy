@@ -7,6 +7,7 @@ from re import compile
 class InformationTextSerializer(serializers.ModelSerializer):
     """
     The serializer for information text type questions.
+    @author: Claas Voelcker
     """
 
     class Meta:
@@ -23,6 +24,7 @@ class InformationTextSerializer(serializers.ModelSerializer):
 class InformationYoutubeSerializer(serializers.ModelSerializer):
     """
     The serializer for information video type questions.
+    @author: Claas Voelcker
     """
 
     """ID extraction pattern"""

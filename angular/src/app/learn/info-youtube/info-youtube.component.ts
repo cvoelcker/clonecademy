@@ -10,8 +10,6 @@ import {SafeResourceUrl} from '@angular/platform-browser';
 })
 export class InformationYoutubeComponent extends QuestionModule {
 
-  data: {};
-
   /**
    * Builds the url and circumvents sanitation (actual sanitation is done before saving the url to database)
    * @author Claas Voelcker

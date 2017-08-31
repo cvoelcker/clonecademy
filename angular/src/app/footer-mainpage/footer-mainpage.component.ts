@@ -5,11 +5,11 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './footer-mainpage.component.html',
   styleUrls: ['./footer-mainpage.component.sass']
 })
-export class FooterMainpageComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+/**
+ * The Component for the static footer of the Main Pages. This footer is not in the question.
+ * @author Leonhard Wiedmann
+ */
+export class FooterMainpageComponent{
 
 }

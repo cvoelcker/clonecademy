@@ -9,8 +9,6 @@ import { QuestionModule } from "../question/question.module"
 })
 export class MultipleChoiceQuestionComponent extends QuestionModule {
 
-  data = {answers: [{value: "a", id: -1}]}
-
   // return array of the marked answers
   submit(): any{
     let sendAnswer = [];

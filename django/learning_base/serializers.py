@@ -39,21 +39,18 @@ class QuestionSerializer(serializers.ModelSerializer):
         value = super(QuestionSerializer, self).to_representation(obj)
         value['type'] = obj.__class__.__name__
 
+        # calculate the current progress of the user in a array of arrays
+        # the outer array is the module and the inner is the title of the quesiton
+        # e.g [['question 1', 'question, 2'], ['quesiton 3']]
         value['progress'] = []
         answered_question_before = True
-        for module in obj.module.course.module_set.all():
+        for modules in obj.module.course.module_set.all():
             m = []
-            for question in module.question_set.all():
-                if answered_question_before and question.try_set.filter(
-                        solved=True).exists():
-                    if question.title is not '':
-                        m.append(question.title)
-                    else:
-                        m.append("solved")
-
+            for question in modules.question_set.all():
+                if question.title is not '':
+                    m.append(question.title)
                 else:
-                    answered_question_before = False
-                    m.append("")
+                    m.append("solved")
             value['progress'].append(m)
 
         value['last_question'] = obj.is_last_question()
@@ -241,9 +238,10 @@ class CourseSerializer(serializers.ModelSerializer):
             for m in module_query:
                 if m.id not in module_id:
                     m.delete()
-        else:
-            raise ParseError(detail="no Empty course allowed", code=None)
+
         try:
+            if len(modules) <= 0:
+                raise ParseError(detail="no Empty course allowed", code=None)
             for module in modules:
                 module_serializer = ModuleSerializer(data=module)
                 if not module_serializer.is_valid():

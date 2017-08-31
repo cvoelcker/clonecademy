@@ -10,8 +10,6 @@ import { ServerService } from "../../service/server.service"
 })
 export class InformationTextComponent extends QuestionModule {
 
-  data = {}
-
   // return array of the marked answers
   submit(): any{
     return true;

@@ -1,4 +1,4 @@
-<ul class="answers" [class.fullWidth]="data.question_image == '' && (feedback == '' || feedback == undefined)">
+<ul *ngIf="data != undefined" class="answers" [class.fullWidth]="data.question_image == '' && (feedback == '' || feedback == undefined)">
   <li *ngFor="let ans of data.answers" >
     <md-checkbox
     [disabled]="disable"
