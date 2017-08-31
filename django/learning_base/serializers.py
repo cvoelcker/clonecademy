@@ -25,7 +25,7 @@ class QuestionSerializer(serializers.ModelSerializer):
         Meta information (which fields are serialized for the representation)
         """
         model = Question
-        fields = ('title', 'text', 'question', 'feedback',)
+        fields = ('title', 'text', 'feedback',)
 
     def to_representation(self, obj):
         """
@@ -44,13 +44,16 @@ class QuestionSerializer(serializers.ModelSerializer):
         # e.g [['question 1', 'question, 2'], ['quesiton 3']]
         value['progress'] = []
         answered_question_before = True
-        for modules in obj.module.course.module_set.all():
+        for module in obj.module.course.module_set.all():
             m = []
-            for question in modules.question_set.all():
-                if question.title is not '':
-                    m.append(question.title)
+            for question in module.question_set.all():
+                if answered_question_before and question.try_set.filter(
+                        solved=True).exists():
+                    m.append({"solved": True, "title": question.title})
+
                 else:
-                    m.append("solved")
+                    answered_question_before = False
+                    m.append({"solved": False, "title": question.title})
             value['progress'].append(m)
 
         value['last_question'] = obj.is_last_question()
@@ -82,7 +85,7 @@ class QuestionSerializer(serializers.ModelSerializer):
 class QuestionEditSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = ('title', 'question', 'text', 'id', 'feedback')
+        fields = ("title", "text", 'id', "feedback")
 
     def to_representation(self, obj):
         value = super(QuestionEditSerializer, self).to_representation(obj)
@@ -95,13 +98,13 @@ class QuestionEditSerializer(serializers.ModelSerializer):
 class CourseCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = CourseCategory
-        fields = ('name', 'id',)
+        fields = ('name', "id",)
 
 
 class ModuleEditSerializer(serializers.ModelSerializer):
     class Meta:
         model = Module
-        fields = ('name', 'id', 'learning_text', 'order')
+        fields = ('name', "id", "learning_text", "order")
 
     def to_representation(self, obj):
         value = super(ModuleEditSerializer, self).to_representation(obj)
@@ -171,8 +174,7 @@ class CourseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Course
-        fields = ('name', 'description', 'difficulty', 'id', 'language',
-                  'category')
+        fields = ('name', 'difficulty', 'id', 'language', 'category')
 
     def to_representation(self, obj):
         """
@@ -263,9 +265,9 @@ class CourseEditSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = (
-            'name', 'id', 'description', 'category', 'difficulty', 'language',
-            'responsible_mod',
-            'is_visible')
+            "name", "id", "category", "difficulty", "language",
+            "responsible_mod",
+            "is_visible")
 
     def to_representation(self, obj):
         value = super(CourseEditSerializer, self).to_representation(obj)
@@ -276,7 +278,7 @@ class CourseEditSerializer(serializers.ModelSerializer):
 
 
 class GroupSerializer(serializers.ModelSerializer):
-    """"
+    """
     Model serializer for the Group model
     """
 
