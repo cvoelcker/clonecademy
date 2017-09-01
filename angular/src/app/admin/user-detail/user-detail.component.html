@@ -7,35 +7,39 @@
 </ul>
 
 <div *ngIf="user != undefined">
-  <h3>{{"User rights"| translate}}</h3>
-  <p>
-    The behaviour is the following:<br>
-    A user can be a moderator, an admin, both or neither.<br>
-    So a moderator, that is also promoted to an admin will be a moderator again, if he/she gets his/her admin rights withdrawn.<br>
-    An admin can always do the same things as moderator.<br>
-  </p>
-  <!--- promoting buttons displayed over demoting buttons -->
+
+  <h2 class="example-tooltip-host" mdTooltip="The behaviour is the following:
+    A user can be a moderator, an admin, both or neither.
+    So a moderator, that is also promoted to an admin will be a moderator again, if he/she gets his/her admin rights withdrawn.
+    An admin can always do the same things as moderator."
+    [mdTooltipPosition]="position">
+    {{"User rights"| translate}}
+    <md-icon>
+      info_outline
+    </md-icon>
+  </h2>
+
+
   <div>
-    <button *ngIf="isMod == false"[disabled]="loading" (click)="promoteToModerator()" md-raised-button>{{"promote" | translate}}: "{{user.username}}" {{"to a moderator" | translate}}</button>
-    <div class="error" *ngIf="invalidLogin">Your request could not be sent</div>
-    <p *ngIf="error">Request was rejected</p>
-
-    <button *ngIf="isAdmin == false"[disabled]="loading" (click)="promoteToAdmin()" md-raised-button>{{"promote" | translate}}: "{{user.username}}" {{"to an admin" | translate}}</button>
-    <div class="error" *ngIf="invalidLogin">Your request could not be sent</div>
-    <p *ngIf="error">Request was rejected</p>
-    <div *ngIf="isAdmin" class="help-block"><br>{{"Request unavailable - user is already an admin!" | translate}}</div>
+    <div>
+      <button *ngIf="isMod == false"[disabled]="loading" (click)="promoteToModerator()" md-raised-button>
+        <md-icon> star_half </md-icon>
+        {{"promote to moderator" | translate}}
+      </button>
+      <button *ngIf="isMod == true"[disabled]="loading" (click)="demoteToUser()" md-raised-button>
+        <md-icon> star_half </md-icon>
+        {{"wihdraw moderator rights" | translate}}
+      </button>
+    </div>
+    <div>
+      <button *ngIf="isAdmin == false"[disabled]="loading" (click)="promoteToAdmin()" md-raised-button>
+        <md-icon> star </md-icon>
+        {{"promote to admin" | translate}}
+      </button>
+      <button *ngIf="isAdmin == true"[disabled]="loading" (click)="demoteToModerator()" md-raised-button>
+        <md-icon> star </md-icon>
+        {{"wihdraw admin rights" | translate}}
+      </button>
+    </div>
   </div>
-  <br>
-  <!--- demoting buttons displayed under promoting buttons -->
-  <div>
-    <button *ngIf="isMod == true"[disabled]="loading" (click)="demoteToUser()" md-raised-button>{{"withdraw from " | translate}}: "{{user.username}}" {{" moderator rights" | translate}}</button>
-    <div class="error" *ngIf="invalidLogin">Your request could not be sent</div>
-    <p *ngIf="error">Request was rejected</p>
-    <div *ngIf="isMod == false" class="help-block"><br>{{"Request unavailable - user is not a moderator!" | translate}}</div>
-
-    <button *ngIf="isAdmin == true"[disabled]="loading" (click)="demoteToModerator()" md-raised-button>{{"withdraw from " | translate}}: "{{user.username}}" {{" admin rights" | translate}}</button>
-    <div class="error" *ngIf="invalidLogin">Your request could not be sent</div>
-    <p *ngIf="error">Request was rejected</p>
-  </div>
-
 </div>
