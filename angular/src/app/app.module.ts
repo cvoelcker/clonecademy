@@ -43,6 +43,7 @@ import { DashboardComponent } from './learn/dashboard/dashboard.component';
 import { LoggedInDirective } from './directive/logged-in.directive';
 import { MenuComponent } from './menu/menu.component';
 import { CourseComponent } from './learn/course/course.component';
+import { QuestionSidenavComponent } from './learn/question-sidenav/question-sidenav.component';
 
 import { QuestionDictionary } from './learn/question-dictionary';
 
@@ -208,6 +209,7 @@ let QuestionList = QuestionDictionary.questionComponents
     StaticPageComponent,
     CourseViewComponent,
     FooterMainpageComponent,
+    QuestionSidenavComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
