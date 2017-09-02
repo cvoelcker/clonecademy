@@ -21,6 +21,7 @@ export class AddQuestionComponent implements OnInit {
   feedback: string;
   feedbackBool: boolean;
   id: number;
+  title: string;
 
   form = null;
 
@@ -38,7 +39,7 @@ export class AddQuestionComponent implements OnInit {
   constructor(private factory: ComponentFactoryResolver, private ref: ChangeDetectorRef) { }
 
   // add a question to the view
-  addQuestion(id?: number, questionBody?: string, body?: any, feedback?: string){
+  addQuestion(data){
     //console.log(answers)
     // create factory
     // in the module class child will be set to the question type
@@ -47,17 +48,19 @@ export class AddQuestionComponent implements OnInit {
     let question = this.question.createComponent(this.questionFactory)
 
     // set the question text
-    this.questionBody = questionBody
-
+    
+    this.questionBody = data["text"]
+    this.title = data['title']
+    let feedback = data['feedback']
     // check if the feedback is set and if true set the feedback text
     if(feedback != undefined && feedback != ""){
       this.feedbackBool = true;
       this.feedback = feedback
     }
-    this.id = id;
+    this.id = data['id'];
 
     this.questionCopy  = (<AddQuestionModule> question.instance)
-    this.questionCopy.edit(body);
+    this.questionCopy.edit(data['question_body']);
   }
 
 
@@ -75,13 +78,13 @@ export class AddQuestionComponent implements OnInit {
     response['id'] = this.id;
 
     response['text'] = this.questionBody;
+    response['title'] = this.title
     if(this.feedbackBool){
       response['feedback'] = this.feedback;
     }
     else{
       response['feedback'] = ''
     }
-    response['title'] = ""
     if(response['feedback'] == undefined){
       response['feedback'] = "";
     }
