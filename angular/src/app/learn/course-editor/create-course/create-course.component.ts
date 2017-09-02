@@ -42,6 +42,7 @@ export class CreateCourseComponent {
 
   /***
   create a basic quiz with 5 questions and every question has 4 possible answers
+  @author: Leonhard Wiedmann
   ***/
   createQuiz(){
     this.quiz = []
@@ -76,6 +77,10 @@ export class CreateCourseComponent {
     }
   }
 
+  /***
+  creates a simple quiz question with 4 answers
+  @author: Leonhard Wiedmann
+  ***/
   addQuizQuestion(){
     this.quiz.push({
       question: "",
@@ -106,6 +111,10 @@ export class CreateCourseComponent {
     })
   }
 
+  /***
+  open a dialog for to upload a image
+  @author: Leonhard Wiedmann
+  ***/
   openImageDialog(width: number, height: number, questionKey: number, answerKey: number = -1){
     let dialogRef = this.dialog.open(ImageCropperDialogComponent, {
       data: {

@@ -317,6 +317,10 @@ class Question(PolymorphicModel):
         return self.title
 
 class QuizQuestion(models.Model):
+    """
+    single Quiz Question with possible multiple answers
+    @author Leonhard Wiedmann
+    """
     question = models.TextField(
         verbose_name="quizQuestion",
         help_text="The Question of this quiz question.",
@@ -349,6 +353,10 @@ class QuizQuestion(models.Model):
         return False
 
 class QuizAnswer(models.Model):
+    """
+    Quiz answer with image and the value for correct answer
+    @author Leonhard Wiedmann
+    """
     text = models.TextField(
         help_text="The answer text"
     )
@@ -365,6 +373,7 @@ class QuizAnswer(models.Model):
     )
 
     quiz = models.ForeignKey(QuizQuestion, on_delete=models.CASCADE)
+
 
 class LearningGroup(models.Model):
     """

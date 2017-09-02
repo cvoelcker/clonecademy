@@ -79,13 +79,16 @@
               </div>
             </div>
             <span mdTooltip="a quiz must have at least 5 questions" [mdTooltipDisabled]="quiz.length > 5">
-              <button type="button" md-raised-button (click)="quiz.splice(j, 1)" [disabled]="quiz.length <= 5"> remove this Quiz Question</button>
+              <button type="button" md-raised-button (click)="quiz.splice(j, 1)" [disabled]="quiz.length <= 5"><md-icon>delete</md-icon> {{"remove this Quiz Question" | translate}}</button>
             </span>
           </div>
         </md-card>
         <span mdTooltip="a quiz can must have not more then 20 questions" [mdTooltipDisabled]="quiz.length <= 20 ">
-          <button type="button" md-raised-button (click)="addQuizQuestion()" [disabled]="quiz.length > 20"> add Quiz Question</button>
+          <button type="button" md-raised-button (click)="addQuizQuestion()" [disabled]="quiz.length > 20"><md-icon>add</md-icon> {{"add Quiz Question" | translate}}</button>
         </span>
+        <div>
+          <button type="button" md-raised-button (click)="quiz = null" ><md-icon>delete</md-icon> {{"remove Quiz" | translate}}</button>
+        </div>
       </div>
 
     </md-card>

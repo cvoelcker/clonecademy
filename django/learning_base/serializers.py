@@ -304,6 +304,7 @@ class CourseEditSerializer(serializers.ModelSerializer):
 class QuizSerializer(serializers.ModelSerializer):
     """
     Quiz Serializer for a single quiz question
+    @author Leonhard Wiedmann
     """
 
     class Meta:
@@ -340,6 +341,7 @@ class QuizSerializer(serializers.ModelSerializer):
 class QuizAnswerSerializer(serializers.ModelSerializer):
     """
     Quiz Answer Serializer
+    @author Leonhard Wiedmann
     """
     class Meta:
         model = QuizAnswer
