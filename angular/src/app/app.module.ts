@@ -1,5 +1,5 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
 
@@ -7,15 +7,10 @@ import { HttpModule, Http } from '@angular/http';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
-//charts Module
-import { ChartsModule } from 'ng2-charts';
-
 //markdown
 import { MarkdownModule } from 'angular2-markdown';
 
 // Material Style
-import { ExpansionPanelsModule } from 'ng2-expansion-panels';
-
 import {MdSidenavModule, MdDialog, MdDialogModule, MdIconModule, MdMenuModule, MdButtonModule, MdAutocompleteModule, MdCheckboxModule, MdTooltipModule, MdCardModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule, MdProgressSpinnerModule} from '@angular/material';
 
 import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
@@ -31,8 +26,6 @@ import { ServerService } from './service/server.service';
 import { UserService } from './service/user.service';
 import { CourseService } from './service/course.service'
 import { ErrorDialog } from "./service/error.service";
-
-import { SassHelperComponent } from './service/sass-helper/sass-helper'
 
 import { Admin } from "./injectible/admin.injectible"
 
@@ -201,7 +194,6 @@ let QuestionList = QuestionDictionary.questionComponents
     ErrorMessageComponent,
     WrongFeedbackComponent,
     LoaderComponent,
-    SassHelperComponent,
     EditCourseComponent,
     UserDetailUserComponent,
     ImageCropperDialogComponent,
@@ -212,6 +204,7 @@ let QuestionList = QuestionDictionary.questionComponents
     QuestionSidenavComponent,
   ],
   imports: [
+    BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
     TranslateModule.forRoot({
@@ -238,9 +231,6 @@ let QuestionList = QuestionDictionary.questionComponents
     MdProgressSpinnerModule,
     MdMenuModule,
     MdIconModule,
-    BrowserAnimationsModule,
-    ChartsModule,
-    ExpansionPanelsModule,
   ],
   exports: [
   ],

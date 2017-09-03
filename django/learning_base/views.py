@@ -8,7 +8,7 @@ from rest_framework.response import Response
 
 from . import serializers as serializer
 from learning_base import custom_permissions
-from .models import Course, CourseCategory, Try, Profile, CourseManager
+from .models import Course, CourseCategory, Try, Profile, CourseManager, QuizQuestion
 
 from django.core.mail import send_mail
 from django.contrib.auth.models import User, Group
@@ -135,8 +135,8 @@ class CourseView(APIView):
     Contains all code related to viewing and saving courses.
     @author Claas Voelcker
     """
-    authentication_classes = (authentication.TokenAuthentication,)
-    permission_classes = (custom_permissions.IsAdminOrReadOnly,)
+    authentication_classes = []#(authentication.TokenAuthentication,)
+    permission_classes = []#(custom_permissions.IsAdminOrReadOnly,)
 
     def get(self, request, course_id=None, format=None):
         """
@@ -320,6 +320,41 @@ class AnswerView(APIView):
     def post(self, request, format=None):
         return Response({"ans": 'Method not allowed'},
                         status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+class QuizView(APIView):
+    """
+    Shows the quiz question of the current course in get
+    evaluates this quiz question in post
+    @author Leonhard Wiedmann
+    """
+    authentication_classes = []#(authentication.TokenAuthentication,)
+    permission_classes = []#(permissions.IsAuthenticated,)
+
+    def get(self, request, course_id, quiz_id):
+        """
+        Shows the current quiz question if it exists.
+        When this id does not exist throws error message
+        """
+        course = Course.objects.filter(id=course_id).first()
+        if len(course.quiz_set()) < int(quiz_id):
+            quiz = course.quiz_set()[quiz_id]
+            return Response(QuizSerializer(quiz).data)
+        else:
+            return Response({"error": "this quiz question does not exist"}, status=status.HTTP_404_NOT_FOUND)
+
+
+    def post(self, request, course_id, quiz_id, format=None):
+        """
+        Resolves this quiz question for the current user.
+        """
+        course = Course.objects.filter(id=course_id).first()
+        if len(course.quiz_set()) < int(quiz_id):
+            quiz = course.quiz_set()[quiz_id]
+            quiz.resolve(request.data)
+            # TODO add try to statistics and ranking
+            return Response({"next": len(qourse.quiz_set()) < int(quiz_id)+1})
+        else:
+            return Response({"error": "this quiz question does not exist"}, status=status.HTTP_404_NOT_FOUND)
 
 
 class UserView(APIView):

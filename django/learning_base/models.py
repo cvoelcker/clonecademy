@@ -160,6 +160,9 @@ class Course(models.Model):
         blank=True
     )
 
+    def quiz_set(self):
+        return self.quizquestion_set.all()
+
     def __str__(self):
         return self.name
 
@@ -312,6 +315,64 @@ class Question(PolymorphicModel):
 
     def __str__(self):
         return self.title
+
+class QuizQuestion(models.Model):
+    """
+    single Quiz Question with possible multiple answers
+    @author Leonhard Wiedmann
+    """
+    question = models.TextField(
+        verbose_name="quizQuestion",
+        help_text="The Question of this quiz question.",
+        default=""
+    )
+
+    image = models.TextField(
+        help_text="The image which is shown in this quiz",
+        default="",
+        blank=True
+    )
+
+    course = models.ForeignKey(
+        Course,
+        help_text="The Course of this question",
+        on_delete=models.CASCADE
+    )
+
+    def evaluate(self, data):
+        answers = map(lambda x: x.id, self.quizanswer_set.filter(correct=True).all())
+        return evaluate
+
+    def answer_set(self):
+        return self.quizanswer_set.all()
+
+    def is_solvable(self):
+        for ans in self.answer_set():
+            if ans.correct:
+                return True
+        return False
+
+class QuizAnswer(models.Model):
+    """
+    Quiz answer with image and the value for correct answer
+    @author Leonhard Wiedmann
+    """
+    text = models.TextField(
+        help_text="The answer text"
+    )
+
+    img = models.TextField(
+        help_text="The image for this answer",
+        default="",
+        blank=True
+    )
+
+    correct = models.BooleanField(
+        help_text="If this answer is correct",
+        default=False
+    )
+
+    quiz = models.ForeignKey(QuizQuestion, on_delete=models.CASCADE)
 
 
 class LearningGroup(models.Model):

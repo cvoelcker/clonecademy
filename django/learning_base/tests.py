@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.utils import timezone
+from rest_framework.exceptions import ParseError
 
 from rest_framework.test import APIRequestFactory
 from rest_framework.test import force_authenticate
@@ -671,6 +672,409 @@ class UserRightsViewTest(DatabaseMixin, TestCase):
         self.assertFalse(self.mod_group in self.u1.groups.all())
         """
 
+
+class QuizTest(DatabaseMixin, TestCase):
+    def setUp(self):
+        self.factory = APIRequestFactory()
+        self.view = views.QuestionView.as_view()
+        self.setup_database()
+
+    def test_create_quiz(self):
+        # creation is possible and quiz query is sorted
+        courseData = {
+                    'name': 'quiz_1',
+                    'category': 'test',
+                    'difficulty': 2,
+                    'responsible_mod': 1,
+                    'responsible_mod': self.u1,
+                    'modules': [
+                        {
+                        'name': 'a module',
+                        'learning_text': 'no way',
+                        'order': 3,
+                        'questions':[
+                            {
+                            'title': 'a question',
+                            'text': 'some text',
+                            'feedback': '',
+                            'type': 'multiple_choice',
+                            'order': 1,
+                            'answers':[
+                                {
+                                'text': 'true',
+                                'is_correct': True
+                                },
+                                {
+                                'text': 'nope',
+                                'is_correct': False
+                                }
+                            ]
+                            },
+                        ]
+                        },
+                        {
+                        'name': 'another module',
+                        'learning_text': 'no way',
+                        'order': 4,
+                        'questions':[
+                            {
+                            'title': 'a question',
+                            'text': 'some text',
+                            'feedback': '',
+                            'type': 'multiple_choice',
+                            'order': 1,
+                            'answers':[
+                                {
+                                'text': 'true',
+                                'is_correct': True
+                                },
+                                {
+                                'text': 'nope',
+                                'is_correct': False
+                                }
+                            ]
+                            },
+                        ]
+                        }
+                    ],
+                    "quiz":[
+                        {
+                            "question":"first",
+                            "image":"","answers":[
+                                {
+                                    "text":"a sdfa sdfasd fasd fa",
+                                    "img":"",
+                                    "correct":True
+                                },
+                                {
+                                    "text":"as dfas dasd asfd adsfa sdf",
+                                    "img":"",
+                                    "correct":False
+                                },
+                                {
+                                    "text":"asdds afadsfadsf adsf ads fa dsf",
+                                    "img":"",
+                                    "correct":False
+                                },
+                                {
+                                    "text":"adf asdf asdfasdf",
+                                    "img":"","correct":False
+                                }
+                            ]
+                        },
+                        {
+                            "question":"sadfasdfasdfas dasd fasd ",
+                            "image":"",
+                            "answers":[
+                                {
+                                    "text":"sadfasdfasdfas dfasdf a",
+                                    "img":"",
+                                    "correct":False
+                                },
+                                {
+                                    "text":"asd fasdf asdf asd fasd f",
+                                    "img":"",
+                                    "correct":True
+                                },
+                                {
+                                    "text":"asdf asdf asdf asdf asd ",
+                                    "img":"",
+                                    "correct":False
+                                },
+                                {
+                                    "text":"asdf asdf asd",
+                                    "img":"",
+                                    "correct":False
+                                }
+                            ]
+                        },
+                        {
+                            "question":"sadfasdfasdfas dasd fasd ",
+                            "image":"",
+                            "answers":[
+                                {
+                                    "text":"sadfasdfasdfas dfasdf a",
+                                    "img":"",
+                                    "correct":False
+                                },
+                                {
+                                    "text":"asd fasdf asdf asd fasd f",
+                                    "img":"",
+                                    "correct":True
+                                },
+                                {
+                                    "text":"asdf asdf asdf asdf asd ",
+                                    "img":"",
+                                    "correct":False
+                                },
+                                {
+                                    "text":"asdf asdf asd",
+                                    "img":"",
+                                    "correct":False
+                                }
+                            ]
+                        },
+                        {
+                            "question":"sadfasdfasdfas dasd fasd ",
+                            "image":"",
+                            "answers":[
+                                {
+                                    "text":"sadfasdfasdfas dfasdf a",
+                                    "img":"",
+                                    "correct":False
+                                },
+                                {
+                                    "text":"asd fasdf asdf asd fasd f",
+                                    "img":"",
+                                    "correct":True
+                                },
+                                {
+                                    "text":"asdf asdf asdf asdf asd ",
+                                    "img":"",
+                                    "correct":False
+                                },
+                                {
+                                    "text":"asdf asdf asd",
+                                    "img":"",
+                                    "correct":False
+                                }
+                            ]
+                        },
+                        {
+                            "question":"last",
+                            "image":"",
+                            "answers":[
+                                {
+                                    "text":"sadfasdfasdfas dfasdf a",
+                                    "img":"",
+                                    "correct":False
+                                },
+                                {
+                                    "text":"asd fasdf asdf asd fasd f",
+                                    "img":"",
+                                    "correct":True
+                                },
+                                {
+                                    "text":"asdf asdf asdf asdf asd ",
+                                    "img":"",
+                                    "correct":False
+                                },
+                                {
+                                    "text":"asdf asdf asd",
+                                    "img":"",
+                                    "correct":False
+                                }
+                            ]
+                        }
+                        ],
+                    'language': 'en'}
+
+        course = serializers.CourseSerializer(data=courseData)
+        if not course.is_valid():
+            self.assertTrue(False)
+        course.create(courseData)
+        course = models.Course.objects.filter(name='quiz_1')
+        self.assertTrue(course.exists())
+        course = course.first()
+        self.assertEqual(len(course.quiz_set()), 5)
+        self.assertEqual(course.quiz_set()[0].question, "first")
+        self.assertEqual(course.quiz_set()[4].question, "last")
+
+        # creation for unsolvable quiz resolves in error
+        courseData = {
+                    'name': 'quiz_2',
+                    'category': 'test',
+                    'difficulty': 2,
+                    'responsible_mod': 1,
+                    'responsible_mod': self.u1,
+                    'modules': [
+                        {
+                        'name': 'a module',
+                        'learning_text': 'no way',
+                        'order': 3,
+                        'questions':[
+                            {
+                            'title': 'a question',
+                            'text': 'some text',
+                            'feedback': '',
+                            'type': 'multiple_choice',
+                            'order': 1,
+                            'answers':[
+                                {
+                                'text': 'true',
+                                'is_correct': True
+                                },
+                                {
+                                'text': 'nope',
+                                'is_correct': False
+                                }
+                            ]
+                            },
+                        ]
+                        },
+                        {
+                        'name': 'another module',
+                        'learning_text': 'no way',
+                        'order': 4,
+                        'questions':[
+                            {
+                            'title': 'a question',
+                            'text': 'some text',
+                            'feedback': '',
+                            'type': 'multiple_choice',
+                            'order': 1,
+                            'answers':[
+                                {
+                                'text': 'true',
+                                'is_correct': True
+                                },
+                                {
+                                'text': 'nope',
+                                'is_correct': False
+                                }
+                            ]
+                            },
+                        ]
+                        }
+                    ],
+                    "quiz":[
+                        {
+                            "question":"first",
+                            "image":"","answers":[
+                                {
+                                    "text":"a sdfa sdfasd fasd fa",
+                                    "img":"",
+                                    "correct":False
+                                },
+                                {
+                                    "text":"as dfas dasd asfd adsfa sdf",
+                                    "img":"",
+                                    "correct":False
+                                },
+                                {
+                                    "text":"asdds afadsfadsf adsf ads fa dsf",
+                                    "img":"",
+                                    "correct":False
+                                },
+                                {
+                                    "text":"adf asdf asdfasdf",
+                                    "img":"","correct":False
+                                }
+                            ]
+                        },
+                        {
+                            "question":"sadfasdfasdfas dasd fasd ",
+                            "image":"",
+                            "answers":[
+                                {
+                                    "text":"sadfasdfasdfas dfasdf a",
+                                    "img":"",
+                                    "correct":False
+                                },
+                                {
+                                    "text":"asd fasdf asdf asd fasd f",
+                                    "img":"",
+                                    "correct":True
+                                },
+                                {
+                                    "text":"asdf asdf asdf asdf asd ",
+                                    "img":"",
+                                    "correct":False
+                                },
+                                {
+                                    "text":"asdf asdf asd",
+                                    "img":"",
+                                    "correct":False
+                                }
+                            ]
+                        },
+                        {
+                            "question":"sadfasdfasdfas dasd fasd ",
+                            "image":"",
+                            "answers":[
+                                {
+                                    "text":"sadfasdfasdfas dfasdf a",
+                                    "img":"",
+                                    "correct":False
+                                },
+                                {
+                                    "text":"asd fasdf asdf asd fasd f",
+                                    "img":"",
+                                    "correct":True
+                                },
+                                {
+                                    "text":"asdf asdf asdf asdf asd ",
+                                    "img":"",
+                                    "correct":False
+                                },
+                                {
+                                    "text":"asdf asdf asd",
+                                    "img":"",
+                                    "correct":False
+                                }
+                            ]
+                        },
+                        {
+                            "question":"sadfasdfasdfas dasd fasd ",
+                            "image":"",
+                            "answers":[
+                                {
+                                    "text":"sadfasdfasdfas dfasdf a",
+                                    "img":"",
+                                    "correct":False
+                                },
+                                {
+                                    "text":"asd fasdf asdf asd fasd f",
+                                    "img":"",
+                                    "correct":True
+                                },
+                                {
+                                    "text":"asdf asdf asdf asdf asd ",
+                                    "img":"",
+                                    "correct":False
+                                },
+                                {
+                                    "text":"asdf asdf asd",
+                                    "img":"",
+                                    "correct":False
+                                }
+                            ]
+                        },
+                        {
+                            "question":"last",
+                            "image":"",
+                            "answers":[
+                                {
+                                    "text":"sadfasdfasdfas dfasdf a",
+                                    "img":"",
+                                    "correct":False
+                                },
+                                {
+                                    "text":"asd fasdf asdf asd fasd f",
+                                    "img":"",
+                                    "correct":True
+                                },
+                                {
+                                    "text":"asdf asdf asdf asdf asd ",
+                                    "img":"",
+                                    "correct":False
+                                },
+                                {
+                                    "text":"asdf asdf asd",
+                                    "img":"",
+                                    "correct":False
+                                }
+                            ]
+                        }
+                        ],
+                    'language': 'en'}
+
+        quiz = serializers.CourseSerializer(data=courseData)
+        if not quiz.is_valid():
+            self.assertTrue(False)
+        with self.assertRaises(ParseError):
+            quiz.create(courseData)
+        self.assertFalse(models.Course.objects.filter(name='quiz_2').exists())
 
 class QuestionViewTest(DatabaseMixin, TestCase):
     def setUp(self):

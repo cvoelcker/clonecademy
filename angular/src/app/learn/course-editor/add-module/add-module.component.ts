@@ -9,8 +9,6 @@ import { QuestionDictionary } from '../../question-dictionary';
 
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
-import { ExpansionPanelsModule } from 'ng2-expansion-panels';
-
 
 @Component({
   selector: 'app-add-module',
@@ -43,28 +41,29 @@ export class AddModuleComponent implements OnInit {
     this.question = this.factory.resolveComponentFactory(AddQuestionComponent)
   }
 
-  addQuestion(component, id?: number, questionBody?: string, body?: any, feedback?: string){
+  addQuestion(component, data){
       // add the question to the module component and add it to the array so we can edit and save it later
       let question = this.module.createComponent(this.question)
       let q = (<AddQuestionComponent> question.instance)
       q.form = this.form
-      console.log(this.form)
+
       q.emitter.subscribe(data => this.module.detach())
       q.child = component
-      q.addQuestion(id, questionBody, body, feedback)
+      q.addQuestion(data)
       this.questionArray.push(question)
       this.selectedValue = null;
   }
 
-  editQuestion(type: string, title: string, id:number, questionBody: string, body: any, feedback: string){
+  editQuestion(data){
     let cmp: Type<AddQuestionModule> = null;
     for(let i = 0; i < this.components.length; i++){
-      if(type === this.components[i].key){
+      if(data['type'] === this.components[i].key){
         cmp = this.components[i].component
         break;
       }
     }
-    this.addQuestion(cmp, id, questionBody, body, feedback)
+
+    this.addQuestion(cmp, data)
   }
 
   ngOnInit() {

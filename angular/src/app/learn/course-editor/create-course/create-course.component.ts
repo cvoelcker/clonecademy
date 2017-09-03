@@ -8,8 +8,12 @@ import {
   EventEmitter,
   Output
 } from '@angular/core';
+import {MdDialog, MdDialogRef} from '@angular/material';
 import {AddModuleComponent} from '../add-module/add-module.component'
 import {Router, ActivatedRoute} from '@angular/router'
+import { ImageCropperDialogComponent } from '../../../image-cropper/image-cropper.component';
+
+import { menuSlideIn, slideIn } from "../../../animations"
 
 import {FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
 
@@ -20,7 +24,8 @@ import {ServerService} from '../../../service/server.service'
 @Component({
   selector: 'app-create-course',
   templateUrl: './create-course.component.html',
-  styleUrls: ['./create-course.component.scss']
+  styleUrls: ['./create-course.component.scss'],
+  animations: [ menuSlideIn, slideIn]
 })
 export class CreateCourseComponent {
 
@@ -32,6 +37,102 @@ export class CreateCourseComponent {
 
   loading = true;
   loadCourse: boolean;
+
+  quiz: Array<{visible:boolean, question: string, image: string, answers: Array<{text: string, img: string, correct: boolean }>}>;
+
+  /***
+  create a basic quiz with 5 questions and every question has 4 possible answers
+  @author: Leonhard Wiedmann
+  ***/
+  createQuiz(){
+    this.quiz = []
+    for(let i = 0; i < 5; i++){
+      this.quiz.push({
+        question: "",
+        visible: true,
+        image: "",
+        answers: [
+          {
+            text: "",
+            img:"",
+            correct: false
+          },
+          {
+            text: "",
+            img:"",
+            correct: false
+          },
+          {
+            text: "",
+            img:"",
+            correct: false
+          },
+          {
+            text: "",
+            img:"",
+            correct: false
+          }
+        ]
+      })
+    }
+  }
+
+  /***
+  creates a simple quiz question with 4 answers
+  @author: Leonhard Wiedmann
+  ***/
+  addQuizQuestion(){
+    this.quiz.push({
+      question: "",
+      image: "",
+      visible: true,
+      answers: [
+        {
+          text: "",
+          img:"",
+          correct: false
+        },
+        {
+          text: "",
+          img:"",
+          correct: false
+        },
+        {
+          text: "",
+          img:"",
+          correct: false
+        },
+        {
+          text: "",
+          img:"",
+          correct: false
+        }
+      ]
+    })
+  }
+
+  /***
+  open a dialog for to upload a image
+  @author: Leonhard Wiedmann
+  ***/
+  openImageDialog(width: number, height: number, questionKey: number, answerKey: number = -1){
+    let dialogRef = this.dialog.open(ImageCropperDialogComponent, {
+      data: {
+        width: width,
+        height: height
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        if(answerKey != -1){
+          this.quiz[questionKey].answers[answerKey].img = result
+        }
+        else{
+          this.quiz[questionKey].image = result
+        }
+        }
+    });
+  }
 
   setCourseTrue(b: boolean) {
     this.loadCourse = b
@@ -82,20 +183,23 @@ export class CreateCourseComponent {
     this.length = this.modules.length
   }
 
-  constructor(public router: Router,
-              public route: ActivatedRoute,
-              public server: ServerService,
-              private componentFactory: ComponentFactoryResolver,
-              private course: CourseService,
-              private user: UserService,
-              private fb: FormBuilder,) {
-    this.childComponent = this.componentFactory.resolveComponentFactory(AddModuleComponent)
-    this.server.get('get-course-categories/', true)
-      .then(data => {
-        this.categories = data;
-        this.loading = false;
-      })
-  }
+  constructor(
+    public router: Router,
+    public route: ActivatedRoute,
+    public server: ServerService,
+    private componentFactory: ComponentFactoryResolver,
+    private course: CourseService,
+    private user: UserService,
+    private fb: FormBuilder,
+    public dialog: MdDialog)
+    {
+      this.childComponent = this.componentFactory.resolveComponentFactory(AddModuleComponent)
+      this.server.get('get-course-categories/', true)
+        .then(data => {
+          this.categories = data;
+          this.loading = false;
+        })
+    }
 
   clearModule() {
     this.modules.clear();
@@ -117,7 +221,7 @@ export class CreateCourseComponent {
     if (questions != null) {
       for (let i = 0; i < questions.length; i++) {
         let question = questions[i]
-        module.editQuestion(question['type'], question['title'], question['id'], question['body'], question['question_body'], question['feedback'])
+        module.editQuestion(question)
       }
     }
     this.moduleArray.push(moduleComponent)
@@ -148,18 +252,19 @@ export class CreateCourseComponent {
   }
 
   save(f) {
-    console.log(f.valid);
     if (f.valid) {
       let saveModules = this.saveModules(f)
+      for(let q of this.quiz ){
+        delete q.visible;
+      }
       let course = {
         name: f.value['title'],
         difficulty: f.value['difficulty'],
         language: f.value['language'],
         category: f.value['category'],
-        modules: saveModules
+        modules: saveModules,
+        quiz: this.quiz
       };
-
-      //console.log(course)
       this.uploadState(course);
     }
   }

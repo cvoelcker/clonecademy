@@ -214,6 +214,9 @@ class CourseSerializer(serializers.ModelSerializer):
         questions.
         """
         modules = validated_data.pop('modules')
+        quiz = False
+        if 'quiz' in validated_data:
+            quiz = validated_data.pop('quiz')
 
         # check if course is empty and raise error if so
         if len(modules) <= 0:
@@ -224,6 +227,22 @@ class CourseSerializer(serializers.ModelSerializer):
         validated_data['category'] = category
         course = Course(**validated_data)
         course.save()
+
+        # add quiz to a course
+        if quiz is not False:
+            try:
+                if len(quiz) >= 5 and len(quiz) <= 20:
+                    for q in quiz:
+                        quiz_serializer = QuizSerializer(data=q)
+                        if not quiz_serializer.is_valid():
+                            raise ParseError(detail=str(quiz_serializer.errors), code=None)
+                        else:
+                            q['course'] = course
+                            quiz_serializer.create(q)
+            except ParseError as e:
+                if not 'id' in validated_data:
+                    course.delete()
+                raise ParseError(detail=e.detail, code=None)
 
         # create a array with the ids for all module ids of this course
         module_id = []
@@ -255,7 +274,8 @@ class CourseSerializer(serializers.ModelSerializer):
                     module_serializer.create(module)
             return True
         except ParseError as e:
-            course.delete()
+            if not 'id' in validated_data:
+                course.delete()
             raise ParseError(detail=e.detail, code=None)
 
 
@@ -274,8 +294,68 @@ class CourseEditSerializer(serializers.ModelSerializer):
         all_modules = obj.module_set.all()
         modules = ModuleEditSerializer(all_modules, many=True).data
         value['modules'] = modules
+
+        all_quiz = obj.quiz_set()
+        quiz = QuizSerializer(all_quiz, many=True, context={"edit": True}).data
+        value['quiz'] = quiz
+
         return value
 
+class QuizSerializer(serializers.ModelSerializer):
+    """
+    Quiz Serializer for a single quiz question
+    @author Leonhard Wiedmann
+    """
+
+    class Meta:
+        model = QuizQuestion
+        fields = ('question', 'image', 'id',)
+
+    def create(self, validated_data):
+        if not 'answers' in validated_data:
+            return False
+        answers = validated_data.pop('answers')
+        quiz = QuizQuestion(**validated_data)
+        quiz.save()
+        try:
+            if len(answers) != 4:
+                raise ParseError(detail="Quiz must have 4 answers", code=None)
+            for ans in answers:
+                quiz_answer_serializer = QuizAnswerSerializer(data=ans)
+                if not quiz_answer_serializer.is_valid():
+                    raise ParseError(detail=str(quiz_answer_serializer.errors), code=None)
+                else:
+                    ans['quiz'] = quiz
+                    quiz_answer_serializer.create(ans)
+            if not quiz.is_solvable():
+                raise ParseError(detail="This quiz is not solvable", code=None)
+        except ParseError as e:
+            quiz.delete()
+            raise ParseError(detail=e.detail, code=None)
+
+    def to_representation(self, obj):
+        value = super(QuizSerializer, self).to_representation(obj)
+        value['answers'] = QuizAnswerSerializer(obj.answer_set(), many=True, context=self.context).data
+        return value
+
+class QuizAnswerSerializer(serializers.ModelSerializer):
+    """
+    Quiz Answer Serializer
+    @author Leonhard Wiedmann
+    """
+    class Meta:
+        model = QuizAnswer
+        fields = ('text', 'img')
+
+    def create(self, validated_data):
+        quiz_answer = QuizAnswer(**validated_data)
+        quiz_answer.save()
+
+    def to_representation(self, obj):
+        value = super(QuizAnswerSerializer, self).to_representation(obj)
+        if 'edit' in self.context and self.context['edit']:
+            value['correct'] = obj.correct
+        return value
 
 class GroupSerializer(serializers.ModelSerializer):
     """
