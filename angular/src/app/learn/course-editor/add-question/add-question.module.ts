@@ -18,6 +18,9 @@ export class AddQuestionModule {
   public edit( body: any){
     if(body != null){
       this.body = body;
+      if (this.body['url'] != undefined) {
+        this.body['url'] = 'https://www.youtube.com/embed/' + this.body['url']
+      }
     }
   }
  }

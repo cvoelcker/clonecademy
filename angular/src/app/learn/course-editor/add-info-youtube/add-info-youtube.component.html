@@ -8,10 +8,10 @@
       required' | translate}}</strong></md-hint>
   </md-input-container>
   <md-input-container>
-      <input mdInput placeholder='{{"URL" | translate}}' #Question="ngModel"
-                name="url_field" type="url" [(ngModel)]="body.url"
-                pattern="(?:http(?:s)?)?:\/\/(?:www\.)?(?:youtu\.be|youtube\.com)?\/(?:watch\?v=|embed\/)?(.*)"
-                required>
+    <input mdInput placeholder='{{"URL" | translate}}' #Question="ngModel"
+           name="url_field" type="url" [(ngModel)]="body.url"
+           pattern="(?:http(?:s)?)?:\/\/(?:www\.)?(?:youtu\.be|youtube\.com)?\/(?:watch\?v=|embed\/)?(.*)"
+           required>
     <md-hint align="start" class="warning"
              *ngIf="form != null && form.submitted"><strong>{{'The url is
       required' | translate}}</strong></md-hint>
