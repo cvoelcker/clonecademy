@@ -139,6 +139,10 @@ class ModuleSerializer(serializers.ModelSerializer):
         This method is used to save modules and their respective questions
         """
         questions = validated_data.pop('questions')
+        
+        module = Module(**validated_data)
+        module.course = validated_data['course']
+        module.save()
 
         question_id = []
         # create a array with the ids for all questions of this module
@@ -156,9 +160,7 @@ class ModuleSerializer(serializers.ModelSerializer):
             for q in query_questions:
                 if q.id not in question_id:
                     q.delete()
-        module = Module(**validated_data)
-        module.course = validated_data['course']
-        module.save()
+
         for question in questions:
             question['module'] = module
             question_serializer = QuestionSerializer(data=question)
@@ -232,7 +234,18 @@ class CourseSerializer(serializers.ModelSerializer):
         if quiz is not False:
             try:
                 if len(quiz) >= 5 and len(quiz) <= 20:
+                    # delete quiz
+                    quiz_id = []
                     for q in quiz:
+                        if 'id' in q:
+                            quiz_id.append(q['id'])
+                    if quiz_id:
+                        for q in course.quiz_set():
+                            if q.id not in quiz_id:
+                                q.delete()
+
+                    for q in quiz:
+
                         quiz_serializer = QuizSerializer(data=q)
                         if not quiz_serializer.is_valid():
                             raise ParseError(detail=str(quiz_serializer.errors), code=None)
@@ -345,7 +358,7 @@ class QuizAnswerSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = QuizAnswer
-        fields = ('text', 'img')
+        fields = ('text', 'img', 'id')
 
     def create(self, validated_data):
         quiz_answer = QuizAnswer(**validated_data)

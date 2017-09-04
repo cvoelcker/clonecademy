@@ -46,21 +46,28 @@ export class AddQuestionComponent implements OnInit {
     this.questionFactory = this.factory.resolveComponentFactory(this.child)
     // create new question
     let question = this.question.createComponent(this.questionFactory)
-
-    // set the question text
-    
-    this.questionBody = data["text"]
-    this.title = data['title']
-    let feedback = data['feedback']
-    // check if the feedback is set and if true set the feedback text
-    if(feedback != undefined && feedback != ""){
-      this.feedbackBool = true;
-      this.feedback = feedback
-    }
-    this.id = data['id'];
-
     this.questionCopy  = (<AddQuestionModule> question.instance)
-    this.questionCopy.edit(data['question_body']);
+    // set the question text
+    if(data != undefined){
+
+      if (data['text'] != undefined){
+        this.questionBody = data["text"]
+      }
+      if (data['title'] != undefined){
+        this.title = data['title']
+
+      }
+      let feedback = data['feedback']
+      // check if the feedback is set and if true set the feedback text
+      if(feedback != undefined && feedback != ""){
+        this.feedbackBool = true;
+        this.feedback = feedback
+      }
+      this.id = data['id'];
+      this.questionCopy.edit(data['question_body']);
+    }
+
+
   }
 
 

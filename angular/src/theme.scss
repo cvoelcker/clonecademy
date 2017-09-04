@@ -364,7 +364,7 @@ md-card{
   &.open{
     .head{
       &::after{
-        transform: rotateZ(180deg);
+        transform: rotateZ(0);
       }
     }
     .details{

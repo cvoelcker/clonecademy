@@ -135,8 +135,8 @@ class CourseView(APIView):
     Contains all code related to viewing and saving courses.
     @author Claas Voelcker
     """
-    authentication_classes = []#(authentication.TokenAuthentication,)
-    permission_classes = []#(custom_permissions.IsAdminOrReadOnly,)
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (custom_permissions.IsAdminOrReadOnly,)
 
     def get(self, request, course_id=None, format=None):
         """
@@ -291,7 +291,14 @@ class QuestionView(APIView):
         solved = question.evaluate(request.data["answers"])
         Try(user=request.user, question=question,
             answer=str(request.data["answers"]), solved=solved).save()
-        response = {"evaluate": solved}
+        nextType = ""
+        if not question.is_last_question():
+            nextType = "question"
+        elif not module.is_last_module():
+            nextType = "module"
+        elif course.has_quiz():
+            nextType = "quiz"
+        response = {"evaluate": solved, "next": nextType}
         if solved and question.feedback:
             response['custom_feedback'] = question.custom_feedback()
             response['feedback'] = question.feedback
@@ -336,9 +343,10 @@ class QuizView(APIView):
         When this id does not exist throws error message
         """
         course = Course.objects.filter(id=course_id).first()
-        if len(course.quiz_set()) < int(quiz_id):
-            quiz = course.quiz_set()[quiz_id]
-            return Response(QuizSerializer(quiz).data)
+        if len(course.quiz_set()) > int(quiz_id):
+            quiz = serializer.QuizSerializer(course.quiz_set()[int(quiz_id)])
+
+            return Response(quiz.data)
         else:
             return Response({"error": "this quiz question does not exist"}, status=status.HTTP_404_NOT_FOUND)
 
@@ -348,11 +356,11 @@ class QuizView(APIView):
         Resolves this quiz question for the current user.
         """
         course = Course.objects.filter(id=course_id).first()
-        if len(course.quiz_set()) < int(quiz_id):
-            quiz = course.quiz_set()[quiz_id]
-            quiz.resolve(request.data)
+        if len(course.quiz_set()) > int(quiz_id):
+            quiz = course.quiz_set()[int(quiz_id)]
+            quiz.evaluate(request.data)
             # TODO add try to statistics and ranking
-            return Response({"next": len(qourse.quiz_set()) < int(quiz_id)+1})
+            return Response({"last": len(course.quiz_set()) == int(quiz_id)+1})
         else:
             return Response({"error": "this quiz question does not exist"}, status=status.HTTP_404_NOT_FOUND)
 

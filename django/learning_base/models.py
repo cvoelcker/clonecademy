@@ -160,6 +160,9 @@ class Course(models.Model):
         blank=True
     )
 
+    def has_quiz(self):
+        return len(self.quiz_set()) > 0
+
     def quiz_set(self):
         return self.quizquestion_set.all()
 
@@ -340,8 +343,15 @@ class QuizQuestion(models.Model):
     )
 
     def evaluate(self, data):
-        answers = map(lambda x: x.id, self.quizanswer_set.filter(correct=True).all())
-        return evaluate
+        answers = self.answer_set()
+        for ans in answers:
+            if ans.correct:
+                if not data[str(ans.id)]:
+                    return False
+            if not ans.correct:
+                if data[str(ans.id)]:
+                    return False
+        return True
 
     def answer_set(self):
         return self.quizanswer_set.all()

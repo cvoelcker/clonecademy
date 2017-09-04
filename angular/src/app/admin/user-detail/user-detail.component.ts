@@ -28,8 +28,6 @@ export class UserDetailComponent {
     private router: Router,
   ) {
     this.route.params.subscribe(data => {
-      console.log("the user-detail constructor is called, brings this data:")
-      console.log(data)
       this.id = data.id
       this.change(this.id);
     })
@@ -60,9 +58,7 @@ export class UserDetailComponent {
                                                     "action":"promote"})
     .then(answer => {
       this.isMod = true;
-      console.log(answer)
     })
-    .catch(err => console.log(err))
   }
 
   promoteToAdmin(){
@@ -70,9 +66,7 @@ export class UserDetailComponent {
                                                     "action":"promote"})
     .then(answer => {
       this.isAdmin = true;
-      console.log(answer)
     })
-    .catch(err => console.log(err))
   }
 
   demoteToUser(){

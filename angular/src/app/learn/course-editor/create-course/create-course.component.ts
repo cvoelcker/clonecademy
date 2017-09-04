@@ -38,7 +38,7 @@ export class CreateCourseComponent {
   loading = true;
   loadCourse: boolean;
 
-  quiz: Array<{visible:boolean, question: string, image: string, answers: Array<{text: string, img: string, correct: boolean }>}>;
+  quiz: Array<{invisible:boolean, question: string, image: string, answers: Array<{text: string, img: string, correct: boolean }>}> = [];
 
   /***
   create a basic quiz with 5 questions and every question has 4 possible answers
@@ -49,7 +49,7 @@ export class CreateCourseComponent {
     for(let i = 0; i < 5; i++){
       this.quiz.push({
         question: "",
-        visible: true,
+        invisible: true,
         image: "",
         answers: [
           {
@@ -85,7 +85,7 @@ export class CreateCourseComponent {
     this.quiz.push({
       question: "",
       image: "",
-      visible: true,
+      invisible: true,
       answers: [
         {
           text: "",
@@ -255,7 +255,7 @@ export class CreateCourseComponent {
     if (f.valid) {
       let saveModules = this.saveModules(f)
       for(let q of this.quiz ){
-        delete q.visible;
+        delete q.invisible;
       }
       let course = {
         name: f.value['title'],

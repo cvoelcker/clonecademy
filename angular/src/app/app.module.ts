@@ -67,6 +67,7 @@ import { ImageCropperDialogComponent } from "./image-cropper/image-cropper.compo
 // Viewing started courses on the welcome page
 import { CourseViewComponent } from "./learn/view-courses/view-courses.component";
 import { FooterMainpageComponent } from './footer-mainpage/footer-mainpage.component';
+import { QuizQuestionComponent } from './quiz/quiz-question/quiz-question.component';
 
 
 const appRoutes: Routes = [
@@ -100,6 +101,10 @@ const appRoutes: Routes = [
        component: EditCourseComponent
      }
    ]
+  },
+  {
+    path: "course/quiz/:id/:quiz",
+    component: QuizQuestionComponent
   },
   {
     path: "course/:id/:module/:question",
@@ -202,6 +207,7 @@ let QuestionList = QuestionDictionary.questionComponents
     CourseViewComponent,
     FooterMainpageComponent,
     QuestionSidenavComponent,
+    QuizQuestionComponent,
   ],
   imports: [
     BrowserAnimationsModule,

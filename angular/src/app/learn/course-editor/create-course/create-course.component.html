@@ -37,11 +37,11 @@
 
   <div class="quizWrapper" >
     <md-card>
-      <button md-raised-button type="button" *ngIf="quiz == undefined" (click)="createQuiz()">Add Quiz</button>
+      <button md-raised-button type="button" *ngIf="quiz.length == 0" (click)="createQuiz()">Add Quiz</button>
 
-      <div *ngIf="quiz != undefined">
-        <md-card *ngFor="let q of quiz; let j = index" class="collapse" [class.open]="q.visible">
-          <div class="head" (click)="q.visible = !q.visible">
+      <div *ngIf="quiz.length > 0">
+        <md-card *ngFor="let q of quiz; let j = index" class="collapse" [class.open]="!q.invisible">
+          <div class="head" (click)="q.invisible = !q.invisible">
             {{ j+1 }}: Quiz question
           </div>
           <div class="details">
@@ -67,7 +67,7 @@
                 </md-checkbox>
                 <div class="imageUpload">
                   <div>
-                    <button md-raised-button type="button" (click)="openImageDialog(35, 35, j, j)"><md-icon>image</md-icon>{{" add image to answer" | translate}}</button>
+                    <button md-raised-button type="button" (click)="openImageDialog(35, 35, j, i)"><md-icon>image</md-icon>{{" add image to answer" | translate}}</button>
                     <button md-raised-button type="button" *ngIf="a.img != undefined && a.img != ''" (click)="a.img = ''">{{"remove image" | translate}}</button>
                   </div>
                   <!--<img-cropper [image]="i.img" [settings]="cropperSettings"></img-cropper><br>-->
@@ -87,7 +87,7 @@
           <button type="button" md-raised-button (click)="addQuizQuestion()" [disabled]="quiz.length > 20"><md-icon>add</md-icon> {{"add Quiz Question" | translate}}</button>
         </span>
         <div>
-          <button type="button" md-raised-button (click)="quiz = null" ><md-icon>delete</md-icon> {{"remove Quiz" | translate}}</button>
+          <button type="button" md-raised-button (click)="quiz = []" ><md-icon>delete</md-icon> {{"remove Quiz" | translate}}</button>
         </div>
       </div>
 

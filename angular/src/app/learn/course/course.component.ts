@@ -107,7 +107,7 @@ public chartHovered(e:any):void {
         this.loading = false
       })
     .catch((error) => {
-
+      console.log(error)
       this.router.navigate(["/course/page_not_found"])
     })
   }

@@ -57,7 +57,7 @@ export class EditCourseComponent extends CreateCourseComponent {
     let saveModules = this.saveModules(f)
     if(f.valid){
       for(let q of this.quiz ){
-        delete q.visible;
+        delete q.invisible;
       }
       let course = {
         id: Number(this.id),

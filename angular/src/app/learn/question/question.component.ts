@@ -63,6 +63,7 @@ export class QuestionComponent implements OnInit, OnDestroy{
   feedbackIterator = 0;
   progress: Array<Array<string>>
   allQuestionsInCourse: number
+  submitResponse = {};
 
   dashboard = false;
   private ngUnsubscribe: Subject<void> = new Subject<void>(); // = new Subject(); in Typescript 2.2-2.4
@@ -138,6 +139,7 @@ export class QuestionComponent implements OnInit, OnDestroy{
 
   evaluteAnswer(data){
 
+    this.submitResponse = data
     this.submitCorrect = data['evaluate']
     this.submitSend = true;
 
@@ -175,15 +177,19 @@ export class QuestionComponent implements OnInit, OnDestroy{
 
   next(){
     // if this is not the last question of a module add 1 to the index
-    if(!this.lastQuestion){
+    if(this.submitResponse["next"] === "question"){
       this.questionIndex ++;
     }
     // if this is the last Question but not the last module add one to module and start the question counter at 1
-    else if(!this.lastModule){
+    else if(this.submitResponse["next"] === "module"){
       this.moduleIndex ++;
       this.questionIndex = 1;
     }
-    else{
+    else if(this.submitResponse["next"] === "quiz"){
+      this.router.navigateByUrl("/course/quiz/"+this.courseID+"/0")
+      return
+    }
+    else {
       // TODO add a feedback for the course here
       this.router.navigateByUrl("/course")
       return;
