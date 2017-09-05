@@ -147,13 +147,8 @@ export class QuestionComponent implements OnInit, OnDestroy{
       // calls block to freeze the question element
       this.questionModule.block();
       this.questionModule.feedback = data.custom_feedback
-
-      if (this.title != ""){
-        this.progress[this.moduleIndex - 1][this.questionIndex - 1] = this.title
-      }
-      else {
-        this.progress[this.moduleIndex - 1][this.questionIndex - 1] = "solved"
-      }
+      console.log(this.progress)
+      this.progress[this.moduleIndex - 1][this.questionIndex - 1]["solved"] = true
       // the answer is correct and the correct Feedback will be set
       if(data['feedback'] != ""){
         this.correctFeedback = data['feedback']
