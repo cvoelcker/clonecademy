@@ -8,7 +8,7 @@ from rest_framework.response import Response
 
 from . import serializers as serializer
 from learning_base import custom_permissions
-from .models import Course, CourseCategory, Try, Profile, CourseManager, QuizQuestion
+from .models import Course, CourseCategory, Try, CourseManager
 
 from django.core.mail import send_mail
 from django.contrib.auth.models import User, Group
@@ -97,10 +97,11 @@ class MultiCourseView(APIView):
 class CourseEditView(APIView):
     """
     contains all the code related to edit a courses
+    TODO: this is probably redundant code
     @author Leonhard Wiedmann
     """
     authentication_classes = (authentication.TokenAuthentication,)
-    permission_classes = (custom_permissions.IsAdmin,)
+    permission_classes = (custom_permissions.IsModOrAdmin,)
 
     def get(self, request, course_id=None, format=None):
         """
@@ -136,7 +137,8 @@ class CourseView(APIView):
     @author Claas Voelcker
     """
     authentication_classes = (authentication.TokenAuthentication,)
-    permission_classes = (custom_permissions.IsAdminOrReadOnly,)
+    permission_classes = (
+        custom_permissions.IsModOrAdminOrReadOnly,)
 
     def get(self, request, course_id=None, format=None):
         """
@@ -150,7 +152,6 @@ class CourseView(APIView):
             course = Course.objects.filter(id=course_id).first()
             course_serializer = serializer.CourseSerializer(course, context={
                 'request': request})
-            data = course_serializer.data
             return Response(course_serializer.data,
                             status=status.HTTP_200_OK)
         except Exception as e:
@@ -176,8 +177,21 @@ class CourseView(APIView):
         if id is None:
             data['responsible_mod'] = request.user
         else:
-            data['responsible_mod'] = Course.objects.get(
-                id=id).responsible_mod
+            responsible_mod = Course.objects.get(id=id).responsible_mod
+            print("responsible_mod:")
+            print(responsible_mod)
+            print("requesting user:")
+            print(request.user)
+            # decline access if user is wether admin nor responsible_mod
+            if (request.user.profile.is_admin()
+               or request.user == responsible_mod):
+                data['responsible_mod'] = Course.objects.get(
+                    id=id).responsible_mod
+            else:
+                raise PermissionDenied(detail="You're not allowed to edit this"
+                                       + "course, since you're not the"
+                                       + "responsible mod",
+                                       code=None)
 
         course_serializer = serializer.CourseSerializer(data=data)
         if not course_serializer.is_valid():

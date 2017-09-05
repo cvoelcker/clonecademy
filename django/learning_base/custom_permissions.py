@@ -31,3 +31,26 @@ class IsAdminOrReadOnly(IsAdmin):
     def has_permission(self, request, view):
         return (super().has_permission(request, view)
                 or request.method in SAFE_METHODS)
+
+
+class IsModOrAdminOrReadOnly(IsModOrAdmin):
+    """
+    Allows access only to authenticated mods/admins or to authenticated users
+    if the HTTP method does not change the database
+    """
+    def has_permission(self, request, view):
+        return (super().has_permission(request, view)
+                or request.method in SAFE_METHODS)
+
+
+class IsModOrAdminOrReadOnlyWithCourseCheck(IsModOrAdminOrReadOnly):
+    """
+    Allows access only to authenticated mods/admins or to authenticated users
+    if the HTTP method does not change the database
+
+    object permission is given
+    if the requesting user is responsible for the course
+    """
+    def has_object_permission(self, request, view, obj):
+        return ((obj.responsible_mod == request.user)
+                or (request.method in SAFE_METHODS))

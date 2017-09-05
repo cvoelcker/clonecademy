@@ -5,7 +5,10 @@ from .info.serializer import InformationYoutubeSerializer, \
     InformationTextSerializer
 from .multiple_choice.serializer import \
     MultipleChoiceQuestionSerializer
-from .models import *
+from .models import Question, CourseCategory, Module, Course, QuizQuestion, \
+    QuizAnswer, LearningGroup, Try, Profile
+
+from django.contrib.auth.models import User
 
 
 class AnswerSerializer(serializers.BaseSerializer):
@@ -40,7 +43,8 @@ class QuestionSerializer(serializers.ModelSerializer):
         value['type'] = obj.__class__.__name__
 
         # calculate the current progress of the user in a array of arrays
-        # the outer array is the module and the inner is the title of the quesiton
+        # the outer array is the module and the inner
+        # is the title of the quesiton
         # e.g [['question 1', 'question, 2'], ['quesiton 3']]
         value['progress'] = []
         answered_question_before = True
@@ -139,7 +143,7 @@ class ModuleSerializer(serializers.ModelSerializer):
         This method is used to save modules and their respective questions
         """
         questions = validated_data.pop('questions')
-        
+
         module = Module(**validated_data)
         module.course = validated_data['course']
         module.save()
@@ -248,12 +252,14 @@ class CourseSerializer(serializers.ModelSerializer):
 
                         quiz_serializer = QuizSerializer(data=q)
                         if not quiz_serializer.is_valid():
-                            raise ParseError(detail=str(quiz_serializer.errors), code=None)
+                            raise ParseError(
+                                detail=str(quiz_serializer.errors),
+                                code=None)
                         else:
                             q['course'] = course
                             quiz_serializer.create(q)
             except ParseError as e:
-                if not 'id' in validated_data:
+                if 'id' not in validated_data:
                     course.delete()
                 raise ParseError(detail=e.detail, code=None)
 
@@ -287,7 +293,7 @@ class CourseSerializer(serializers.ModelSerializer):
                     module_serializer.create(module)
             return True
         except ParseError as e:
-            if not 'id' in validated_data:
+            if 'id' not in validated_data:
                 course.delete()
             raise ParseError(detail=e.detail, code=None)
 
@@ -314,6 +320,7 @@ class CourseEditSerializer(serializers.ModelSerializer):
 
         return value
 
+
 class QuizSerializer(serializers.ModelSerializer):
     """
     Quiz Serializer for a single quiz question
@@ -325,7 +332,7 @@ class QuizSerializer(serializers.ModelSerializer):
         fields = ('question', 'image', 'id',)
 
     def create(self, validated_data):
-        if not 'answers' in validated_data:
+        if 'answers' not in validated_data:
             return False
         answers = validated_data.pop('answers')
         quiz = QuizQuestion(**validated_data)
@@ -336,7 +343,8 @@ class QuizSerializer(serializers.ModelSerializer):
             for ans in answers:
                 quiz_answer_serializer = QuizAnswerSerializer(data=ans)
                 if not quiz_answer_serializer.is_valid():
-                    raise ParseError(detail=str(quiz_answer_serializer.errors), code=None)
+                    raise ParseError(detail=str(quiz_answer_serializer.errors),
+                                     code=None)
                 else:
                     ans['quiz'] = quiz
                     quiz_answer_serializer.create(ans)
@@ -348,8 +356,10 @@ class QuizSerializer(serializers.ModelSerializer):
 
     def to_representation(self, obj):
         value = super(QuizSerializer, self).to_representation(obj)
-        value['answers'] = QuizAnswerSerializer(obj.answer_set(), many=True, context=self.context).data
+        value['answers'] = QuizAnswerSerializer(obj.answer_set(), many=True,
+                                                context=self.context).data
         return value
+
 
 class QuizAnswerSerializer(serializers.ModelSerializer):
     """
@@ -369,6 +379,7 @@ class QuizAnswerSerializer(serializers.ModelSerializer):
         if 'edit' in self.context and self.context['edit']:
             value['correct'] = obj.correct
         return value
+
 
 class GroupSerializer(serializers.ModelSerializer):
     """
