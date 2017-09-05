@@ -319,6 +319,7 @@ class Question(PolymorphicModel):
     def __str__(self):
         return self.title
 
+
 class QuizQuestion(models.Model):
     """
     single Quiz Question with possible multiple answers
@@ -361,6 +362,7 @@ class QuizQuestion(models.Model):
             if ans.correct:
                 return True
         return False
+
 
 class QuizAnswer(models.Model):
     """

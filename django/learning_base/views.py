@@ -142,7 +142,7 @@ class CourseView(APIView):
 
     def get(self, request, course_id=None, format=None):
         """
-        Returns a course if the course_id exists. The cours, it's
+        Returns a course if the course_id exists. The course, it's
         modules and questions are serialized.
         """
         if not course_id:
@@ -178,10 +178,6 @@ class CourseView(APIView):
             data['responsible_mod'] = request.user
         else:
             responsible_mod = Course.objects.get(id=id).responsible_mod
-            print("responsible_mod:")
-            print(responsible_mod)
-            print("requesting user:")
-            print(request.user)
             # decline access if user is wether admin nor responsible_mod
             if (request.user.profile.is_admin()
                or request.user == responsible_mod):
@@ -238,19 +234,22 @@ class QuestionView(APIView):
 
     def can_access_question(self, user, question, module_id, question_id):
         module = question.module
-        course = module.course
         first_question = int(module_id) <= 0 and int(question_id) <= 0
         if first_question:
             return True
-        elif not first_question and question.get_previous_in_order() and Try.objects.filter(
+        elif (not first_question
+              and question.get_previous_in_order()
+              and Try.objects.filter(
                 user=user,
                 question=question.get_previous_in_order(),
-                solved=True):
+                solved=True)):
             return True
-        elif not module.is_first_module() and module.get_previous_in_order() and Try.objects.filter(
+        elif (not module.is_first_module()
+              and module.get_previous_in_order()
+              and Try.objects.filter(
                 user=user,
                 question=module.get_previous_in_order().question_set.all()[0],
-                solved=True):
+                solved=True)):
             return True
         else:
             return False
@@ -344,6 +343,7 @@ class AnswerView(APIView):
         return Response({"ans": 'Method not allowed'},
                         status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
+
 class QuizView(APIView):
     """
     Shows the quiz question of the current course in get
@@ -371,8 +371,8 @@ class QuizView(APIView):
 
             return Response(quiz.data)
         else:
-            return Response({"error": "this quiz question does not exist"}, status=status.HTTP_404_NOT_FOUND)
-
+            return Response({"error": "this quiz question does not exist"},
+                            status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request, course_id, quiz_id, format=None):
         """
@@ -385,7 +385,8 @@ class QuizView(APIView):
             # TODO add try to statistics and ranking
             return Response({"last": len(course.quiz_set()) == int(quiz_id)+1})
         else:
-            return Response({"error": "this quiz question does not exist"}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"error": "this quiz question does not exist"},
+                            status=status.HTTP_404_NOT_FOUND)
 
 
 class UserView(APIView):
@@ -401,9 +402,9 @@ class UserView(APIView):
         Shows the profile of any user if the requester is mod,
         or the profile of the requester
 
-        TODO: if the behaviour that an admin should be allowed to access a user
-        when a user_id is provided in the URL will be used again, a custom_permission
-        should be written.
+        TODO: If the behaviour that an admin is allowed to receive information
+        about a specific user, will be used again,
+        a custom_permission should be written.
         """
         user = request.user
         if user_id:
@@ -450,12 +451,12 @@ class UserView(APIView):
 class UserRegisterView(APIView):
     """
     Shows a user profile
-    @author Claas Voelcker
+    @author Tobias Huber
     """
     authentication_classes = []
     permission_classes = []
 
-    def post(self, request, user_id=None, format=None):
+    def post(self, request, user_id=False, format=None):
         """
         If the user_id field is specified, it updates user information.
         Otherwise it saves a new user.
@@ -469,7 +470,7 @@ class UserRegisterView(APIView):
         else:
             user_serializer = serializer.UserSerializer(data=request.data)
             if user_serializer.is_valid():
-                user = user_serializer.create(request.data)
+                user_serializer.create(request.data)
                 return Response({"ans": 'Created a new user'},
                                 status=status.HTTP_201_CREATED)
             else:
@@ -553,7 +554,7 @@ class StatisticsView(APIView):
 
         # get the statistics for a specific time
         if 'date' in data and 'start' in data['date'] and 'end' in data[
-            'date']:
+             'date']:
             tries = tries.filter(
                 date__range=[data['date']['start'], data['date']['end']])
 
@@ -600,7 +601,8 @@ class RequestView(APIView):
         Returns True if request is allowed and False if request isn't allowed
         or the user is already mod.
         """
-        allowed = not request.user.profile.is_mod() and request.user.profile.modrequest_allowed()
+        allowed = (not request.user.profile.is_mod()
+                   and request.user.profile.modrequest_allowed())
         return Response({'allowed': allowed},
                         status=status.HTTP_200_OK)
 
@@ -653,42 +655,47 @@ class UserRightsView(APIView):
     I do not understand.
     """
 
-    authentication_classes=(authentication.TokenAuthentication,)
-    permission_classes=(custom_permissions.IsAdmin,)
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (custom_permissions.IsAdmin,)
 
     def post(self, request, user_id, format=None):
         data = request.data
-        right_choices = ['moderator','admin']
-        action_choices = ['promote','demote']
+        right_choices = ['moderator', 'admin']
+        action_choices = ['promote', 'demote']
         errors = {}
 
-        #validation
+        # validation
         if not data["right"] or not(data["right"] in right_choices):
-            errors["right"] = "this field is required and must be one of the following options"+', '.join(right_choices)
+            errors["right"] = ("this field is required and must be one of "
+                               + "the following options"
+                               + ', '.join(right_choices))
         if not data["action"] or not(data["action"] in action_choices):
-            errors["action"] = "this field is required and must be one of the following options"+', '.join(action_choices)
+            errors["action"] = ("this field is required and must be one of "
+                                + "the following options"
+                                + ', '.join(action_choices))
         if not User.objects.filter(id=user_id).exists():
-            errors["id"] = "a user with the id '"+user_id+"' does not exist"
+            errors["id"] = "a user with the id #" + user_id + " does not exist"
         if errors:
             return Response(errors, status=status.HTTP_400_BAD_REQUEST)
 
-        #actual behaviour
+        # actual behaviour
         user = User.objects.get(id=user_id)
         group = Group.objects.get(name=data["right"])
         action = data["action"]
         if (action == "promote"):
             user.groups.add(group)
-            #if a moderator shall not be in the moderator usergroup if he/she is promoted to an admin:
-            #if data[right] == "admin" and user.groups.filter(name="moderator").exists():
-                #user.groups.remove(Group.objects.get(name="moderator"))
         elif (action == "demote"):
             user.groups.remove(group)
         return Response(serializer.UserSerializer(user).data)
 
     def get(self, request, user_id, format=None):
         """
-        This API is for debug only. It comes in quite handy with the browsable API
+        This API is for debug only.
+        It comes in quite handy with the browsable API
         """
         user = User.objects.get(id=user_id)
-        print(user)
-        return Response({"username":user.username, "is_mod?":user.groups.filter(name="moderator").exists(), "is_admin?":user.groups.filter(name="admin").exists()})
+        return Response({"username": user.username,
+                        "is_mod?":
+                         user.groups.filter(name="moderator").exists(),
+                         "is_admin?":
+                         user.groups.filter(name="admin").exists()})
