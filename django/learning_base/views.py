@@ -180,7 +180,7 @@ class CourseView(APIView):
             responsible_mod = Course.objects.get(id=id).responsible_mod
             # decline access if user is wether admin nor responsible_mod
             if (request.user.profile.is_admin()
-               or request.user == responsible_mod):
+                    or request.user == responsible_mod):
                 data['responsible_mod'] = Course.objects.get(
                     id=id).responsible_mod
             else:
@@ -297,7 +297,7 @@ class QuestionView(APIView):
         if not (self.can_access_question(request.user, question, module_id,
                                          question_id)):
             return Response({"ans":
-                            "Previous question(s) haven't been answered"
+                             "Previous question(s) haven't been answered"
                              " correctly yet"},
                             status=status.HTTP_403_FORBIDDEN)
 
@@ -360,9 +360,11 @@ class QuizView(APIView):
         """
         course = Course.objects.filter(id=course_id).first()
 
-        #check if user did last question of the last module if valid the course is completed
+        # check if user did last question of the last module
+        # if valid the course is completed
         module = course.module_set.all()[len(course.module_set.all()) - 1]
-        question = module.question_set.all()[len(module.question_set.all()) - 1]
+        question = module.question_set.all(
+        )[len(module.question_set.all()) - 1]
         if not Try.objects.filter(question=question, solved=True).exists():
             return Response({"error": "complete the course first"}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -383,7 +385,9 @@ class QuizView(APIView):
             quiz = course.quiz_set()[int(quiz_id)]
             quiz.evaluate(request.data)
             # TODO add try to statistics and ranking
-            return Response({"last": len(course.quiz_set()) == int(quiz_id)+1})
+            return Response(
+                {"last": len(course.quiz_set()) == int(quiz_id) + 1}
+            )
         else:
             return Response({"error": "this quiz question does not exist"},
                             status=status.HTTP_404_NOT_FOUND)
@@ -553,8 +557,9 @@ class StatisticsView(APIView):
             tries = tries.filter(question__module__course__id=data['course'])
 
         # get the statistics for a specific time
-        if 'date' in data and 'start' in data['date'] and 'end' in data[
-             'date']:
+        if ('date' in data
+            and 'start' in data['date']
+                and 'end' in data['date']):
             tries = tries.filter(
                 date__range=[data['date']['start'], data['date']['end']])
 
@@ -695,7 +700,7 @@ class UserRightsView(APIView):
         """
         user = User.objects.get(id=user_id)
         return Response({"username": user.username,
-                        "is_mod?":
+                         "is_mod?":
                          user.groups.filter(name="moderator").exists(),
                          "is_admin?":
                          user.groups.filter(name="admin").exists()})
