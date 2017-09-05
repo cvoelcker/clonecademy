@@ -305,17 +305,19 @@ class QuestionView(APIView):
         solved = question.evaluate(request.data["answers"])
         Try(user=request.user, question=question,
             answer=str(request.data["answers"]), solved=solved).save()
-        nextType = ""
-        if not question.is_last_question():
-            nextType = "question"
-        elif not module.is_last_module():
-            nextType = "module"
-        elif course.has_quiz():
-            nextType = "quiz"
-        response = {"evaluate": solved, "next": nextType}
-        if solved and question.feedback:
-            response['custom_feedback'] = question.custom_feedback()
-            response['feedback'] = question.feedback
+        response = {"evaluate": solved}
+        if solved:
+            nextType = ""
+            if not question.is_last_question():
+                nextType = "question"
+            elif not module.is_last_module():
+                nextType = "module"
+            elif course.has_quiz():
+                nextType = "quiz"
+            response['next'] = nextType
+            if solved and question.feedback:
+                response['custom_feedback'] = question.custom_feedback()
+                response['feedback'] = question.feedback
         return Response(response)
 
 
@@ -348,8 +350,8 @@ class QuizView(APIView):
     evaluates this quiz question in post
     @author Leonhard Wiedmann
     """
-    authentication_classes = []#(authentication.TokenAuthentication,)
-    permission_classes = []#(permissions.IsAuthenticated,)
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, course_id, quiz_id):
         """
@@ -357,6 +359,13 @@ class QuizView(APIView):
         When this id does not exist throws error message
         """
         course = Course.objects.filter(id=course_id).first()
+
+        #check if user did last question of the last module if valid the course is completed
+        module = course.module_set.all()[len(course.module_set.all()) - 1]
+        question = module.question_set.all()[len(module.question_set.all()) - 1]
+        if not Try.objects.filter(question=question, solved=True).exists():
+            return Response({"error": "complete the course first"}, status=status.HTTP_400_BAD_REQUEST)
+
         if len(course.quiz_set()) > int(quiz_id):
             quiz = serializer.QuizSerializer(course.quiz_set()[int(quiz_id)])
 

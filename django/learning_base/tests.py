@@ -679,6 +679,11 @@ class QuizTest(DatabaseMixin, TestCase):
         self.view = views.QuestionView.as_view()
         self.setup_database()
 
+        # self.u1 = User(username='user1')
+        # self.u1.save()
+        # self.u1_profile = models.Profile(user=self.u1)
+        # self.u1_profile.save()
+
     def test_create_quiz(self):
         # creation is possible and quiz query is sorted
         courseData = {
@@ -692,30 +697,6 @@ class QuizTest(DatabaseMixin, TestCase):
                         'name': 'a module',
                         'learning_text': 'no way',
                         'order': 3,
-                        'questions':[
-                            {
-                            'title': 'a question',
-                            'text': 'some text',
-                            'feedback': '',
-                            'type': 'multiple_choice',
-                            'order': 1,
-                            'answers':[
-                                {
-                                'text': 'true',
-                                'is_correct': True
-                                },
-                                {
-                                'text': 'nope',
-                                'is_correct': False
-                                }
-                            ]
-                            },
-                        ]
-                        },
-                        {
-                        'name': 'another module',
-                        'learning_text': 'no way',
-                        'order': 4,
                         'questions':[
                             {
                             'title': 'a question',
@@ -879,6 +860,48 @@ class QuizTest(DatabaseMixin, TestCase):
         self.assertEqual(len(course.quiz_set()), 5)
         self.assertEqual(course.quiz_set()[0].question, "first")
         self.assertEqual(course.quiz_set()[4].question, "last")
+
+
+        # try accesing the quiz before answering the questions is not valid
+
+        request = self.factory.get("courses/" + str(course.id) + "/quiz/0/", format="json")
+        force_authenticate(request, self.u1)
+
+        response = views.QuizView.as_view()(request, course_id=course.id, quiz_id=0)
+
+        self.assertEqual(response.status_code, 400)
+
+        # check if return value after every question in course is done is correct
+        question = MultipleChoice.models.MultipleChoiceAnswer.objects.filter(question__module__course__name="quiz_1", is_correct=True).first()
+        correct_answer = self.factory.post("courses/" + str(course.id) + "/0/0/",
+                                      {"answers": [question.id]}, format='json')
+        force_authenticate(correct_answer, self.u1)
+
+        response = views.QuestionView.as_view()(correct_answer, course_id=course.id, module_id=0, question_id=0)
+        self.assertEqual(response.data["next"], "quiz")
+
+        # send post with false or correct answer will return 200 and send to next quiz question
+
+        answer_correct = models.QuizAnswer.objects.filter(correct=True, quiz=course.quiz_set()[0])
+
+
+        correct_answer = self.factory.post("courses/" + str(course.id) + "/quiz/0/",
+                                      {"answers": [(lambda x: x.id) (x) for x in answer_correct]}, format='json')
+        force_authenticate(correct_answer, self.u1)
+
+        response = views.QuestionView.as_view()(correct_answer, course_id=course.id, module_id=0, question_id=0)
+        #return value of correct answer
+        self.assertEqual(response.status_code, 200)
+
+        answer_wrong = models.QuizAnswer.objects.filter(correct=False, quiz=course.quiz_set()[0])
+        wrong_answer = self.factory.post("courses/" + str(course.id) + "/quiz/0/",
+                                      {"answers": [(lambda x: x.id) (x) for x in answer_wrong]}, format='json')
+        force_authenticate(wrong_answer, self.u1)
+
+        response = views.QuestionView.as_view()(wrong_answer, course_id=course.id, module_id=0, question_id=0)
+
+        # return value of wrong answer
+        self.assertEqual(response.status_code, 200)
 
         # creation for unsolvable quiz resolves in error
         courseData = {
