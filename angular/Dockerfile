@@ -11,4 +11,4 @@ ADD . /angular
 RUN rm /angular/package-lock.json
 RUN rm -rf angular/node-module
 
-RUN npm i -s
+RUN npm i
