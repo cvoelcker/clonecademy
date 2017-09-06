@@ -8,7 +8,7 @@ from rest_framework.response import Response
 
 from . import serializers as serializer
 from learning_base import custom_permissions
-from .models import Course, CourseCategory, Try, CourseManager
+from .models import Course, CourseCategory, Try, CourseManager, Profile
 
 from django.core.mail import send_mail
 from django.contrib.auth.models import User, Group
@@ -71,8 +71,8 @@ class MultiCourseView(APIView):
 
             # checks whether the query only contains acceptable keys
             if not ((r_type in TYPES or not r_type) and
-                    (r_category in CATEGORIES or not r_category) and
-                    (r_lan in LANGUAGES or not r_lan)):
+                        (r_category in CATEGORIES or not r_category) and
+                        (r_lan in LANGUAGES or not r_lan)):
                 return Response({"ans": "Query not possible"},
                                 status=status.HTTP_400_BAD_REQUEST)
 
@@ -180,13 +180,13 @@ class CourseView(APIView):
             responsible_mod = Course.objects.get(id=id).responsible_mod
             # decline access if user is wether admin nor responsible_mod
             if (request.user.profile.is_admin()
-                    or request.user == responsible_mod):
+                or request.user == responsible_mod):
                 data['responsible_mod'] = Course.objects.get(
                     id=id).responsible_mod
             else:
                 raise PermissionDenied(detail="You're not allowed to edit this"
-                                       + "course, since you're not the"
-                                       + "responsible mod",
+                                              + "course, since you're not the"
+                                              + "responsible mod",
                                        code=None)
 
         course_serializer = serializer.CourseSerializer(data=data)
@@ -297,11 +297,16 @@ class QuestionView(APIView):
         if not (self.can_access_question(request.user, question, module_id,
                                          question_id)):
             return Response({"ans":
-                             "Previous question(s) haven't been answered"
-                             " correctly yet"},
+                                 "Previous question(s) haven't been answered"
+                                 " correctly yet"},
                             status=status.HTTP_403_FORBIDDEN)
-
         solved = question.evaluate(request.data["answers"])
+
+        # only saves the points if the question hasn't been answered yet
+        if solved and not question.try_set.filter(
+                user=request.user, solved=True).exists():
+            request.user.profile.ranking += question.get_points()
+            request.user.profile.save()
         Try(user=request.user, question=question,
             answer=str(request.data["answers"]), solved=solved).save()
         response = {"evaluate": solved}
@@ -311,7 +316,7 @@ class QuestionView(APIView):
                 nextType = "question"
             elif not module.is_last_module():
                 nextType = "module"
-            elif course.has_quiz():
+            elif course.quizquestion_set.exists():
                 nextType = "quiz"
             response['next'] = nextType
             if solved and question.feedback:
@@ -366,10 +371,12 @@ class QuizView(APIView):
         question = module.question_set.all(
         )[len(module.question_set.all()) - 1]
         if not Try.objects.filter(question=question, solved=True).exists():
-            return Response({"error": "complete the course first"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "complete the course first"},
+                            status=status.HTTP_400_BAD_REQUEST)
 
-        if len(course.quiz_set()) > int(quiz_id):
-            quiz = serializer.QuizSerializer(course.quiz_set()[int(quiz_id)])
+        if len(course.quizquestion_set.all()) > int(quiz_id):
+            quiz = serializer.QuizSerializer(
+                course.quizquestion_set.all()[int(quiz_id)])
 
             return Response(quiz.data)
         else:
@@ -381,12 +388,18 @@ class QuizView(APIView):
         Resolves this quiz question for the current user.
         """
         course = Course.objects.filter(id=course_id).first()
-        if len(course.quiz_set()) > int(quiz_id):
-            quiz = course.quiz_set()[int(quiz_id)]
-            quiz.evaluate(request.data)
-            # TODO add try to statistics and ranking
+        if len(course.quizquestion_set.all()) > int(quiz_id):
+            quiz = course.quizquestion_set.all()[int(quiz_id)]
+            solved = quiz.evaluate(request.data)
+            if solved and not quiz.try_set.filter(
+                    user=request.user, solved=True).exists():
+                request.user.profile.ranking += quiz.get_points()
+                request.user.profile.save()
+            Try(user=request.user, quiz_question=quiz,
+                answer=str(request.data), solved=solved).save()
             return Response(
-                {"last": len(course.quiz_set()) == int(quiz_id) + 1}
+                {"last": len(
+                    course.quizquestion_set.all()) == int(quiz_id) + 1}
             )
         else:
             return Response({"error": "this quiz question does not exist"},
@@ -559,7 +572,7 @@ class StatisticsView(APIView):
         # get the statistics for a specific time
         if ('date' in data
             and 'start' in data['date']
-                and 'end' in data['date']):
+            and 'end' in data['date']):
             tries = tries.filter(
                 date__range=[data['date']['start'], data['date']['end']])
 
@@ -587,6 +600,33 @@ class StatisticsView(APIView):
             return response
         else:
             return Response(serializeData)
+
+
+class RankingView(APIView):
+    """
+    A view for the ranking. The get method returns an ordered list of all users
+    according to their rank.
+    """
+    #authentication_classes = (authentication.TokenAuthentication,)
+    #permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, format=None):
+        """
+        API request for ranking information
+        :param request: can be empty
+        :param format: request: can be empty
+        :return: a json response with ranking information
+        """
+        profiles = Profile.objects.all().reverse()
+        data = serializer.RankingSerializer(profiles).data
+        return Response(data)
+
+    def post(self, request, format=None):
+        """
+        Not implemented
+        """
+        return Response({"ans": 'Method not allowed'},
+                        status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
 class RequestView(APIView):
@@ -670,11 +710,11 @@ class UserRightsView(APIView):
         errors = {}
 
         # validation
-        if not data["right"] or not(data["right"] in right_choices):
+        if not data["right"] or not (data["right"] in right_choices):
             errors["right"] = ("this field is required and must be one of "
                                + "the following options"
                                + ', '.join(right_choices))
-        if not data["action"] or not(data["action"] in action_choices):
+        if not data["action"] or not (data["action"] in action_choices):
             errors["action"] = ("this field is required and must be one of "
                                 + "the following options"
                                 + ', '.join(action_choices))
@@ -701,6 +741,6 @@ class UserRightsView(APIView):
         user = User.objects.get(id=user_id)
         return Response({"username": user.username,
                          "is_mod?":
-                         user.groups.filter(name="moderator").exists(),
+                             user.groups.filter(name="moderator").exists(),
                          "is_admin?":
-                         user.groups.filter(name="admin").exists()})
+                             user.groups.filter(name="admin").exists()})

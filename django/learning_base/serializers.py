@@ -66,9 +66,7 @@ class QuestionSerializer(serializers.ModelSerializer):
         serializer = obj.get_serializer()
         value['question_body'] = serializer(obj).data
         user = self.context['request'].user
-        value['solved'] = obj.try_set.filter(solved=True)
-        value['solved'] = value['solved'].filter(user=user)
-        value['solved'] = value['solved'].exists()
+        value['solved'] = obj.try_set.filter(solved=True, user=user).exists()
 
         return value
 
@@ -245,7 +243,7 @@ class CourseSerializer(serializers.ModelSerializer):
                         if 'id' in q:
                             quiz_id.append(q['id'])
                     if quiz_id:
-                        for q in course.quiz_set():
+                        for q in course.quizquestion_set.all():
                             if q.id not in quiz_id:
                                 q.delete()
 
@@ -315,7 +313,7 @@ class CourseEditSerializer(serializers.ModelSerializer):
         modules = ModuleEditSerializer(all_modules, many=True).data
         value['modules'] = modules
 
-        all_quiz = obj.quiz_set()
+        all_quiz = obj.quizquestion_set.all()
         quiz = QuizSerializer(all_quiz, many=True, context={"edit": True}).data
         value['quiz'] = quiz
 
@@ -367,6 +365,7 @@ class QuizAnswerSerializer(serializers.ModelSerializer):
     Quiz Answer Serializer
     @author Leonhard Wiedmann
     """
+
     class Meta:
         model = QuizAnswer
         fields = ('text', 'img', 'id')
@@ -411,7 +410,8 @@ class UserSerializer(serializers.ModelSerializer):
         if not 'language' in value:
             value['language'] = "en"
         p = Profile.objects.filter(user=obj).first()
-
+        value['language'] = p.language
+        value['ranking'] = p.ranking
         return value
 
     def create(self, validated_data):
@@ -478,7 +478,29 @@ class StatisticsOverviewSerializer(serializers.BaseSerializer):
                 else:
                     question_entry['tries'] += 1
                     question_entry['solved'] = question_entry['solved'] \
-                        or _try.solved
+                                               or _try.solved
             if question_entry:
                 all_questions.append(question_entry)
         return all_questions
+
+
+class RankingSerializer(serializers.BaseSerializer):
+    """
+    A serializer for all rankings
+    :author: Claas Voelcker
+    """
+
+    def to_representation(self, instance):
+        """
+        a serialization of profile rankings
+        :param instance: an ordered profile list
+        :return: a dictionary with ranking information
+        """
+        value = []
+        for profile in instance:
+            value.append({
+                'name': profile.user.username,
+                'id': profile.id,
+                'ranking': profile.ranking
+            })
+        return value

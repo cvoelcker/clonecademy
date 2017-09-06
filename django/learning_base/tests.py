@@ -297,7 +297,6 @@ class CourseViewTest(DatabaseMixin, TestCase):
 
 
 class CourseEditViewTest(DatabaseMixin, TestCase):
-
     def setUp(self):
         self.factory = APIRequestFactory()
         self.view = views.CourseView.as_view()
@@ -306,18 +305,18 @@ class CourseEditViewTest(DatabaseMixin, TestCase):
 
     def test_deleting_question(self):
         courseData = {
-                    'name': 'edit_1',
-                    'category': 'test',
-                    'difficulty': 2,
-                    'responsible_mod': 1,
-                    'responsible_mod': self.u1,
-                    'modules': [
+            'name': 'edit_1',
+            'category': 'test',
+            'difficulty': 2,
+            'responsible_mod': 1,
+            'responsible_mod': self.u1,
+            'modules': [
+                {
+                    'name': 'a module',
+                    'learning_text': 'no way',
+                    'order': 3,
+                    'questions': [
                         {
-                        'name': 'a module',
-                        'learning_text': 'no way',
-                        'order': 3,
-                        'questions': [
-                            {
                             'title': 'a question',
                             'text': 'some text',
                             'feedback': '',
@@ -325,16 +324,16 @@ class CourseEditViewTest(DatabaseMixin, TestCase):
                             'order': 1,
                             'answers': [
                                 {
-                                'text': 'true',
-                                'is_correct': True
+                                    'text': 'true',
+                                    'is_correct': True
                                 },
                                 {
-                                'text': 'nope',
-                                'is_correct': False
+                                    'text': 'nope',
+                                    'is_correct': False
                                 }
                             ]
-                            },
-                            {
+                        },
+                        {
                             'title': 'this one will be removed',
                             'text': 'some text',
                             'feedback': '',
@@ -342,19 +341,19 @@ class CourseEditViewTest(DatabaseMixin, TestCase):
                             'order': 2,
                             'answers': [
                                 {
-                                'text': 'true',
-                                'is_correct': True
+                                    'text': 'true',
+                                    'is_correct': True
                                 },
                                 {
-                                'text': 'nope',
-                                'is_correct': False
+                                    'text': 'nope',
+                                    'is_correct': False
                                 }
                             ]
-                            }
-                        ]
                         }
-                    ],
-                    'language': 'en'}
+                    ]
+                }
+            ],
+            'language': 'en'}
 
         course = serializers.CourseSerializer(data=courseData)
         if not course.is_valid():
@@ -364,14 +363,16 @@ class CourseEditViewTest(DatabaseMixin, TestCase):
 
         request = self.factory.get('/courses/')
         request.user = self.u1
-        edit = serializers.CourseEditSerializer(models.Course.objects.filter(name="edit_1").first()).data
+        edit = serializers.CourseEditSerializer(
+            models.Course.objects.filter(name="edit_1").first()).data
 
         del edit['modules'][0]['questions'][1]
 
         import json
         data = json.loads(json.dumps(edit))
 
-        data['modules'][0]['questions'][0]['answers'] = data['modules'][0]['questions'][0]['question_body']['answers']
+        data['modules'][0]['questions'][0]['answers'] = \
+            data['modules'][0]['questions'][0]['question_body']['answers']
 
         del data['modules'][0]['questions'][0]['question_body']
 
@@ -383,22 +384,23 @@ class CourseEditViewTest(DatabaseMixin, TestCase):
             self.assertTrue(False)
         course.create(data)
 
-        self.assertFalse(models.Question.objects.filter(title='this one will be removed').exists())
+        self.assertFalse(models.Question.objects.filter(
+            title='this one will be removed').exists())
 
     def test_deleting_module(self):
         courseData = {
-                    'name': 'edit_2',
-                    'category': 'test',
-                    'difficulty': 2,
-                    'responsible_mod': 1,
-                    'responsible_mod': self.u1,
-                    'modules': [
+            'name': 'edit_2',
+            'category': 'test',
+            'difficulty': 2,
+            'responsible_mod': 1,
+            'responsible_mod': self.u1,
+            'modules': [
+                {
+                    'name': 'a module',
+                    'learning_text': 'no way',
+                    'order': 3,
+                    'questions': [
                         {
-                        'name': 'a module',
-                        'learning_text': 'no way',
-                        'order': 3,
-                        'questions': [
-                            {
                             'title': 'a question',
                             'text': 'some text',
                             'feedback': '',
@@ -406,23 +408,23 @@ class CourseEditViewTest(DatabaseMixin, TestCase):
                             'order': 1,
                             'answers': [
                                 {
-                                'text': 'true',
-                                'is_correct': True
+                                    'text': 'true',
+                                    'is_correct': True
                                 },
                                 {
-                                'text': 'nope',
-                                'is_correct': False
+                                    'text': 'nope',
+                                    'is_correct': False
                                 }
                             ]
-                            },
-                        ]
                         },
+                    ]
+                },
+                {
+                    'name': 'another module',
+                    'learning_text': 'no way',
+                    'order': 4,
+                    'questions': [
                         {
-                        'name': 'another module',
-                        'learning_text': 'no way',
-                        'order': 4,
-                        'questions': [
-                            {
                             'title': 'a question',
                             'text': 'some text',
                             'feedback': '',
@@ -430,19 +432,19 @@ class CourseEditViewTest(DatabaseMixin, TestCase):
                             'order': 1,
                             'answers': [
                                 {
-                                'text': 'true',
-                                'is_correct': True
+                                    'text': 'true',
+                                    'is_correct': True
                                 },
                                 {
-                                'text': 'nope',
-                                'is_correct': False
+                                    'text': 'nope',
+                                    'is_correct': False
                                 }
                             ]
-                            },
-                        ]
-                        }
-                    ],
-                    'language': 'en'}
+                        },
+                    ]
+                }
+            ],
+            'language': 'en'}
 
         course = serializers.CourseSerializer(data=courseData)
         if not course.is_valid():
@@ -452,14 +454,16 @@ class CourseEditViewTest(DatabaseMixin, TestCase):
 
         request = self.factory.get('/courses/')
         request.user = self.u1
-        edit = serializers.CourseEditSerializer(models.Course.objects.filter(name="edit_2").first()).data
+        edit = serializers.CourseEditSerializer(
+            models.Course.objects.filter(name="edit_2").first()).data
 
         del edit['modules'][1]
 
         import json
         data = json.loads(json.dumps(edit))
 
-        data['modules'][0]['questions'][0]['answers'] = data['modules'][0]['questions'][0]['question_body']['answers']
+        data['modules'][0]['questions'][0]['answers'] = \
+            data['modules'][0]['questions'][0]['question_body']['answers']
 
         del data['modules'][0]['questions'][0]['question_body']
 
@@ -471,7 +475,8 @@ class CourseEditViewTest(DatabaseMixin, TestCase):
             self.assertTrue(False)
         course.create(data)
 
-        self.assertFalse(models.Module.objects.filter(name='another module').exists())
+        self.assertFalse(
+            models.Module.objects.filter(name='another module').exists())
 
 
 class RequestViewTest(DatabaseMixin, TestCase):
@@ -667,18 +672,18 @@ class QuizTest(DatabaseMixin, TestCase):
     def test_create_quiz(self):
         # creation is possible and quiz query is sorted
         courseData = {
-                    'name': 'quiz_1',
-                    'category': 'test',
-                    'difficulty': 2,
-                    'responsible_mod': 1,
-                    'responsible_mod': self.u1,
-                    'modules': [
+            'name': 'quiz_1',
+            'category': 'test',
+            'difficulty': 2,
+            'responsible_mod': 1,
+            'responsible_mod': self.u1,
+            'modules': [
+                {
+                    'name': 'a module',
+                    'learning_text': 'no way',
+                    'order': 3,
+                    'questions': [
                         {
-                        'name': 'a module',
-                        'learning_text': 'no way',
-                        'order': 3,
-                        'questions': [
-                            {
                             'title': 'a question',
                             'text': 'some text',
                             'feedback': '',
@@ -686,151 +691,151 @@ class QuizTest(DatabaseMixin, TestCase):
                             'order': 1,
                             'answers': [
                                 {
-                                'text': 'true',
-                                'is_correct': True
+                                    'text': 'true',
+                                    'is_correct': True
                                 },
                                 {
-                                'text': 'nope',
-                                'is_correct': False
+                                    'text': 'nope',
+                                    'is_correct': False
                                 }
                             ]
-                            },
-                        ]
+                        },
+                    ]
+                }
+            ],
+            "quiz": [
+                {
+                    "question": "first",
+                    "image": "",
+                    "answers": [
+                        {
+                            "text": "a sdfa sdfasd fasd fa",
+                            "img": "",
+                            "correct": True
+                        },
+                        {
+                            "text": "as dfas dasd asfd adsfa sdf",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "asdds afadsfadsf adsf ads fa dsf",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "adf asdf asdfasdf",
+                            "img": "",
+                            "correct": False
                         }
-                    ],
-                    "quiz": [
+                    ]
+                },
+                {
+                    "question": "sadfasdfasdfas dasd fasd ",
+                    "image": "",
+                    "answers": [
                         {
-                            "question": "first",
-                            "image": "",
-                            "answers": [
-                                {
-                                    "text": "a sdfa sdfasd fasd fa",
-                                    "img": "",
-                                    "correct": True
-                                },
-                                {
-                                    "text": "as dfas dasd asfd adsfa sdf",
-                                    "img": "",
-                                    "correct": False
-                                },
-                                {
-                                    "text": "asdds afadsfadsf adsf ads fa dsf",
-                                    "img": "",
-                                    "correct": False
-                                },
-                                {
-                                    "text": "adf asdf asdfasdf",
-                                    "img": "",
-                                    "correct": False
-                                }
-                            ]
+                            "text": "sadfasdfasdfas dfasdf a",
+                            "img": "",
+                            "correct": False
                         },
                         {
-                            "question": "sadfasdfasdfas dasd fasd ",
-                            "image": "",
-                            "answers": [
-                                {
-                                    "text": "sadfasdfasdfas dfasdf a",
-                                    "img": "",
-                                    "correct": False
-                                },
-                                {
-                                    "text": "asd fasdf asdf asd fasd f",
-                                    "img": "",
-                                    "correct": True
-                                },
-                                {
-                                    "text": "asdf asdf asdf asdf asd ",
-                                    "img": "",
-                                    "correct": False
-                                },
-                                {
-                                    "text": "asdf asdf asd",
-                                    "img": "",
-                                    "correct": False
-                                }
-                            ]
+                            "text": "asd fasdf asdf asd fasd f",
+                            "img": "",
+                            "correct": True
                         },
                         {
-                            "question": "sadfasdfasdfas dasd fasd ",
-                            "image": "",
-                            "answers": [
-                                {
-                                    "text": "sadfasdfasdfas dfasdf a",
-                                    "img": "",
-                                    "correct": False
-                                },
-                                {
-                                    "text": "asd fasdf asdf asd fasd f",
-                                    "img": "",
-                                    "correct": True
-                                },
-                                {
-                                    "text": "asdf asdf asdf asdf asd ",
-                                    "img": "",
-                                    "correct": False
-                                },
-                                {
-                                    "text": "asdf asdf asd",
-                                    "img": "",
-                                    "correct": False
-                                }
-                            ]
+                            "text": "asdf asdf asdf asdf asd ",
+                            "img": "",
+                            "correct": False
                         },
                         {
-                            "question": "sadfasdfasdfas dasd fasd ",
-                            "image": "",
-                            "answers": [
-                                {
-                                    "text": "sadfasdfasdfas dfasdf a",
-                                    "img": "",
-                                    "correct": False
-                                },
-                                {
-                                    "text": "asd fasdf asdf asd fasd f",
-                                    "img": "",
-                                    "correct": True
-                                },
-                                {
-                                    "text": "asdf asdf asdf asdf asd ",
-                                    "img": "",
-                                    "correct": False
-                                },
-                                {
-                                    "text": "asdf asdf asd",
-                                    "img": "",
-                                    "correct": False
-                                }
-                            ]
-                        },
-                        {
-                            "question": "last",
-                            "image": "",
-                            "answers": [
-                                {
-                                    "text": "sadfasdfasdfas dfasdf a",
-                                    "img": "",
-                                    "correct": False
-                                },
-                                {
-                                    "text": "asd fasdf asdf asd fasd f",
-                                    "img": "",
-                                    "correct": True
-                                },
-                                {
-                                    "text": "asdf asdf asdf asdf asd ",
-                                    "img": "",
-                                    "correct": False
-                                },
-                                {
-                                    "text": "asdf asdf asd",
-                                    "img": "",
-                                    "correct": False
-                                }
-                            ]
+                            "text": "asdf asdf asd",
+                            "img": "",
+                            "correct": False
                         }
-                        ],
-                    'language': 'en'}
+                    ]
+                },
+                {
+                    "question": "sadfasdfasdfas dasd fasd ",
+                    "image": "",
+                    "answers": [
+                        {
+                            "text": "sadfasdfasdfas dfasdf a",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "asd fasdf asdf asd fasd f",
+                            "img": "",
+                            "correct": True
+                        },
+                        {
+                            "text": "asdf asdf asdf asdf asd ",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "asdf asdf asd",
+                            "img": "",
+                            "correct": False
+                        }
+                    ]
+                },
+                {
+                    "question": "sadfasdfasdfas dasd fasd ",
+                    "image": "",
+                    "answers": [
+                        {
+                            "text": "sadfasdfasdfas dfasdf a",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "asd fasdf asdf asd fasd f",
+                            "img": "",
+                            "correct": True
+                        },
+                        {
+                            "text": "asdf asdf asdf asdf asd ",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "asdf asdf asd",
+                            "img": "",
+                            "correct": False
+                        }
+                    ]
+                },
+                {
+                    "question": "last",
+                    "image": "",
+                    "answers": [
+                        {
+                            "text": "sadfasdfasdfas dfasdf a",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "asd fasdf asdf asd fasd f",
+                            "img": "",
+                            "correct": True
+                        },
+                        {
+                            "text": "asdf asdf asdf asdf asd ",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "asdf asdf asd",
+                            "img": "",
+                            "correct": False
+                        }
+                    ]
+                }
+            ],
+            'language': 'en'}
 
         course = serializers.CourseSerializer(data=courseData)
         if not course.is_valid():
@@ -839,240 +844,258 @@ class QuizTest(DatabaseMixin, TestCase):
         course = models.Course.objects.filter(name='quiz_1')
         self.assertTrue(course.exists())
         course = course.first()
-        self.assertEqual(len(course.quiz_set()), 5)
-        self.assertEqual(course.quiz_set()[0].question, "first")
-        self.assertEqual(course.quiz_set()[4].question, "last")
-
+        self.assertEqual(len(course.quizquestion_set.all()), 5)
+        self.assertEqual(course.quizquestion_set.all()[0].question, "first")
+        self.assertEqual(course.quizquestion_set.all()[4].question, "last")
 
         # try accesing the quiz before answering the questions is not valid
 
-        request = self.factory.get("courses/" + str(course.id) + "/quiz/0/", format="json")
+        request = self.factory.get("courses/" + str(course.id) + "/quiz/0/",
+                                   format="json")
         force_authenticate(request, self.u1)
 
-        response = views.QuizView.as_view()(request, course_id=course.id, quiz_id=0)
+        response = views.QuizView.as_view()(request, course_id=course.id,
+                                            quiz_id=0)
 
         self.assertEqual(response.status_code, 400)
 
-        # check if return value after every question in course is done is correct
-        question = MultipleChoice.models.MultipleChoiceAnswer.objects.filter(question__module__course__name="quiz_1", is_correct=True).first()
-        correct_answer = self.factory.post("courses/" + str(course.id) + "/0/0/",
-                                      {"answers": [question.id]}, format='json')
+        # check if return value after every question in course is done is
+        # correct
+        question = MultipleChoice.models.MultipleChoiceAnswer.objects.filter(
+            question__module__course__name="quiz_1", is_correct=True).first()
+        correct_answer = self.factory.post(
+            "courses/" + str(course.id) + "/0/0/",
+            {"answers": [question.id]}, format='json')
         force_authenticate(correct_answer, self.u1)
 
-        response = views.QuestionView.as_view()(correct_answer, course_id=course.id, module_id=0, question_id=0)
+        response = views.QuestionView.as_view()(correct_answer,
+                                                course_id=course.id,
+                                                module_id=0, question_id=0)
         self.assertEqual(response.data["next"], "quiz")
 
-        # send post with false or correct answer will return 200 and send to next quiz question
+        # send post with false or correct answer will return 200 and send to
+        # next quiz question
 
-        answer_correct = models.QuizAnswer.objects.filter(correct=True, quiz=course.quiz_set()[0])
+        answer_correct = models.QuizAnswer.objects.filter(correct=True, quiz=
+        course.quizquestion_set.all()[0])
 
-
-        correct_answer = self.factory.post("courses/" + str(course.id) + "/quiz/0/",
-                                      {"answers": [(lambda x: x.id) (x) for x in answer_correct]}, format='json')
+        correct_answer = self.factory.post(
+            "courses/" + str(course.id) + "/quiz/0/",
+            {"answers": [(lambda x: x.id)(x) for x in answer_correct]},
+            format='json')
         force_authenticate(correct_answer, self.u1)
 
-        response = views.QuestionView.as_view()(correct_answer, course_id=course.id, module_id=0, question_id=0)
-        #return value of correct answer
+        response = views.QuestionView.as_view()(correct_answer,
+                                                course_id=course.id,
+                                                module_id=0, question_id=0)
+        # return value of correct answer
         self.assertEqual(response.status_code, 200)
 
-        answer_wrong = models.QuizAnswer.objects.filter(correct=False, quiz=course.quiz_set()[0])
-        wrong_answer = self.factory.post("courses/" + str(course.id) + "/quiz/0/",
-                                      {"answers": [(lambda x: x.id) (x) for x in answer_wrong]}, format='json')
+        answer_wrong = models.QuizAnswer.objects.filter(
+            correct=False,
+            quiz=course.quizquestion_set.all()[
+                0])
+        wrong_answer = self.factory.post(
+            "courses/" + str(course.id) + "/quiz/0/",
+            {"answers": [(lambda x: x.id)(x) for x in answer_wrong]},
+            format='json')
         force_authenticate(wrong_answer, self.u1)
 
-        response = views.QuestionView.as_view()(wrong_answer, course_id=course.id, module_id=0, question_id=0)
+        response = views.QuestionView.as_view()(wrong_answer,
+                                                course_id=course.id,
+                                                module_id=0, question_id=0)
 
         # return value of wrong answer
         self.assertEqual(response.status_code, 200)
 
         # creation for unsolvable quiz resolves in error
         courseData = {
-                    'name': 'quiz_2',
-                    'category': 'test',
-                    'difficulty': 2,
-                    'responsible_mod': 1,
-                    'responsible_mod': self.u1,
-                    'modules': [
+            'name': 'quiz_2',
+            'category': 'test',
+            'difficulty': 2,
+            'responsible_mod': 1,
+            'responsible_mod': self.u1,
+            'modules': [
+                {
+                    'name': 'a module',
+                    'learning_text': 'no way',
+                    'order': 3,
+                    'questions': [
                         {
-                        'name': 'a module',
-                        'learning_text': 'no way',
-                        'order': 3,
-                        'questions':[
-                            {
                             'title': 'a question',
                             'text': 'some text',
                             'feedback': '',
                             'type': 'multiple_choice',
                             'order': 1,
-                            'answers':[
+                            'answers': [
                                 {
-                                'text': 'true',
-                                'is_correct': True
+                                    'text': 'true',
+                                    'is_correct': True
                                 },
                                 {
-                                'text': 'nope',
-                                'is_correct': False
+                                    'text': 'nope',
+                                    'is_correct': False
                                 }
                             ]
-                            },
-                        ]
                         },
+                    ]
+                },
+                {
+                    'name': 'another module',
+                    'learning_text': 'no way',
+                    'order': 4,
+                    'questions': [
                         {
-                        'name': 'another module',
-                        'learning_text': 'no way',
-                        'order': 4,
-                        'questions':[
-                            {
                             'title': 'a question',
                             'text': 'some text',
                             'feedback': '',
                             'type': 'multiple_choice',
                             'order': 1,
-                            'answers':[
+                            'answers': [
                                 {
-                                'text': 'true',
-                                'is_correct': True
+                                    'text': 'true',
+                                    'is_correct': True
                                 },
                                 {
-                                'text': 'nope',
-                                'is_correct': False
+                                    'text': 'nope',
+                                    'is_correct': False
                                 }
                             ]
-                            },
-                        ]
+                        },
+                    ]
+                }
+            ],
+            "quiz": [
+                {
+                    "question": "first",
+                    "image": "", "answers": [
+                    {
+                        "text": "a sdfa sdfasd fasd fa",
+                        "img": "",
+                        "correct": False
+                    },
+                    {
+                        "text": "as dfas dasd asfd adsfa sdf",
+                        "img": "",
+                        "correct": False
+                    },
+                    {
+                        "text": "asdds afadsfadsf adsf ads fa dsf",
+                        "img": "",
+                        "correct": False
+                    },
+                    {
+                        "text": "adf asdf asdfasdf",
+                        "img": "", "correct": False
+                    }
+                ]
+                },
+                {
+                    "question": "sadfasdfasdfas dasd fasd ",
+                    "image": "",
+                    "answers": [
+                        {
+                            "text": "sadfasdfasdfas dfasdf a",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "asd fasdf asdf asd fasd f",
+                            "img": "",
+                            "correct": True
+                        },
+                        {
+                            "text": "asdf asdf asdf asdf asd ",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "asdf asdf asd",
+                            "img": "",
+                            "correct": False
                         }
-                    ],
-                    "quiz":[
+                    ]
+                },
+                {
+                    "question": "sadfasdfasdfas dasd fasd ",
+                    "image": "",
+                    "answers": [
                         {
-                            "question":"first",
-                            "image":"","answers":[
-                                {
-                                    "text":"a sdfa sdfasd fasd fa",
-                                    "img":"",
-                                    "correct":False
-                                },
-                                {
-                                    "text":"as dfas dasd asfd adsfa sdf",
-                                    "img":"",
-                                    "correct":False
-                                },
-                                {
-                                    "text":"asdds afadsfadsf adsf ads fa dsf",
-                                    "img":"",
-                                    "correct":False
-                                },
-                                {
-                                    "text":"adf asdf asdfasdf",
-                                    "img":"","correct":False
-                                }
-                            ]
+                            "text": "sadfasdfasdfas dfasdf a",
+                            "img": "",
+                            "correct": False
                         },
                         {
-                            "question":"sadfasdfasdfas dasd fasd ",
-                            "image":"",
-                            "answers":[
-                                {
-                                    "text":"sadfasdfasdfas dfasdf a",
-                                    "img":"",
-                                    "correct":False
-                                },
-                                {
-                                    "text":"asd fasdf asdf asd fasd f",
-                                    "img":"",
-                                    "correct":True
-                                },
-                                {
-                                    "text":"asdf asdf asdf asdf asd ",
-                                    "img":"",
-                                    "correct":False
-                                },
-                                {
-                                    "text":"asdf asdf asd",
-                                    "img":"",
-                                    "correct":False
-                                }
-                            ]
+                            "text": "asd fasdf asdf asd fasd f",
+                            "img": "",
+                            "correct": True
                         },
                         {
-                            "question":"sadfasdfasdfas dasd fasd ",
-                            "image":"",
-                            "answers":[
-                                {
-                                    "text":"sadfasdfasdfas dfasdf a",
-                                    "img":"",
-                                    "correct":False
-                                },
-                                {
-                                    "text":"asd fasdf asdf asd fasd f",
-                                    "img":"",
-                                    "correct":True
-                                },
-                                {
-                                    "text":"asdf asdf asdf asdf asd ",
-                                    "img":"",
-                                    "correct":False
-                                },
-                                {
-                                    "text":"asdf asdf asd",
-                                    "img":"",
-                                    "correct":False
-                                }
-                            ]
+                            "text": "asdf asdf asdf asdf asd ",
+                            "img": "",
+                            "correct": False
                         },
                         {
-                            "question":"sadfasdfasdfas dasd fasd ",
-                            "image":"",
-                            "answers":[
-                                {
-                                    "text":"sadfasdfasdfas dfasdf a",
-                                    "img":"",
-                                    "correct":False
-                                },
-                                {
-                                    "text":"asd fasdf asdf asd fasd f",
-                                    "img":"",
-                                    "correct":True
-                                },
-                                {
-                                    "text":"asdf asdf asdf asdf asd ",
-                                    "img":"",
-                                    "correct":False
-                                },
-                                {
-                                    "text":"asdf asdf asd",
-                                    "img":"",
-                                    "correct":False
-                                }
-                            ]
-                        },
-                        {
-                            "question":"last",
-                            "image":"",
-                            "answers":[
-                                {
-                                    "text":"sadfasdfasdfas dfasdf a",
-                                    "img":"",
-                                    "correct":False
-                                },
-                                {
-                                    "text":"asd fasdf asdf asd fasd f",
-                                    "img":"",
-                                    "correct":True
-                                },
-                                {
-                                    "text":"asdf asdf asdf asdf asd ",
-                                    "img":"",
-                                    "correct":False
-                                },
-                                {
-                                    "text":"asdf asdf asd",
-                                    "img":"",
-                                    "correct":False
-                                }
-                            ]
+                            "text": "asdf asdf asd",
+                            "img": "",
+                            "correct": False
                         }
-                        ],
-                    'language': 'en'}
+                    ]
+                },
+                {
+                    "question": "sadfasdfasdfas dasd fasd ",
+                    "image": "",
+                    "answers": [
+                        {
+                            "text": "sadfasdfasdfas dfasdf a",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "asd fasdf asdf asd fasd f",
+                            "img": "",
+                            "correct": True
+                        },
+                        {
+                            "text": "asdf asdf asdf asdf asd ",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "asdf asdf asd",
+                            "img": "",
+                            "correct": False
+                        }
+                    ]
+                },
+                {
+                    "question": "last",
+                    "image": "",
+                    "answers": [
+                        {
+                            "text": "sadfasdfasdfas dfasdf a",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "asd fasdf asdf asd fasd f",
+                            "img": "",
+                            "correct": True
+                        },
+                        {
+                            "text": "asdf asdf asdf asdf asd ",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "asdf asdf asd",
+                            "img": "",
+                            "correct": False
+                        }
+                    ]
+                }
+            ],
+            'language': 'en'}
 
         quiz = serializers.CourseSerializer(data=courseData)
         if not quiz.is_valid():
@@ -1125,7 +1148,8 @@ class QuestionViewTest(DatabaseMixin, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data, {"evaluate": False})
 
-        can = views.QuestionView().can_access_question(self.u1, self.q2_test, 1, 1)
+        can = views.QuestionView().can_access_question(self.u1, self.q2_test,
+                                                       1, 1)
         self.assertFalse(can)
 
         # Test doesn't work because of weird behavior of testing API
@@ -1140,8 +1164,10 @@ class QuestionViewTest(DatabaseMixin, TestCase):
         # self.assertTrue(can)
 
     def test_can_access_question(self):
-        can = views.QuestionView().can_access_question(self.u1, self.q1_test, 0, 0)
+        can = views.QuestionView().can_access_question(self.u1, self.q1_test,
+                                                       0, 0)
         self.assertTrue(can)
 
-        can = views.QuestionView().can_access_question(self.u1, self.q2_test, 2, 1)
+        can = views.QuestionView().can_access_question(self.u1, self.q2_test,
+                                                       2, 1)
         self.assertFalse(can)
