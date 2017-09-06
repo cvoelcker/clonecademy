@@ -1,17 +1,60 @@
+@import '../../../_vars';
 
-.startCourse{
+h2 {
+  text-align: left;
+  margin-top: 5px;
+  font-weight: bold;
+  padding: 0 0.5em;
+}
+
+.course-description {
+  padding: 0 0.5em;
+}
+
+.sidenav-content {
+  padding: 0 0.5em;
+}
+
+.card {
+  display: inline-block;
+  height: auto;
+  margin: 0rem;
+  position: relative;
+  width: 100%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.navigation-buttons {
+  width: 100%;
+  .nav-button {
+    width: 33%;
+    margin: auto;
+    float: left;
+    text-align: center;
+  }
+  .material-icons {
+    width: 50px;
+    height: 50px;
+    font-size: 50px
+  }
+  a {
+    color: black;
+  }
+}
+
+.startCourse {
   float: right;
 }
 
-.header{
+.header {
   vertical-align: bottom;
   width: 100%;
   margin: 10px 0;
-  .title{
+  .title {
     width: 75%;
   }
-  .counter{
-    .chart{
+  .counter {
+    .chart {
       height: 150px;
       width: 150px;
     }
@@ -19,15 +62,15 @@
     width: 25%;
     text-align: center;
     font-size: 1.5em;
-    span{
+    span {
       font-size: 1.6em;
     }
   }
-  .button{
+  .button {
     width: 25%;
     text-align: right;
   }
-  &:after{
+  &:after {
     content: "";
     display: block;
     width: 100%;
@@ -35,52 +78,45 @@
   }
 }
 
-
-body{
+body {
   counter-reset: item;
 }
 
-ol{
+ol {
   list-style: none;
   padding: 1em 0;
-  li{
+  li {
     position: relative;
-    .startQuestion{
-      position: absolute;
-      right: 8px;
-      left: auto;
-      top: 8px;
-      bottom: 8px;
-    }
-    margin-bottom: 2em;
-    margin-top: 1em;
-    &.module{
+    &.module {
       counter-increment: module;
-      md-card-title:before{
+      md-card-title:before {
         content: counter(module) ": ";
         font-weight: bold;
         width: 1.3em;
         display: inline-block;
       }
-      .mat-card-content{
-        margin-left: -24px;
-        margin-right: -24px;
-        .alert{
-          padding-left: 24px;
-          padding-right: 24px;
-        }
-      }
-
     }
-    ol{
-      padding: 0;
-    }
-    &.question{
+    &.question {
       counter-increment: question;
-      div:before{
-        content: counter(question) ": ";
+      .question-button {
+        width: 100%;
         font-weight: bold;
+        text-align: left;
+        height: auto;
+        white-space: normal;
+        background-color: white;
       }
     }
   }
 }
+
+hr {
+  width:100%;
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 2px 0;
+  padding: 0;
+}
+

@@ -157,7 +157,8 @@ class Course(models.Model):
     description = models.CharField(
         max_length=144,
         null=True,
-        blank=True
+        blank=True,
+        default=""
     )
 
     def has_quiz(self):
