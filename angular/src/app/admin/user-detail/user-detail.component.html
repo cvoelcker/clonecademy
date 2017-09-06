@@ -1,4 +1,4 @@
-<h2>{{"UserDetail" | translate}}{{user.username}}</h2>
+<h2 *ngIf="user != undefined">{{"UserDetail" | translate}}{{user.username}}</h2>
 <ul *ngIf="user != undefined">
   <li>{{"username" | translate}}: {{user.username}}</li>
   <li *ngIf="user.email">{{"email" | translate}}: {{user.email}}</li>
