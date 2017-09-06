@@ -50,8 +50,7 @@ class Profile(models.Model):
         """
         Returns the link to the users profile page
         """
-        # TODO: Implement correct user profile access string
-        return "clonecademy.net/user/{}/".format(self.user.id)
+        return "clonecademy.net/admin/profiles/{}/".format(self.user.id)
 
     def modrequest_allowed(self):
         """
