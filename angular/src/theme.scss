@@ -148,6 +148,11 @@ md-checkbox{
     }
 }
 
+.mat-form-field{
+  display: block;
+  width: 100%;
+}
+
 .alert{
   border-radius: 0;
   &.false{

@@ -407,15 +407,18 @@ class UserSerializer(serializers.ModelSerializer):
     def to_representation(self, obj):
         value = super(UserSerializer, self).to_representation(obj)
 
+        if not 'language' in value:
+            value['language'] = "en"
         p = Profile.objects.filter(user=obj).first()
-        value['language'] = p.language
+
         return value
 
     def create(self, validated_data):
         profile_data = validated_data.pop('profile')
         validated_data.pop('groups')
         # TODO add language to profile
-        profile_data['language'] = validated_data.pop('language')
+        if 'language' in profile_data:
+            profile_data['language'] = validated_data.pop('language')
         user = User.objects.create_user(**validated_data)
         profile = Profile(user=user, **profile_data)
         profile.save()
