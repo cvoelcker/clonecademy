@@ -1,6 +1,8 @@
 # clonecadamy
 
-## Installation
+This is a project for the iGEM Team at TU Darmstadt build during the summer semester "bachelorpraktikum" of the faculty of Computer Science. The developers are four computer science students currently in the final year of our bachelor studies.
+
+## Installation (development)
 If you have self package inside your home folder just go on. Otherwise you have to
 To install all run `bin/setup_script.sh`. It installes Docker if required and sets links to the /usr/bin folder to start the images from anywhere.
 
@@ -17,3 +19,15 @@ To run a script on django you can user `run_django` and add your script. It is s
 
 ## angular
 If you want to run a script on the angular docker use `run_angular`.
+
+# Installation (production)
+
+To install the software on your server, you need to have Docker and docker-compose up to date. The installation script is located in `/install/install.sh`. This script links all files correctly (if you want to build a regular makefile, please feal free to create a pull-request).
+
+You should change all settings in the files:
+* `settings.py`: You should change the allowed hosts to your local settings.
+* `settings-secret.py`: Change all fields
+* `docker-compose.yml`: You should change the path of the linked database. The database will be stored in the provided location on the server iself, so that data is kept, even if the docker container is down.
+* `angular/environments/environent.ts`: Change production to true
+
+If you want to run the server, you only need to call `docker-compose up`. This will expose the plattform via port 80. The main page can now be reached via `localhost` and the admin backend of the Django instance via `localhost/api/admin`.
