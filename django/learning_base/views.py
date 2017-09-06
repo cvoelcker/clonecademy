@@ -669,11 +669,11 @@ class RequestView(APIView):
         send_mail(
             'Moderator rights requested by {}'.format(user.username),
             'The following user {} requested moderator rights for the \
-            CloneCademy platform. \n \
-            The given reason for this request: \n{}\n \
-            If you want to add this user to the moderator group, access the \
-            profile {} for the confirmation field.\n \
-            Have a nice day, your CloneCademy bot'.format(
+CloneCademy platform. \n \
+The given reason for this request: \n{}\n \
+If you want to add this user to the moderator group, access the \
+profile {} for the confirmation field.\n \
+Have a nice day,\n your CloneCademy bot'.format(
                 user.username, data["reason"],
                 user.profile.get_link_to_profile()),
             'bot@clonecademy.de',
