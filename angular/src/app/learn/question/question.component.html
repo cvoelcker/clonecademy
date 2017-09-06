@@ -22,7 +22,7 @@
   <footer>
     <table>
       <th>
-        <button md-raised-button (click)="sidenav.open()">{{"dashboard" | translate}}</button>
+        <button md-raised-button (click)="sidenav.open()">Navigation</button>
       </th>
       <th class="middle">
         <md-card class="module" *ngFor="let m of progress" [style.width.%]="((m.length / allQuestionsInCourse) * 100) - 1">

@@ -180,7 +180,8 @@ class CourseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Course
-        fields = ('name', 'difficulty', 'id', 'language', 'category')
+        fields = ('name', 'difficulty', 'id', 'language', 'category',
+                  'description')
 
     def to_representation(self, obj):
         """

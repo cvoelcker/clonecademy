@@ -1,40 +1,44 @@
-@media(min-width: 768px){
-  .flex{
+@media(min-width: 768px) {
+  .flex {
     display: flex;
     flex-flow: column;
   }
 
-  .box{
+  .box {
     display: flex;
     flex-flow: column;
     height: 100%;
   }
 
-  header{
+  header {
+    display: inline-block;
+    height: auto;
     width: 100%;
     position: relative;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   }
 
-  main{
+  main {
     flex: 1 1 auto;
     width: 100%;
     height: 100%;
     padding: 0;
-    .contentWrapper{
+    .contentWrapper {
       position: relative;
       height: 100%;
       margin: 0;
     }
   }
 }
+
 $header-height: 45px;
 $header-margin-bot: 10px;
-header{
-  span{
+header {
+  span {
     cursor: pointer;
-    outline:0;
+    outline: 0;
   }
-  #logo, h1{
+  #logo, h1 {
     height: $header-height;
     margin-bottom: $header-margin-bot;
     display: inline-block;

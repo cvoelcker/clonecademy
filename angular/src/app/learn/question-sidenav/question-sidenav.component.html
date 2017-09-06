@@ -1,57 +1,73 @@
 <div *ngIf="!loading">
-  <h2>
-    {{name}}
-  </h2>
-  <div class="button" [ngSwitch]="true" *ngIf="sidemenu == undefined">
-    <button
-      *ngSwitchCase="!completed && modules[0] != undefined && !modules[0].questions[0].solved"
-      md-raised-button routerLink="/course/{{ id }}/1/1/">{{"start Course" |
-      translate}}
-    </button>
-    <button *ngSwitchCase="completed" md-raised-button [disabled]="true">
-      {{"course completed" | translate}}
-    </button>
-    <button *ngSwitchDefault md-raised-button
-            routerLink="/course/{{ id }}/{{ lastCourse[0] }}/{{ lastCourse[1] + 1 }}/">
-      {{"continue" | translate}}
-    </button>
-  </div>
-  <div class="button" *ngIf="sidemenu != undefined">
-    <button md-raised-button (click)="closeSidemenu()">{{"continue" |
-      translate}}
-    </button>
+
+  <div class="card">
+    <div disableRipple class="navigation-buttons">
+      <div disableRipple md-icon-button class="nav-button">
+        <a routerLink="/course/{{id}}">
+          <md-icon>home</md-icon>
+        </a>
+      </div>
+      <div disableRipple md-icon-button class="nav-button">
+        <a routerLink="/profile">
+          <md-icon>person_outline</md-icon>
+        </a>
+      </div>
+      <div disableRipple md-icon-button class="nav-button">
+        <a (click)="closeSidemenu()">
+          <md-icon>cancel</md-icon>
+        </a>
+      </div>
+    </div>
+    <hr/>
+    <h2>
+      {{name}}
+    </h2>
+    <div class="course-description">
+      <markdown [data]="description"></markdown>
+    </div>
   </div>
 
+  <div class="sidenav-content">
 
-  <ol>
-    <li class="module" *ngFor="let m of modules; let i = index">
-      <md-card>
-        <md-card-header>
-          <md-card-title>{{m.name}}</md-card-title>
-          <md-card-subtitle>
-            <markdown [data]="m.learning_text"></markdown>
-          </md-card-subtitle>
-        </md-card-header>
-        <md-card-content>
-          <ol>
-            <li class="question" *ngFor="let q of m.questions; let j = index">
-              <div class="alert" [class.success]="q.solved">
-                {{q.title}}
+    <ol>
+      <li class="module" *ngFor="let m of modules; let i = index">
+        <h4>{{ m.name }}</h4>
+        <ol>
+          <hr/>
+
+          <div *ngFor="let q of m.questions; let j = index">
+            <li class="question">
+              <div [class.success]="q.solved">
                 <button
-                  md-raised-button
-                  *ngIf="q.solved || (m.questions[j - 1] != undefined && m.questions[j - 1].solved && sidemenu != undefined) || (sidemenu != undefined && modules[i-1] != undefined && modules[i-1].questions[modules[i-1].questions.length - 1].solved && j <= 0) || (i == 0 && j == 0 && sidemenu != undefined) "
-                  class="startQuestion"
+                  md-button
+                  class="question-button"
+                  *ngIf="q.solved || (m.questions[j - 1] != undefined && m.questions[j -
+                1].solved && sidemenu != undefined) || (sidemenu != undefined
+                && modules[i-1] != undefined &&
+                modules[i-1].questions[modules[i-1].questions.length -
+                1].solved && j <= 0) || (i == 0 && j == 0 && sidemenu !=
+                undefined)"
                   (click)="closeSidemenu()"
                   routerLink="/course/{{id}}/{{i+1}}/{{j+1}}">
-                  {{"repeat" | translate}}
+                  <md-icon *ngIf="q.solved">check_circle</md-icon>
+                  {{ q.title }}
+                </button>
+                <button
+                  md-button disabled
+                  class="question-button"
+                  *ngIf="!(q.solved || (m.questions[j - 1] != undefined && m.questions[j - 1].solved && sidemenu != undefined) || (sidemenu != undefined && modules[i-1] != undefined && modules[i-1].questions[modules[i-1].questions.length - 1].solved && j <= 0) || (i == 0 && j == 0 && sidemenu != undefined))"
+                  (click)="closeSidemenu()"
+                  routerLink="/course/{{id}}/{{i+1}}/{{j+1}}">
+                  <p>{{ q.title }}</p>
                 </button>
               </div>
             </li>
-          </ol>
-        </md-card-content>
-      </md-card>
-    </li>
-  </ol>
+            <hr/>
+          </div>
+        </ol>
+      </li>
+    </ol>
+  </div>
 </div>
 <div *ngIf="loading" class="localLoader">
   <md-progress-spinner mode="indeterminate"></md-progress-spinner>
