@@ -4,12 +4,13 @@ from django.utils import timezone
 from polymorphic.models import PolymorphicModel
 
 
-# from user_model import models as ub_models
-
-
 class Profile(models.Model):
     """
+    A user profile that stores additional information about a user
     """
+    class Meta:
+        ordering = ('ranking',)
+
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
@@ -31,14 +32,19 @@ class Profile(models.Model):
         default="en"
     )
 
+    ranking = models.IntegerField(
+        default=0
+    )
+
     def get_age(self):
+        """
+        Caculates the current age of the user
+        :return: the age of the user relative to the current server date
+        """
         today = timezone.today
         return today.year - self.birth_date.year - ((today.month, today.day) <
                                                     (self.birth_date.month,
                                                      self.birth_date.day))
-
-    def __str__(self):
-        return str(self.user)
 
     def get_link_to_profile(self):
         """
@@ -52,8 +58,8 @@ class Profile(models.Model):
         Returns True if the user is allowed to request moderator rights
         """
         return (self.last_modrequest is None or (
-                timezone.localdate() - self.last_modrequest).days >= 7) and \
-            not self.is_mod()
+            timezone.localdate() - self.last_modrequest).days >= 7) and \
+               not self.is_mod()
 
     # TODO: Refactor these to a decorator
     def is_mod(self):
@@ -67,6 +73,9 @@ class Profile(models.Model):
         Returns True if the user is in the group admin
         """
         return self.user.groups.filter(name="admin").exists()
+
+    def __str__(self):
+        return str(self.user)
 
 
 class CourseCategory(models.Model):
@@ -160,12 +169,6 @@ class Course(models.Model):
         blank=True,
         default=""
     )
-
-    def has_quiz(self):
-        return len(self.quiz_set()) > 0
-
-    def quiz_set(self):
-        return self.quizquestion_set.all()
 
     def __str__(self):
         return self.name
@@ -320,6 +323,9 @@ class Question(PolymorphicModel):
     def __str__(self):
         return self.title
 
+    def get_points(self):
+        raise NotImplementedError
+
 
 class QuizQuestion(models.Model):
     """
@@ -363,6 +369,9 @@ class QuizQuestion(models.Model):
             if ans.correct:
                 return True
         return False
+
+    def get_points(self):
+        return 2
 
 
 class QuizAnswer(models.Model):
@@ -414,6 +423,12 @@ class Try(models.Model):
 
     question = models.ForeignKey(
         Question,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+
+    quiz_question = models.ForeignKey(
+        QuizQuestion,
         null=True,
         on_delete=models.SET_NULL,
     )

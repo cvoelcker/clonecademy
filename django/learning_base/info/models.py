@@ -35,6 +35,9 @@ class InformationText(Question):
         from . import serializer
         return serializer.InformationTextSerializer
 
+    def get_points(self):
+        return 0
+
     def __str__(self):
         return "Learning text {}".format(self.id)
 
@@ -71,6 +74,9 @@ class InformationYoutube(Question):
     def get_edit_serializer(self):
         from . import serializer
         return serializer.InformationYoutubeSerializer
+
+    def get_points(self):
+        return 0
 
     def __str__(self):
         return "Learning text {}".format(self.id)

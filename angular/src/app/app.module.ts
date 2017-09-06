@@ -49,6 +49,7 @@ import { AddQuestionComponent } from './learn/course-editor/add-question/add-que
 import { AddQuestionModule } from "./learn/course-editor/add-question/add-question.module"
 
 import { StatisticsComponent } from './profile/personal_statistics/statistics.component';
+import { RankingListComponent } from './profile/ranking-list/ranking-list.component';
 import { RequestModComponent } from './profile/request-mod/request-mod.component';
 import { QuestionModule } from "./learn/question/question.module";
 import { ProfilesComponent } from './admin/profiles/profiles.component';
@@ -134,6 +135,10 @@ const appRoutes: Routes = [
       {
         path: "statistics",
         component: StatisticsComponent,
+      },
+      {
+        path: "ranking",
+        component: RankingListComponent,
       }
   ]
   },
@@ -186,6 +191,7 @@ let QuestionList = QuestionDictionary.questionComponents
     CreateCourseComponent,
     AddModuleComponent,
     AddQuestionComponent,
+    RankingListComponent,
     StatisticsComponent,
     QuestionModule,
     QuestionList,
