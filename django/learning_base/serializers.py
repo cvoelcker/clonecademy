@@ -41,6 +41,7 @@ class QuestionSerializer(serializers.ModelSerializer):
         module = obj.module
         value = super(QuestionSerializer, self).to_representation(obj)
         value['type'] = obj.__class__.__name__
+        user = self.context['request'].user
 
         # calculate the current progress of the user in a array of arrays
         # the outer array is the module and the inner
@@ -52,7 +53,7 @@ class QuestionSerializer(serializers.ModelSerializer):
             m = []
             for question in module.question_set.all():
                 if answered_question_before and question.try_set.filter(
-                        solved=True).exists():
+                        solved=True, user=user ).exists():
                     m.append({"solved": True, "title": question.title})
 
                 else:
@@ -65,7 +66,6 @@ class QuestionSerializer(serializers.ModelSerializer):
         value['learning_text'] = module.learning_text
         serializer = obj.get_serializer()
         value['question_body'] = serializer(obj).data
-        user = self.context['request'].user
         value['solved'] = obj.try_set.filter(solved=True)
         value['solved'] = value['solved'].filter(user=user)
         value['solved'] = value['solved'].exists()
