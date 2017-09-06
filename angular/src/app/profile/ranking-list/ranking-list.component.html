@@ -4,7 +4,8 @@
     <hr style="width: 50%; float: left"/>
     <ol>
       <li *ngFor="let p of profiles">
-        <button md-button routerLink="course">
+        <!-- TODO: this should link the public profile -->
+        <button md-button routerLink="/admin/profiles/{{p.id}}">
           <div class="ranking-name">
             {{ p.name }}
           </div>
