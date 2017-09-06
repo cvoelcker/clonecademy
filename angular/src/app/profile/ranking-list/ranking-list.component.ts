@@ -13,6 +13,11 @@ import 'rxjs/Rx' ;
   templateUrl: './ranking-list.component.html',
   styleUrls: ['./ranking-list.component.scss']
 })
+/**
+ * @author Claas Voelcker
+ *
+ * A component to display a ranking of all users
+ */
 export class RankingListComponent implements OnInit {
   profiles: {};
   loading = true

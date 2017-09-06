@@ -9,6 +9,11 @@ import {CourseService} from '../../service/course.service';
   templateUrl: './question-sidenav.component.html',
   styleUrls: ['./question-sidenav.component.scss']
 })
+/**
+ * @author Claas Voelcker
+ *
+ * A component that implements a sidenav for the questions for navigation
+ */
 export class QuestionSidenavComponent implements OnInit {
 
   id: number;
@@ -33,6 +38,9 @@ export class QuestionSidenavComponent implements OnInit {
 
   }
 
+  /**
+   * closes the sidenav via code
+   */
   closeSidemenu() {
     if (this.sidemenu) {
       this.sidemenu.close()
@@ -47,6 +55,10 @@ export class QuestionSidenavComponent implements OnInit {
     })
   }
 
+  /**
+   * reloads the course for easy navigation
+   * @param id the course id
+   */
   load(id: number) {
     // save the number of answered questions and the amount of questions in the current course
     this.completed = false;
