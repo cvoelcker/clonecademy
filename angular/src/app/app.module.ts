@@ -7,11 +7,14 @@ import { HttpModule, Http } from '@angular/http';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
-//markdown
+// markdown
 import { MarkdownModule } from 'angular2-markdown';
 
 // Material Style
-import {MdSidenavModule, MdDialog, MdDialogModule, MdIconModule, MdMenuModule, MdButtonModule, MdAutocompleteModule, MdCheckboxModule, MdTooltipModule, MdCardModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule, MdProgressSpinnerModule} from '@angular/material';
+import {MdSidenavModule, MdDialog, MdDialogModule, MdIconModule, MdMenuModule,
+  MdButtonModule, MdAutocompleteModule, MdCheckboxModule, MdTooltipModule,
+  MdCardModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule,
+  MdProgressSpinnerModule} from '@angular/material';
 
 import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
 
@@ -21,13 +24,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { RouterModule, Routes } from '@angular/router';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
-
+/*
+import { ColorPickerModule } from 'angular2-color-picker';
+*/
 import { ServerService } from './service/server.service';
 import { UserService } from './service/user.service';
 import { CourseService } from './service/course.service'
-import { ErrorDialog } from "./service/error.service";
+import { ErrorDialog } from './service/error.service';
 
-import { Admin } from "./injectible/admin.injectible"
+import { Admin } from './injectible/admin.injectible'
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -46,12 +51,14 @@ import { QuestionComponent } from './learn/question/question.component';
 import { CreateCourseComponent } from './learn/course-editor/create-course/create-course.component';
 import { AddModuleComponent } from './learn/course-editor/add-module/add-module.component';
 import { AddQuestionComponent } from './learn/course-editor/add-question/add-question.component';
-import { AddQuestionModule } from "./learn/course-editor/add-question/add-question.module"
+import { AddQuestionModule } from './learn/course-editor/add-question/add-question.module'
 
 import { StatisticsComponent } from './profile/personal_statistics/statistics.component';
 import { RankingListComponent } from './profile/ranking-list/ranking-list.component';
 import { RequestModComponent } from './profile/request-mod/request-mod.component';
-import { QuestionModule } from "./learn/question/question.module";
+import { QuestionModule } from './learn/question/question.module';
+import { CourseCategoriesComponent } from './admin/course-categories/course-categories.component';
+import { DialogContentDeleteDialogComponent } from './admin/course-categories/course-categories.component';
 import { ProfilesComponent } from './admin/profiles/profiles.component';
 import { UserDetailComponent } from './admin/user-detail/user-detail.component';
 import { UserDetailUserComponent } from './profile/user-detail-user/user-detail-user.component'
@@ -63,10 +70,10 @@ import { WrongFeedbackComponent } from './learn/question/wrong-feedback/wrong-fe
 import { LoaderComponent } from './loader/loader.component';
 import { EditCourseComponent } from './learn/course-editor/create-course/edit-course.component';
 import { StaticPageComponent } from './static-page/static-page.component';
-import { ImageCropperDialogComponent } from "./image-cropper/image-cropper.component";
+import { ImageCropperDialogComponent } from './image-cropper/image-cropper.component';
 
 // Viewing started courses on the welcome page
-import { CourseViewComponent } from "./learn/view-courses/view-courses.component";
+import { CourseViewComponent } from './learn/view-courses/view-courses.component';
 import { FooterMainpageComponent } from './footer-mainpage/footer-mainpage.component';
 import { QuizQuestionComponent } from './quiz/quiz-question/quiz-question.component';
 
@@ -82,33 +89,33 @@ const appRoutes: Routes = [
    component: DashboardComponent,
    children: [
      {
-       path: "",
+       path: '',
        component: CourseViewComponent,
      },
      {
-       path: "create_course",
+       path: 'create_course',
        component: CreateCourseComponent,
      },
      {
-       path:"page_not_found",
+       path: 'page_not_found',
        component: PageNotFoundComponent,
      },
      {
-       path: ":id",
+       path: ':id',
        component: CourseComponent,
      },
      {
-       path: "edit/:id",
+       path: 'edit/:id',
        component: EditCourseComponent
      }
    ]
   },
   {
-    path: "course/quiz/:id/:quiz",
+    path: 'course/quiz/:id/:quiz',
     component: QuizQuestionComponent
   },
   {
-    path: "course/:id/:module/:question",
+    path: 'course/:id/:module/:question',
     component: QuestionComponent,
   },
   {
@@ -120,49 +127,53 @@ const appRoutes: Routes = [
     component: RegisterComponent
   },
   {
-    path: "profile",
+    path: 'profile',
     component: ProfilePageComponent,
     children: [
 
       {
-        path: "details",
+        path: 'details',
         component: UserDetailUserComponent,
       },
       {
-        path: "request_mod",
+        path: 'request_mod',
         component: RequestModComponent,
       },
       {
-        path: "statistics",
+        path: 'statistics',
         component: StatisticsComponent,
       },
       {
-        path: "ranking",
+        path: 'ranking',
         component: RankingListComponent,
       }
   ]
   },
   {
-    path: "admin",
+    path: 'admin',
     component: AdminPageComponent,
     canActivate: [
       Admin
     ],
     children: [
       {
-        path: "profiles",
+        path: 'profiles',
         component: ProfilesComponent,
         children: [
           {
-            path: ":id",
+            path: ':id',
             component: UserDetailComponent
           }
         ]
+      },
+      {
+        path: 'categories',
+        component: CourseCategoriesComponent
       }
     ]
   },
   {
-    path: "404",
+    path: '404',
     component: PageNotFoundComponent,
   },
   {
@@ -175,7 +186,7 @@ export function createTranslateLoader(http: Http) {
     return new TranslateHttpLoader(http, './assets/lang/', '.json');
 }
 
-let QuestionList = QuestionDictionary.questionComponents
+const QuestionList = QuestionDictionary.questionComponents
 
 @NgModule({
   declarations: [
@@ -214,6 +225,7 @@ let QuestionList = QuestionDictionary.questionComponents
     FooterMainpageComponent,
     QuestionSidenavComponent,
     QuizQuestionComponent,
+    CourseCategoriesComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -243,6 +255,8 @@ let QuestionList = QuestionDictionary.questionComponents
     MdProgressSpinnerModule,
     MdMenuModule,
     MdIconModule,
+    // ColorPickerModule
+
   ],
   exports: [
   ],
@@ -274,6 +288,7 @@ let QuestionList = QuestionDictionary.questionComponents
     UserDetailComponent,
     // admin Page components
     ProfilesComponent,
+    DialogContentDeleteDialogComponent,
     // you have to add all modules for questions here
     QuestionList,
     CourseViewComponent,
