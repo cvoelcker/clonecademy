@@ -857,7 +857,7 @@ class QuizTest(DatabaseMixin, TestCase):
         response = views.QuizView.as_view()(request, course_id=course.id,
                                             quiz_id=0)
 
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 403)
 
         # check if return value after every question in course is done is
         # correct
@@ -1098,8 +1098,8 @@ class QuizTest(DatabaseMixin, TestCase):
             'language': 'en'}
 
         quiz = serializers.CourseSerializer(data=courseData)
-        if not quiz.is_valid():
-            self.assertTrue(False)
+
+        self.assertTrue(quiz.is_valid())
         with self.assertRaises(ParseError):
             quiz.create(courseData)
         self.assertFalse(models.Course.objects.filter(name='quiz_2').exists())

@@ -411,7 +411,7 @@ class QuizView(APIView):
         )[len(module.question_set.all()) - 1]
         if not Try.objects.filter(question=question, solved=True).exists():
             return Response({"error": "complete the course first"},
-                            status=status.HTTP_400_BAD_REQUEST)
+                            status=status.HTTP_403_FORBIDDEN)
 
         if len(course.quizquestion_set.all()) > int(quiz_id):
             quiz = serializers.QuizSerializer(
