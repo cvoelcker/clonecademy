@@ -76,18 +76,10 @@ export class QuestionComponent implements OnInit, OnDestroy{
     private factory: ComponentFactoryResolver,
     private dialog: MdDialog
   ) {
-    this.route.params.subscribe((data: Params) => {
-      this.courseID = Number(data.id);
-      this.moduleIndex = Number(data.module);
-      this.questionIndex = data.question;
-    })
-    this.loadQuestion();
+    this.loadQuestion()
   }
 
   ngOnInit(){
-    this.router.events.takeUntil(this.ngUnsubscribe).subscribe((event) => {
-      this.loadQuestion()
-    })
   }
 
   ngOnDestroy(){
@@ -96,8 +88,13 @@ export class QuestionComponent implements OnInit, OnDestroy{
   }
 
   loadQuestion(){
-    this.server.get("courses/"+this.courseID+"/"+ (Number(this.moduleIndex) -1) + "/" + (Number(this.questionIndex) - 1 )).then(data => {
-      this.setupQuestion(data)
+    this.route.params.subscribe((data: Params) => {
+      this.courseID = Number(data.id);
+      this.moduleIndex = Number(data.module);
+      this.questionIndex = data.question;
+      this.server.get("courses/"+this.courseID+"/"+ (Number(this.moduleIndex) -1) + "/" + (Number(this.questionIndex) - 1 )).then(data => {
+        this.setupQuestion(data)
+      })
     })
   }
 
@@ -147,7 +144,7 @@ export class QuestionComponent implements OnInit, OnDestroy{
       // calls block to freeze the question element
       this.questionModule.block();
       this.questionModule.feedback = data.custom_feedback
-      
+
       this.progress[this.moduleIndex - 1][this.questionIndex - 1]["solved"] = true
       // the answer is correct and the correct Feedback will be set
       if(data['feedback'] != ""){
