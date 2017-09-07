@@ -20,8 +20,8 @@ export const slideIn = trigger('slideIn', [
 ])
 
 export const menuSlideIn = trigger('slideIn', [
-    state('1', style({ "height": "*", 'overflow-y': 'hidden' })),
-    state('0', style({ "height": "0",  'overflow-y': 'hidden' })),
+    state('1', style({ 'height': '*', 'overflow-y': 'hidden' })),
+    state('0', style({ 'height': '0',  'overflow-y': 'hidden' })),
     transition('1 => 0', [
         style({ height: '*' }),
         animate(250, style({ height: 0 }))

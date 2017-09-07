@@ -53,7 +53,7 @@ class QuestionSerializer(serializers.ModelSerializer):
             m = []
             for question in module.question_set.all():
                 if answered_question_before and question.try_set.filter(
-                        solved=True, user=user ).exists():
+                        solved=True, user=user).exists():
                     m.append({"solved": True, "title": question.title})
 
                 else:
@@ -68,7 +68,6 @@ class QuestionSerializer(serializers.ModelSerializer):
         value['question_body'] = serializer(obj).data
 
         value['solved'] = obj.try_set.filter(solved=True, user=user).exists()
-
 
         return value
 
@@ -100,9 +99,13 @@ class QuestionEditSerializer(serializers.ModelSerializer):
 
 
 class CourseCategorySerializer(serializers.ModelSerializer):
+
     class Meta:
         model = CourseCategory
-        fields = ('name', "id",)
+        fields = ('name', "color", "id",)
+
+    color = serializers.RegexField(r'^#[a-fA-F0-9]{6}', max_length=7,
+                                   min_length=7, allow_blank=False)
 
 
 class ModuleEditSerializer(serializers.ModelSerializer):
@@ -409,7 +412,7 @@ class UserSerializer(serializers.ModelSerializer):
     def to_representation(self, obj):
         value = super(UserSerializer, self).to_representation(obj)
 
-        if not 'language' in value:
+        if 'language' not in value:
             value['language'] = "en"
         p = Profile.objects.filter(user=obj).first()
         value['language'] = p.language
@@ -480,7 +483,7 @@ class StatisticsOverviewSerializer(serializers.BaseSerializer):
                 else:
                     question_entry['tries'] += 1
                     question_entry['solved'] = question_entry['solved'] \
-                                               or _try.solved
+                        or _try.solved
             if question_entry:
                 all_questions.append(question_entry)
         return all_questions
