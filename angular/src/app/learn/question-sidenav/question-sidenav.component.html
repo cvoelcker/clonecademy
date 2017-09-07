@@ -1,33 +1,32 @@
 <div *ngIf="!loading">
-
-  <div class="card">
-    <div disableRipple class="navigation-buttons">
-      <div disableRipple md-icon-button class="nav-button">
-        <a routerLink="/course/{{id}}">
-          <md-icon>home</md-icon>
-        </a>
-      </div>
-      <div disableRipple md-icon-button class="nav-button">
-        <a routerLink="/profile">
-          <md-icon>person_outline</md-icon>
-        </a>
-      </div>
-      <div disableRipple md-icon-button class="nav-button">
-        <a (click)="closeSidemenu()">
-          <md-icon>cancel</md-icon>
-        </a>
-      </div>
-    </div>
-    <hr/>
-    <h2>
-      {{name}}
-    </h2>
-    <div class="course-description">
-      <markdown [data]="description"></markdown>
-    </div>
-  </div>
-
   <div class="sidenav-content">
+
+    <div class="card">
+      <div disableRipple class="navigation-buttons">
+        <div class="nav-button">
+          <button md-fab routerLink="/course/{{id}}">
+            <md-icon>home</md-icon>
+          </button>
+        </div>
+        <div class="nav-button">
+          <button md-fab routerLink="/profile">
+            <md-icon>person_outline</md-icon>
+          </button>
+        </div>
+        <div class="nav-button">
+          <button md-fab (click)="closeSidemenu()">
+            <md-icon>close</md-icon>
+          </button>
+        </div>
+      </div>
+      <h2>
+        {{name}}
+      </h2>
+      <div class="course-description">
+        <markdown [data]="description"></markdown>
+      </div>
+    </div>
+
 
     <ol>
       <li class="module" *ngFor="let m of modules; let i = index">
