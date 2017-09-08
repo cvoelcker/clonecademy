@@ -37,6 +37,9 @@ class Profile(models.Model):
         blank=True,
     )
 
+    ranking = models.IntegerField(
+        default=0
+    )
 
     def get_age(self):
         today = timezone.today

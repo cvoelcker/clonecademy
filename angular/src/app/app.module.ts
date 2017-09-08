@@ -19,6 +19,10 @@ import { DialogComponent } from './quickview/dialog.component'
 import { ExpansionPanelsModule } from 'ng2-expansion-panels';
 
 import {MdSidenavModule, MdDialog, MdDialogModule, MdIconModule, MdMenuModule, MdButtonModule, MdAutocompleteModule, MdCheckboxModule, MdTooltipModule, MdCardModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule, MdProgressSpinnerModule} from '@angular/material';
+import {MdSidenavModule, MdDialog, MdDialogModule, MdIconModule, MdMenuModule,
+  MdButtonModule, MdAutocompleteModule, MdCheckboxModule, MdTooltipModule,
+  MdCardModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule,
+  MdProgressSpinnerModule} from '@angular/material';
 
 import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
 
@@ -211,6 +215,13 @@ let QuestionList = QuestionDictionary.questionComponents
     CourseViewComponent,
     FooterMainpageComponent,
     DialogComponent,
+<<<<<<< HEAD
+=======
+    QuestionSidenavComponent,
+    QuizQuestionComponent,
+    CourseCategoriesComponent,
+    DeleteDialogComponent
+>>>>>>> dialogbox for quickview edited, user details edited little changes in navigation bar
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
