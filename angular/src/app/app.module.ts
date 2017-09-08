@@ -11,18 +11,15 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { MarkdownModule } from 'angular2-markdown';
 
 // Material Style
-<<<<<<< HEAD
+
 import { DialogComponent } from './quickview/dialog.component'
 
 import { ExpansionPanelsModule } from 'ng2-expansion-panels';
 
-import {MdSidenavModule, MdDialog, MdDialogModule, MdIconModule, MdMenuModule, MdButtonModule, MdAutocompleteModule, MdCheckboxModule, MdTooltipModule, MdCardModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule, MdProgressSpinnerModule} from '@angular/material';
-=======
 import {MdSidenavModule, MdDialog, MdDialogModule, MdIconModule, MdMenuModule,
   MdButtonModule, MdAutocompleteModule, MdCheckboxModule, MdTooltipModule,
   MdCardModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule,
   MdProgressSpinnerModule} from '@angular/material';
->>>>>>> be20018317f635d8b74de67db065bbb43ac19779
 
 import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
 
@@ -231,14 +228,11 @@ const QuestionList = QuestionDictionary.questionComponents
     StaticPageComponent,
     CourseViewComponent,
     FooterMainpageComponent,
-<<<<<<< HEAD
     DialogComponent,
-=======
     QuestionSidenavComponent,
     QuizQuestionComponent,
     CourseCategoriesComponent,
     DeleteDialogComponent
->>>>>>> be20018317f635d8b74de67db065bbb43ac19779
   ],
   imports: [
     BrowserAnimationsModule,

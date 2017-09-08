@@ -1,5 +1,30 @@
+@import '../../_vars';
+
+md-card{
+  width: 100%;
+  height: 100%;
+}
+
+av{
+  padding: 0;
+  text-align: right;
+  margin: 0;
+  width: 100%;
+}
+
+.mat-menu-item{
+  padding: 0 0.05em;
+  margin: 0 0.5em;
+  &.active{
+    border-bottom: 2px solid $primary;
+  }
+
+}
+
 .example-card {
-  width: 300px;
+  width: 100%;
+  height: 100%;
+  // padding: 0px 0px 0px 0px;
 }
 
 .example-header-image {
@@ -7,5 +32,20 @@
 }
 
 button{
+  float: right;
+}
+
+img{
+  width: 50%;
+  height: 30%;
+  border:3px solid #021a40;
+  border-radius: 50%;
+}
+
+h2{
+  float: right;
+}
+
+nav{
   float: right;
 }

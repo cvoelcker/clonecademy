@@ -32,7 +32,6 @@ class Profile(models.Model):
         default="en"
     )
 
-<<<<<<< HEAD
     avatar = models.TextField(
         verbose_name="Avatar of the User",
         null=True,
@@ -40,12 +39,10 @@ class Profile(models.Model):
     )
 
 
-=======
     ranking = models.IntegerField(
         default=0
     )
 
->>>>>>> be20018317f635d8b74de67db065bbb43ac19779
     def get_age(self):
         """
         Caculates the current age of the user

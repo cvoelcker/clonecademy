@@ -416,24 +416,19 @@ class UserSerializer(serializers.ModelSerializer):
             value['language'] = "en"
         p = Profile.objects.filter(user=obj).first()
         value['language'] = p.language
-<<<<<<< HEAD
+
         value['avatar'] = p.avatar
-=======
         value['ranking'] = p.ranking
->>>>>>> be20018317f635d8b74de67db065bbb43ac19779
         return value
 
     def create(self, validated_data):
         profile_data = validated_data.pop('profile')
         validated_data.pop('groups')
         # TODO add language to profile
-<<<<<<< HEAD
         profile_data['language'] = validated_data.pop('language')
         profile_data['avatar'] = validated_data.pop('avatar')
-=======
         if 'language' in profile_data:
             profile_data['language'] = validated_data.pop('language')
->>>>>>> be20018317f635d8b74de67db065bbb43ac19779
         user = User.objects.create_user(**validated_data)
         profile = Profile(user=user, **profile_data)
         profile.save()
@@ -453,7 +448,7 @@ class UserSerializer(serializers.ModelSerializer):
         if "password" in validated_data:
             instance.set_password(validated_data["password"])
         profile = instance.profile
-        profile.language = validated_data["language"]
+        # profile.language = validated_data["language"]
         profile.avatar = validated_data["avatar"]
         profile.save()
         instance.save()
