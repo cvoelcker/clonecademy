@@ -85,6 +85,7 @@ export class UserService {
 
   public edit(data){
     this.server.post("user/current", data).then(() => {
+      this.data = data
       this.language = data['language']
       this.translate.use(data['language'])
     })

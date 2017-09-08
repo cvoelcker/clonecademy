@@ -31,6 +31,13 @@ class Profile(models.Model):
         default="en"
     )
 
+    avatar = models.TextField(
+        verbose_name="Avatar of the User",
+        null=True,
+        blank=True,
+    )
+
+
     def get_age(self):
         today = timezone.today
         return today.year - self.birth_date.year - ((today.month, today.day) <

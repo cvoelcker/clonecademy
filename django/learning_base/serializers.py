@@ -305,6 +305,7 @@ class UserSerializer(serializers.ModelSerializer):
 
         p = Profile.objects.filter(user=obj).first()
         value['language'] = p.language
+        value['avatar'] = p.avatar
         return value
 
     def create(self, validated_data):
@@ -312,6 +313,7 @@ class UserSerializer(serializers.ModelSerializer):
         validated_data.pop('groups')
         # TODO add language to profile
         profile_data['language'] = validated_data.pop('language')
+        profile_data['avatar'] = validated_data.pop('avatar')
         user = User.objects.create_user(**validated_data)
         profile = Profile(user=user, **profile_data)
         profile.save()
@@ -332,6 +334,7 @@ class UserSerializer(serializers.ModelSerializer):
             instance.set_password(validated_data["password"])
         profile = instance.profile
         profile.language = validated_data["language"]
+        profile.avatar = validated_data["avatar"]
         profile.save()
         instance.save()
         return True

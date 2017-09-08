@@ -1,0 +1,20 @@
+<md-card class="example-card">
+  <button md-raised-button (click)="dialogRef.close()" width="10px"><md-icon>close</md-icon></button>
+  <md-card-header>
+    <img md-card-avatar [src]="user.data.avatar" class="example-header-image">
+    <md-card-title>{{user.data.username}}</md-card-title>
+  </md-card-header>
+  <img md-card-image [src]="user.data.avatar" width="150" height="150" alt="Avatar">
+  <md-card-content>
+      <ul>
+        <li>Rank: ??</li>
+        <li>Points: ??</li>
+      </ul>
+
+      <button md-button (click)="dialogRef.close()"  routerLink="/profile/details" [routerLinkActive]="['active']">View Profile</button>
+      <button md-button (click)="user.logout()" (click)="dialogRef.close()">{{"logout" | translate}}</button>
+  </md-card-content>
+  <md-card-actions>
+
+  </md-card-actions>
+</md-card>

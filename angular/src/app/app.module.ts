@@ -14,6 +14,8 @@ import { ChartsModule } from 'ng2-charts';
 import { MarkdownModule } from 'angular2-markdown';
 
 // Material Style
+import { DialogComponent } from './quickview/dialog.component'
+
 import { ExpansionPanelsModule } from 'ng2-expansion-panels';
 
 import {MdSidenavModule, MdDialog, MdDialogModule, MdIconModule, MdMenuModule, MdButtonModule, MdAutocompleteModule, MdCheckboxModule, MdTooltipModule, MdCardModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule, MdProgressSpinnerModule} from '@angular/material';
@@ -208,6 +210,7 @@ let QuestionList = QuestionDictionary.questionComponents
     StaticPageComponent,
     CourseViewComponent,
     FooterMainpageComponent,
+    DialogComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -264,6 +267,7 @@ let QuestionList = QuestionDictionary.questionComponents
     CourseComponent,
     CreateCourseComponent,
     ImageCropperDialogComponent,
+    DialogComponent,
     // profile page components
     StatisticsComponent,
     RequestModComponent,
