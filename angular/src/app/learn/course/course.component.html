@@ -51,7 +51,7 @@
           <ol>
             <li class="question" *ngFor="let q of m.questions; let j = index">
               <div class="alert" [class.success]="q.solved">
-                {{q.type}}
+                {{q.title}}
                 <button
                   md-raised-button
                   *ngIf="q.solved || (m.questions[j - 1] != undefined && m.questions[j - 1].solved && sidemenu != undefined) || (sidemenu != undefined && modules[i-1] != undefined && modules[i-1].questions[modules[i-1].questions.length - 1].solved && j <= 0) || (i == 0 && j == 0 && sidemenu != undefined) "

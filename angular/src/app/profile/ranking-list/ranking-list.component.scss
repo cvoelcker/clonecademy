@@ -1,0 +1,42 @@
+@import "../../../_vars";
+
+ol {
+  list-style: decimal;
+  padding: 1em 0;
+  li {
+    position: relative;
+    width: 50%;
+    height: auto;
+    button {
+      float: left;
+      background-color: white;
+      width: 100%;
+      .ranking-name {
+        float: left;
+        font-weight: bold;
+        width: 80%;
+      }
+
+    }
+    .ranking-number {
+      width: 20%;
+      float: left;
+      font-weight: bold;
+      text-align: left;
+      height: auto;
+      white-space: normal;
+    }
+  }
+}
+
+hr {
+  width: 100%;
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin-top: 5px;
+  margin-bottom: 2px;
+
+  padding: 0;
+}

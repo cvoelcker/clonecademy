@@ -1,0 +1,129 @@
+@import '../../../_vars';
+
+h2 {
+  text-align: left;
+  margin-top: 1em;
+  font-weight: bold;
+  padding: 0 10px;
+}
+
+h4 {
+  text-align: left;
+  margin-top: 1em;
+  font-weight: bold;
+  padding: 0 10px;
+}
+
+
+.course-description {
+  padding: 0 10px;
+}
+
+.sidenav-content {
+  padding: 0 0.5em;
+}
+
+.card {
+  //background-color: white;
+  //display: inline-block;
+  //height: auto;
+  //margin: 1rem 0;
+  //position: relative;
+  //width: 100%;
+  //box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.navigation-buttons {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  height: auto;
+  .nav-button {
+  }
+  button {
+    color: black;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  }
+}
+
+.startCourse {
+  float: right;
+}
+
+.header {
+  vertical-align: bottom;
+  width: 100%;
+  margin: 10px 0;
+  .title {
+    width: 75%;
+  }
+  .counter {
+    .chart {
+      height: 150px;
+      width: 150px;
+    }
+    height: 50px;
+    width: 25%;
+    text-align: center;
+    font-size: 1.5em;
+    span {
+      font-size: 1.6em;
+    }
+  }
+  .button {
+    width: 25%;
+    text-align: right;
+  }
+  &:after {
+    content: "";
+    display: block;
+    width: 100%;
+    clear: both;
+  }
+}
+
+body {
+  counter-reset: item;
+}
+
+ol {
+  list-style: none;
+  padding: 1em 0;
+  li {
+    position: relative;
+    &.module {
+      counter-increment: module;
+      md-card-title:before {
+        content: counter(module) ": ";
+        font-weight: bold;
+        width: 1.3em;
+        display: inline-block;
+      }
+    }
+    &.question {
+      counter-increment: question;
+      .question-button {
+        width: 100%;
+        font-weight: bold;
+        text-align: left;
+        height: auto;
+        white-space: normal;
+        background-color: white;
+      }
+    }
+  }
+}
+
+hr {
+  width: 100%;
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 2px 0;
+  padding: 0;
+}
+

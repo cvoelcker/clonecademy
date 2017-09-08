@@ -148,6 +148,11 @@ md-checkbox{
     }
 }
 
+.mat-form-field{
+  display: block;
+  width: 100%;
+}
+
 .alert{
   border-radius: 0;
   &.false{
@@ -318,5 +323,58 @@ app-add-module{
 .img-cropper{
   canvas{
     width: 100%;
+  }
+}
+
+.imageUpload{
+    img{
+      padding: 0;
+      display: block;
+      margin: 1em auto;
+  }
+}
+
+md-card{
+  margin: 1em 0;
+}
+.collapse{
+  .head{
+    cursor: pointer;
+    position: relative;
+    height: 30px;
+    &:hover{
+      background-color: $white;
+    }
+    &::after {
+        content: "expand_more";
+        font-family: 'Material Icons';
+        padding: 0;
+        text-align: center;
+        margin-top: 0;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: auto;
+        width: 30px;
+        transition: transform 400ms ease-in;
+        transform: rotateZ(90deg);
+    }
+  }
+  .details{
+    max-height: 0;
+    transition: max-height 400ms ease-in;
+    overflow: hidden;
+  }
+  &.open{
+    .head{
+      &::after{
+        transform: rotateZ(0);
+      }
+    }
+    .details{
+      max-height: 2000px;
+      transition: max-height 400ms ease-in;
+    }
   }
 }

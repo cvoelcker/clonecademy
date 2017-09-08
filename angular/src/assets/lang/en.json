@@ -49,7 +49,7 @@
   "language tipp": "You will only get Courses in the Language you chose.",
 
   "No Account? Register here": "No Account? Register here",
-  "Login with you account": "Login with you account",
+  "Login with your account": "Login with your account",
 
   "profile": "Profile",
   "learn": "Learn",
@@ -91,7 +91,7 @@
   "Date registered": "Date registered",
   "invalid email": "That is not a valid email adress.",
   "invalid username": "Invalid Username. It has to be at least 5 caracters long.",
-  "invalid password": "The Password must be at least have 5 characters.",
+  "invalid password": "The Password must have at least 5 characters.",
   "password missmatch": "The Password does not match.",
 
 

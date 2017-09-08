@@ -56,6 +56,9 @@ class MultipleChoiceQuestion(Question):
     def custom_feedback(self):
         return self.feedback_image
 
+    def get_points(self):
+        return 1
+
 
 class MultipleChoiceAnswer(models.Model):
     """

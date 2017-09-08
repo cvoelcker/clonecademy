@@ -4,12 +4,13 @@ from django.utils import timezone
 from polymorphic.models import PolymorphicModel
 
 
-# from user_model import models as ub_models
-
-
 class Profile(models.Model):
     """
+    A user profile that stores additional information about a user
     """
+    class Meta:
+        ordering = ('ranking',)
+
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
@@ -31,6 +32,7 @@ class Profile(models.Model):
         default="en"
     )
 
+<<<<<<< HEAD
     avatar = models.TextField(
         verbose_name="Avatar of the User",
         null=True,
@@ -38,29 +40,35 @@ class Profile(models.Model):
     )
 
 
+=======
+    ranking = models.IntegerField(
+        default=0
+    )
+
+>>>>>>> be20018317f635d8b74de67db065bbb43ac19779
     def get_age(self):
+        """
+        Caculates the current age of the user
+        :return: the age of the user relative to the current server date
+        """
         today = timezone.today
         return today.year - self.birth_date.year - ((today.month, today.day) <
                                                     (self.birth_date.month,
                                                      self.birth_date.day))
 
-    def __str__(self):
-        return str(self.user)
-
     def get_link_to_profile(self):
         """
         Returns the link to the users profile page
         """
-        # TODO: Implement correct user profile access string
-        return "clonecademy.net/user/{}/".format(self.user.id)
+        return "clonecademy.net/admin/profiles/{}/".format(self.user.id)
 
     def modrequest_allowed(self):
         """
         Returns True if the user is allowed to request moderator rights
         """
-        return (self.last_modrequest is None or (
-                timezone.localdate() - self.last_modrequest).days >= 7) and \
-            not self.is_mod()
+        return ((self.last_modrequest is None
+                 or (timezone.localdate() - self.last_modrequest).days >= 7)
+                and not self.is_mod())
 
     # TODO: Refactor these to a decorator
     def is_mod(self):
@@ -75,6 +83,9 @@ class Profile(models.Model):
         """
         return self.user.groups.filter(name="admin").exists()
 
+    def __str__(self):
+        return str(self.user)
+
 
 class CourseCategory(models.Model):
     """
@@ -85,6 +96,12 @@ class CourseCategory(models.Model):
         help_text="Name of the category (e.g. biochemistry)",
         max_length=144,
         unique=True,
+    )
+
+    color = models.CharField(
+        help_text="Color that is used in the category context",
+        max_length=7,
+        default="#000000"
     )
 
     def get_courses(self):
@@ -164,7 +181,8 @@ class Course(models.Model):
     description = models.CharField(
         max_length=144,
         null=True,
-        blank=True
+        blank=True,
+        default=""
     )
 
     def __str__(self):
@@ -320,6 +338,79 @@ class Question(PolymorphicModel):
     def __str__(self):
         return self.title
 
+    def get_points(self):
+        raise NotImplementedError
+
+
+class QuizQuestion(models.Model):
+    """
+    single Quiz Question with possible multiple answers
+    @author Leonhard Wiedmann
+    """
+    question = models.TextField(
+        verbose_name="quizQuestion",
+        help_text="The Question of this quiz question.",
+        default=""
+    )
+
+    image = models.TextField(
+        help_text="The image which is shown in this quiz",
+        default="",
+        blank=True
+    )
+
+    course = models.ForeignKey(
+        Course,
+        help_text="The Course of this question",
+        on_delete=models.CASCADE
+    )
+
+    def evaluate(self, data):
+        answers = self.answer_set()
+        for ans in answers:
+            if ans.correct:
+                if not data[str(ans.id)]:
+                    return False
+            if not ans.correct:
+                if data[str(ans.id)]:
+                    return False
+        return True
+
+    def answer_set(self):
+        return self.quizanswer_set.all()
+
+    def is_solvable(self):
+        for ans in self.answer_set():
+            if ans.correct:
+                return True
+        return False
+
+    def get_points(self):
+        return 2
+
+
+class QuizAnswer(models.Model):
+    """
+    Quiz answer with image and the value for correct answer
+    @author Leonhard Wiedmann
+    """
+    text = models.TextField(
+        help_text="The answer text"
+    )
+
+    img = models.TextField(
+        help_text="The image for this answer",
+        default="",
+        blank=True
+    )
+
+    correct = models.BooleanField(
+        help_text="If this answer is correct",
+        default=False
+    )
+
+    quiz = models.ForeignKey(QuizQuestion, on_delete=models.CASCADE)
+
 
 class LearningGroup(models.Model):
     """
@@ -347,6 +438,12 @@ class Try(models.Model):
 
     question = models.ForeignKey(
         Question,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+
+    quiz_question = models.ForeignKey(
+        QuizQuestion,
         null=True,
         on_delete=models.SET_NULL,
     )

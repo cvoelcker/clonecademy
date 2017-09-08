@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.utils import timezone
+from rest_framework.exceptions import ParseError
 
 from rest_framework.test import APIRequestFactory
 from rest_framework.test import force_authenticate
@@ -22,7 +23,6 @@ class DatabaseMixin():
         self.u1.groups.add(self.admin_group)
         self.u1_profile = Profile.objects.create(user=self.u1)
         self.u1.save()
-
 
         self.category = models.CourseCategory(name="test")
         self.category.save()
@@ -295,8 +295,8 @@ class CourseViewTest(DatabaseMixin, TestCase):
             InformationText.models.InformationText.objects.filter(
                 title='a question').exists())
 
-class CourseEditViewTest(DatabaseMixin, TestCase):
 
+class CourseEditViewTest(DatabaseMixin, TestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
         self.view = views.CourseView.as_view()
@@ -305,35 +305,35 @@ class CourseEditViewTest(DatabaseMixin, TestCase):
 
     def test_deleting_question(self):
         courseData = {
-                    'name': 'edit_1',
-                    'category': 'test',
-                    'difficulty': 2,
-                    'responsible_mod': 1,
-                    'responsible_mod': self.u1,
-                    'modules': [
+            'name': 'edit_1',
+            'category': 'test',
+            'difficulty': 2,
+            'responsible_mod': 1,
+            'responsible_mod': self.u1,
+            'modules': [
+                {
+                    'name': 'a module',
+                    'learning_text': 'no way',
+                    'order': 3,
+                    'questions': [
                         {
-                        'name': 'a module',
-                        'learning_text': 'no way',
-                        'order': 3,
-                        'questions':[
-                            {
                             'title': 'a question',
                             'text': 'some text',
                             'feedback': '',
                             'type': 'multiple_choice',
                             'order': 1,
-                            'answers':[
+                            'answers': [
                                 {
-                                'text': 'true',
-                                'is_correct': True
+                                    'text': 'true',
+                                    'is_correct': True
                                 },
                                 {
-                                'text': 'nope',
-                                'is_correct': False
+                                    'text': 'nope',
+                                    'is_correct': False
                                 }
                             ]
-                            },
-                            {
+                        },
+                        {
                             'title': 'this one will be removed',
                             'text': 'some text',
                             'feedback': '',
@@ -341,19 +341,19 @@ class CourseEditViewTest(DatabaseMixin, TestCase):
                             'order': 2,
                             'answers': [
                                 {
-                                'text': 'true',
-                                'is_correct': True
+                                    'text': 'true',
+                                    'is_correct': True
                                 },
                                 {
-                                'text': 'nope',
-                                'is_correct': False
+                                    'text': 'nope',
+                                    'is_correct': False
                                 }
                             ]
-                            }
-                        ]
                         }
-                    ],
-                    'language': 'en'}
+                    ]
+                }
+            ],
+            'language': 'en'}
 
         course = serializers.CourseSerializer(data=courseData)
         if not course.is_valid():
@@ -363,14 +363,16 @@ class CourseEditViewTest(DatabaseMixin, TestCase):
 
         request = self.factory.get('/courses/')
         request.user = self.u1
-        edit = serializers.CourseEditSerializer(models.Course.objects.filter(name="edit_1").first()).data
+        edit = serializers.CourseEditSerializer(
+            models.Course.objects.filter(name="edit_1").first()).data
 
         del edit['modules'][0]['questions'][1]
 
         import json
         data = json.loads(json.dumps(edit))
 
-        data['modules'][0]['questions'][0]['answers'] = data['modules'][0]['questions'][0]['question_body']['answers']
+        data['modules'][0]['questions'][0]['answers'] = \
+            data['modules'][0]['questions'][0]['question_body']['answers']
 
         del data['modules'][0]['questions'][0]['question_body']
 
@@ -382,67 +384,67 @@ class CourseEditViewTest(DatabaseMixin, TestCase):
             self.assertTrue(False)
         course.create(data)
 
-        self.assertFalse(models.Question.objects.filter(title='this one will be removed').exists())
-
+        self.assertFalse(models.Question.objects.filter(
+            title='this one will be removed').exists())
 
     def test_deleting_module(self):
         courseData = {
-                    'name': 'edit_2',
-                    'category': 'test',
-                    'difficulty': 2,
-                    'responsible_mod': 1,
-                    'responsible_mod': self.u1,
-                    'modules': [
+            'name': 'edit_2',
+            'category': 'test',
+            'difficulty': 2,
+            'responsible_mod': 1,
+            'responsible_mod': self.u1,
+            'modules': [
+                {
+                    'name': 'a module',
+                    'learning_text': 'no way',
+                    'order': 3,
+                    'questions': [
                         {
-                        'name': 'a module',
-                        'learning_text': 'no way',
-                        'order': 3,
-                        'questions':[
-                            {
                             'title': 'a question',
                             'text': 'some text',
                             'feedback': '',
                             'type': 'multiple_choice',
                             'order': 1,
-                            'answers':[
+                            'answers': [
                                 {
-                                'text': 'true',
-                                'is_correct': True
+                                    'text': 'true',
+                                    'is_correct': True
                                 },
                                 {
-                                'text': 'nope',
-                                'is_correct': False
+                                    'text': 'nope',
+                                    'is_correct': False
                                 }
                             ]
-                            },
-                        ]
                         },
+                    ]
+                },
+                {
+                    'name': 'another module',
+                    'learning_text': 'no way',
+                    'order': 4,
+                    'questions': [
                         {
-                        'name': 'another module',
-                        'learning_text': 'no way',
-                        'order': 4,
-                        'questions':[
-                            {
                             'title': 'a question',
                             'text': 'some text',
                             'feedback': '',
                             'type': 'multiple_choice',
                             'order': 1,
-                            'answers':[
+                            'answers': [
                                 {
-                                'text': 'true',
-                                'is_correct': True
+                                    'text': 'true',
+                                    'is_correct': True
                                 },
                                 {
-                                'text': 'nope',
-                                'is_correct': False
+                                    'text': 'nope',
+                                    'is_correct': False
                                 }
                             ]
-                            },
-                        ]
-                        }
-                    ],
-                    'language': 'en'}
+                        },
+                    ]
+                }
+            ],
+            'language': 'en'}
 
         course = serializers.CourseSerializer(data=courseData)
         if not course.is_valid():
@@ -452,14 +454,16 @@ class CourseEditViewTest(DatabaseMixin, TestCase):
 
         request = self.factory.get('/courses/')
         request.user = self.u1
-        edit = serializers.CourseEditSerializer(models.Course.objects.filter(name="edit_2").first()).data
+        edit = serializers.CourseEditSerializer(
+            models.Course.objects.filter(name="edit_2").first()).data
 
         del edit['modules'][1]
 
         import json
         data = json.loads(json.dumps(edit))
 
-        data['modules'][0]['questions'][0]['answers'] = data['modules'][0]['questions'][0]['question_body']['answers']
+        data['modules'][0]['questions'][0]['answers'] = \
+            data['modules'][0]['questions'][0]['question_body']['answers']
 
         del data['modules'][0]['questions'][0]['question_body']
 
@@ -471,7 +475,8 @@ class CourseEditViewTest(DatabaseMixin, TestCase):
             self.assertTrue(False)
         course.create(data)
 
-        self.assertFalse(models.Module.objects.filter(name='another module').exists())
+        self.assertFalse(
+            models.Module.objects.filter(name='another module').exists())
 
 
 class RequestViewTest(DatabaseMixin, TestCase):
@@ -550,126 +555,554 @@ class UserRightsViewTest(DatabaseMixin, TestCase):
         self.factory = APIRequestFactory()
         self.view = views.UserRightsView.as_view()
 
-        self.mod_group = Group(name="moderator")
-        self.mod_group.save()
+        self.mod_group = Group.objects.create(name="moderator")
+        self.admin_group = Group.objects.create(name="admin")
 
-        self.admin_group = Group(name="admin")
-        self.admin_group.save()
+        self.u1 = User.objects.create_user(username='user1')
+        self.u1_profile = models.Profile.objects.create(user=self.u1)
 
-        self.u1 = User(username='user1')
-        self.u1.save()
-        self.u1_profile = models.Profile(user=self.u1)
-        self.u1_profile.save()
-        self.u2 = User.objects.create(username='mod')
-
+        self.u2 = User.objects.create_user(username='mod')
         self.u2.groups.add(self.mod_group)
         self.u2.save()
-        self.u2_profile = models.Profile(user=self.u2)
-        self.u2_profile.save()
+        self.u2_profile = models.Profile.objects.create(user=self.u2)
 
-        self.u3 = User.objects.create(username='admin')
+        self.u3 = User.objects.create_user(username='admin')
         self.u3.groups.add(self.admin_group)
         self.u3.save()
-        self.u3_profile = models.Profile(user=self.u3)
-        self.u3_profile.save()
+        self.u3_profile = models.Profile.objects.create(user=self.u3)
 
-        self.u4 = User.objects.create(username="spamer")
-        self.u4.save()
-        self.u4_profile = models.Profile(user=self.u4)
-        self.u4_profile.save()
+        self.u4 = User.objects.create_user(username="spamer")
+        self.u4_profile = models.Profile.objects.create(user=self.u4)
         self.u4.profile.last_modrequest = timezone.localdate()
 
-        self.users = [self.u1,self.u2,self.u3,self.u4]
+        self.users = [self.u1, self.u2, self.u3, self.u4]
+        # bad users are those who aren't allowed to promote users
         self.bad_users = [self.u1, self.u2, self.u4]
 
-
     def test_post(self):
-        #check if 403 is correctly thrown
+        # check if 403 is correctly thrown
         requests = []
         responses = []
-        i = 0;
+        i = 0
         for request_user in self.bad_users:
-            requests.append(self.factory.post("user/"+str(self.u1.id)+"/rights",
-                    {"right":"admin","action":"promote"},
-                    format='json'))
+            requests.append(self.factory.post(
+                "user/" + str(self.u1.id) + "/rights",
+                {"right": "admin", "action": "promote"},
+                format='json')
+            )
             force_authenticate(requests[i], request_user)
             responses.append(self.view(requests[i]))
             self.assertEqual(responses[i].status_code, 403)
             self.assertFalse(self.u1.profile.is_admin())
             i += 1
 
-        #try withdrawing admin rights from every kind of user as an admin this time
-        #it should always work and the user to demote should not be
-        #in the admin group afterwards
-        """
-        requests
-        responses = []
-        i = 0;
-        for user_to_demote in self.users:
-            requests.append(self.factory.post("user/"+str(self.u1.id)+"/rights",
-                    {"right":"admin","action":"promote"},
-                    format='json'))
-            force_authenticate(requests[i], self.u3)
-            print(requests[i])
-            responses.append(self.view(requests[i]))
-            self.assertEqual(responses[i].status_code, 200)
-            self.assertFalse(user_to_demote.groups.filter(name="admin").exists())
-            i += 1
-        """
-        #the admin user u4 should still return true for the is_mod function
-        #self.assertTrue(user_to_demote.profile.is_mod)
-        """
-        requests.clear()
-        responses.clear()
-        i = 0;
+        # try withdrawing admin rights from every kind of user as an admin
+        # it should always work and the user to demote should not be
+        # in the admin group afterwards
+        for user_to_change in self.users:
+            # try withdrawing modrights
+            request2 = (self.factory.post(
+                "user/" + str(user_to_change.id) + "/rights/",
+                {"right": "moderator", "action": "demote"},
+                format='json'
+            ))
+            force_authenticate(request2, self.u3)
+            response2 = (self.view(request2, user_id=user_to_change.id))
+            self.assertEqual(response2.status_code, 200)
+            self.assertFalse(
+                user_to_change.groups.filter(name="moderator").exists()
+            )
+
+            # try withdrawing admin rights
+            request1 = (self.factory.post(
+                "user/" + str(user_to_change.id) + "/rights/",
+                {"right": "admin", "action": "demote"},
+                format='json'
+            ))
+            force_authenticate(request1, self.u3)
+            response1 = (self.view(request1, user_id=user_to_change.id))
+            self.assertEqual(response1.status_code, 200)
+            self.assertFalse(
+                user_to_change.groups.filter(name="admin").exists()
+            )
+
+            # return adminrights to the admin user if they were
+            # successfully withdrawn
+            if (not self.u3_profile.is_admin()):
+                self.u3.groups.add(self.admin_group)
+
+            # try granting modrights
+            request3 = (self.factory.post(
+                "user/" + str(user_to_change.id) + "/rights/",
+                {"right": "moderator", "action": "promote"},
+                format='json'
+            ))
+            force_authenticate(request3, self.u3)
+            response3 = (self.view(request3, user_id=user_to_change.id))
+            self.assertEqual(response3.status_code, 200)
+            self.assertTrue(
+                user_to_change.groups.filter(name="moderator").exists()
+            )
+
+            # try granting admin rights
+            request4 = (self.factory.post(
+                "user/" + str(user_to_change.id) + "/rights/",
+                {"right": "admin", "action": "promote"},
+                format='json'
+            ))
+            force_authenticate(request4, self.u3)
+            response4 = (self.view(request4, user_id=user_to_change.id))
+            self.assertEqual(response4.status_code, 200)
+            self.assertTrue(
+                user_to_change.groups.filter(name="admin").exists()
+            )
 
 
-        print(self.u1.id)
-        request = self.factory.post('user/1/rights',
-                {"right":"moderator","action":"demote"},
-                format='json')
-        force_authenticate(request, self.u3)
+class QuizTest(DatabaseMixin, TestCase):
+    def setUp(self):
+        self.factory = APIRequestFactory()
+        self.view = views.QuestionView.as_view()
+        self.setup_database()
 
-        # for some reason does the next loc throw an error, stating that the post
-        # misses the positional argument user_id which is clearly given with the url
+        # self.u1 = User(username='user1')
+        # self.u1.save()
+        # self.u1_profile = models.Profile(user=self.u1)
+        # self.u1_profile.save()
 
-        response = self.view(request)
-        assertEqual(response.status_code, 200)
-        assertFalse(self.u1_profile.is_mod())
-        """
-        """
-        for user_to_demote in self.users:
-            print("user id")
-            print(user_to_demote.id)
-            requests.append(self.factory.post("user/"+str(i)+"/rights",
-                    {"right":"admin","action":"promote"},
-                    format='json'))
-            print("===")
-            print(requests[i])
-            print("===")
-            force_authenticate(requests[i], self.u3)
+    def test_create_quiz(self):
+        # creation is possible and quiz query is sorted
+        courseData = {
+            'name': 'quiz_1',
+            'category': 'test',
+            'difficulty': 2,
+            'responsible_mod': 1,
+            'responsible_mod': self.u1,
+            'modules': [
+                {
+                    'name': 'a module',
+                    'learning_text': 'no way',
+                    'order': 3,
+                    'questions': [
+                        {
+                            'title': 'a question',
+                            'text': 'some text',
+                            'feedback': '',
+                            'type': 'multiple_choice',
+                            'order': 1,
+                            'answers': [
+                                {
+                                    'text': 'true',
+                                    'is_correct': True
+                                },
+                                {
+                                    'text': 'nope',
+                                    'is_correct': False
+                                }
+                            ]
+                        },
+                    ]
+                }
+            ],
+            "quiz": [
+                {
+                    "question": "first",
+                    "image": "",
+                    "answers": [
+                        {
+                            "text": "a sdfa sdfasd fasd fa",
+                            "img": "",
+                            "correct": True
+                        },
+                        {
+                            "text": "as dfas dasd asfd adsfa sdf",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "asdds afadsfadsf adsf ads fa dsf",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "adf asdf asdfasdf",
+                            "img": "",
+                            "correct": False
+                        }
+                    ]
+                },
+                {
+                    "question": "sadfasdfasdfas dasd fasd ",
+                    "image": "",
+                    "answers": [
+                        {
+                            "text": "sadfasdfasdfas dfasdf a",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "asd fasdf asdf asd fasd f",
+                            "img": "",
+                            "correct": True
+                        },
+                        {
+                            "text": "asdf asdf asdf asdf asd ",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "asdf asdf asd",
+                            "img": "",
+                            "correct": False
+                        }
+                    ]
+                },
+                {
+                    "question": "sadfasdfasdfas dasd fasd ",
+                    "image": "",
+                    "answers": [
+                        {
+                            "text": "sadfasdfasdfas dfasdf a",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "asd fasdf asdf asd fasd f",
+                            "img": "",
+                            "correct": True
+                        },
+                        {
+                            "text": "asdf asdf asdf asdf asd ",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "asdf asdf asd",
+                            "img": "",
+                            "correct": False
+                        }
+                    ]
+                },
+                {
+                    "question": "sadfasdfasdfas dasd fasd ",
+                    "image": "",
+                    "answers": [
+                        {
+                            "text": "sadfasdfasdfas dfasdf a",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "asd fasdf asdf asd fasd f",
+                            "img": "",
+                            "correct": True
+                        },
+                        {
+                            "text": "asdf asdf asdf asdf asd ",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "asdf asdf asd",
+                            "img": "",
+                            "correct": False
+                        }
+                    ]
+                },
+                {
+                    "question": "last",
+                    "image": "",
+                    "answers": [
+                        {
+                            "text": "sadfasdfasdfas dfasdf a",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "asd fasdf asdf asd fasd f",
+                            "img": "",
+                            "correct": True
+                        },
+                        {
+                            "text": "asdf asdf asdf asdf asd ",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "asdf asdf asd",
+                            "img": "",
+                            "correct": False
+                        }
+                    ]
+                }
+            ],
+            'language': 'en'}
 
-            responses.append(self.view(requests[i]))
-            self.assertEqual(responses[i].status_code, 200)
-            self.assertFalse(user_to_demote.profile.is_admin())
-            i += 1
-        """
+        course = serializers.CourseSerializer(data=courseData)
+        if not course.is_valid():
+            self.assertTrue(False)
+        course.create(courseData)
+        course = models.Course.objects.filter(name='quiz_1')
+        self.assertTrue(course.exists())
+        course = course.first()
+        self.assertEqual(len(course.quizquestion_set.all()), 5)
+        self.assertEqual(course.quizquestion_set.all()[0].question, "first")
+        self.assertEqual(course.quizquestion_set.all()[4].question, "last")
 
-        """
-        request_2 = self.factory.post("user/request_mod",
-                                      {"reason": "you need me"}, format='json')
-        force_authenticate(request_2, self.u2)
-        response = self.view(request_2)
+        # try accesing the quiz before answering the questions is not valid
+
+        request = self.factory.get("courses/" + str(course.id) + "/quiz/0/",
+                                   format="json")
+        force_authenticate(request, self.u1)
+
+        response = views.QuizView.as_view()(request, course_id=course.id,
+                                            quiz_id=0)
+
         self.assertEqual(response.status_code, 403)
-        self.assertTrue(self.mod_group in self.u2.groups.all())
 
-        request_3 = self.factory.post("user/request_mod",
-                                      {"reason": "you need me"}, format='json')
-        force_authenticate(request_3, self.u3)
-        response = self.view(request_3)
-        self.assertEqual(response.status_code, 403)
-        self.assertFalse(self.mod_group in self.u1.groups.all())
-        """
+        # check if return value after every question in course is done is
+        # correct
+        question = MultipleChoice.models.MultipleChoiceAnswer.objects.filter(
+            question__module__course__name="quiz_1", is_correct=True).first()
+        correct_answer = self.factory.post(
+            "courses/" + str(course.id) + "/0/0/",
+            {"answers": [question.id]}, format='json')
+        force_authenticate(correct_answer, self.u1)
+
+        response = views.QuestionView.as_view()(correct_answer,
+                                                course_id=course.id,
+                                                module_id=0, question_id=0)
+        self.assertEqual(response.data["next"], "quiz")
+
+        # send post with false or correct answer will return 200 and send to
+        # next quiz question
+
+        answer_correct = models.QuizAnswer.objects.filter(correct=True, quiz=
+        course.quizquestion_set.all()[0])
+
+        correct_answer = self.factory.post(
+            "courses/" + str(course.id) + "/quiz/0/",
+            {"answers": [(lambda x: x.id)(x) for x in answer_correct]},
+            format='json')
+        force_authenticate(correct_answer, self.u1)
+
+        response = views.QuestionView.as_view()(correct_answer,
+                                                course_id=course.id,
+                                                module_id=0, question_id=0)
+        # return value of correct answer
+        self.assertEqual(response.status_code, 200)
+
+        answer_wrong = models.QuizAnswer.objects.filter(
+            correct=False,
+            quiz=course.quizquestion_set.all()[
+                0])
+        wrong_answer = self.factory.post(
+            "courses/" + str(course.id) + "/quiz/0/",
+            {"answers": [(lambda x: x.id)(x) for x in answer_wrong]},
+            format='json')
+        force_authenticate(wrong_answer, self.u1)
+
+        response = views.QuestionView.as_view()(wrong_answer,
+                                                course_id=course.id,
+                                                module_id=0, question_id=0)
+
+        # return value of wrong answer
+        self.assertEqual(response.status_code, 200)
+
+        # creation for unsolvable quiz resolves in error
+        courseData = {
+            'name': 'quiz_2',
+            'category': 'test',
+            'difficulty': 2,
+            'responsible_mod': 1,
+            'responsible_mod': self.u1,
+            'modules': [
+                {
+                    'name': 'a module',
+                    'learning_text': 'no way',
+                    'order': 3,
+                    'questions': [
+                        {
+                            'title': 'a question',
+                            'text': 'some text',
+                            'feedback': '',
+                            'type': 'multiple_choice',
+                            'order': 1,
+                            'answers': [
+                                {
+                                    'text': 'true',
+                                    'is_correct': True
+                                },
+                                {
+                                    'text': 'nope',
+                                    'is_correct': False
+                                }
+                            ]
+                        },
+                    ]
+                },
+                {
+                    'name': 'another module',
+                    'learning_text': 'no way',
+                    'order': 4,
+                    'questions': [
+                        {
+                            'title': 'a question',
+                            'text': 'some text',
+                            'feedback': '',
+                            'type': 'multiple_choice',
+                            'order': 1,
+                            'answers': [
+                                {
+                                    'text': 'true',
+                                    'is_correct': True
+                                },
+                                {
+                                    'text': 'nope',
+                                    'is_correct': False
+                                }
+                            ]
+                        },
+                    ]
+                }
+            ],
+            "quiz": [
+                {
+                    "question": "first",
+                    "image": "", "answers": [
+                    {
+                        "text": "a sdfa sdfasd fasd fa",
+                        "img": "",
+                        "correct": False
+                    },
+                    {
+                        "text": "as dfas dasd asfd adsfa sdf",
+                        "img": "",
+                        "correct": False
+                    },
+                    {
+                        "text": "asdds afadsfadsf adsf ads fa dsf",
+                        "img": "",
+                        "correct": False
+                    },
+                    {
+                        "text": "adf asdf asdfasdf",
+                        "img": "", "correct": False
+                    }
+                ]
+                },
+                {
+                    "question": "sadfasdfasdfas dasd fasd ",
+                    "image": "",
+                    "answers": [
+                        {
+                            "text": "sadfasdfasdfas dfasdf a",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "asd fasdf asdf asd fasd f",
+                            "img": "",
+                            "correct": True
+                        },
+                        {
+                            "text": "asdf asdf asdf asdf asd ",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "asdf asdf asd",
+                            "img": "",
+                            "correct": False
+                        }
+                    ]
+                },
+                {
+                    "question": "sadfasdfasdfas dasd fasd ",
+                    "image": "",
+                    "answers": [
+                        {
+                            "text": "sadfasdfasdfas dfasdf a",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "asd fasdf asdf asd fasd f",
+                            "img": "",
+                            "correct": True
+                        },
+                        {
+                            "text": "asdf asdf asdf asdf asd ",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "asdf asdf asd",
+                            "img": "",
+                            "correct": False
+                        }
+                    ]
+                },
+                {
+                    "question": "sadfasdfasdfas dasd fasd ",
+                    "image": "",
+                    "answers": [
+                        {
+                            "text": "sadfasdfasdfas dfasdf a",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "asd fasdf asdf asd fasd f",
+                            "img": "",
+                            "correct": True
+                        },
+                        {
+                            "text": "asdf asdf asdf asdf asd ",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "asdf asdf asd",
+                            "img": "",
+                            "correct": False
+                        }
+                    ]
+                },
+                {
+                    "question": "last",
+                    "image": "",
+                    "answers": [
+                        {
+                            "text": "sadfasdfasdfas dfasdf a",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "asd fasdf asdf asd fasd f",
+                            "img": "",
+                            "correct": True
+                        },
+                        {
+                            "text": "asdf asdf asdf asdf asd ",
+                            "img": "",
+                            "correct": False
+                        },
+                        {
+                            "text": "asdf asdf asd",
+                            "img": "",
+                            "correct": False
+                        }
+                    ]
+                }
+            ],
+            'language': 'en'}
+
+        quiz = serializers.CourseSerializer(data=courseData)
+
+        self.assertTrue(quiz.is_valid())
+        with self.assertRaises(ParseError):
+            quiz.create(courseData)
+        self.assertFalse(models.Course.objects.filter(name='quiz_2').exists())
 
 
 class QuestionViewTest(DatabaseMixin, TestCase):
@@ -715,7 +1148,8 @@ class QuestionViewTest(DatabaseMixin, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data, {"evaluate": False})
 
-        can = views.QuestionView().can_access_question(self.u1, self.q2_test, 1, 1)
+        can = views.QuestionView().can_access_question(self.u1, self.q2_test,
+                                                       1, 1)
         self.assertFalse(can)
 
         # Test doesn't work because of weird behavior of testing API
@@ -730,8 +1164,10 @@ class QuestionViewTest(DatabaseMixin, TestCase):
         # self.assertTrue(can)
 
     def test_can_access_question(self):
-        can = views.QuestionView().can_access_question(self.u1, self.q1_test, 0, 0)
+        can = views.QuestionView().can_access_question(self.u1, self.q1_test,
+                                                       0, 0)
         self.assertTrue(can)
 
-        can = views.QuestionView().can_access_question(self.u1, self.q2_test, 2, 1)
+        can = views.QuestionView().can_access_question(self.u1, self.q2_test,
+                                                       2, 1)
         self.assertFalse(can)

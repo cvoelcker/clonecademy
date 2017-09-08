@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { ServerService } from '../../service/server.service';
 import { UserService } from '../../service/user.service';
@@ -19,6 +19,8 @@ export class UserDetailComponent {
   isAdmin = false;
 
   loading = true;
+
+  position = 'before';
 
   constructor(
     private route: ActivatedRoute,
@@ -56,9 +58,7 @@ export class UserDetailComponent {
                                                     "action":"promote"})
     .then(answer => {
       this.isMod = true;
-      console.log(answer)
     })
-    .catch(err => console.log(err))
   }
 
   promoteToAdmin(){
@@ -66,9 +66,7 @@ export class UserDetailComponent {
                                                     "action":"promote"})
     .then(answer => {
       this.isAdmin = true;
-      console.log(answer)
     })
-    .catch(err => console.log(err))
   }
 
   demoteToUser(){

@@ -1,5 +1,5 @@
-<div [hidden]="loading && (loadCourse != undefined || !loadCourse)">
-<form #f="ngForm" name="createCourse" (ngSubmit)="save(f)" ngNativeValidate>
+<div [hidden]="loading && (loadCourse != undefined || !loadCourse)" >
+<form #f="ngForm" name="createCourse" (ngSubmit)="save(f)" ngNativeValidate >
     <div class="form-group">
     <md-input-container>
       <input mdInput placeholder="{{'title' | translate}}" #courseTitle="ngModel" [(ngModel)]="title" name="title" type="text" required>
@@ -13,12 +13,14 @@
       <md-hint align="start" class="warning" *ngIf="f.submitted && !categorie.valid"><strong>{{'The category of the course is required' | translate}}</strong> </md-hint>
     </div>
 
-    <div>
-      <md-select placeholder='{{"language" | translate}}' #language="ngModel" [(ngModel)]="lng" name="language" required>
-        <md-option *ngFor="let l of languages"  [value]="l.id">{{l.name}}</md-option>
-      </md-select>
-      <md-hint align="start" class="warning" *ngIf="f.submitted && !categorie.valid"><strong>{{'The category of the course is required' | translate}}</strong> </md-hint>
-    </div>
+    <!--
+      <div>
+        <md-select placeholder='{{"language" | translate}}' #language="ngModel" [(ngModel)]="lng" name="language" required>
+          <md-option *ngFor="let l of languages"  [value]="l.id">{{l.name}}</md-option>
+        </md-select>
+        <md-hint align="start" class="warning" *ngIf="f.submitted && !categorie.valid"><strong>{{'The category of the course is required' | translate}}</strong> </md-hint>
+      </div>
+    -->
 
     <div>
       <md-select placeholder='{{"category" | translate}}' #categorie="ngModel" [(ngModel)]="category" name="category" required>
@@ -34,7 +36,66 @@
        <md-icon>add</md-icon> {{"add module" | translate}}
      </button>
   </div>
-  
+
+  <div class="quizWrapper" >
+    <md-card>
+      <button md-raised-button type="button" *ngIf="quiz.length == 0" (click)="createQuiz()">Add Quiz</button>
+
+      <div *ngIf="quiz.length > 0">
+        <md-card *ngFor="let q of quiz; let j = index" class="collapse" [class.open]="!q.invisible">
+          <div class="head" (click)="q.invisible = !q.invisible">
+            {{ j+1 }}: Quiz question
+          </div>
+          <div class="details">
+            <md-input-container >
+              <input mdInput placeholder="{{'question' | translate}}" [(ngModel)]="q.question" [ngModelOptions]="{standalone: true}" name="question" type="text" >
+              <md-hint align="start" class="warning" *ngIf="f.submitted && q.question == ''"><strong>{{'The question of this quiz is required' | translate}}</strong> </md-hint>
+            </md-input-container>
+
+            <div class="imageUpload">
+              <div>
+                <button md-raised-button type="button" (click)="openImageDialog(500, 500, j)"><md-icon>image</md-icon>{{" add image to question" | translate}}</button>
+                <button md-raised-button type="button" *ngIf="q.image != undefined && q.image != ''" (click)="q.image = ''">{{"remove image" | translate}}</button>
+              </div>
+              <!--<img-cropper [image]="i.img" [settings]="cropperSettings"></img-cropper><br>-->
+              <img [src]="q.image" alt="Preview" *ngIf="q.image != undefined && q.image != ''">
+            </div>
+
+            <div *ngFor="let a of q.answers; let i = index">
+              <div class="alert" [class.success]="a.correct"
+                [class.danger]="!a.correct">
+                <md-checkbox type="checkbox" name="isActive" [(ngModel)]="a.correct" [ngModelOptions]="{standalone: true}">
+                  {{"is this Answer correct?" | translate}}
+                </md-checkbox>
+                <div class="imageUpload">
+                  <div>
+                    <button md-raised-button type="button" (click)="openImageDialog(35, 35, j, i)"><md-icon>image</md-icon>{{" add image to answer" | translate}}</button>
+                    <button md-raised-button type="button" *ngIf="a.img != undefined && a.img != ''" (click)="a.img = ''">{{"remove image" | translate}}</button>
+                  </div>
+                  <!--<img-cropper [image]="i.img" [settings]="cropperSettings"></img-cropper><br>-->
+                  <img [src]="a.img" alt="Preview" *ngIf="a.img != undefined && a.img != ''">
+                </div>
+                <md-input-container>
+                  <textarea mdInput placeholder="{{'answer text' | translate}}" class="answer" [(ngModel)]="a.text" [ngModelOptions]="{standalone: true}"></textarea>
+                </md-input-container>
+              </div>
+            </div>
+            <span mdTooltip="a quiz must have at least 5 questions" [mdTooltipDisabled]="quiz.length > 5">
+              <button type="button" md-raised-button (click)="quiz.splice(j, 1)" [disabled]="quiz.length <= 5"><md-icon>delete</md-icon> {{"remove this Quiz Question" | translate}}</button>
+            </span>
+          </div>
+        </md-card>
+        <span mdTooltip="a quiz can must have not more then 20 questions" [mdTooltipDisabled]="quiz.length <= 20 ">
+          <button type="button" md-raised-button (click)="addQuizQuestion()" [disabled]="quiz.length > 20"><md-icon>add</md-icon> {{"add Quiz Question" | translate}}</button>
+        </span>
+        <div>
+          <button type="button" md-raised-button (click)="quiz = []" ><md-icon>delete</md-icon> {{"remove Quiz" | translate}}</button>
+        </div>
+      </div>
+
+    </md-card>
+  </div>
+
   <div >
     <div class="alert danger" *ngIf="f.submitted && !f.valid">
       {{"Please check the from there is something wrong." | translate}}
@@ -43,6 +104,7 @@
       <md-icon>save</md-icon> {{"save" | translate}}
     </button>
   </div>
+
 </form>
 </div>
 <div *ngIf="loading" class="localLoader">

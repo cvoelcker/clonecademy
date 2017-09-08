@@ -5,7 +5,10 @@ from .info.serializer import InformationYoutubeSerializer, \
     InformationTextSerializer
 from .multiple_choice.serializer import \
     MultipleChoiceQuestionSerializer
-from .models import *
+from .models import Question, CourseCategory, Module, Course, QuizQuestion, \
+    QuizAnswer, LearningGroup, Try, Profile
+
+from django.contrib.auth.models import User
 
 
 class AnswerSerializer(serializers.BaseSerializer):
@@ -38,9 +41,11 @@ class QuestionSerializer(serializers.ModelSerializer):
         module = obj.module
         value = super(QuestionSerializer, self).to_representation(obj)
         value['type'] = obj.__class__.__name__
+        user = self.context['request'].user
 
         # calculate the current progress of the user in a array of arrays
-        # the outer array is the module and the inner is the title of the quesiton
+        # the outer array is the module and the inner
+        # is the title of the quesiton
         # e.g [['question 1', 'question, 2'], ['quesiton 3']]
         value['progress'] = []
         answered_question_before = True
@@ -48,7 +53,7 @@ class QuestionSerializer(serializers.ModelSerializer):
             m = []
             for question in module.question_set.all():
                 if answered_question_before and question.try_set.filter(
-                        solved=True).exists():
+                        solved=True, user=user).exists():
                     m.append({"solved": True, "title": question.title})
 
                 else:
@@ -61,10 +66,8 @@ class QuestionSerializer(serializers.ModelSerializer):
         value['learning_text'] = module.learning_text
         serializer = obj.get_serializer()
         value['question_body'] = serializer(obj).data
-        user = self.context['request'].user
-        value['solved'] = obj.try_set.filter(solved=True)
-        value['solved'] = value['solved'].filter(user=user)
-        value['solved'] = value['solved'].exists()
+
+        value['solved'] = obj.try_set.filter(solved=True, user=user).exists()
 
         return value
 
@@ -96,9 +99,13 @@ class QuestionEditSerializer(serializers.ModelSerializer):
 
 
 class CourseCategorySerializer(serializers.ModelSerializer):
+
     class Meta:
         model = CourseCategory
-        fields = ('name', "id",)
+        fields = ('name', "color", "id",)
+
+    color = serializers.RegexField(r'^#[a-fA-F0-9]{6}', max_length=7,
+                                   min_length=7, allow_blank=False)
 
 
 class ModuleEditSerializer(serializers.ModelSerializer):
@@ -140,6 +147,10 @@ class ModuleSerializer(serializers.ModelSerializer):
         """
         questions = validated_data.pop('questions')
 
+        module = Module(**validated_data)
+        module.course = validated_data['course']
+        module.save()
+
         question_id = []
         # create a array with the ids for all questions of this module
         for quest in questions:
@@ -156,9 +167,7 @@ class ModuleSerializer(serializers.ModelSerializer):
             for q in query_questions:
                 if q.id not in question_id:
                     q.delete()
-        module = Module(**validated_data)
-        module.course = validated_data['course']
-        module.save()
+
         for question in questions:
             question['module'] = module
             question_serializer = QuestionSerializer(data=question)
@@ -174,7 +183,8 @@ class CourseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Course
-        fields = ('name', 'difficulty', 'id', 'language', 'category')
+        fields = ('name', 'difficulty', 'id', 'language', 'category',
+                  'description')
 
     def to_representation(self, obj):
         """
@@ -214,6 +224,9 @@ class CourseSerializer(serializers.ModelSerializer):
         questions.
         """
         modules = validated_data.pop('modules')
+        quiz = False
+        if 'quiz' in validated_data:
+            quiz = validated_data.pop('quiz')
 
         # check if course is empty and raise error if so
         if len(modules) <= 0:
@@ -224,6 +237,35 @@ class CourseSerializer(serializers.ModelSerializer):
         validated_data['category'] = category
         course = Course(**validated_data)
         course.save()
+
+        # add quiz to a course
+        if quiz is not False:
+            try:
+                if len(quiz) >= 5 and len(quiz) <= 20:
+                    # delete quiz
+                    quiz_id = []
+                    for q in quiz:
+                        if 'id' in q:
+                            quiz_id.append(q['id'])
+                    if quiz_id:
+                        for q in course.quizquestion_set.all():
+                            if q.id not in quiz_id:
+                                q.delete()
+
+                    for q in quiz:
+
+                        quiz_serializer = QuizSerializer(data=q)
+                        if not quiz_serializer.is_valid():
+                            raise ParseError(
+                                detail=str(quiz_serializer.errors),
+                                code=None)
+                        else:
+                            q['course'] = course
+                            quiz_serializer.create(q)
+            except ParseError as e:
+                if 'id' not in validated_data:
+                    course.delete()
+                raise ParseError(detail=e.detail, code=None)
 
         # create a array with the ids for all module ids of this course
         module_id = []
@@ -255,7 +297,8 @@ class CourseSerializer(serializers.ModelSerializer):
                     module_serializer.create(module)
             return True
         except ParseError as e:
-            course.delete()
+            if 'id' not in validated_data:
+                course.delete()
             raise ParseError(detail=e.detail, code=None)
 
 
@@ -274,6 +317,72 @@ class CourseEditSerializer(serializers.ModelSerializer):
         all_modules = obj.module_set.all()
         modules = ModuleEditSerializer(all_modules, many=True).data
         value['modules'] = modules
+
+        all_quiz = obj.quizquestion_set.all()
+        quiz = QuizSerializer(all_quiz, many=True, context={"edit": True}).data
+        value['quiz'] = quiz
+
+        return value
+
+
+class QuizSerializer(serializers.ModelSerializer):
+    """
+    Quiz Serializer for a single quiz question
+    @author Leonhard Wiedmann
+    """
+
+    class Meta:
+        model = QuizQuestion
+        fields = ('question', 'image', 'id',)
+
+    def create(self, validated_data):
+        if 'answers' not in validated_data:
+            return False
+        answers = validated_data.pop('answers')
+        quiz = QuizQuestion(**validated_data)
+        quiz.save()
+        try:
+            if len(answers) != 4:
+                raise ParseError(detail="Quiz must have 4 answers", code=None)
+            for ans in answers:
+                quiz_answer_serializer = QuizAnswerSerializer(data=ans)
+                if not quiz_answer_serializer.is_valid():
+                    raise ParseError(detail=str(quiz_answer_serializer.errors),
+                                     code=None)
+                else:
+                    ans['quiz'] = quiz
+                    quiz_answer_serializer.create(ans)
+            if not quiz.is_solvable():
+                raise ParseError(detail="This quiz is not solvable", code=None)
+        except ParseError as e:
+            quiz.delete()
+            raise ParseError(detail=e.detail, code=None)
+
+    def to_representation(self, obj):
+        value = super(QuizSerializer, self).to_representation(obj)
+        value['answers'] = QuizAnswerSerializer(obj.answer_set(), many=True,
+                                                context=self.context).data
+        return value
+
+
+class QuizAnswerSerializer(serializers.ModelSerializer):
+    """
+    Quiz Answer Serializer
+    @author Leonhard Wiedmann
+    """
+
+    class Meta:
+        model = QuizAnswer
+        fields = ('text', 'img', 'id')
+
+    def create(self, validated_data):
+        quiz_answer = QuizAnswer(**validated_data)
+        quiz_answer.save()
+
+    def to_representation(self, obj):
+        value = super(QuizAnswerSerializer, self).to_representation(obj)
+        if 'edit' in self.context and self.context['edit']:
+            value['correct'] = obj.correct
         return value
 
 
@@ -303,17 +412,28 @@ class UserSerializer(serializers.ModelSerializer):
     def to_representation(self, obj):
         value = super(UserSerializer, self).to_representation(obj)
 
+        if 'language' not in value:
+            value['language'] = "en"
         p = Profile.objects.filter(user=obj).first()
         value['language'] = p.language
+<<<<<<< HEAD
         value['avatar'] = p.avatar
+=======
+        value['ranking'] = p.ranking
+>>>>>>> be20018317f635d8b74de67db065bbb43ac19779
         return value
 
     def create(self, validated_data):
         profile_data = validated_data.pop('profile')
         validated_data.pop('groups')
         # TODO add language to profile
+<<<<<<< HEAD
         profile_data['language'] = validated_data.pop('language')
         profile_data['avatar'] = validated_data.pop('avatar')
+=======
+        if 'language' in profile_data:
+            profile_data['language'] = validated_data.pop('language')
+>>>>>>> be20018317f635d8b74de67db065bbb43ac19779
         user = User.objects.create_user(**validated_data)
         profile = Profile(user=user, **profile_data)
         profile.save()
@@ -377,3 +497,25 @@ class StatisticsOverviewSerializer(serializers.BaseSerializer):
             if question_entry:
                 all_questions.append(question_entry)
         return all_questions
+
+
+class RankingSerializer(serializers.BaseSerializer):
+    """
+    A serializer for all rankings
+    :author: Claas Voelcker
+    """
+
+    def to_representation(self, instance):
+        """
+        a serialization of profile rankings
+        :param instance: an ordered profile list
+        :return: a dictionary with ranking information
+        """
+        value = []
+        for profile in instance:
+            value.append({
+                'name': profile.user.username,
+                'id': profile.id,
+                'ranking': profile.ranking
+            })
+        return value

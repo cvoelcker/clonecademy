@@ -25,7 +25,7 @@ export class ProfilesComponent implements OnInit {
   constructor(private server: ServerService, private router: Router) { }
 
   ngOnInit() {
-    // load the data for the current user
+    // load the data for all users
     this.server.get("user/", true)
       .then(data => {
         this.profiles = data;

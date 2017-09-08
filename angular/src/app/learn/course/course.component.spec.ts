@@ -2,9 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BaseTest } from '../../base-test';
 
-import { SassHelperComponent } from '../../service/sass-helper/sass-helper'
-
-import { ChartsModule } from 'ng2-charts';
 
 import { CourseComponent } from './course.component';
 
@@ -15,9 +12,9 @@ describe('CourseComponent', () => {
   beforeEach(async(() => {
     let base = new BaseTest();
       TestBed.configureTestingModule({
-        imports: [ base.imports(), ChartsModule ],
+        imports: [ base.imports(), ],
         providers: [base.providers()],
-      declarations: [ CourseComponent, SassHelperComponent ]
+      declarations: [ CourseComponent, ]
     })
     .compileComponents();
   }));

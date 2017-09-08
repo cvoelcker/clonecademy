@@ -17,3 +17,5 @@ admin.site.register(MultipleChoiceAnswer)
 admin.site.register(InformationText)
 admin.site.register(InformationYoutube)
 
+admin.site.register(QuizQuestion)
+admin.site.register(QuizAnswer)

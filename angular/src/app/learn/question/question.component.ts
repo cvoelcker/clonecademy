@@ -63,6 +63,7 @@ export class QuestionComponent implements OnInit, OnDestroy{
   feedbackIterator = 0;
   progress: Array<Array<string>>
   allQuestionsInCourse: number
+  submitResponse = {};
 
   dashboard = false;
   private ngUnsubscribe: Subject<void> = new Subject<void>(); // = new Subject(); in Typescript 2.2-2.4
@@ -75,18 +76,10 @@ export class QuestionComponent implements OnInit, OnDestroy{
     private factory: ComponentFactoryResolver,
     private dialog: MdDialog
   ) {
-    this.route.params.subscribe((data: Params) => {
-      this.courseID = Number(data.id);
-      this.moduleIndex = Number(data.module);
-      this.questionIndex = data.question;
-    })
-    this.loadQuestion();
+    this.loadQuestion()
   }
 
   ngOnInit(){
-    this.router.events.takeUntil(this.ngUnsubscribe).subscribe((event) => {
-      this.loadQuestion()
-    })
   }
 
   ngOnDestroy(){
@@ -95,8 +88,13 @@ export class QuestionComponent implements OnInit, OnDestroy{
   }
 
   loadQuestion(){
-    this.server.get("courses/"+this.courseID+"/"+ (Number(this.moduleIndex) -1) + "/" + (Number(this.questionIndex) - 1 )).then(data => {
-      this.setupQuestion(data)
+    this.route.params.subscribe((data: Params) => {
+      this.courseID = Number(data.id);
+      this.moduleIndex = Number(data.module);
+      this.questionIndex = data.question;
+      this.server.get("courses/"+this.courseID+"/"+ (Number(this.moduleIndex) -1) + "/" + (Number(this.questionIndex) - 1 )).then(data => {
+        this.setupQuestion(data)
+      })
     })
   }
 
@@ -138,6 +136,7 @@ export class QuestionComponent implements OnInit, OnDestroy{
 
   evaluteAnswer(data){
 
+    this.submitResponse = data
     this.submitCorrect = data['evaluate']
     this.submitSend = true;
 
@@ -146,12 +145,7 @@ export class QuestionComponent implements OnInit, OnDestroy{
       this.questionModule.block();
       this.questionModule.feedback = data.custom_feedback
 
-      if (this.title != ""){
-        this.progress[this.moduleIndex - 1][this.questionIndex - 1] = this.title
-      }
-      else {
-        this.progress[this.moduleIndex - 1][this.questionIndex - 1] = "solved"
-      }
+      this.progress[this.moduleIndex - 1][this.questionIndex - 1]["solved"] = true
       // the answer is correct and the correct Feedback will be set
       if(data['feedback'] != ""){
         this.correctFeedback = data['feedback']
@@ -175,15 +169,19 @@ export class QuestionComponent implements OnInit, OnDestroy{
 
   next(){
     // if this is not the last question of a module add 1 to the index
-    if(!this.lastQuestion){
+    if(this.submitResponse["next"] === "question"){
       this.questionIndex ++;
     }
     // if this is the last Question but not the last module add one to module and start the question counter at 1
-    else if(!this.lastModule){
+    else if(this.submitResponse["next"] === "module"){
       this.moduleIndex ++;
       this.questionIndex = 1;
     }
-    else{
+    else if(this.submitResponse["next"] === "quiz"){
+      this.router.navigateByUrl("/course/quiz/"+this.courseID+"/0")
+      return
+    }
+    else {
       // TODO add a feedback for the course here
       this.router.navigateByUrl("/course")
       return;

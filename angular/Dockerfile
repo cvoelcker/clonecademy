@@ -8,4 +8,7 @@ COPY package.json /angular/
 
 ADD . /angular
 
-RUN npm i -s
+RUN rm /angular/package-lock.json
+RUN rm -rf angular/node-module
+
+RUN npm i

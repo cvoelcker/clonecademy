@@ -41,6 +41,7 @@ export class EditCourseComponent extends CreateCourseComponent {
       super.setLanguage(data['language'])
       super.setDifficulty(data['difficulty'])
       super.clearModule()
+      this.quiz = data['quiz']
       for(let i = 0; i < data['modules'].length; i++){
         let module = data['modules'][i]
         super.addModule(module['id'], module['name'], module['learning_text'], module['questions'])
@@ -55,13 +56,17 @@ export class EditCourseComponent extends CreateCourseComponent {
   save(f){
     let saveModules = this.saveModules(f)
     if(f.valid){
+      for(let q of this.quiz ){
+        delete q.invisible;
+      }
       let course = {
         id: Number(this.id),
         name: f.value['title'],
         difficulty: f.value['difficulty'],
         language: f.value["language"],
         category: f.value['category'],
-        modules: saveModules
+        modules: saveModules,
+        quiz: this.quiz
       };
       this.uploadState(course);
     }
