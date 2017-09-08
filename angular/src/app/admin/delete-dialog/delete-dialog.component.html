@@ -1,5 +1,5 @@
 <h1 md-dialog-title>Confirm Deletion</h1>
-<div md-dialog-content>
+<div md-dialog-content *ngIf="data!=null && data!=undefined">
   Deleting {{data.category.name}} results in deletion of the following:
 
   <ul *ngIf='courses != undefined'>
@@ -7,19 +7,10 @@
       {{c.name}}
     </li>
   </ul>
-
-<!---
-  <ul>
-    <li>
-      <span *ngIf="data.animal === 'panda'">&#10003;</span> Panda
-    </li>
-    <li>
-      <span *ngIf="data.animal === 'unicorn'">&#10003;</span> Unicorn
-    </li>
-    <li>
-      <span *ngIf="data.animal === 'lion'">&#10003;</span> Lion
-    </li>
-  </ul>
-
--->
+</div>
+<div md-dialog-content>
+  <div md-dialog-actions>
+    <button md-button [md-dialog-close]="data.animal" tabindex="2">Ok</button>
+    <button md-button (click)="onNoClick()" tabindex="-1">No Thanks</button>
+  </div>
 </div>

@@ -25,6 +25,7 @@ export class CourseCategoriesComponent implements OnInit {
   error = false;
   errorMessage = "";
 
+  dialogRef: any;
 
 
   constructor(private server: ServerService, private router: Router,
@@ -63,23 +64,15 @@ export class CourseCategoriesComponent implements OnInit {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       height: '350px',
       data: this.courses
-    });
+    })
     console.log('dialog opened')
 
-    dialogRef.afterClosed().subscribe(result => {
+    this.dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
     console.log('got result')
 
-    /*
-    this.server.post('get-course-categories/',{
-      "delete": "true",
-      "id": this.selected.id}
-    )*/
   }
-
-
-
 
   // register the updated category
   register(value){
