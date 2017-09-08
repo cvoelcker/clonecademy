@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { BaseTest } from './base-test';
 
 describe('AppComponent', () => {
-  let base = new BaseTest();
+  const base = new BaseTest();
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
