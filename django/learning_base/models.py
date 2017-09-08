@@ -56,9 +56,9 @@ class Profile(models.Model):
         """
         Returns True if the user is allowed to request moderator rights
         """
-        return (self.last_modrequest is None or (
-            timezone.localdate() - self.last_modrequest).days >= 7) and \
-               not self.is_mod()
+        return ((self.last_modrequest is None
+                 or (timezone.localdate() - self.last_modrequest).days >= 7)
+                and not self.is_mod())
 
     # TODO: Refactor these to a decorator
     def is_mod(self):
@@ -86,6 +86,12 @@ class CourseCategory(models.Model):
         help_text="Name of the category (e.g. biochemistry)",
         max_length=144,
         unique=True,
+    )
+
+    color = models.CharField(
+        help_text="Color that is used in the category context",
+        max_length=7,
+        default="#000000"
     )
 
     def get_courses(self):

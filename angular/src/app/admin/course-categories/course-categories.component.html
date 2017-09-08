@@ -1,0 +1,76 @@
+<h2>Course Categories</h2>
+<h3>Create, delete or update</h3>
+<br>
+<!--
+<input #ignoredInput [(colorPicker)]="color"
+       [(cpToggle)]="toggle"
+       [style.background]="color"
+       [cpIgnoredElements]="[ignoredButton, ignoredInput]"/>
+
+<button (click)="toggle=!toggle;lastColor=color"
+         #ignoredButton></button>
+-->
+<md-select [(ngModel)]="selected"
+           placeholder='{{"select a category" | translate}}'
+           floatPlaceholder="never">
+  <md-option (click)="openCreate()"><i>create new</i></md-option>
+  <md-option *ngFor="let c of categories" (click)="change(c)" [value]="c.name">{{c.name}}</md-option>
+</md-select>
+
+<div *ngIf="loading == false && selected != undefined && create == false">
+  <br>
+  <h4>{{selected.name}}</h4>
+  <br>
+
+
+  <form #f="ngForm" name="register" (ngSubmit)="register(f)">
+
+    <md-input-container>
+      <input mdInput placeholder='Category name ({{selected.name}})' type="text" pattern="[a-zA-Z0-9-._]+" name='name'[(ngModel)]="categoryname" required />
+      <md-hint align="start" *ngIf="nameTaken && f.submitted" class="warning">
+        <strong>{{"name already taken" | translate}}</strong>
+      </md-hint>
+    </md-input-container>
+
+    <md-input-container>
+      <input mdInput placeholder='Category color ({{selected.color}})' type="text" pattern="#[a-fA-F0-9]{6}" name='color'[(ngModel)]="categorycolor" required/>
+      <!---
+      <md-hint align="start" *ngIf="f.submitted" class="warning">
+        <strong>{{"color must be a # and 6 trailing digits long" | translate}}</strong>
+      </md-hint>
+      --->
+    </md-input-container>
+
+    <button [disabled]="loading" type="submit" md-raised-button class=" ">{{"save" | translate}}</button>
+    <button [disabled]="loading" md-raised-button class=" " (click)="delete()">{{"delete" | translate}}</button>
+
+  </form>
+</div>
+<div *ngIf="loading == false && create == true">
+  <br>
+  <h4>Create a new category</h4>
+  <br>
+  <form #f="ngForm" name="register" (ngSubmit)="register(f)">
+
+    <md-input-container>
+      <input mdInput placeholder='Category name' type="text" name='name'[(ngModel)]="categoryname"/>
+      <md-hint align="start" *ngIf="nameTaken && f.submitted" class="warning">
+        <strong>{{"name already taken" | translate}}</strong>
+      </md-hint>
+    </md-input-container>
+
+    <md-input-container>
+      <input mdInput placeholder='Category color' type="text" pattern="#[a-fA-F0-9]{6}" name='color'[(ngModel)]="categorycolor"/>
+      <!---
+      <md-hint align="start" *ngIf="f.submitted" class="warning">
+        <strong>{{"color must be a # and 6 trailing digits long" | translate}}</strong>
+      </md-hint>
+      --->
+    </md-input-container>
+
+    <button [disabled]="loading" type="submit" md-raised-button class=" ">{{"create" | translate}}</button>
+
+  </form>
+</div>
+
+<router-outlet></router-outlet>
