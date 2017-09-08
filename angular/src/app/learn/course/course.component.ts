@@ -18,6 +18,7 @@ export class CourseComponent implements OnInit {
   lastCourse = [1, 1];
   numAnswered: number;
   numQuestions: number;
+  description: string;
   @Input() sidemenu: any;
 
   //Pie
@@ -82,6 +83,7 @@ public chartHovered(e:any):void {
         this.numAnswered = data['num_answered']
         this.name = data['name'];
         this.modules = data['modules'];
+        this.description = data['description']
         //this.pieChartData = [this.numAnswered, this.numQuestions-this.numAnswered]
 
         let lastModule = this.modules[this.modules.length - 1]

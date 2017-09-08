@@ -142,6 +142,7 @@ export class CreateCourseComponent {
   lng: string;
   categories: {};
   category: number;
+  description: string;
 
   difficultys: Array<{ value: number, name: string }> = [
     {value: 0, name: 'Easy'},
@@ -162,6 +163,10 @@ export class CreateCourseComponent {
 
   setDifficulty(id: number) {
     this.diff = id
+  }
+
+  setDescription(value: string){
+    this.description = value;
   }
 
   title: string;
@@ -263,7 +268,8 @@ export class CreateCourseComponent {
         language: f.value['language'],
         category: f.value['category'],
         modules: saveModules,
-        quiz: this.quiz
+        quiz: this.quiz,
+        description: this.description
       };
       this.uploadState(course);
     }

@@ -36,6 +36,7 @@ export class EditCourseComponent extends CreateCourseComponent {
     // this variable has to be set for the progress loader
     super.setCourseTrue(false)
     this.server.get('courses/'+(Number(id))+'/edit', true, false).then(data => {
+      super.setDescription(data['description'])
       super.setCategory(data['category'])
       super.setTitle(data['name'])
       super.setLanguage(data['language'])
@@ -66,7 +67,8 @@ export class EditCourseComponent extends CreateCourseComponent {
         language: f.value["language"],
         category: f.value['category'],
         modules: saveModules,
-        quiz: this.quiz
+        quiz: this.quiz,
+        description: this.description
       };
       this.uploadState(course);
     }

@@ -307,7 +307,7 @@ class CourseEditSerializer(serializers.ModelSerializer):
         fields = (
             "name", "id", "category", "difficulty", "language",
             "responsible_mod",
-            "is_visible")
+            "is_visible", "description")
 
     def to_representation(self, obj):
         value = super(CourseEditSerializer, self).to_representation(obj)

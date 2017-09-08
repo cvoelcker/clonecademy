@@ -2,22 +2,13 @@
   <div class="sidenav-content">
 
     <div class="card">
-      <div disableRipple class="navigation-buttons">
-        <div class="nav-button">
-          <button md-fab routerLink="/course/{{id}}">
-            <md-icon>home</md-icon>
-          </button>
-        </div>
-        <div class="nav-button">
-          <button md-fab routerLink="/profile">
+      <div class="navigation-buttons">
+          <!--<a routerLink="/profile">
             <md-icon>person_outline</md-icon>
-          </button>
-        </div>
-        <div class="nav-button">
-          <button md-fab (click)="closeSidemenu()">
+          </a>-->
+          <a (click)="closeSidemenu()">
             <md-icon>close</md-icon>
-          </button>
-        </div>
+          </a>
       </div>
       <h2>
         {{name}}
@@ -39,25 +30,13 @@
               <div [class.success]="q.solved">
                 <button
                   md-button
+                  [disabled]="!(q.solved || (i == 0 && j == 0) || (((j >= 1) && modules[i].questions[j-1].solved || (i >= 1 && modules[i-1].questions[0].solved) ))) "
                   class="question-button"
-                  *ngIf="q.solved || (m.questions[j - 1] != undefined && m.questions[j -
-                1].solved && sidemenu != undefined) || (sidemenu != undefined
-                && modules[i-1] != undefined &&
-                modules[i-1].questions[modules[i-1].questions.length -
-                1].solved && j <= 0) || (i == 0 && j == 0 && sidemenu !=
-                undefined)"
                   (click)="closeSidemenu()"
                   routerLink="/course/{{id}}/{{i+1}}/{{j+1}}">
-                  <md-icon *ngIf="q.solved">check_circle</md-icon>
+                  <b>{{ j + 1 }}: </b>
+                  <!--<md-icon *ngIf="q.solved">done</md-icon>-->
                   {{ q.title }}
-                </button>
-                <button
-                  md-button disabled
-                  class="question-button"
-                  *ngIf="!(q.solved || (m.questions[j - 1] != undefined && m.questions[j - 1].solved && sidemenu != undefined) || (sidemenu != undefined && modules[i-1] != undefined && modules[i-1].questions[modules[i-1].questions.length - 1].solved && j <= 0) || (i == 0 && j == 0 && sidemenu != undefined))"
-                  (click)="closeSidemenu()"
-                  routerLink="/course/{{id}}/{{i+1}}/{{j+1}}">
-                  <p>{{ q.title }}</p>
                 </button>
               </div>
             </li>
