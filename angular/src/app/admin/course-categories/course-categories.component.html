@@ -26,7 +26,7 @@
   <form #f="ngForm" name="register" (ngSubmit)="register(f)">
 
     <md-input-container>
-      <input mdInput placeholder='Category name ({{selected.name}})' type="text" pattern="[a-zA-Z0-9-._]+" name='name'[(ngModel)]="categoryname" required />
+      <input mdInput placeholder='Category name ({{selected.name}})' type="text" name='name'[(ngModel)]="categoryname" required />
       <md-hint align="start" *ngIf="nameTaken && f.submitted" class="warning">
         <strong>{{"name already taken" | translate}}</strong>
       </md-hint>
