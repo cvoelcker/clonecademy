@@ -1,6 +1,6 @@
 import { Component, Inject, Optional } from '@angular/core';
 
-import {MD_DIALOG_DATA} from '@angular/material';
+import {MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-delete-dialog',
@@ -11,12 +11,18 @@ export class DeleteDialogComponent {
 
   courses: any;
 
-  constructor(@Optional() @Inject(MD_DIALOG_DATA) public data: string) {
-    if(data != undefined){
+  constructor(@Optional() public dialogRef: MdDialogRef<DeleteDialogComponent>, @Inject(MD_DIALOG_DATA) public data: string) {
+    if(data != null){
       this.courses=data
+    } else {
+      this.courses = {}
     }
   }
 
   ngOnInit() {
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 };
