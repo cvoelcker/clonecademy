@@ -3,6 +3,14 @@
     <a md-tab-link *ngIf="user.isAdmin()"  routerLink="/admin/" [routerLinkActive]="['active']">{{"admin" | translate}}</a>
     <a md-tab-link  routerLink="/profile/" [routerLinkActive]="['active']">{{"profile" | translate}}</a>
     <a md-tab-link  routerLink="/course/" [routerLinkActive]="['active']">{{"learn" | translate}}</a>
+    <!-- <a type="quick" md-tab-link (click)="openDialog()"><img [src]="user.data.avatar"><md-icon>keyboard_arrow_down</md-icon></a> -->
+    <img [src]="user.data.avatar">
+    <md-select placeholder="v">
+      <md-option ><img [src]="user.data.avatar">{{user.data.username}}(Rank?)</md-option>
+      <md-option md-button routerLink="/profile/details" [routerLinkActive]="['active']">View Profile</md-option>
+      <md-option md-button (click)="user.logout()">{{"logout" | translate}}</md-option>
+    </md-select>
+
   </span>
 
   <span *ngIf="!user.login">
@@ -10,7 +18,4 @@
     <a md-tab-link routerLink="/register/" [routerLinkActive]="['active']">{{"register" | translate}}</a>
   </span>
 
-  <button md-icon-button routerLink="/about">
-    <md-icon>info</md-icon>
-  </button>
 </nav>
