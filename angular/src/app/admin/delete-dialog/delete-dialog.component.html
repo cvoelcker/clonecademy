@@ -2,9 +2,9 @@
 <div md-dialog-content>
   Deleting {{data.category.name}} results in deletion of the following:
 
-  <ul>
-    <li *ngFor="let m of menu">
-      <button md-button [routerLinkActive]="['active']" [routerLink]="'/admin/' + m.url">{{m.name}}</button>
+  <ul *ngIf='courses != undefined'>
+    <li *ngFor='let c of courses'>
+      {{c.name}}
     </li>
   </ul>
 

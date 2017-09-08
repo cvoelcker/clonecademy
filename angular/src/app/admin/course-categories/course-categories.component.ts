@@ -1,13 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MdDialog } from '@angular/material';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component'
 
 import { ServerService } from '../../service/server.service';
 
 import { Router } from "@angular/router"
-/*
-import { UserDetailComponent } from '../user-detail/user-detail.component'
-*/
-//import { UserDetailComponent } from '../user-detail/user-detail.component'
 
 @Component({
   selector: 'app-course-categories',
@@ -22,6 +19,8 @@ export class CourseCategoriesComponent implements OnInit {
   selected: any;
 
   categories: any;
+
+  courses: any;
 
   error = false;
   errorMessage = "";
@@ -53,13 +52,35 @@ export class CourseCategoriesComponent implements OnInit {
   }
 
   delete(){
-    this.openDialog()
+    console.log("delete init")
+    this.server.post('courses/', {"category":this.selected.name, "type":"",
+    "language":""}, false, false)
+      .then(answer => {
+        this.courses = answer;
+      })
+
+
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      height: '350px',
+      data: this.courses
+    });
+    console.log('dialog opened')
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+    console.log('got result')
+
     /*
     this.server.post('get-course-categories/',{
       "delete": "true",
       "id": this.selected.id}
     )*/
   }
+
+
+
+
   // register the updated category
   register(value){
     console.log(value)
@@ -87,20 +108,12 @@ export class CourseCategoriesComponent implements OnInit {
     }
   }
 
-  openDialog() {
-    const dialogRef = this.dialog.open(DialogContentDeleteDialogComponent, {
-      height: '350px'
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
 };
-
+/*
 @Component({
   selector: 'app-course-categories',
   templateUrl: './delete-dialog.html',
   styleUrls: ['./course-categories.component.sass']
 })
 export class DialogContentDeleteDialogComponent {}
+*/

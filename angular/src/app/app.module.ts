@@ -58,7 +58,7 @@ import { RankingListComponent } from './profile/ranking-list/ranking-list.compon
 import { RequestModComponent } from './profile/request-mod/request-mod.component';
 import { QuestionModule } from './learn/question/question.module';
 import { CourseCategoriesComponent } from './admin/course-categories/course-categories.component';
-import { DialogContentDeleteDialogComponent } from './admin/course-categories/course-categories.component';
+import { DeleteDialogComponent } from './admin/delete-dialog/delete-dialog.component';
 import { ProfilesComponent } from './admin/profiles/profiles.component';
 import { UserDetailComponent } from './admin/user-detail/user-detail.component';
 import { UserDetailUserComponent } from './profile/user-detail-user/user-detail-user.component'
@@ -226,6 +226,7 @@ const QuestionList = QuestionDictionary.questionComponents
     QuestionSidenavComponent,
     QuizQuestionComponent,
     CourseCategoriesComponent,
+    DeleteDialogComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -288,10 +289,11 @@ const QuestionList = QuestionDictionary.questionComponents
     UserDetailComponent,
     // admin Page components
     ProfilesComponent,
-    DialogContentDeleteDialogComponent,
+
     // you have to add all modules for questions here
     QuestionList,
     CourseViewComponent,
+    DeleteDialogComponent,
   ]
 })
 export class AppModule { }
