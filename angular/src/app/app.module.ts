@@ -215,13 +215,10 @@ let QuestionList = QuestionDictionary.questionComponents
     CourseViewComponent,
     FooterMainpageComponent,
     DialogComponent,
-<<<<<<< HEAD
-=======
     QuestionSidenavComponent,
     QuizQuestionComponent,
     CourseCategoriesComponent,
     DeleteDialogComponent
->>>>>>> dialogbox for quickview edited, user details edited little changes in navigation bar
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

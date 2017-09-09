@@ -10,6 +10,10 @@ from polymorphic.models import PolymorphicModel
 class Profile(models.Model):
     """
     """
+
+    class Meta:
+        ordering = ('ranking',)
+
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,

@@ -16,7 +16,6 @@ import datetime
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
@@ -27,7 +26,6 @@ SECRET_KEY = ')rk-&qz12q$_!@df#*fn8n_)^hu!b*8ip*s@2s!gg2(73!(gda'
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-
 
 # Application definition
 
@@ -44,7 +42,7 @@ INSTALLED_APPS = (
     'corsheaders',
     'learning_base',
     'polymorphic'
-    )
+)
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
@@ -79,7 +77,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'clonecademy.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
@@ -125,7 +122,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/

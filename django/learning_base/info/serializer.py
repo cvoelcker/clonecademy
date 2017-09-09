@@ -28,7 +28,8 @@ class InformationYoutubeSerializer(serializers.ModelSerializer):
     """
 
     """ID extraction pattern"""
-    pattern = compile(r'(?:http(?:s)?)?:\/\/(?:www\.)?(?:youtu\.be|youtube\.com)?\/(?:watch\?v=|embed\/)?(.*)')
+    pattern = compile(
+        r'(?:http(?:s)?)?:\/\/(?:www\.)?(?:youtu\.be|youtube\.com)?\/(?:watch\?v=|embed\/)?(.*)')
 
     class Meta:
         model = InformationYoutube
