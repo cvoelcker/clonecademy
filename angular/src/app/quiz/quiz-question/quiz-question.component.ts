@@ -16,11 +16,13 @@ export class QuizQuestionComponent implements OnInit {
 
   courseID: number = -1;
   quiz: number = -1;
-  data = {}
+  data: any;
+  id: number = 0;
+  answers = []
+  quizSize = 0;
 
   constructor(private router: Router, public server: ServerService, private route: ActivatedRoute) {
-
-    this.load();
+    this.load()
   }
 
   /**
@@ -30,9 +32,10 @@ export class QuizQuestionComponent implements OnInit {
   load(){
     this.route.params.subscribe((data: Params) => {
       this.courseID = Number(data.id)
-      this.quiz = Number(data.quiz)
-      this.server.get('courses/' + this.courseID + '/quiz/' + this.quiz + '/').then((data) => {
+      this.server.get('courses/' + this.courseID + '/quiz/').then((data) => {
         this.data = data
+        this.quizSize = this.data.length
+        this.id = 0
       })
     })
   }
@@ -46,25 +49,28 @@ export class QuizQuestionComponent implements OnInit {
   **/
   submit(){
     let value = {}
-    for(let i = 0; i < this.data['answers'].length; i++){
-      if (this.data['answers'][i].chosen != undefined){
-        value[this.data['answers'][i].id] = this.data['answers'][i].chosen
+    let item = this.data[this.id]
+    for(let i = 0; i < item['answers'].length; i++){
+      if (item['answers'][i].chosen != undefined){
+        value[item['answers'][i].id] = item['answers'][i].chosen
       }
       else {
-        value[this.data['answers'][i].id] = false
+        value[this.data[this.id]['answers'][i].id] = false
       }
     }
-    this.server.post('courses/' + this.courseID + '/quiz/' + this.quiz + '/', value).then((data) => {
-      if(data['last']){
-        this.router.navigateByUrl('/course')
-        return;
-      }
-      else{
-        this.quiz = Number(this.quiz) + 1
-        this.router.navigateByUrl('course/quiz/'+this.courseID+'/' + this.quiz)
-        this.load()
-      }
-    })
+    this.answers.push(value)
+
+    if(this.quizSize -1 == this.id){
+      this.server.post('courses/' + this.courseID + '/quiz/', this.answers)
+          .then(data => {
+            // TODO show popup for end course
+            // data is {name: "question of the quiz", solved: boolean "if the question is correct solved"}
+          })
+      return;
+    }
+    else{
+      this.id += 1;
+    }
   }
 
 }

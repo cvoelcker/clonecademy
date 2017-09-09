@@ -850,12 +850,11 @@ class QuizTest(DatabaseMixin, TestCase):
 
         # try accesing the quiz before answering the questions is not valid
 
-        request = self.factory.get("courses/" + str(course.id) + "/quiz/0/",
+        request = self.factory.get("courses/" + str(course.id) + "/quiz/",
                                    format="json")
         force_authenticate(request, self.u1)
 
-        response = views.QuizView.as_view()(request, course_id=course.id,
-                                            quiz_id=0)
+        response = views.QuizView.as_view()(request, course_id=course.id)
 
         self.assertEqual(response.status_code, 403)
 

@@ -110,12 +110,12 @@ const appRoutes: Routes = [
      {
        path: 'edit/:id',
        component: EditCourseComponent
-     }
+     },
    ]
   },
   {
-    path: 'course/quiz/:id/:quiz',
-    component: QuizQuestionComponent
+    path: 'course/:id/quiz',
+    component: QuizQuestionComponent,
   },
   {
     path: 'course/:id/:module/:question',

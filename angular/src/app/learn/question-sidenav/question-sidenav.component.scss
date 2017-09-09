@@ -1,11 +1,13 @@
 @import '../../../_vars';
 
 h2 {
+  text-align: left;
   margin-top: 0.5em;
   padding: 0 10px;
 }
 
 h4 {
+  text-align: left;
   margin-top: 1em;
   padding: 0 10px;
 }
@@ -102,6 +104,8 @@ ol {
       counter-increment: question;
       .question-button {
         width: 100%;
+        text-align: left;
+        height: auto;
         white-space: normal;
         background-color: white;
       }

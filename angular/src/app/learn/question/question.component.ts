@@ -178,7 +178,7 @@ export class QuestionComponent implements OnInit, OnDestroy{
       this.questionIndex = 1;
     }
     else if(this.submitResponse["next"] === "quiz"){
-      this.router.navigateByUrl("/course/quiz/"+this.courseID+"/0")
+      this.router.navigateByUrl("/course/"+ this.courseID + "/quiz")
       return
     }
     else {

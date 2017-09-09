@@ -397,7 +397,7 @@ class QuizView(APIView):
     authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
 
-    def get(self, request, course_id, quiz_id):
+    def get(self, request, course_id):
         """
         Shows the current quiz question if it exists.
         When this id does not exist throws error message
@@ -413,36 +413,43 @@ class QuizView(APIView):
             return Response({"error": "complete the course first"},
                             status=status.HTTP_403_FORBIDDEN)
 
-        if len(course.quizquestion_set.all()) > int(quiz_id):
-            quiz = serializers.QuizSerializer(
-                course.quizquestion_set.all()[int(quiz_id)])
+        quiz = course.quizquestion_set.all()
+        if len(quiz) >= 5 and len(quiz) <= 20:
+            quiz = serializers.QuizSerializer(quiz, many=True)
 
             return Response(quiz.data)
         else:
-            return Response({"error": "this quiz question does not exist"},
-                            status=status.HTTP_404_NOT_FOUND)
+            return Response({"error": "this quiz is invalid"},
+                            status=status.HTTP_400_BAD_REQUEST)
 
-    def post(self, request, course_id, quiz_id, format=None):
+    def post(self, request, course_id, format=None):
         """
         Resolves this quiz question for the current user.
         """
         course = Course.objects.filter(id=course_id).first()
-        if len(course.quizquestion_set.all()) > int(quiz_id):
-            quiz = course.quizquestion_set.all()[int(quiz_id)]
-            solved = quiz.evaluate(request.data)
-            if solved and not quiz.try_set.filter(
-                    user=request.user, solved=True).exists():
-                request.user.profile.ranking += quiz.get_points()
-                request.user.profile.save()
-            Try(user=request.user, quiz_question=quiz,
-                answer=str(request.data), solved=solved).save()
-            return Response(
-                {"last": len(
-                    course.quizquestion_set.all()) == int(quiz_id) + 1}
-            )
-        else:
-            return Response({"error": "this quiz question does not exist"},
+        quiz = course.quizquestion_set.all()
+
+        if len(quiz) <= 0:
+            return Response({"error": "this quiz does not exist"},
                             status=status.HTTP_404_NOT_FOUND)
+
+        if len(quiz) != len(request.data):
+            return Response({"error": "the quiz has " + str(len(quiz)) + " question and your evaluation has " + str(len(request.data)), "test": request.data},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        response = []
+        for i in range(len(quiz)):
+            solved = quiz[i].evaluate(request.data[i])
+
+            if solved and not quiz[i].try_set.filter(
+                    user=request.user, solved=True).exists():
+                request.user.profile.ranking += quiz[i].get_points()
+                request.user.profile.save()
+            Try(user=request.user, quiz_question=quiz[i],
+                answer=str(request.data), solved=solved).save()
+
+            response.append({"name": quiz[i].question, "solved": solved})
+        return Response(response, status=status.HTTP_200_OK)
 
 
 class UserView(APIView):
