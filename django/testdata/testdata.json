@@ -161,10 +161,26 @@
 },
 {
     "model": "sessions.session",
+    "pk": "2vie1x0nswfecc2katofijh0ghibnhsm",
+    "fields": {
+        "session_data": "MDhiNTA2YzdiYzEwMjY5ZWU2NjU3Nzk2YWExYmYzZTEwZTgzNjZmMjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJmNmUwMTdmZjg5ODRkYzQ0NTQzN2JlY2ZiOTI5ODJhOWUzMTlkYWJmIn0=",
+        "expire_date": "2017-09-21T08:54:40.292Z"
+    }
+},
+{
+    "model": "sessions.session",
     "pk": "77nt9squupzw60yv7nrobic1bvp44cz6",
     "fields": {
         "session_data": "MDhiNTA2YzdiYzEwMjY5ZWU2NjU3Nzk2YWExYmYzZTEwZTgzNjZmMjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJmNmUwMTdmZjg5ODRkYzQ0NTQzN2JlY2ZiOTI5ODJhOWUzMTlkYWJmIn0=",
         "expire_date": "2017-09-05T09:49:12.602Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "zzzqsjc7ql8dpg33pxndtwxnxrw7h2hl",
+    "fields": {
+        "session_data": "MDhiNTA2YzdiYzEwMjY5ZWU2NjU3Nzk2YWExYmYzZTEwZTgzNjZmMjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJmNmUwMTdmZjg5ODRkYzQ0NTQzN2JlY2ZiOTI5ODJhOWUzMTlkYWJmIn0=",
+        "expire_date": "2017-09-20T12:33:23.786Z"
     }
 },
 {
@@ -1265,7 +1281,7 @@
     "pk": 1,
     "fields": {
         "password": "pbkdf2_sha256$36000$iDCuoRRkWt7Q$sWSTY4yQGu5+4SJprOSS6t+kaQM7/P3g2NxlfuYC0Qs=",
-        "last_login": "2017-08-22T09:49:12Z",
+        "last_login": "2017-09-07T08:54:40.277Z",
         "is_superuser": true,
         "username": "iliricon",
         "first_name": "",
@@ -1334,7 +1350,8 @@
         "user": 1,
         "birth_date": null,
         "last_modrequest": null,
-        "language": "en"
+        "language": "en",
+        "ranking": 3
     }
 },
 {
@@ -1344,7 +1361,8 @@
         "user": 2,
         "birth_date": null,
         "last_modrequest": null,
-        "language": "en"
+        "language": "en",
+        "ranking": 0
     }
 },
 {
@@ -1354,7 +1372,8 @@
         "user": 3,
         "birth_date": null,
         "last_modrequest": null,
-        "language": "en"
+        "language": "en",
+        "ranking": 0
     }
 },
 {
@@ -1380,7 +1399,7 @@
         "language": "en",
         "responsible_mod": 1,
         "is_visible": false,
-        "description": null
+        "description": ""
     }
 },
 {
@@ -1393,7 +1412,115 @@
         "language": "en",
         "responsible_mod": 1,
         "is_visible": false,
-        "description": ""
+        "description": "This is the ULTIMATE course, with videos, blackjack and hookers."
+    }
+},
+{
+    "model": "learning_base.try",
+    "pk": 1,
+    "fields": {
+        "user": 1,
+        "question": 6,
+        "quiz_question": null,
+        "answer": "True",
+        "date": "2017-09-07T08:59:51.886Z",
+        "solved": true
+    }
+},
+{
+    "model": "learning_base.try",
+    "pk": 2,
+    "fields": {
+        "user": 1,
+        "question": 6,
+        "quiz_question": null,
+        "answer": "True",
+        "date": "2017-09-07T09:20:02.091Z",
+        "solved": true
+    }
+},
+{
+    "model": "learning_base.try",
+    "pk": 3,
+    "fields": {
+        "user": 1,
+        "question": 7,
+        "quiz_question": null,
+        "answer": "True",
+        "date": "2017-09-07T09:20:06.321Z",
+        "solved": true
+    }
+},
+{
+    "model": "learning_base.try",
+    "pk": 4,
+    "fields": {
+        "user": 1,
+        "question": 8,
+        "quiz_question": null,
+        "answer": "[8]",
+        "date": "2017-09-07T09:20:14.873Z",
+        "solved": false
+    }
+},
+{
+    "model": "learning_base.try",
+    "pk": 5,
+    "fields": {
+        "user": 1,
+        "question": 8,
+        "quiz_question": null,
+        "answer": "[7]",
+        "date": "2017-09-07T09:20:19.681Z",
+        "solved": true
+    }
+},
+{
+    "model": "learning_base.try",
+    "pk": 6,
+    "fields": {
+        "user": 1,
+        "question": 9,
+        "quiz_question": null,
+        "answer": "[11]",
+        "date": "2017-09-07T09:20:27.800Z",
+        "solved": true
+    }
+},
+{
+    "model": "learning_base.try",
+    "pk": 7,
+    "fields": {
+        "user": 1,
+        "question": 10,
+        "quiz_question": null,
+        "answer": "True",
+        "date": "2017-09-07T09:20:31.432Z",
+        "solved": true
+    }
+},
+{
+    "model": "learning_base.try",
+    "pk": 8,
+    "fields": {
+        "user": 1,
+        "question": 11,
+        "quiz_question": null,
+        "answer": "True",
+        "date": "2017-09-07T09:20:45.297Z",
+        "solved": true
+    }
+},
+{
+    "model": "learning_base.try",
+    "pk": 9,
+    "fields": {
+        "user": 1,
+        "question": 12,
+        "quiz_question": null,
+        "answer": "[13]",
+        "date": "2017-09-07T09:20:51.879Z",
+        "solved": true
     }
 },
 {
@@ -1758,6 +1885,32 @@
         "object_repr": "The histroy is long",
         "action_flag": 2,
         "change_message": "[{\"changed\": {\"fields\": [\"module\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 29,
+    "fields": {
+        "action_time": "2017-09-07T08:55:03.375Z",
+        "user": 1,
+        "content_type": 8,
+        "object_id": "3",
+        "object_repr": "This is the ultimate testing course",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"description\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 30,
+    "fields": {
+        "action_time": "2017-09-07T10:15:07.786Z",
+        "user": 1,
+        "content_type": 8,
+        "object_id": "2",
+        "object_repr": "Video Testing Course",
+        "action_flag": 2,
+        "change_message": "[]"
     }
 }
 ]

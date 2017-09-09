@@ -262,8 +262,6 @@ const QuestionList = QuestionDictionary.questionComponents
     MdProgressSpinnerModule,
     MdMenuModule,
     MdIconModule,
-    // ColorPickerModule
-
   ],
   exports: [
   ],

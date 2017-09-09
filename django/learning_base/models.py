@@ -8,6 +8,7 @@ class Profile(models.Model):
     """
     A user profile that stores additional information about a user
     """
+
     class Meta:
         ordering = ('ranking',)
 

@@ -1,23 +1,11 @@
 <div *ngIf="!loading">
   <div class="sidenav-content">
 
-    <div class="card">
-      <div disableRipple class="navigation-buttons">
-        <div class="nav-button">
-          <button md-fab routerLink="/course/{{id}}">
-            <md-icon>home</md-icon>
-          </button>
-        </div>
-        <div class="nav-button">
-          <button md-fab routerLink="/profile">
-            <md-icon>person_outline</md-icon>
-          </button>
-        </div>
-        <div class="nav-button">
-          <button md-fab (click)="closeSidemenu()">
-            <md-icon>close</md-icon>
-          </button>
-        </div>
+    <div class="navigation-buttons">
+      <div class="nav-button">
+        <a (click)="closeSidemenu()">
+          <md-icon>close</md-icon>
+        </a>
       </div>
       <h2>
         {{name}}
@@ -48,7 +36,7 @@
                 undefined)"
                   (click)="closeSidemenu()"
                   routerLink="/course/{{id}}/{{i+1}}/{{j+1}}">
-                  <md-icon *ngIf="q.solved">check_circle</md-icon>
+                  <md-icon *ngIf="q.solved">check</md-icon>
                   {{ q.title }}
                 </button>
                 <button
