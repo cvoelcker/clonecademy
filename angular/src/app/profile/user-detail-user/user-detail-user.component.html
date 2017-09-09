@@ -1,6 +1,18 @@
-<h2 *ngIf="user.data != undefined">{{"UserDetail" | translate}}{{user.data.username}}</h2>
+<h2 *ngIf="user.data != undefined">{{user.data.username}}</h2>
 
-<form #e="ngForm" name="edit" (ngSubmit)="edit(e)" *ngIf="user.data != undefined">
+<img [src]="user.data.avatar" width="150" height="150">
+
+<form class="example-form" #e="ngForm" name="edit" (ngSubmit)="edit(e)" *ngIf="user.data != undefined">
+
+  <div class="imageUpload">
+    <div>
+      <button md-raised-button type="button" (click)="openImageDialog(500, 500, 'avatar')"><md-icon>image</md-icon>{{" upload avatar" | translate}}</button>
+      <button md-raised-button type="button" *ngIf="body.avatar != ''" (click)="body.avatar = ''">{{"remove image" | translate}}</button>
+    </div>
+    <img [src]="body.avatar" alt="Preview" *ngIf="body.avatar != undefined && body.avatar != ''">
+  </div>
+
+  <br>
 
       <md-input-container>
         <input mdInput type="email" placeholder='{{"email" | translate}}' #email="ngModel" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" name="email" [(ngModel)]="user.data.email"/>

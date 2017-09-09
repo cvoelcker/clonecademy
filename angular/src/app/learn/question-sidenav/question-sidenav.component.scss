@@ -1,17 +1,14 @@
 @import '../../../_vars';
 
 h2 {
-  text-align: left;
-  margin-top: 1em;
+  margin-top: 0.5em;
   padding: 0 10px;
 }
 
 h4 {
-  text-align: left;
   margin-top: 1em;
   padding: 0 10px;
 }
-
 
 .course-description {
   padding: 0 10px;
@@ -32,17 +29,19 @@ h4 {
 }
 
 .navigation-buttons {
-  margin: 0 auto;
-  text-align: right;
+
+  margin-top: 1em;
+  margin-bottom: 1em;
   width: 100%;
   .nav-button {
-  }
-  a {
-    text-align: right;
-    width: 3em;
-    margin: 1em;
-    display: inline-block;
-    color: $primary;
+    float: right;
+    a {
+      color: black;
+      float: right;
+      .md-icon {
+        color: black;
+      }
+    }
   }
 }
 
@@ -103,8 +102,6 @@ ol {
       counter-increment: question;
       .question-button {
         width: 100%;
-        text-align: left;
-        height: auto;
         white-space: normal;
         background-color: white;
       }

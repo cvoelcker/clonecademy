@@ -8,6 +8,7 @@ class Profile(models.Model):
     """
     A user profile that stores additional information about a user
     """
+
     class Meta:
         ordering = ('ranking',)
 
@@ -31,6 +32,13 @@ class Profile(models.Model):
         max_length=2,
         default="en"
     )
+
+    avatar = models.TextField(
+        verbose_name="Avatar of the User",
+        null=True,
+        blank=True,
+    )
+
 
     ranking = models.IntegerField(
         default=0

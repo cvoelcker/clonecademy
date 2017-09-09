@@ -6,6 +6,18 @@ import { UserService } from '../service/user.service'
 
 import { Http} from '@angular/http';
 
+import {MdDialog, MdDialogRef} from '@angular/material';
+
+import {MdButtonModule} from '@angular/material';
+
+import {MdMenuModule} from '@angular/material';
+
+import { DialogComponent } from "../quickview/dialog.component";
+
+import { MdSidenavModule } from '@angular/material';
+
+ // import { DialogContentExample } from '../dialog-content/dialog-content-example.component';
+
 
 
 @Component({
@@ -22,11 +34,20 @@ export class MenuComponent implements OnInit {
   ]
   login: boolean;
 
-  constructor(private cookie: CookieService, private user: UserService, public http: Http){
+  constructor(private cookie: CookieService, private user: UserService, public http: Http,
+    public dialog: MdDialog){
     this.login = this.cookie.get("token") != null
   }
 
   ngOnInit() {
   }
+
+  openDialog(key) {
+  let dialogRef = this.dialog.open(DialogComponent, {
+  height: '250px',
+  width: '250px',
+});
+  dialogRef.updatePosition({ top: '11%', right: '0.2%' });
+}
 
 }

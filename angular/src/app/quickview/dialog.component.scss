@@ -1,5 +1,10 @@
 @import '../../_vars';
 
+md-card{
+  width: 100%;
+  height: 100%;
+}
+
 av{
   padding: 0;
   text-align: right;
@@ -16,28 +21,31 @@ av{
 
 }
 
+.example-card {
+  width: 100%;
+  height: 100%;
+  // padding: 0px 0px 0px 0px;
+}
+
 .example-header-image {
   background-size: cover;
 }
 
-
-.quick{
-    width: 10px;
-  }
-
-md-select{
-  width: 20px;
+button{
+  float: right;
 }
-
-md-icon{
-  // padding-top: 2em;
-}
-
 
 img{
+  width: 50%;
+  height: 30%;
   border:3px solid #021a40;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  padding-bottom: 2px;
+}
+
+h2{
+  float: right;
+}
+
+nav{
+  float: right;
 }

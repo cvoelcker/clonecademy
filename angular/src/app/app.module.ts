@@ -11,6 +11,9 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { MarkdownModule } from 'angular2-markdown';
 
 // Material Style
+
+import { DialogComponent } from './quickview/dialog.component'
+
 import {MdSidenavModule, MdDialog, MdDialogModule, MdIconModule, MdMenuModule,
   MdButtonModule, MdAutocompleteModule, MdCheckboxModule, MdTooltipModule,
   MdCardModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule,
@@ -223,6 +226,7 @@ const QuestionList = QuestionDictionary.questionComponents
     StaticPageComponent,
     CourseViewComponent,
     FooterMainpageComponent,
+    DialogComponent,
     QuestionSidenavComponent,
     QuizQuestionComponent,
     CourseCategoriesComponent,
@@ -256,8 +260,6 @@ const QuestionList = QuestionDictionary.questionComponents
     MdProgressSpinnerModule,
     MdMenuModule,
     MdIconModule,
-    // ColorPickerModule
-
   ],
   exports: [
   ],
@@ -283,6 +285,7 @@ const QuestionList = QuestionDictionary.questionComponents
     CourseComponent,
     CreateCourseComponent,
     ImageCropperDialogComponent,
+    DialogComponent,
     // profile page components
     StatisticsComponent,
     RequestModComponent,

@@ -1,20 +1,26 @@
-<h2>Ranking</h2>
 <div *ngIf="!loading">
-  <div class="ranking-list">
-    <hr style="width: 50%; float: left"/>
-    <ol>
-      <li *ngFor="let p of profiles">
-        <!-- TODO: this should link the public profile -->
-        <button md-button routerLink="/admin/profiles/{{p.id}}">
-          <div class="ranking-name">
-            {{ p.name }}
-          </div>
-          <div class="ranking-number">
-            {{ p.ranking }}
-          </div>
-        </button>
-        <hr/>
-      </li>
-    </ol>
-  </div>
+  <md-card>
+    <md-card-title>
+      Ranking - Global
+    </md-card-title>
+    <md-card-content>
+      <div class="ranking-list">
+        <hr style="float: left"/>
+        <ol>
+          <li *ngFor="let p of profiles">
+            <!-- TODO: this should link the public profile -->
+            <button md-button routerLink="/admin/profiles/{{p.id}}">
+              <div class="ranking-name">
+                {{ p.name }}
+              </div>
+              <div class="ranking-number">
+                {{ p.ranking }}
+              </div>
+            </button>
+            <hr/>
+          </li>
+        </ol>
+      </div>
+    </md-card-content>
+  </md-card>
 </div>

@@ -1,14 +1,11 @@
 <div *ngIf="!loading">
   <div class="sidenav-content">
 
-    <div class="card">
-      <div class="navigation-buttons">
-          <!--<a routerLink="/profile">
-            <md-icon>person_outline</md-icon>
-          </a>-->
-          <a (click)="closeSidemenu()">
-            <md-icon>close</md-icon>
-          </a>
+    <div class="navigation-buttons">
+      <div class="nav-button">
+        <a (click)="closeSidemenu()">
+          <md-icon>close</md-icon>
+        </a>
       </div>
       <h2>
         {{name}}
@@ -34,8 +31,7 @@
                   class="question-button"
                   (click)="closeSidemenu()"
                   routerLink="/course/{{id}}/{{i+1}}/{{j+1}}">
-                  <b>{{ j + 1 }}: </b>
-                  <!--<md-icon *ngIf="q.solved">done</md-icon>-->
+                  <md-icon *ngIf="q.solved">check</md-icon>
                   {{ q.title }}
                 </button>
               </div>
