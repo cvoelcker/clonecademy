@@ -1,0 +1,721 @@
+
+> clonecademy@0.0.0 ng /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular
+> ng "lint"
+
+
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/error-message/error-message.component.ts[17, 26]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/error-message/error-message.component.ts[17, 13]: != should be !==
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/error-message/error-message.component.ts[17, 7]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/error-message/error-message.component.ts[22, 3]: Implement lifecycle hook interface OnInit for method ngOnInit in class ErrorMessageComponent (https://goo.gl/w1Nwk3)
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/error.service.ts[12, 21]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/error.service.ts[13, 11]: Identifier 'dialogRef' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/loader/loader.component.ts[10, 42]: expected nospace before colon in parameter
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/loader/loader.component.ts[12, 3]: Implement lifecycle hook interface AfterViewInit for method ngAfterViewInit in class LoaderComponent (https://goo.gl/w1Nwk3)
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[86, 7]: comment must start with a space
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[37, 1]: Exceeds maximum line length of 140
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[24, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[26, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[28, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[20, 15]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[35, 23]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[44, 50]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[46, 16]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[57, 20]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[63, 20]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[66, 18]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[76, 62]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[78, 16]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[92, 32]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[96, 24]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[99, 31]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[105, 32]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[108, 30]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[124, 47]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[152, 22]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[156, 20]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[162, 18]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[53, 9]: Identifier 'options' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[87, 9]: Identifier 'options' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[135, 15]: Identifier 'response' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[126, 9]: Identifier 'headers' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[128, 9]: Identifier 'body' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[130, 9]: Identifier 'options' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[32, 34]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[37, 42]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[37, 69]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[132, 75]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[137, 27]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[138, 27]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[46, 7]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[57, 11]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[63, 11]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[66, 11]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[78, 7]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[92, 23]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[99, 28]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[105, 23]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[108, 23]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/server.service.ts[146, 98]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/user.service.ts[15, 17]: Type boolean trivially inferred from a boolean literal, remove type annotation
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/user.service.ts[19, 20]: Type string trivially inferred from a string literal, remove type annotation
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/user.service.ts[23, 55]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/user.service.ts[41, 20]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/user.service.ts[59, 34]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/user.service.ts[60, 34]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/user.service.ts[61, 50]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/user.service.ts[62, 35]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/user.service.ts[70, 19]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/user.service.ts[74, 23]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/user.service.ts[78, 18]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/user.service.ts[86, 20]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/user.service.ts[95, 19]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/user.service.ts[98, 9]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/user.service.ts[98, 5]: misplaced 'else'
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/user.service.ts[5, 24]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/user.service.ts[19, 29]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/user.service.ts[43, 61]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/user.service.ts[75, 54]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/user.service.ts[87, 22]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/user.service.ts[62, 27]: == should be ===
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/user.service.ts[60, 7]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/user.service.ts[61, 10]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/user.service.ts[62, 11]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/user.service.ts[95, 7]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[16, 9]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[19, 56]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[23, 46]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[37, 16]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[49, 23]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[51, 28]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[66, 11]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[66, 7]: misplaced 'else'
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[54, 22]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[57, 17]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[57, 13]: misplaced 'else'
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[68, 18]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[71, 13]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[71, 9]: misplaced 'else'
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[79, 18]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[80, 51]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[81, 72]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[82, 69]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[53, 15]: Identifier 'value' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[67, 13]: Identifier 'value' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[20, 28]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[20, 41]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[20, 48]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[20, 52]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[20, 87]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[38, 61]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[23, 18]: == should be ===
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[82, 55]: == should be ===
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[23, 44]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[19, 12]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[20, 48]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[20, 63]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[23, 15]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[51, 9]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[54, 15]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[68, 11]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[80, 8]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[81, 10]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/course.service.ts[82, 11]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/sass-helper/sass-helper.ts[20, 13]: Identifier 'bodyStyles' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/sass-helper/sass-helper.ts[12, 37]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/sass-helper/sass-helper.ts[6, 15]: The selector of the component "SassHelperComponent" should have prefix "app" (https://goo.gl/cix8BY)
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/app.component.ts[14, 78]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/login/login.component.ts[38, 1]: Exceeds maximum line length of 140
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/login/login.component.ts[42, 14]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/login/login.component.ts[43, 19]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/login/login.component.ts[49, 9]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/login/login.component.ts[49, 5]: misplaced 'else'
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/login/login.component.ts[55, 41]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/login/login.component.ts[46, 13]: Identifier 'dialogRef' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/login/login.component.ts[5, 29]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/login/login.component.ts[8, 24]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/login/login.component.ts[21, 14]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/login/login.component.ts[22, 18]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/login/login.component.ts[24, 14]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/login/login.component.ts[25, 18]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/login/login.component.ts[50, 29]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/login/login.component.ts[38, 79]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/login/login.component.ts[43, 7]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/login/login.component.ts[55, 7]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/dashboard/dashboard.component.ts[28, 32]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/dashboard/dashboard.component.ts[37, 20]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/dashboard/dashboard.component.ts[14, 30]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/dashboard/dashboard.component.ts[14, 40]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/dashboard/dashboard.component.ts[15, 30]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/dashboard/dashboard.component.ts[15, 40]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/dashboard/dashboard.component.ts[37, 3]: Implement lifecycle hook interface AfterViewInit for method ngAfterViewInit in class DashboardComponent (https://goo.gl/w1Nwk3)
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/directive/logged-in.directive.ts[10, 31]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/directive/logged-in.directive.ts[14, 41]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/directive/logged-in.directive.ts[2, 26]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/directive/logged-in.directive.ts[3, 24]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/directive/logged-in.directive.ts[14, 24]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/directive/logged-in.directive.ts[15, 34]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/directive/logged-in.directive.ts[16, 29]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/directive/logged-in.directive.ts[14, 7]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/menu/menu.component.ts[25, 91]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/menu/menu.component.ts[20, 11]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/menu/menu.component.ts[20, 26]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/menu/menu.component.ts[21, 30]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/menu/menu.component.ts[26, 34]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[25, 5]: comment must start with a space
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[61, 7]: comment must start with a space
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[81, 11]: comment must start with a space
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[19, 14]: Type boolean trivially inferred from a boolean literal, remove type annotation
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[60, 13]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[84, 36]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[91, 9]: misplaced 'else'
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[87, 42]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[94, 28]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[95, 55]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[96, 70]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[97, 54]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[86, 15]: Identifier 'lastQuestion' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[83, 13]: Identifier 'lastModule' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[73, 19]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[75, 40]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[107, 29]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[84, 23]: != should be !==
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[87, 34]: == should be ===
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[75, 33]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[98, 37]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[98, 38]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[98, 42]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[98, 43]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[32, 23]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[32, 28]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[84, 11]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[87, 13]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[94, 11]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[95, 14]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[96, 16]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.ts[97, 17]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.module.ts[10, 28]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.module.ts[26, 16]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.module.ts[31, 16]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.module.ts[2, 31]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.module.ts[27, 12]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.module.ts[7, 13]: The selector of the component "QuestionModule" should be named kebab-case and include dash (https://goo.gl/mBg67Z)
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.module.ts[10, 14]: The name of the class QuestionModule should end with the suffix Component (https://goo.gl/5X1TE7)
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/multiple-choice-question/multiple-choice-question.component.ts[23, 7]: comment must start with a space
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/multiple-choice-question/multiple-choice-question.component.ts[16, 16]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/multiple-choice-question/multiple-choice-question.component.ts[19, 20]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/multiple-choice-question/multiple-choice-question.component.ts[18, 14]: Identifier 'ans' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/multiple-choice-question/multiple-choice-question.component.ts[17, 9]: Identifier 'sendAnswer' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/multiple-choice-question/multiple-choice-question.component.ts[3, 32]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/multiple-choice-question/multiple-choice-question.component.ts[4, 31]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/multiple-choice-question/multiple-choice-question.component.ts[13, 29]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/multiple-choice-question/multiple-choice-question.component.ts[19, 9]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/multiple-choice-question/multiple-choice-question.component.ts[7, 13]: The selector of the component "MultipleChoiceQuestionComponent" should be named kebab-case and include dash (https://goo.gl/mBg67Z)
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.module.ts[14, 25]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.module.ts[18, 26]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.module.ts[19, 21]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.module.ts[15, 12]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.module.ts[19, 7]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.module.ts[8, 14]: The name of the class AddQuestionModule should end with the suffix Component (https://goo.gl/5X1TE7)
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/image-cropper/image-cropper.component.ts[44, 11]: comment must start with a space
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/image-cropper/image-cropper.component.ts[24, 1]: Exceeds maximum line length of 140
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/image-cropper/image-cropper.component.ts[38, 5]: Forbidden 'var' keyword, use 'let' or 'const' instead
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/image-cropper/image-cropper.component.ts[39, 5]: Forbidden 'var' keyword, use 'let' or 'const' instead
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/image-cropper/image-cropper.component.ts[40, 5]: Forbidden 'var' keyword, use 'let' or 'const' instead
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/image-cropper/image-cropper.component.ts[41, 5]: Forbidden 'var' keyword, use 'let' or 'const' instead
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/image-cropper/image-cropper.component.ts[16, 41]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/image-cropper/image-cropper.component.ts[27, 39]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/image-cropper/image-cropper.component.ts[38, 9]: Identifier 'image' is never reassigned; use 'const' instead of 'var'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/image-cropper/image-cropper.component.ts[39, 9]: Identifier 'file' is never reassigned; use 'const' instead of 'var'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/image-cropper/image-cropper.component.ts[40, 9]: Identifier 'myReader' is never reassigned; use 'const' instead of 'var'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/image-cropper/image-cropper.component.ts[41, 9]: Identifier 'that' is never reassigned; use 'const' instead of 'var'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/image-cropper/image-cropper.component.ts[26, 39]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/image-cropper/image-cropper.component.ts[27, 9]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/image-cropper/image-cropper.component.ts[38, 15]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/image-cropper/image-cropper.component.ts[39, 14]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/image-cropper/image-cropper.component.ts[40, 18]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/image-cropper/image-cropper.component.ts[42, 46]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[30, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[32, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[24, 8]: Type string trivially inferred from a string literal, remove type annotation
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[30, 13]: Type string trivially inferred from a string literal, remove type annotation
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[26, 39]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[34, 79]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[42, 17]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[43, 20]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[46, 13]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[46, 9]: misplaced 'else'
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[57, 18]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[60, 44]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[61, 34]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[74, 37]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[75, 86]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[80, 33]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[84, 14]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[88, 25]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[89, 54]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[90, 42]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[35, 9]: Identifier 'dialogRef' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[59, 9]: Identifier 'answers' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[3, 35]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[5, 25]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[19, 22]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[24, 17]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[30, 22]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[62, 26]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[67, 13]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[85, 35]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[85, 87]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[75, 77]: == should be ===
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[42, 9]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[43, 11]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[60, 8]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[75, 7]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[85, 50]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[89, 8]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[90, 9]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-info-text/add-info-text.component.ts[25, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-info-text/add-info-text.component.ts[19, 8]: Type string trivially inferred from a string literal, remove type annotation
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-info-text/add-info-text.component.ts[25, 13]: Type string trivially inferred from a string literal, remove type annotation
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-info-text/add-info-text.component.ts[21, 16]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-info-text/add-info-text.component.ts[30, 18]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-info-text/add-info-text.component.ts[3, 35]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-info-text/add-info-text.component.ts[5, 25]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-info-text/add-info-text.component.ts[19, 17]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-info-text/add-info-text.component.ts[25, 22]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-info-text/add-info-text.component.ts[33, 13]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/info-text/info-text.component.ts[16, 16]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/info-text/info-text.component.ts[3, 32]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/info-text/info-text.component.ts[4, 31]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/info-text/info-text.component.ts[7, 13]: The selector of the component "InformationTextComponent" should be named kebab-case and include dash (https://goo.gl/mBg67Z)
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question-dictionary.ts[8, 49]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question-dictionary.ts[14, 12]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question-dictionary.ts[15, 12]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question-dictionary.ts[18, 5]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question-dictionary.ts[19, 5]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/directive/module.directive.ts[10, 29]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/wrong-feedback/wrong-feedback.component.ts[14, 9]: Type string trivially inferred from a string literal, remove type annotation
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/wrong-feedback/wrong-feedback.component.ts[17, 26]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/wrong-feedback/wrong-feedback.component.ts[14, 18]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/wrong-feedback/wrong-feedback.component.ts[17, 13]: != should be !==
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/wrong-feedback/wrong-feedback.component.ts[17, 7]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/wrong-feedback/wrong-feedback.component.ts[8, 13]: The selector of the component "WrongFeedbackComponent" should have prefix "app" (https://goo.gl/cix8BY)
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/wrong-feedback/wrong-feedback.component.ts[25, 3]: Implement lifecycle hook interface OnInit for method ngOnInit in class WrongFeedbackComponent (https://goo.gl/w1Nwk3)
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/correct-feedback/correct-feedback.component.ts[18, 26]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/correct-feedback/correct-feedback.component.ts[18, 13]: != should be !==
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/correct-feedback/correct-feedback.component.ts[18, 7]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/correct-feedback/correct-feedback.component.ts[8, 13]: The selector of the component "CorrectFeedbackComponent" should have prefix "app" (https://goo.gl/cix8BY)
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/correct-feedback/correct-feedback.component.ts[24, 3]: Implement lifecycle hook interface OnInit for method ngOnInit in class CorrectFeedbackComponent (https://goo.gl/w1Nwk3)
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[1, 1]: Exceeds maximum line length of 140
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[103, 13]: Shadowed variable: 'data'
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[122, 58]: Shadowed variable: 'data'
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[129, 79]: Shadowed variable: 'data'
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[67, 13]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[71, 17]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[84, 35]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[98, 11]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[107, 22]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[112, 27]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[125, 9]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[125, 5]: misplaced 'else'
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[118, 33]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[121, 11]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[121, 7]: misplaced 'else'
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[138, 9]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[140, 27]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[144, 5]: misplaced 'else'
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[144, 30]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[148, 9]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[148, 5]: misplaced 'else'
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[89, 11]: Identifier 'question' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[101, 9]: Identifier 'data' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[130, 11]: Identifier 'dialogRef' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[3, 31]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[8, 49]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[9, 42]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[14, 32]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[72, 21]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[72, 46]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[72, 83]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[102, 22]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[102, 47]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[102, 85]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[118, 30]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[122, 28]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[128, 18]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[129, 26]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[150, 33]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[153, 31]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[153, 56]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[153, 80]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[118, 27]: != should be !==
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[72, 49]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[72, 45]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[72, 46]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[72, 31]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[72, 32]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[72, 78]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[102, 50]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[102, 46]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[102, 47]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[102, 32]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[102, 33]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[102, 79]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[102, 120]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[153, 59]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[153, 55]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[153, 56]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[153, 41]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[153, 42]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[84, 9]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[112, 7]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[118, 9]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[140, 7]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.ts[144, 12]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.ts[42, 7]: comment must start with a space
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.ts[1, 1]: Exceeds maximum line length of 140
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.ts[29, 13]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.ts[34, 13]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.ts[41, 81]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.ts[53, 48]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.ts[65, 12]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.ts[66, 38]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.ts[72, 15]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.ts[79, 26]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.ts[82, 9]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.ts[82, 5]: misplaced 'else'
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.ts[86, 42]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.ts[47, 9]: Identifier 'question' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.ts[73, 9]: Identifier 'response' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.ts[4, 25]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.ts[20, 18]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.ts[53, 45]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.ts[66, 34]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.ts[67, 25]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.ts[85, 25]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.ts[87, 30]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.ts[53, 17]: != should be !==
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.ts[53, 42]: != should be !==
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.ts[66, 31]: == should be ===
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.ts[86, 29]: == should be ===
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.ts[53, 7]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.ts[66, 7]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.ts[79, 7]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.ts[86, 7]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[74, 7]: comment must start with a space
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[1, 1]: Exceeds maximum line length of 140
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[20, 10]: Type string trivially inferred from a string literal, remove type annotation
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[21, 17]: Type string trivially inferred from a string literal, remove type annotation
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[40, 92]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[52, 106]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[54, 52]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[55, 42]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[66, 20]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[72, 10]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[77, 16]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[78, 54]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[84, 7]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[89, 9]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[96, 13]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[99, 55]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[102, 21]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[42, 11]: Identifier 'question' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[43, 11]: Identifier 'q' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[103, 13]: Identifier 'save' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[100, 11]: Identifier 'tmp' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[101, 11]: Identifier 'index' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[98, 9]: Identifier 'values' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[3, 38]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[5, 25]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[20, 19]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[21, 26]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[78, 25]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[79, 23]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[85, 21]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[90, 21]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[78, 22]: == should be ===
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[78, 45]: == should be ===
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[52, 48]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[54, 8]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[55, 9]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[78, 7]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[99, 8]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[102, 9]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.ts[66, 3]: Implement lifecycle hook interface AfterViewInit for method ngAfterViewInit in class AddModuleComponent (https://goo.gl/w1Nwk3)
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[71, 9]: comment must start with a space
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[148, 9]: comment must start with a space
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[1, 1]: Exceeds maximum line length of 140
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[113, 1]: Exceeds maximum line length of 140
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[146, 1]: Exceeds maximum line length of 140
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[31, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[32, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[33, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[34, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[36, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[43, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[57, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[63, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[21, 11]: Type number trivially inferred from a number literal, remove type annotation
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[27, 28]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[45, 26]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[49, 26]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[53, 28]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[59, 26]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[69, 20]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[70, 33]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[93, 16]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[98, 93]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[104, 22]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[107, 34]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[110, 26]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[111, 48]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[120, 27]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[125, 7]: misplaced 'else'
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[125, 28]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[130, 7]: misplaced 'else'
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[130, 30]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[139, 17]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[143, 10]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[145, 16]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[153, 20]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[155, 53]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[165, 22]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[112, 13]: Identifier 'question' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[126, 13]: Identifier 'index' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[127, 13]: Identifier 'i' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[131, 13]: Identifier 'index' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[132, 13]: Identifier 'i' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[119, 11]: Identifier 'moduleSingle' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[99, 9]: Identifier 'moduleComponent' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[100, 9]: Identifier 'module' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[146, 11]: Identifier 'course' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[144, 9]: Identifier 'saveModules' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[156, 11]: Identifier 'module' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[157, 11]: Identifier 'index' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[158, 11]: Identifier 'm' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[154, 9]: Identifier 'saveModules' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[3, 40]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[8, 29]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[31, 56]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[31, 68]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[31, 85]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[31, 97]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[37, 22]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[38, 22]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[39, 22]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[40, 22]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[64, 28]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[86, 21]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[120, 18]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[125, 23]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[130, 23]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[146, 98]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[120, 15]: == should be ===
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[125, 20]: == should be ===
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[130, 20]: == should be ===
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[70, 7]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[104, 7]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[107, 7]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[110, 7]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[111, 10]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[120, 9]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[125, 14]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[130, 14]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[145, 7]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[155, 8]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.ts[69, 3]: Implement lifecycle hook interface AfterViewInit for method ngAfterViewInit in class CreateCourseComponent (https://goo.gl/w1Nwk3)
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/personal_statistics/statistics.component.ts[26, 9]: for (... in ...) statements must be filtered with an if statement
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/personal_statistics/statistics.component.ts[21, 1]: trailing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/personal_statistics/statistics.component.ts[41, 7]: Forbidden 'var' keyword, use 'let' or 'const' instead
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/personal_statistics/statistics.component.ts[44, 7]: Forbidden 'var' keyword, use 'let' or 'const' instead
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/personal_statistics/statistics.component.ts[26, 38]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/personal_statistics/statistics.component.ts[36, 23]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/personal_statistics/statistics.component.ts[26, 17]: Identifier 's' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/personal_statistics/statistics.component.ts[40, 11]: Identifier 'blob' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/personal_statistics/statistics.component.ts[41, 11]: Identifier 'url' is never reassigned; use 'const' instead of 'var'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/personal_statistics/statistics.component.ts[44, 11]: Identifier 'anchor' is never reassigned; use 'const' instead of 'var'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/personal_statistics/statistics.component.ts[23, 21]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/personal_statistics/statistics.component.ts[27, 13]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/personal_statistics/statistics.component.ts[27, 34]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/personal_statistics/statistics.component.ts[37, 22]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/personal_statistics/statistics.component.ts[40, 33]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/personal_statistics/statistics.component.ts[40, 51]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/personal_statistics/statistics.component.ts[44, 43]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/personal_statistics/statistics.component.ts[46, 25]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/personal_statistics/statistics.component.ts[49, 41]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/personal_statistics/statistics.component.ts[50, 27]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/personal_statistics/statistics.component.ts[50, 38]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/personal_statistics/statistics.component.ts[26, 12]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/personal_statistics/statistics.component.ts[11, 13]: The selector of the component "StatisticsComponent" should be named kebab-case and include dash (https://goo.gl/mBg67Z)
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/request-mod/request-mod.component.ts[36, 5]: if statements must be braced
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/request-mod/request-mod.component.ts[35, 17]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/request-mod/request-mod.component.ts[38, 9]: Identifier 'request' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/request-mod/request-mod.component.ts[4, 24]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/request-mod/request-mod.component.ts[23, 21]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/request-mod/request-mod.component.ts[39, 22]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/request-mod/request-mod.component.ts[40, 38]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/request-mod/request-mod.component.ts[40, 39]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/admin/user-detail/user-detail.component.ts[37, 21]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/admin/user-detail/user-detail.component.ts[52, 12]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/admin/user-detail/user-detail.component.ts[40, 21]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/admin/user-detail/user-detail.component.ts[40, 35]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/admin/user-detail/user-detail.component.ts[44, 37]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/admin/user-detail/user-detail.component.ts[44, 55]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/admin/user-detail/user-detail.component.ts[54, 22]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/admin/user-detail/user-detail.component.ts[54, 41]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/admin/user-detail/user-detail.component.ts[44, 24]: != should be !==
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/admin/user-detail/user-detail.component.ts[40, 28]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/admin/user-detail/user-detail.component.ts[54, 29]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/admin/user-detail/user-detail.component.ts[33, 3]: Implement lifecycle hook interface OnInit for method ngOnInit in class UserDetailComponent (https://goo.gl/w1Nwk3)
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/admin/profiles/profiles.component.ts[9, 3]: comment must start with a space
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/admin/profiles/profiles.component.ts[37, 21]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/admin/profiles/profiles.component.ts[5, 24]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/admin/profiles/profiles.component.ts[29, 21]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/profile-page/profile-page.component.ts[21, 78]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/profile-page/profile-page.component.ts[28, 13]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/profile-page/profile-page.component.ts[16, 12]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/profile-page/profile-page.component.ts[16, 33]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/profile-page/profile-page.component.ts[17, 12]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/profile-page/profile-page.component.ts[17, 39]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/profile-page/profile-page.component.ts[18, 12]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/profile-page/profile-page.component.ts[18, 31]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/user-detail-user/user-detail-user.component.ts[30, 16]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/user-detail-user/user-detail-user.component.ts[31, 78]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/user-detail-user/user-detail-user.component.ts[32, 13]: Identifier 'data' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/user-detail-user/user-detail-user.component.ts[6, 29]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/user-detail-user/user-detail-user.component.ts[18, 56]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/user-detail-user/user-detail-user.component.ts[18, 68]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/user-detail-user/user-detail-user.component.ts[18, 85]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/user-detail-user/user-detail-user.component.ts[18, 97]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/user-detail-user/user-detail-user.component.ts[31, 37]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/user-detail-user/user-detail-user.component.ts[31, 9]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/user-detail-user/user-detail-user.component.ts[27, 5]: Implement lifecycle hook interface OnInit for method ngOnInit in class UserDetailUserComponent (https://goo.gl/w1Nwk3)
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/admin/admin-page/admin-page.component.ts[10, 50]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/admin/admin-page/admin-page.component.ts[14, 12]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/admin/admin-page/admin-page.component.ts[14, 29]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/register/register.component.ts[32, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/register/register.component.ts[33, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/register/register.component.ts[34, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/register/register.component.ts[35, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/register/register.component.ts[36, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/register/register.component.ts[37, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/register/register.component.ts[38, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/register/register.component.ts[45, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/register/register.component.ts[36, 17]: Type string trivially inferred from a string literal, remove type annotation
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/register/register.component.ts[37, 16]: Type string trivially inferred from a string literal, remove type annotation
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/register/register.component.ts[25, 4]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/register/register.component.ts[53, 18]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/register/register.component.ts[55, 76]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/register/register.component.ts[56, 11]: Identifier 'data' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/register/register.component.ts[6, 29]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/register/register.component.ts[17, 56]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/register/register.component.ts[17, 68]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/register/register.component.ts[17, 85]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/register/register.component.ts[17, 97]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/register/register.component.ts[36, 26]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/register/register.component.ts[37, 25]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/register/register.component.ts[46, 28]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/register/register.component.ts[55, 35]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/register/register.component.ts[60, 24]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/register/register.component.ts[55, 7]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/register/register.component.ts[41, 3]: Implement lifecycle hook interface OnInit for method ngOnInit in class RegisterComponent (https://goo.gl/w1Nwk3)
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/edit-course.component.ts[17, 16]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/edit-course.component.ts[35, 19]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/edit-course.component.ts[44, 54]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/edit-course.component.ts[55, 10]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/edit-course.component.ts[57, 16]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/edit-course.component.ts[45, 13]: Identifier 'module' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/edit-course.component.ts[58, 11]: Identifier 'course' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/edit-course.component.ts[56, 9]: Identifier 'saveModules' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/edit-course.component.ts[62, 27]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/edit-course.component.ts[38, 44]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/edit-course.component.ts[38, 45]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/edit-course.component.ts[38, 31]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/edit-course.component.ts[38, 32]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/edit-course.component.ts[44, 10]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/edit-course.component.ts[57, 7]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/edit-course.component.ts[17, 3]: Implement lifecycle hook interface OnChanges for method ngOnChanges in class EditCourseComponent (https://goo.gl/w1Nwk3)
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/edit-course.component.ts[24, 3]: Implement lifecycle hook interface OnInit for method ngOnInit in class EditCourseComponent (https://goo.gl/w1Nwk3)
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/static-page/static-page.component.ts[21, 20]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/static-page/static-page.component.ts[17, 28]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/app.module.ts[10, 3]: comment must start with a space
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/app.module.ts[13, 3]: comment must start with a space
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/app.module.ts[17, 1]: Exceeds maximum line length of 140
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/app.module.ts[166, 5]: Identifier 'QuestionList' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/app.module.ts[31, 29]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/app.module.ts[35, 23]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/app.module.ts[55, 35]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/app.module.ts[59, 32]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/app.module.ts[72, 45]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/app.module.ts[85, 14]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/app.module.ts[89, 13]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/app.module.ts[93, 14]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/app.module.ts[97, 14]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/app.module.ts[103, 11]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/app.module.ts[115, 11]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/app.module.ts[120, 15]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/app.module.ts[124, 15]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/app.module.ts[128, 15]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/app.module.ts[134, 11]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/app.module.ts[141, 15]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/app.module.ts[145, 19]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/app.module.ts[153, 11]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/app.module.ts[89, 13]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/polyfills.ts[45, 8]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/base-test.ts[17, 24]: Too many spaces before 'from'
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/base-test.ts[4, 1]: Exceeds maximum line length of 140
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/base-test.ts[30, 22]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/base-test.ts[32, 49]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/base-test.ts[55, 22]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/base-test.ts[56, 44]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/base-test.ts[63, 51]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/base-test.ts[65, 22]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/base-test.ts[66, 44]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/base-test.ts[73, 57]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/base-test.ts[75, 22]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/base-test.ts[76, 44]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/base-test.ts[33, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/base-test.ts[64, 9]: Identifier 'data' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/base-test.ts[74, 9]: Identifier 'data' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/base-test.ts[21, 29]: " should be '
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/base-test.ts[55, 7]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/base-test.ts[56, 10]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/base-test.ts[65, 7]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/base-test.ts[66, 10]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/base-test.ts[75, 7]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/base-test.ts[76, 10]: missing whitespace
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/app.component.spec.ts[10, 7]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/admin/admin-page/admin-page.component.spec.ts[16, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/admin/profiles/profiles.component.spec.ts[12, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/admin/user-detail/user-detail.component.spec.ts[16, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/error-message/error-message.component.spec.ts[28, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/error-message/error-message.component.spec.ts[44, 13]: Identifier 'dialogRef' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/error-message/error-message.component.spec.ts[25, 7]: Identifier 'fixture' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course/course.component.spec.ts[16, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-info-text/add-info-text.component.spec.ts[12, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-module/add-module.component.spec.ts[21, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.spec.ts[12, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/add-question/add-question.component.spec.ts[12, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.spec.ts[6, 24]: Too many spaces before 'from'
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/course-editor/create-course/create-course.component.spec.ts[19, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/dashboard/dashboard.component.spec.ts[14, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/info-text/info-text.component.spec.ts[15, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/multiple-choice-question/multiple-choice-question.component.spec.ts[15, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/question.component.spec.ts[14, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/correct-feedback/correct-feedback.component.spec.ts[28, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/correct-feedback/correct-feedback.component.spec.ts[44, 13]: Identifier 'dialogRef' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/correct-feedback/correct-feedback.component.spec.ts[25, 7]: Identifier 'fixture' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/wrong-feedback/wrong-feedback.component.spec.ts[28, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/wrong-feedback/wrong-feedback.component.spec.ts[44, 13]: Identifier 'dialogRef' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/learn/question/wrong-feedback/wrong-feedback.component.spec.ts[25, 7]: Identifier 'fixture' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/loader/loader.component.spec.ts[12, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/login/login.component.spec.ts[13, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/menu/menu.component.spec.ts[12, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/page-not-found/page-not-found.component.spec.ts[12, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/personal_statistics/statistics.component.spec.ts[13, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/profile-page/profile-page.component.spec.ts[12, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/request-mod/request-mod.component.spec.ts[13, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/profile/user-detail-user/user-detail-user.component.spec.ts[12, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/register/register.component.spec.ts[12, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /home/iliricon/Documents/Studium/6/BP/clonecademy_copy/angular/src/app/service/user.service.spec.ts[6, 24]: " should be '
+
+Lint errors found in the listed files.

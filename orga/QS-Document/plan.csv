@@ -1,5 +1,9 @@
 	;Iteration	;User Stories			;Commit Hash					;Design				;Veränderbarkeit	;Sicherheit	
 Benötigt;#num of iter	;handed-in us			;valid commit hash				;user study report, checklist	;django_test,pylint,ng2lint,selenium,checklist;bandit,ng2lint,zat,checklist
+02.06.	;3.		;basis der evaluation		;						;				;django_test,pylint,  	;
+09.06.	;4.		;basis der evaluation		;						;				;django_test,pylint,  	;
+16.06.	;5.		;basis der evaluation		;						;				;django_test,pylint,  	;
+23.06.	;6.		;basis der evaluation		;						;				;django_test,pylint,  	;
 30.06.	;7.		;basis der evaluation		;22f76fcce2d1d6b03857a9a4db7f9276433aecdd	;				;django_test,pylint,  	;
 07.07.	;8.		;12				;cf525f64091e6c892b7e471fc8048bd8c056d69e	;				;pylint 			;
 14.07.	;9.		;nix				;e2b7fed9dbc0e929bb28e7ccf30cd68aa0d73c19	;				;django_test, 		;
