@@ -1,0 +1,146 @@
+\documentclass[accentcolor=tud0b,12pt,paper=a4]{tudexercise}
+
+\usepackage[utf8]{inputenc}
+\usepackage{ngerman}
+\usepackage{parcolumns}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{pdfpages}
+
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3em}
+\setlength\itemsep{3em}
+
+
+\newcommand{\titlerow}[2]{
+	\begin{parcolumns}[colwidths={1=.2\linewidth}]{2}
+		\colchunk[1]{#1:}
+		\colchunk[2]{#2}
+	\end{parcolumns}
+	\vspace{0.15cm}
+}
+
+\title{Checklisten - Clonecademy}
+\subtitle{US}
+\subsubtitle{%
+	\titlerow{Reviewer}{}
+	\titlerow{Entwickler}{}
+	\titlerow{Commithash}{}
+	\titlerow{Datum}{}
+}
+\institution{Bachelor-Praktikum SoSe 2017\\Fachbereich Informatik}
+
+\begin{document}
+	
+	\maketitle
+\section*{Checklisten}
+
+\subsection*{Checkliste Bedienbarkeit}
+Nach jeder User Story muss für die Elemente folgende Checkliste beachtet werden:
+	\begin{itemize}
+		
+		\renewcommand{\labelitemi}{\scriptsize$\square$}
+		\item Wurden nur Elemente des Material\\ Designs verwendet?
+		\item Sind Schaltflächen optisch von ihrem Hintergrund abgehoben und im gleichen Format gehalten, wie andere der selben Art?
+		\item Sind Buttons durch ihre Position direkt ersichtlich?
+		\item Ist wichtiger Text von Nebeninformationen abgetrennt und deutlich sichtbar?
+		\item Sind die Schaltflächen richtig beschriftet und ist durch die Beschriftung erkennbar, welche Funktion sie haben?
+		\item Sind neue Elemente optisch gut unterscheidbar von vorhandenen Elementen?
+		\item Ist alles in der Mindestauflösung (1024x768) erkennbar?
+	\end{itemize}
+
+
+\subsection*{Checkliste Datensicherheit}
+Fragen zu jedem Codeabschnitt:
+
+\begin{itemize}
+	
+	\renewcommand{\labelitemi}{\scriptsize$\square$}
+	\renewcommand{\labelitemii}{\scriptsize$\square$}
+    \item HTML Input: Wird jeglicher Input korrekt nach Cross-Site-Scripts durchsucht, bevor er als sicher markiert wird?
+    \item Sind die Django-Features zum Schutz vor Cross Site Request Forgery (CSRF) aktiviert?
+    \item Ist jede Schnittstelle mit passender Authentifizierung und Autorisierung versehen, sowie gegebenenfalls auch mit einer Anfragenbegrenzung (Throttling)?
+    \item Werden alle Nutzereingaben nach Fehlern gefiltert?
+    \item Sind alle Security Probleme, die bei der softwarebasierten Analyse aufgetreten sind, behoben, oder aus dem Kontext heraus als unkritisch betrachtet worden?
+\end{itemize}
+
+
+
+\subsection*{Checkliste Veränderbarkeit}
+\paragraph{Code Qualität}
+	
+	\renewcommand{\labelitemi}{\scriptsize$\square$}	\renewcommand{\labelitemii}{\scriptsize$\square$}
+	\renewcommand{\labelitemiii}{\scriptsize$\square$}
+	\begin{itemize}
+		
+		\item Gibt es Meldungen der Tools?
+		\item Gibt es obsoleten Code?
+		\item Gibt es unbenutzte Variablen?
+		\item Wurden bereits vorhandene Funktionalitäten neu implementiert?
+		\item Wurden Hilfsmethoden ausgelagert?
+		\item Für das Frontend:
+		\begin{itemize}
+			
+			\item Sind alle POST Methoden richtig formatiert?
+		\end{itemize}
+		\item Für das Backend:
+		\begin{itemize}
+			
+			\item Sind alle Schnittstellen wie abgesprochen implementiert?
+			\begin{itemize}
+				
+				\item Wenn ja: Sind diese begründet und dokumentiert?
+			\end{itemize}
+			\item Geben alle Views einen gültigen und passenden Status Code zurück?
+			\item Wurde die Datenbankenstruktur geändert?
+			\begin{itemize}
+				
+				\item Wenn ja: Sind diese begründet und dokumentiert?
+			\end{itemize}
+		\end{itemize}
+
+	\end{itemize}
+
+\paragraph{Kommentare}
+
+	\renewcommand{\labelitemi}{\scriptsize$\square$}	\renewcommand{\labelitemii}{\scriptsize$\square$}
+	\renewcommand{\labelitemiii}{\scriptsize$\square$}
+	\begin{itemize}
+		
+		\item Sind alle Klassen kommentiert?
+		\begin{itemize}
+			
+			\item[] Dies umfasst:
+			\item Beschreibung der Funktion und Verwendung
+			\item Autor
+		\end{itemize}
+		
+		\item Sind alle Methoden kommentiert?
+		\begin{itemize}
+			
+			\item[] Dies umfasst:
+			\item Beschreibung der Funktion und Verwendung
+			\item Autor
+			\item Eingabeparameter
+			\item Rückgabewert
+		\end{itemize}
+		\item Gibt es weitere, schwer verständliche Stellen, die kommentiert werden sollten? (Anmerkungen der anderen Entwickler beachten)
+		\item Sind die Kommentare verständlich für alle Entwickler?
+		\item Ist die Dokumentation im Wiki vollständig?
+	\end{itemize}
+
+
+\paragraph{Tests}
+
+	\begin{itemize}
+		
+		\renewcommand{\labelitemi}{\scriptsize$\square$}
+		\renewcommand{\labelitemii}{\scriptsize$\square$}
+		\renewcommand{\labelitemiii}{\scriptsize$\square$}
+		\item Sind Tests aller Methoden vorhanden?
+		\item Wie hoch ist die Statement Coverage?
+	\end{itemize}
+
+
+\end{document}
