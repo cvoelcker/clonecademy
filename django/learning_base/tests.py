@@ -77,8 +77,8 @@ class AnswerViewTest(DatabaseMixin, TestCase):
         force_authenticate(request, self.u1)
         response = self.view(request, 1, 0, 0)
 
-        answer_1_serialized = serializers.AnswerSerializer(self.a1_test).data
-        answer_2_serialized = serializers.AnswerSerializer(self.a2_test).data
+        answer_1_serialized = serializers.get_answer_serializer(self.a1_test)
+        answer_2_serialized = serializers.get_answer_serializer(self.a2_test)
 
         self.assertEqual(response.data,
                          [answer_1_serialized, answer_2_serialized])
