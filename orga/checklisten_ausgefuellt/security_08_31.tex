@@ -1,0 +1,49 @@
+\begin{itemize}
+
+In dieser Iteration bearbeitete Userstories:
+\begin{itemize}
+\item 30 - Moderatorenrechte entziehen
+\item 32 - Adminrechte entziehen
+\item 36 - Footer auf der Hauptseite
+\item 37 - Footer auf der Frageseite
+\item 40 - InfoText mit Youtube Video anzeigen
+\item 41 - InfoText mit Youtube Video einpflegen
+\end{itemize}
+
+\item HTML Input: Wird jeglicher Input korrekt nach Cross-Site-Scripts durchsucht, bevor er als sicher markiert wird?
+
+\emph{Für die US 40 und 41}
+Ja, sämtlicher Input wird korrekt validiert.
+
+\emph{Für die US 30, 32, 36 und 37}
+Kein Input vorhanden.
+
+
+\item Sind die Django-Features zum Schutz vor Cross Site Request Forgery (CSRF) aktiviert?
+ges
+Ja, genauer gesagt, wurden die Features nicht dektiviert.
+
+
+\item Ist jede Schnittstelle mit passender Authentifizierung und Autorisierung versehen, sowie gegebenenfalls auch mit einer Anfragenbegrenzung (Throttling)?
+
+\emph{Für die Userstories 36, 37, 40 und 41}
+Nein, doch das war Absicht in dieser Iteration, da die Aufgabe komplett in den Userstories 30 bis 32 aufgeht.
+\emph{Für die Userstories 30 und 32}
+Ja, jedoch fehlt noch die Userstory 31, damit alle Funktionalitäten korrekt umgesetzt sind.
+
+
+\item Werden alle Nutzereingaben nach Fehlern gefiltert?
+
+\emph{Für die US 40 und 41}
+Ja, sämtlicher Input wird korrekt validiert.
+
+\emph{Für die US 30, 32, 36 und 37}
+Kein Input vorhanden.
+
+\item Sind alle Security Probleme, die bei der softwarebasierten Analyse aufgetreten sind, behoben, oder aus dem Kontext heraus als unkritisch betrachhtet worden?
+
+Ja, einige ng-Fehler wurden behoben. Vier aufgetretene ZAP-Alerts sind Browserseitig zu beheben und erforedern keine Änderung des Quellcodes.
+
+
+\end{itemize}
+
