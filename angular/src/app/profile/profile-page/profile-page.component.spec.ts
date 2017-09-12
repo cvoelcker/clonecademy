@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { BaseTest } from '../../base-test';
+import {BaseTest} from '../../base-test';
 
-import { ProfilePageComponent } from './profile-page.component';
+import {ProfilePageComponent} from './profile-page.component';
 
 describe('ProfilePageComponent', () => {
   let component: ProfilePageComponent;
@@ -11,11 +11,11 @@ describe('ProfilePageComponent', () => {
   beforeEach(async(() => {
     let base = new BaseTest();
     TestBed.configureTestingModule({
-      declarations: [ ProfilePageComponent ],
-      imports: [ base.imports() ],
+      declarations: [ProfilePageComponent],
+      imports: [base.imports()],
       providers: [base.providers()]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

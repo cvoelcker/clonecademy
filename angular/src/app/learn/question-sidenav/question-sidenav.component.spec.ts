@@ -1,12 +1,12 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { BaseTest } from '../../base-test';
+import {BaseTest} from '../../base-test';
 
-import { SassHelperComponent } from '../../service/sass-helper/sass-helper'
+import {SassHelperComponent} from '../../service/sass-helper/sass-helper'
 
-import { ChartsModule } from 'ng2-charts';
+import {ChartsModule} from 'ng2-charts';
 
-import { QuestionSidenavComponent } from './question-sidenav.component';
+import {QuestionSidenavComponent} from './question-sidenav.component';
 
 describe('QuestionSidenavComponent', () => {
   let component: QuestionSidenavComponent;
@@ -14,12 +14,12 @@ describe('QuestionSidenavComponent', () => {
 
   beforeEach(async(() => {
     let base = new BaseTest();
-      TestBed.configureTestingModule({
-        imports: [ base.imports(), ChartsModule ],
-        providers: [base.providers()],
-      declarations: [ QuestionSidenavComponent, SassHelperComponent ]
+    TestBed.configureTestingModule({
+      imports: [base.imports(), ChartsModule],
+      providers: [base.providers()],
+      declarations: [QuestionSidenavComponent, SassHelperComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

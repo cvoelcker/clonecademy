@@ -1,10 +1,16 @@
 <h2>{{"statistics" | translate}}</h2>
 <div *ngIf="!loading">
-  <a md-raised-button (click)="downloadStatistics()" ><md-icon>save</md-icon> {{"download" | translate}}</a>
+  <a md-raised-button (click)="downloadStatistics()">
+    <md-icon>save</md-icon>
+    {{"download" | translate}}</a>
   <table>
-    <th>{{"question" | translate}}</th><th>{{"solved" | translate}}</th><th>{{"date" | translate}}</th>
+    <th>{{"question" | translate}}</th>
+    <th>{{"solved" | translate}}</th>
+    <th>{{"date" | translate}}</th>
     <tr *ngFor="let stat of statistics">
-      <td>{{stat.question}}</td><td>{{stat.solved}}</td><td>{{ stat.date | date:'d. MMMM y'}}</td>
+      <td>{{stat.question}}</td>
+      <td>{{stat.solved}}</td>
+      <td>{{ stat.date | date:'d. MMMM y'}}</td>
     </tr>
   </table>
 </div>

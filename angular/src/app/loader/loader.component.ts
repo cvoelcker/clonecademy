@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import {Component, AfterViewInit, ChangeDetectorRef} from '@angular/core';
 
 @Component({
   selector: 'app-loader',
@@ -7,7 +7,8 @@ import { Component, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 })
 export class LoaderComponent {
 
-  constructor(private _changeDetectionRef : ChangeDetectorRef) { }
+  constructor(private _changeDetectionRef: ChangeDetectorRef) {
+  }
 
   ngAfterViewInit() {
     this._changeDetectionRef.detectChanges()

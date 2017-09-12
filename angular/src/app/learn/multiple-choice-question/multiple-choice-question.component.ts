@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 
-import { QuestionModule } from "../question/question.module"
+import {QuestionModule} from "../question/question.module"
 
 @Component({
   selector: 'app-MultipleChoiceQuestion',
@@ -10,10 +10,10 @@ import { QuestionModule } from "../question/question.module"
 export class MultipleChoiceQuestionComponent extends QuestionModule {
 
   // return array of the marked answers
-  submit(): any{
+  submit(): any {
     let sendAnswer = [];
-    for (let ans of this.data.answers){
-      if(ans.value){
+    for (let ans of this.data.answers) {
+      if (ans.value) {
         sendAnswer.push(ans.id)
       }
     }

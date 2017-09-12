@@ -1,13 +1,24 @@
-import { Component, OnInit, Type, Output, ChangeDetectorRef, EventEmitter, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentFactory } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Type,
+  Output,
+  ChangeDetectorRef,
+  EventEmitter,
+  ViewChild,
+  ViewContainerRef,
+  ComponentFactoryResolver,
+  ComponentFactory
+} from '@angular/core';
 
-import { AddQuestionModule } from './add-question.module'
-import { slideIn } from "../../../animations";
+import {AddQuestionModule} from './add-question.module'
+import {slideIn} from "../../../animations";
 
 @Component({
   selector: 'app-add-question',
   templateUrl: './add-question.component.html',
   styleUrls: ['./add-question.component.scss'],
-  animations: [ slideIn ]
+  animations: [slideIn]
 })
 export class AddQuestionComponent implements OnInit {
 
@@ -27,39 +38,40 @@ export class AddQuestionComponent implements OnInit {
 
   loading = false;
 
-  ngOnInit(){
+  ngOnInit() {
     this.loading = true;
     this.ref.detectChanges()
   }
 
-  setForm(f){
+  setForm(f) {
     this.form = f;
   }
 
-  constructor(private factory: ComponentFactoryResolver, private ref: ChangeDetectorRef) { }
+  constructor(private factory: ComponentFactoryResolver, private ref: ChangeDetectorRef) {
+  }
 
   // add a question to the view
-  addQuestion(data){
+  addQuestion(data) {
     //console.log(answers)
     // create factory
     // in the module class child will be set to the question type
     this.questionFactory = this.factory.resolveComponentFactory(this.child)
     // create new question
     let question = this.question.createComponent(this.questionFactory)
-    this.questionCopy  = (<AddQuestionModule> question.instance)
+    this.questionCopy = (<AddQuestionModule> question.instance)
     // set the question text
-    if(data != undefined){
+    if (data != undefined) {
 
-      if (data['text'] != undefined){
+      if (data['text'] != undefined) {
         this.questionBody = data["text"]
       }
-      if (data['title'] != undefined){
+      if (data['title'] != undefined) {
         this.title = data['title']
 
       }
       let feedback = data['feedback']
       // check if the feedback is set and if true set the feedback text
-      if(feedback != undefined && feedback != ""){
+      if (feedback != undefined && feedback != "") {
         this.feedbackBool = true;
         this.feedback = feedback
       }
@@ -71,14 +83,13 @@ export class AddQuestionComponent implements OnInit {
   }
 
 
-
-  remove(e){
-    if(e != null && e.toState == "0"){
+  remove(e) {
+    if (e != null && e.toState == "0") {
       //this.emitter.emit("remove")
     }
   }
 
-  save(f): any{
+  save(f): any {
     let response = this.questionCopy.save(f)
     // check if custom feedback is set and save it if needed
 
@@ -86,13 +97,13 @@ export class AddQuestionComponent implements OnInit {
 
     response['text'] = this.questionBody;
     response['title'] = this.title
-    if(this.feedbackBool){
+    if (this.feedbackBool) {
       response['feedback'] = this.feedback;
     }
-    else{
+    else {
       response['feedback'] = ''
     }
-    if(response['feedback'] == undefined){
+    if (response['feedback'] == undefined) {
       response['feedback'] = "";
     }
 

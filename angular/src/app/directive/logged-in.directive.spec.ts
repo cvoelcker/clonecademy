@@ -1,4 +1,4 @@
-import { LoggedInDirective } from './logged-in.directive';
+import {LoggedInDirective} from './logged-in.directive';
 
 
 describe('LoggedInDirective', () => {

@@ -1,16 +1,16 @@
 @import '../../_vars';
 
-av{
+av {
   padding: 0;
   text-align: right;
   margin: 0;
   width: 100%;
 }
 
-.mat-menu-item{
+.mat-menu-item {
   padding: 0 0.05em;
   margin: 0 0.5em;
-  &.active{
+  &.active {
     border-bottom: 2px solid $primary;
   }
 
@@ -20,22 +20,20 @@ av{
   background-size: cover;
 }
 
+.quick {
+  width: 10px;
+}
 
-.quick{
-    width: 10px;
-  }
-
-md-select{
+md-select {
   width: 20px;
 }
 
-md-icon{
+md-icon {
   // padding-top: 2em;
 }
 
-
-img{
-  border:3px solid #021a40;
+img {
+  border: 3px solid #021a40;
   border-radius: 50%;
   width: 50px;
   height: 50px;

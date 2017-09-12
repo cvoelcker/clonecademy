@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 
 import {QuestionModule} from '../question/question.module'
 import {SafeResourceUrl} from '@angular/platform-browser';
-import {ServerService} from '../../service/server.service'
 import {ActivatedRoute} from '@angular/router'
 import {DomSanitizer} from '@angular/platform-browser';
 

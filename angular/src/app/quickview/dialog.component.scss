@@ -1,21 +1,21 @@
 @import '../../_vars';
 
-md-card{
+md-card {
   width: 100%;
   height: 100%;
 }
 
-av{
+av {
   padding: 0;
   text-align: right;
   margin: 0;
   width: 100%;
 }
 
-.mat-menu-item{
+.mat-menu-item {
   padding: 0 0.05em;
   margin: 0 0.5em;
-  &.active{
+  &.active {
     border-bottom: 2px solid $primary;
   }
 
@@ -31,21 +31,21 @@ av{
   background-size: cover;
 }
 
-button{
+button {
   float: right;
 }
 
-img{
+img {
   width: 50%;
   height: 30%;
-  border:3px solid #021a40;
+  border: 3px solid #021a40;
   border-radius: 50%;
 }
 
-h2{
+h2 {
   float: right;
 }
 
-nav{
+nav {
   float: right;
 }

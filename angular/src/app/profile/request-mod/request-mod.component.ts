@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { ServerService } from '../../service/server.service';
-import { Router } from "@angular/router"
+import {ServerService} from '../../service/server.service';
+import {Router} from "@angular/router"
 
-import { CookieService } from 'angular2-cookie/core';
+import {CookieService} from 'angular2-cookie/core';
 
 @Component({
   selector: 'app-request-mod',
@@ -17,7 +17,8 @@ export class RequestModComponent implements OnInit {
   loading = true;
 
 
-  constructor(private server: ServerService) {}
+  constructor(private server: ServerService) {
+  }
 
   check_request() {
     this.server.get("user/mod_request", true, false)
@@ -32,12 +33,14 @@ export class RequestModComponent implements OnInit {
 
   }
 
-  send_request(){
+  send_request() {
     if (!this.available)
       return -1;
     let request = {reason: this.reason}
     this.server.post("user/mod_request", request)
-      .then(answer => {this.available=false})
+      .then(answer => {
+        this.available = false
+      })
   }
 
   ngOnInit() {

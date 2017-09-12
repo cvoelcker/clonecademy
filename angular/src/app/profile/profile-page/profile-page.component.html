@@ -2,18 +2,21 @@
   <h3 *ngIf="user != undefined">{{"profile" | translate}}</h3>
   <ul>
     <li *ngFor="let m of menu">
-      <button md-button [routerLinkActive]="['active']" [routerLink]="'/profile/' + m.url">{{m.name | translate}}</button>
+      <button md-button [routerLinkActive]="['active']"
+              [routerLink]="'/profile/' + m.url">{{m.name | translate}}
+      </button>
     </li>
   </ul>
   <ul>
     <li>
-      <button md-button (click)="user.logout()">{{"logout" | translate}}</button>
+      <button md-button (click)="user.logout()">{{"logout" | translate}}
+      </button>
     </li>
   </ul>
 </div>
 <div class="content">
-<router-outlet ></router-outlet>
+  <router-outlet></router-outlet>
 </div>
 <footer>
-<app-footer-mainpage></app-footer-mainpage>
+  <app-footer-mainpage></app-footer-mainpage>
 </footer>

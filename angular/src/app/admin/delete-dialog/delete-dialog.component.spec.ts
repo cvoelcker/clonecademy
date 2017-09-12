@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { BaseTest } from '../../base-test';
+import {BaseTest} from '../../base-test';
 
-import { CourseCategoriesComponent } from './course-categories.component';
+import {CourseCategoriesComponent} from './course-categories.component';
 
 describe('CourseCategoriesComponent', () => {
   let component: CourseCategoriesComponent;
@@ -10,12 +10,12 @@ describe('CourseCategoriesComponent', () => {
 
   beforeEach(async(() => {
     let base = new BaseTest();
-      TestBed.configureTestingModule({
-        imports: [ base.imports() ],
-        providers: [base.providers()],
-      declarations: [ ProfilesComponent ]
+    TestBed.configureTestingModule({
+      imports: [base.imports()],
+      providers: [base.providers()],
+      declarations: [ProfilesComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

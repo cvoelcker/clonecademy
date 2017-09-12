@@ -1,28 +1,42 @@
 <md-card class="panel" [@slideIn]="loading" (@slideIn.done)="remove($event)">
   <details open="open">
-<summary>
-  <ul>
-      <li class="titleName">
-        <md-input-container>
-          <input mdInput placeholder='{{"Question title" | translate}}' type="text" #Title="ngModel" [(ngModel)]="title" name="title" required>
-          <md-hint align="start" class="warning" *ngIf="form != null && form.submitted && !Title.valid"><strong>{{'The title of the module is required' | translate}}</strong> </md-hint>
-        </md-input-container></li>
-  </ul>
-</summary>
+    <summary>
+      <ul>
+        <li class="titleName">
+          <md-input-container>
+            <input mdInput placeholder='{{"Question title" | translate}}'
+                   type="text" #Title="ngModel" [(ngModel)]="title"
+                   name="title" required>
+            <md-hint align="start" class="warning"
+                     *ngIf="form != null && form.submitted && !Title.valid">
+              <strong>{{'The title of the module is required' |
+                translate}}</strong></md-hint>
+          </md-input-container>
+        </li>
+      </ul>
+    </summary>
 
-  <md-input-container>
-	  <textarea mdInput placeholder='{{"Question" | translate}}' #Question="ngModel" name="questionBody" type="textarea" [(ngModel)]="questionBody" required></textarea>
-    <md-hint align="start" class="warning" *ngIf="form != null && form.submitted && !Body.valid"><strong>{{'The question is required' | translate}}</strong></md-hint>
-  </md-input-container>
-  <div class="question" #question></div>
-  <div>
-    <md-checkbox name="isActive" [(ngModel)]="feedbackBool">
-      {{"Custom feedback" | translate}}
-    </md-checkbox>
-    <md-input-container *ngIf="feedbackBool">
-      <input mdInput placeholder='{{"custom feedback text" | translate}}'  [(ngModel)]="feedback" />
+    <md-input-container>
+      <textarea mdInput placeholder='{{"Question" | translate}}'
+                #Question="ngModel" name="questionBody" type="textarea"
+                [(ngModel)]="questionBody" required></textarea>
+      <md-hint align="start" class="warning"
+               *ngIf="form != null && form.submitted && !Body.valid"><strong>{{'The
+        question is required' | translate}}</strong></md-hint>
     </md-input-container>
-  </div>
-  <button md-raised-button (click)="loading = false"><md-icon>delete</md-icon> {{"remove Question" | translate}}</button>
-</details>
+    <div class="question" #question></div>
+    <div>
+      <md-checkbox name="isActive" [(ngModel)]="feedbackBool">
+        {{"Custom feedback" | translate}}
+      </md-checkbox>
+      <md-input-container *ngIf="feedbackBool">
+        <input mdInput placeholder='{{"custom feedback text" | translate}}'
+               [(ngModel)]="feedback"/>
+      </md-input-container>
+    </div>
+    <button md-raised-button (click)="loading = false">
+      <md-icon>delete</md-icon>
+      {{"remove Question" | translate}}
+    </button>
+  </details>
 </md-card>
