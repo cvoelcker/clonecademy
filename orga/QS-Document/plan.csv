@@ -1,20 +1,72 @@
-	;Iteration	;User Stories			;Commit Hash					;Design				;Veränderbarkeit	;Sicherheit	
-Benötigt;#num of iter	;handed-in us			;valid commit hash				;user study report, checklist	;django_test,pylint,ng2lint,selenium,checklist;bandit,ng2lint,zat,checklist
-02.06.	;3.		;basis der evaluation		;						;				;django_test,pylint,  	;
-09.06.	;4.		;basis der evaluation		;						;				;django_test,pylint,  	;
-16.06.	;5.		;basis der evaluation		;						;				;django_test,pylint,  	;
-23.06.	;6.		;basis der evaluation		;						;				;django_test,pylint,  	;
-30.06.	;7.		;basis der evaluation		;22f76fcce2d1d6b03857a9a4db7f9276433aecdd	;				;django_test,pylint,  	;
-07.07.	;8.		;12				;cf525f64091e6c892b7e471fc8048bd8c056d69e	;				;pylint 			;
-14.07.	;9.		;nix				;e2b7fed9dbc0e929bb28e7ccf30cd68aa0d73c19	;				;django_test, 		;
-21.07.	;10.		;17,18				;f5845985bf7463a32f0f4f04279ea7481a32daaf	;				;django_test, 		;
-28.07.	;11.		;DEPLOY 22			;2d17b38eecc8bbd754534a564ff2a22d60ee5f71	;				;django_test 		;
-04.08.	;12.		;4,19,20			;7af0e8284c862f9841d8101c6f4569adb0c6289c	;				;django_test 		;
-11.08.	;13.		;26,28,nicht 22 (Claas Fehler)	;b5e9a319bf3bd0bc33e544ff615e1bd8b62c7931	;				;django_test 		;
-18.08.	;14.		;25,27				;ba0fab4c21d736b0f67f8fe21ef90c0da810ac4b	;				;django_test 		;
-25.08.	;15.		;38				;78f8954ebc159fbcb6ed6a767e18d3437a604d22	;				;django_test 		;
-01.09.	;16.		;DEPLOY 30,32,36,37,40,41	;11bc7fa37a20ac045d5a6c29e4e3a060b73b3504	;				;django_test 		;
-08.09.	;17.		;42,43,44,46,			;ffc8afbf7012f4b2d63e5b58ac8f0c224a7ee382	;				;django_test 		;
-15.09.	;18.		;				;; ; ;
-22.09.	;19.		;				;; ; ;
-29.09.	;20.		;				;; ; ;
+	Iteration	User Stories	Commit Hash	Design	Veränderbarkeit	Sicherheit	
+Benötigt	#num of iter	handed-in us	valid commit hash	user study report, checklist	django_test,pylint,ng2lint,selenium,checklist	bandit,zat,checklist	
+02.06.	3	basis der evaluation					
+09.06.	4	basis der evaluation					
+16.06.	5	basis der evaluation					
+23.06.	6	basis der evaluation					
+30.06.	7	basis der evaluation	22f76fcce2d1d6b03857a9a4db7f9276433aecdd		django_test,pylint,ng_lint	bandit	
+07.07.	8	12	cf525f64091e6c892b7e471fc8048bd8c056d69e		django_test,pylint,ng_lint	bandit	
+14.07.	9	nix	e2b7fed9dbc0e929bb28e7ccf30cd68aa0d73c19		django_test,pylint,ng_lint	bandit	
+21.07.	10	17,18	f5845985bf7463a32f0f4f04279ea7481a32daaf		django_test,pylint,ng_lint	bandit	
+28.07.	11	DEPLOY 22	2d17b38eecc8bbd754534a564ff2a22d60ee5f71		django_test,pylint,ng_lint	bandit	
+04.08.	12	4,19,20	7af0e8284c862f9841d8101c6f4569adb0c6289c		django_test,pylint,ng_lint	bandit	
+11.08.	13	26,28,24	b5e9a319bf3bd0bc33e544ff615e1bd8b62c7931		django_test,pylint,ng_lint	bandit	
+18.08.	14	25,27	ba0fab4c21d736b0f67f8fe21ef90c0da810ac4b		django_test,pylint,ng_lint	bandit	
+25.08.	15	38	78f8954ebc159fbcb6ed6a767e18d3437a604d22		django_test,pylint,ng_lint	bandit	
+01.09.	16	DEPLOY 30,32,36,37,40,41	11bc7fa37a20ac045d5a6c29e4e3a060b73b3504		django_test,pylint,ng_lint	bandit	
+08.09.	17	31,33,34,42,43,44,46	ffc8afbf7012f4b2d63e5b58ac8f0c224a7ee382		django_test,pylint,ng_lint	bandit	
+15.09.	18	 	 				
+22.09.	19	 	 				
+29.09.	20	 	 				
+							
+	Checklisten	Entwickler	Reviewer	Angesetzt in / Abgegeben in	Veränderbarkeit	Design	Sicherheit
+	1	Tobias	Claas	5			
+	2	Leon	Ilhan	1	n/a	n/a	n/a
+	3	Claas	Tobias	1	n/a	n/a	n/a
+	4	Leon	Claas	12			
+	5	Ilhan	Leon	3	n/a	n/a	n/a
+	6	Claas	Ilhan	4			
+	7	Leon	Tobias	4			
+	8	Leon	Ilhan	4			
+	9	Leon	Claas	4			
+	10	Ilhan	Leon	4			
+	11	Claas	Tobias	8			
+	12	Tobias	Leon	12			
+	13	geteilt					
+	14	Leon	Ilhan	7			
+	15	Ilhan	Tobias	7			
+	16	Leon	Claas	7			
+	17	Ilhan	Leon	10			
+	18	Tobias	Ilhan	10			
+	19	Ilhan	Tobias	12			
+	20	Tobias	Leon	12			
+	21	gestrichen					
+	22	Leon	Ilhan	11			
+	23	Ilhan	Tobias	läuft			
+	24	Claas	Leon	13			
+	25	Claas	Ilhan	14			
+	26	Leon	Claas	13			
+	27	Leon	Tobias	11			
+	28	Leon	Claas	13			
+	29	Tobias	Claas	läuft			
+	30	Tobias	Ilhan	16			
+	31	Tobias	Leon	17			
+	32	Tobias	Leon	16			
+	33	Tobias	Claas	17			
+	34	Tobias	Ilhan	17			
+	35	Tobias	Claas	läuft			
+	36	Leon	Tobias	16			
+	37	Leon	Claas	16			
+	38	Claas	Ilhan	15			
+	39	Ilhan	Tobias	läuft			
+	40	Claas	Leon	16			
+	41	Claas	Tobias	16			
+	42	Claas	Ilhan	17			
+	43	Leon	Tobias	17			
+	44	Leon	Leon	17			
+	45	Ilhan	Claas	läuft			
+	46	Claas	Ilhan	17			
+	47		Tobias				
+	48		Leon				
+	49		Claas				
+	50		Ilhan				
