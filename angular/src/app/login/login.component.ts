@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { trigger, state, style, animate, transition } from '@angular/animations';
+import {trigger, state, style, animate, transition} from '@angular/animations';
 
-import { ErrorDialog } from "../service/error.service"
+import {ErrorDialog} from "../service/error.service"
 
-import { UserService } from '../service/user.service';
-import { Router } from "@angular/router";
-import { ServerService } from '../service/server.service'
+import {UserService} from '../service/user.service';
+import {Router} from "@angular/router";
+import {ServerService} from '../service/server.service'
 
-import { CookieService } from 'angular2-cookie/core';
-
+import {CookieService} from 'angular2-cookie/core';
 
 
 @Component({
@@ -18,10 +17,10 @@ import { CookieService } from 'angular2-cookie/core';
   styleUrls: ['./login.component.scss'],
   animations: [
     trigger('show', [
-      state( "active", style({
+      state("active", style({
         display: "none"
       })),
-      state( "inactive", style({
+      state("inactive", style({
         display: "block"
       })),
       transition('inactive => active', animate('100ms ease-in')),
@@ -35,24 +34,24 @@ export class LoginComponent implements OnInit {
   submitted: boolean;
   invalidLogin: boolean;
 
-  constructor(private errorDialog: ErrorDialog, private cookie: CookieService,public server: ServerService, public user: UserService, private router: Router) {
+  constructor(private errorDialog: ErrorDialog, private cookie: CookieService, public server: ServerService, public user: UserService, private router: Router) {
 
   }
 
-  login(form){
-    if(form.valid){
+  login(form) {
+    if (form.valid) {
       this.user.loginUser(this.username, this.password)
-      .catch(data => {
-        let dialogRef = this.errorDialog.open(data['non_field_errors'][0])
-      })
+        .catch(data => {
+          let dialogRef = this.errorDialog.open(data['non_field_errors'][0])
+        })
     }
-    else{
+    else {
       this.errorDialog.open("Username and password is required")
     }
   }
 
   ngOnInit() {
-    if(this.cookie.get('token') != null){
+    if (this.cookie.get('token') != null) {
       this.router.navigate(['/course']);
     }
   }

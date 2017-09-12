@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ServerService } from '../../service/server.service'
-import { ActivatedRoute, Params, Router } from '@angular/router'
+import {Component, OnInit} from '@angular/core';
+import {ServerService} from '../../service/server.service'
+import {ActivatedRoute, Params, Router} from '@angular/router'
 
 @Component({
   selector: 'app-quiz-question',
@@ -26,10 +26,10 @@ export class QuizQuestionComponent implements OnInit {
   }
 
   /**
-  loads data from server for current quiz id (from url)
-  @author Leonhard Wiedmann
-  **/
-  load(){
+   loads data from server for current quiz id (from url)
+   @author Leonhard Wiedmann
+   **/
+  load() {
     this.route.params.subscribe((data: Params) => {
       this.courseID = Number(data.id)
       this.server.get('courses/' + this.courseID + '/quiz/').then((data) => {
@@ -44,14 +44,14 @@ export class QuizQuestionComponent implements OnInit {
   }
 
   /**
-  sends data to server for current this.data['answers'].chosen if it is true
-  @author Leonhard Wiedmann
-  **/
-  submit(){
+   sends data to server for current this.data['answers'].chosen if it is true
+   @author Leonhard Wiedmann
+   **/
+  submit() {
     let value = {}
     let item = this.data[this.id]
-    for(let i = 0; i < item['answers'].length; i++){
-      if (item['answers'][i].chosen != undefined){
+    for (let i = 0; i < item['answers'].length; i++) {
+      if (item['answers'][i].chosen != undefined) {
         value[item['answers'][i].id] = item['answers'][i].chosen
       }
       else {
@@ -60,15 +60,15 @@ export class QuizQuestionComponent implements OnInit {
     }
     this.answers.push(value)
 
-    if(this.quizSize -1 == this.id){
+    if (this.quizSize - 1 == this.id) {
       this.server.post('courses/' + this.courseID + '/quiz/', this.answers)
-          .then(data => {
-            // TODO show popup for end course
-            // data is {name: "question of the quiz", solved: boolean "if the question is correct solved"}
-          })
+        .then(data => {
+          // TODO show popup for end course
+          // data is {name: "question of the quiz", solved: boolean "if the question is correct solved"}
+        })
       return;
     }
-    else{
+    else {
       this.id += 1;
     }
   }

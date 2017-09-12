@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
-import { AddQuestionModule } from "../add-question/add-question.module"
+import {AddQuestionModule} from "../add-question/add-question.module"
 
-import { slideIn } from "../../../animations";
+import {slideIn} from "../../../animations";
 
 import {MdDialog, MdDialogRef} from '@angular/material';
-import { ImageCropperDialogComponent } from '../../../image-cropper/image-cropper.component';
+import {ImageCropperDialogComponent} from '../../../image-cropper/image-cropper.component';
 
 
 @Component({
@@ -15,11 +15,11 @@ import { ImageCropperDialogComponent } from '../../../image-cropper/image-croppe
   animations: [slideIn],
 })
 /**
-@title: AddInformationTextComponent
-@author: Claas Voelcker
+ @title: AddInformationTextComponent
+ @author: Claas Voelcker
 
-This component is used to add an information text between questions.
-*/
+ This component is used to add an information text between questions.
+ */
 export class AddInformationTextComponent extends AddQuestionModule {
   body = {
     text_field: '',
@@ -45,7 +45,7 @@ export class AddInformationTextComponent extends AddQuestionModule {
     };
   }
 
-  openImageDialog(width: number, height: number, key: string){
+  openImageDialog(width: number, height: number, key: string) {
     let dialogRef = this.dialog.open(ImageCropperDialogComponent, {
       data: {
         width: width,
@@ -53,7 +53,7 @@ export class AddInformationTextComponent extends AddQuestionModule {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         this.body[key] = result
       }
     });

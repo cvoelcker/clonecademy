@@ -1,31 +1,32 @@
-.question{
+.question {
   height: 5em;
 }
 
-ul{
+ul {
   list-style: none;
   padding: 0;
 }
 
-textarea{
+textarea {
   width: 100%;
-  resize:vertical;
+  resize: vertical;
 }
 
-.answers{
-  .remove{
+.answers {
+  .remove {
     float: right;
   }
-  .imageUpload img{
+  .imageUpload img {
     max-height: 35px;
     padding: 0;
     margin: 1em 0;
     width: auto;
   }
-  textarea{
+  textarea {
     margin-top: 1em;
   }
 }
-.addAnswer{
+
+.addAnswer {
   margin: 1em 0;
 }

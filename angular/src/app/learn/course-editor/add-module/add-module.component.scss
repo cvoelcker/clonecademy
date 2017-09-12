@@ -1,43 +1,68 @@
+<<<<<<< HEAD
 @import "../../../../_vars";
 table{
   td{
+=======
+
+table {
+  td {
+>>>>>>> 06c60dc06f90997196524c0127fc4442f0ffc60c
     vertical-align: middle;
   }
 }
-.moduleTitle{
+
+.moduleTitle {
   padding-right: 1.5em;
 }
 
+<<<<<<< HEAD
 md-input-container{
+=======
+.moduleArrows {
+  width: 10%;
+  min-width: 50px;
+  button {
+    width: 100%;
+  }
+}
+
+md-input-container {
+>>>>>>> 06c60dc06f90997196524c0127fc4442f0ffc60c
   width: 90%;
 }
 
-#learningText{
+#learningText {
   width: 100%;
   overflow-x: hidden;
   overflow-y: auto;
   min-height: 5em;
 }
 
-.moduleWrapper{
+.moduleWrapper {
   margin: 1em 0;
   padding: 1em 0;
 }
 
-ul{
+ul {
   list-style: none;
   // padding: 16px 24px;
   margin: 1.5em 0;
+<<<<<<< HEAD
   li{
     padding:0px 0px;
+=======
+  li {
+    padding: 0px 24px;
+>>>>>>> 06c60dc06f90997196524c0127fc4442f0ffc60c
   }
 }
 
-md-select{
+md-select {
   margin-top: 1.5em;
 }
 
 *, ::after, ::before {
+<<<<<<< HEAD
        -webkit-box-sizing: inherit;
        box-sizing: inherit;
    }
@@ -161,3 +186,113 @@ md-select{
     time{ color: #757575; opacity: .75; }
    .list-unstyled { margin-top:15px; padding-left: 0; list-style: none;}
    .list-unstyled li{ margin-bottom:6px; }
+=======
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+html, body, ul, ol {
+  margin: 0;
+  padding: 0;
+}
+
+html > body {
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif !important;
+  background-color: #eeeeee;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  -webkit-text-rendering: optimizeLegibility;
+}
+
+h1 {
+  font-weight: 400;
+  color: #999;
+  font-size: 13px;
+  margin: 48px 0 12px 22px;
+}
+
+md-card.panel {
+  max-width: 100%;
+  padding: 1px;
+  box-shadow: 50%;
+}
+
+summary {
+  outline: none;
+  cursor: pointer;
+  //  padding: 0px 24px;
+  color: #212121;
+  position: relative;
+  font-size: 15px;
+  max-height: 50px;
+}
+
+summary:hover {
+  background: #eeeeee;
+}
+
+details[open] summary:hover {
+  background: none;
+}
+
+summary ul {
+  padding-left: 16px 24px;
+  list-style: none;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+}
+
+summary ul li {
+  flex: 1 100%;
+  flex-flow: row wrap;
+}
+
+summary ul li span {
+  display: block;
+  font-size: 12px;
+  margin-top: 6px;
+  opacity: .75;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary::after {
+  content: "expand_more";
+  font-family: 'Material Icons';
+  color: #9e9e9e;
+  font-size: 1.5em;
+  padding: 16px 24px;
+  text-align: center;
+  margin-top: 0;
+  position: absolute;
+  top: calc(50% - 12px);
+  bottom: 0;
+  right: 0;
+  width: 6%;
+}
+
+.titleValue {
+  color: #757575;
+  margin-left: 50px;
+
+}
+
+time {
+  color: #757575;
+  opacity: .75;
+}
+
+.list-unstyled {
+  margin-top: 15px;
+  padding-left: 0;
+  list-style: none;
+}
+
+.list-unstyled li {
+  margin-bottom: 6px;
+}
+>>>>>>> 06c60dc06f90997196524c0127fc4442f0ffc60c

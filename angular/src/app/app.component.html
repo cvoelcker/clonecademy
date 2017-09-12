@@ -1,6 +1,6 @@
 <div class="box">
   <header>
-    <span routerLink="/course" >
+    <span routerLink="/course">
       <img src="assets/logo.png" id="logo">
     <h1>
       {{title}}
@@ -8,7 +8,7 @@
   </span>
     <app-menu [hidden]="!user.loaded" #menu></app-menu>
   </header>
-  <main  class="flex">
+  <main class="flex">
     <div [hidden]="user.loaded" class="localLoader">
       <md-progress-spinner mode="indeterminate"></md-progress-spinner>
     </div>

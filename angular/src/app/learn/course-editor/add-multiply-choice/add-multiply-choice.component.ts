@@ -1,17 +1,17 @@
-import { Component} from '@angular/core';
+import {Component} from '@angular/core';
 
-import { AddQuestionModule } from "../add-question/add-question.module"
+import {AddQuestionModule} from "../add-question/add-question.module"
 
-import { slideIn } from "../../../animations";
+import {slideIn} from "../../../animations";
 
 import {MdDialog, MdDialogRef} from '@angular/material';
-import { ImageCropperDialogComponent } from '../../../image-cropper/image-cropper.component';
+import {ImageCropperDialogComponent} from '../../../image-cropper/image-cropper.component';
 
 @Component({
   selector: 'app-add-multiply-choice',
   templateUrl: './add-multiply-choice.component.html',
   styleUrls: ['./add-multiply-choice.component.scss'],
-  animations: [ slideIn ],
+  animations: [slideIn],
 })
 export class AddMultiplyChoiceComponent extends AddQuestionModule {
 
@@ -23,7 +23,7 @@ export class AddMultiplyChoiceComponent extends AddQuestionModule {
 
   url: string = "";
 
-  constructor(public dialog: MdDialog){
+  constructor(public dialog: MdDialog) {
     super()
   }
 
@@ -31,7 +31,7 @@ export class AddMultiplyChoiceComponent extends AddQuestionModule {
 
   file: any = null;
 
-  openImageDialog(width: number, height: number, key: string, answers = false){
+  openImageDialog(width: number, height: number, key: string, answers = false) {
     let dialogRef = this.dialog.open(ImageCropperDialogComponent, {
       data: {
         width: width,
@@ -39,11 +39,11 @@ export class AddMultiplyChoiceComponent extends AddQuestionModule {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        if(answers){
+      if (result) {
+        if (answers) {
           this.body.answers[key].img = result
         }
-        else{
+        else {
           this.body[key] = result
         }
 
@@ -54,11 +54,11 @@ export class AddMultiplyChoiceComponent extends AddQuestionModule {
 
   // the function to save it returns a object
   // {type: string, answers: [text: string, is_correct: boolean]}
-  save(form): any{
+  save(form): any {
     this.form = form;
     let answers = this.body.answers
-    for(let i = 0; i < answers.length; i++){
-      if (answers[i].img == null){
+    for (let i = 0; i < answers.length; i++) {
+      if (answers[i].img == null) {
         answers[i].img = ""
       }
       delete answers[i].visible
@@ -71,23 +71,29 @@ export class AddMultiplyChoiceComponent extends AddQuestionModule {
     };
   }
 
-  removeAnswer(event, index: number){
-    if(this.body.answers[index] != null && this.body.answers[index].visible == false){
+  removeAnswer(event, index: number) {
+    if (this.body.answers[index] != null && this.body.answers[index].visible == false) {
       this.body.answers.splice(index, 1);
     }
   }
 
-  slideInFunction(index: number){
+  slideInFunction(index: number) {
     this.body['answers'][index].visible = false;
   }
 
-  addAnswer(){
-    this.body.answers.push({text: "", is_correct:false, visible: true, id: null, img: ""})
+  addAnswer() {
+    this.body.answers.push({
+      text: "",
+      is_correct: false,
+      visible: true,
+      id: null,
+      img: ""
+    })
   }
 
-  validAnswer(): boolean{
-    for(let i = 0; i < this.body.answers.length; i++){
-      if(this.body.answers[i].is_correct){
+  validAnswer(): boolean {
+    for (let i = 0; i < this.body.answers.length; i++) {
+      if (this.body.answers[i].is_correct) {
         return true;
       }
     }

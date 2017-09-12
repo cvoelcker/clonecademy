@@ -1,12 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {ServerService} from '../../service/server.service';
+import {Router} from "@angular/router"
 
-import { ServerService } from '../../service/server.service';
-
-import { Router } from "@angular/router"
-
-import { UserDetailComponent } from '../user-detail/user-detail.component'
-
-//import { UserDetailComponent } from '../user-detail/user-detail.component'
 
 @Component({
   selector: 'app-profiles',
@@ -22,7 +17,8 @@ export class ProfilesComponent implements OnInit {
 
   selectedValue: number;
 
-  constructor(private server: ServerService, private router: Router) { }
+  constructor(private server: ServerService, private router: Router) {
+  }
 
   ngOnInit() {
     // load the data for all users
@@ -34,7 +30,7 @@ export class ProfilesComponent implements OnInit {
   }
 
   // change to see the details for another user
-  change(id: number){
+  change(id: number) {
     this.router.navigate(['/admin/profiles/' + id])
   }
 

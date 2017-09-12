@@ -1,9 +1,11 @@
-<nav md-tab-nav-bar >
+<nav md-tab-nav-bar>
   <span *ngIf="user.login">
-    <a md-tab-link *ngIf="user.isAdmin()"  routerLink="/admin/" [routerLinkActive]="['active']">{{"admin" | translate}}</a>
+    <a md-tab-link *ngIf="user.isAdmin()" routerLink="/admin/"
+       [routerLinkActive]="['active']">{{"admin" | translate}}</a>
     <!-- <a md-tab-link  routerLink="/profile/" [routerLinkActive]="['active']">{{"profile" | translate}}</a> -->
-    <a md-tab-link  routerLink="/course/" [routerLinkActive]="['active']">{{"learn" | translate}}</a>
-    <a *ngIf="user.data != undefined" type="quick" md-tab-link (click)="openDialog()"><img [src]="user.data.avatar"> {{user.data.username}} <md-icon>arrow_drop_down</md-icon></a>
+    <a md-tab-link routerLink="/course/" [routerLinkActive]="['active']">{{"learn" | translate}}</a>
+    <a *ngIf="user.data != undefined" type="quick" md-tab-link
+       (click)="openDialog()"><img [src]="user.data.avatar"> {{user.data.username}} <md-icon>arrow_drop_down</md-icon></a>
   </span>
 
   <span *ngIf="!user.login">

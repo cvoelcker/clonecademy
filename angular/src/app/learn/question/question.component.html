@@ -7,11 +7,15 @@
   <div class="content">
     <table>
       <td class="text">
-          <div class="alert">
-            <markdown id="learning_text" [data]="learning_text" *ngIf="learning_text != undefined">
-            </markdown>
-          </div>
-          <md-card ><markdown id="question_text" [data]="questionBody" *ngIf="questionBody != undefined"></markdown></md-card>
+        <div class="alert">
+          <markdown id="learning_text" [data]="learning_text"
+                    *ngIf="learning_text != undefined">
+          </markdown>
+        </div>
+        <md-card>
+          <markdown id="question_text" [data]="questionBody"
+                    *ngIf="questionBody != undefined"></markdown>
+        </md-card>
       </td>
       <td class="question">
         <div id="question" #question></div>
@@ -25,16 +29,23 @@
         <button md-raised-button (click)="sidenav.open()">Navigation</button>
       </th>
       <th class="middle">
-        <md-card class="module" *ngFor="let m of progress" [style.width.%]="((m.length / allQuestionsInCourse) * 100) - 1">
+        <md-card class="module" *ngFor="let m of progress"
+                 [style.width.%]="((m.length / allQuestionsInCourse) * 100) - 1">
           <div class="wrapper">
-            <div class="question" [mdTooltip]="q.title" mdTooltipPosition="above" [class.correct]="q['solved']" *ngFor="let q of m">
+            <div class="question" [mdTooltip]="q.title"
+                 mdTooltipPosition="above" [class.correct]="q['solved']"
+                 *ngFor="let q of m">
             </div>
           </div>
         </md-card>
       </th>
       <th class="end">
-        <button md-raised-button *ngIf="!submitCorrect" (click)="submit()">{{"submit" | translate}}</button>
-        <button md-raised-button *ngIf="submitCorrect" (click)="next()">{{"next question" | translate}}</button>
+        <button md-raised-button *ngIf="!submitCorrect" (click)="submit()">
+          {{"submit" | translate}}
+        </button>
+        <button md-raised-button *ngIf="submitCorrect" (click)="next()">{{"next
+          question" | translate}}
+        </button>
       </th>
     </table>
   </footer>

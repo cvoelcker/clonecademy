@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
-import { ServerService } from './server.service'
+import {ServerService} from './server.service'
 
-import { Router } from "@angular/router"
+import {Router} from "@angular/router"
 
 import {CookieService} from 'angular2-cookie/core';
 
@@ -20,8 +20,8 @@ export class UserService {
 
   public loaded = false;
 
-  public loginUser(username: string, password: string){
-    return new Promise((resolve, reject) =>  this.server.login(username, password)
+  public loginUser(username: string, password: string) {
+    return new Promise((resolve, reject) => this.server.login(username, password)
       .then(res => {
         this.loadUser().then(() => {
           this.router.navigate(['/course']);
@@ -38,29 +38,29 @@ export class UserService {
     )
   }
 
-  public loadUser(){
+  public loadUser() {
 
     return new Promise((resolve, reject) => this.server.get("user/current", true, false).then(data => {
-          this.groups = data['groups'];
-          this.data = data;
-          this.loaded = true;
-          this.id = data['id']
-          this.language = data['language']
-          this.translate.use(data['language']);
-          resolve()
-        })
+        this.groups = data['groups'];
+        this.data = data;
+        this.loaded = true;
+        this.id = data['id']
+        this.language = data['language']
+        this.translate.use(data['language']);
+        resolve()
+      })
         .catch(err => {
           this.loaded = true;
           this.logout()
           reject()
         })
-      )
+    )
   }
 
-  private isInGroup(name: string){
-    if(this.loaded && this.login){
-      for(let i = 0; i < this.groups.length; i++){
-        if(this.groups[i] == name){
+  private isInGroup(name: string) {
+    if (this.loaded && this.login) {
+      for (let i = 0; i < this.groups.length; i++) {
+        if (this.groups[i] == name) {
           return true;
         }
       }
@@ -68,22 +68,22 @@ export class UserService {
     return false;
   }
 
-  public isAdmin(){
+  public isAdmin() {
     return this.isInGroup('admin')
   }
 
-  public isModerator(){
+  public isModerator() {
     return this.isInGroup('admin') || this.isInGroup("moderator")
   }
 
-  public logout(){
+  public logout() {
     this.login = false
     this.groups = null;
     this.cookie.removeAll();
     this.router.navigate(['/login']);
   }
 
-  public edit(data){
+  public edit(data) {
     this.server.post("user/current", data).then(() => {
       this.data = data
       this.language = data['language']
@@ -91,12 +91,12 @@ export class UserService {
     })
   }
 
-  constructor(private translate: TranslateService, private server: ServerService, private router: Router, private cookie: CookieService ) {
+  constructor(private translate: TranslateService, private server: ServerService, private router: Router, private cookie: CookieService) {
     this.login = this.cookie.get("token") != null
-    if(this.login){
+    if (this.login) {
       this.loadUser()
     }
-    else{
+    else {
       this.loaded = true;
     }
   }

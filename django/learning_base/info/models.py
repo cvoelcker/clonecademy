@@ -1,3 +1,6 @@
+"""
+x
+"""
 from django.db import models
 from learning_base.models import Question
 
@@ -18,24 +21,48 @@ class InformationText(Question):
 
     text_field = models.TextField()
 
-    def not_solvable(self):
+    @staticmethod
+    def not_solvable():
+        """
+        x
+        """
         return False
 
-    def evaluate(self, data):
+    @staticmethod
+    def evaluate(data):
+        """
+        x
+        """
         return True
 
-    def num_correct_answers(self):
+    @staticmethod
+    def num_correct_answers():
+        """
+        x
+        """
         return 0
 
-    def get_serializer(self):
+    @staticmethod
+    def get_serializer():
+        """
+        x
+        """
         from . import serializer
         return serializer.InformationTextSerializer
 
-    def get_edit_serializer(self):
+    @staticmethod
+    def get_edit_serializer():
+        """
+        x
+        """
         from . import serializer
         return serializer.InformationTextSerializer
 
-    def get_points(self):
+    @staticmethod
+    def get_points():
+        """
+        x
+        """
         return 0
 
     def __str__(self):
@@ -58,25 +85,52 @@ class InformationYoutube(Question):
 
     text_field = models.TextField()
 
-    def not_solvable(self):
+    @staticmethod
+    def not_solvable():
+        """
+        x
+        """
         return False
 
-    def evaluate(self, data):
+    @staticmethod
+    def evaluate(data):
+        """
+        x
+        """
         return True
 
-    def num_correct_answers(self):
+    @staticmethod
+    def num_correct_answers():
+        """
+        x
+        """
         return 0
 
-    def get_serializer(self):
+    @staticmethod
+    def get_serializer():
+        """
+        x
+        """
         from . import serializer
         return serializer.InformationYoutubeSerializer
 
-    def get_edit_serializer(self):
+    @staticmethod
+    def get_edit_serializer():
+        """
+        x
+        """
         from . import serializer
         return serializer.InformationYoutubeSerializer
 
-    def get_points(self):
+    @staticmethod
+    def get_points():
+        """
+        x
+        """
         return 0
 
     def __str__(self):
+        """
+        x
+        """
         return "Learning text {}".format(self.id)

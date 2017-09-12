@@ -1,3 +1,7 @@
+"""
+module containing all custom access management
+"""
+
 from rest_framework.permissions import IsAuthenticated
 
 SAFE_METHODS = ('GET', 'HEAD', 'OPTIONS')

@@ -1,31 +1,42 @@
+<<<<<<< HEAD
 .question{
   padding-left: 25px;
   // height: 5em;
+=======
+.question {
+  height: 5em;
+>>>>>>> 06c60dc06f90997196524c0127fc4442f0ffc60c
 }
 
-ul{
+ul {
   list-style: none;
   padding: 0;
 }
 
-textarea{
+textarea {
   width: 100%;
-  resize:vertical;
+  resize: vertical;
 }
 
+<<<<<<< HEAD
 .textareas{
   width: 70%;
 }
 
 .answers{
   .remove{
+=======
+.answers {
+  .remove {
+>>>>>>> 06c60dc06f90997196524c0127fc4442f0ffc60c
     float: right;
   }
-  textarea{
+  textarea {
     margin-top: 1em;
   }
 }
-.addAnswer{
+
+.addAnswer {
   margin: 1em 0;
 }
 

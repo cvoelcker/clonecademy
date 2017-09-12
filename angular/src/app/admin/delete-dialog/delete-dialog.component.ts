@@ -1,4 +1,4 @@
-import { Component, Inject, Optional } from '@angular/core';
+import {Component, Inject, Optional} from '@angular/core';
 
 import {MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
 
@@ -12,8 +12,8 @@ export class DeleteDialogComponent {
   courses: any;
 
   constructor(@Optional() public dialogRef: MdDialogRef<DeleteDialogComponent>, @Inject(MD_DIALOG_DATA) public data: string) {
-    if(data != null){
-      this.courses=data
+    if (data != null) {
+      this.courses = data
     } else {
       this.courses = {}
     }
@@ -25,4 +25,5 @@ export class DeleteDialogComponent {
   onNoClick(): void {
     this.dialogRef.close();
   }
-};
+}
+;

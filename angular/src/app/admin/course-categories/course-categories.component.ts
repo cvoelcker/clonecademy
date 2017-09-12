@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MdDialog } from '@angular/material';
-import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component'
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MdDialog} from '@angular/material';
+import {DeleteDialogComponent} from '../delete-dialog/delete-dialog.component'
 
-import { ServerService } from '../../service/server.service';
+import {ServerService} from '../../service/server.service';
 
-import { Router } from "@angular/router"
+import {Router} from "@angular/router"
 
 @Component({
   selector: 'app-course-categories',
@@ -29,7 +29,8 @@ export class CourseCategoriesComponent implements OnInit {
 
 
   constructor(private server: ServerService, private router: Router,
-              public dialog: MdDialog) { }
+              public dialog: MdDialog) {
+  }
 
   ngOnInit() {
     // load the data for all categories
@@ -41,21 +42,23 @@ export class CourseCategoriesComponent implements OnInit {
       })
   }
 
-  change(c: any){
+  change(c: any) {
     this.selected = c;
     this.create = false;
     console.log("change called")
   }
 
-  openCreate(){
+  openCreate() {
     console.log("open create called")
     this.create = true;
   }
 
-  delete(){
+  delete() {
     console.log("delete init")
-    this.server.post('courses/', {"category":this.selected.name, "type":"",
-    "language":""}, false, false)
+    this.server.post('courses/', {
+      "category": this.selected.name, "type": "",
+      "language": ""
+    }, false, false)
       .then(answer => {
         this.courses = answer;
       })
@@ -75,13 +78,13 @@ export class CourseCategoriesComponent implements OnInit {
   }
 
   // register the updated category
-  register(value){
+  register(value) {
     console.log(value)
     if (value.valid) {
       let data = value.value
-      if (data['categorycolor']=='')
+      if (data['categorycolor'] == '')
         delete data['categorycolor'];
-      if (data['categoryname']=='')
+      if (data['categoryname'] == '')
         delete data['categoryname'];
       if (this.selected != undefined && !this.create) {
         data["id"] = this.selected.id;
@@ -93,7 +96,7 @@ export class CourseCategoriesComponent implements OnInit {
         })
         .catch(errorRes => {
           this.error = true;
-          this.errorMessage=errorRes;
+          this.errorMessage = errorRes;
         })
       if (this.create) {
         this.change(this.selected)
@@ -101,12 +104,13 @@ export class CourseCategoriesComponent implements OnInit {
     }
   }
 
-};
+}
+;
 /*
-@Component({
-  selector: 'app-course-categories',
-  templateUrl: './delete-dialog.html',
-  styleUrls: ['./course-categories.component.sass']
-})
-export class DialogContentDeleteDialogComponent {}
-*/
+ @Component({
+ selector: 'app-course-categories',
+ templateUrl: './delete-dialog.html',
+ styleUrls: ['./course-categories.component.sass']
+ })
+ export class DialogContentDeleteDialogComponent {}
+ */

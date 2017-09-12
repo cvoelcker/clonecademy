@@ -1,3 +1,7 @@
+"""
+module containing all models for multiple choice questions
+"""
+
 from django.db import models
 from learning_base.models import Question
 
@@ -19,10 +23,18 @@ class MultipleChoiceQuestion(Question):
     )
 
     def num_correct_answers(self):
+        """
+        returns the number of correct answers
+        :return:
+        """
         return len(MultipleChoiceAnswer.objects.filter(
             question=self, is_correct=True))
 
     def not_solvable(self):
+        """
+        Checks whether the question is actually solvable
+        :return:
+        """
         return self.num_correct_answers() == 0
 
     def evaluate(self, data):
@@ -43,20 +55,36 @@ class MultipleChoiceQuestion(Question):
         return self.title
 
     def answer_set(self):
+        """
+        shorthand for the answer set
+        :return:
+        """
         return self.multiplechoiceanswer_set.all()
 
-    def get_serializer(self):
+    @staticmethod
+    def get_serializer():
+        """
+        reverse for the serializer
+        :return:
+        """
         from . import serializer
         return serializer.MultipleChoiceQuestionSerializer
 
-    def get_edit_serializer(self):
+    @staticmethod
+    def get_edit_serializer():
+        """
+        reverse for the serializer
+        :return:
+        """
         from . import serializer
         return serializer.MultipleChoiceQuestionEditSerializer
 
-    def custom_feedback(self):
-        return self.feedback_image
-
-    def get_points(self):
+    @staticmethod
+    def get_points():
+        """
+        returns the points value of the question
+        :return:
+        """
         return 1
 
 
@@ -87,10 +115,20 @@ class MultipleChoiceAnswer(models.Model):
     def __str__(self):
         return self.text
 
-    def get_serializer(self):
+    @staticmethod
+    def get_serializer():
+        """
+        reverse for the serializer
+        :return:
+        """
         from learning_base.multiple_choice import serializer
         return serializer.MultipleChoiceAnswerSerializer
 
-    def get_edit_serializer(self):
+    @staticmethod
+    def get_edit_serializer():
+        """
+        reverse for the serializer
+        :return:
+        """
         from learning_base.multiple_choice import serializer
         return serializer.MultipleChoiceAnswerEditSerializer
