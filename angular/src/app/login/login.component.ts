@@ -11,7 +11,6 @@ import { ServerService } from '../service/server.service'
 import { CookieService } from 'angular2-cookie/core';
 
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -35,7 +34,9 @@ export class LoginComponent implements OnInit {
   submitted: boolean;
   invalidLogin: boolean;
 
-  constructor(private errorDialog: ErrorDialog, private cookie: CookieService,public server: ServerService, public user: UserService, private router: Router) {
+  constructor(private errorDialog: ErrorDialog, private cookie: CookieService,
+    public server: ServerService, public user: UserService,
+    private router: Router) {
 
   }
 
@@ -56,5 +57,4 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/course']);
     }
   }
-
 }

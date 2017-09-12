@@ -68,6 +68,7 @@ import { UserDetailUserComponent } from './profile/user-detail-user/user-detail-
 import { ProfilePageComponent } from './profile/profile-page/profile-page.component';
 import { AdminPageComponent } from './admin/admin-page/admin-page.component';
 import { RegisterComponent } from './register/register.component';
+import { PwResetComponent } from './login/pw-reset/pw-reset.component';
 import { ErrorMessageComponent } from './error-message/error-message.component';
 import { WrongFeedbackComponent } from './learn/question/wrong-feedback/wrong-feedback.component';
 import { LoaderComponent } from './loader/loader.component';
@@ -81,6 +82,7 @@ import { FooterMainpageComponent } from './footer-mainpage/footer-mainpage.compo
 import { QuizQuestionComponent } from './quiz/quiz-question/quiz-question.component';
 
 
+
 const appRoutes: Routes = [
   {
     path: '',
@@ -89,29 +91,29 @@ const appRoutes: Routes = [
   },
   {
     path: 'course',
-   component: DashboardComponent,
-   children: [
-     {
-       path: '',
-       component: CourseViewComponent,
-     },
-     {
-       path: 'create_course',
-       component: CreateCourseComponent,
-     },
-     {
-       path: 'page_not_found',
-       component: PageNotFoundComponent,
-     },
-     {
-       path: ':id',
-       component: CourseComponent,
-     },
-     {
-       path: 'edit/:id',
-       component: EditCourseComponent
-     },
-   ]
+    component: DashboardComponent,
+    children: [
+      {
+        path: '',
+        component: CourseViewComponent,
+      },
+      {
+        path: 'create_course',
+        component: CreateCourseComponent,
+      },
+      {
+        path: 'page_not_found',
+        component: PageNotFoundComponent,
+      },
+      {
+        path: ':id',
+        component: CourseComponent,
+      },
+      {
+        path: 'edit/:id',
+        component: EditCourseComponent
+      },
+    ]
   },
   {
     path: 'course/:id/quiz',
@@ -123,11 +125,15 @@ const appRoutes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'pw-reset',
+    component: PwResetComponent,
   },
   {
     path: 'profile',
@@ -216,6 +222,7 @@ const QuestionList = QuestionDictionary.questionComponents
     ProfilePageComponent,
     AdminPageComponent,
     RegisterComponent,
+    PwResetComponent,
     ErrorMessageComponent,
     WrongFeedbackComponent,
     LoaderComponent,
@@ -230,7 +237,7 @@ const QuestionList = QuestionDictionary.questionComponents
     QuestionSidenavComponent,
     QuizQuestionComponent,
     CourseCategoriesComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -292,11 +299,10 @@ const QuestionList = QuestionDictionary.questionComponents
     UserDetailComponent,
     // admin Page components
     ProfilesComponent,
-
+    DeleteDialogComponent,
     // you have to add all modules for questions here
     QuestionList,
     CourseViewComponent,
-    DeleteDialogComponent,
   ]
 })
 export class AppModule { }

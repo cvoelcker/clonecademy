@@ -35,7 +35,7 @@ class CategoryView(APIView):
 
     def post(self, request, format=None):
         """
-        everything else than displaying
+        everything else but displaying
         @author Tobias Huber
         """
         data = request.data
