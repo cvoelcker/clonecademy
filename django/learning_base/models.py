@@ -2,6 +2,7 @@
 x
 """
 
+from  hashlib import sha512
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -80,8 +81,16 @@ class Profile(models.Model):
     def is_admin(self):
         """
         Returns True if the user is in the group admin
+        :return: whether the user belong to the admin group
         """
         return self.user.groups.filter(name="admin").exists()
+
+    def get_hash(self):
+        """
+        calculates a hash to get anonymous user data
+        :return: the first 10 digits of the hash
+        """
+        return sha512(str.encode(self.user.username)).hexdigest()[:10]
 
     def __str__(self):
         return str(self.user)
