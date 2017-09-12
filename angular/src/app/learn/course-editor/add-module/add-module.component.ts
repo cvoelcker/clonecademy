@@ -53,20 +53,7 @@ export class AddModuleComponent implements OnInit {
     this.question = this.factory.resolveComponentFactory(AddQuestionComponent)
   }
 
-<<<<<<< HEAD
-  addQuestion(component, data){
-      // add the question to the module component and add it to the array so we can edit and save it later
 
-      let question = this.module.createComponent(this.question)
-      let q = (<AddQuestionComponent> question.instance)
-      q.form = this.form
-
-      q.emitter.subscribe(data => this.module.detach())
-      q.child = component
-      q.addQuestion(data)
-      this.questionArray.push(question)
-      this.selectedValue = null;
-=======
   addQuestion(component, data) {
     // add the question to the module component and add it to the array so we can edit and save it later
     let question = this.module.createComponent(this.question)
@@ -78,7 +65,7 @@ export class AddModuleComponent implements OnInit {
     q.addQuestion(data)
     this.questionArray.push(question)
     this.selectedValue = null;
->>>>>>> 06c60dc06f90997196524c0127fc4442f0ffc60c
+
   }
 
   editQuestion(data) {

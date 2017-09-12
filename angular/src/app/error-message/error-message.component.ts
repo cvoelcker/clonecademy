@@ -1,4 +1,4 @@
-import {Component, Inject, Optional} from '@angular/core';
+import {Component, Inject, Optional, OnInit} from '@angular/core';
 
 import {MD_DIALOG_DATA} from '@angular/material';
 
@@ -20,8 +20,6 @@ export class ErrorMessageComponent implements OnInit {
       })
     }
   }
-
-  ngOnInit() {
+  ngOnInit(){
   }
-
 }

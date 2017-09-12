@@ -42,21 +42,11 @@ export class MenuComponent implements OnInit {
   }
 
   openDialog(key) {
-<<<<<<< HEAD
   let dialogRef = this.dialog.open(DialogComponent, {
   height: '250px',
   width: '250px',
 });
-  console.log(this.user.data);
-  dialogRef.updatePosition({ top: '11%', right: '0.2%' });
-}
-=======
-    let dialogRef = this.dialog.open(DialogComponent, {
-      height: '250px',
-      width: '250px',
-    });
-    dialogRef.updatePosition({top: '11%', right: '0.2%'});
+  dialogRef.updatePosition({ top: '65px', right: '3px' });
   }
->>>>>>> 06c60dc06f90997196524c0127fc4442f0ffc60c
 
 }
