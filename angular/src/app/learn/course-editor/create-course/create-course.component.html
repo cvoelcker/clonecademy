@@ -33,10 +33,12 @@
   </div>
 
   <div [class.moduleWrapper]="moduleArray.length > 0" >
+    <md-card class="addmodule">
     <div class="modules" #modules></div>
      <button md-raised-button type="button" (click)="addModule()">
        <md-icon>add</md-icon> {{"add module" | translate}}
      </button>
+   </md-card>
   </div>
 
   <div class="quizWrapper" >

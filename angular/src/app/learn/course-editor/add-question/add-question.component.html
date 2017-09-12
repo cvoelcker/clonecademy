@@ -2,18 +2,27 @@
   <details open="open">
 <summary>
   <ul>
-      <li class="titleName">
+      <li class="titleName">{{title}}</li>
+      <li class="titleValue">Edit Question</li>
+</ul>
+</summary>
+
+    <ul>
+      <li class="question">
         <md-input-container>
           <input mdInput placeholder='{{"Question title" | translate}}' type="text" #Title="ngModel" [(ngModel)]="title" name="title" required>
           <md-hint align="start" class="warning" *ngIf="form != null && form.submitted && !Title.valid"><strong>{{'The title of the module is required' | translate}}</strong> </md-hint>
-        </md-input-container></li>
-  </ul>
-</summary>
+        </md-input-container>
+      </li>
 
-  <md-input-container>
-	  <textarea mdInput placeholder='{{"Question" | translate}}' #Question="ngModel" name="questionBody" type="textarea" [(ngModel)]="questionBody" required></textarea>
-    <md-hint align="start" class="warning" *ngIf="form != null && form.submitted && !Body.valid"><strong>{{'The question is required' | translate}}</strong></md-hint>
-  </md-input-container>
+      <li>
+        <md-input-container>
+	      <textarea mdInput placeholder='{{"Question" | translate}}' #Question="ngModel" name="questionBody" type="textarea" [(ngModel)]="questionBody" required></textarea>
+        <md-hint align="start" class="warning" *ngIf="form != null && form.submitted && !Body.valid"><strong>{{'The question is required' | translate}}</strong></md-hint>
+      </md-input-container>
+      </li>
+    </ul>
+
   <div class="question" #question></div>
   <div>
     <md-checkbox name="isActive" [(ngModel)]="feedbackBool">

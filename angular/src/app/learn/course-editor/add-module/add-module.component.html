@@ -1,17 +1,18 @@
-<md-card class="panel" [@slideIn]="loading" (@slideIn.done)="remove($event)">
+<md-card class="singleBox" [@slideIn]="loading" (@slideIn.done)="remove($event)">
   <details open="open">
       <summary>
-   <ul>
-       <li class="titleName">
-         <md-input-container>
-
-           <input mdInput placeholder='{{"module title" | translate}}' type="text" #Title="ngModel" [(ngModel)]="title" name="title" required>
-           <md-hint align="start" class="warning" *ngIf="form != null && form.submitted && !Title.valid"><strong>{{'The title of the module is required' | translate}}</strong> </md-hint>
-         </md-input-container></li>
-       <li class="titleValue">Questions in this Module: {{questionArray.length}}</li>
-   </ul>
-</summary>
-<ul>
+        <ul>
+            <li class="titleName">{{title}}</li>
+            <li class="titleValue">Questions in this Module: {{questionArray.length}}</li>
+     </ul>
+      </summary>
+      <ul>
+        <li class="titleName">
+          <md-input-container>
+            <input mdInput placeholder='{{"module title" | translate}}' type="text" #Title="ngModel" [(ngModel)]="title" name="title" required>
+            <md-hint align="start" class="warning" *ngIf="form != null && form.submitted && !Title.valid"><strong>{{'The title of the module is required' | translate}}</strong> </md-hint>
+          </md-input-container>
+        </li>
               <li>
                 <div>
                   <md-input-container>
@@ -33,7 +34,7 @@
             </ul>
             <br>
               <div>
-                <button md-raised-button type="button" (click)="close()">
+                <button md-raised-button type="button" class="remove" (click)="close()">
                   <md-icon>delete</md-icon>{{"remove module" | translate}}
                 </button>
               </div>

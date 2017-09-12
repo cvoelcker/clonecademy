@@ -47,6 +47,7 @@ export class MenuComponent implements OnInit {
   height: '250px',
   width: '250px',
 });
+  console.log(this.user.data);
   dialogRef.updatePosition({ top: '11%', right: '0.2%' });
 }
 

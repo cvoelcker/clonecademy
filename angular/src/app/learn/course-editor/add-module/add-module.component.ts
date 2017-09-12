@@ -43,6 +43,7 @@ export class AddModuleComponent implements OnInit {
 
   addQuestion(component, data){
       // add the question to the module component and add it to the array so we can edit and save it later
+
       let question = this.module.createComponent(this.question)
       let q = (<AddQuestionComponent> question.instance)
       q.form = this.form

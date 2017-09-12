@@ -131,9 +131,15 @@ md-input-container{
 
 
    .titleValue{
+     padding-top: 30px;
      color: #757575;
      margin-left: 50px;
 
+    }
+
+    .titleName{
+      padding-left: 20px;
+      padding-top: 30px;
     }
     time{ color: #757575; opacity: .75; }
    .list-unstyled { margin-top:15px; padding-left: 0; list-style: none;}
