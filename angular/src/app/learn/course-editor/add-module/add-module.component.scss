@@ -1,4 +1,4 @@
-
+@import "../../../../_vars";
 table {
   td {
     vertical-align: middle;
@@ -9,12 +9,13 @@ table {
   padding-right: 1.5em;
 }
 
+md-input-container{
 .moduleArrows {
   width: 10%;
   min-width: 50px;
   button {
     width: 100%;
-  }
+  }}
 }
 
 md-input-container {
@@ -35,21 +36,19 @@ md-input-container {
 
 ul {
   list-style: none;
-  padding: 16px 24px;
+  // padding: 16px 24px;
   margin: 1.5em 0;
+  li{
+    padding:0px 0px;}
   li {
     padding: 0px 24px;
-  }
+    }
 }
 
 md-select {
   margin-top: 1.5em;
 }
 
-*, ::after, ::before {
-  -webkit-box-sizing: inherit;
-  box-sizing: inherit;
-}
 
 html, body, ul, ol {
   margin: 0;

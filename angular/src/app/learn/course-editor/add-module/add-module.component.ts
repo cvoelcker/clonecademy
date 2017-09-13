@@ -53,6 +53,7 @@ export class AddModuleComponent implements OnInit {
     this.question = this.factory.resolveComponentFactory(AddQuestionComponent)
   }
 
+
   addQuestion(component, data) {
     // add the question to the module component and add it to the array so we can edit and save it later
     let question = this.module.createComponent(this.question)
@@ -64,6 +65,7 @@ export class AddModuleComponent implements OnInit {
     q.addQuestion(data)
     this.questionArray.push(question)
     this.selectedValue = null;
+
   }
 
   editQuestion(data) {

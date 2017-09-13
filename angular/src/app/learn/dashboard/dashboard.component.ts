@@ -28,6 +28,7 @@ import {trigger, state, style, animate, transition} from '@angular/animations';
 export class DashboardComponent {
   data: any;
   collapse: boolean
+  collapse2: boolean
 
   loading = true;
   loadingCat = true;

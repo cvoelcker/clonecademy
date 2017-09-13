@@ -1,5 +1,7 @@
-.question {
-  height: 5em;
+
+.question{
+  padding-left: 25px;
+  // height: 5em;
 }
 
 ul {
@@ -7,13 +9,12 @@ ul {
   padding: 0;
 }
 
-textarea {
-  width: 100%;
-  resize: vertical;
+.textareas{
+  width: 70%;
 }
 
-.answers {
-  .remove {
+.answers{
+  .remove{
     float: right;
   }
   textarea {
@@ -23,4 +24,8 @@ textarea {
 
 .addAnswer {
   margin: 1em 0;
+}
+
+.imageUpload{
+  padding-left: 25px;
 }

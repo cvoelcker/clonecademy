@@ -683,8 +683,13 @@ class StatisticsView(APIView):
             writer = csv.writer(response)
             writer.writerow(['question', 'user', 'date', 'solved'])
             for row in serialize_data:
+                profile = Profile.objects.get(user__username=row['user'])
+                profile_hash = profile.get_hash()
                 writer.writerow(
-                    [row['question'], row['user'], row['date'], row['solved']])
+                    [row['question'],
+                     profile_hash,
+                     row['date'],
+                     row['solved']])
             return response
         return Response(serialize_data)
 
