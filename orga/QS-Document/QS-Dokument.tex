@@ -6,6 +6,24 @@
 \usepackage{hyperref}
 \usepackage{multicol}
 \usepackage{pdfpages}
+\usepackage{tabularx}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amstext}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{multicol}
+\usepackage{mathtools}
+\usepackage{dsfont}
+\usepackage{units}
+\usepackage{subfigure}
+\usepackage{color}
+\usepackage{booktabs}
+\usepackage{fancyref}
+\usepackage[ngerman,english]{babel}
+\usepackage{pdfpages}
+\usepackage{tabularx}
 
 
 \setlength{\parindent}{0pt}
@@ -321,4 +339,71 @@ Die Aufgaben, welche die Proband*innen erfüllen sollten, waren:
 	\item Erstellen Sie einen neuen Kurs.
 \end{enumerate}
 	\includepdf[pages=-,pagecommand={},width=\textwidth]{nutzerstudie.pdf}
+
+
+\chapter{Einleitung - Bericht und Anmerkung zum QS Prozess}
+\section{Änderungen des Prozesses während des Semesters}
+Während des Semesters ist dem Team aufgefallen, dass der vorgestellte QS-Prozess nicht optimal ist. Die wichtigste Änderung ist, dass die automatisiere Code-Überprüfung im Backend durch das Tool \emph{pylint} mit dem \emph{pylint\_django} Plugin durchgeführt wurde. Dieses vereinigt die Funktionen von \emph{pep8} und \emph{django-lint}, ist einfacher konfigurier- und zu verwendbar. Das Team hat deshalb beschlossen, dieses Tool zu verwenden, obwohl im QS-Dokument ein anderes vorgeschlagen wurde.
+
+\chapter{Nachweis über den QS Prozess pro Iteration}
+Um dieses Dokument nicht unübersichtlich werden zu lassen, wurden nicht alle Outputs der automatisierten Tests angehängt. Wir haben stattdessen die Meldungen zum Stand der Abgabe gespeichert und sporadisch einzelne Reports angehängt, um den Verlauf der Softwareentwicklung deutlich zu machen.
+
+Bei den Berichten über die Testabdeckung haben wir zu jeder Iteration die Übersichtsseite der Reports angehängt, und einen gesamten Report für jeden Release.
+
+Um die Dokumentation der Webseite in der Wiki anschaulich zu dokumentieren, haben wir einen Auszug der Dokumentation für jeden Release angehängt und eine vollständige Version der Seite für die endgültige Übergabe an die Auftraggeber*innen.
+
+\section*{Erster vollständiger QS Prozess: Iteration 6}
+
+\section*{Iteration 7}
+
+\section*{Iteration 8}
+
+\section*{Iteration 9}
+
+\section*{Iteration 10}
+
+\section*{Iteration 11}
+
+\section*{Iteration 12}
+
+\section*{Iteration 13}
+
+\section*{Iteration 14}
+
+\section*{Iteration 15}
+
+\section*{Iteration 16}
+
+\section*{Iteration 17}
+
+\section*{Iteration 18}
+
+\section*{Iteration 19}
+
+\section*{Endgültiger Stand des Projektes und Übergabe}
+
+
+\chapter{Userstories}
+\input{userstories/userstories_all.tex}
+
+\chapter{Protokolle}
+
+\includepdf[pages=-,pagecommand={},width=\textwidth]{../Protokolle/protokol_05_12.pdf}
+\includepdf[pages=-,pagecommand={},width=\textwidth]{../Protokolle/protokol_05_17.pdf}
+\includepdf[pages=-,pagecommand={},width=\textwidth]{../Protokolle/protokol_06_02.pdf}
+\includepdf[pages=-,pagecommand={},width=\textwidth]{../Protokolle/protokol_06_09.pdf}
+\includepdf[pages=-,pagecommand={},width=\textwidth]{../Protokolle/protokol_06_23.pdf}
+\includepdf[pages=-,pagecommand={},width=\textwidth]{../Protokolle/protokol_06_30.pdf}
+\includepdf[pages=-,pagecommand={},width=\textwidth]{../Protokolle/protokol_07_14.pdf}
+\includepdf[pages=-,pagecommand={},width=\textwidth]{../Protokolle/protokol_07_21.pdf}
+\includepdf[pages=-,pagecommand={},width=\textwidth]{../Protokolle/protokol_07_28.pdf}
+\includepdf[pages=-,pagecommand={},width=\textwidth]{../Protokolle/protokol_08_04.pdf}
+\includepdf[pages=-,pagecommand={},width=\textwidth]{../Protokolle/protokol_08_20.pdf}
+\includepdf[pages=-,pagecommand={},width=\textwidth]{../Protokolle/protokol_09_01.pdf}
+\includepdf[pages=-,pagecommand={},width=\textwidth]{../Protokolle/protokol_09_08.pdf}
+
+
+
+\chapter{Abschließende Bemerkungen des Teams zum Projekt}
+
 \end{document}
