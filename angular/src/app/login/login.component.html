@@ -18,9 +18,12 @@
       </button>
     </form>
 
-    <button md-raised-button class="btn-info" routerLink="/register/">{{"No
-      Account? Register here" | translate}}
-    </button>
+    <div>
+      <button md-raised-button class="btn-info" routerLink="/register/" >
+        {{"No Account? Register here" | translate}}</button>
+      <button md-raised-button routerLink="/pw-reset">
+        {{"Forgot password? Reset here" | translate}}</button>
+    </div>
   </div>
 </div>
 <footer>

@@ -202,11 +202,13 @@ class CourseSerializer(serializers.ModelSerializer):
     A serializer to view courses
     """
     category = serializers.StringRelatedField()
+    is_visible = serializers.BooleanField(required=False,
+                                          default=False)
 
     class Meta:
         model = Course
         fields = ('name', 'difficulty', 'id', 'language', 'category',
-                  'description')
+                  'is_visible', 'description')
 
     def to_representation(self, obj):
         """
@@ -240,7 +242,7 @@ class CourseSerializer(serializers.ModelSerializer):
         value['responsible_mod'] = obj.responsible_mod.id
         return value
 
-    def create(self, validated_data): # pylint: ignore-line
+    def create(self, validated_data):  # pylint: ignore-line
         """
         This method is used to save courses together with all modules and
         questions.

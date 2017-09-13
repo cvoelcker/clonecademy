@@ -32,6 +32,8 @@ urlpatterns = [
 
     url(r'^courses/$', views.MultiCourseView.as_view()),
     url(r'^courses/(?P<course_id>[0-9]+)/?$', views.CourseView.as_view()),
+    url(r'^courses/(?P<course_id>[0-9]+)/toggleVisibility/?$',
+        views.ToggleCourseVisibilityView.as_view()),
     url(r'^courses/(?P<course_id>[0-9]+)?/edit$',
         views.CourseEditView.as_view()),
     url(r'^courses/(?P<course_id>[0-9]+)/(?P<module_id>[0-9]+)/?$',
@@ -62,6 +64,7 @@ urlpatterns = [
     url(r'^user/current$', views.UserView.as_view()),
 
     url(r'^ranking$', views.RankingView.as_view()),
+    url(r'^pw_reset/?$', views.PwResetView.as_view()),
 
     url(r'^register/$', views.UserRegisterView.as_view())
 ]

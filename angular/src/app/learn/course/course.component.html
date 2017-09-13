@@ -18,11 +18,24 @@
           {{"continue" | translate}}
         </button>
     </td>
-    <td class="options" *ngIf="user.isModerator()">
+    <td class="options" *ngIf="user.isAdmin()">
       <!-- add visible/invisble button here -->
-        <button md-raised-button ><md-icon>poll</md-icon></button>
+      <div class="button" [ngSwitch]="true" *ngIf="sidemenu == undefined">
+        <button md-raised-button *ngSwitchCase="visible"
+                [disabled]='!user.isAdmin()' (click)='toggleVisibility()'
+                mdTooltip='This course is visible to users'>
+          <md-icon>visibility</md-icon>
+        </button>
+        <button md-raised-button *ngSwitchCase="!visible"
+                [disabled]='!user.isAdmin()' (click)='toggleVisibility()'
+                mdTooltip='This course is NOT visible to users'>
+          <md-icon>visibility_off</md-icon>
+        </button>
+      </div>
+      <button md-raised-button ><md-icon>poll</md-icon></button>
     </td>
   </table>
+
   <div class="courseDescription">
     {{description}}
   </div>

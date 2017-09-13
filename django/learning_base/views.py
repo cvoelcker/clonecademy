@@ -17,6 +17,8 @@ from . import custom_permissions
 from . import serializers
 from .models import Course, CourseCategory, Try, Profile, started_courses
 
+from django.utils.crypto import get_random_string
+
 
 class CategoryView(APIView):
     """
@@ -38,7 +40,7 @@ class CategoryView(APIView):
 
     def post(self, request, format=None):
         """
-        everything else than displaying
+        everything else but displaying
         @author Tobias Huber
         """
         data = request.data
@@ -117,6 +119,12 @@ class MultiCourseView(APIView):
 
             courses = Course.objects.all()
             courses = courses.filter(language=r_lan)
+            
+            # filter invisible courses if neccessary
+            if not (request.user.profile.is_mod()
+                    or request.user.profile.is_admin()):
+                courses = courses.filter(is_visible=True)
+
             if r_category != "":
                 category = CourseCategory.objects.filter(
                     name=r_category).first()
@@ -244,6 +252,39 @@ class CourseView(APIView):
             except ParseError as error:
                 return Response({"error": str(error)},
                                 status=status.HTTP_400_BAD_REQUEST)
+
+
+class ToggleCourseVisibilityView(APIView):
+    """
+    changes the visibility of a course
+
+    alternatively sets the visibility to the provided state
+    {
+        "is_visible": (optional) True|False
+    }
+
+    @author Tobias Huber
+    """
+
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (custom_permissions.IsAdmin,)
+
+    def post(self, request, course_id, format=None):
+        if course_id is None:
+            return Response({"ans": "course_id must be provided"},
+                            status=status.HTTP_400_BAD_REQUEST)
+        elif not Course.objects.filter(id=course_id).exists():
+            return Response({"ans": "course not found. id: " + course_id},
+                            status=status.HTTP_404_NOT_FOUND)
+        else:
+            course = Course.objects.get(id=course_id)
+            if "is_visible" in request.data:
+                course.is_visible = request.data["is_visible"]
+            else:
+                course.is_visible = not course.is_visible
+            course.save()
+            return Response({"is_visible": course.is_visible},
+                            status=status.HTTP_200_OK)
 
 
 class ModuleView(APIView):
@@ -865,3 +906,46 @@ class UserRightsView(APIView):
                              user.groups.filter(name="moderator").exists(),
                          "is_admin?":
                              user.groups.filter(name="admin").exists()})
+
+
+class PwResetView(APIView):
+    """
+    Resets the password of a user and sends the new one to the email adress
+    of the user
+
+    {
+        "email": the email of the user
+    }
+    """
+
+    authentication_classes = ()
+    permission_classes = ()
+
+    def post(self, request, format=None):
+        data = request.data
+        if ("email" not in data):
+            return Response({"ans": "you must provide an email"},
+                            status=status.HTTP_400_BAD_REQUEST)
+        elif (not User.objects.filter(email=data["email"]).exists()):
+            return Response({"ans": "no user with email: " + data["email"]},
+                            status=status.HTTP_404_NOT_FOUND)
+        else:
+            user = User.objects.get(email=data["email"])
+            # generate a randome password with the random implementation of
+            # django.utils.crypto
+            new_password = get_random_string(length=16)
+
+            send_mail(
+                'Password Reset on clonecademy.net',
+                'Hello {},\n \
+                You have requested a new password on clonecademy.net \n \
+                Your new password is: \n {} \n \n \
+                Please change it imediately! \n \
+                Have a nice day,\n your CloneCademy bot'.format(
+                    user.username, new_password
+                ),
+                'bot@clonecademy.de',
+                [user.email]
+            )
+            user.set_password(new_password)
+            return Response(status=status.HTTP_200_OK)
