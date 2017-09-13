@@ -744,25 +744,24 @@ class TryTest(DatabaseMixin, TestCase):
 
         self.test_check_try()
         # check date field
-        from datetime import datetime, timedelta
-        import pytz
+        from django.utils import timezone
+        from datetime import timedelta
 
-        end = datetime.now(pytz.utc).strftime('%Y-%m-%d %H:%M:%S.%f')
-        print(end)
-        endValue = datetime.strptime(end, '%Y-%m-%d %H:%M:%S.%f').date() + timedelta(days=+1)
-        start = datetime.strptime(end, '%Y-%m-%d %H:%M:%S.%f').date() + timedelta(days=-1)
+        now = timezone.now()
+        end = (now + timedelta(days=+1)).strftime('%Y-%m-%d %H:%M:%S.%f')
+        start = (now + timedelta(days=-1)).strftime('%Y-%m-%d %H:%M:%S.%f')
 
-        get_statistics = self.factory.post('user/statistics/', {'id': self.u1.id, 'date':{'start': start, 'end':endValue}}, format='json')
+        get_statistics = self.factory.post('user/statistics/', {'id': self.u1.id, 'date':{'start': start, 'end':end}}, format='json')
         force_authenticate(get_statistics, self.u1)
 
         response = views.StatisticsView.as_view()(get_statistics)
         self.assertEqual(len(response.data), 2)
 
         # check for to old dates
-        endValue = datetime.strptime(end, '%Y-%m-%d %H:%M:%S.%f').date() + timedelta(days=-2)
-        start = datetime.strptime(end, '%Y-%m-%d %H:%M:%S.%f').date() + timedelta(days=-7)
+        end = (now + timedelta(days=-2)).strftime('%Y-%m-%d %H:%M:%S.%f')
+        start = (now + timedelta(days=-7)).strftime('%Y-%m-%d %H:%M:%S.%f')
 
-        get_statistics = self.factory.post('user/statistics/', {'id': self.u1.id, 'date':{'start': start, 'end':endValue}}, format='json')
+        get_statistics = self.factory.post('user/statistics/', {'id': self.u1.id, 'date':{'start': start, 'end':end}}, format='json')
         force_authenticate(get_statistics, self.u1)
 
         response = views.StatisticsView.as_view()(get_statistics)
@@ -776,13 +775,6 @@ class QuizTest(DatabaseMixin, TestCase):
         self.view = views.QuestionView.as_view()
         self.setup_database()
 
-        # self.u1 = User(username='user1')
-        # self.u1.save()
-        # self.u1_profile = models.Profile(user=self.u1)
-        # self.u1_profile.save()
-
-    def test_create_quiz(self):
-        # creation is possible and quiz query is sorted
         courseData = {
             'name': 'quiz_1',
             'category': 'test',
@@ -953,6 +945,10 @@ class QuizTest(DatabaseMixin, TestCase):
         if not course.is_valid():
             self.assertTrue(False)
         course.create(courseData)
+
+    def test_create_quiz(self):
+        # creation is possible and quiz query is sorted
+
         course = models.Course.objects.filter(name='quiz_1')
         self.assertTrue(course.exists())
         course = course.first()
@@ -987,20 +983,35 @@ class QuizTest(DatabaseMixin, TestCase):
         # send post with false or correct answer will return 200 and send to
         # next quiz question
 
-        answer_correct = models.QuizAnswer.objects.filter(correct=True, quiz=
-        course.quizquestion_set.all()[0])
+        answer_correct = []
+        i = 0
+        for ans in course.quizquestion_set.all():
+
+            answers = {}
+            for quiz in ans.quizanswer_set.all():
+                if i is 1:
+                    answers[quiz.id] = not quiz.correct
+                else:
+                    answers[quiz.id] = quiz.correct
+
+            answer_correct.append(answers)
+            i += 1
 
         correct_answer = self.factory.post(
-            'courses/' + str(course.id) + '/quiz/0/',
-            {'answers': [(lambda x: x.id)(x) for x in answer_correct]},
+            'courses/' + str(course.id) + '/quiz/',
+            answer_correct,
             format='json')
         force_authenticate(correct_answer, self.u1)
 
-        response = views.QuestionView.as_view()(correct_answer,
+        response = views.QuizView.as_view()(correct_answer,
                                                 course_id=course.id,
-                                                module_id=0, question_id=0)
+                                                )
+
         # return value of correct answer
         self.assertEqual(response.status_code, 200)
+
+        self.assertTrue(response.data[0]['solved'])
+        self.assertFalse(response.data[1]['solved'])
 
         answer_wrong = models.QuizAnswer.objects.filter(
             correct=False,
