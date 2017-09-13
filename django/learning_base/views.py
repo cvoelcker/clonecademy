@@ -119,7 +119,7 @@ class MultiCourseView(APIView):
 
             courses = Course.objects.all()
             courses = courses.filter(language=r_lan)
-            
+
             # filter invisible courses if neccessary
             if not (request.user.profile.is_mod()
                     or request.user.profile.is_admin()):

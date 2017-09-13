@@ -444,11 +444,10 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         profile_data = validated_data.pop('profile')
         validated_data.pop('groups')
-        # TODO add language to profile
         profile_data['language'] = validated_data.pop('language')
         profile_data['avatar'] = validated_data.pop('avatar')
-        if 'language' in profile_data:
-            profile_data['language'] = validated_data.pop('language')
+        # if 'language' in profile_data:
+        #    profile_data['language'] = validated_data.pop('language')
         user = User.objects.create_user(**validated_data)
         profile = Profile(user=user, **profile_data)
         profile.save()
@@ -495,7 +494,7 @@ class TrySerializer(serializers.ModelSerializer):
                 value = obj
                 for child in serial.split("__"):
                     if value is None:
-                        break;
+                        break
                     value = getattr(value, child)
                 data[serial] = value
         return data
