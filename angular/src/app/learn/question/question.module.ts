@@ -2,9 +2,9 @@ import {Component, Input} from '@angular/core';
 import {ServerService} from '../../service/server.service'
 import {ActivatedRoute, Params} from '@angular/router'
 import {DomSanitizer} from '@angular/platform-browser';
-import {MdDialog, MdDialogRef } from '@angular/material';
+import {MdDialog, MdDialogRef} from '@angular/material';
 
-import { UserService } from '../../service/user.service'
+import {UserService} from '../../service/user.service'
 
 
 @Component({

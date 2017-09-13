@@ -1,42 +1,63 @@
-<md-card class="panel" [@slideIn]="loading" (@slideIn.done)="remove($event)">
+<md-card class="singleBox" [@slideIn]="loading" (@slideIn.done)="remove($event)">
   <details open="open">
-      <summary>
-   <ul>
-       <li class="titleName">
-         <md-input-container>
+    <summary>
+      <ul>
+        <li class="titleName">
+          <md-input-container>
 
-           <input mdInput placeholder='{{"module title" | translate}}' type="text" #Title="ngModel" [(ngModel)]="title" name="title" required>
-           <md-hint align="start" class="warning" *ngIf="form != null && form.submitted && !Title.valid"><strong>{{'The title of the module is required' | translate}}</strong> </md-hint>
-         </md-input-container></li>
-       <li class="titleValue">Questions in this Module: {{questionArray.length}}</li>
-   </ul>
-</summary>
-<ul>
-              <li>
-                <div>
-                  <md-input-container>
-                    <textarea mdInput placeholder='{{"module description" | translate}}' type="textarea" #moduleDescription="ngModel" [(ngModel)]="learningText" name="learningText" required></textarea>
-                    <md-hint align="start" class="warning" *ngIf="form != null && form.submitted && !moduleDescription.valid"><strong>{{'The module description is required' | translate}}</strong> </md-hint>
-                  </md-input-container>
-                </div>
-              </li>
+            <input mdInput placeholder='{{"module title" | translate}}'
+                   type="text" #Title="ngModel" [(ngModel)]="title"
+                   name="title" required>
+            <md-hint align="start" class="warning"
+                     *ngIf="form != null && form.submitted && !Title.valid">
+              <strong>{{'The title of the module is required' |
+                translate}}</strong></md-hint>
+          </md-input-container>
+        </li>
+        <li class="titleValue">Questions in this Module:
+          {{questionArray.length}}
+        </li>
+      </ul>
+    </summary>
+    <ul>
+      <li>
+        <div>
+          <md-input-container>
+            <textarea mdInput
+                      placeholder='{{"module description" | translate}}'
+                      type="textarea" #moduleDescription="ngModel"
+                      [(ngModel)]="learningText" name="learningText"
+                      required></textarea>
+            <md-hint align="start" class="warning"
+                     *ngIf="form != null && form.submitted && !moduleDescription.valid">
+              <strong>{{'The module description is required' |
+                translate}}</strong></md-hint>
+          </md-input-container>
+        </div>
+      </li>
 
-              <li>
-                <div class="module" #module></div>
-                    <md-select placeholder='{{"add question" | translate}}' [(ngModel)]="selectedValue" name="selectedValue">
-                      <md-option *ngFor="let c of components"  (click)="addQuestion(c.component)" >{{c.name}}</md-option>
-                    </md-select>
-                      <md-hint align="start" class="warning" *ngIf="form != null && form.submitted && (module.length <= 0)">
-                        <strong>{{'At least one question is required for this module' | translate}}</strong>
-                      </md-hint>
-              </li>
-            </ul>
-            <br>
-              <div>
-                <button md-raised-button type="button" (click)="close()">
-                  <md-icon>delete</md-icon>{{"remove module" | translate}}
-                </button>
-              </div>
-              <br>
-</details>
+      <li>
+        <div class="module" #module></div>
+        <md-select placeholder='{{"add question" | translate}}'
+                   [(ngModel)]="selectedValue" name="selectedValue">
+          <md-option *ngFor="let c of components"
+                     (click)="addQuestion(c.component)">{{c.name}}
+          </md-option>
+        </md-select>
+        <md-hint align="start" class="warning"
+                 *ngIf="form != null && form.submitted && (module.length <= 0)">
+          <strong>{{'At least one question is required for this module' |
+            translate}}</strong>
+        </md-hint>
+      </li>
+    </ul>
+    <br>
+    <div>
+      <button md-raised-button type="button" (click)="close()">
+        <md-icon>delete</md-icon>
+        {{"remove module" | translate}}
+      </button>
+    </div>
+    <br>
+  </details>
 </md-card>

@@ -1,12 +1,12 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { BaseTest } from '../base-test';
-import { MdDialog, MdDialogRef} from '@angular/material';
+import {BaseTest} from '../base-test';
+import {MdDialog, MdDialogRef} from '@angular/material';
 
 
 import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
 
-import { ImageCropperDialogComponent } from './image-cropper.component';
+import {ImageCropperDialogComponent} from './image-cropper.component';
 
 describe('ImageCropperDialogComponent', () => {
   let component: ImageCropperDialogComponent;
@@ -15,11 +15,11 @@ describe('ImageCropperDialogComponent', () => {
   beforeEach(async(() => {
     let base = new BaseTest();
     TestBed.configureTestingModule({
-      imports: [ base.imports() ],
-      declarations: [ ImageCropperDialogComponent, ImageCropperComponent ],
+      imports: [base.imports()],
+      declarations: [ImageCropperDialogComponent, ImageCropperComponent],
       providers: [base.providers(), MdDialog, MdDialogRef],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

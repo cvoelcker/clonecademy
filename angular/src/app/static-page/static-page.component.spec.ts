@@ -1,11 +1,11 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { Http } from '@angular/http';
-import { Router, ActivatedRoute } from '@angular/router';
+import {Http} from '@angular/http';
+import {Router, ActivatedRoute} from '@angular/router';
 
-import { BaseTest } from '../base-test';
+import {BaseTest} from '../base-test';
 
-import { StaticPageComponent } from './static-page.component';
+import {StaticPageComponent} from './static-page.component';
 
 describe('StaticPage Component', () => {
   let component: StaticPageComponent;
@@ -14,11 +14,11 @@ describe('StaticPage Component', () => {
   beforeEach(async(() => {
     let base = new BaseTest();
     TestBed.configureTestingModule({
-      imports: [ base.imports() ],
-      declarations: [ StaticPageComponent ],
+      imports: [base.imports()],
+      declarations: [StaticPageComponent],
       providers: [base.providers()],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

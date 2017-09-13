@@ -1,10 +1,10 @@
-import { TestBed, async } from '@angular/core/testing';
+import {TestBed, async} from '@angular/core/testing';
 
-import { MenuComponent } from './menu/menu.component';
+import {MenuComponent} from './menu/menu.component';
 
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
 
-import { BaseTest } from './base-test';
+import {BaseTest} from './base-test';
 
 describe('AppComponent', () => {
   const base = new BaseTest();
@@ -13,7 +13,7 @@ describe('AppComponent', () => {
       imports: [
         base.imports()
       ],
-      providers: [ base.providers()],
+      providers: [base.providers()],
       declarations: [
         AppComponent,
         MenuComponent

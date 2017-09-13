@@ -1,6 +1,9 @@
 <h2>{{"Show user profile" | translate}}</h2><br>
-<md-select [(ngModel)]="selectedValue" placeholder='{{"select a profile" | translate}}'>
-  <md-option *ngFor="let p of profiles" (click)="change(p.id)" id="profileSelect" [value]="p.id">{{p.username}}</md-option>
+<md-select [(ngModel)]="selectedValue"
+           placeholder='{{"select a profile" | translate}}'>
+  <md-option *ngFor="let p of profiles" (click)="change(p.id)"
+             id="profileSelect" [value]="p.id">{{p.username}}
+  </md-option>
 </md-select>
 
 <router-outlet></router-outlet>

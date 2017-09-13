@@ -1,4 +1,5 @@
-<h2 *ngIf="user != undefined">{{"UserDetail" | translate}}{{user.username}}</h2>
+<h2 *ngIf="user != undefined">{{"UserDetail" |
+  translate}}{{user.username}}</h2>
 <ul *ngIf="user != undefined">
   <li>{{"username" | translate}}: {{user.username}}</li>
   <li *ngIf="user.email">{{"email" | translate}}: {{user.email}}</li>
@@ -12,7 +13,7 @@
     A user can be a moderator, an admin, both or neither.
     So a moderator, that is also promoted to an admin will be a moderator again, if he/she gets his/her admin rights withdrawn.
     An admin can always do the same things as moderator."
-    [mdTooltipPosition]="position">
+      [mdTooltipPosition]="position">
     {{"User rights"| translate}}
     <md-icon>
       info_outline
@@ -22,22 +23,26 @@
 
   <div>
     <div>
-      <button *ngIf="isMod == false"[disabled]="loading" (click)="promoteToModerator()" md-raised-button>
-        <md-icon> star_half </md-icon>
+      <button *ngIf="isMod == false" [disabled]="loading"
+              (click)="promoteToModerator()" md-raised-button>
+        <md-icon> star_half</md-icon>
         {{"promote to moderator" | translate}}
       </button>
-      <button *ngIf="isMod == true"[disabled]="loading" (click)="demoteToUser()" md-raised-button>
-        <md-icon> star_half </md-icon>
+      <button *ngIf="isMod == true" [disabled]="loading"
+              (click)="demoteToUser()" md-raised-button>
+        <md-icon> star_half</md-icon>
         {{"wihdraw moderator rights" | translate}}
       </button>
     </div>
     <div>
-      <button *ngIf="isAdmin == false"[disabled]="loading" (click)="promoteToAdmin()" md-raised-button>
-        <md-icon> star </md-icon>
+      <button *ngIf="isAdmin == false" [disabled]="loading"
+              (click)="promoteToAdmin()" md-raised-button>
+        <md-icon> star</md-icon>
         {{"promote to admin" | translate}}
       </button>
-      <button *ngIf="isAdmin == true"[disabled]="loading" (click)="demoteToModerator()" md-raised-button>
-        <md-icon> star </md-icon>
+      <button *ngIf="isAdmin == true" [disabled]="loading"
+              (click)="demoteToModerator()" md-raised-button>
+        <md-icon> star</md-icon>
         {{"wihdraw admin rights" | translate}}
       </button>
     </div>

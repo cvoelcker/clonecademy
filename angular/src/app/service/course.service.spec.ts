@@ -1,7 +1,7 @@
-import { TestBed, inject } from '@angular/core/testing';
+import {TestBed, inject} from '@angular/core/testing';
 
-import { BaseTest } from '../base-test';
-import { CourseService } from './course.service';
+import {BaseTest} from '../base-test';
+import {CourseService} from './course.service';
 
 let simpleData = {
   general: [
@@ -54,8 +54,8 @@ let categories = [{name: 'general'}]
 describe('CourseService', () => {
   beforeEach(() => {
     let base = new BaseTest();
-      TestBed.configureTestingModule({
-      imports: [ base.imports() ],
+    TestBed.configureTestingModule({
+      imports: [base.imports()],
       providers: [base.providers([CourseService])],
     });
   });

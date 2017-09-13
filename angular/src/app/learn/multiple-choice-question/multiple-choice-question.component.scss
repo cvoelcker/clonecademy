@@ -1,10 +1,11 @@
 @import "../../../_vars";
 
-ul{
+ul {
   list-style: none;
   padding: 0;
 }
-.highlight{
+
+.highlight {
   background-color: green;
 }
 
@@ -12,23 +13,23 @@ ul {
   margin: 0;
   list-style-type: none;
   padding: 0;
-  li{
+  li {
     margin: 1em 0;
-    md-checkbox{
-      box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
+    md-checkbox {
+      box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
       width: 100%;
       display: block;
-      &.selected{
+      &.selected {
         box-shadow: none;
         background-color: $button;
       }
-      .answerText{
+      .answerText {
         display: inline;
-        p{
+        p {
           display: inline;
         }
       }
-      img{
+      img {
         height: 50px;
         margin-right: 10px;
       }
@@ -36,20 +37,22 @@ ul {
   }
 }
 
-.answers{
+.answers {
   width: 50%;
   float: left;
   padding-right: 1em;
 }
-.fullWidth{
+
+.fullWidth {
   width: 100%;
   padding: 0;
 }
+
 .image {
   margin-top: 1em;
   width: 50%;
   float: left;
-  img{
+  img {
     width: 100%;
   }
 }

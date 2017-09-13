@@ -77,8 +77,8 @@ class AnswerViewTest(DatabaseMixin, TestCase):
         force_authenticate(request, self.u1)
         response = self.view(request, 1, 0, 0)
 
-        answer_1_serialized = serializers.AnswerSerializer(self.a1_test).data
-        answer_2_serialized = serializers.AnswerSerializer(self.a2_test).data
+        answer_1_serialized = serializers.get_answer_serializer(self.a1_test)
+        answer_2_serialized = serializers.get_answer_serializer(self.a2_test)
 
         self.assertEqual(response.data,
                          [answer_1_serialized, answer_2_serialized])
@@ -1102,6 +1102,31 @@ class QuizTest(DatabaseMixin, TestCase):
         with self.assertRaises(ParseError):
             quiz.create(courseData)
         self.assertFalse(models.Course.objects.filter(name='quiz_2').exists())
+
+
+class ProfileTest(DatabaseMixin, TestCase):
+    def setUp(self):
+        self.setup_database()
+
+    def test_unique_hash(self):
+        hash_u1_1 = self.u1_profile.get_hash()
+        u2 = User(username='u2')
+        u2.save()
+        u2_profile = Profile(user=u2)
+        u2_profile.save()
+        hash_u1_2 = self.u1_profile.get_hash()
+        hash_u2_1 = u2_profile.get_hash()
+
+        self.assertTrue(hash_u1_1 == hash_u1_2)
+        self.assertFalse(hash_u2_1 == hash_u1_1)
+
+    def test_changed_profile_hash(self):
+        hash_u1_1 = self.u1_profile.get_hash()
+        self.u1_profile.ranking = 100
+        self.u1_profile.save()
+        hash_u1_2 = self.u1_profile.get_hash()
+
+        self.assertTrue(hash_u1_1 == hash_u1_2)
 
 
 class QuestionViewTest(DatabaseMixin, TestCase):

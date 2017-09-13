@@ -1,17 +1,19 @@
-<ul *ngIf="data != undefined" class="answers" [class.fullWidth]="data.question_image == '' && (feedback == '' || feedback == undefined)">
-  <li *ngFor="let ans of data.answers" >
+<ul *ngIf="data != undefined" class="answers"
+    [class.fullWidth]="data.question_image == '' && (feedback == '' || feedback == undefined)">
+  <li *ngFor="let ans of data.answers">
     <md-checkbox
-    [disabled]="disable"
-    type="checkbox"
-    name="isActive"
-    [class.selected]="ans.value"
-    [(ngModel)]="ans.value">
-    <img *ngIf="ans.img != undefined" [src]="ans.img">
-    <markdown class="answerText" [data]="ans.text"></markdown>
+      [disabled]="disable"
+      type="checkbox"
+      name="isActive"
+      [class.selected]="ans.value"
+      [(ngModel)]="ans.value">
+      <img *ngIf="ans.img != undefined" [src]="ans.img">
+      <markdown class="answerText" [data]="ans.text"></markdown>
     </md-checkbox>
   </li>
 </ul>
 <div class="image">
-  <img [src]="data.question_image" *ngIf="data.question_image != undefined && data.question_image != '' && (feedback == '' || feedback == undefined)">
+  <img [src]="data.question_image"
+       *ngIf="data.question_image != undefined && data.question_image != '' && (feedback == '' || feedback == undefined)">
   <img [src]="feedback" *ngIf="feedback != undefined && feedback != ''">
 </div>

@@ -1,13 +1,10 @@
 <div>
     <img [src]="user.data.avatar" alt="Avatar">
-
+    <div>
     <h2>{{user.data.username}}</h2>
+    <h4>Score: {{user.data.ranking}}</h4>
+  </div>
 
-    <nav md-tab-nav-bar>
-      <span>
-        <a md-tab-link (click)="dialogRef.close()"  routerLink="/profile/details" [routerLinkActive]="['active']">View Profile</a>
-        <a md-tab-link (click)="user.logout()" (click)="dialogRef.close()">Logout</a>
-      </span>
-    </nav>
-
+    <button type="button" class="buttons" md-raised-button (click)="dialogRef.close()"  routerLink="/profile/details" [routerLinkActive]="['active']">Profile</button><br>
+    <button type="button" class="buttons" md-raised-button (click)="user.logout()" (click)="dialogRef.close()">Logout</button>
 </div>

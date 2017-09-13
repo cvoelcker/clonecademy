@@ -1,7 +1,10 @@
-from rest_framework import serializers
-from .models import *
-
+"""
+x
+"""
 from re import compile
+
+from rest_framework import serializers
+from .models import InformationYoutube, InformationText
 
 
 class InformationTextSerializer(serializers.ModelSerializer):
@@ -15,6 +18,9 @@ class InformationTextSerializer(serializers.ModelSerializer):
         fields = ('text_field', 'image')
 
     def create(self, validated_data):
+        """
+        x
+        """
         question = InformationText(**validated_data)
         question.module = validated_data['module']
         question.save()
@@ -27,7 +33,7 @@ class InformationYoutubeSerializer(serializers.ModelSerializer):
     @author: Claas Voelcker
     """
 
-    """ID extraction pattern"""
+    # ID extraction pattern
     pattern = compile(
         r'(?:http(?:s)?)?:\/\/(?:www\.)?(?:youtu\.be|youtube\.com)?\/(?:watch\?v=|embed\/)?(.*)')
 

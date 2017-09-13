@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 
-import { QuestionModule } from "../question/question.module"
-import { ServerService } from "../../service/server.service"
+import {QuestionModule} from "../question/question.module"
+import {ServerService} from "../../service/server.service"
 
 @Component({
   selector: 'app-InformationText',
@@ -11,7 +11,7 @@ import { ServerService } from "../../service/server.service"
 export class InformationTextComponent extends QuestionModule {
 
   // return array of the marked answers
-  submit(): any{
+  submit(): any {
     return true;
   }
 }

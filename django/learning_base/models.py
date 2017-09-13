@@ -1,3 +1,8 @@
+"""
+x
+"""
+
+from  hashlib import sha512
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -39,7 +44,6 @@ class Profile(models.Model):
         blank=True,
     )
 
-
     ranking = models.IntegerField(
         default=0
     )
@@ -49,7 +53,7 @@ class Profile(models.Model):
         Caculates the current age of the user
         :return: the age of the user relative to the current server date
         """
-        today = timezone.today
+        today = timezone.now()
         return today.year - self.birth_date.year - ((today.month, today.day) <
                                                     (self.birth_date.month,
                                                      self.birth_date.day))
@@ -68,7 +72,6 @@ class Profile(models.Model):
                  or (timezone.localdate() - self.last_modrequest).days >= 7)
                 and not self.is_mod())
 
-    # TODO: Refactor these to a decorator
     def is_mod(self):
         """
         Returns True if the user is in the group moderators
@@ -78,8 +81,16 @@ class Profile(models.Model):
     def is_admin(self):
         """
         Returns True if the user is in the group admin
+        :return: whether the user belong to the admin group
         """
         return self.user.groups.filter(name="admin").exists()
+
+    def get_hash(self):
+        """
+        calculates a hash to get anonymous user data
+        :return: the first 10 digits of the hash
+        """
+        return sha512(str.encode(self.user.username)).hexdigest()[:10]
 
     def __str__(self):
         return str(self.user)
@@ -101,9 +112,6 @@ class CourseCategory(models.Model):
         max_length=7,
         default="#000000"
     )
-
-    def get_courses(self):
-        return self.course_set
 
     def __str__(self):
         return self.name
@@ -337,6 +345,10 @@ class Question(PolymorphicModel):
         return self.title
 
     def get_points(self):
+        """
+        x
+        :return:
+        """
         raise NotImplementedError
 
 
@@ -364,6 +376,10 @@ class QuizQuestion(models.Model):
     )
 
     def evaluate(self, data):
+        """
+        x
+        :return:
+        """
         answers = self.answer_set()
         for ans in answers:
             if ans.correct:
@@ -375,15 +391,28 @@ class QuizQuestion(models.Model):
         return True
 
     def answer_set(self):
+        """
+        x
+        :return:
+        """
         return self.quizanswer_set.all()
 
     def is_solvable(self):
+        """
+        x
+        :return:
+        """
         for ans in self.answer_set():
             if ans.correct:
                 return True
         return False
 
-    def get_points(self):
+    @staticmethod
+    def get_points():
+        """
+        returns the points for answering this question type
+        :return: 2 points
+        """
         return 2
 
 
@@ -461,13 +490,17 @@ class Try(models.Model):
         default=False
     )
 
-    def __unicode__(self):
+    def __str__(self):
         return "Solution_{}_{}_{}".format(
             self.question, self.solved, self.date)
 
 
-class CourseManager(models.Manager):
-    def is_started(user):
-        courses = Course.objects.filter(
-            module__question__try__user=user)
-        return courses.distinct()
+def started_courses(user):
+    """
+    returns all courses started by a user
+    :param user:
+    :return:
+    """
+    courses = Course.objects.filter(
+        module__question__try__user=user)
+    return courses.distinct()

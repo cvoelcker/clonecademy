@@ -9,9 +9,21 @@ import {InformationYoutubeComponent} from './info-youtube/info-youtube.component
 
 export const QuestionDictionary = {
   detailComponents: [
-    {name: 'Multiple Choice Question', key: 'multiple_choice', component: AddMultiplyChoiceComponent},
-    {name: 'Information Text', key: 'info_text', component: AddInformationTextComponent},
-    {name: 'Information Text (Youtube)', key: 'info_text_youtube', component: AddInformationYoutubeComponent}
+    {
+      name: 'Multiple Choice Question',
+      key: 'multiple_choice',
+      component: AddMultiplyChoiceComponent
+    },
+    {
+      name: 'Information Text',
+      key: 'info_text',
+      component: AddInformationTextComponent
+    },
+    {
+      name: 'Information Text (Youtube)',
+      key: 'info_text_youtube',
+      component: AddInformationYoutubeComponent
+    }
 
   ],
   components: {

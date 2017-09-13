@@ -1,11 +1,11 @@
 @import "../../../_vars";
 
-table{
+table {
   width: 100%;
-  th{
+  th {
     border-bottom: 1px solid $shadow;
   }
-  tr:nth-child(2n){
+  tr:nth-child(2n) {
     background-color: lighten($shadow, 50%);
   }
 }

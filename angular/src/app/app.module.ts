@@ -1,60 +1,62 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { HttpModule, Http } from '@angular/http';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {FormsModule} from '@angular/forms';
+import {HttpModule, Http} from '@angular/http';
 
 // translate Module
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 // markdown
-import { MarkdownModule } from 'angular2-markdown';
+import {MarkdownModule} from 'angular2-markdown';
 
 // Material Style
 
-import { DialogComponent } from './quickview/dialog.component'
+import {DialogComponent} from './quickview/dialog.component'
 
-import {MdSidenavModule, MdDialog, MdDialogModule, MdIconModule, MdMenuModule,
+import {
+  MdSidenavModule, MdDialog, MdDialogModule, MdIconModule, MdMenuModule,
   MdButtonModule, MdAutocompleteModule, MdCheckboxModule, MdTooltipModule,
   MdCardModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule,
-  MdProgressSpinnerModule} from '@angular/material';
+  MdProgressSpinnerModule
+} from '@angular/material';
 
 import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
 
-import { RouterModule, Routes } from '@angular/router';
-import { CookieService } from 'angular2-cookie/services/cookies.service';
+import {RouterModule, Routes} from '@angular/router';
+import {CookieService} from 'angular2-cookie/services/cookies.service';
 /*
-import { ColorPickerModule } from 'angular2-color-picker';
-*/
-import { ServerService } from './service/server.service';
-import { UserService } from './service/user.service';
-import { CourseService } from './service/course.service'
-import { ErrorDialog } from './service/error.service';
+ import { ColorPickerModule } from 'angular2-color-picker';
+ */
+import {ServerService} from './service/server.service';
+import {UserService} from './service/user.service';
+import {CourseService} from './service/course.service'
+import {ErrorDialog} from './service/error.service';
 
-import { Admin } from './injectible/admin.injectible'
+import {Admin} from './injectible/admin.injectible'
 
-import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { DashboardComponent } from './learn/dashboard/dashboard.component';
-import { LoggedInDirective } from './directive/logged-in.directive';
-import { MenuComponent } from './menu/menu.component';
-import { CourseComponent } from './learn/course/course.component';
-import { QuestionSidenavComponent } from './learn/question-sidenav/question-sidenav.component';
+import {AppComponent} from './app.component';
+import {LoginComponent} from './login/login.component';
+import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
+import {DashboardComponent} from './learn/dashboard/dashboard.component';
+import {LoggedInDirective} from './directive/logged-in.directive';
+import {MenuComponent} from './menu/menu.component';
+import {CourseComponent} from './learn/course/course.component';
+import {QuestionSidenavComponent} from './learn/question-sidenav/question-sidenav.component';
 
-import { QuestionDictionary } from './learn/question-dictionary';
+import {QuestionDictionary} from './learn/question-dictionary';
 
-import { ModuleDirective } from './directive/module.directive';
-import { QuestionComponent } from './learn/question/question.component';
+import {ModuleDirective} from './directive/module.directive';
+import {QuestionComponent} from './learn/question/question.component';
 // course editor
-import { CreateCourseComponent } from './learn/course-editor/create-course/create-course.component';
-import { AddModuleComponent } from './learn/course-editor/add-module/add-module.component';
-import { AddQuestionComponent } from './learn/course-editor/add-question/add-question.component';
-import { AddQuestionModule } from './learn/course-editor/add-question/add-question.module'
+import {CreateCourseComponent} from './learn/course-editor/create-course/create-course.component';
+import {AddModuleComponent} from './learn/course-editor/add-module/add-module.component';
+import {AddQuestionComponent} from './learn/course-editor/add-question/add-question.component';
+import {AddQuestionModule} from './learn/course-editor/add-question/add-question.module'
 
 import { StatisticsComponent } from './profile/personal_statistics/statistics.component';
 import { RankingListComponent } from './profile/ranking-list/ranking-list.component';
@@ -77,9 +79,9 @@ import { StaticPageComponent } from './static-page/static-page.component';
 import { ImageCropperDialogComponent } from './image-cropper/image-cropper.component';
 
 // Viewing started courses on the welcome page
-import { CourseViewComponent } from './learn/view-courses/view-courses.component';
-import { FooterMainpageComponent } from './footer-mainpage/footer-mainpage.component';
-import { QuizQuestionComponent } from './quiz/quiz-question/quiz-question.component';
+import {CourseViewComponent} from './learn/view-courses/view-courses.component';
+import {FooterMainpageComponent} from './footer-mainpage/footer-mainpage.component';
+import {QuizQuestionComponent} from './quiz/quiz-question/quiz-question.component';
 
 
 
@@ -156,7 +158,7 @@ const appRoutes: Routes = [
         path: 'ranking',
         component: RankingListComponent,
       }
-  ]
+    ]
   },
   {
     path: 'admin',
@@ -192,7 +194,7 @@ const appRoutes: Routes = [
 ];
 
 export function createTranslateLoader(http: Http) {
-    return new TranslateHttpLoader(http, './assets/lang/', '.json');
+  return new TranslateHttpLoader(http, './assets/lang/', '.json');
 }
 
 const QuestionList = QuestionDictionary.questionComponents
@@ -268,8 +270,7 @@ const QuestionList = QuestionDictionary.questionComponents
     MdMenuModule,
     MdIconModule,
   ],
-  exports: [
-  ],
+  exports: [],
   providers: [
     ServerService,
     UserService,
@@ -305,4 +306,5 @@ const QuestionList = QuestionDictionary.questionComponents
     CourseViewComponent,
   ]
 })
-export class AppModule { }
+export class AppModule {
+}

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
 @Component({
   selector: 'app-add-question-module',
@@ -11,16 +11,16 @@ export class AddQuestionModule {
 
   body: any;
 
-  public save(form): any{
+  public save(form): any {
     return "nix";
   }
 
-  public edit( body: any){
-    if(body != null){
+  public edit(body: any) {
+    if (body != null) {
       this.body = body;
       if (this.body['url'] != undefined) {
         this.body['url'] = 'https://www.youtube.com/embed/' + this.body['url']
       }
     }
   }
- }
+}

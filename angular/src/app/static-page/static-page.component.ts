@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { Http } from '@angular/http';
-import { Router, ActivatedRoute } from '@angular/router';
+import {Component, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
+import {Http} from '@angular/http';
+import {Router, ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-static-page',
@@ -10,7 +10,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class StaticPageComponent implements OnInit {
   data: any;
 
-  constructor(public http: Http, public router: Router, public route: ActivatedRoute) { }
+  constructor(public http: Http, public router: Router, public route: ActivatedRoute) {
+  }
 
   ngOnInit() {
     this.route.params.subscribe(data => {
@@ -18,11 +19,13 @@ export class StaticPageComponent implements OnInit {
     })
   }
 
-  get(site: string){
+  get(site: string) {
     this.http.get('/assets/statics/' + site)
       .toPromise()
       .then(data => this.data = data)
-      .catch(err => {console.log(err), this.router.navigate(['404']) })
+      .catch(err => {
+        console.log(err), this.router.navigate(['404'])
+      })
   }
 
 }

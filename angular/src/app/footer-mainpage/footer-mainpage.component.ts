@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-footer-mainpage',
@@ -10,6 +10,6 @@ import { Component, OnInit } from '@angular/core';
  * The Component for the static footer of the Main Pages. This footer is not in the question.
  * @author Leonhard Wiedmann
  */
-export class FooterMainpageComponent{
+export class FooterMainpageComponent {
 
 }
