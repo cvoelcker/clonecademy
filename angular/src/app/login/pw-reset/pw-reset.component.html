@@ -16,6 +16,10 @@
         <md-hint align="start" *ngIf="!email.valid && f.submitted">
           <strong>{{"invalid email" | translate}}</strong>
         </md-hint>
+        <md-hint *ngIf="answer != undefined">
+          <strong>{{"Successfully reset! Please check your inbox" | translate}}
+          </strong>
+        </md-hint>
       </md-input-container>
 
       <button md-raised-button [disabled]="loading" type="submit">

@@ -62,6 +62,7 @@ urlpatterns = [
     url(r'^user/current$', views.UserView.as_view()),
 
     url(r'^ranking$', views.RankingView.as_view()),
+    url(r'^pw_reset/?$', views.PwResetView.as_view()),
 
     url(r'^register/$', views.UserRegisterView.as_view())
 ]

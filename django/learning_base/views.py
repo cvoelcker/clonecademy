@@ -14,6 +14,8 @@ from django.core.mail import send_mail
 from django.contrib.auth.models import User, Group
 from django.utils import timezone
 
+from django.utils.crypto import get_random_string
+
 
 class CategoryView(APIView):
     """
@@ -790,3 +792,46 @@ class UserRightsView(APIView):
                              user.groups.filter(name="moderator").exists(),
                          "is_admin?":
                              user.groups.filter(name="admin").exists()})
+
+
+class PwResetView(APIView):
+    """
+    Resets the password of a user and sends the new one to the email adress
+    of the user
+
+    {
+        "email": the email of the user
+    }
+    """
+
+    authentication_classes = ()
+    permission_classes = ()
+
+    def post(self, request, format=None):
+        data = request.data
+        if ("email" not in data):
+            return Response({"ans": "you must provide an email"},
+                            status=status.HTTP_400_BAD_REQUEST)
+        elif (not User.objects.filter(email=data["email"]).exists()):
+            return Response({"ans": "no user with email: " + data["email"]},
+                            status=status.HTTP_404_NOT_FOUND)
+        else:
+            user = User.objects.get(email=data["email"])
+            # generate a randome password with the random implementation of
+            # django.utils.crypto
+            new_password = get_random_string(length=16)
+
+            send_mail(
+                'Password Reset on clonecademy.net',
+                'Hello {},\n \
+                You have requested a new password on clonecademy.net \n \
+                Your new password is: \n {} \n \n \
+                Please change it imediately! \n \
+                Have a nice day,\n your CloneCademy bot'.format(
+                    user.username, new_password
+                ),
+                'bot@clonecademy.de',
+                [user.email]
+            )
+            user.set_password(new_password)
+            return Response(status=status.HTTP_200_OK)
