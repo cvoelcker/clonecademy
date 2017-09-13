@@ -1,11 +1,52 @@
 @import "../../../_vars";
 
-table {
-  width: 100%;
-  th {
-    border-bottom: 1px solid $shadow;
-  }
-  tr:nth-child(2n) {
-    background-color: lighten($shadow, 50%);
-  }
+md-progress-spinner{
+  height: calc(200px + 2em + 2em);
+}
+
+.weeklyStatistics{
+    height: calc(200px + 2em  + 2em);
+    display: block;
+    text-align: center;
+    position: relative;
+    .day{
+      text-align: center;
+      width: calc(100% / 7);
+      position: relative;
+      display: inline-block;
+      height: calc(200px + 2em + 2em);
+      border-left: 1px solid $white;
+      overflow: hidden;
+      .title{
+        line-height: 2em;
+        display: inline-block;
+        width: 100%;
+      }
+      .questions{
+        width: 100%;
+        content:"";
+        display: block;
+        margin: auto;
+        position: absolute;
+        top: auto;
+        left: 0;
+        right: 0;
+        bottom: 2em;
+        text-align: center;
+        border-bottom: 1px solid $white;
+        div{
+          background-color: $button;
+          margin: 0 auto;
+          max-width: 75px;
+        }
+      }
+      .sum{
+        position: absolute;
+        top: auto;
+        bottom: 0;
+        text-align: center;
+        left: 0;
+        right: 0;
+      }
+    }
 }

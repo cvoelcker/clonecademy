@@ -479,6 +479,7 @@ class TrySerializer(serializers.ModelSerializer):
     """
     user = serializers.StringRelatedField()
     question = serializers.StringRelatedField()
+    date = serializers.DateTimeField(format="%d/%m/%Y")
 
     class Meta:
         model = Try

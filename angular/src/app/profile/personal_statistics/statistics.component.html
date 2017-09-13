@@ -1,18 +1,35 @@
 <h2>{{"statistics" | translate}}</h2>
 <div *ngIf="!loading">
-  <a md-raised-button (click)="downloadStatistics()">
-    <md-icon>save</md-icon>
-    {{"download" | translate}}</a>
-  <table>
-    <th>{{"question" | translate}}</th>
-    <th>{{"solved" | translate}}</th>
-    <th>{{"date" | translate}}</th>
-    <tr *ngFor="let stat of statistics">
-      <td>{{stat.question}}</td>
-      <td>{{stat.solved}}</td>
-      <td>{{ stat.date | date:'d. MMMM y'}}</td>
-    </tr>
-  </table>
+  <!--<md-form-field>
+    <input mdInput [mdDatepicker]="picker" placeholder="Choose a date">
+    <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
+    <md-datepicker #picker></md-datepicker>
+  </md-form-field>-->
+  <md-card>
+    <div class="statisticsHeader">
+      <h3>
+        {{ offsetDate.getDate() }}. {{ monthNames[offsetDate.getMonth()]}} - {{ offsetEnd.getDate() }}. {{ monthNames[offsetEnd.getMonth()]}}
+      </h3>
+      <button md-button (click)="offsetDate.setDate(offsetDate.getDate() - 7); loadDate()"><md-icon>keyboard_arrow_left</md-icon></button>
+      <button md-button (click)="offsetDate.setDate(offsetDate.getDate() + 7); loadDate()" [disabled]="!(offsetEnd < currentDate)"><md-icon>keyboard_arrow_right</md-icon></button>
+    </div>
+    <div class="weeklyStatistics" *ngIf="(statistics != undefined) && !(loadStats)">
+      <span *ngFor="let i of [ 0,1,2,3,4,5,6 ]" class="day">
+        <div class="title">
+          {{statistics[((offsetDate.getDay() + i + 1) % 7)].day}}
+        </div>
+        <div class="questions">
+          <div *ngFor="let try of statistics[(offsetDate.getDay() + i +1) % 7].stat" [style.height.px]="200 / height">
+          </div>
+        </div>
+        <div class="sum">
+          {{statistics[(offsetDate.getDay() + i +1) % 7 ].stat.length}}
+        </div>
+      </span>
+    </div>
+    <md-progress-spinner *ngIf="loadStats" mode="indeterminate"></md-progress-spinner>
+  </md-card>
+  <a md-raised-button (click)="downloadStatistics()" ><md-icon>save</md-icon> {{"download" | translate}}</a>
 </div>
 <div *ngIf="loading" class="localLoader">
   <md-progress-spinner mode="indeterminate"></md-progress-spinner>
