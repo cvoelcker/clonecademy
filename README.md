@@ -31,3 +31,15 @@ You should change all settings in the files:
 * `angular/environments/environent.ts`: Change production to true
 
 If you want to run the server, you only need to call `docker-compose up`. This will expose the plattform via port 80. The main page can now be reached via `localhost` and the admin backend of the Django instance via `localhost/api/admin`.
+
+# Update (production)
+
+First, make a backup copy of the database folder. The location was provided by the `docker-compose.yml`. Then, stash your changed files either with git stash or by making a backup copy. If you have kept everything in the git repository, you can quickly check which files have been changed by running `git status`.
+
+Then execute the following commands:
+`git pull`
+Reload your stashed files.
+`./install.sh`
+`docker-compose up`
+
+Everything should now ork as expected and run in the current version.
