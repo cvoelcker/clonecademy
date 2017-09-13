@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { BaseTest } from '../../base-test';
+import {BaseTest} from '../../base-test';
 
-import { RequestModComponent } from './request-mod.component';
+import {RequestModComponent} from './request-mod.component';
 
 
 describe('RequestModComponent', () => {
@@ -12,13 +12,13 @@ describe('RequestModComponent', () => {
   beforeEach(async(() => {
     let base = new BaseTest();
     TestBed.configureTestingModule({
-      imports: [ base.imports() ],
-      providers: [ base.providers() ],
+      imports: [base.imports()],
+      providers: [base.providers()],
       declarations: [
         RequestModComponent
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

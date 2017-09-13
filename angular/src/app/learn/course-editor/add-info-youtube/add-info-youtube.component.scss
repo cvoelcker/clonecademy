@@ -1,25 +1,26 @@
-.question{
+.question {
   height: 5em;
 }
 
-ul{
+ul {
   list-style: none;
   padding: 0;
 }
 
-textarea{
+textarea {
   width: 100%;
-  resize:vertical;
+  resize: vertical;
 }
 
-.answers{
-  .remove{
+.answers {
+  .remove {
     float: right;
   }
-  textarea{
+  textarea {
     margin-top: 1em;
   }
 }
-.addAnswer{
+
+.addAnswer {
   margin: 1em 0;
 }

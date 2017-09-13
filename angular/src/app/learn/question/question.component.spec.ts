@@ -1,14 +1,14 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
 
-import { CourseComponent } from '../course/course.component';
+import {CourseComponent} from '../course/course.component';
 
-import { BaseTest } from '../../base-test';
+import {BaseTest} from '../../base-test';
 
-import { QuestionComponent } from './question.component';
+import {QuestionComponent} from './question.component';
 
-import { InformationTextComponent } from '../info-text/info-text.component';
+import {InformationTextComponent} from '../info-text/info-text.component';
 
 describe('Question Component', () => {
   let component: QuestionComponent;
@@ -17,9 +17,9 @@ describe('Question Component', () => {
   beforeEach(async(() => {
     let base = new BaseTest();
     TestBed.configureTestingModule({
-      imports: [ base.imports() ],
+      imports: [base.imports()],
       providers: [base.providers()],
-      declarations: [ base.entryComponents([QuestionComponent, CourseComponent, InformationTextComponent]) ]
+      declarations: [base.entryComponents([QuestionComponent, CourseComponent, InformationTextComponent])]
     })
     TestBed.overrideModule(
       BrowserDynamicTestingModule, {
@@ -28,7 +28,7 @@ describe('Question Component', () => {
         }
       }
     )
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

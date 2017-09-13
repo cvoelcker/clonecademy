@@ -1,4 +1,4 @@
-import { ModuleDirective } from './module.directive';
+import {ModuleDirective} from './module.directive';
 
 describe('ModuleDirective', () => {
   it('should create an instance', () => {

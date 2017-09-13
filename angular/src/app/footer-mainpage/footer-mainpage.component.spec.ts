@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { FooterMainpageComponent } from './footer-mainpage.component';
+import {FooterMainpageComponent} from './footer-mainpage.component';
 
 describe('FooterMainpageComponent', () => {
   let component: FooterMainpageComponent;
@@ -8,9 +8,9 @@ describe('FooterMainpageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FooterMainpageComponent ]
+      declarations: [FooterMainpageComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

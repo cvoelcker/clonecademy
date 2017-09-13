@@ -1,14 +1,17 @@
+"""
+x
+"""
+
+from  hashlib import sha512
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from polymorphic.models import PolymorphicModel
 
 
-# from user_model import models as ub_models
-
-
 class Profile(models.Model):
     """
+    A user profile that stores additional information about a user
     """
 
     class Meta:
@@ -46,30 +49,29 @@ class Profile(models.Model):
     )
 
     def get_age(self):
-        today = timezone.today
+        """
+        Caculates the current age of the user
+        :return: the age of the user relative to the current server date
+        """
+        today = timezone.now()
         return today.year - self.birth_date.year - ((today.month, today.day) <
                                                     (self.birth_date.month,
                                                      self.birth_date.day))
-
-    def __str__(self):
-        return str(self.user)
 
     def get_link_to_profile(self):
         """
         Returns the link to the users profile page
         """
-        # TODO: Implement correct user profile access string
-        return "clonecademy.net/user/{}/".format(self.user.id)
+        return "clonecademy.net/admin/profiles/{}/".format(self.user.id)
 
     def modrequest_allowed(self):
         """
         Returns True if the user is allowed to request moderator rights
         """
-        return (self.last_modrequest is None or (
-                timezone.localdate() - self.last_modrequest).days >= 7) and \
-            not self.is_mod()
+        return ((self.last_modrequest is None
+                 or (timezone.localdate() - self.last_modrequest).days >= 7)
+                and not self.is_mod())
 
-    # TODO: Refactor these to a decorator
     def is_mod(self):
         """
         Returns True if the user is in the group moderators
@@ -79,8 +81,19 @@ class Profile(models.Model):
     def is_admin(self):
         """
         Returns True if the user is in the group admin
+        :return: whether the user belong to the admin group
         """
         return self.user.groups.filter(name="admin").exists()
+
+    def get_hash(self):
+        """
+        calculates a hash to get anonymous user data
+        :return: the first 10 digits of the hash
+        """
+        return sha512(str.encode(self.user.username)).hexdigest()[:10]
+
+    def __str__(self):
+        return str(self.user)
 
 
 class CourseCategory(models.Model):
@@ -94,8 +107,11 @@ class CourseCategory(models.Model):
         unique=True,
     )
 
-    def get_courses(self):
-        return self.course_set
+    color = models.CharField(
+        help_text="Color that is used in the category context",
+        max_length=7,
+        default="#000000"
+    )
 
     def __str__(self):
         return self.name
@@ -171,7 +187,8 @@ class Course(models.Model):
     description = models.CharField(
         max_length=144,
         null=True,
-        blank=True
+        blank=True,
+        default=""
     )
 
     def __str__(self):
@@ -327,6 +344,100 @@ class Question(PolymorphicModel):
     def __str__(self):
         return self.title
 
+    def get_points(self):
+        """
+        x
+        :return:
+        """
+        raise NotImplementedError
+
+
+class QuizQuestion(models.Model):
+    """
+    single Quiz Question with possible multiple answers
+    @author Leonhard Wiedmann
+    """
+    question = models.TextField(
+        verbose_name="quizQuestion",
+        help_text="The Question of this quiz question.",
+        default=""
+    )
+
+    image = models.TextField(
+        help_text="The image which is shown in this quiz",
+        default="",
+        blank=True
+    )
+
+    course = models.ForeignKey(
+        Course,
+        help_text="The Course of this question",
+        on_delete=models.CASCADE
+    )
+
+    def evaluate(self, data):
+        """
+        x
+        :return:
+        """
+        answers = self.answer_set()
+        for ans in answers:
+            if ans.correct:
+                if not data[str(ans.id)]:
+                    return False
+            if not ans.correct:
+                if data[str(ans.id)]:
+                    return False
+        return True
+
+    def answer_set(self):
+        """
+        x
+        :return:
+        """
+        return self.quizanswer_set.all()
+
+    def is_solvable(self):
+        """
+        x
+        :return:
+        """
+        for ans in self.answer_set():
+            if ans.correct:
+                return True
+        return False
+
+    @staticmethod
+    def get_points():
+        """
+        returns the points for answering this question type
+        :return: 2 points
+        """
+        return 2
+
+
+class QuizAnswer(models.Model):
+    """
+    Quiz answer with image and the value for correct answer
+    @author Leonhard Wiedmann
+    """
+    text = models.TextField(
+        help_text="The answer text"
+    )
+
+    img = models.TextField(
+        help_text="The image for this answer",
+        default="",
+        blank=True
+    )
+
+    correct = models.BooleanField(
+        help_text="If this answer is correct",
+        default=False
+    )
+
+    quiz = models.ForeignKey(QuizQuestion, on_delete=models.CASCADE)
+
 
 class LearningGroup(models.Model):
     """
@@ -358,6 +469,12 @@ class Try(models.Model):
         on_delete=models.SET_NULL,
     )
 
+    quiz_question = models.ForeignKey(
+        QuizQuestion,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+
     answer = models.TextField(
         verbose_name="The given answer",
         help_text="The answers as pure string",
@@ -373,13 +490,17 @@ class Try(models.Model):
         default=False
     )
 
-    def __unicode__(self):
+    def __str__(self):
         return "Solution_{}_{}_{}".format(
             self.question, self.solved, self.date)
 
 
-class CourseManager(models.Manager):
-    def is_started(user):
-        courses = Course.objects.filter(
-            module__question__try__user=user)
-        return courses.distinct()
+def started_courses(user):
+    """
+    returns all courses started by a user
+    :param user:
+    :return:
+    """
+    courses = Course.objects.filter(
+        module__question__try__user=user)
+    return courses.distinct()

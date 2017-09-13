@@ -1,22 +1,23 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { NgModule } from '@angular/core';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {NgModule} from '@angular/core';
 
 
-import { BaseTest } from '../base-test';
+import {BaseTest} from '../base-test';
 
 import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
 
-import { LoaderComponent } from '../loader/loader.component';
-import {MdDialog, MdDialogModule, MdDialogRef } from '@angular/material';
-import { ErrorMessageComponent } from './error-message.component';
+import {LoaderComponent} from '../loader/loader.component';
+import {MdDialog, MdDialogModule, MdDialogRef} from '@angular/material';
+import {ErrorMessageComponent} from './error-message.component';
 
 @NgModule({
-    declarations: [ErrorMessageComponent],
-    entryComponents: [ErrorMessageComponent],
-    imports: [new BaseTest().imports()],
-    exports: [ErrorMessageComponent],
+  declarations: [ErrorMessageComponent],
+  entryComponents: [ErrorMessageComponent],
+  imports: [new BaseTest().imports()],
+  exports: [ErrorMessageComponent],
 })
-class TestModule { }
+class TestModule {
+}
 
 describe('ErrorMessageComponent', () => {
 
@@ -26,8 +27,8 @@ describe('ErrorMessageComponent', () => {
 
   beforeEach(async(() => {
     let base = new BaseTest();
-      TestBed.configureTestingModule({
-      imports: [ base.imports(), TestModule,  MdDialogModule ]
+    TestBed.configureTestingModule({
+      imports: [base.imports(), TestModule, MdDialogModule]
     })
     TestBed.overrideModule(
       BrowserDynamicTestingModule, {
@@ -36,15 +37,15 @@ describe('ErrorMessageComponent', () => {
         }
       }
     )
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
-        dialog = TestBed.get(MdDialog);
-        let dialogRef = dialog.open(ErrorMessageComponent);
+    dialog = TestBed.get(MdDialog);
+    let dialogRef = dialog.open(ErrorMessageComponent);
 
-        component = dialogRef.componentInstance;
-    });
+    component = dialogRef.componentInstance;
+  });
 
   it('should be created', () => {
     expect(component).toBeTruthy();

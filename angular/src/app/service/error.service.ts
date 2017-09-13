@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 import {ErrorMessageComponent} from '../error-message/error-message.component'
 import {MdDialog} from '@angular/material';
@@ -7,12 +7,13 @@ import {MdDialog} from '@angular/material';
 export class ErrorDialog {
 
 
-  constructor(private dialog: MdDialog) { }
+  constructor(private dialog: MdDialog) {
+  }
 
-  open(text: string){
-      let dialogRef = this.dialog.open(ErrorMessageComponent, {
-        data: text
-      })
+  open(text: string) {
+    let dialogRef = this.dialog.open(ErrorMessageComponent, {
+      data: text
+    })
   }
 
 

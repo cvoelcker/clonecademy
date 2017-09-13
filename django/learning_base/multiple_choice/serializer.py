@@ -1,39 +1,63 @@
+"""
+x
+"""
+
 from rest_framework import serializers
 from rest_framework.exceptions import ParseError
-from .models import *
-
-from base64 import b64decode
+from .models import MultipleChoiceAnswer, MultipleChoiceQuestion
 
 
 class MultipleChoiceAnswerSerializer(serializers.ModelSerializer):
+    """
+    Serializer for MultipleChoice answers
+    @author: Leon Wiedmann
+    """
     class Meta:
         model = MultipleChoiceAnswer
         fields = ('text', 'id', 'img')
 
     def create(self, validated_data):
+        """
+        parent:
+        """
         answer = MultipleChoiceAnswer(**validated_data)
         answer.question = validated_data['question']
         answer.save()
 
 
 class MultipleChoiceQuestionPreviewSerializer(serializers.ModelSerializer):
+    """
+    Serializer for MultipleChoice question preview
+    @author: Leon Wiedmann
+    """
     class Meta:
         model = MultipleChoiceQuestion
         fields = ('body', "id",)
 
 
 class MultipleChoiceAnswerEditSerializer(serializers.ModelSerializer):
+    """
+    Serializer for MultipleChoice answer editing
+    @author: Leon Wiedmann
+    """
     class Meta:
         model = MultipleChoiceAnswer
         fields = ("text", "id", "is_correct", "img")
 
 
 class MultipleChoiceQuestionEditSerializer(serializers.ModelSerializer):
+    """
+    Serializer for MultipleChoice question editing
+    @author: Leon Wiedmann
+    """
     class Meta:
         model = MultipleChoiceQuestion
         fields = ("id", 'question_image', 'feedback_image')
 
     def to_representation(self, obj):
+        """
+        parent:
+        """
         values = super(MultipleChoiceQuestionEditSerializer,
                        self).to_representation(obj)
         answers = obj.answer_set()
@@ -43,11 +67,18 @@ class MultipleChoiceQuestionEditSerializer(serializers.ModelSerializer):
 
 
 class MultipleChoiceQuestionSerializer(serializers.ModelSerializer):
+    """
+    Serializer for MultipleChoice questions editing
+    :author: Leon Wiedmann
+    """
     class Meta:
         model = MultipleChoiceQuestion
         fields = ('id', 'question_image')
 
     def to_representation(self, obj):
+        """
+        parent:
+        """
         values = super(MultipleChoiceQuestionSerializer,
                        self).to_representation(obj)
         answers = obj.answer_set()
@@ -56,6 +87,9 @@ class MultipleChoiceQuestionSerializer(serializers.ModelSerializer):
         return values
 
     def create(self, validated_data):
+        """
+        parent:
+        """
         answers = validated_data.pop('answers')
         question = MultipleChoiceQuestion(**validated_data)
         question.module = validated_data['module']
@@ -73,5 +107,4 @@ class MultipleChoiceQuestionSerializer(serializers.ModelSerializer):
             raise ParseError(
                 detail="Unsolvable question {}".format(question.title),
                 code=None)
-        else:
-            return True
+        return True

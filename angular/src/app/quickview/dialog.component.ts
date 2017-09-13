@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
-import {MdDialog, MdDialogRef } from '@angular/material';
+import {MdDialog, MdDialogRef} from '@angular/material';
 
-import { UserService } from '../service/user.service'
-
+import {UserService} from '../service/user.service'
 
 
 @Component({
@@ -12,5 +11,6 @@ import { UserService } from '../service/user.service'
   styleUrls: ['./dialog.component.scss']
 })
 export class DialogComponent {
-  constructor(private user: UserService, public dialogRef: MdDialogRef<DialogComponent>) { }
+  constructor(private user: UserService, public dialogRef: MdDialogRef<DialogComponent>) {
+  }
 }

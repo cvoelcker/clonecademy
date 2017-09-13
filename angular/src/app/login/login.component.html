@@ -1,19 +1,28 @@
-
 <div class="login">
   <div class="form">
     <h2>{{"login" | translate}}</h2>
     <form #f="ngForm" name="login" (ngSubmit)="login(f)">
       <md-input-container>
-        <input mdInput placeholder='{{"username" | translate}}' type="text" #name="ngModel" name="username" [(ngModel)]="username" required />
+        <input mdInput placeholder='{{"username" | translate}}' type="text"
+               #name="ngModel" name="username" [(ngModel)]="username"
+               required/>
       </md-input-container>
 
       <md-input-container>
-        <input type="password" mdInput placeholder='{{"password" | translate}}' #pw="ngModel" name="password" [(ngModel)]="password" required />
+        <input type="password" mdInput placeholder='{{"password" | translate}}'
+               #pw="ngModel" name="password" [(ngModel)]="password" required/>
       </md-input-container>
 
-      <button type="submit" md-raised-button class=" ">{{"login" | translate}}</button>
+      <button type="submit" md-raised-button class=" ">{{"login" |
+        translate}}
+      </button>
     </form>
 
-    <button md-raised-button class="btn-info" routerLink="/register/">{{"No Account? Register here" | translate}}</button>
+    <button md-raised-button class="btn-info" routerLink="/register/">{{"No
+      Account? Register here" | translate}}
+    </button>
   </div>
 </div>
+<footer>
+  <app-footer-mainpage></app-footer-mainpage>
+</footer>

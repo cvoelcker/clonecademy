@@ -1,15 +1,26 @@
 <div>
+  <ul>
+    <li class="question">
   <md-input-container>
-    <textarea mdInput placeholder='{{"Text" | translate}}' #Question="ngModel" name="text_field" type="textarea" [(ngModel)]="body.text_field" required></textarea>
+    <textarea mdInput placeholder='{{"Text" | translate}}' #Question="ngModel" name="text_field" type="textarea" class="textareas" [(ngModel)]="body.text_field" required></textarea>
     <md-hint align="start" class="warning" *ngIf="form != null && form.submitted"><strong>{{'The question is required' | translate}}</strong></md-hint>
   </md-input-container>
+</li>
+</ul>
 
   <div class="imageUpload">
     <div>
-      <button md-raised-button type="button" (click)="openImageDialog(500, 500, 'image')"><md-icon>image</md-icon>{{" add image to question" | translate}}</button>
-      <button md-raised-button type="button" *ngIf="body.image != ''" (click)="body.image = ''">{{"remove image" | translate}}</button>
+      <button md-raised-button type="button"
+              (click)="openImageDialog(500, 500, 'image')">
+        <md-icon>image</md-icon>
+        {{" add image to question" | translate}}
+      </button>
+      <button md-raised-button type="button" *ngIf="body.image != ''"
+              (click)="body.image = ''">{{"remove image" | translate}}
+      </button>
     </div>
-    <img [src]="body.image" alt="Preview" *ngIf="body.image != undefined && body.image != ''">
+    <img [src]="body.image" alt="Preview"
+         *ngIf="body.image != undefined && body.image != ''">
   </div>
 
 </div>

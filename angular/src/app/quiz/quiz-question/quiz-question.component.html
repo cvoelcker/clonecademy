@@ -1,21 +1,22 @@
-<div class="quiz">
-  <md-card class="question" *ngIf="data.question != undefined" >
+<div class="quiz" *ngIf="data != undefined">
+  <md-card class="question" *ngIf="data[id].question != undefined">
     {{data.question}}
   </md-card>
   <div class="answersWrapper">
-    <div class="answers" [class.full]="data.image == ''">
-      <md-checkbox *ngFor="let ans of data.answers" [(ngModel)]="ans.chosen" [class.selected]="ans.chosen">
+    <div class="answers" [class.full]="data[id].image == ''">
+      <md-checkbox *ngFor="let ans of data[id].answers"
+                   [(ngModel)]="ans.chosen" [class.selected]="ans.chosen">
         <img *ngIf="ans.img != ''" [src]="ans.img">
         {{ ans.text }}
       </md-checkbox>
     </div>
-    <div class="image" *ngIf="data.image" >
-      <img [src]="data.image">
+    <div class="image" *ngIf="data[id].image">
+      <img [src]="data[id].image">
     </div>
   </div>
 </div>
 <footer>
   <div class="nextButton">
-    <button md-raised-button (click)="submit()" >submit</button>
+    <button md-raised-button (click)="submit()">submit</button>
   </div>
 </footer>

@@ -1,15 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { BaseTest } from '../../../base-test';
+import {BaseTest} from '../../../base-test';
 import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
 
-import { CourseService}  from '../../../service/course.service';
+import {CourseService}  from '../../../service/course.service';
 
-import { ErrorMessageComponent } from '../../../error-message/error-message.component';
+import {ErrorMessageComponent} from '../../../error-message/error-message.component';
 
-import { AddModuleComponent } from '../add-module/add-module.component';
+import {AddModuleComponent} from '../add-module/add-module.component';
 
-import { CreateCourseComponent } from './create-course.component';
+import {CreateCourseComponent} from './create-course.component';
 
 describe('CreateCourseComponent', () => {
   let component: CreateCourseComponent;
@@ -17,10 +17,10 @@ describe('CreateCourseComponent', () => {
 
   beforeEach(async(() => {
     let base = new BaseTest();
-      TestBed.configureTestingModule({
-      imports: [ base.imports() ],
+    TestBed.configureTestingModule({
+      imports: [base.imports()],
       providers: [base.providers()],
-      declarations: [ CreateCourseComponent, ErrorMessageComponent, AddModuleComponent ]
+      declarations: [CreateCourseComponent, ErrorMessageComponent, AddModuleComponent]
     })
     TestBed.overrideModule(
       BrowserDynamicTestingModule, {
@@ -29,7 +29,7 @@ describe('CreateCourseComponent', () => {
         }
       }
     )
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
