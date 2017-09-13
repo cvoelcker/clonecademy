@@ -18,7 +18,7 @@
           {{"continue" | translate}}
         </button>
     </td>
-    <td class="options" *ngIf="user.isMod()">
+    <td class="options" *ngIf="user.isModerator()">
       <!-- add visible/invisble button here -->
       <div class="button" [ngSwitch]="true" *ngIf="sidemenu == undefined">
         <button md-raised-button *ngSwitchCase="visible"
