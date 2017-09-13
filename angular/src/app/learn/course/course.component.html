@@ -1,36 +1,28 @@
-<div *ngIf="!loading">
-  <table class="header">
-    <td class="title">
-      <h2>
-        {{name}}
-      </h2>
+<div *ngIf="!loading" class="wrapper">
+
+    <h2>
+      {{name}}
+    </h2>
+  <table>
+    <td class="button" [ngSwitch]="true" *ngIf="sidemenu == undefined">
+        <button
+          *ngSwitchCase="!completed && modules[0] != undefined && !modules[0].questions[0].solved"
+          md-raised-button routerLink="/course/{{ id }}/1/1/">{{"start Course" |
+          translate}}
+        </button>
+        <button *ngSwitchCase="completed" md-raised-button [disabled]="true">
+          {{"course completed" | translate}}
+        </button>
+        <button *ngSwitchDefault md-raised-button
+                routerLink="/course/{{ id }}/{{ lastCourse[0] }}/{{ lastCourse[1] + 1 }}/">
+          {{"continue" | translate}}
+        </button>
     </td>
-    <!--<td class="counter">
-    <div class="chart" style="display: block">
-      <canvas baseChart
-              [legend]="false"
-              [colors]="pieChartColor"
-              [data]="pieChartData"
-              [labels]="pieChartLabels"
-              [chartType]="pieChartType"
-              (chartHover)="chartHovered($event)"></canvas>
-    </div>
-  </td>-->
+    <td class="options" *ngIf="user.isModerator()">
+      <!-- add visible/invisble button here -->
+        <button md-raised-button ><md-icon>poll</md-icon></button>
+    </td>
   </table>
-  <div class="button" [ngSwitch]="true" *ngIf="sidemenu == undefined">
-    <button
-      *ngSwitchCase="!completed && modules[0] != undefined && !modules[0].questions[0].solved"
-      md-raised-button routerLink="/course/{{ id }}/1/1/">{{"start Course" |
-      translate}}
-    </button>
-    <button *ngSwitchCase="completed" md-raised-button [disabled]="true">
-      {{"course completed" | translate}}
-    </button>
-    <button *ngSwitchDefault md-raised-button
-            routerLink="/course/{{ id }}/{{ lastCourse[0] }}/{{ lastCourse[1] + 1 }}/">
-      {{"continue" | translate}}
-    </button>
-  </div>
   <div class="courseDescription">
     {{description}}
   </div>

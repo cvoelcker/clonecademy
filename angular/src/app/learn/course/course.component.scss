@@ -43,6 +43,17 @@ body {
   margin: 1em 0;
 }
 
+table{
+  width: 100%;
+  td{
+    width: 50%;
+    display: inline-block;
+    &.options{
+      text-align: right;
+    }
+  }
+}
+
 ol {
   list-style: none;
   padding: 1em 0;

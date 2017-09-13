@@ -2,6 +2,7 @@ import {Component, OnInit, Input, ViewChild} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router'
 import {ServerService} from '../../service/server.service'
 import {CourseService} from '../../service/course.service'
+import {UserService} from '../../service/user.service'
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
@@ -31,10 +32,13 @@ export class CourseComponent implements OnInit {
   public chartHovered(e: any): void {
   }
 
-  constructor(private course: CourseService,
-              private route: ActivatedRoute,
-              private server: ServerService,
-              private router: Router,) {
+  constructor(
+    private course: CourseService,
+    private route: ActivatedRoute,
+    private server: ServerService,
+    private router: Router,
+    private user: UserService
+  ) {
 
   }
 
