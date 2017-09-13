@@ -16,7 +16,7 @@ class DatabaseMixin():
     def setup_database(self):
         self.factory = APIRequestFactory()
 
-        self.admin_group = Group.objects.create(name="admin")
+        self.admin_group = Group.objects.create(name='admin')
 
         self.u1 = User(username='admin')
         self.u1.save()
@@ -24,44 +24,44 @@ class DatabaseMixin():
         self.u1_profile = Profile.objects.create(user=self.u1)
         self.u1.save()
 
-        self.category = models.CourseCategory(name="test")
+        self.category = models.CourseCategory(name='test')
         self.category.save()
 
-        self.c1_test_en = models.Course(name="test_1", category=self.category,
+        self.c1_test_en = models.Course(name='test_1', category=self.category,
                                         difficulty=0, language='en',
                                         responsible_mod=self.u1,
                                         is_visible=True)
         self.c1_test_en.save()
 
-        self.m1_test = models.Module(name="module_1", course=self.c1_test_en,
+        self.m1_test = models.Module(name='module_1', course=self.c1_test_en,
                                      order=1)
         self.m1_test.save()
 
         self.q1_test = MultipleChoice.models.MultipleChoiceQuestion(
-            title="",
-            text="a question",
-            feedback="",
+            title='',
+            text='a question',
+            feedback='',
             order=1,
             module=self.m1_test)
         self.q1_test.save()
 
         self.a1_test = MultipleChoice.models.MultipleChoiceAnswer(
             question=self.q1_test,
-            text="something",
+            text='something',
             is_correct=False
         )
         self.a1_test.save()
 
         self.a2_test = MultipleChoice.models.MultipleChoiceAnswer(
             question=self.q1_test,
-            text="something",
+            text='something',
             is_correct=True)
         self.a2_test.save()
 
         self.q2_test = InformationText.models.InformationText(
-            title="",
-            text="an information text",
-            feedback="",
+            title='',
+            text='an information text',
+            feedback='',
             order=2,
             module=self.m1_test)
         self.q2_test.save()
@@ -364,7 +364,7 @@ class CourseEditViewTest(DatabaseMixin, TestCase):
         request = self.factory.get('/courses/')
         request.user = self.u1
         edit = serializers.CourseEditSerializer(
-            models.Course.objects.filter(name="edit_1").first()).data
+            models.Course.objects.filter(name='edit_1').first()).data
 
         del edit['modules'][0]['questions'][1]
 
@@ -455,7 +455,7 @@ class CourseEditViewTest(DatabaseMixin, TestCase):
         request = self.factory.get('/courses/')
         request.user = self.u1
         edit = serializers.CourseEditSerializer(
-            models.Course.objects.filter(name="edit_2").first()).data
+            models.Course.objects.filter(name='edit_2').first()).data
 
         del edit['modules'][1]
 
@@ -484,7 +484,7 @@ class RequestViewTest(DatabaseMixin, TestCase):
         self.factory = APIRequestFactory()
         self.view = views.RequestView.as_view()
 
-        self.mod_group = Group(name="moderator")
+        self.mod_group = Group(name='moderator')
         self.mod_group.save()
 
         self.u1 = User(username='user1')
@@ -496,13 +496,13 @@ class RequestViewTest(DatabaseMixin, TestCase):
         self.u2.save()
         self.u2_profile = models.Profile(user=self.u2)
         self.u2_profile.save()
-        self.u3 = User.objects.create(username="spamer")
+        self.u3 = User.objects.create(username='spamer')
         self.u3.save()
         self.u3_profile = models.Profile(user=self.u3)
         self.u3_profile.save()
         self.u3.profile.last_modrequest = timezone.localdate()
 
-        Group(name="admin").save()
+        Group(name='admin').save()
 
     def test_get(self):
         # Test for true positive
@@ -527,23 +527,23 @@ class RequestViewTest(DatabaseMixin, TestCase):
         self.assertEqual(response.data, {'allowed': False})
 
     def test_post(self):
-        request_1 = self.factory.post("user/request_mod",
-                                      {"reason": "you need me"}, format='json')
+        request_1 = self.factory.post('user/request_mod',
+                                      {'reason': 'you need me'}, format='json')
         force_authenticate(request_1, self.u1)
         response = self.view(request_1)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data, {"Request": "ok"})
+        self.assertEqual(response.data, {'Request': 'ok'})
         self.assertFalse(self.u1.profile.modrequest_allowed())
 
-        request_2 = self.factory.post("user/request_mod",
-                                      {"reason": "you need me"}, format='json')
+        request_2 = self.factory.post('user/request_mod',
+                                      {'reason': 'you need me'}, format='json')
         force_authenticate(request_2, self.u2)
         response = self.view(request_2)
         self.assertEqual(response.status_code, 403)
         self.assertTrue(self.mod_group in self.u2.groups.all())
 
-        request_3 = self.factory.post("user/request_mod",
-                                      {"reason": "you need me"}, format='json')
+        request_3 = self.factory.post('user/request_mod',
+                                      {'reason': 'you need me'}, format='json')
         force_authenticate(request_3, self.u3)
         response = self.view(request_3)
         self.assertEqual(response.status_code, 403)
@@ -555,8 +555,8 @@ class UserRightsViewTest(DatabaseMixin, TestCase):
         self.factory = APIRequestFactory()
         self.view = views.UserRightsView.as_view()
 
-        self.mod_group = Group.objects.create(name="moderator")
-        self.admin_group = Group.objects.create(name="admin")
+        self.mod_group = Group.objects.create(name='moderator')
+        self.admin_group = Group.objects.create(name='admin')
 
         self.u1 = User.objects.create_user(username='user1')
         self.u1_profile = models.Profile.objects.create(user=self.u1)
@@ -571,7 +571,7 @@ class UserRightsViewTest(DatabaseMixin, TestCase):
         self.u3.save()
         self.u3_profile = models.Profile.objects.create(user=self.u3)
 
-        self.u4 = User.objects.create_user(username="spamer")
+        self.u4 = User.objects.create_user(username='spamer')
         self.u4_profile = models.Profile.objects.create(user=self.u4)
         self.u4.profile.last_modrequest = timezone.localdate()
 
@@ -586,8 +586,8 @@ class UserRightsViewTest(DatabaseMixin, TestCase):
         i = 0
         for request_user in self.bad_users:
             requests.append(self.factory.post(
-                "user/" + str(self.u1.id) + "/rights",
-                {"right": "admin", "action": "promote"},
+                'user/' + str(self.u1.id) + '/rights',
+                {'right': 'admin', 'action': 'promote'},
                 format='json')
             )
             force_authenticate(requests[i], request_user)
@@ -602,28 +602,28 @@ class UserRightsViewTest(DatabaseMixin, TestCase):
         for user_to_change in self.users:
             # try withdrawing modrights
             request2 = (self.factory.post(
-                "user/" + str(user_to_change.id) + "/rights/",
-                {"right": "moderator", "action": "demote"},
+                'user/' + str(user_to_change.id) + '/rights/',
+                {'right': 'moderator', 'action': 'demote'},
                 format='json'
             ))
             force_authenticate(request2, self.u3)
             response2 = (self.view(request2, user_id=user_to_change.id))
             self.assertEqual(response2.status_code, 200)
             self.assertFalse(
-                user_to_change.groups.filter(name="moderator").exists()
+                user_to_change.groups.filter(name='moderator').exists()
             )
 
             # try withdrawing admin rights
             request1 = (self.factory.post(
-                "user/" + str(user_to_change.id) + "/rights/",
-                {"right": "admin", "action": "demote"},
+                'user/' + str(user_to_change.id) + '/rights/',
+                {'right': 'admin', 'action': 'demote'},
                 format='json'
             ))
             force_authenticate(request1, self.u3)
             response1 = (self.view(request1, user_id=user_to_change.id))
             self.assertEqual(response1.status_code, 200)
             self.assertFalse(
-                user_to_change.groups.filter(name="admin").exists()
+                user_to_change.groups.filter(name='admin').exists()
             )
 
             # return adminrights to the admin user if they were
@@ -633,29 +633,141 @@ class UserRightsViewTest(DatabaseMixin, TestCase):
 
             # try granting modrights
             request3 = (self.factory.post(
-                "user/" + str(user_to_change.id) + "/rights/",
-                {"right": "moderator", "action": "promote"},
+                'user/' + str(user_to_change.id) + '/rights/',
+                {'right': 'moderator', 'action': 'promote'},
                 format='json'
             ))
             force_authenticate(request3, self.u3)
             response3 = (self.view(request3, user_id=user_to_change.id))
             self.assertEqual(response3.status_code, 200)
             self.assertTrue(
-                user_to_change.groups.filter(name="moderator").exists()
+                user_to_change.groups.filter(name='moderator').exists()
             )
 
             # try granting admin rights
             request4 = (self.factory.post(
-                "user/" + str(user_to_change.id) + "/rights/",
-                {"right": "admin", "action": "promote"},
+                'user/' + str(user_to_change.id) + '/rights/',
+                {'right': 'admin', 'action': 'promote'},
                 format='json'
             ))
             force_authenticate(request4, self.u3)
             response4 = (self.view(request4, user_id=user_to_change.id))
             self.assertEqual(response4.status_code, 200)
             self.assertTrue(
-                user_to_change.groups.filter(name="admin").exists()
+                user_to_change.groups.filter(name='admin').exists()
             )
+
+class TryTest(DatabaseMixin, TestCase):
+    def setUp(self):
+        self.factory = APIRequestFactory()
+        self.view = views.QuestionView.as_view()
+        self.setup_database()
+
+        courseData = {
+            'name': 'quiz_1',
+            'category': 'test',
+            'difficulty': 2,
+            'responsible_mod': 1,
+            'responsible_mod': self.u1,
+            'modules': [
+                {
+                    'name': 'a module',
+                    'learning_text': 'no way',
+                    'order': 3,
+                    'questions': [
+                        {
+                            'title': 'a question',
+                            'text': 'some text',
+                            'feedback': '',
+                            'type': 'multiple_choice',
+                            'order': 1,
+                            'answers': [
+                                {
+                                    'text': 'true',
+                                    'is_correct': True
+                                },
+                                {
+                                    'text': 'nope',
+                                    'is_correct': False
+                                }
+                            ]
+                        },
+                    ]
+                }
+            ],
+            'language': 'en'}
+
+        course = serializers.CourseSerializer(data=courseData)
+        course.create(courseData)
+
+    def test_check_try(self):
+        # creation is possible and quiz query is sorted
+
+        course = models.Course.objects.filter(name='quiz_1')
+        self.assertTrue(course.exists())
+
+        course = course.first()
+        # create one true
+        question = MultipleChoice.models.MultipleChoiceAnswer.objects.filter(
+            question__module__course__name='quiz_1', is_correct=True).first()
+        correct_answer = self.factory.post(
+            'courses/' + str(course.id) + '/0/0/',
+            {'answers': [question.id]}, format='json')
+        force_authenticate(correct_answer, self.u1)
+
+        response = views.QuestionView.as_view()(correct_answer,
+                                                course_id=course.id,
+                                                module_id=0, question_id=0)
+        # create one false
+        question = MultipleChoice.models.MultipleChoiceAnswer.objects.filter(
+            question__module__course__name='quiz_1', is_correct=False).first()
+        false_answer = self.factory.post(
+            'courses/' + str(course.id) + '/0/0/',
+            {'answers': [question.id]}, format='json')
+        force_authenticate(false_answer, self.u1)
+
+        response = views.QuestionView.as_view()(false_answer,
+                                                course_id=course.id,
+                                                module_id=0, question_id=0)
+
+        get_statistics = self.factory.get('user/statistics/')
+        force_authenticate(get_statistics, self.u1)
+
+        response = views.StatisticsView.as_view()(get_statistics)
+
+        self.assertEqual(len(response.data), 2)
+
+
+
+    def test_date(self):
+        #initalize the database with 2 trys
+
+        self.test_check_try()
+        # check date field
+        from datetime import datetime, timedelta
+        import pytz
+
+        end = datetime.now(pytz.utc).strftime('%Y-%m-%d %H:%M:%S.%f')
+        print(end)
+        endValue = datetime.strptime(end, '%Y-%m-%d %H:%M:%S.%f').date() + timedelta(days=+1)
+        start = datetime.strptime(end, '%Y-%m-%d %H:%M:%S.%f').date() + timedelta(days=-1)
+
+        get_statistics = self.factory.post('user/statistics/', {'id': self.u1.id, 'date':{'start': start, 'end':endValue}}, format='json')
+        force_authenticate(get_statistics, self.u1)
+
+        response = views.StatisticsView.as_view()(get_statistics)
+        self.assertEqual(len(response.data), 2)
+
+        # check for to old dates
+        endValue = datetime.strptime(end, '%Y-%m-%d %H:%M:%S.%f').date() + timedelta(days=-2)
+        start = datetime.strptime(end, '%Y-%m-%d %H:%M:%S.%f').date() + timedelta(days=-7)
+
+        get_statistics = self.factory.post('user/statistics/', {'id': self.u1.id, 'date':{'start': start, 'end':endValue}}, format='json')
+        force_authenticate(get_statistics, self.u1)
+
+        response = views.StatisticsView.as_view()(get_statistics)
+        self.assertEqual(len(response.data), 0)
+
 
 
 class QuizTest(DatabaseMixin, TestCase):
@@ -703,134 +815,134 @@ class QuizTest(DatabaseMixin, TestCase):
                     ]
                 }
             ],
-            "quiz": [
+            'quiz': [
                 {
-                    "question": "first",
-                    "image": "",
-                    "answers": [
+                    'question': 'first',
+                    'image': '',
+                    'answers': [
                         {
-                            "text": "a sdfa sdfasd fasd fa",
-                            "img": "",
-                            "correct": True
+                            'text': 'a sdfa sdfasd fasd fa',
+                            'img': '',
+                            'correct': True
                         },
                         {
-                            "text": "as dfas dasd asfd adsfa sdf",
-                            "img": "",
-                            "correct": False
+                            'text': 'as dfas dasd asfd adsfa sdf',
+                            'img': '',
+                            'correct': False
                         },
                         {
-                            "text": "asdds afadsfadsf adsf ads fa dsf",
-                            "img": "",
-                            "correct": False
+                            'text': 'asdds afadsfadsf adsf ads fa dsf',
+                            'img': '',
+                            'correct': False
                         },
                         {
-                            "text": "adf asdf asdfasdf",
-                            "img": "",
-                            "correct": False
+                            'text': 'adf asdf asdfasdf',
+                            'img': '',
+                            'correct': False
                         }
                     ]
                 },
                 {
-                    "question": "sadfasdfasdfas dasd fasd ",
-                    "image": "",
-                    "answers": [
+                    'question': 'sadfasdfasdfas dasd fasd ',
+                    'image': '',
+                    'answers': [
                         {
-                            "text": "sadfasdfasdfas dfasdf a",
-                            "img": "",
-                            "correct": False
+                            'text': 'sadfasdfasdfas dfasdf a',
+                            'img': '',
+                            'correct': False
                         },
                         {
-                            "text": "asd fasdf asdf asd fasd f",
-                            "img": "",
-                            "correct": True
+                            'text': 'asd fasdf asdf asd fasd f',
+                            'img': '',
+                            'correct': True
                         },
                         {
-                            "text": "asdf asdf asdf asdf asd ",
-                            "img": "",
-                            "correct": False
+                            'text': 'asdf asdf asdf asdf asd ',
+                            'img': '',
+                            'correct': False
                         },
                         {
-                            "text": "asdf asdf asd",
-                            "img": "",
-                            "correct": False
+                            'text': 'asdf asdf asd',
+                            'img': '',
+                            'correct': False
                         }
                     ]
                 },
                 {
-                    "question": "sadfasdfasdfas dasd fasd ",
-                    "image": "",
-                    "answers": [
+                    'question': 'sadfasdfasdfas dasd fasd ',
+                    'image': '',
+                    'answers': [
                         {
-                            "text": "sadfasdfasdfas dfasdf a",
-                            "img": "",
-                            "correct": False
+                            'text': 'sadfasdfasdfas dfasdf a',
+                            'img': '',
+                            'correct': False
                         },
                         {
-                            "text": "asd fasdf asdf asd fasd f",
-                            "img": "",
-                            "correct": True
+                            'text': 'asd fasdf asdf asd fasd f',
+                            'img': '',
+                            'correct': True
                         },
                         {
-                            "text": "asdf asdf asdf asdf asd ",
-                            "img": "",
-                            "correct": False
+                            'text': 'asdf asdf asdf asdf asd ',
+                            'img': '',
+                            'correct': False
                         },
                         {
-                            "text": "asdf asdf asd",
-                            "img": "",
-                            "correct": False
+                            'text': 'asdf asdf asd',
+                            'img': '',
+                            'correct': False
                         }
                     ]
                 },
                 {
-                    "question": "sadfasdfasdfas dasd fasd ",
-                    "image": "",
-                    "answers": [
+                    'question': 'sadfasdfasdfas dasd fasd ',
+                    'image': '',
+                    'answers': [
                         {
-                            "text": "sadfasdfasdfas dfasdf a",
-                            "img": "",
-                            "correct": False
+                            'text': 'sadfasdfasdfas dfasdf a',
+                            'img': '',
+                            'correct': False
                         },
                         {
-                            "text": "asd fasdf asdf asd fasd f",
-                            "img": "",
-                            "correct": True
+                            'text': 'asd fasdf asdf asd fasd f',
+                            'img': '',
+                            'correct': True
                         },
                         {
-                            "text": "asdf asdf asdf asdf asd ",
-                            "img": "",
-                            "correct": False
+                            'text': 'asdf asdf asdf asdf asd ',
+                            'img': '',
+                            'correct': False
                         },
                         {
-                            "text": "asdf asdf asd",
-                            "img": "",
-                            "correct": False
+                            'text': 'asdf asdf asd',
+                            'img': '',
+                            'correct': False
                         }
                     ]
                 },
                 {
-                    "question": "last",
-                    "image": "",
-                    "answers": [
+                    'question': 'last',
+                    'image': '',
+                    'answers': [
                         {
-                            "text": "sadfasdfasdfas dfasdf a",
-                            "img": "",
-                            "correct": False
+                            'text': 'sadfasdfasdfas dfasdf a',
+                            'img': '',
+                            'correct': False
                         },
                         {
-                            "text": "asd fasdf asdf asd fasd f",
-                            "img": "",
-                            "correct": True
+                            'text': 'asd fasdf asdf asd fasd f',
+                            'img': '',
+                            'correct': True
                         },
                         {
-                            "text": "asdf asdf asdf asdf asd ",
-                            "img": "",
-                            "correct": False
+                            'text': 'asdf asdf asdf asdf asd ',
+                            'img': '',
+                            'correct': False
                         },
                         {
-                            "text": "asdf asdf asd",
-                            "img": "",
-                            "correct": False
+                            'text': 'asdf asdf asd',
+                            'img': '',
+                            'correct': False
                         }
                     ]
                 }
@@ -845,13 +957,13 @@ class QuizTest(DatabaseMixin, TestCase):
         self.assertTrue(course.exists())
         course = course.first()
         self.assertEqual(len(course.quizquestion_set.all()), 5)
-        self.assertEqual(course.quizquestion_set.all()[0].question, "first")
-        self.assertEqual(course.quizquestion_set.all()[4].question, "last")
+        self.assertEqual(course.quizquestion_set.all()[0].question, 'first')
+        self.assertEqual(course.quizquestion_set.all()[4].question, 'last')
 
         # try accesing the quiz before answering the questions is not valid
 
-        request = self.factory.get("courses/" + str(course.id) + "/quiz/",
-                                   format="json")
+        request = self.factory.get('courses/' + str(course.id) + '/quiz/',
+                                   format='json')
         force_authenticate(request, self.u1)
 
         response = views.QuizView.as_view()(request, course_id=course.id)
@@ -861,16 +973,16 @@ class QuizTest(DatabaseMixin, TestCase):
         # check if return value after every question in course is done is
         # correct
         question = MultipleChoice.models.MultipleChoiceAnswer.objects.filter(
-            question__module__course__name="quiz_1", is_correct=True).first()
+            question__module__course__name='quiz_1', is_correct=True).first()
         correct_answer = self.factory.post(
-            "courses/" + str(course.id) + "/0/0/",
-            {"answers": [question.id]}, format='json')
+            'courses/' + str(course.id) + '/0/0/',
+            {'answers': [question.id]}, format='json')
         force_authenticate(correct_answer, self.u1)
 
         response = views.QuestionView.as_view()(correct_answer,
                                                 course_id=course.id,
                                                 module_id=0, question_id=0)
-        self.assertEqual(response.data["next"], "quiz")
+        self.assertEqual(response.data['next'], 'quiz')
 
         # send post with false or correct answer will return 200 and send to
         # next quiz question
@@ -879,8 +991,8 @@ class QuizTest(DatabaseMixin, TestCase):
         course.quizquestion_set.all()[0])
 
         correct_answer = self.factory.post(
-            "courses/" + str(course.id) + "/quiz/0/",
-            {"answers": [(lambda x: x.id)(x) for x in answer_correct]},
+            'courses/' + str(course.id) + '/quiz/0/',
+            {'answers': [(lambda x: x.id)(x) for x in answer_correct]},
             format='json')
         force_authenticate(correct_answer, self.u1)
 
@@ -895,8 +1007,8 @@ class QuizTest(DatabaseMixin, TestCase):
             quiz=course.quizquestion_set.all()[
                 0])
         wrong_answer = self.factory.post(
-            "courses/" + str(course.id) + "/quiz/0/",
-            {"answers": [(lambda x: x.id)(x) for x in answer_wrong]},
+            'courses/' + str(course.id) + '/quiz/0/',
+            {'answers': [(lambda x: x.id)(x) for x in answer_wrong]},
             format='json')
         force_authenticate(wrong_answer, self.u1)
 
@@ -964,132 +1076,132 @@ class QuizTest(DatabaseMixin, TestCase):
                     ]
                 }
             ],
-            "quiz": [
+            'quiz': [
                 {
-                    "question": "first",
-                    "image": "", "answers": [
+                    'question': 'first',
+                    'image': '', 'answers': [
                     {
-                        "text": "a sdfa sdfasd fasd fa",
-                        "img": "",
-                        "correct": False
+                        'text': 'a sdfa sdfasd fasd fa',
+                        'img': '',
+                        'correct': False
                     },
                     {
-                        "text": "as dfas dasd asfd adsfa sdf",
-                        "img": "",
-                        "correct": False
+                        'text': 'as dfas dasd asfd adsfa sdf',
+                        'img': '',
+                        'correct': False
                     },
                     {
-                        "text": "asdds afadsfadsf adsf ads fa dsf",
-                        "img": "",
-                        "correct": False
+                        'text': 'asdds afadsfadsf adsf ads fa dsf',
+                        'img': '',
+                        'correct': False
                     },
                     {
-                        "text": "adf asdf asdfasdf",
-                        "img": "", "correct": False
+                        'text': 'adf asdf asdfasdf',
+                        'img': '', 'correct': False
                     }
                 ]
                 },
                 {
-                    "question": "sadfasdfasdfas dasd fasd ",
-                    "image": "",
-                    "answers": [
+                    'question': 'sadfasdfasdfas dasd fasd ',
+                    'image': '',
+                    'answers': [
                         {
-                            "text": "sadfasdfasdfas dfasdf a",
-                            "img": "",
-                            "correct": False
+                            'text': 'sadfasdfasdfas dfasdf a',
+                            'img': '',
+                            'correct': False
                         },
                         {
-                            "text": "asd fasdf asdf asd fasd f",
-                            "img": "",
-                            "correct": True
+                            'text': 'asd fasdf asdf asd fasd f',
+                            'img': '',
+                            'correct': True
                         },
                         {
-                            "text": "asdf asdf asdf asdf asd ",
-                            "img": "",
-                            "correct": False
+                            'text': 'asdf asdf asdf asdf asd ',
+                            'img': '',
+                            'correct': False
                         },
                         {
-                            "text": "asdf asdf asd",
-                            "img": "",
-                            "correct": False
+                            'text': 'asdf asdf asd',
+                            'img': '',
+                            'correct': False
                         }
                     ]
                 },
                 {
-                    "question": "sadfasdfasdfas dasd fasd ",
-                    "image": "",
-                    "answers": [
+                    'question': 'sadfasdfasdfas dasd fasd ',
+                    'image': '',
+                    'answers': [
                         {
-                            "text": "sadfasdfasdfas dfasdf a",
-                            "img": "",
-                            "correct": False
+                            'text': 'sadfasdfasdfas dfasdf a',
+                            'img': '',
+                            'correct': False
                         },
                         {
-                            "text": "asd fasdf asdf asd fasd f",
-                            "img": "",
-                            "correct": True
+                            'text': 'asd fasdf asdf asd fasd f',
+                            'img': '',
+                            'correct': True
                         },
                         {
-                            "text": "asdf asdf asdf asdf asd ",
-                            "img": "",
-                            "correct": False
+                            'text': 'asdf asdf asdf asdf asd ',
+                            'img': '',
+                            'correct': False
                         },
                         {
-                            "text": "asdf asdf asd",
-                            "img": "",
-                            "correct": False
+                            'text': 'asdf asdf asd',
+                            'img': '',
+                            'correct': False
                         }
                     ]
                 },
                 {
-                    "question": "sadfasdfasdfas dasd fasd ",
-                    "image": "",
-                    "answers": [
+                    'question': 'sadfasdfasdfas dasd fasd ',
+                    'image': '',
+                    'answers': [
                         {
-                            "text": "sadfasdfasdfas dfasdf a",
-                            "img": "",
-                            "correct": False
+                            'text': 'sadfasdfasdfas dfasdf a',
+                            'img': '',
+                            'correct': False
                         },
                         {
-                            "text": "asd fasdf asdf asd fasd f",
-                            "img": "",
-                            "correct": True
+                            'text': 'asd fasdf asdf asd fasd f',
+                            'img': '',
+                            'correct': True
                         },
                         {
-                            "text": "asdf asdf asdf asdf asd ",
-                            "img": "",
-                            "correct": False
+                            'text': 'asdf asdf asdf asdf asd ',
+                            'img': '',
+                            'correct': False
                         },
                         {
-                            "text": "asdf asdf asd",
-                            "img": "",
-                            "correct": False
+                            'text': 'asdf asdf asd',
+                            'img': '',
+                            'correct': False
                         }
                     ]
                 },
                 {
-                    "question": "last",
-                    "image": "",
-                    "answers": [
+                    'question': 'last',
+                    'image': '',
+                    'answers': [
                         {
-                            "text": "sadfasdfasdfas dfasdf a",
-                            "img": "",
-                            "correct": False
+                            'text': 'sadfasdfasdfas dfasdf a',
+                            'img': '',
+                            'correct': False
                         },
                         {
-                            "text": "asd fasdf asdf asd fasd f",
-                            "img": "",
-                            "correct": True
+                            'text': 'asd fasdf asdf asd fasd f',
+                            'img': '',
+                            'correct': True
                         },
                         {
-                            "text": "asdf asdf asdf asdf asd ",
-                            "img": "",
-                            "correct": False
+                            'text': 'asdf asdf asdf asdf asd ',
+                            'img': '',
+                            'correct': False
                         },
                         {
-                            "text": "asdf asdf asd",
-                            "img": "",
-                            "correct": False
+                            'text': 'asdf asdf asd',
+                            'img': '',
+                            'correct': False
                         }
                     ]
                 }
@@ -1170,7 +1282,7 @@ class QuestionViewTest(DatabaseMixin, TestCase):
                              question_id=0)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data, {"evaluate": False})
+        self.assertEqual(response.data, {'evaluate': False})
 
         can = views.QuestionView().can_access_question(self.u1, self.q2_test,
                                                        1, 1)

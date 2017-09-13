@@ -641,12 +641,8 @@ class StatisticsView(APIView):
         """
         shows the statistics of the given user
         """
-        from datetime import datetime, time, timedelta
-
         user = request.user if not user_id else User.objects.get(id=user_id)
-        end = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        start = datetime.strptime(end, "%Y-%m-%d %H:%M:%S").date() + timedelta(days=-7)
-        tries = Try.objects.filter(user=user, date__range=[start, end])
+        tries = Try.objects.filter(user=user)
         data = serializers.TrySerializer(tries, many=True).data
         return Response(data)
 
@@ -657,14 +653,9 @@ class StatisticsView(APIView):
         :param format:
         :return:
         """
-        data = request.data
-        if isinstance(data, list):
-            value = []
-            for i in data:
-                value.append(self.post(data=i))
-            return Response(value)
         import time
         import csv
+        data = request.data
         user = request.user
 
         tries = Try.objects.all()
@@ -700,10 +691,6 @@ class StatisticsView(APIView):
         if ('date' in data
                 and 'start' in data['date']
                 and 'end' in data['date']):
-            # from datetime import datetime, time, timedelta
-            #
-            # start = datetime.strptime(data['date']['start'], "%Y-%m-%d").strftime("%Y-%m-%d %H:%M:%S")
-            # end = datetime.strptime(data['date']['end'], "%Y-%m-%d").strftime("%Y-%m-%d %H:%M:%S")
 
             start = data['date']['start']
             end = data['date']['end']
@@ -719,15 +706,16 @@ class StatisticsView(APIView):
             tries = tries.filter(
                 question__module__course__category__name=data['category'])
 
+        # if this variable is set the view will return a array of dicts which are {name: string, color: string, counter: number}
         if 'categories__with__counter' in data:
             categories = CourseCategory.objects.all()
             value = []
-            for c in categories:
+            for cat in categories:
                 value.append(
                     {
-                        'name': c.name,
-                        'color': c.color,
-                        'counter': len(tries.filter(question__module__course__category=c))
+                        'name': cat.name,
+                        'color': cat.color,
+                        'counter': len(tries.filter(question__module__course__category=cat))
                     })
             return Response(value)
 

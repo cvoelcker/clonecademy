@@ -490,13 +490,14 @@ class TrySerializer(serializers.ModelSerializer):
     def to_representation(self, obj):
         data = super(TrySerializer, self).to_representation(obj)
 
-        for f in self.context['serialize']:
-            value = obj
-            for child in f.split("__"):
-                if value is None:
-                    break;
-                value = getattr(value, child)
-            data[f] = value
+        if 'serialize' in self.context:
+            for serial in self.context['serialize']:
+                value = obj
+                for child in serial.split("__"):
+                    if value is None:
+                        break;
+                    value = getattr(value, child)
+                data[serial] = value
         return data
 
 

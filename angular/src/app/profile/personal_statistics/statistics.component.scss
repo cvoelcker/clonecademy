@@ -3,9 +3,12 @@
 md-progress-spinner{
   height: calc(200px + 2em + 2em);
 }
+.statisticsHeader{
+  margin-bottom: 1em;
+}
 
 .weeklyStatistics{
-    height: calc(200px + 2em  + 2em);
+    height: calc(200px + 2em + 1em  + 2em);
     display: block;
     text-align: center;
     position: relative;
@@ -35,7 +38,7 @@ md-progress-spinner{
         text-align: center;
         border-bottom: 1px solid $white;
         div{
-          background-color: black;
+          background-color: $button;
           margin: 0 auto;
           max-width: 75px;
         }
