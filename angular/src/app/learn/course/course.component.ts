@@ -2,6 +2,9 @@ import {Component, OnInit, Input, ViewChild} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router'
 import {ServerService} from '../../service/server.service'
 import {CourseService} from '../../service/course.service'
+import {UserService} from '../../service/user.service'
+
+
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
@@ -19,6 +22,7 @@ export class CourseComponent implements OnInit {
   numAnswered: number;
   numQuestions: number;
   description: string;
+  visible: boolean;
   @Input() sidemenu: any;
 
   //Pie
@@ -34,9 +38,8 @@ export class CourseComponent implements OnInit {
   constructor(private course: CourseService,
               private route: ActivatedRoute,
               private server: ServerService,
-              private router: Router,) {
-
-  }
+              private router: Router,
+              private user: UserService) { }
 
   closeSidemenu() {
     if (this.sidemenu) {
@@ -79,11 +82,14 @@ export class CourseComponent implements OnInit {
     // send request to server to get the information for the course
     this.server.get('courses/' + id + "/", true, false)
       .then(data => {
+        console.log(data)
         this.numQuestions = data['num_questions']
         this.numAnswered = data['num_answered']
         this.name = data['name'];
         this.modules = data['modules'];
         this.description = data['description']
+        this.visible = data['is_visible']
+        console.log(this.visible)
         //this.pieChartData = [this.numAnswered, this.numQuestions-this.numAnswered]
 
         let lastModule = this.modules[this.modules.length - 1]
@@ -110,7 +116,14 @@ export class CourseComponent implements OnInit {
       })
       .catch((error) => {
         console.log(error)
-        this.router.navigate(["/course/page_not_found"])
+        this.router.navigate(['/course/page_not_found'])
       })
+  }
+
+  toggleVisibility() {
+    this.server.post('courses/' + this.id + '/toggleVisibility', {})
+    .then(answer => {
+      this.visible = answer['is_visible']
+    })
   }
 }

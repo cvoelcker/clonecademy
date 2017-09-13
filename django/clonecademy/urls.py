@@ -32,6 +32,8 @@ urlpatterns = [
 
     url(r'^courses/$', views.MultiCourseView.as_view()),
     url(r'^courses/(?P<course_id>[0-9]+)/?$', views.CourseView.as_view()),
+    url(r'^courses/(?P<course_id>[0-9]+)/toggleVisibility/?$',
+        views.ToggleCourseVisibilityView.as_view()),
     url(r'^courses/(?P<course_id>[0-9]+)?/edit$',
         views.CourseEditView.as_view()),
     url(r'^courses/(?P<course_id>[0-9]+)/(?P<module_id>[0-9]+)/?$',

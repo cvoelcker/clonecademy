@@ -248,6 +248,39 @@ class CourseView(APIView):
                                 status=status.HTTP_400_BAD_REQUEST)
 
 
+class ToggleCourseVisibilityView(APIView):
+    """
+    changes the visibility of a course
+
+    alternatively sets the visibility to the provided state
+    {
+        "is_visible": (optional) True|False
+    }
+
+    @author Tobias Huber
+    """
+
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (custom_permissions.IsAdmin,)
+
+    def post(self, request, course_id, format=None):
+        if course_id is None:
+            return Response({"ans": "course_id must be provided"},
+                            status=status.HTTP_400_BAD_REQUEST)
+        elif not Course.objects.filter(id=course_id).exists():
+            return Response({"ans": "course not found. id: " + course_id},
+                            status=status.HTTP_404_NOT_FOUND)
+        else:
+            course = Course.objects.get(id=course_id)
+            if "is_visible" in request.data:
+                course.is_visible = request.data["is_visible"]
+            else:
+                course.is_visible = not course.is_visible
+            course.save()
+            return Response({"is_visible": course.is_visible},
+                            status=status.HTTP_200_OK)
+
+
 class ModuleView(APIView):
     """
     Shows a module
