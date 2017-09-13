@@ -5,7 +5,7 @@
     <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
     <md-datepicker #picker></md-datepicker>
   </md-form-field>-->
-  <md-card>
+  <md-card class="weeklyStatistic">
     <div class="statisticsHeader">
       <h3>
         {{ offsetDate.getDate() }}. {{ monthNames[offsetDate.getMonth()]}} - {{ offsetEnd.getDate() }}. {{ monthNames[offsetEnd.getMonth()]}}
@@ -19,7 +19,7 @@
           {{statistics[((offsetDate.getDay() + i + 1) % 7)].day}}
         </div>
         <div class="questions">
-          <div *ngFor="let try of statistics[(offsetDate.getDay() + i +1) % 7].stat" [style.height.px]="200 / height">
+          <div *ngFor="let try of statistics[(offsetDate.getDay() + i +1) % 7].stat" [style.height.px]="200 / height" [style.background]="try['question__module__course__category__color']">
           </div>
         </div>
         <div class="sum">
@@ -28,6 +28,18 @@
       </span>
     </div>
     <md-progress-spinner *ngIf="loadStats" mode="indeterminate"></md-progress-spinner>
+  </md-card>
+  <md-card class="totalStatistic" >
+    <div class="chart" style="display: block" *ngIf="loadedPie">
+      <canvas baseChart
+              [legend]="true"
+              [colors]="pieChartColor"
+              [data]="pieChartData"
+              [labels]="pieChartLabels"
+              chartType="pie"
+              (chartHover)="chartHovered($event)"></canvas>
+    </div>
+    <md-progress-spinner *ngIf="!loadedPie" mode="indeterminate"></md-progress-spinner>
   </md-card>
   <a md-raised-button (click)="downloadStatistics()" ><md-icon>save</md-icon> {{"download" | translate}}</a>
 </div>

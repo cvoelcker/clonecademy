@@ -29,6 +29,7 @@
     "enhanced-resolve": "^3.4.1",
     "has-ansi": "^3.0.0",
     "intl": "^1.2.5",
+    "ng2-charts": "^1.6.0",
     "ng2-img-cropper": "^0.9.0",
     "ng2lint": "0.0.10",
     "rxjs": "^5.4.3",

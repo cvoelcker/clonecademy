@@ -42,6 +42,40 @@ export class StatisticsComponent implements OnInit {
 
   ngOnInit() {
     this.loadDate()
+    this.loadPie()
+  }
+
+  //Pie
+  public pieChartLabels:string[] = [];
+  public pieChartData:number[]= [];
+  public pieChartColor:any = [{backgroundColor: []}];
+  loadedPie: boolean;
+
+  //
+  // initChart(){
+  //   this.pieChartColor = [
+  //     {
+  //       backgroundColor: [#ffffff],
+  //       strokeColor: '#0f0',
+  //       hoverBackgroundColor: [],
+  //       borderColor: "transparent"
+  //     },
+  //   ]
+  // }
+
+  loadPie(){
+    this.loadedPie = false;
+    this.server.post("user/statistics", {
+      id: this.user.id,
+      categories__with__counter: true}).then((data: Array<{name: string, color: string, counter: number}>) => {
+        for(let i = 0; i < data.length; i++){
+          this.pieChartLabels.push(data[i].name)
+          this.pieChartData.push(data[i].counter)
+          this.pieChartColor[0].backgroundColor.push(data[i].color)
+        }
+        this.loadedPie = true;
+
+      })
   }
 
   loadDate(){
@@ -49,10 +83,19 @@ export class StatisticsComponent implements OnInit {
     for( let i = 0 ; i < this.statistics.length; i++){
       this.statistics[i].stat = []
     }
-    let startDate = this.offsetDate.getFullYear() + "-" + (this.offsetDate.getMonth() + 1) + "-" + this.offsetDate.getDate() + " 00:00:00"
+    let startDate = this.offsetDate.getFullYear() + "-" + (this.offsetDate.getMonth() + 1) + "-" + Number(this.offsetDate.getDate() +1) + " 00:00:00"
     this.offsetEnd = new Date(this.offsetDate.getTime() + 7*24*60*60*1000)
     let endDate = this.offsetEnd.getFullYear() + "-" + (this.offsetEnd.getMonth() + 1) + "-" + this.offsetEnd.getDate() + " 23:59:59"
-    this.server.post("user/statistics", {id: this.user.id, date: {end: endDate, start: startDate}} , true, false)
+    this.server.post("user/statistics",
+    {
+      id: this.user.id,
+      order:"question__module__course__category",
+      date: {end: endDate, start: startDate},
+      serialize: [
+        'question__module__course__category__color',
+        'question__module__course__category__name'
+      ]
+    } , true, false)
       .then((data: any) => {
         for(let i = 0; i < data.length; i++){
           let s = data[i]

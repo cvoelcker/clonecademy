@@ -485,6 +485,18 @@ class TrySerializer(serializers.ModelSerializer):
         model = Try
         fields = ('user', 'question', 'date', 'solved')
 
+    def to_representation(self, obj):
+        data = super(TrySerializer, self).to_representation(obj)
+
+        for f in self.context['serialize']:
+            value = obj
+            for child in f.split("__"):
+                if value is None:
+                    break;
+                value = getattr(value, child)
+            data[f] = value
+        return data
+
 
 class StatisticsOverviewSerializer(serializers.BaseSerializer):
     """

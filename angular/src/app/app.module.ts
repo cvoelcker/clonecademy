@@ -20,6 +20,8 @@ import {
   MdCardModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule,
   MdProgressSpinnerModule, MdDatepickerModule, MdNativeDateModule} from '@angular/material';
 
+import { ChartsModule } from 'ng2-charts';
+
 import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -263,6 +265,7 @@ const QuestionList = QuestionDictionary.questionComponents
     MdProgressSpinnerModule,
     MdMenuModule,
     MdIconModule,
+    ChartsModule
   ],
   exports: [],
   providers: [

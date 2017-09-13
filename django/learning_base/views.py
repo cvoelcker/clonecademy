@@ -616,9 +616,14 @@ class StatisticsView(APIView):
         :param format:
         :return:
         """
+        data = request.data
+        if isinstance(data, list):
+            value = []
+            for i in data:
+                value.append(self.post(data=i))
+            return Response(value)
         import time
         import csv
-        data = request.data
         user = request.user
 
         tries = Try.objects.all()
@@ -673,7 +678,28 @@ class StatisticsView(APIView):
             tries = tries.filter(
                 question__module__course__category__name=data['category'])
 
-        serialize_data = serializers.TrySerializer(tries, many=True).data
+        if 'categories__with__counter' in data:
+            categories = CourseCategory.objects.all()
+            value = []
+            for c in categories:
+                value.append(
+                    {
+                        'name': c.name,
+                        'color': c.color,
+                        'counter': len(tries.filter(question__module__course__category=c))
+                    })
+            return Response(value)
+
+        serialize_data = None
+
+        # this part orders the list for the "order" value in the request
+        if 'order' in data:
+            tries = tries.order_by(data['order'])
+
+        if 'serialize' in data:
+            serialize_data = serializers.TrySerializer(tries, many=True, context={'serialize': data['serialize']}).data
+        else:
+            serialize_data = serializers.TrySerializer(tries, many=True).data
 
         if 'format' in data and data['format'] == "csv":
             response = HttpResponse(content_type='text/csv')
