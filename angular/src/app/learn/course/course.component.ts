@@ -35,11 +35,15 @@ export class CourseComponent implements OnInit {
   public chartHovered(e: any): void {
   }
 
-  constructor(private course: CourseService,
-              private route: ActivatedRoute,
-              private server: ServerService,
-              private router: Router,
-              private user: UserService) { }
+  constructor(
+    private course: CourseService,
+    private route: ActivatedRoute,
+    private server: ServerService,
+    private router: Router,
+    private user: UserService
+  ) {
+
+  }
 
   closeSidemenu() {
     if (this.sidemenu) {

@@ -1,5 +1,5 @@
 .button {
-  margin: 1em;
+  //margin: 1em;
 }
 .startCourse {
   float: right;
@@ -43,6 +43,17 @@ body {
 
 .courseDescription {
   margin: 1em 0;
+}
+
+table{
+  width: 100%;
+  td{
+    width: 50%;
+    display: inline-block;
+    &.options{
+      text-align: right;
+    }
+  }
 }
 
 ol {

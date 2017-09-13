@@ -14,20 +14,58 @@ import 'rxjs/Rx' ;
   styleUrls: ['./statistics.component.scss']
 })
 export class StatisticsComponent implements OnInit {
-  statistics: {};
+  statistics= [
+    {day: "Sunday", stat: []},
+    {day: "Monday", stat: []},
+    {day: "Tuesday", stat: []},
+    {day: "Wednesday", stat: []},
+    {day: "Thursday", stat: []},
+    {day: "Friday", stat: []},
+    {day: "Saturday", stat: []}
+  ];
+  monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+  height: number = 0;
   loading = true
+  currentDate: any
+  offsetEnd: Date;
+  offsetDate: Date;
+  previousWeek = 0;
+  loadStats:boolean = true;
 
   constructor(private user: UserService, private server: ServerService, private cookie: CookieService, private http: Http) {
+    this.currentDate = new Date();
+    this.offsetDate = new Date();
+    this.offsetDate.setDate(this.currentDate.getDate() - 7)
   }
 
   ngOnInit() {
-    this.server.get("user/statistics", true, false)
-      .then(data => {
-        this.statistics = data;
-        for (let s in this.statistics) {
-          s["date"] = new Date(s["date"]);
+    this.loadDate()
+  }
+
+  loadDate(){
+    this.loadStats = true;
+    for( let i = 0 ; i < this.statistics.length; i++){
+      this.statistics[i].stat = []
+    }
+    let startDate = this.offsetDate.getFullYear() + "-" + (this.offsetDate.getMonth() + 1) + "-" + this.offsetDate.getDate() + " 00:00:00"
+    this.offsetEnd = new Date(this.offsetDate.getTime() + 7*24*60*60*1000)
+    let endDate = this.offsetEnd.getFullYear() + "-" + (this.offsetEnd.getMonth() + 1) + "-" + this.offsetEnd.getDate() + " 23:59:59"
+    this.server.post("user/statistics", {id: this.user.id, date: {end: endDate, start: startDate}} , true, false)
+      .then((data: any) => {
+        for(let i = 0; i < data.length; i++){
+          let s = data[i]
+          this.statistics[(Number(s['date'].split("/")[0]) - this.offsetDate.getDate() + this.offsetDate.getDay()) % 7]['stat'].push(s)
+        }
+        this.height = this.statistics[0].stat.length
+        for(let i = 0; i < this.statistics.length; i++){
+          if (this.height < this.statistics[i].stat.length){
+            this.height = this.statistics[i].stat.length
+          }
         }
         this.loading = false;
+        this.loadStats = false;
       })
       .catch(err => {
         this.loading = false;

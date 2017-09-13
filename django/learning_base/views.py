@@ -119,6 +119,12 @@ class MultiCourseView(APIView):
 
             courses = Course.objects.all()
             courses = courses.filter(language=r_lan)
+            
+            # filter invisible courses if neccessary
+            if not (request.user.profile.is_mod()
+                    or request.user.profile.is_admin()):
+                courses = courses.filter(is_visible=True)
+
             if r_category != "":
                 category = CourseCategory.objects.filter(
                     name=r_category).first()
@@ -635,8 +641,12 @@ class StatisticsView(APIView):
         """
         shows the statistics of the given user
         """
+        from datetime import datetime, time, timedelta
+
         user = request.user if not user_id else User.objects.get(id=user_id)
-        tries = Try.objects.filter(user=user)
+        end = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        start = datetime.strptime(end, "%Y-%m-%d %H:%M:%S").date() + timedelta(days=-7)
+        tries = Try.objects.filter(user=user, date__range=[start, end])
         data = serializers.TrySerializer(tries, many=True).data
         return Response(data)
 
@@ -685,8 +695,15 @@ class StatisticsView(APIView):
         if ('date' in data
                 and 'start' in data['date']
                 and 'end' in data['date']):
+            # from datetime import datetime, time, timedelta
+            #
+            # start = datetime.strptime(data['date']['start'], "%Y-%m-%d").strftime("%Y-%m-%d %H:%M:%S")
+            # end = datetime.strptime(data['date']['end'], "%Y-%m-%d").strftime("%Y-%m-%d %H:%M:%S")
+
+            start = data['date']['start']
+            end = data['date']['end']
             tries = tries.filter(
-                date__range=[data['date']['start'], data['date']['end']])
+                date__range=[start, end])
 
         # filter just for solved tries
         if 'solved' in data:

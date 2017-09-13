@@ -45,8 +45,7 @@ export class LoginComponent implements OnInit {
         .catch(data => {
           let dialogRef = this.errorDialog.open(data['non_field_errors'][0])
         })
-    }
-    else {
+    } else {
       this.errorDialog.open("Username and password is required")
     }
   }

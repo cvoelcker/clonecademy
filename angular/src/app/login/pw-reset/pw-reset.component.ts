@@ -28,6 +28,8 @@ export class PwResetComponent {
   newEmail: string;
   answer: any;
   loading: boolean;
+  error: boolean;
+  data: any;
 
   public registerForm = new FormGroup({
     email: new FormControl("email", Validators.email),
@@ -36,18 +38,20 @@ export class PwResetComponent {
   // validated entered email and post request if valid
   submit(form){
     if(form.valid){
-      let data = form.value;
-      this.server.post("pw_reset/", data, false, false)
+      this.data = form.value;
+      this.server.post("pw_reset/", this.data, false, false)
         .then(answer => {
           this.answer = answer;
           console.log("a normal answer")
           console.log(answer)
         })
         .catch(err => {
-          console.log("catched!")
-          let dialogRef = this.errorDialog.open("stay");
-          console.log("should have opened this by now")
+          this.error = true;
+          this.errorDialog.open("THIS OPENED IN CATCH");
+          console.log(this.error);
         })
+    } else {
+      this.errorDialog.open("did ypouu try this?")
     }
   }
 

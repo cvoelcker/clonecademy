@@ -18,8 +18,7 @@ import {
   MdSidenavModule, MdDialog, MdDialogModule, MdIconModule, MdMenuModule,
   MdButtonModule, MdAutocompleteModule, MdCheckboxModule, MdTooltipModule,
   MdCardModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule,
-  MdProgressSpinnerModule
-} from '@angular/material';
+  MdProgressSpinnerModule, MdDatepickerModule, MdNativeDateModule} from '@angular/material';
 
 import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
 
@@ -256,10 +255,12 @@ const QuestionList = QuestionDictionary.questionComponents
     ReactiveFormsModule,
     BrowserModule,
     HttpModule,
+    MdDatepickerModule,
     MdButtonModule,
     MdCheckboxModule,
     MdInputModule,
     MdSelectModule,
+    MdNativeDateModule,
     MdTabsModule,
     MdDialogModule,
     MdCardModule,
