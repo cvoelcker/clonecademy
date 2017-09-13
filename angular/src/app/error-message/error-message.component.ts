@@ -9,7 +9,7 @@ import {TranslateService} from '@ngx-translate/core';
   templateUrl: './error-message.component.html',
   styleUrls: ['./error-message.component.sass']
 })
-export class ErrorMessageComponent implements OnInit {
+export class ErrorMessageComponent{
 
   text: string;
 
@@ -19,7 +19,5 @@ export class ErrorMessageComponent implements OnInit {
         this.text = res
       })
     }
-  }
-  ngOnInit(){
   }
 }
