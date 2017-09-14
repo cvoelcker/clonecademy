@@ -8,7 +8,7 @@
 <div *ngIf="!loading && !loadingCat">
     <md-tab-group >
     <md-tab [label]="category.name" *ngFor="let category of course.categorys">
-      <div class="singleBox">
+      <div class="singleBox" *ngIf="user.isAdmin() || user.isModerator()">
         <button md-button class="collapseButton" (click)="category.collapse = !category.collapse" ><i [class.right]="category.collapse" class="arrow"></i>{{"My Courses" | translate}}</button>
         <div class="courses" [@slideIn]="!category.collapse">
           <ul>
@@ -30,6 +30,7 @@
           </ul>
         </div>
       </div>
+
       <div class="singleBox">
         <button md-button class="collapseButton" (click)="category.collapse2 = !category.collapse2" ><i [class.right]="category.collapse2" class="arrow"></i>{{"courses" | translate}}</button>
         <div class="courses" [@slideIn]="!category.collapse2">
