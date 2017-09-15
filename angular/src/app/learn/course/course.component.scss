@@ -52,6 +52,7 @@ table{
     display: inline-block;
     &.options{
       text-align: right;
+      float: right;
       button {
 	float: right;
       }
