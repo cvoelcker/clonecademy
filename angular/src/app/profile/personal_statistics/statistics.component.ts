@@ -65,8 +65,9 @@ export class StatisticsComponent implements OnInit {
 
   loadPie(){
     this.loadedPie = false;
-    this.server.post("user/statistics", {
+    this.server.post("statistics", {
       id: this.user.id,
+      solved: true,
       categories__with__counter: true}).then((data: Array<{name: string, color: string, counter: number}>) => {
         for(let i = 0; i < data.length; i++){
           this.pieChartLabels.push(data[i].name)
@@ -86,7 +87,7 @@ export class StatisticsComponent implements OnInit {
     let startDate = this.offsetDate.getFullYear() + "-" + (this.offsetDate.getMonth() + 1) + "-" + Number(this.offsetDate.getDate() +1) + " 00:00:00"
     this.offsetEnd = new Date(this.offsetDate.getTime() + 7*24*60*60*1000)
     let endDate = this.offsetEnd.getFullYear() + "-" + (this.offsetEnd.getMonth() + 1) + "-" + this.offsetEnd.getDate() + " 23:59:59"
-    this.server.post("user/statistics",
+    this.server.post("statistics",
     {
       id: this.user.id,
       order:"question__module__course__category",
