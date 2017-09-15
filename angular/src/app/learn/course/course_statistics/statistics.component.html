@@ -1,0 +1,35 @@
+<h2>Course statistics</h2>
+<md-card class="total">
+  <h3>Total statistics</h3>
+  <div *ngIf="loadingPie" class="chart">
+    <canvas baseChart
+            [legend]="true"
+            [colors]="pieChartColor"
+            [data]="pieChartData"
+            [labels]="pieChartLabels"
+            chartType="pie"
+            height="100px"
+            maintainAspectRatio="false"></canvas>
+  </div>
+  <div *ngIf="!loadingPie" class="localLoader">
+    <md-progress-spinner mode="indeterminate"></md-progress-spinner>
+  </div>
+</md-card>
+<md-card class="table">
+  <h3>Question statistics</h3>
+  <div class="tableWrapper">
+    <div class="tableHeader">
+      <span class="title">Name</span>
+      <span class="solved">Solved</span>
+      <span class="tries">Tries</span>
+    </div>
+    <ul *ngFor="let module of list">
+      <li *ngFor="let question of module">
+        <div class="background" [style.width.%]="(question['solved'] / (question['solved'] + question['not solved'])) * 100"></div>
+        <span class="name">{{question['name']}}</span>
+        <span class="solved">{{question['solved']}}</span>
+        <span class="tries">{{question['not solved'] + question['solved']}}</span>
+      </li>
+    </ul>
+  </div>
+</md-card>

@@ -86,14 +86,12 @@ export class CourseComponent implements OnInit {
     // send request to server to get the information for the course
     this.server.get('courses/' + id + "/", true, false)
       .then(data => {
-        console.log(data)
         this.numQuestions = data['num_questions']
         this.numAnswered = data['num_answered']
         this.name = data['name'];
         this.modules = data['modules'];
         this.description = data['description']
         this.visible = data['is_visible']
-        console.log(this.visible)
         //this.pieChartData = [this.numAnswered, this.numQuestions-this.numAnswered]
 
         let lastModule = this.modules[this.modules.length - 1]

@@ -78,7 +78,7 @@ import { LoaderComponent } from './loader/loader.component';
 import { EditCourseComponent } from './learn/course-editor/create-course/edit-course.component';
 import { StaticPageComponent } from './static-page/static-page.component';
 import { ImageCropperDialogComponent } from './image-cropper/image-cropper.component';
-
+import { CourseStatisticsComponent } from './learn/course/course_statistics/statistics.component';
 // Viewing started courses on the welcome page
 import {CourseViewComponent} from './learn/view-courses/view-courses.component';
 import {FooterMainpageComponent} from './footer-mainpage/footer-mainpage.component';
@@ -115,6 +115,10 @@ const appRoutes: Routes = [
       {
         path: 'edit/:id',
         component: EditCourseComponent
+      },
+      {
+        path: ':id/statistic',
+        component: CourseStatisticsComponent,
       },
     ]
   },
@@ -241,6 +245,7 @@ const QuestionList = QuestionDictionary.questionComponents
     QuizQuestionComponent,
     CourseCategoriesComponent,
     DeleteDialogComponent,
+    CourseStatisticsComponent,
   ],
   imports: [
     BrowserAnimationsModule,

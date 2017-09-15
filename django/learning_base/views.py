@@ -663,7 +663,7 @@ class StatisticsView(APIView):
         groups = user.groups.values_list('name', flat=True)
 
         is_mod = 'moderator' in groups or 'admin' in groups
-
+        
         # the simplest call is if the user just wants its statistic
         if 'id' in data and data['id'] == user.id:
             tries = tries.filter(user=user)
@@ -671,7 +671,7 @@ class StatisticsView(APIView):
         # A moderator can get all statistics of his created courses
         # with 'get_courses' as in put the it will return all courses created
         # by this user
-        elif is_mod and 'get_courses' in data:
+        elif is_mod and 'course' in data and not 'admin' in groups :
             tries = tries.filter(
                 question__module__course__responsible_mod=user)
 
@@ -685,7 +685,19 @@ class StatisticsView(APIView):
 
         # return all statistics after prefiltering for this course
         if 'course' in data:
+
             tries = tries.filter(question__module__course__id=data['course'])
+
+            if 'list_questions' in data:
+                course = Course.objects.filter(id=data['course']).first()
+                value = []
+                index = 0
+                for module in course.module_set.all():
+                    value.append([])
+                    for question in module.question_set.all():
+                        value[index].append({"name": question.title, "solved": len(question.try_set.filter(solved=True).all()), "not solved": len(question.try_set.filter(solved=False).all())})
+                    index += 1
+                return Response(value)
 
         # get the statistics for a specific time
         if ('date' in data
@@ -720,6 +732,16 @@ class StatisticsView(APIView):
             return Response(value)
 
         serialize_data = None
+
+
+        if 'filter' in data:
+            value = {}
+            for trie in tries:
+                if not str(getattr(trie, data['filter'])) in value:
+                    value[str(getattr(trie, data['filter']))] = 1
+                else:
+                    value[str(getattr(trie, data['filter']))] += 1
+            return Response(value)
 
         # this part orders the list for the "order" value in the request
         if 'order' in data:
