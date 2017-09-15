@@ -19,18 +19,34 @@
           {{statistics[((offsetDate.getDay() + i + 1) % 7)].day}}
         </div>
         <div class="questions">
-          <div *ngFor="let try of statistics[(offsetDate.getDay() + i +1) % 7].stat" [style.height.px]="200 / height" [style.background]="try['question__module__course__category__color']">
+          <div class="total" [mdTooltip]="'total ' + statistics[(offsetDate.getDay() + i +1) % 7].stat.length + ' questions tried'">
+            <div
+              *ngFor="let try of statistics[(offsetDate.getDay() + i +1) % 7].stat"
+              [style.height.px]="200 / height"
+              [style.background]="try['question__module__course__category__color'] || try['quiz_question__course__category__color']">
+            </div>
+          </div>
+          <div class="solved" [mdTooltip]=" + statistics[(offsetDate.getDay() + i +1) % 7].stat['solved'] + ' questions solved'">
+            <div
+              *ngFor="let try of statistics[(offsetDate.getDay() + i +1) % 7].stat"
+              [hidden]="!try['solved']"
+              [style.height.px]="200 / height"
+              [style.background]="try['question__module__course__category__color'] || try['quiz_question__course__category__color']">
+            </div>
           </div>
         </div>
         <div class="sum">
-          {{statistics[(offsetDate.getDay() + i +1) % 7 ].stat.length}}
+          {{statistics[(offsetDate.getDay() + i +1) % 7 ].stat.length}} tries
         </div>
       </span>
     </div>
     <md-progress-spinner *ngIf="loadStats" mode="indeterminate"></md-progress-spinner>
   </md-card>
   <md-card class="totalStatistic" >
-    <div class="chart" style="display: block" *ngIf="loadedPie">
+    <div class="text">
+      You have solved a total of <b>{{totalQuestion}}</b> questions in the following categories
+    </div>
+    <div class="chart" *ngIf="loadedPie">
       <canvas baseChart
               [legend]="true"
               [colors]="pieChartColor"

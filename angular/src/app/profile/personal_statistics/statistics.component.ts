@@ -45,10 +45,21 @@ export class StatisticsComponent implements OnInit {
     this.loadPie()
   }
 
+  solvedQuestions(data: Array<any>){
+    let counter = 0;
+    for(let i = 0; i < data.length; i++){
+      if(data[i]['solved']){
+        counter = counter + 1;
+      }
+      return counter
+    }
+  }
+
   //Pie
   public pieChartLabels:string[] = [];
   public pieChartData:number[]= [];
   public pieChartColor:any = [{backgroundColor: []}];
+  private totalQuestion = 0;
   loadedPie: boolean;
 
   //
@@ -69,7 +80,9 @@ export class StatisticsComponent implements OnInit {
       id: this.user.id,
       solved: true,
       categories__with__counter: true}).then((data: Array<{name: string, color: string, counter: number}>) => {
+        this.totalQuestion = 0;
         for(let i = 0; i < data.length; i++){
+          this.totalQuestion += data[i].counter;
           this.pieChartLabels.push(data[i].name)
           this.pieChartData.push(data[i].counter)
           this.pieChartColor[0].backgroundColor.push(data[i].color)
@@ -94,7 +107,10 @@ export class StatisticsComponent implements OnInit {
       date: {end: endDate, start: startDate},
       serialize: [
         'question__module__course__category__color',
-        'question__module__course__category__name'
+        'question__module__course__category__name',
+        'quiz_question__course__category__color',
+        'quiz_question__course__category__name',
+        'solved'
       ]
     } , true, false)
       .then((data: any) => {
@@ -104,6 +120,12 @@ export class StatisticsComponent implements OnInit {
         }
         this.height = this.statistics[0].stat.length
         for(let i = 0; i < this.statistics.length; i++){
+          this.statistics[i].stat['solved'] = 0;
+          for(let j = 0; j < this.statistics[i].stat.length; j++){
+            if(this.statistics[i].stat[j].solved){
+              this.statistics[i].stat['solved'] += 1;
+            }
+          }
           if (this.height < this.statistics[i].stat.length){
             this.height = this.statistics[i].stat.length
           }

@@ -1,7 +1,7 @@
 @import "../../../_vars";
 
 md-progress-spinner{
-  height: calc(200px + 2em + 2em);
+  height: calc(200px + 3em + 2em);
 }
 .statisticsHeader{
   margin-bottom: 1em;
@@ -17,11 +17,11 @@ md-progress-spinner{
       width: calc(100% / 7);
       position: relative;
       display: inline-block;
-      height: calc(200px + 2em + 2em);
+      height: calc(200px + 3em + 2em);
       border-left: 1px solid $white;
       overflow: hidden;
       .title{
-        line-height: 2em;
+        line-height: 3em;
         display: inline-block;
         width: 100%;
       }
@@ -37,10 +37,17 @@ md-progress-spinner{
         bottom: 2em;
         text-align: center;
         border-bottom: 1px solid $white;
-        div{
-          background-color: $button;
-          margin: 0 auto;
-          max-width: 75px;
+        .total, .solved{
+          display: inline-block;
+          width: calc(50% - 12px);
+          padding: 0;
+          margin: 0 5px;
+          div{
+
+            background-color: $button;
+            margin: 0 auto;
+            max-width: 75px;
+          }
         }
       }
       .sum{
@@ -52,4 +59,11 @@ md-progress-spinner{
         right: 0;
       }
     }
+}
+.text{
+  font-size: 1.5em;
+  text-align: center;
+  vertical-align: top;
+}
+.chart{
 }
