@@ -15,7 +15,6 @@ export class WrongFeedbackComponent {
 
   constructor(@Optional() @Inject(MD_DIALOG_DATA) public data: string, private translate: TranslateService) {
     if (data != undefined) {
-      console.log(data['text'])
       translate.get(data['text']).subscribe((res) => {
         this.text = res
       })

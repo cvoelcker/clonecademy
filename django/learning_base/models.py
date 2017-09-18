@@ -386,11 +386,13 @@ class QuizQuestion(models.Model):
         answers = self.answer_set()
         for ans in answers:
             if ans.correct:
-                if not data[str(ans.id)]:
-                    return False
+                for i in data['answers']:
+                    if 'id' in i and (i['id'] == ans.id and i['chosen'] == False):
+                        return False
             if not ans.correct:
-                if data[str(ans.id)]:
-                    return False
+                for i in data:
+                    if 'id' in i and (i['id'] == ans.id and i['chosen'] == True):
+                        return False
         return True
 
     def answer_set(self):

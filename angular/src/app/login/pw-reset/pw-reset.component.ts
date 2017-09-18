@@ -42,8 +42,6 @@ export class PwResetComponent {
       this.server.post("pw_reset/", this.data, false, false)
         .then(answer => {
           this.answer = answer;
-          console.log("a normal answer")
-          console.log(answer)
         })
         .catch(err => {
           this.error = true;

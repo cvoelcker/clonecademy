@@ -44,7 +44,6 @@ export class UserDetailUserComponent {
 
     if (value.valid && value.value["password"] === value.value['password2']) {
       let data = value.value
-      console.log(data);
       data["avatar"] = this.body["avatar"]
       this.user.edit(data)
     }

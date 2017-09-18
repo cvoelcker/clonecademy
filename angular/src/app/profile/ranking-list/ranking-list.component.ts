@@ -28,7 +28,6 @@ export class RankingListComponent implements OnInit {
   ngOnInit() {
     this.server.get('ranking', true, false)
       .then(data => {
-        console.log(data)
         this.profiles = data;
         this.loading = false;
       })

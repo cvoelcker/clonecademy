@@ -510,7 +510,13 @@ class QuizView(APIView):
         newly_solved = 0
         old_solved = 0
         for i, quiz_entry in enumerate(quiz):
-            solved = quiz_entry.evaluate(request.data[i])
+            answerSolved = request.data[i]
+            for answer in request.data:
+                if 'id' in answer and quiz_entry.id is answer['id']:
+                    answer.pop('id')
+                    answerSolved = answer
+                    break;
+            solved = quiz_entry.evaluate(answerSolved)
             if solved and not quiz_entry.try_set.filter(
                     user=request.user, solved=True).exists():
                 newly_solved += 1

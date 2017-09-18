@@ -987,14 +987,14 @@ class QuizTest(DatabaseMixin, TestCase):
         i = 0
         for ans in course.quizquestion_set.all():
 
-            answers = {}
+            answers = []
             for quiz in ans.quizanswer_set.all():
                 if i is 1:
-                    answers[quiz.id] = not quiz.correct
+                    answers.append({'chosen': not quiz.correct, 'id': quiz.id})
                 else:
-                    answers[quiz.id] = quiz.correct
+                    answers.append({'chosen': quiz.correct, 'id': quiz.id})
 
-            answer_correct.append(answers)
+            answer_correct.append({"answers": answers, 'id': ans.id})
             i += 1
 
         correct_answer = self.factory.post(
