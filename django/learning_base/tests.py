@@ -657,6 +657,7 @@ class UserRightsViewTest(DatabaseMixin, TestCase):
                 user_to_change.groups.filter(name='admin').exists()
             )
 
+
 class TryTest(DatabaseMixin, TestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
@@ -737,10 +738,8 @@ class TryTest(DatabaseMixin, TestCase):
 
         self.assertEqual(len(response.data), 2)
 
-
-
     def test_date(self):
-        #initalize the database with 2 trys
+        # initalize the database with 2 trys
 
         self.test_check_try()
         # check date field
@@ -751,7 +750,11 @@ class TryTest(DatabaseMixin, TestCase):
         end = (now + timedelta(days=+1)).strftime('%Y-%m-%d %H:%M:%S.%f')
         start = (now + timedelta(days=-1)).strftime('%Y-%m-%d %H:%M:%S.%f')
 
-        get_statistics = self.factory.post('user/statistics/', {'id': self.u1.id, 'date':{'start': start, 'end':end}}, format='json')
+        get_statistics = self.factory.post('user/statistics/',
+                                           {'id': self.u1.id,
+                                            'date': {'start': start,
+                                                     'end': end}},
+                                           format='json')
         force_authenticate(get_statistics, self.u1)
 
         response = views.StatisticsView.as_view()(get_statistics)
@@ -761,12 +764,15 @@ class TryTest(DatabaseMixin, TestCase):
         end = (now + timedelta(days=-2)).strftime('%Y-%m-%d %H:%M:%S.%f')
         start = (now + timedelta(days=-7)).strftime('%Y-%m-%d %H:%M:%S.%f')
 
-        get_statistics = self.factory.post('user/statistics/', {'id': self.u1.id, 'date':{'start': start, 'end':end}}, format='json')
+        get_statistics = self.factory.post('user/statistics/',
+                                           {'id': self.u1.id,
+                                            'date': {'start': start,
+                                                     'end': end}},
+                                           format='json')
         force_authenticate(get_statistics, self.u1)
 
         response = views.StatisticsView.as_view()(get_statistics)
         self.assertEqual(len(response.data), 0)
-
 
 
 class QuizTest(DatabaseMixin, TestCase):
@@ -999,13 +1005,13 @@ class QuizTest(DatabaseMixin, TestCase):
 
         correct_answer = self.factory.post(
             'courses/' + str(course.id) + '/quiz/',
-            answer_correct,
+            {"type": "check_answers", "answers": answer_correct},
             format='json')
         force_authenticate(correct_answer, self.u1)
 
         response = views.QuizView.as_view()(correct_answer,
-                                                course_id=course.id,
-                                                )
+                                            course_id=course.id,
+                                            )
 
         # return value of correct answer
         self.assertEqual(response.status_code, 200)

@@ -8,7 +8,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router'
   styleUrls: ['./quiz-question.component.scss']
 })
 /**
- * @author Leonhard Wiedmann
+ * @author Leonhard Wiedmann, Claas Voelcker
  *
  * A component that implements a quiz view
  */
@@ -18,11 +18,17 @@ export class QuizQuestionComponent implements OnInit {
   quiz: number = -1;
   data: any;
   id: number = 0;
-  answers = []
+  answers = [];
   quizSize = 0;
+  private showFeedback: boolean;
+  private real_answers: any;
+  private loading: boolean;
+  private correct: boolean;
 
   constructor(private router: Router, public server: ServerService, private route: ActivatedRoute) {
-    this.load()
+    this.load();
+    this.loading = false;
+    this.correct = true;
   }
 
   /**
@@ -31,26 +37,27 @@ export class QuizQuestionComponent implements OnInit {
    **/
   load() {
     this.route.params.subscribe((data: Params) => {
-      this.courseID = Number(data.id)
+      this.showFeedback = false;
+      this.courseID = Number(data.id);
       this.server.get('courses/' + this.courseID + '/quiz/').then((data: Array<any>) => {
-        let array = []
-        while(data.length > 0){
+        let array = [];
+        while (data.length > 0) {
           let i = Math.floor(Math.random() * data.length);
-          let item = Object.assign({}, data[i])
-          let ansArray = []
+          let item = Object.assign({}, data[i]);
+          let ansArray = [];
           let answers = Object.assign([], item['answers']);
-          while(answers.length >0){
-            let j =  Math.floor(Math.random() * answers.length);
-            let singleItem = Object.assign({}, answers[j])
-            ansArray.push(singleItem)
-            answers.splice(j,1)
+          while (answers.length > 0) {
+            let j = Math.floor(Math.random() * answers.length);
+            let singleItem = Object.assign({}, answers[j]);
+            ansArray.push(singleItem);
+            answers.splice(j, 1)
           }
-          item['answers'] = ansArray
-          array.push(item)
+          item['answers'] = ansArray;
+          array.push(item);
           data.splice(i, 1);
         }
         this.data = array;
-        this.quizSize = this.data.length
+        this.quizSize = this.data.length;
         this.id = 0
       })
     })
@@ -64,28 +71,51 @@ export class QuizQuestionComponent implements OnInit {
    @author Leonhard Wiedmann
    **/
   submit() {
-    let value = []
-    let item = this.data[this.id]
-    for (let i = 0; i < item['answers'].length; i++) {
-      if (item['answers'][i].chosen != undefined) {
-        value.push({chosen: item['answers'][i].chosen, id: item['answers'][i].id})
+    if (!this.showFeedback) {
+      let value = [];
+      let item = this.data[this.id];
+      for (let i = 0; i < item['answers'].length; i++) {
+        if (item['answers'][i].chosen != undefined) {
+          value.push({chosen: item['answers'][i].chosen, id: item['answers'][i].id})
+        }
+        else {
+          value.push({chosen: false, id: item['answers'][i].id})
+        }
+      }
+      this.answers.push({answers: value, id: this.data[this.id].id});
+
+      if (this.quizSize - 1 == this.id) {
+        this.server.post('courses/' + this.courseID + '/quiz/', {'type': 'check_answers', 'answers': this.answers})
+          .then(data => {
+            // TODO show popup for end course
+            // data is {name: "question of the quiz", solved: boolean "if the question is correct solved"}
+          });
+        return;
       }
       else {
-        value.push({chosen: false, id: item['answers'][i].id})
+        const item = this.data[this.id];
+        this.showFeedback = true;
+        this.loading = true;
+        this.server.post('courses/' + this.courseID + '/quiz/', {'type': 'get_answers', 'id': item.id - 1})
+          .then(data => {
+            this.correct = true;
+            for (let i = 0; i < item.answers.length; i++) {
+              if (data['answers'].indexOf(item.answers[i].id) > -1) {
+                item.answers[i].correct = true;
+              } else {
+                item.answers[i].correct = false;
+              }
+              if (item.answers[i].correct != (item.answers[i].chosen != null)) {
+                this.correct = false
+              }
+            }
+            this.loading = false;
+          });
+        return;
       }
-    }
-    this.answers.push({answers: value, id: this.data[this.id].id})
-
-    if (this.quizSize - 1 == this.id) {
-      this.server.post('courses/' + this.courseID + '/quiz/', this.answers)
-        .then(data => {
-          // TODO show popup for end course
-          // data is {name: "question of the quiz", solved: boolean "if the question is correct solved"}
-        })
-      return;
-    }
-    else {
+    } else {
       this.id += 1;
+      this.showFeedback = false;
     }
   }
 
