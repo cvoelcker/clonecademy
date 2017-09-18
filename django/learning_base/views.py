@@ -1,6 +1,7 @@
 """
 This module contains all directly accessed API functions
 """
+from math import floor
 
 from django.http import HttpResponse
 from django.core.mail import send_mail
@@ -222,7 +223,8 @@ class CourseView(APIView):
 
         course_id = data.get('id')
         # This branch saves new courses or edites existing courses
-        if (course_id is None) and Course.objects.filter(name=data['name']).exists():
+        if (course_id is None) and Course.objects.filter(
+                name=data['name']).exists():
             return Response({"ans": 'Course with that name exists'},
                             status=status.HTTP_409_CONFLICT)
         if course_id is None:
@@ -231,13 +233,13 @@ class CourseView(APIView):
             responsible_mod = Course.objects.get(id=course_id).responsible_mod
             # decline access if user is wether admin nor responsible_mod
             if (request.user.profile.is_admin()
-                    or request.user == responsible_mod):
+                or request.user == responsible_mod):
                 data['responsible_mod'] = Course.objects.get(
                     id=course_id).responsible_mod
             else:
                 raise PermissionDenied(detail="You're not allowed to edit this"
-                                       + "course, since you're not the"
-                                       + "responsible mod",
+                                              + "course, since you're not the"
+                                              + "responsible mod",
                                        code=None)
 
         course_serializer = serializers.CourseSerializer(data=data)
@@ -337,16 +339,16 @@ class QuestionView(APIView):
         elif (not first_question
               and question.get_previous_in_order()
               and Try.objects.filter(
-                  user=user,
-                  question=question.get_previous_in_order(),
-                  solved=True)):
+                user=user,
+                question=question.get_previous_in_order(),
+                solved=True)):
             return True
         elif (not module.is_first_module()
               and module.get_previous_in_order()
               and Try.objects.filter(
-                  user=user,
-                  question=module.get_previous_in_order().question_set.all()[0],
-                  solved=True)):
+                user=user,
+                question=module.get_previous_in_order().question_set.all()[0],
+                solved=True)):
             return True
         return False
 
@@ -439,7 +441,8 @@ class AnswerView(APIView):
         module = course.module_set.all()[int(module_id)]
         question = module.question_set.all()[int(question_id)]
         answers = question.answer_set()
-        data = [serializers.get_answer_serializer(answer) for answer in answers]
+        data = [serializers.get_answer_serializer(answer) for answer in
+                answers]
         return Response(data, status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
@@ -500,21 +503,30 @@ class QuizView(APIView):
         if len(quiz) != len(request.data):
             return Response({"error": "the quiz has " + str(
                 len(quiz)) + " question and your evaluation has " + str(
-                    len(request.data)), "test": request.data},
+                len(request.data)), "test": request.data},
                             status=status.HTTP_400_BAD_REQUEST)
 
         response = []
+        newly_solved = 0
+        old_solved = 0
         for i, quiz_entry in enumerate(quiz):
             solved = quiz_entry.evaluate(request.data[i])
-
             if solved and not quiz_entry.try_set.filter(
                     user=request.user, solved=True).exists():
+                newly_solved += 1
                 request.user.profile.ranking += quiz_entry.get_points()
-                request.user.profile.save()
+            elif quiz_entry.try_set.filter(user=request.user,
+                                           solved=True).exists():
+                old_solved += 1
             Try(user=request.user, quiz_question=quiz_entry,
                 answer=str(request.data), solved=solved).save()
 
             response.append({"name": quiz[i].question, "solved": solved})
+        old_extra = floor(old_solved / 5)
+        new_extra = floor((newly_solved + old_solved) / 5)
+        request.user.profile.ranking += (new_extra - old_extra) * 2
+        request.user.profile.save()
+
         return Response(response, status=status.HTTP_200_OK)
 
 
@@ -573,7 +585,7 @@ class UserView(APIView):
             return Response({"ans": 'Updated user ' + user.username},
                             status=status.HTTP_200_OK)
         return Response(user_serializer.errors,
-                            status=status.HTTP_400_BAD_REQUEST)
+                        status=status.HTTP_400_BAD_REQUEST)
 
 
 class UserRegisterView(APIView):
@@ -663,7 +675,7 @@ class StatisticsView(APIView):
         groups = user.groups.values_list('name', flat=True)
 
         is_mod = 'moderator' in groups or 'admin' in groups
-        
+
         # the simplest call is if the user just wants its statistic
         if 'id' in data and data['id'] == user.id:
             tries = tries.filter(user=user)
@@ -671,7 +683,7 @@ class StatisticsView(APIView):
         # A moderator can get all statistics of his created courses
         # with 'get_courses' as in put the it will return all courses created
         # by this user
-        elif is_mod and 'course' in data and not 'admin' in groups :
+        elif is_mod and 'course' in data and not 'admin' in groups:
             tries = tries.filter(
                 question__module__course__responsible_mod=user)
 
@@ -695,15 +707,20 @@ class StatisticsView(APIView):
                 for module in course.module_set.all():
                     value.append([])
                     for question in module.question_set.all():
-                        value[index].append({"name": question.title, "solved": len(question.try_set.filter(solved=True).all()), "not solved": len(question.try_set.filter(solved=False).all())})
+                        value[index].append({"name": question.title,
+                                             "solved": len(
+                                                 question.try_set.filter(
+                                                     solved=True).all()),
+                                             "not solved": len(
+                                                 question.try_set.filter(
+                                                     solved=False).all())})
                     index += 1
                 return Response(value)
 
         # get the statistics for a specific time
         if ('date' in data
-                and 'start' in data['date']
-                and 'end' in data['date']):
-
+            and 'start' in data['date']
+            and 'end' in data['date']):
             start = data['date']['start']
             end = data['date']['end']
             tries = tries.filter(
@@ -727,12 +744,12 @@ class StatisticsView(APIView):
                     {
                         'name': cat.name,
                         'color': cat.color,
-                        'counter': len(tries.filter(question__module__course__category=cat))
+                        'counter': len(tries.filter(
+                            question__module__course__category=cat))
                     })
             return Response(value)
 
         serialize_data = None
-
 
         if 'filter' in data:
             value = {}
@@ -748,7 +765,10 @@ class StatisticsView(APIView):
             tries = tries.order_by(data['order'])
 
         if 'serialize' in data:
-            serialize_data = serializers.TrySerializer(tries, many=True, context={'serialize': data['serialize']}).data
+            serialize_data = serializers.TrySerializer(tries, many=True,
+                                                       context={
+                                                           'serialize': data[
+                                                               'serialize']}).data
         else:
             serialize_data = serializers.TrySerializer(tries, many=True).data
 
