@@ -444,8 +444,11 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         profile_data = validated_data.pop('profile')
         validated_data.pop('groups')
+        if 'language' not in validated_data:
+            validated_data['language'] = "en"
         profile_data['language'] = validated_data.pop('language')
-        profile_data['avatar'] = validated_data.pop('avatar')
+        if 'avatar' in validated_data:
+            profile_data['avatar'] = validated_data.pop('avatar')
         # if 'language' in profile_data:
         #    profile_data['language'] = validated_data.pop('language')
         user = User.objects.create_user(**validated_data)

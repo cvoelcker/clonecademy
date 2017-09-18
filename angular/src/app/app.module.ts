@@ -57,7 +57,7 @@ import {QuestionComponent} from './learn/question/question.component';
 import {CreateCourseComponent} from './learn/course-editor/create-course/create-course.component';
 import {AddModuleComponent} from './learn/course-editor/add-module/add-module.component';
 import {AddQuestionComponent} from './learn/course-editor/add-question/add-question.component';
-import {AddQuestionModule} from './learn/course-editor/add-question/add-question.module'
+import {AddQuestionModuleComponent} from './learn/course-editor/add-question/add-question.module'
 
 import { StatisticsComponent } from './profile/personal_statistics/statistics.component';
 import { RankingListComponent } from './profile/ranking-list/ranking-list.component';
@@ -225,7 +225,7 @@ const QuestionList = QuestionDictionary.questionComponents
     StatisticsComponent,
     QuestionModule,
     QuestionList,
-    AddQuestionModule,
+    AddQuestionModuleComponent,
     ProfilesComponent,
     UserDetailComponent,
     RequestModComponent,
@@ -299,7 +299,7 @@ const QuestionList = QuestionDictionary.questionComponents
   ],
   entryComponents: [
     AddModuleComponent,
-    AddQuestionModule,
+    AddQuestionModuleComponent,
     AddQuestionComponent,
     ErrorMessageComponent,
     WrongFeedbackComponent,

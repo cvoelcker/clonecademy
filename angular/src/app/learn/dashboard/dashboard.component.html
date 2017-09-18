@@ -1,7 +1,7 @@
 
 <div class ="sidebar" appLoggedIn>
 <h2>{{ "dashboard" | translate}}</h2>
-<button md-raised-button *ngIf="user.isModerator()" class="addCourse" routerLink="create_course">
+<button name="create_course_button" md-raised-button *ngIf="user.isModerator()" class="addCourse" routerLink="create_course">
   <md-icon>add</md-icon> {{"add Course" | translate}}
 </button><br>
 

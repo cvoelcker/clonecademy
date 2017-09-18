@@ -15,7 +15,7 @@ import {AddQuestionComponent} from "../add-question/add-question.component"
 
 import {slideIn} from "../../../animations";
 
-import {AddQuestionModule} from '../add-question/add-question.module'
+import {AddQuestionModuleComponent} from '../add-question/add-question.module'
 import {QuestionDictionary} from '../../question-dictionary';
 
 import {trigger, state, style, animate, transition} from '@angular/animations';
@@ -29,7 +29,7 @@ import {trigger, state, style, animate, transition} from '@angular/animations';
 })
 export class AddModuleComponent implements OnInit {
 
-  components: Array<{ name: string, key: string, component: Type<AddQuestionModule> }> = QuestionDictionary.detailComponents;
+  components: Array<{ name: string, key: string, component: Type<AddQuestionModuleComponent> }> = QuestionDictionary.detailComponents;
   selectedValue: Type<AddQuestionComponent> = null;
   title: string = "";
   learningText: string = "";
@@ -69,7 +69,7 @@ export class AddModuleComponent implements OnInit {
   }
 
   editQuestion(data) {
-    let cmp: Type<AddQuestionModule> = null;
+    let cmp: Type<AddQuestionModuleComponent> = null;
     for (let i = 0; i < this.components.length; i++) {
       if (data['type'] === this.components[i].key) {
         cmp = this.components[i].component

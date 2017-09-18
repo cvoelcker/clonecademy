@@ -4,11 +4,9 @@ import {ActivatedRoute, Params} from '@angular/router'
 import {DomSanitizer} from '@angular/platform-browser';
 import {MdDialog, MdDialogRef} from '@angular/material';
 
-import {UserService} from '../../service/user.service'
-
 
 @Component({
-  selector: 'app-MultipleChoiceQuestion',
+  selector: 'app-multiple-choice-question',
   template: '<p>Implement me</p>',
 })
 export class QuestionModule {

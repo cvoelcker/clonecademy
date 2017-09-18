@@ -16,12 +16,11 @@ import 'rxjs/add/operator/toPromise';
 export class ServerService {
 
   private baseUrl = 'http://0.0.0.0:8000/'
+  private loader: MdDialogRef<LoaderComponent>
 
   getBaseUrl() {
     return this.baseUrl;
   }
-
-  private loader: MdDialogRef<LoaderComponent>
 
   constructor(private http: Http, private cookie: CookieService, private dialog: MdDialog, private error: ErrorDialog) {
   }
@@ -46,7 +45,7 @@ export class ServerService {
       })
     }
 
-    let options = new RequestOptions({headers: this.makeHeader()})
+    const options = new RequestOptions({headers: this.makeHeader()})
     return new Promise((resolve, reject) => this.http.get(this.baseUrl + type, options)
       .toPromise()
       .then(response => {
@@ -80,7 +79,7 @@ export class ServerService {
 
     body = JSON.stringify(body)
 
-    let options = new RequestOptions({headers: this.makeHeader()})
+    const options = new RequestOptions({headers: this.makeHeader()})
 
     return new Promise((resolve, reject) => this.http.post(this.baseUrl + type, body, options)
       .toPromise()
@@ -119,19 +118,19 @@ export class ServerService {
   // sends request to server and saves the token from server as cookie for future requests
   public login(name: string, password: string) {
 
-    let headers = new Headers({
+    const headers = new Headers({
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     });
 
-    let body = JSON.stringify({username: name, password: password}); // Stringify payload
+    const body = JSON.stringify({username: name, password: password}); // Stringify payload
 
-    let options = new RequestOptions({headers: headers})
+    const options = new RequestOptions({headers: headers})
 
     return new Promise((resolve, reject) => this.http.post(this.baseUrl + 'api-auth/', body, options)
       .subscribe(
         (res) => {
-          let response = res.json();
+          const response = res.json();
           this.cookie.put('token', response.token);
           this.cookie.put('username', name);
           resolve(response);
@@ -146,11 +145,11 @@ export class ServerService {
     this.post('user/statistics', request)
       .then(data => {
         // create the file to download
-        let blob = new Blob([data['_body']], {type: 'text/csv'});
-        let downloadData = URL.createObjectURL(blob)
+        const blob = new Blob([data['_body']], {type: 'text/csv'});
+        const downloadData = URL.createObjectURL(blob)
         // create a button which will be clicked to download
         // at the moment it looks like this is the only workaround for a download dialog
-        var anchor = document.createElement('a');
+        const anchor = document.createElement('a');
         // set download name
         anchor.download = 'statistics.csv';
         anchor.href = downloadData;

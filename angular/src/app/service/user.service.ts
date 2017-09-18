@@ -77,16 +77,16 @@ export class UserService {
   }
 
   public logout() {
-    this.login = false
+    this.login = false;
     this.groups = null;
     this.cookie.removeAll();
     this.router.navigate(['/login']);
   }
 
   public edit(data) {
-    this.server.post('user/current', data, false, true).then(() => {
-      this.data = data
-      this.language = data['language']
+    this.server.post('user/current', data).then(() => {
+      this.data = data;
+      this.language = data['language'];
       this.translate.use(data['language'])
     })
   }
@@ -100,7 +100,7 @@ export class UserService {
   }
 
   constructor(private translate: TranslateService, private server: ServerService, private router: Router, private cookie: CookieService) {
-    this.login = this.cookie.get('token') !== null
+    this.login = this.cookie.get('token') !== null;
     if (this.login) {
       this.loadUser()
     } else {

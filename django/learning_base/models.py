@@ -1,5 +1,7 @@
 """
-x
+This module contains all database models not provided by django 
+itself.
+:author: Claas Voelcker
 """
 
 from hashlib import sha512
@@ -14,6 +16,7 @@ from .default_picture import default_picture
 class Profile(models.Model):
     """
     A user profile that stores additional information about a user
+    :author: Claas Voelcker
     """
 
     class Meta:
@@ -63,13 +66,13 @@ class Profile(models.Model):
 
     def get_link_to_profile(self):
         """
-        Returns the link to the users profile page
+        :return: the link to the users profile page
         """
         return "clonecademy.net/admin/profiles/{}/".format(self.user.id)
 
     def modrequest_allowed(self):
         """
-        Returns True if the user is allowed to request moderator rights
+        :return: True if the user is allowed to request moderator rights
         """
         return ((self.last_modrequest is None
                  or (timezone.localdate() - self.last_modrequest).days >= 7)
@@ -77,7 +80,7 @@ class Profile(models.Model):
 
     def is_mod(self):
         """
-        Returns True if the user is in the group moderators
+        :return: True if the user is in the group moderators
         """
         return self.user.groups.filter(name="moderator").exists()
 
@@ -349,8 +352,11 @@ class Question(PolymorphicModel):
 
     def get_points(self):
         """
-        x
-        :return:
+        Returns the number of ranking points for the question.
+        This method needs to be overridden by subclasses and 
+        remains unimplemented here.
+        :return: the points
+        :raise: not implemented error
         """
         raise NotImplementedError
 
@@ -380,8 +386,9 @@ class QuizQuestion(models.Model):
 
     def evaluate(self, data):
         """
-        x
-        :return:
+        Checks whether the quiz question is answered correctly
+        :return: True iff all and only the correct answers are
+                 provided
         """
         answers = self.answer_set()
         for ans in answers:
@@ -397,8 +404,8 @@ class QuizQuestion(models.Model):
 
     def answer_set(self):
         """
-        x
-        :return:
+        shortcut for all answers to a question
+        :return: 
         """
         return self.quizanswer_set.all()
 

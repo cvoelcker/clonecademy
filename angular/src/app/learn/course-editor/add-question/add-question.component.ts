@@ -11,8 +11,8 @@ import {
   ComponentFactory
 } from '@angular/core';
 
-import {AddQuestionModule} from './add-question.module'
-import {slideIn} from "../../../animations";
+import {AddQuestionModuleComponent} from './add-question.module'
+import {slideIn} from '../../../animations';
 
 @Component({
   selector: 'app-add-question',
@@ -23,12 +23,12 @@ import {slideIn} from "../../../animations";
 export class AddQuestionComponent implements OnInit {
 
   @Output() emitter: EventEmitter<any> = new EventEmitter();
-  public child: Type<AddQuestionModule>;
+  public child: Type<AddQuestionModuleComponent>;
   @ViewChild('question', {read: ViewContainerRef}) question: ViewContainerRef;
-  questionFactory: ComponentFactory<AddQuestionModule>;
+  questionFactory: ComponentFactory<AddQuestionModuleComponent>;
 
-  questionCopy: AddQuestionModule;
-  questionBody = "";
+  questionCopy: AddQuestionModuleComponent;
+  questionBody = '';
   feedback: string;
   feedbackBool: boolean;
   id: number;
@@ -58,12 +58,12 @@ export class AddQuestionComponent implements OnInit {
     this.questionFactory = this.factory.resolveComponentFactory(this.child)
     // create new question
     let question = this.question.createComponent(this.questionFactory)
-    this.questionCopy = (<AddQuestionModule> question.instance)
+    this.questionCopy = (<AddQuestionModuleComponent> question.instance)
     // set the question text
     if (data != undefined) {
 
       if (data['text'] != undefined) {
-        this.questionBody = data["text"]
+        this.questionBody = data['text']
       }
       if (data['title'] != undefined) {
         this.title = data['title']
@@ -71,7 +71,7 @@ export class AddQuestionComponent implements OnInit {
       }
       let feedback = data['feedback']
       // check if the feedback is set and if true set the feedback text
-      if (feedback != undefined && feedback != "") {
+      if (feedback != undefined && feedback != '') {
         this.feedbackBool = true;
         this.feedback = feedback
       }
@@ -84,7 +84,7 @@ export class AddQuestionComponent implements OnInit {
 
 
   remove(e) {
-    if (e != null && e.toState == "0") {
+    if (e != null && e.toState == '0') {
       //this.emitter.emit("remove")
     }
   }
@@ -104,7 +104,7 @@ export class AddQuestionComponent implements OnInit {
       response['feedback'] = ''
     }
     if (response['feedback'] == undefined) {
-      response['feedback'] = "";
+      response['feedback'] = '';
     }
 
     return response

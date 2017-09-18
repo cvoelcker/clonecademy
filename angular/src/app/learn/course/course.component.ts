@@ -16,7 +16,7 @@ export class CourseComponent implements OnInit {
   type: string;
   name: string;
   modules: [any];
-  completed: boolean = false;
+  completed = false;
   loading = true;
   lastCourse = [1, 1];
   numAnswered: number;
@@ -25,7 +25,7 @@ export class CourseComponent implements OnInit {
   visible: boolean;
   @Input() sidemenu: any;
 
-  //Pie
+  // Pie
   // public pieChartLabels:string[] = ['answered', 'to do'];
   // public pieChartData:number[];
   // public pieChartType:string = 'pie';
@@ -35,13 +35,11 @@ export class CourseComponent implements OnInit {
   public chartHovered(e: any): void {
   }
 
-  constructor(
-    private course: CourseService,
-    private route: ActivatedRoute,
-    private server: ServerService,
-    private router: Router,
-    private user: UserService
-  ) {
+  constructor(private course: CourseService,
+              private route: ActivatedRoute,
+              private server: ServerService,
+              private router: Router,
+              private user: UserService) {
 
   }
 
@@ -70,7 +68,7 @@ export class CourseComponent implements OnInit {
   // }
 
   ngOnInit() {
-    //this.initChart()
+    // this.initChart()
     this.route.params.subscribe(data => {
       this.id = data.id
       this.load(data.id);
@@ -82,9 +80,9 @@ export class CourseComponent implements OnInit {
     this.completed = false;
     this.loading = true;
     this.modules = undefined;
-    this.name = "";
+    this.name = '';
     // send request to server to get the information for the course
-    this.server.get('courses/' + id + "/", true, false)
+    this.server.get('courses/' + id + '/', true, false)
       .then(data => {
         this.numQuestions = data['num_questions']
         this.numAnswered = data['num_answered']
@@ -92,17 +90,16 @@ export class CourseComponent implements OnInit {
         this.modules = data['modules'];
         this.description = data['description']
         this.visible = data['is_visible']
-        //this.pieChartData = [this.numAnswered, this.numQuestions-this.numAnswered]
+        // this.pieChartData = [this.numAnswered, this.numQuestions-this.numAnswered]
 
-        let lastModule = this.modules[this.modules.length - 1]
-        if (lastModule != undefined) {
+        const lastModule = this.modules[this.modules.length - 1]
+        if (lastModule !== undefined) {
 
-          let lastQuestion = lastModule.questions[lastModule.questions.length - 1]
-          if (lastQuestion.solved == true) {
+          const lastQuestion = lastModule.questions[lastModule.questions.length - 1]
+          if (lastQuestion.solved === true) {
             this.completed = true;
           }
-        }
-        else {
+        } else {
           this.completed = true;
         }
         if (!this.completed) {
@@ -124,8 +121,8 @@ export class CourseComponent implements OnInit {
 
   toggleVisibility() {
     this.server.post('courses/' + this.id + '/toggleVisibility', {})
-    .then(answer => {
-      this.visible = answer['is_visible']
-    })
+      .then(answer => {
+        this.visible = answer['is_visible']
+      })
   }
 }

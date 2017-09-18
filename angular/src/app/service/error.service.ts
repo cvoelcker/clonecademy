@@ -11,7 +11,6 @@ export class ErrorDialog {
   }
 
   open(text: string) {
-    // let dialogRef = this.dialog.open(ErrorMessageComponent, {
     this.dialog.open(ErrorMessageComponent, {
       data: text
     })

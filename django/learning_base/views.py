@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.contrib.auth.models import User, Group
 from django.utils import timezone
+from django.utils.crypto import get_random_string
 
 from rest_framework import status
 from rest_framework import authentication, permissions
@@ -16,10 +17,7 @@ from rest_framework.response import Response
 
 from . import custom_permissions
 from . import serializers
-from .models import Course, CourseCategory, Try, Profile, started_courses, \
-    QuizQuestion
-
-from django.utils.crypto import get_random_string
+from .models import Course, CourseCategory, Try, Profile, started_courses
 
 
 class CategoryView(APIView):
@@ -271,6 +269,13 @@ class ToggleCourseVisibilityView(APIView):
     permission_classes = (custom_permissions.IsAdmin,)
 
     def post(self, request, course_id, format=None):
+        """
+        Sets the course visibility to the given value
+        :param request:
+        :param course_id:
+        :param format:
+        :return:
+        """
         if course_id is None:
             return Response({'ans': 'course_id must be provided'},
                             status=status.HTTP_400_BAD_REQUEST)
@@ -509,13 +514,13 @@ class QuizView(APIView):
             newly_solved = 0
             old_solved = 0
             for i, quiz_entry in enumerate(quiz):
-                answerSolved = request.data['answers'][i]
+                answer_solved = request.data['answers'][i]
                 for answer in request.data['answers']:
                     if 'id' in answer and quiz_entry.id is answer['id']:
                         answer.pop('id')
-                        answerSolved = answer
+                        answer_solved = answer
                         break
-                solved = quiz_entry.evaluate(answerSolved)
+                solved = quiz_entry.evaluate(answer_solved)
                 if solved and not quiz_entry.try_set.filter(
                         user=request.user, solved=True).exists():
                     newly_solved += 1
@@ -539,8 +544,7 @@ class QuizView(APIView):
             answers = [answer.id for answer in
                        quiz_question.quizanswer_set.all() if answer.correct]
             return Response({'answers': answers}, status.HTTP_200_OK)
-        else:
-            return Response({'ans': 'Could not process request'},
+        return Response({'ans': 'Could not process request'},
                             status.HTTP_400_BAD_REQUEST)
 
 
@@ -967,6 +971,12 @@ class PwResetView(APIView):
     permission_classes = ()
 
     def post(self, request, format=None):
+        """
+        Sends a mail to the user containing a new one time password
+        :param request:
+        :param format:
+        :return:
+        """
         data = request.data
         if 'email' not in data:
             return Response({'ans': 'you must provide an email'},
