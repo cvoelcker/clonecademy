@@ -1,19 +1,16 @@
 \documentclass[accentcolor=tud0b,12pt,paper=a4]{tudreport}
 
 \usepackage[utf8]{inputenc}
-\usepackage{ngerman}
 \usepackage{parcolumns}
 \usepackage{hyperref}
 \usepackage{multicol}
 \usepackage{pdfpages}
 \usepackage{tabularx}
 \usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
 \usepackage{amstext}
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{setspace}
-\usepackage{multicol}
 \usepackage{mathtools}
 \usepackage{dsfont}
 \usepackage{units}
@@ -22,8 +19,8 @@
 \usepackage{booktabs}
 \usepackage{fancyref}
 \usepackage[ngerman,english]{babel}
-\usepackage{pdfpages}
-\usepackage{tabularx}
+\usepackage{listings}
+
 
 
 \setlength{\parindent}{0pt}
@@ -36,6 +33,15 @@
 	\end{parcolumns}
 	\vspace{0.15cm}
 }
+
+\lstset{
+	basicstyle=\ttfamily,
+	columns=fullflexible,
+	frame=single,
+	breaklines=true,
+	postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+}
+
 
 \title{CloneCademy}
 \subtitle{Qualitätssicherungsdokument}
@@ -345,6 +351,9 @@ Die Aufgaben, welche die Proband*innen erfüllen sollten, waren:
 \section{Änderungen des Prozesses während des Semesters}
 Während des Semesters ist dem Team aufgefallen, dass der vorgestellte QS-Prozess nicht optimal ist. Die wichtigste Änderung ist, dass die automatisiere Code-Überprüfung im Backend durch das Tool \emph{pylint} mit dem \emph{pylint\_django} Plugin durchgeführt wurde. Dieses vereinigt die Funktionen von \emph{pep8} und \emph{django-lint}, ist einfacher konfigurier- und zu verwendbar. Das Team hat deshalb beschlossen, dieses Tool zu verwenden, obwohl im QS-Dokument ein anderes vorgeschlagen wurde.
 
+\section{Durchführung der Maßnahmen kurz vor Abgabe}
+Einige QS-Maßnahmen wurden noch einmal kurz vor Abgabe des Projektes an die Auftraggeber*innen durchgeführt, auch wenn die Zeit an diesem Punkt nicht mehr ausreicht, um gefundene Probleme noch zu beheben. Dies hat den Hintergrund, dass die Auftraggeber*innen explizit wünschen, dass das Produkt auch in Zukunft noch weiter entwickelt und verfeinert wird. Somit haben wir beschlossen, einen letzten Durchlauf der Nutzungsstudien zu machen, um somit dem iGEM-Team die Möglichkeiten dazu an die Hand zu geben.
+
 \chapter{Nachweis über den QS Prozess pro Iteration}
 Um dieses Dokument nicht unübersichtlich werden zu lassen, wurden nicht alle Outputs der automatisierten Tests angehängt. Wir haben stattdessen die Meldungen zum Stand der Abgabe gespeichert und sporadisch einzelne Reports angehängt, um den Verlauf der Softwareentwicklung deutlich zu machen.
 
@@ -352,41 +361,63 @@ Bei den Berichten über die Testabdeckung haben wir zu jeder Iteration die Über
 
 Um die Dokumentation der Webseite in der Wiki anschaulich zu dokumentieren, haben wir einen Auszug der Dokumentation für jeden Release angehängt und eine vollständige Version der Seite für die endgültige Übergabe an die Auftraggeber*innen.
 
-\section*{Erster vollständiger QS Prozess: Iteration 6}
+Die Dokumentation zum QS-Ziel ''Bedienbarkeit'' anschaulich zu gestalten, haben wir die Veränderungen an der Webseite durch Screenshots dokumentiert. Zusätzlich finden sich die Checklisten (pro Iteration) und die aus den Nutzungsstudien entstandenen Dokumente (Protokolle und Issues in GitHub).
 
-\section*{Iteration 7}
 
-\section*{Iteration 8}
+\section*{Iteration 7 - 29.06.}
+Wir haben unseren QS-Prozess das erste Mal zur 7. Iteration durchgeführt, allerdings noch nicht vollständig (einige Details fehlen noch, z.B. geänderte Tools). Um den Stand der Software vor Beginn des Prozesses zu dokumentieren, haben wir alle QS-Maßnahmen am Produkt durchgeführt, ohne etwas an der Software zu ändern. Das bietet uns die Basis für den weiteren Verlauf.
 
-\section*{Iteration 9}
+Abgegebene Userstories (bislang): 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+\lstinputlisting{appendix/ng_lint/ng_lint_06.txt}
 
-\section*{Iteration 10}
+\section*{Iteration 8 - 06.07.}
+Abgegebene Userstories: 12
 
-\section*{Iteration 11}
+\section*{Iteration 9 - 13.07.}
+Abgegebene Userstories: keine
 
-\section*{Iteration 12}
+\section*{Iteration 10 - 20.07.}
+Abgegebene Userstories: 17, 18
 
-\section*{Iteration 13}
+\section*{Iteration 11 - 27.07.}
+Abgegebene Userstories: 22
 
-\section*{Iteration 14}
+\section*{Iteration 12 - 03.08.}
+Abgegebene Userstories: 4,19,20
 
-\section*{Iteration 15}
+\section*{Iteration 13 - 10.08.}
+Abgegebene Userstories: 26,28,24
 
-\section*{Iteration 16}
 
-\section*{Iteration 17}
+\section*{Iteration 14 - 17.08.}
+Abgegebene Userstories: 25,27
 
-\section*{Iteration 18}
+
+\section*{Iteration 15 - 24.08.}
+Abgegebene Userstories: 38
+
+
+\section*{Iteration 16 - 31.08.} 
+Abgegebene Userstories: 30, 32, 36, 37, 40, 41
+
+
+\section*{Iteration 17 - 07.09.}
+Abgegebene Userstories: 31, 33, 34, 42, 43, 44, 46
+
+
+\section*{Iteration 18 - 14.09.}
+Abgegebene Userstories: 39, 45, 47, 49, 50, 51, 54, 55
 
 \section*{Iteration 19}
+Abgegebene Userstories:
 
-\section*{Endgültiger Stand des Projektes und Übergabe}
+\section*{Endgültiger Stand des Projektes und Übergabeprotokoll}
 
 
 \chapter{Userstories}
 \input{userstories/userstories_all.tex}
 
-\chapter{Protokolle}
+\chapter{Protokolle der Auftraggeber*innentreffen}
 
 \includepdf[pages=-,pagecommand={},width=\textwidth]{../Protokolle/protokol_05_12.pdf}
 \includepdf[pages=-,pagecommand={},width=\textwidth]{../Protokolle/protokol_05_17.pdf}
@@ -401,7 +432,7 @@ Um die Dokumentation der Webseite in der Wiki anschaulich zu dokumentieren, habe
 \includepdf[pages=-,pagecommand={},width=\textwidth]{../Protokolle/protokol_08_20.pdf}
 \includepdf[pages=-,pagecommand={},width=\textwidth]{../Protokolle/protokol_09_01.pdf}
 \includepdf[pages=-,pagecommand={},width=\textwidth]{../Protokolle/protokol_09_08.pdf}
-
+\includepdf[pages=-,pagecommand={},width=\textwidth]{../Protokolle/protokol_09_15.pdf}
 
 
 \chapter{Abschließende Bemerkungen des Teams zum Projekt}
