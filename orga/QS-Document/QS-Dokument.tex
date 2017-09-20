@@ -349,7 +349,7 @@ Die Aufgaben, welche die Proband*innen erfüllen sollten, waren:
 
 \chapter{Einleitung - Bericht und Anmerkung zum QS Prozess}
 \section{Änderungen des Prozesses während des Semesters}
-Während des Semesters ist dem Team aufgefallen, dass der vorgestellte QS-Prozess nicht optimal ist. Die wichtigste Änderung ist, dass die automatisiere Code-Überprüfung im Backend durch das Tool \emph{pylint} mit dem \emph{pylint\_django} Plugin durchgeführt wurde. Dieses vereinigt die Funktionen von \emph{pep8} und \emph{django-lint}, ist einfacher konfigurier- und zu verwendbar. Das Team hat deshalb beschlossen, dieses Tool zu verwenden, obwohl im QS-Dokument ein anderes vorgeschlagen wurde.
+Während des Semesters ist dem Team aufgefallen, dass der vorgestellte QS-Prozess nicht optimal ist. Die wichtigste Änderung ist, dass die automatisiere Code-Überprüfung im Backend durch das Tool \emph{pylint} mit dem \emph{pylint\_django} Plugin durchgeführt wurde. Dieses vereinigt die Funktionen von \emph{pep8} und \emph{django-lint}, ist einfacher konfigurier- und zu verwendbar. Das Team hat deshalb beschlossen, dieses Tool zu verwenden, obwohl im QS-Dokument ein anderes vorgeschlagen wurde. Des weiteren haben wir beschlossen, im Python Backend eine Code Qualität von 9.5/10 Punkten anzustreben, da eine Behebung aller Fehler durch Eigenheiten der Tools nicht immer möglich war.
 
 \section{Durchführung der Maßnahmen kurz vor Abgabe}
 Einige QS-Maßnahmen wurden noch einmal kurz vor Abgabe des Projektes an die Auftraggeber*innen durchgeführt, auch wenn die Zeit an diesem Punkt nicht mehr ausreicht, um gefundene Probleme noch zu beheben. Dies hat den Hintergrund, dass die Auftraggeber*innen explizit wünschen, dass das Produkt auch in Zukunft noch weiter entwickelt und verfeinert wird. Somit haben wir beschlossen, einen letzten Durchlauf der Nutzungsstudien zu machen, um somit dem iGEM-Team die Möglichkeiten dazu an die Hand zu geben.
@@ -359,7 +359,7 @@ Um dieses Dokument nicht unübersichtlich werden zu lassen, wurden nicht alle Ou
 
 Bei den Berichten über die Testabdeckung haben wir zu jeder Iteration die Übersichtsseite der Reports angehängt, und einen gesamten Report für jeden Release.
 
-Um die Dokumentation der Webseite in der Wiki anschaulich zu dokumentieren, haben wir einen Auszug der Dokumentation für jeden Release angehängt und eine vollständige Version der Seite für die endgültige Übergabe an die Auftraggeber*innen.
+Um die Dokumentation der Webseite im Wiki anschaulich zu dokumentieren, haben wir einen Auszug der Dokumentation für jeden Release angehängt und eine vollständige Version der Seite für die endgültige Übergabe an die Auftraggeber*innen.
 
 Die Dokumentation zum QS-Ziel ''Bedienbarkeit'' anschaulich zu gestalten, haben wir die Veränderungen an der Webseite durch Screenshots dokumentiert. Zusätzlich finden sich die Checklisten (pro Iteration) und die aus den Nutzungsstudien entstandenen Dokumente (Protokolle und Issues in GitHub).
 
@@ -368,51 +368,166 @@ Die Dokumentation zum QS-Ziel ''Bedienbarkeit'' anschaulich zu gestalten, haben 
 Wir haben unseren QS-Prozess das erste Mal zur 7. Iteration durchgeführt, allerdings noch nicht vollständig (einige Details fehlen noch, z.B. geänderte Tools). Um den Stand der Software vor Beginn des Prozesses zu dokumentieren, haben wir alle QS-Maßnahmen am Produkt durchgeführt, ohne etwas an der Software zu ändern. Das bietet uns die Basis für den weiteren Verlauf.
 
 Abgegebene Userstories (bislang): 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+
+Commit Hash der ersten Durchführung: 22f76fcce2d1d6b03857a9a4db7f9276433aecdd
+
+\subsection*{ng lint Output}
 \lstinputlisting{appendix/ng_lint/ng_lint_06.txt}
+
+\subsection*{pep8 Output}
+\lstinputlisting{appendix/pep8_07.txt}
+
+\subsection*{coverage Output}
+\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/coverage/django_test_07.pdf}
+
+\subsection*{bandit Output}
+\lstinputlisting{appendix/bandit/bandit_22f76.txt}
 
 \section*{Iteration 8 - 06.07.}
 Abgegebene Userstories: 12
 
+Commit Hash: cf525f64091e6c892b7e471fc8048bd8c056d69e
+
 \section*{Iteration 9 - 13.07.}
 Abgegebene Userstories: keine
+
+Commit Hash: e2b7fed9dbc0e929bb28e7ccf30cd68aa0d73c19
 
 \section*{Iteration 10 - 20.07.}
 Abgegebene Userstories: 17, 18
 
+Commit Hash: f5845985bf7463a32f0f4f04279ea7481a32daaf
+
 \section*{Iteration 11 - 27.07.}
 Abgegebene Userstories: 22
+
+Commit Hash: 2d17b38eecc8bbd754534a564ff2a22d60ee5f71
 
 \section*{Iteration 12 - 03.08.}
 Abgegebene Userstories: 4,19,20
 
+Commit Hash: 7af0e8284c862f9841d8101c6f4569adb0c6289c
+
 \section*{Iteration 13 - 10.08.}
 Abgegebene Userstories: 26,28,24
+
+Commit Hash: b5e9a319bf3bd0bc33e544ff615e1bd8b62c7931
 
 
 \section*{Iteration 14 - 17.08.}
 Abgegebene Userstories: 25,27
 
+Commit Hash: ba0fab4c21d736b0f67f8fe21ef90c0da810ac4b
+
 
 \section*{Iteration 15 - 24.08.}
 Abgegebene Userstories: 38
+
+Commit Hash: 78f8954ebc159fbcb6ed6a767e18d3437a604d22
 
 
 \section*{Iteration 16 - 31.08.} 
 Abgegebene Userstories: 30, 32, 36, 37, 40, 41
 
+Commit Hash: 11bc7fa37a20ac045d5a6c29e4e3a060b73b3504
 
 \section*{Iteration 17 - 07.09.}
 Abgegebene Userstories: 31, 33, 34, 42, 43, 44, 46
 
+Commit Hash: ffc8afbf7012f4b2d63e5b58ac8f0c224a7ee382
 
 \section*{Iteration 18 - 14.09.}
 Abgegebene Userstories: 39, 45, 47, 49, 50, 51, 54, 55
 
+Commit Hash: 
+
 \section*{Iteration 19}
 Abgegebene Userstories:
 
+Commit Hash: 
+
+\section*{Release 1 - 07.08.2017}
+Späteste Durchführung aller Tests: 30.07.2017
+
+Commit Hash der Serverversion (master branch): 
+
+\subsection*{Nutzerstudie - Protokoll}
+\includepdf[pages=-,pagecommand={},width=\textwidth]{../nutzerstudien/protokoll-06_28_2017.pdf}
+
+\subsection*{Nutzerstudie - Fragebögen}
+
+
+\subsection*{Zed Attack Proxy Tool - Diskussion}
+Alle gefundenen Fehler betreffen nur die Konfiguration des Servers, nicht das Produkt an sich. Da wir im Gespräch mit den Auftraggeber*innen vereinbart hatten, dass wir nicht dafür zuständig sind, den Server zu sichern, ist das Korrigieren diese Fehler nicht Teil unserer Aufgabe.
+
+Dennoch wollen wir für die kommenden Releases Empfehlungen geben, wie diese Probleme verhindert werden können. Claas recherchiert dazu zu den einzelnen Fehlern und schreibt eine kurze Anleitung, wie die richtigen Einstellung lauten. Diese werden dann an die Auftraggeber*innen weiter gegeben.
+
+\subsection*{Zed Attack Proxy Tool - Output}
+\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/zap/zap_pre_release_august.pdf}
+
+
+\section*{Release 2 - 13.09.2017}
+Durchführung aller Tests: 06.09.2017
+
+Commit Hash der Serverversion (master branch): 
+
+\subsection*{Nutzerstudie - Protokoll}
+\includepdf[pages=-,pagecommand={},width=\textwidth]{../nutzerstudien/protokoll-09_06_2017.pdf}
+
+\subsection*{Nutzerstudie - Fragebögen}
+
+
+\subsection*{Zed Attack Proxy Tool - Diskussion}
+Der in der letzten Iteration gefundene Fehler mit einer Gefährlichkeit von ''Medium'' wurde inzwischen behoben. Die verbleibenden Fehler wurden bislang nicht bearbeitet. Claas hat die notwendigen Daten allerdings an die Auftraggeber*innen geschrieben.
+
+Wir empfehlen erneut, die Serverkonfiguration zu ändern.
+
+Anhängend ein Auszug aus der beispielhaften Server-Konfiguration:
+
+\lstinputlisting{appendix/nginx-app.conf}
+
+\subsection*{Zed Attack Proxy Tool - Output}
+\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/zap/zap_pre_release_september.pdf}
+
+
+\section*{Release 3 - 01.10.2017}
+Durchführung aller Tests: 22.09.2017
+
+Commit Hash der Serverversion (master branch): 
+
+\section*{Dokumentation des Codes - Auszüge}
+
+
+\section*{Externe Dokumentation - GitHub Wiki}
+
+
+\section*{QS-Prozess durch GitHub Issues}
+
 \section*{Endgültiger Stand des Projektes und Übergabeprotokoll}
 
+\chapter{Code Dokumentation Auszüge}
+\section{Course Service}
+Der Course Service ist der zentrale Dreh- und Angelpunkt über den das Frontend die Lerndaten vom Backend anfragt.
+
+\lstinputlisting[language=Java]{appendix/course.service.ts}
+
+\section{Course Service}
+Der Course Service ist der zentrale Dreh- und Angelpunkt über den das Frontend die Lerndaten vom Backend anfragt.
+
+\lstinputlisting[language=Java]{appendix/course.service.ts}
+
+\chapter{GitHub-Wiki}
+
+
+\chapter{Unittests}
+
+Dies sind die Testklassen bei Stand der Abgabe
+
+\section{Python Tests}
+\lstinputlisting[language=Python]{appendix/tests.py}
+
+\section{Protractor/Selenium Tests}
+\lstinputlisting[language=Java]{appendix/specs.js}
 
 \chapter{Userstories}
 \input{userstories/userstories_all.tex}

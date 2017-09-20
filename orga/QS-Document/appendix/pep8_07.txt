@@ -1,0 +1,96 @@
+learning_base/models.py:5:1: E302 expected 2 blank lines, found 1
+learning_base/models.py:21:1: E302 expected 2 blank lines, found 1
+learning_base/models.py:23:80: E501 line too long (88 > 79 characters)
+learning_base/models.py:41:80: E501 line too long (106 > 79 characters)
+learning_base/models.py:63:1: E302 expected 2 blank lines, found 1
+learning_base/models.py:65:80: E501 line too long (85 > 79 characters)
+learning_base/models.py:66:80: E501 line too long (84 > 79 characters)
+learning_base/models.py:83:80: E501 line too long (104 > 79 characters)
+learning_base/models.py:95:5: E265 block comment should start with '# '
+learning_base/models.py:117:14: E251 unexpected spaces around keyword / parameter equals
+learning_base/models.py:117:16: E251 unexpected spaces around keyword / parameter equals
+learning_base/serializers.py:22:80: E501 line too long (96 > 79 characters)
+learning_base/serializers.py:31:80: E501 line too long (92 > 79 characters)
+learning_base/serializers.py:50:80: E501 line too long (95 > 79 characters)
+learning_base/serializers.py:56:80: E501 line too long (82 > 79 characters)
+learning_base/views.py:10:80: E501 line too long (80 > 79 characters)
+learning_base/views.py:21:1: E302 expected 2 blank lines, found 1
+learning_base/views.py:36:80: E501 line too long (100 > 79 characters)
+learning_base/views.py:42:1: E302 expected 2 blank lines, found 1
+learning_base/views.py:51:25: E231 missing whitespace after ','
+learning_base/views.py:55:80: E501 line too long (100 > 79 characters)
+learning_base/views.py:56:80: E501 line too long (103 > 79 characters)
+learning_base/views.py:71:5: E265 block comment should start with '# '
+learning_base/views.py:74:1: E302 expected 2 blank lines, found 1
+learning_base/views.py:79:48: E703 statement ends with a semicolon
+learning_base/views.py:81:15: E712 comparison to False should be 'if cond is False:' or 'if not cond:'
+learning_base/views.py:88:1: E302 expected 2 blank lines, found 1
+learning_base/views.py:93:1: E302 expected 2 blank lines, found 1
+learning_base/views.py:96:13: E711 comparison to None should be 'if cond is None:'
+learning_base/views.py:109:25: E251 unexpected spaces around keyword / parameter equals
+learning_base/views.py:109:27: E251 unexpected spaces around keyword / parameter equals
+learning_base/views.py:109:52: E251 unexpected spaces around keyword / parameter equals
+learning_base/views.py:109:54: E251 unexpected spaces around keyword / parameter equals
+learning_base/views.py:119:80: E501 line too long (102 > 79 characters)
+learning_base/views.py:124:29: E251 unexpected spaces around keyword / parameter equals
+learning_base/views.py:124:31: E251 unexpected spaces around keyword / parameter equals
+learning_base/views.py:124:57: E251 unexpected spaces around keyword / parameter equals
+learning_base/views.py:124:59: E251 unexpected spaces around keyword / parameter equals
+learning_base/views.py:128:9: E265 block comment should start with '# '
+learning_base/views.py:131:80: E501 line too long (85 > 79 characters)
+learning_base/views.py:141:61: E251 unexpected spaces around keyword / parameter equals
+learning_base/views.py:141:63: E251 unexpected spaces around keyword / parameter equals
+learning_base/views.py:142:80: E501 line too long (81 > 79 characters)
+learning_base/views.py:171:48: E703 statement ends with a semicolon
+learning_base/views.py:173:15: E712 comparison to False should be 'if cond is False:' or 'if not cond:'
+learning_base/views.py:194:80: E501 line too long (99 > 79 characters)
+learning_base/migrations/0001_initial.py:21:80: E501 line too long (114 > 79 characters)
+learning_base/migrations/0001_initial.py:22:80: E501 line too long (215 > 79 characters)
+learning_base/migrations/0001_initial.py:23:80: E501 line too long (149 > 79 characters)
+learning_base/migrations/0001_initial.py:24:80: E501 line too long (280 > 79 characters)
+learning_base/migrations/0001_initial.py:25:80: E501 line too long (105 > 79 characters)
+learning_base/migrations/0001_initial.py:31:80: E501 line too long (114 > 79 characters)
+learning_base/migrations/0001_initial.py:32:80: E501 line too long (113 > 79 characters)
+learning_base/migrations/0001_initial.py:38:80: E501 line too long (114 > 79 characters)
+learning_base/migrations/0001_initial.py:39:80: E501 line too long (136 > 79 characters)
+learning_base/migrations/0001_initial.py:40:80: E501 line too long (128 > 79 characters)
+learning_base/migrations/0001_initial.py:41:80: E501 line too long (219 > 79 characters)
+learning_base/migrations/0001_initial.py:50:80: E501 line too long (114 > 79 characters)
+learning_base/migrations/0001_initial.py:51:80: E501 line too long (101 > 79 characters)
+learning_base/migrations/0001_initial.py:52:80: E501 line too long (106 > 79 characters)
+learning_base/migrations/0001_initial.py:58:80: E501 line too long (114 > 79 characters)
+learning_base/migrations/0001_initial.py:59:80: E501 line too long (131 > 79 characters)
+learning_base/migrations/0001_initial.py:60:80: E501 line too long (134 > 79 characters)
+learning_base/migrations/0001_initial.py:61:80: E501 line too long (146 > 79 characters)
+learning_base/migrations/0001_initial.py:62:80: E501 line too long (176 > 79 characters)
+learning_base/migrations/0001_initial.py:71:80: E501 line too long (201 > 79 characters)
+learning_base/migrations/0001_initial.py:72:80: E501 line too long (93 > 79 characters)
+learning_base/migrations/0001_initial.py:82:80: E501 line too long (195 > 79 characters)
+learning_base/migrations/0001_initial.py:87:80: E501 line too long (81 > 79 characters)
+learning_base/migrations/0001_initial.py:92:80: E501 line too long (99 > 79 characters)
+learning_base/question/models.py:4:1: E302 expected 2 blank lines, found 1
+learning_base/question/models.py:6:80: E501 line too long (87 > 79 characters)
+learning_base/question/models.py:7:80: E501 line too long (83 > 79 characters)
+learning_base/question/serializer.py:6:1: E302 expected 2 blank lines, found 1
+learning_base/question/serializer.py:13:66: E251 unexpected spaces around keyword / parameter equals
+learning_base/question/serializer.py:13:68: E251 unexpected spaces around keyword / parameter equals
+learning_base/question/serializer.py:13:80: E501 line too long (104 > 79 characters)
+learning_base/question/serializer.py:21:1: E302 expected 2 blank lines, found 1
+learning_base/question/serializer.py:28:73: E251 unexpected spaces around keyword / parameter equals
+learning_base/question/serializer.py:28:75: E251 unexpected spaces around keyword / parameter equals
+learning_base/question/serializer.py:28:80: E501 line too long (111 > 79 characters)
+learning_base/question/serializer.py:31:80: E501 line too long (80 > 79 characters)
+learning_base/question/multiply_choice/models.py:4:1: E302 expected 2 blank lines, found 1
+learning_base/question/multiply_choice/models.py:41:80: E501 line too long (104 > 79 characters)
+learning_base/question/multiply_choice/models.py:56:21: E251 unexpected spaces around keyword / parameter equals
+learning_base/question/multiply_choice/models.py:56:23: E251 unexpected spaces around keyword / parameter equals
+learning_base/question/multiply_choice/models.py:57:19: E201 whitespace after '('
+learning_base/question/multiply_choice/models.py:57:61: E202 whitespace before ')'
+learning_base/question/multiply_choice/models.py:59:22: E225 missing whitespace around operator
+learning_base/question/multiply_choice/models.py:67:70: E251 unexpected spaces around keyword / parameter equals
+learning_base/question/multiply_choice/models.py:67:72: E251 unexpected spaces around keyword / parameter equals
+learning_base/question/multiply_choice/models.py:67:80: E501 line too long (85 > 79 characters)
+learning_base/question/multiply_choice/serializer.py:4:1: E302 expected 2 blank lines, found 1
+learning_base/question/multiply_choice/serializer.py:18:1: E302 expected 2 blank lines, found 1
+learning_base/question/multiply_choice/serializer.py:19:51: E251 unexpected spaces around keyword / parameter equals
+learning_base/question/multiply_choice/serializer.py:19:53: E251 unexpected spaces around keyword / parameter equals
