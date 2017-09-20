@@ -1,11 +1,11 @@
 from django.test import TestCase
 from django.utils import timezone
-from rest_framework.exceptions import ParseError
+from django.contrib.auth.models import User, Group, UserManager
 
 from rest_framework.test import APIRequestFactory
 from rest_framework.test import force_authenticate
+from rest_framework.exceptions import ParseError
 
-from django.contrib.auth.models import User, Group
 from learning_base import views, models, serializers
 from learning_base.models import Profile
 import learning_base.multiple_choice as MultipleChoice
@@ -1324,3 +1324,29 @@ class QuestionViewTest(DatabaseMixin, TestCase):
         can = views.QuestionView().can_access_question(self.u1, self.q2_test,
                                                        2, 1)
         self.assertFalse(can)
+
+
+class PwResetViewTest(DatabaseMixin, TestCase):
+    def setUp(self):
+        self.factory = APIRequestFactory()
+        self.view = views.PwResetView.as_view()
+
+        self.u1 = UserManager.user_create(
+            username='user1', email='user1@email.de', password='12345')
+        self.u1.save()
+        self.u1_profile = models.Profile(user=self.u1)
+        self.u1_profile.save()
+
+
+    def test_post(self):
+        request = self.factory.post(
+            'pw-reset/', {'email': 'thisDoesDefinitelyNotExist@mail.de'},
+            format='json')
+        response = self.view(request)
+        self.assertEqual(response.status_code, 404)
+
+        request = self.facotry.post(
+            'pw-reset/', {'email': self.u1.email}
+        )
+        response = self.view(request)
+        self.assertFalse(UserManager.check_password('12345'))

@@ -387,11 +387,11 @@ class QuizQuestion(models.Model):
         for ans in answers:
             if ans.correct:
                 for i in data['answers']:
-                    if 'id' in i and (i['id'] == ans.id and i['chosen']):
+                    if 'id' in i and (i['id'] == ans.id and not i['chosen']):
                         return False
             if not ans.correct:
                 for i in data:
-                    if 'id' in i and (i['id'] == ans.id and not i['chosen']):
+                    if 'id' in i and (i['id'] == ans.id and i['chosen']):
                         return False
         return True
 
