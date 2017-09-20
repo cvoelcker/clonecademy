@@ -29,7 +29,7 @@ export class ServerService {
   private makeHeader() {
     // the jwt token is the string given from django after login
     return new Headers({
-      'Authorization': "Token " + this.cookie.get("token"),
+      'Authorization': 'Token ' + this.cookie.get('token'),
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     });
@@ -128,12 +128,12 @@ export class ServerService {
 
     let options = new RequestOptions({headers: headers})
 
-    return new Promise((resolve, reject) => this.http.post(this.baseUrl + "api-auth/", body, options)
+    return new Promise((resolve, reject) => this.http.post(this.baseUrl + 'api-auth/', body, options)
       .subscribe(
         (res) => {
           let response = res.json();
-          this.cookie.put("token", response.token);
-          this.cookie.put("username", name);
+          this.cookie.put('token', response.token);
+          this.cookie.put('username', name);
           resolve(response);
         },
         (err) => {
@@ -143,20 +143,20 @@ export class ServerService {
 
   downloadStatistics(request = {}) {
     request['format'] = 'csv'
-    this.post("user/statistics", request)
+    this.post('user/statistics', request)
       .then(data => {
         // create the file to download
-        let blob = new Blob([data["_body"]], {type: "text/csv"});
+        let blob = new Blob([data['_body']], {type: 'text/csv'});
         let downloadData = URL.createObjectURL(blob)
         // create a button which will be clicked to download
         // at the moment it looks like this is the only workaround for a download dialog
-        var anchor = document.createElement("a");
+        var anchor = document.createElement('a');
         // set download name
-        anchor.download = "statistics.csv";
+        anchor.download = 'statistics.csv';
         anchor.href = downloadData;
         // hide button
-        anchor.setAttribute('visibility', "hidden")
-        anchor.setAttribute("display", "none")
+        anchor.setAttribute('visibility', 'hidden')
+        anchor.setAttribute('display', 'none')
         // add button to body, activate the download and remove the button again
         document.body.appendChild(anchor)
         anchor.click();

@@ -514,7 +514,7 @@ class QuizView(APIView):
                     if 'id' in answer and quiz_entry.id is answer['id']:
                         answer.pop('id')
                         answerSolved = answer
-                        break;
+                        break
                 solved = quiz_entry.evaluate(answerSolved)
                 if solved and not quiz_entry.try_set.filter(
                         user=request.user, solved=True).exists():
@@ -697,7 +697,7 @@ class StatisticsView(APIView):
         # A moderator can get all statistics of his created courses
         # with 'get_courses' as in put the it will return all courses created
         # by this user
-        elif is_mod and 'course' in data and not 'admin' in groups:
+        elif is_mod and 'course' in data and 'admin' not in groups:
             tries = tries.filter(
                 question__module__course__responsible_mod=user)
 
@@ -974,23 +974,25 @@ class PwResetView(APIView):
         elif not User.objects.filter(email=data['email']).exists():
             return Response({'ans': 'no user with email: ' + data['email']},
                             status=status.HTTP_404_NOT_FOUND)
-        else:
-            user = User.objects.get(email=data['email'])
-            # generate a random password with the random implementation of
-            # django.utils.crypto
-            new_password = get_random_string(length=16)
 
-            send_mail(
-                'Password Reset on clonecademy.net',
-                'Hello {},\n \
-                You have requested a new password on clonecademy.net \n \
-                Your new password is: \n {} \n \n \
-                Please change it imediately! \n \
-                Have a nice day,\n your CloneCademy bot'.format(
-                    user.username, new_password
-                ),
-                'bot@clonecademy.de',
-                [user.email]
-            )
-            user.set_password(new_password)
-            return Response(status=status.HTTP_200_OK)
+        # if request data is valid:
+        user = User.objects.get(email=data['email'])
+        # generate a random password with the rand() implementation of
+        # django.utils.crypto
+        new_password = get_random_string(length=16)
+
+        send_mail(
+            'Password Reset on clonecademy.net',
+            ('Hello {},\n \n'
+            + 'You have requested a new password on clonecademy.net \n'
+            + 'Your new password is: \n{} \n \n'
+            + 'Please change it imediately! \n'
+            + 'Have a nice day,\nyour CloneCademy bot').format(
+                user.username, new_password
+            ),
+            'bot@clonecademy.de',
+            [user.email]
+        )
+        user.set_password(new_password)
+        user.save()
+        return Response(status=status.HTTP_200_OK)

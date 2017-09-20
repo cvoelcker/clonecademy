@@ -72,6 +72,8 @@ import { ProfilePageComponent } from './profile/profile-page/profile-page.compon
 import { AdminPageComponent } from './admin/admin-page/admin-page.component';
 import { RegisterComponent } from './register/register.component';
 import { PwResetComponent } from './login/pw-reset/pw-reset.component';
+import { PwResetAnswerDialogComponent } from './login/pw-reset/pw-reset-answer-dialog/pw-reset-answer-dialog.component';
+
 import { ErrorMessageComponent } from './error-message/error-message.component';
 import { WrongFeedbackComponent } from './learn/question/wrong-feedback/wrong-feedback.component';
 import { LoaderComponent } from './loader/loader.component';
@@ -246,6 +248,7 @@ const QuestionList = QuestionDictionary.questionComponents
     CourseCategoriesComponent,
     DeleteDialogComponent,
     CourseStatisticsComponent,
+    PwResetAnswerDialogComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -303,6 +306,8 @@ const QuestionList = QuestionDictionary.questionComponents
     CreateCourseComponent,
     ImageCropperDialogComponent,
     DialogComponent,
+    // pw-reset
+    PwResetAnswerDialogComponent,
     // profile page components
     StatisticsComponent,
     RequestModComponent,

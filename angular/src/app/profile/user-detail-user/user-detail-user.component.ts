@@ -3,7 +3,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router'
 import {UserService} from '../../service/user.service';
 import {ServerService} from '../../service/server.service';
 import {ProfilePageComponent} from '../profile-page/profile-page.component';
-import {ErrorDialog} from "../../service/error.service"
+import {ErrorDialog} from '../../service/error.service'
 import {FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
 
 import {TranslateService} from '@ngx-translate/core';
@@ -21,9 +21,9 @@ import {ImageCropperDialogComponent} from '../../image-cropper/image-cropper.com
 
 export class UserDetailUserComponent {
   languages: Array<{ id: string, name: string }> = [{
-    id: "en",
-    name: "English"
-  }, {id: "de", name: "Deutsch"}]
+    id: 'en',
+    name: 'English'
+  }, {id: 'de', name: 'Deutsch'}]
   // {username: string, id: number, email: string, group: {}, dateRegistered: Date, dateString: string}
 
   body = {
@@ -42,9 +42,9 @@ export class UserDetailUserComponent {
   edit(value) {
 
 
-    if (value.valid && value.value["password"] === value.value['password2']) {
+    if (value.valid && value.value['password'] === value.value['password2']) {
       let data = value.value
-      data["avatar"] = this.body["avatar"]
+      data['avatar'] = this.body['avatar']
       this.user.edit(data)
     }
   }

@@ -9,7 +9,7 @@ import {TranslateService} from '@ngx-translate/core';
   templateUrl: './error-message.component.html',
   styleUrls: ['./error-message.component.sass']
 })
-export class ErrorMessageComponent{
+export class ErrorMessageComponent {
 
   text: string;
 

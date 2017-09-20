@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router'
 import {ServerService} from '../../service/server.service';
 import {UserService} from '../../service/user.service';
@@ -24,26 +24,22 @@ export class UserDetailComponent {
 
   constructor(private route: ActivatedRoute,
               private server: ServerService,
-              private router: Router,) {
+              private router: Router, ) {
     this.route.params.subscribe(data => {
       this.id = data.id
       this.change(this.id);
     })
   }
 
-  ngOnInit() {
-
-  }
-
   change(id: number) {
     this.loading = true;
     // load the current user
-    this.server.get("user/" + id + "/")
+    this.server.get('user/' + id + '/')
       .then(data => {
         this.user = data
         this.user['dateRegistered'] = new Date(data['date_joined'])
-        this.isMod = (-1 != this.user["groups"].indexOf("moderator"));
-        this.isAdmin = (-1 != this.user["groups"].indexOf("admin"));
+        this.isMod = (-1 != this.user['groups'].indexOf('moderator'));
+        this.isAdmin = (-1 != this.user['groups'].indexOf('admin'));
 
         // show the spinning loader until the user is loaded
         this.loading = false;
@@ -52,9 +48,9 @@ export class UserDetailComponent {
   }
 
   promoteToModerator() {
-    this.server.post("user/" + this.id + "/rights", {
-      "right": "moderator",
-      "action": "promote"
+    this.server.post('user/' + this.id + '/rights', {
+      'right': 'moderator',
+      'action': 'promote'
     })
       .then(answer => {
         this.isMod = true;
@@ -62,9 +58,9 @@ export class UserDetailComponent {
   }
 
   promoteToAdmin() {
-    this.server.post("user/" + this.id + "/rights", {
-      "right": "admin",
-      "action": "promote"
+    this.server.post('user/' + this.id + '/rights', {
+      'right': 'admin',
+      'action': 'promote'
     })
       .then(answer => {
         this.isAdmin = true;
@@ -72,9 +68,9 @@ export class UserDetailComponent {
   }
 
   demoteToUser() {
-    this.server.post("user/" + this.id + "/rights", {
-      "right": "moderator",
-      "action": "demote"
+    this.server.post('user/' + this.id + '/rights', {
+      'right': 'moderator',
+      'action': 'demote'
     })
       .then(answer => {
         this.isMod = false;
@@ -84,9 +80,9 @@ export class UserDetailComponent {
   }
 
   demoteToModerator() {
-    this.server.post("user/" + this.id + "/rights", {
-      "right": "admin",
-      "action": "demote"
+    this.server.post('user/' + this.id + '/rights', {
+      'right': 'admin',
+      'action': 'demote'
     })
       .then(answer => {
         this.isAdmin = false;
