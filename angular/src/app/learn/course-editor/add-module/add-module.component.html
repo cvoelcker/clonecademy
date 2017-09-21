@@ -1,6 +1,13 @@
 <md-card class="singleBox" [@slideIn]="loading" (@slideIn.done)="remove($event)">
-  <details open="open">
+  <details open="open" class="details-animated">
     <summary>
+      <table style="width:100%">
+        <tr>
+          <th width=66%>Module: {{title}}</th>
+          <th width=33%>Questions in this Module: {{questionArray.length}}</th>
+        </tr>
+      </table>
+    </summary>
       <ul>
         <li class="titleName">
           <md-input-container>
@@ -14,14 +21,7 @@
                 translate}}</strong></md-hint>
           </md-input-container>
         </li>
-        <li class="titleValue">Questions in this Module:
-          {{questionArray.length}}
-        </li>
-      </ul>
-    </summary>
-    <ul>
       <li>
-        <div>
           <md-input-container>
             <textarea mdInput
                       placeholder='{{"module description" | translate}}'
@@ -33,10 +33,10 @@
               <strong>{{'The module description is required' |
                 translate}}</strong></md-hint>
           </md-input-container>
-        </div>
       </li>
 
       <li>
+        <md-card class="addquestion">
         <div class="module" #module></div>
         <md-select placeholder='{{"add question" | translate}}'
                    [(ngModel)]="selectedValue" name="selectedValue">
@@ -49,6 +49,7 @@
           <strong>{{'At least one question is required for this module' |
             translate}}</strong>
         </md-hint>
+      </md-card>
       </li>
     </ul>
     <br>
