@@ -71,6 +71,7 @@ export class QuizQuestionComponent implements OnInit {
    @author Leonhard Wiedmann
    **/
   submit() {
+    // course finished
     if (!this.showFeedback) {
       const value = [];
       const item = this.data[this.id];
@@ -92,6 +93,7 @@ export class QuizQuestionComponent implements OnInit {
           });
         return;
       }
+      // only feedback is requested, no submission
       else {
         const item = this.data[this.id];
         this.showFeedback = true;
@@ -99,7 +101,8 @@ export class QuizQuestionComponent implements OnInit {
         this.server.post('courses/' + this.courseID + '/quiz/', {'type': 'get_answers', 'id': item.id - 1})
           .then(data => {
             this.correct = true;
-            console.log(item.answers)
+            // iterates over all answers of the question and checks whether it was only selected if it is true
+            // sets the attribute to true iff all correct answers and no others are selected
             for (let i = 0; i < item.answers.length; i++) {
               if (data['answers'].indexOf(item.answers[i].id) > -1) {
                 item.answers[i].correct = true;

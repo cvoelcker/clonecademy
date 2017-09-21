@@ -70,6 +70,13 @@ class MultipleChoiceQuestion(Question):
         from . import serializer
         return serializer.MultipleChoiceQuestionSerializer
 
+    def get_points(self):
+        """
+        returns the points value of the question
+        :return:
+        """
+        return 2 if self.module.course.category == 2 else 1
+
     @staticmethod
     def get_edit_serializer():
         """
@@ -78,14 +85,6 @@ class MultipleChoiceQuestion(Question):
         """
         from . import serializer
         return serializer.MultipleChoiceQuestionEditSerializer
-
-    @staticmethod
-    def get_points():
-        """
-        returns the points value of the question
-        :return:
-        """
-        return 1
 
 
 class MultipleChoiceAnswer(models.Model):

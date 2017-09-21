@@ -230,13 +230,13 @@ class CourseView(APIView):
             responsible_mod = Course.objects.get(id=course_id).responsible_mod
             # decline access if user is wether admin nor responsible_mod
             if (request.user.profile.is_admin()
-                or request.user == responsible_mod):
+                    or request.user == responsible_mod):
                 data['responsible_mod'] = Course.objects.get(
                     id=course_id).responsible_mod
             else:
                 raise PermissionDenied(detail="You're not allowed to edit this"
-                                              + "course, since you're not the"
-                                              + 'responsible mod',
+                                       + "course, since you're not the"
+                                       + 'responsible mod',
                                        code=None)
 
         course_serializer = serializers.CourseSerializer(data=data)
@@ -343,16 +343,16 @@ class QuestionView(APIView):
         elif (not first_question
               and question.get_previous_in_order()
               and Try.objects.filter(
-                user=user,
-                question=question.get_previous_in_order(),
-                solved=True)):
+                  user=user,
+                  question=question.get_previous_in_order(),
+                  solved=True)):
             return True
         elif (not module.is_first_module()
               and module.get_previous_in_order()
               and Try.objects.filter(
-                user=user,
-                question=module.get_previous_in_order().question_set.all()[0],
-                solved=True)):
+                  user=user,
+                  question=module.get_previous_in_order().question_set.all()[0],
+                  solved=True)):
             return True
         return False
 
@@ -460,6 +460,26 @@ class AnswerView(APIView):
                         status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
+def calculate_quiz_points(old_percentage, new_percentage, difficulty):
+    """
+    calculates the quiz points from the old existing statistics and the new
+    quiz answers
+    :param old_percentage: percentage of questions already answered correctly
+    :param new_percentage: percentage of questions newly answered correctly
+    :param difficulty: the course difficulty
+    :return: the additional points
+    """
+    multiplier = 2 if difficulty == 2 else 1
+    ranking_threshold = [0.4, 0.7, 0.9]
+    old_extra_points = [x[0] for x in enumerate(ranking_threshold) if
+                        x[1] > old_percentage]
+    new_extra_points = [x[0] for x in enumerate(ranking_threshold) if
+                        x[1] > new_percentage]
+    old_extra_points = 3 if not old_extra_points else old_extra_points[0]
+    new_extra_points = 3 if not new_extra_points else new_extra_points[0]
+    return max(0, 5 * multiplier * (new_extra_points - old_extra_points))
+
+
 class QuizView(APIView):
     """
     Shows the quiz question of the current course in get
@@ -497,18 +517,21 @@ class QuizView(APIView):
         """
         Resolves this quiz question for the current user.
         """
+        # post does two things (return feedback for questions and whole quiz)
+        # this switch/case differentiates between the two
         if request.data['type'] == "check_answers":
             course = Course.objects.get(id=course_id)
             quiz = course.quizquestion_set.all()
-
-            if len(quiz) <= 0:
+            all_question_length = len(quiz)
+            if all_question_length <= 0:
                 return Response({"error": "this quiz does not exist"},
                                 status=status.HTTP_404_NOT_FOUND)
-
+            # checks if the submission is wrong (different lengths of the
+            # arrays)
             if len(quiz) != len(request.data['answers']):
-                return Response({"error": "the quiz has " + str(
-                    len(quiz)) + " question and your evaluation has " + str(
-                    len(request.data['answers'])), "test": request.data},
+                resp = "the quiz has {} question and your evaluation has {}"\
+                    .format(len(quiz), len(request.data['answers']))
+                return Response({"error": resp, "test": request.data},
                                 status=status.HTTP_400_BAD_REQUEST)
             response = []
             newly_solved = 0
@@ -532,9 +555,12 @@ class QuizView(APIView):
                     answer=str(request.data), solved=solved).save()
 
                 response.append({"name": quiz[i].question, "solved": solved})
-            old_extra = floor(old_solved / 5)
-            new_extra = floor((newly_solved + old_solved) / 5)
-            request.user.profile.ranking += (new_extra - old_extra) * 2
+
+            old_extra = float(old_solved / all_question_length)
+            new_extra = float(
+                (newly_solved + old_solved) / all_question_length)
+            request.user.profile.ranking += calculate_quiz_points(
+                old_extra, new_extra, course.difficulty)
             request.user.profile.save()
 
             return Response(response, status=status.HTTP_200_OK)
@@ -545,7 +571,7 @@ class QuizView(APIView):
                        quiz_question.quizanswer_set.all() if answer.correct]
             return Response({'answers': answers}, status.HTTP_200_OK)
         return Response({'ans': 'Could not process request'},
-                            status.HTTP_400_BAD_REQUEST)
+                        status.HTTP_400_BAD_REQUEST)
 
 
 class UserView(APIView):
@@ -995,12 +1021,11 @@ class PwResetView(APIView):
         send_mail(
             'Password Reset on clonecademy.net',
             ('Hello {},\n \n'
-            + 'You have requested a new password on clonecademy.net \n'
-            + 'Your new password is: \n{} \n \n'
-            + 'Please change it imediately! \n'
-            + 'Have a nice day,\nyour CloneCademy bot').format(
-                user.username, new_password
-            ),
+             + 'You have requested a new password on clonecademy.net \n'
+             + 'Your new password is: \n{} \n \n'
+             + 'Please change it imediately! \n'
+             + 'Have a nice day,\nyour CloneCademy bot').format(
+                 user.username, new_password),
             'bot@clonecademy.de',
             [user.email]
         )

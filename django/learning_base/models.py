@@ -1,5 +1,5 @@
 """
-This module contains all database models not provided by django 
+This module contains all database models not provided by django
 itself.
 :author: Claas Voelcker
 """
@@ -212,7 +212,7 @@ class Module(models.Model):
     A Course is made out of several modules and a module contains the questions
     """
 
-    class Meta():
+    class Meta:
         unique_together = ['order', 'course']
         ordering = ['order']
 
@@ -353,7 +353,7 @@ class Question(PolymorphicModel):
     def get_points(self):
         """
         Returns the number of ranking points for the question.
-        This method needs to be overridden by subclasses and 
+        This method needs to be overridden by subclasses and
         remains unimplemented here.
         :return: the points
         :raise: not implemented error
@@ -405,7 +405,7 @@ class QuizQuestion(models.Model):
     def answer_set(self):
         """
         shortcut for all answers to a question
-        :return: 
+        :return: all answers to the quizquestion
         """
         return self.quizanswer_set.all()
 
@@ -419,13 +419,12 @@ class QuizQuestion(models.Model):
                 return True
         return False
 
-    @staticmethod
-    def get_points():
+    def get_points(self):
         """
         returns the points for answering this question type
-        :return: 2 points
+        :return: 0 points
         """
-        return 2
+        return 0
 
 
 class QuizAnswer(models.Model):

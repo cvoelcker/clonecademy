@@ -149,10 +149,10 @@ export class CreateCourseComponent {
 
   difficultys: Array<{ value: number, name: string }> = [
     {value: 0, name: 'Easy'},
-    {value: 1, name: 'moderate'},
-    {value: 2, name: 'difficult'},
-    {value: 3, name: 'expert'}
-  ]
+    // {value: 1, name: 'moderate'},
+    {value: 2, name: 'Difficult'},
+    // {value: 3, name: 'expert'}
+  ];
 
   diff: number;
 

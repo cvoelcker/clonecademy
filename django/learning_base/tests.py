@@ -1336,7 +1336,6 @@ class PwResetViewTest(DatabaseMixin, TestCase):
         self.u1_profile = models.Profile(user=self.u1)
         self.u1_profile.save()
 
-
     def test_post(self):
         # test if an unknown email address will fail with 404
         request = self.factory.post(
@@ -1354,3 +1353,23 @@ class PwResetViewTest(DatabaseMixin, TestCase):
         self.assertEqual(self.u1.email, 'user1@email.de')
         tested = User.objects.get(email='user1@email.de')
         self.assertFalse(tested.check_password('12345'))
+
+
+class RankingCalculationTest(TestCase):
+    def test_ranking(self):
+        ranking = views.calculate_quiz_points
+        self.assertEqual(ranking(0, 1, 2), 30)
+        self.assertEqual(ranking(0, 0.5, 2), 10)
+        self.assertEqual(ranking(0, 0, 2), 0)
+        self.assertEqual(ranking(0, 0.8, 2), 20)
+        self.assertEqual(ranking(0, 1, 1), 15)
+        self.assertEqual(ranking(0, 0, 1), 0)
+
+    def test_diff_ranking(self):
+        ranking = views.calculate_quiz_points
+        self.assertEqual(ranking(0.4, 1, 2), 20)
+        self.assertEqual(ranking(0.4, 0.5, 2), 0)
+        self.assertEqual(ranking(0.4, 0, 2), 0)
+        self.assertEqual(ranking(0.4, 0.8, 2), 10)
+        self.assertEqual(ranking(0.4, 1, 1), 10)
+        self.assertEqual(ranking(0.4, 0, 1), 0)
