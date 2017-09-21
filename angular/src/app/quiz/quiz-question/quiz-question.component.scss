@@ -83,16 +83,13 @@
     display: block;
     &.selected.correct {
       box-shadow: none;
-      background-color: $green;
+      background-color: $white;
     }
     &.selected:not(correct) {
       background-color: $warn;
     }
     &.correct:not(selected) {
       background-color: $warn;
-    }
-    &:not(correct):not(selected) {
-      background-color: $green;
     }
 
     .answerText {

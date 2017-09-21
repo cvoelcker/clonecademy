@@ -1,23 +1,34 @@
 <div *ngIf="!loading" class="wrapper">
 
-    <h2>
-      {{name}}
-    </h2>
+  <h2>
+    {{name}}
+  </h2>
   <table>
     <td class="button" [ngSwitch]="true" *ngIf="sidemenu == undefined">
-        <button
-          *ngSwitchCase="!completed && modules[0] != undefined && !modules[0].questions[0].solved"
-          md-raised-button routerLink="/course/{{ id }}/1/1/">{{"start Course" |
-          translate}}
-        </button>
-        <button *ngSwitchCase="completed" md-raised-button [disabled]="true">
-          {{"course completed" | translate}}
-        </button>
-        <button *ngSwitchDefault md-raised-button
-                routerLink="/course/{{ id }}/{{ lastCourse[0] }}/{{ lastCourse[1] + 1 }}/">
-          {{"continue" | translate}}
-        </button>
+      <button
+        *ngSwitchCase="!completed && modules[0] != undefined && !modules[0].questions[0].solved"
+        md-raised-button routerLink="/course/{{ id }}/1/1/">{{"start Course" |
+        translate}}
+      </button>
+      <button *ngSwitchCase="completed" md-raised-button [disabled]="true">
+        {{"course completed" | translate}}
+      </button>
+      <button *ngSwitchDefault md-raised-button
+              routerLink="/course/{{ id }}/{{ lastCourse[0] }}/{{ lastCourse[1] + 1 }}/">
+        {{"continue" | translate}}
+      </button>
+      <span mdTooltip='Finish the course to start the quiz'>
+      <button *ngSwitchCase="!completed"
+              md-raised-button [disabled]="true">Start quiz
+      </button>
+        </span>
+      <button *ngSwitchCase="completed" md-raised-button
+              routerLink="/course/{{ id }}/quiz">
+        Start quiz
+      </button>
+
     </td>
+
     <td class="options" *ngIf="user.isModerator()">
       <!-- add visible/invisble button here -->
       <div class="button" [ngSwitch]="true" *ngIf="sidemenu == undefined">
@@ -32,7 +43,9 @@
           <md-icon>visibility_off</md-icon>
         </button>
       </div>
-      <button md-raised-button routerLink="/course/{{ id }}/statistic"><md-icon>poll</md-icon></button>
+      <button md-raised-button routerLink="/course/{{ id }}/statistic">
+        <md-icon>poll</md-icon>
+      </button>
     </td>
   </table>
 

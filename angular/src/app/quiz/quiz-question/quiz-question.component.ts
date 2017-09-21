@@ -21,7 +21,6 @@ export class QuizQuestionComponent implements OnInit {
   answers = [];
   quizSize = 0;
   private showFeedback: boolean;
-  private real_answers: any;
   private loading: boolean;
   private correct: boolean;
 
@@ -40,15 +39,16 @@ export class QuizQuestionComponent implements OnInit {
       this.showFeedback = false;
       this.courseID = Number(data.id);
       this.server.get('courses/' + this.courseID + '/quiz/').then((data: Array<any>) => {
-        let array = [];
+        const array = [];
         while (data.length > 0) {
-          let i = Math.floor(Math.random() * data.length);
-          let item = Object.assign({}, data[i]);
-          let ansArray = [];
-          let answers = Object.assign([], item['answers']);
+          const i = Math.floor(Math.random() * data.length);
+          const item = Object.assign({}, data[i]);
+          const ansArray = [];
+          const answers = Object.assign([], item['answers']);
           while (answers.length > 0) {
-            let j = Math.floor(Math.random() * answers.length);
-            let singleItem = Object.assign({}, answers[j]);
+            const j = Math.floor(Math.random() * answers.length);
+            const singleItem = Object.assign({}, answers[j]);
+            singleItem.chosen = false;
             ansArray.push(singleItem);
             answers.splice(j, 1)
           }
@@ -72,8 +72,8 @@ export class QuizQuestionComponent implements OnInit {
    **/
   submit() {
     if (!this.showFeedback) {
-      let value = [];
-      let item = this.data[this.id];
+      const value = [];
+      const item = this.data[this.id];
       for (let i = 0; i < item['answers'].length; i++) {
         if (item['answers'][i].chosen != undefined) {
           value.push({chosen: item['answers'][i].chosen, id: item['answers'][i].id})
@@ -99,13 +99,14 @@ export class QuizQuestionComponent implements OnInit {
         this.server.post('courses/' + this.courseID + '/quiz/', {'type': 'get_answers', 'id': item.id - 1})
           .then(data => {
             this.correct = true;
+            console.log(item.answers)
             for (let i = 0; i < item.answers.length; i++) {
               if (data['answers'].indexOf(item.answers[i].id) > -1) {
                 item.answers[i].correct = true;
               } else {
                 item.answers[i].correct = false;
               }
-              if (item.answers[i].correct != (item.answers[i].chosen != null)) {
+              if (item.answers[i].correct && (item.answers[i].chosen == false)) {
                 this.correct = false
               }
             }
