@@ -43,7 +43,7 @@ the response respectively
       })
       .catch(err => {
         if (err.status === 404) {
-          this.error = "This e-mail is unknown!"
+          this.error = 'This e-mail is unknown!'
         } else {
           this.error = err;
         }

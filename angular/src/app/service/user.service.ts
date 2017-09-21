@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 
 import {ServerService} from './server.service'
 
-import {Router} from "@angular/router"
+import {Router} from '@angular/router'
 
 import {CookieService} from 'angular2-cookie/core';
 
@@ -12,11 +12,11 @@ import {TranslateService} from '@ngx-translate/core';
 @Injectable()
 export class UserService {
 
-  public login: boolean = false;
+  public login = false;
   public data: any;
   private groups: Array<string>;
   public id: number;
-  public language: string = "en";
+  public language = 'en';
 
   public loaded = false;
 
@@ -40,7 +40,7 @@ export class UserService {
 
   public loadUser() {
 
-    return new Promise((resolve, reject) => this.server.get("user/current", true, false).then(data => {
+    return new Promise((resolve, reject) => this.server.get('user/current', true, false).then(data => {
         this.groups = data['groups'];
         this.data = data;
         this.loaded = true;
@@ -60,7 +60,7 @@ export class UserService {
   private isInGroup(name: string) {
     if (this.loaded && this.login) {
       for (let i = 0; i < this.groups.length; i++) {
-        if (this.groups[i] == name) {
+        if (this.groups[i] === name) {
           return true;
         }
       }
@@ -73,7 +73,7 @@ export class UserService {
   }
 
   public isModerator() {
-    return this.isInGroup('admin') || this.isInGroup("moderator")
+    return this.isInGroup('admin') || this.isInGroup('moderator')
   }
 
   public logout() {
@@ -84,19 +84,26 @@ export class UserService {
   }
 
   public edit(data) {
-    this.server.post("user/current", data).then(() => {
+    this.server.post('user/current', data, false, true).then(() => {
       this.data = data
       this.language = data['language']
       this.translate.use(data['language'])
     })
   }
 
+  /*
+  a setter for the user data
+  @author Tobias Huber
+  */
+  public setData(data) {
+    this.data = data;
+  }
+
   constructor(private translate: TranslateService, private server: ServerService, private router: Router, private cookie: CookieService) {
-    this.login = this.cookie.get("token") != null
+    this.login = this.cookie.get('token') !== null
     if (this.login) {
       this.loadUser()
-    }
-    else {
+    } else {
       this.loaded = true;
     }
   }

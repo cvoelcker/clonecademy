@@ -68,6 +68,7 @@ import { DeleteDialogComponent } from './admin/delete-dialog/delete-dialog.compo
 import { ProfilesComponent } from './admin/profiles/profiles.component';
 import { UserDetailComponent } from './admin/user-detail/user-detail.component';
 import { UserDetailUserComponent } from './profile/user-detail-user/user-detail-user.component'
+import {AuthDialogComponent} from './profile/user-detail-user/auth-dialog/auth-dialog.component';
 import { ProfilePageComponent } from './profile/profile-page/profile-page.component';
 import { AdminPageComponent } from './admin/admin-page/admin-page.component';
 import { RegisterComponent } from './register/register.component';
@@ -249,6 +250,7 @@ const QuestionList = QuestionDictionary.questionComponents
     DeleteDialogComponent,
     CourseStatisticsComponent,
     PwResetAnswerDialogComponent,
+    AuthDialogComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -312,6 +314,7 @@ const QuestionList = QuestionDictionary.questionComponents
     StatisticsComponent,
     RequestModComponent,
     UserDetailComponent,
+    AuthDialogComponent,
     // admin Page components
     ProfilesComponent,
     DeleteDialogComponent,

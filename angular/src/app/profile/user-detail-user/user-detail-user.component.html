@@ -1,6 +1,6 @@
 <h2 *ngIf="user.data != undefined">{{user.data.username}}</h2>
 
-<img [src]="user.data.avatar" width="150" height="150">
+<img *ngIf="user.data != undefined" [src]="user.data.avatar" width="150" height="150">
 
 <form class="example-form" #e="ngForm" name="edit" (ngSubmit)="edit(e)"
       *ngIf="user.data != undefined">
@@ -71,7 +71,7 @@
     <md-hint align="start" class="warning" *ngIf="e.submitted && !language.valid"><strong>{{'The category of the course is required' | translate}}</strong> </md-hint>
   </div>
   -->
-
+  <!--
   <md-input-container>
     <input mdInput placeholder='{{"oldPassword" | translate}}'
            #oldpassword="ngModel" type="password" name="oldpassword"
@@ -80,7 +80,7 @@
              *ngIf="e.submitted && !oldpassword.valid"><strong>{{'password
       required' | translate}}</strong></md-hint>
   </md-input-container>
-
+  -->
 
   <button [disabled]="loading" type="submit" md-raised-button class=" ">
     <md-icon>save</md-icon>
