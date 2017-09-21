@@ -6,6 +6,11 @@ import {ServerService} from '../../../service/server.service'
 
 import 'rxjs/Rx' ;
 
+/**
+ * @author Leonhard Wiedmann
+ *
+ * A component to display the statistics of the current course
+ */
 @Component({
   selector: 'CourseStatistics',
   templateUrl: './statistics.component.html',
@@ -31,12 +36,16 @@ export class CourseStatisticsComponent implements OnInit {
     this.loadList()
   }
 
-  //Pie
+  //Pie variables
   loadingPie = false;
   public pieChartLabels:string[] = ["Solved", "Not solved"];
   public pieChartData:number[]= [];
-  public pieChartColor:any = [{backgroundColor: ["#7cf700", "#d4043b"]}];
+  public pieChartColor:any = [{backgroundColor: ["#aaff80", "darkred"]}];
 
+  /**
+  Load the variables for the pie view
+  @author Leonhard Wiedmann
+  **/
   loadPie(){
     this.loadingPie = true;
     this.server.post("statistics", {
@@ -48,6 +57,10 @@ export class CourseStatisticsComponent implements OnInit {
       })
   }
 
+  /**
+  Load the list of questions, how many tries this question has and how many correct tries it has
+  @author Leonhard Wiedmann
+  **/
   loadList(){
     this.loadingPie = true;
     this.server.post("statistics", {
@@ -58,6 +71,10 @@ export class CourseStatisticsComponent implements OnInit {
       })
   }
 
+  /**
+  Download the statistics for the current user
+  @author Leonhard Wiedmann
+  **/
   downloadStatistics() {
     this.server.downloadStatistics({id: 0})
   }

@@ -711,7 +711,7 @@ class StatisticsView(APIView):
                 tries.filter(user__id=data['id'])
         else:
             return Response({'error': 'invalid userID'},
-                            status=status.HTTP_401_UNAUTHORIZED)
+                            status=status.HTTP_403_FORBIDDEN)
 
         # return all statistics after prefiltering for this course
         if 'course' in data:
@@ -737,8 +737,8 @@ class StatisticsView(APIView):
 
         # get the statistics for a specific time
         if ('date' in data
-            and 'start' in data['date']
-            and 'end' in data['date']):
+                and 'start' in data['date']
+                and 'end' in data['date']):
             start = data['date']['start']
             end = data['date']['end']
             tries = tries.filter(
@@ -770,6 +770,7 @@ class StatisticsView(APIView):
 
         serialize_data = None
 
+        # filters the statistics and counts for the 'filter' variable
         if 'filter' in data:
             value = {}
             for trie in tries:

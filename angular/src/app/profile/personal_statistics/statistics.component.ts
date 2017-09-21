@@ -1,12 +1,15 @@
 import {Component, OnInit, Input} from '@angular/core';
 
-import {Http, RequestOptions, Headers} from '@angular/http';
-
-import {CookieService} from 'angular2-cookie/core';
 import {ServerService} from '../../service/server.service'
 import {UserService} from '../../service/user.service'
 
 import 'rxjs/Rx' ;
+
+/**
+ * @author Leonhard Wiedmann
+ *
+ * A component to display the statistics of the current user
+ */
 
 @Component({
   selector: 'statistics',
@@ -34,7 +37,7 @@ export class StatisticsComponent implements OnInit {
   previousWeek = 0;
   loadStats:boolean = true;
 
-  constructor(private user: UserService, private server: ServerService, private cookie: CookieService, private http: Http) {
+  constructor(private user: UserService, private server: ServerService) {
     this.currentDate = new Date();
     this.offsetDate = new Date();
     this.offsetDate.setDate(this.currentDate.getDate() - 7)
@@ -45,6 +48,10 @@ export class StatisticsComponent implements OnInit {
     this.loadPie()
   }
 
+  /***
+  count the number of solved questions of this array
+  @author Leonhard Wiedmann
+  ***/
   solvedQuestions(data: Array<any>){
     let counter = 0;
     for(let i = 0; i < data.length; i++){
@@ -55,25 +62,19 @@ export class StatisticsComponent implements OnInit {
     }
   }
 
-  //Pie
+  //Pie variables
   public pieChartLabels:string[] = [];
   public pieChartData:number[]= [];
   public pieChartColor:any = [{backgroundColor: []}];
   private totalQuestion = 0;
   loadedPie: boolean;
 
-  //
-  // initChart(){
-  //   this.pieChartColor = [
-  //     {
-  //       backgroundColor: [#ffffff],
-  //       strokeColor: '#0f0',
-  //       hoverBackgroundColor: [],
-  //       borderColor: "transparent"
-  //     },
-  //   ]
-  // }
+  /**
+  Load the data for the Pie view
+  This function is edition only pie variables
 
+  @author Leonhard Wiedmann
+  **/
   loadPie(){
     this.loadedPie = false;
     this.server.post("statistics", {
@@ -92,6 +93,12 @@ export class StatisticsComponent implements OnInit {
       })
   }
 
+  /**
+  Load the data for the weekly statistics
+  first calculate the week, then load the data from the server and set it
+  the week is calculated by the offsetDate + 7 days
+  @author Leonhard Wiedmann
+  **/
   loadDate(){
     this.loadStats = true;
     for( let i = 0 ; i < this.statistics.length; i++){
@@ -118,7 +125,11 @@ export class StatisticsComponent implements OnInit {
           let s = data[i]
           this.statistics[(Number(s['date'].split("/")[0]) - this.offsetDate.getDate() + this.offsetDate.getDay()) % 7]['stat'].push(s)
         }
+        // calculate the height variable for the % height of the bars
         this.height = this.statistics[0].stat.length
+
+        // count the number of questions for the height of the bars
+        // the height of the bars will be calculated by (number_of_quesions / this.height)
         for(let i = 0; i < this.statistics.length; i++){
           this.statistics[i].stat['solved'] = 0;
           for(let j = 0; j < this.statistics[i].stat.length; j++){
