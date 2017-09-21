@@ -1331,22 +1331,26 @@ class PwResetViewTest(DatabaseMixin, TestCase):
         self.factory = APIRequestFactory()
         self.view = views.PwResetView.as_view()
 
-        self.u1 = UserManager.user_create(
+        self.u1 = User.objects.create_user(
             username='user1', email='user1@email.de', password='12345')
-        self.u1.save()
         self.u1_profile = models.Profile(user=self.u1)
         self.u1_profile.save()
 
 
     def test_post(self):
+        # test if an unknown email address will fail with 404
         request = self.factory.post(
             'pw-reset/', {'email': 'thisDoesDefinitelyNotExist@mail.de'},
             format='json')
         response = self.view(request)
         self.assertEqual(response.status_code, 404)
 
-        request = self.facotry.post(
-            'pw-reset/', {'email': self.u1.email}
+        # test if a known email will change the password
+        request = self.factory.post(
+            'pw-reset/', {'email': 'user1@email.de'}
         )
         response = self.view(request)
-        self.assertFalse(UserManager.check_password('12345'))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.u1.email, 'user1@email.de')
+        tested = User.objects.get(email='user1@email.de')
+        self.assertFalse(tested.check_password('12345'))
