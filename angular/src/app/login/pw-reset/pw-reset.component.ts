@@ -19,7 +19,7 @@ import {
 /*
 component class for the password reset
 
-@auther Tobias Huber
+@author Tobias Huber
 */
 @Injectable()
 export class PwResetComponent {

@@ -419,7 +419,7 @@ class QuestionView(APIView):
                 next_type = "quiz"
             response['next'] = next_type
             if solved and question.feedback:
-                response['custom_feedback'] = question.custom_feedback()
+                # response['custom_feedback'] = question.custom_feedback()
                 response['feedback'] = question.feedback
         return Response(response)
 

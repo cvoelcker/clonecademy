@@ -165,19 +165,21 @@ export class QuestionComponent implements OnInit, OnDestroy {
           this.correctFeedback = data
         })
       }
-    }
-    else {
+    } else {
       this.feedbackIterator = (this.feedbackIterator + 1) % 3;
       // answer was wrong and the wrong Feedback will be setup
       let text = "";
       this.translate.get("wrong feedback " + this.feedbackIterator).subscribe(data => {
         text = data
       })
-      let dialogRef = this.dialog.open(WrongFeedbackComponent, {
+      const dialogRef = this.dialog.open(WrongFeedbackComponent, {
         data: {
           text: text
         }
       })
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+      });
     }
   }
 
