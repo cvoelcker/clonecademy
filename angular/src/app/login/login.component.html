@@ -1,28 +1,30 @@
 <div class="login">
   <div class="form">
-    <h2>{{"login" | translate}}</h2>
-    <form #f="ngForm" name="login" (ngSubmit)="login(f)">
-      <md-input-container>
-        <input mdInput placeholder='{{"username" | translate}}' type="text"
-               #name="ngModel" name="username" [(ngModel)]="username"
-               required/>
-      </md-input-container>
+    <div class="centerMiddle">
+      <h2>{{"login" | translate}}</h2>
+      <form #f="ngForm" name="login" (ngSubmit)="login(f)">
+        <md-input-container>
+          <input mdInput placeholder='{{"username" | translate}}' type="text"
+                 #name="ngModel" name="username" [(ngModel)]="username"
+                 required/>
+        </md-input-container>
 
-      <md-input-container>
-        <input type="password" mdInput placeholder='{{"password" | translate}}'
-               #pw="ngModel" name="password" [(ngModel)]="password" required/>
-      </md-input-container>
+        <md-input-container>
+          <input type="password" mdInput placeholder='{{"password" | translate}}'
+                 #pw="ngModel" name="password" [(ngModel)]="password" required/>
+        </md-input-container>
 
-      <button type="submit" md-raised-button class=" ">{{"login" |
-        translate}}
-      </button>
-    </form>
+        <button type="submit" md-raised-button class=" ">{{"login" |
+          translate}}
+        </button>
+      </form>
 
-    <div>
-      <button md-raised-button class="btn-info" routerLink="/register/" >
-        {{"No Account? Register here" | translate}}</button>
-      <button md-raised-button routerLink="/pw-reset">
-        {{"Forgot password? Reset here" | translate}}</button>
+      <div>
+        <button md-raised-button class="btn-info" routerLink="/register/" >
+          {{"No Account? Register here" | translate}}</button>
+        <button md-raised-button routerLink="/pw-reset">
+          {{"Forgot password? Reset here" | translate}}</button>
+      </div>
     </div>
   </div>
 </div>
