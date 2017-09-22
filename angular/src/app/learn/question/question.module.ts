@@ -9,7 +9,7 @@ import {MdDialog, MdDialogRef} from '@angular/material';
   selector: 'app-multiple-choice-question',
   template: '<p>Implement me</p>',
 })
-export class QuestionModule {
+export class QuestionModuleComponent {
 
   questionText: string;
   moduleIndex: number;

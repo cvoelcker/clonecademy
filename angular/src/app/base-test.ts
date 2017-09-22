@@ -29,13 +29,13 @@ import {LoaderComponent} from './loader/loader.component';
 
 import {ServerService} from './service/server.service';
 import {UserService} from './service/user.service';
-import {CourseService}  from './service/course.service';
+import {CourseService} from './service/course.service';
 
 import {MarkdownModule} from 'angular2-markdown';
 
 import {HttpModule, Http} from '@angular/http';
 
-import {ErrorDialog} from "./service/error.service"
+import {ErrorDialog} from './service/error.service'
 
 import {CookieService} from 'angular2-cookie/services/cookies.service';
 
@@ -46,7 +46,7 @@ function createTranslateLoader(http: Http) {
 export class BaseTest {
 
   public imports(array?: Array<any>): Array<any> {
-    let base = [TranslateModule.forRoot({
+    const base = [TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: (createTranslateLoader),
@@ -80,7 +80,7 @@ export class BaseTest {
   }
 
   public providers(array?: Array<any>): Array<any> {
-    let data = [ErrorDialog, ServerService, UserService, CookieService, CourseService];
+    const data = [ErrorDialog, ServerService, UserService, CookieService, CourseService];
     if (array != null) {
       for (let i = 0; i < array.length; i++) {
         data.push(array[i]);
@@ -90,7 +90,7 @@ export class BaseTest {
   }
 
   public entryComponents(array?: Array<any>): Array<any> {
-    let data = [ErrorMessageComponent, LoaderComponent]
+    const data = [ErrorMessageComponent, LoaderComponent]
     if (array != null) {
       for (let i = 0; i < array.length; i++) {
         data.push(array[i])

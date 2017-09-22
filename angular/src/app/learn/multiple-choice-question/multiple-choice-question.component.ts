@@ -1,23 +1,22 @@
 import {Component, OnInit, Input} from '@angular/core';
 
-import {QuestionModule} from "../question/question.module"
+import {QuestionModuleComponent} from '../question/question.module'
 
 @Component({
-  selector: 'app-MultipleChoiceQuestion',
+  selector: 'app-multiple-choice-question',
   templateUrl: './multiple-choice-question.component.html',
   styleUrls: ['./multiple-choice-question.component.scss']
 })
-export class MultipleChoiceQuestionComponent extends QuestionModule {
+export class MultipleChoiceQuestionComponent extends QuestionModuleComponent {
 
   // return array of the marked answers
   submit(): any {
-    let sendAnswer = [];
-    for (let ans of this.data.answers) {
+    const sendAnswer = [];
+    for (const ans of this.data.answers) {
       if (ans.value) {
         sendAnswer.push(ans.id)
       }
     }
-    //super.submit
     return sendAnswer;
 
   }

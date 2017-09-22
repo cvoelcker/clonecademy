@@ -9,7 +9,7 @@ import {UserService} from '../../service/user.service'
 import 'rxjs/Rx' ;
 
 @Component({
-  selector: 'ranking-list',
+  selector: 'app-ranking-list',
   templateUrl: './ranking-list.component.html',
   styleUrls: ['./ranking-list.component.scss']
 })
@@ -22,7 +22,7 @@ export class RankingListComponent implements OnInit {
   profiles: {};
   loading = true
 
-  constructor(private user: UserService, private server: ServerService, private cookie: CookieService, private http: Http) {
+  constructor(private user: UserService, private server: ServerService) {
   }
 
   ngOnInit() {

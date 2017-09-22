@@ -28,8 +28,11 @@ export class CourseCategoriesComponent implements OnInit {
   dialogRef: any;
 
 
-  constructor(private server: ServerService, private router: Router,
-              public dialog: MdDialog) {
+  constructor(
+    private server: ServerService,
+    private router: Router,
+    public dialog: MdDialog
+  ) {
   }
 
   ngOnInit() {
@@ -45,16 +48,13 @@ export class CourseCategoriesComponent implements OnInit {
   change(c: any) {
     this.selected = c;
     this.create = false;
-    console.log('change called')
   }
 
   openCreate() {
-    console.log('open create called')
     this.create = true;
   }
 
   delete() {
-    console.log('delete init')
     this.server.post('courses/', {
       'category': this.selected.name, 'type': '',
       'language': ''
@@ -68,7 +68,6 @@ export class CourseCategoriesComponent implements OnInit {
       height: '350px',
       data: this.courses
     })
-    console.log('dialog opened')
 
     this.dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
@@ -79,9 +78,8 @@ export class CourseCategoriesComponent implements OnInit {
 
   // register the updated category
   register(value) {
-    console.log(value)
     if (value.valid) {
-      let data = value.value
+      const data = value.value
       if (data['categorycolor'] === '') {
         delete data['categorycolor'];
       };

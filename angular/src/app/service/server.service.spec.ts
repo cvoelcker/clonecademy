@@ -7,7 +7,7 @@ import {ServerService} from './server.service';
 
 describe('ServerService', () => {
   beforeEach(() => {
-    let base = new BaseTest();
+    const base = new BaseTest();
     TestBed.configureTestingModule({
       imports: [base.imports()],
       providers: [base.providers([ServerService])],

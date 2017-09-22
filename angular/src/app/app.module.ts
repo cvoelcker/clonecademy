@@ -62,7 +62,7 @@ import {AddQuestionModuleComponent} from './learn/course-editor/add-question/add
 import { StatisticsComponent } from './profile/personal_statistics/statistics.component';
 import { RankingListComponent } from './profile/ranking-list/ranking-list.component';
 import { RequestModComponent } from './profile/request-mod/request-mod.component';
-import { QuestionModule } from './learn/question/question.module';
+import { QuestionModuleComponent} from './learn/question/question.module';
 import { CourseCategoriesComponent } from './admin/course-categories/course-categories.component';
 import { DeleteDialogComponent } from './admin/delete-dialog/delete-dialog.component';
 import { ProfilesComponent } from './admin/profiles/profiles.component';
@@ -151,7 +151,7 @@ const appRoutes: Routes = [
     children: [
 
       {
-        path: 'details',
+        path: 'settings',
         component: UserDetailUserComponent,
       },
       {
@@ -223,7 +223,7 @@ const QuestionList = QuestionDictionary.questionComponents
     AddQuestionComponent,
     RankingListComponent,
     StatisticsComponent,
-    QuestionModule,
+    QuestionModuleComponent,
     QuestionList,
     AddQuestionModuleComponent,
     ProfilesComponent,

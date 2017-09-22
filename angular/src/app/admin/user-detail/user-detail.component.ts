@@ -22,9 +22,11 @@ export class UserDetailComponent {
 
   position = 'before';
 
-  constructor(private route: ActivatedRoute,
-              private server: ServerService,
-              private router: Router, ) {
+  constructor(
+    private route: ActivatedRoute,
+    private server: ServerService,
+    private router: Router
+  ) {
     this.route.params.subscribe(data => {
       this.id = data.id
       this.change(this.id);
@@ -38,13 +40,12 @@ export class UserDetailComponent {
       .then(data => {
         this.user = data
         this.user['dateRegistered'] = new Date(data['date_joined'])
-        this.isMod = (-1 != this.user['groups'].indexOf('moderator'));
-        this.isAdmin = (-1 != this.user['groups'].indexOf('admin'));
+        this.isMod = (-1 !== this.user['groups'].indexOf('moderator'));
+        this.isAdmin = (-1 !== this.user['groups'].indexOf('admin'));
 
         // show the spinning loader until the user is loaded
         this.loading = false;
       })
-      .catch(err => console.log(err))
   }
 
   promoteToModerator() {
@@ -74,7 +75,6 @@ export class UserDetailComponent {
     })
       .then(answer => {
         this.isMod = false;
-        console.log(answer)
       })
       .catch(err => console.log(err))
   }
@@ -86,7 +86,6 @@ export class UserDetailComponent {
     })
       .then(answer => {
         this.isAdmin = false;
-        console.log(answer)
       })
       .catch(err => console.log(err))
   }

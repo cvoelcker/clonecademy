@@ -23,10 +23,10 @@ describe('WrongFeedbackComponent', () => {
 
   let dialog: MdDialog;
   let component: WrongFeedbackComponent;
-  let fixture: ComponentFixture<WrongFeedbackComponent>;
+  const fixture: ComponentFixture<WrongFeedbackComponent>;
 
   beforeEach(async(() => {
-    let base = new BaseTest();
+    const base = new BaseTest();
     TestBed.configureTestingModule({
       imports: [base.imports(), TestModule, MdDialogModule]
     })
@@ -42,7 +42,7 @@ describe('WrongFeedbackComponent', () => {
 
   beforeEach(() => {
     dialog = TestBed.get(MdDialog);
-    let dialogRef = dialog.open(WrongFeedbackComponent);
+    const dialogRef = dialog.open(WrongFeedbackComponent);
 
     component = dialogRef.componentInstance;
   });

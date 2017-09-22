@@ -14,10 +14,10 @@ import {ActivatedRoute, Params, Router} from '@angular/router'
  */
 export class QuizQuestionComponent implements OnInit {
 
-  courseID: number = -1;
-  quiz: number = -1;
+  courseID = -1;
+  quiz = -1;
   data: any;
-  id: number = 0;
+  id = 0;
   answers = [];
   quizSize = 0;
   private showFeedback: boolean;
@@ -38,11 +38,11 @@ export class QuizQuestionComponent implements OnInit {
     this.route.params.subscribe((data: Params) => {
       this.showFeedback = false;
       this.courseID = Number(data.id);
-      this.server.get('courses/' + this.courseID + '/quiz/').then((data: Array<any>) => {
+      this.server.get('courses/' + this.courseID + '/quiz/').then((value: Array<any>) => {
         const array = [];
-        while (data.length > 0) {
-          const i = Math.floor(Math.random() * data.length);
-          const item = Object.assign({}, data[i]);
+        while (value.length > 0) {
+          const i = Math.floor(Math.random() * value.length);
+          const item = Object.assign({}, value[i]);
           const ansArray = [];
           const answers = Object.assign([], item['answers']);
           while (answers.length > 0) {
@@ -54,7 +54,7 @@ export class QuizQuestionComponent implements OnInit {
           }
           item['answers'] = ansArray;
           array.push(item);
-          data.splice(i, 1);
+          value.splice(i, 1);
         }
         this.data = array;
         this.quizSize = this.data.length;
@@ -76,40 +76,39 @@ export class QuizQuestionComponent implements OnInit {
       const value = [];
       const item = this.data[this.id];
       for (let i = 0; i < item['answers'].length; i++) {
-        if (item['answers'][i].chosen != undefined) {
+        if (item['answers'][i].chosen !== undefined) {
           value.push({chosen: item['answers'][i].chosen, id: item['answers'][i].id})
-        }
-        else {
+        } else {
           value.push({chosen: false, id: item['answers'][i].id})
         }
       }
       this.answers.push({answers: value, id: this.data[this.id].id});
 
-      if (this.quizSize - 1 == this.id) {
+      if (this.quizSize - 1 === this.id) {
         this.server.post('courses/' + this.courseID + '/quiz/', {'type': 'check_answers', 'answers': this.answers})
           .then(data => {
             // TODO show popup for end course
             // data is {name: "question of the quiz", solved: boolean "if the question is correct solved"}
           });
         return;
-      }
-      // only feedback is requested, no submission
-      else {
-        const item = this.data[this.id];
+      } else {
+        const question = this.data[this.id];
+
         this.showFeedback = true;
         this.loading = true;
-        this.server.post('courses/' + this.courseID + '/quiz/', {'type': 'get_answers', 'id': item.id - 1})
+        this.server.post('courses/' + this.courseID + '/quiz/', {'type': 'get_answers', 'id': question.id - 1})
           .then(data => {
             this.correct = true;
+
             // iterates over all answers of the question and checks whether it was only selected if it is true
             // sets the attribute to true iff all correct answers and no others are selected
             for (let i = 0; i < item.answers.length; i++) {
               if (data['answers'].indexOf(item.answers[i].id) > -1) {
                 item.answers[i].correct = true;
               } else {
-                item.answers[i].correct = false;
+                question.answers[i].correct = false;
               }
-              if (item.answers[i].correct && (item.answers[i].chosen == false)) {
+              if (question.answers[i].correct && (question.answers[i].chosen === false)) {
                 this.correct = false
               }
             }

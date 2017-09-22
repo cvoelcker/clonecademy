@@ -1,16 +1,16 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import {QuestionModule} from '../question/question.module'
+import {QuestionModuleComponent} from '../question/question.module'
 import {SafeResourceUrl} from '@angular/platform-browser';
 import {ActivatedRoute} from '@angular/router'
 import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-InformationText',
+  selector: 'app-information-text',
   templateUrl: './info-youtube.component.html',
   styleUrls: ['./info-youtube.component.scss']
 })
-export class InformationYoutubeComponent extends QuestionModule {
+export class InformationYoutubeComponent extends QuestionModuleComponent implements OnInit {
 
   url: SafeResourceUrl
 

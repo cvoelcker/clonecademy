@@ -9,7 +9,7 @@ describe('ProfilePageComponent', () => {
   let fixture: ComponentFixture<ProfilePageComponent>;
 
   beforeEach(async(() => {
-    let base = new BaseTest();
+    const base = new BaseTest();
     TestBed.configureTestingModule({
       declarations: [ProfilePageComponent],
       imports: [base.imports()],

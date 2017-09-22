@@ -12,7 +12,7 @@ import 'rxjs/Rx' ;
  * A component to display the statistics of the current course
  */
 @Component({
-  selector: 'CourseStatistics',
+  selector: 'app-course-statistics',
   templateUrl: './statistics.component.html',
   styleUrls: ['./statistics.component.scss']
 })
@@ -20,6 +20,12 @@ export class CourseStatisticsComponent implements OnInit {
 
   id: number;
   list: any;
+
+  // Pie variables
+  loadingPie = false;
+  pieChartLabels  = ['Solved', 'Not solved'];
+  pieChartData = [];
+  pieChartColor = [{ backgroundColor: [ '#aaff80' , 'darkred' ]}];
 
   constructor(
     private server: ServerService,
@@ -36,21 +42,15 @@ export class CourseStatisticsComponent implements OnInit {
     this.loadList()
   }
 
-  //Pie variables
-  loadingPie = false;
-  public pieChartLabels:string[] = ["Solved", "Not solved"];
-  public pieChartData:number[]= [];
-  public pieChartColor:any = [{backgroundColor: ["#aaff80", "darkred"]}];
-
   /**
   Load the variables for the pie view
   @author Leonhard Wiedmann
   **/
-  loadPie(){
+  loadPie() {
     this.loadingPie = true;
-    this.server.post("statistics", {
+    this.server.post('statistics', {
       course: this.id,
-      filter: "solved"
+      filter: 'solved'
     }).then((data: any) => {
         this.pieChartData = [data['True'], data['False']]
         this.loadingPie = true;
@@ -61,9 +61,9 @@ export class CourseStatisticsComponent implements OnInit {
   Load the list of questions, how many tries this question has and how many correct tries it has
   @author Leonhard Wiedmann
   **/
-  loadList(){
+  loadList() {
     this.loadingPie = true;
-    this.server.post("statistics", {
+    this.server.post('statistics', {
       list_questions: true,
       course: this.id,
     }).then((data: any) => {

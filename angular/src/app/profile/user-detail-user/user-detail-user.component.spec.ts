@@ -9,7 +9,7 @@ describe('User Detail Component', () => {
   let fixture: ComponentFixture<UserDetailUserComponent>;
 
   beforeEach(async(() => {
-    let base = new BaseTest();
+    const base = new BaseTest();
     TestBed.configureTestingModule({
       imports: [base.imports()],
       providers: [base.providers()],

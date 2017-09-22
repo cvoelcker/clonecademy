@@ -3,7 +3,7 @@ import {TestBed, inject} from '@angular/core/testing';
 import {UserService} from './user.service';
 
 import {ServerService} from './server.service'
-import {Router} from "@angular/router"
+import {Router} from '@angular/router'
 import {CookieService} from 'angular2-cookie/core';
 import {Http} from '@angular/http';
 

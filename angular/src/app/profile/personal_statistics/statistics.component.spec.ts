@@ -10,7 +10,7 @@ describe('StatisticsComponent', () => {
   let fixture: ComponentFixture<StatisticsComponent>;
 
   beforeEach(async(() => {
-    let base = new BaseTest();
+    const base = new BaseTest();
     TestBed.configureTestingModule({
       declarations: [StatisticsComponent],
       imports: [base.imports()],

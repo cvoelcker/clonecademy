@@ -9,7 +9,7 @@ describe('ProfilesComponent', () => {
   let fixture: ComponentFixture<ProfilesComponent>;
 
   beforeEach(async(() => {
-    let base = new BaseTest();
+    const base = new BaseTest();
     TestBed.configureTestingModule({
       imports: [base.imports()],
       providers: [base.providers()],

@@ -52,45 +52,42 @@ export class AddQuestionComponent implements OnInit {
 
   // add a question to the view
   addQuestion(data) {
-    //console.log(answers)
     // create factory
     // in the module class child will be set to the question type
     this.questionFactory = this.factory.resolveComponentFactory(this.child)
     // create new question
-    let question = this.question.createComponent(this.questionFactory)
+    const question = this.question.createComponent(this.questionFactory)
     this.questionCopy = (<AddQuestionModuleComponent> question.instance)
     // set the question text
-    if (data != undefined) {
+    if (data !== undefined) {
 
-      if (data['text'] != undefined) {
+      if (data['text'] !== undefined) {
         this.questionBody = data['text']
       }
-      if (data['title'] != undefined) {
+      if (data['title'] !== undefined) {
         this.title = data['title']
 
       }
-      let feedback = data['feedback']
+      const feedback = data['feedback']
       // check if the feedback is set and if true set the feedback text
-      if (feedback != undefined && feedback != '') {
+      if (feedback !== undefined && feedback !== '') {
         this.feedbackBool = true;
         this.feedback = feedback
       }
       this.id = data['id'];
       this.questionCopy.edit(data['question_body']);
     }
-
-
   }
 
 
   remove(e) {
-    if (e != null && e.toState == '0') {
-      //this.emitter.emit("remove")
+    if (e !== null && e.toState === '0') {
+      // this.emitter.emit('remove')
     }
   }
 
   save(f): any {
-    let response = this.questionCopy.save(f)
+    const response = this.questionCopy.save(f)
     // check if custom feedback is set and save it if needed
 
     response['id'] = this.id;
@@ -99,11 +96,10 @@ export class AddQuestionComponent implements OnInit {
     response['title'] = this.title
     if (this.feedbackBool) {
       response['feedback'] = this.feedback;
-    }
-    else {
+    } else {
       response['feedback'] = ''
     }
-    if (response['feedback'] == undefined) {
+    if (response['feedback'] === undefined) {
       response['feedback'] = '';
     }
 

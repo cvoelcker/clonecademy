@@ -21,7 +21,7 @@ export class AddInformationYoutubeComponent extends AddQuestionModuleComponent {
     text_field: '',
     url: '',
   };
-  compInfo: string = 'Loading';
+  compInfo = 'Loading';
 
   constructor(public dialog: MdDialog) {
     super()

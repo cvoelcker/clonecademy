@@ -13,7 +13,7 @@ describe('QuestionSidenavComponent', () => {
   let fixture: ComponentFixture<QuestionSidenavComponent>;
 
   beforeEach(async(() => {
-    let base = new BaseTest();
+    const base = new BaseTest();
     TestBed.configureTestingModule({
       imports: [base.imports(), ChartsModule],
       providers: [base.providers()],

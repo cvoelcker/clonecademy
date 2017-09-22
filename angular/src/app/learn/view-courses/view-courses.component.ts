@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
+import {Component, OnInit, ViewChild, ViewContainerRef, AfterViewInit} from '@angular/core';
 
 import {CourseService} from '../../service/course.service'
 import {UserService} from '../../service/user.service'
@@ -12,7 +12,7 @@ import {trigger, state, style, animate, transition} from '@angular/animations';
   animations: []
 })
 
-export class CourseViewComponent {
+export class CourseViewComponent implements AfterViewInit {
   data: any;
   courses = [];
 

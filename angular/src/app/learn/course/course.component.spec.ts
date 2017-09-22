@@ -10,11 +10,11 @@ describe('CourseComponent', () => {
   let fixture: ComponentFixture<CourseComponent>;
 
   beforeEach(async(() => {
-    let base = new BaseTest();
+    const base = new BaseTest();
     TestBed.configureTestingModule({
-      imports: [base.imports(),],
+      imports: [base.imports()],
       providers: [base.providers()],
-      declarations: [CourseComponent,]
+      declarations: [CourseComponent]
     })
       .compileComponents();
   }));

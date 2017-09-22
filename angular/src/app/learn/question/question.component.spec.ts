@@ -15,7 +15,7 @@ describe('Question Component', () => {
   let fixture: ComponentFixture<QuestionComponent>;
 
   beforeEach(async(() => {
-    let base = new BaseTest();
+    const base = new BaseTest();
     TestBed.configureTestingModule({
       imports: [base.imports()],
       providers: [base.providers()],
