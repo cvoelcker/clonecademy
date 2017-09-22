@@ -22,7 +22,12 @@ export class ServerService {
     return this.baseUrl;
   }
 
-  constructor(private http: Http, private cookie: CookieService, private dialog: MdDialog, private error: ErrorDialog) {
+  constructor(
+    private http: Http,
+    private cookie: CookieService,
+    private dialog: MdDialog,
+    private error: ErrorDialog
+  ) {
   }
 
   private makeHeader() {

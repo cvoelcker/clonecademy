@@ -1,7 +1,7 @@
 <h2>Course statistics</h2>
 <md-card class="total">
   <h3>Total statistics</h3>
-  <div *ngIf="loadingPie" class="chart">
+  <div *ngIf="loadingPie && pieChartData != [] && pieChartData != undefined" class="chart">
     <canvas baseChart
             [legend]="true"
             [colors]="pieChartColor"
@@ -23,7 +23,7 @@
       <span class="solved">Solved</span>
       <span class="tries">Tries</span>
     </div>
-    <ul *ngFor="let module of list">
+    <ul *ngFor="let module of list" >
       <li *ngFor="let question of module">
         <div class="background" [style.width.%]="(question['solved'] / (question['solved'] + question['not solved'])) * 100"></div>
         <span class="name">{{question['name']}}</span>

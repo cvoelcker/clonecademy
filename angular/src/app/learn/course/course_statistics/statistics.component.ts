@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, ChangeDetectorRef} from '@angular/core';
 
 import {ActivatedRoute, Params, Router} from '@angular/router'
 
@@ -30,6 +30,7 @@ export class CourseStatisticsComponent implements OnInit {
   constructor(
     private server: ServerService,
     private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef
   ) {
 
   }
@@ -52,8 +53,11 @@ export class CourseStatisticsComponent implements OnInit {
       course: this.id,
       filter: 'solved'
     }).then((data: any) => {
+      if (data.True != undefined && data.False != undefined) {
         this.pieChartData = [data['True'], data['False']]
         this.loadingPie = true;
+      }
+      this.cdr.detectChanges()
       })
   }
 
@@ -67,7 +71,8 @@ export class CourseStatisticsComponent implements OnInit {
       list_questions: true,
       course: this.id,
     }).then((data: any) => {
-        this.list = data
+      this.list = data  
+      this.cdr.detectChanges()
       })
   }
 
