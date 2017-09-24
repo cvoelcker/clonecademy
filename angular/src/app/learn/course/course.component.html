@@ -4,29 +4,34 @@
     {{name}}
   </h2>
   <table>
-    <td class="button" [ngSwitch]="true" *ngIf="sidemenu == undefined">
-      <button
-        *ngSwitchCase="!completed && modules[0] != undefined && !modules[0].questions[0].solved"
-        md-raised-button routerLink="/course/{{ id }}/1/1/">{{"start Course" |
-        translate}}
-      </button>
-      <button *ngSwitchCase="completed" md-raised-button [disabled]="true">
-        {{"course completed" | translate}}
-      </button>
-      <button *ngSwitchDefault md-raised-button
-              routerLink="/course/{{ id }}/{{ lastCourse[0] }}/{{ lastCourse[1] + 1 }}/">
-        {{"continue" | translate}}
-      </button>
+    <td class="navigation">
+      <div class="button" [ngSwitch]="true" *ngIf="sidemenu == undefined">
+        <button
+          *ngSwitchCase="!completed && modules[0] != undefined && !modules[0].questions[0].solved"
+          md-raised-button routerLink="/course/{{ id }}/1/1/">{{"start Course"
+          |
+          translate}}
+        </button>
+        <button *ngSwitchCase="completed" md-raised-button [disabled]="true">
+          {{"course completed" | translate}}
+        </button>
+        <button *ngSwitchDefault md-raised-button
+                routerLink="/course/{{ id }}/{{ lastCourse[0] }}/{{ lastCourse[1] + 1 }}/">
+          {{"continue" | translate}}
+        </button>
+      </div>
+      <div class="button" [ngSwitch]="true" *ngIf="sidemenu == undefined">
       <span mdTooltip='Finish the course to start the quiz'>
       <button *ngSwitchCase="!completed"
               md-raised-button [disabled]="true">Start quiz
       </button>
         </span>
-      <button *ngSwitchCase="completed" md-raised-button
-              routerLink="/course/{{ id }}/quiz">
-        Start quiz
-      </button>
+        <button *ngSwitchCase="completed" md-raised-button
+                routerLink="/course/{{ id }}/quiz">
+          Start quiz
+        </button>
 
+      </div>
     </td>
 
     <td class="options" *ngIf="user.isModerator()">
