@@ -141,7 +141,7 @@
             </span>
             </div>
           </md-card>
-          <span mdTooltip="a quiz can must have not more then 20 questions"
+          <span mdTooltip="a quiz must have less than 20 questions"
                 [mdTooltipDisabled]="quiz.length < 20 ">
           <button type="button" md-raised-button (click)="addQuizQuestion()"
                   [disabled]="quiz.length >= 20"><md-icon>add</md-icon> {{"add Quiz Question" | translate}}</button>
