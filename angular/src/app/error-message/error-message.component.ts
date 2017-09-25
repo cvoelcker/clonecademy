@@ -14,10 +14,6 @@ export class ErrorMessageComponent {
   text: string;
 
   constructor(@Optional() @Inject(MD_DIALOG_DATA) public data: string, private translate: TranslateService) {
-    if (data !== undefined) {
-      translate.get(data).subscribe((res) => {
-        this.text = res
-      })
-    }
+    this.text = data
   }
 }

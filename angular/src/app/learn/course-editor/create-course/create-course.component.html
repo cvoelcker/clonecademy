@@ -161,9 +161,7 @@
       <div class="alert danger" *ngIf="f.submitted && !f.valid">
         {{"Please check the from there is something wrong." | translate}}
       </div>
-      <button type="submit" md-raised-button class="saveButton"
-              mdTooltip='{{"a course must contain at least one module" | translate}}'
-              [disabled]="length < 1">
+      <button type="submit"  md-raised-button class="saveButton">
         <md-icon>save</md-icon>
         {{"save" | translate}}
       </button>

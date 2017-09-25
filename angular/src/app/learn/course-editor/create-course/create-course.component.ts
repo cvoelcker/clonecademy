@@ -212,7 +212,6 @@ export class CreateCourseComponent implements AfterViewInit {
 
 
   ngAfterViewInit() {
-    this.length = this.modules.length
   }
 
   clearModule() {
@@ -226,13 +225,13 @@ export class CreateCourseComponent implements AfterViewInit {
 
     module.id = id
 
-    if (title !== null) {
+    if (title !== undefined) {
       module.title = title
     }
-    if (moduleDescription !== null) {
+    if (moduleDescription !== undefined) {
       module.learningText = moduleDescription
     }
-    if (questions !== null) {
+    if (questions !== undefined) {
       for (let i = 0; i < questions.length; i++) {
         const question = questions[i]
         module.editQuestion(question)
@@ -245,7 +244,6 @@ export class CreateCourseComponent implements AfterViewInit {
       if (data === 'remove') {
         this.moduleArray.splice(this.moduleArray.indexOf(moduleSingle), 1)
         moduleSingle.destroy();
-        this.length = this.modules.length;
       } else if (data === 'up') {
         const index = this.modules.indexOf(moduleComponent.hostView);
         const i = index - 1 > 0 ? index - 1 : 0;
@@ -256,7 +254,6 @@ export class CreateCourseComponent implements AfterViewInit {
         this.modules.move(moduleComponent.hostView, i);
       }
     })
-    this.length = this.modules.length;
   }
 
   removeCourse() {
@@ -300,6 +297,7 @@ export class CreateCourseComponent implements AfterViewInit {
         this.course.load()
         this.router.navigate(['/course'])
       })
+      .catch(err => {})
   }
 
 

@@ -222,7 +222,7 @@ class CourseView(APIView):
         # This branch saves new courses or edites existing courses
         if (course_id is None) and Course.objects.filter(
                 name=data['name']).exists():
-            return Response({'ans': 'Course with that name exists'},
+            return Response({'error': 'Course with that name exists'},
                             status=status.HTTP_409_CONFLICT)
         if course_id is None:
             data['responsible_mod'] = request.user
@@ -231,8 +231,7 @@ class CourseView(APIView):
             # decline access if user is wether admin nor responsible_mod
             if (request.user.profile.is_admin()
                     or request.user == responsible_mod):
-                data['responsible_mod'] = Course.objects.get(
-                    id=course_id).responsible_mod
+                data['responsible_mod'] = responsible_mod
             else:
                 raise PermissionDenied(detail="You're not allowed to edit this"
                                        + "course, since you're not the"
