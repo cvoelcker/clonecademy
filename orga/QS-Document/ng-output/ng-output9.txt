@@ -1,0 +1,507 @@
+[37;40mnpm[0m [0m[32minfo[0m [0m[35mit worked if it ends with[0m ok
+[0m[37;40mnpm[0m [0m[32minfo[0m [0m[35musing[0m npm@5.0.0
+[0m[37;40mnpm[0m [0m[32minfo[0m [0m[35musing[0m node@v8.0.0
+[0m[37;40mnpm[0m [0m[32minfo[0m [0m[35mlifecycle[0m clonecademy@0.0.0~prelint: clonecademy@0.0.0
+[0m[37;40mnpm[0m [0m[32minfo[0m [0m[35mlifecycle[0m clonecademy@0.0.0~lint: clonecademy@0.0.0
+[0m
+> clonecademy@0.0.0 lint /angular
+> ng lint
+
+Warning: The 'no-use-before-declare' rule requires type checking
+
+ERROR: /angular/src/app/error-message/error-message.component.ts[20, 3]: Implement lifecycle hook interface OnInit for method ngOnInit in class ErrorMessageComponent (https://goo.gl/w1Nwk3)
+ERROR: /angular/src/app/service/error.service.ts[12, 21]: missing whitespace
+ERROR: /angular/src/app/service/error.service.ts[13, 11]: Identifier 'dialogRef' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/loader/loader.component.ts[10, 42]: expected nospace before colon in parameter
+ERROR: /angular/src/app/loader/loader.component.ts[12, 3]: Implement lifecycle hook interface AfterViewInit for method ngAfterViewInit in class LoaderComponent (https://goo.gl/w1Nwk3)
+ERROR: /angular/src/app/service/sass-helper/sass-helper.ts[20, 13]: Identifier 'bodyStyles' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/service/sass-helper/sass-helper.ts[12, 37]: missing whitespace
+ERROR: /angular/src/app/service/sass-helper/sass-helper.ts[6, 15]: The selector of the component "SassHelperComponent" should have prefix "app" (https://goo.gl/cix8BY)
+ERROR: /angular/src/app/app.component.ts[14, 78]: missing whitespace
+ERROR: /angular/src/app/login/login.component.ts[38, 1]: Exceeds maximum line length of 140
+ERROR: /angular/src/app/login/login.component.ts[42, 14]: missing whitespace
+ERROR: /angular/src/app/login/login.component.ts[43, 19]: missing whitespace
+ERROR: /angular/src/app/login/login.component.ts[50, 9]: missing whitespace
+ERROR: /angular/src/app/login/login.component.ts[50, 5]: misplaced 'else'
+ERROR: /angular/src/app/login/login.component.ts[56, 41]: missing whitespace
+ERROR: /angular/src/app/login/login.component.ts[47, 13]: Identifier 'dialogRef' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/login/login.component.ts[5, 29]: " should be '
+ERROR: /angular/src/app/login/login.component.ts[8, 24]: " should be '
+ERROR: /angular/src/app/login/login.component.ts[21, 14]: " should be '
+ERROR: /angular/src/app/login/login.component.ts[22, 18]: " should be '
+ERROR: /angular/src/app/login/login.component.ts[24, 14]: " should be '
+ERROR: /angular/src/app/login/login.component.ts[25, 18]: " should be '
+ERROR: /angular/src/app/login/login.component.ts[51, 29]: " should be '
+ERROR: /angular/src/app/login/login.component.ts[38, 79]: missing whitespace
+ERROR: /angular/src/app/login/login.component.ts[43, 7]: missing whitespace
+ERROR: /angular/src/app/login/login.component.ts[56, 7]: missing whitespace
+ERROR: /angular/src/app/learn/dashboard/dashboard.component.ts[45, 9]: comment must start with a space
+ERROR: /angular/src/app/learn/dashboard/dashboard.component.ts[28, 32]: missing whitespace
+ERROR: /angular/src/app/learn/dashboard/dashboard.component.ts[42, 40]: missing whitespace
+ERROR: /angular/src/app/learn/dashboard/dashboard.component.ts[44, 20]: missing whitespace
+ERROR: /angular/src/app/learn/dashboard/dashboard.component.ts[43, 9]: Identifier 'percent' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/dashboard/dashboard.component.ts[15, 30]: " should be '
+ERROR: /angular/src/app/learn/dashboard/dashboard.component.ts[15, 40]: " should be '
+ERROR: /angular/src/app/learn/dashboard/dashboard.component.ts[16, 30]: " should be '
+ERROR: /angular/src/app/learn/dashboard/dashboard.component.ts[16, 40]: " should be '
+ERROR: /angular/src/app/learn/dashboard/dashboard.component.ts[48, 12]: " should be '
+ERROR: /angular/src/app/learn/dashboard/dashboard.component.ts[44, 7]: missing whitespace
+ERROR: /angular/src/app/directive/logged-in.directive.ts[14, 41]: missing whitespace
+ERROR: /angular/src/app/directive/logged-in.directive.ts[2, 26]: " should be '
+ERROR: /angular/src/app/directive/logged-in.directive.ts[3, 24]: " should be '
+ERROR: /angular/src/app/directive/logged-in.directive.ts[14, 24]: " should be '
+ERROR: /angular/src/app/directive/logged-in.directive.ts[15, 34]: " should be '
+ERROR: /angular/src/app/directive/logged-in.directive.ts[16, 29]: " should be '
+ERROR: /angular/src/app/directive/logged-in.directive.ts[14, 7]: missing whitespace
+ERROR: /angular/src/app/menu/menu.component.ts[16, 72]: missing whitespace
+ERROR: /angular/src/app/menu/menu.component.ts[17, 34]: " should be '
+ERROR: /angular/src/app/learn/course/course.component.ts[25, 5]: comment must start with a space
+ERROR: /angular/src/app/learn/course/course.component.ts[19, 14]: Type boolean trivially inferred from a boolean literal, remove type annotation
+ERROR: /angular/src/app/learn/course/course.component.ts[28, 23]: Type string trivially inferred from a string literal, remove type annotation
+ERROR: /angular/src/app/learn/course/course.component.ts[45, 14]: missing whitespace
+ERROR: /angular/src/app/learn/course/course.component.ts[62, 13]: missing whitespace
+ERROR: /angular/src/app/learn/course/course.component.ts[88, 36]: missing whitespace
+ERROR: /angular/src/app/learn/course/course.component.ts[95, 9]: misplaced 'else'
+ERROR: /angular/src/app/learn/course/course.component.ts[91, 42]: missing whitespace
+ERROR: /angular/src/app/learn/course/course.component.ts[98, 28]: missing whitespace
+ERROR: /angular/src/app/learn/course/course.component.ts[99, 55]: missing whitespace
+ERROR: /angular/src/app/learn/course/course.component.ts[100, 70]: missing whitespace
+ERROR: /angular/src/app/learn/course/course.component.ts[101, 54]: missing whitespace
+ERROR: /angular/src/app/learn/course/course.component.ts[90, 15]: Identifier 'lastQuestion' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course/course.component.ts[87, 13]: Identifier 'lastModule' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course/course.component.ts[57, 22]: " should be '
+ERROR: /angular/src/app/learn/course/course.component.ts[77, 19]: " should be '
+ERROR: /angular/src/app/learn/course/course.component.ts[79, 44]: " should be '
+ERROR: /angular/src/app/learn/course/course.component.ts[111, 29]: " should be '
+ERROR: /angular/src/app/learn/course/course.component.ts[88, 23]: != should be !==
+ERROR: /angular/src/app/learn/course/course.component.ts[91, 34]: == should be ===
+ERROR: /angular/src/app/learn/course/course.component.ts[79, 33]: missing whitespace
+ERROR: /angular/src/app/learn/course/course.component.ts[79, 34]: missing whitespace
+ERROR: /angular/src/app/learn/course/course.component.ts[83, 65]: missing whitespace
+ERROR: /angular/src/app/learn/course/course.component.ts[83, 66]: missing whitespace
+ERROR: /angular/src/app/learn/course/course.component.ts[102, 37]: missing whitespace
+ERROR: /angular/src/app/learn/course/course.component.ts[102, 38]: missing whitespace
+ERROR: /angular/src/app/learn/course/course.component.ts[102, 42]: missing whitespace
+ERROR: /angular/src/app/learn/course/course.component.ts[102, 43]: missing whitespace
+ERROR: /angular/src/app/learn/course/course.component.ts[26, 25]: missing whitespace
+ERROR: /angular/src/app/learn/course/course.component.ts[27, 23]: missing whitespace
+ERROR: /angular/src/app/learn/course/course.component.ts[28, 23]: missing whitespace
+ERROR: /angular/src/app/learn/course/course.component.ts[29, 24]: missing whitespace
+ERROR: /angular/src/app/learn/course/course.component.ts[32, 23]: missing whitespace
+ERROR: /angular/src/app/learn/course/course.component.ts[32, 28]: missing whitespace
+ERROR: /angular/src/app/learn/course/course.component.ts[88, 11]: missing whitespace
+ERROR: /angular/src/app/learn/course/course.component.ts[91, 13]: missing whitespace
+ERROR: /angular/src/app/learn/course/course.component.ts[98, 11]: missing whitespace
+ERROR: /angular/src/app/learn/course/course.component.ts[99, 14]: missing whitespace
+ERROR: /angular/src/app/learn/course/course.component.ts[100, 16]: missing whitespace
+ERROR: /angular/src/app/learn/course/course.component.ts[101, 17]: missing whitespace
+ERROR: /angular/src/app/directive/module.directive.ts[10, 29]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.module.ts[10, 46]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.module.ts[24, 16]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.module.ts[28, 16]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.module.ts[31, 13]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.module.ts[2, 31]: " should be '
+ERROR: /angular/src/app/learn/question/question.module.ts[25, 12]: " should be '
+ERROR: /angular/src/app/learn/question/question.module.ts[7, 13]: The selector of the component "QuestionModule" should be named kebab-case and include dash (https://goo.gl/mBg67Z)
+ERROR: /angular/src/app/learn/question/question.module.ts[10, 14]: The name of the class QuestionModule should end with the suffix Component (https://goo.gl/5X1TE7)
+ERROR: /angular/src/app/learn/multiple-choice-question/multiple-choice-question.component.ts[29, 7]: comment must start with a space
+ERROR: /angular/src/app/learn/multiple-choice-question/multiple-choice-question.component.ts[22, 16]: missing whitespace
+ERROR: /angular/src/app/learn/multiple-choice-question/multiple-choice-question.component.ts[25, 20]: missing whitespace
+ERROR: /angular/src/app/learn/multiple-choice-question/multiple-choice-question.component.ts[24, 14]: Identifier 'ans' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/multiple-choice-question/multiple-choice-question.component.ts[23, 9]: Identifier 'sendAnswer' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/multiple-choice-question/multiple-choice-question.component.ts[3, 32]: " should be '
+ERROR: /angular/src/app/learn/multiple-choice-question/multiple-choice-question.component.ts[4, 31]: " should be '
+ERROR: /angular/src/app/learn/multiple-choice-question/multiple-choice-question.component.ts[25, 9]: missing whitespace
+ERROR: /angular/src/app/learn/multiple-choice-question/multiple-choice-question.component.ts[7, 13]: The selector of the component "MultipleChoiceQuestionComponent" should be named kebab-case and include dash (https://goo.gl/mBg67Z)
+ERROR: /angular/src/app/learn/multiple-choice-question/multiple-choice-question.component.ts[16, 3]: Implement lifecycle hook interface OnInit for method ngOnInit in class MultipleChoiceQuestionComponent (https://goo.gl/w1Nwk3)
+ERROR: /angular/src/app/learn/question/question.component.ts[1, 1]: Exceeds maximum line length of 140
+ERROR: /angular/src/app/learn/question/question.component.ts[89, 13]: Shadowed variable: 'data'
+ERROR: /angular/src/app/learn/question/question.component.ts[106, 58]: Shadowed variable: 'data'
+ERROR: /angular/src/app/learn/question/question.component.ts[112, 79]: Shadowed variable: 'data'
+ERROR: /angular/src/app/learn/question/question.component.ts[59, 13]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[63, 17]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[85, 11]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[93, 22]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[98, 27]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[109, 9]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[109, 5]: misplaced 'else'
+ERROR: /angular/src/app/learn/question/question.component.ts[102, 33]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[105, 11]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[105, 7]: misplaced 'else'
+ERROR: /angular/src/app/learn/question/question.component.ts[118, 9]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[119, 27]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[122, 5]: misplaced 'else'
+ERROR: /angular/src/app/learn/question/question.component.ts[122, 30]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[126, 9]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[126, 5]: misplaced 'else'
+ERROR: /angular/src/app/learn/question/question.component.ts[76, 11]: Identifier 'question' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/question/question.component.ts[87, 9]: Identifier 'data' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/question/question.component.ts[3, 31]: " should be '
+ERROR: /angular/src/app/learn/question/question.component.ts[7, 49]: " should be '
+ERROR: /angular/src/app/learn/question/question.component.ts[9, 32]: " should be '
+ERROR: /angular/src/app/learn/question/question.component.ts[64, 21]: " should be '
+ERROR: /angular/src/app/learn/question/question.component.ts[64, 46]: " should be '
+ERROR: /angular/src/app/learn/question/question.component.ts[64, 83]: " should be '
+ERROR: /angular/src/app/learn/question/question.component.ts[88, 22]: " should be '
+ERROR: /angular/src/app/learn/question/question.component.ts[88, 47]: " should be '
+ERROR: /angular/src/app/learn/question/question.component.ts[88, 85]: " should be '
+ERROR: /angular/src/app/learn/question/question.component.ts[102, 30]: " should be '
+ERROR: /angular/src/app/learn/question/question.component.ts[106, 28]: " should be '
+ERROR: /angular/src/app/learn/question/question.component.ts[112, 26]: " should be '
+ERROR: /angular/src/app/learn/question/question.component.ts[128, 33]: " should be '
+ERROR: /angular/src/app/learn/question/question.component.ts[131, 31]: " should be '
+ERROR: /angular/src/app/learn/question/question.component.ts[131, 56]: " should be '
+ERROR: /angular/src/app/learn/question/question.component.ts[131, 80]: " should be '
+ERROR: /angular/src/app/learn/question/question.component.ts[102, 27]: != should be !==
+ERROR: /angular/src/app/learn/question/question.component.ts[64, 49]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[64, 45]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[64, 46]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[64, 31]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[64, 32]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[64, 78]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[88, 50]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[88, 46]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[88, 47]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[88, 32]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[88, 33]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[88, 79]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[88, 120]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[131, 59]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[131, 55]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[131, 56]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[131, 41]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[131, 42]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[98, 7]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[102, 9]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[119, 7]: missing whitespace
+ERROR: /angular/src/app/learn/question/question.component.ts[122, 12]: missing whitespace
+ERROR: /angular/src/app/learn/module/module.component.ts[40, 13]: missing whitespace
+ERROR: /angular/src/app/learn/module/module.component.ts[9, 35]: " should be '
+ERROR: /angular/src/app/learn/module/module.component.ts[10, 49]: " should be '
+ERROR: /angular/src/app/learn/module/module.component.ts[20, 5]: " should be '
+ERROR: /angular/src/app/learn/module/module.component.ts[33, 21]: " should be '
+ERROR: /angular/src/app/learn/module/module.component.ts[33, 46]: " should be '
+ERROR: /angular/src/app/learn/module/module.component.ts[33, 49]: missing whitespace
+ERROR: /angular/src/app/learn/module/module.component.ts[33, 50]: missing whitespace
+ERROR: /angular/src/app/learn/module/module.component.ts[33, 45]: missing whitespace
+ERROR: /angular/src/app/learn/module/module.component.ts[33, 46]: missing whitespace
+ERROR: /angular/src/app/learn/module/module.component.ts[33, 31]: missing whitespace
+ERROR: /angular/src/app/learn/module/module.component.ts[33, 32]: missing whitespace
+ERROR: /angular/src/app/learn/module/module.component.ts[28, 14]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-question/add-question.module.ts[14, 25]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-question/add-question.module.ts[18, 29]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-question/add-question.module.ts[19, 24]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-question/add-question.module.ts[15, 12]: " should be '
+ERROR: /angular/src/app/learn/course-editor/add-question/add-question.module.ts[19, 7]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-question/add-question.module.ts[8, 14]: The name of the class AddQuestionModule should end with the suffix Component (https://goo.gl/5X1TE7)
+ERROR: /angular/src/app/learn/course-editor/add-question/add-question.component.ts[41, 7]: comment must start with a space
+ERROR: /angular/src/app/learn/course-editor/add-question/add-question.component.ts[1, 1]: Exceeds maximum line length of 140
+ERROR: /angular/src/app/learn/course-editor/add-question/add-question.component.ts[28, 13]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-question/add-question.component.ts[33, 13]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-question/add-question.component.ts[40, 72]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-question/add-question.component.ts[54, 12]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-question/add-question.component.ts[55, 38]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-question/add-question.component.ts[61, 15]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-question/add-question.component.ts[67, 42]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-question/add-question.component.ts[46, 9]: Identifier 'question' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course-editor/add-question/add-question.component.ts[62, 9]: Identifier 'response' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course-editor/add-question/add-question.component.ts[4, 25]: " should be '
+ERROR: /angular/src/app/learn/course-editor/add-question/add-question.component.ts[20, 18]: " should be '
+ERROR: /angular/src/app/learn/course-editor/add-question/add-question.component.ts[55, 34]: " should be '
+ERROR: /angular/src/app/learn/course-editor/add-question/add-question.component.ts[56, 25]: " should be '
+ERROR: /angular/src/app/learn/course-editor/add-question/add-question.component.ts[66, 25]: " should be '
+ERROR: /angular/src/app/learn/course-editor/add-question/add-question.component.ts[68, 30]: " should be '
+ERROR: /angular/src/app/learn/course-editor/add-question/add-question.component.ts[55, 31]: == should be ===
+ERROR: /angular/src/app/learn/course-editor/add-question/add-question.component.ts[67, 29]: == should be ===
+ERROR: /angular/src/app/learn/course-editor/add-question/add-question.component.ts[55, 7]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-question/add-question.component.ts[67, 7]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[21, 18]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[24, 44]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[33, 37]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[34, 76]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[39, 33]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[43, 14]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[47, 25]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[48, 49]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[49, 37]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[23, 9]: Identifier 'answers' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[3, 35]: " should be '
+ERROR: /angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[5, 25]: " should be '
+ERROR: /angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[16, 83]: " should be '
+ERROR: /angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[28, 13]: " should be '
+ERROR: /angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[44, 30]: " should be '
+ERROR: /angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[34, 67]: == should be ===
+ERROR: /angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[24, 8]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[34, 7]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[44, 45]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[48, 8]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.ts[49, 9]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[75, 7]: comment must start with a space
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[1, 1]: Exceeds maximum line length of 140
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[22, 10]: Type string trivially inferred from a string literal, remove type annotation
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[23, 17]: Type string trivially inferred from a string literal, remove type annotation
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[41, 82]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[53, 83]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[55, 52]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[56, 42]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[67, 20]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[73, 10]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[78, 16]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[79, 54]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[85, 7]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[90, 9]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[97, 13]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[100, 55]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[103, 21]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[43, 11]: Identifier 'question' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[44, 11]: Identifier 'q' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[104, 13]: Identifier 'save' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[101, 11]: Identifier 'tmp' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[102, 11]: Identifier 'index' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[99, 9]: Identifier 'values' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[3, 38]: " should be '
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[5, 25]: " should be '
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[8, 44]: " should be '
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[19, 12]: " should be '
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[22, 19]: " should be '
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[23, 26]: " should be '
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[79, 25]: " should be '
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[80, 23]: " should be '
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[86, 21]: " should be '
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[91, 21]: " should be '
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[79, 22]: == should be ===
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[79, 45]: == should be ===
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[55, 8]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[56, 9]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[79, 7]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[100, 8]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[103, 9]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.ts[67, 3]: Implement lifecycle hook interface AfterViewInit for method ngAfterViewInit in class AddModuleComponent (https://goo.gl/w1Nwk3)
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[55, 9]: comment must start with a space
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[123, 9]: comment must start with a space
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[1, 1]: Exceeds maximum line length of 140
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[31, 1]: Exceeds maximum line length of 140
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[122, 1]: Exceeds maximum line length of 140
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[38, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[44, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[46, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[51, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[21, 11]: Type number trivially inferred from a number literal, remove type annotation
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[34, 26]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[40, 26]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[53, 20]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[54, 33]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[77, 80]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[80, 22]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[83, 34]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[86, 26]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[87, 48]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[96, 27]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[101, 7]: misplaced 'else'
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[101, 28]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[106, 7]: misplaced 'else'
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[106, 30]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[115, 17]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[119, 10]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[121, 16]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[128, 20]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[130, 53]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[140, 22]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[88, 13]: Identifier 'question' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[102, 13]: Identifier 'index' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[103, 13]: Identifier 'i' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[107, 13]: Identifier 'index' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[108, 13]: Identifier 'i' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[95, 11]: Identifier 'moduleSingle' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[78, 9]: Identifier 'moduleComponent' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[79, 9]: Identifier 'module' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[122, 11]: Identifier 'course' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[120, 9]: Identifier 'saveModules' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[131, 11]: Identifier 'module' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[132, 11]: Identifier 'index' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[133, 11]: Identifier 'm' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[129, 9]: Identifier 'saveModules' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[3, 40]: " should be '
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[8, 29]: " should be '
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[26, 56]: " should be '
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[26, 68]: " should be '
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[26, 85]: " should be '
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[26, 97]: " should be '
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[31, 73]: " should be '
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[31, 99]: " should be '
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[31, 129]: " should be '
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[31, 160]: " should be '
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[47, 28]: " should be '
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[70, 21]: " should be '
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[96, 18]: " should be '
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[101, 23]: " should be '
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[106, 23]: " should be '
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[122, 98]: " should be '
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[96, 15]: == should be ===
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[101, 20]: == should be ===
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[106, 20]: == should be ===
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[54, 7]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[80, 7]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[83, 7]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[86, 7]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[87, 10]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[96, 9]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[101, 14]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[106, 14]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[121, 7]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[130, 8]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.ts[53, 3]: Implement lifecycle hook interface AfterViewInit for method ngAfterViewInit in class CreateCourseComponent (https://goo.gl/w1Nwk3)
+ERROR: /angular/src/app/profile/personal_statistics/statistics.component.ts[22, 9]: for (... in ...) statements must be filtered with an if statement
+ERROR: /angular/src/app/profile/personal_statistics/statistics.component.ts[22, 38]: missing whitespace
+ERROR: /angular/src/app/profile/personal_statistics/statistics.component.ts[22, 17]: Identifier 's' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/profile/personal_statistics/statistics.component.ts[18, 21]: " should be '
+ERROR: /angular/src/app/profile/personal_statistics/statistics.component.ts[23, 13]: " should be '
+ERROR: /angular/src/app/profile/personal_statistics/statistics.component.ts[23, 34]: " should be '
+ERROR: /angular/src/app/profile/personal_statistics/statistics.component.ts[22, 12]: missing whitespace
+ERROR: /angular/src/app/profile/personal_statistics/statistics.component.ts[6, 13]: The selector of the component "StatisticsComponent" should be named kebab-case and include dash (https://goo.gl/mBg67Z)
+ERROR: /angular/src/app/profile/request-mod/request-mod.component.ts[36, 5]: if statements must be braced
+ERROR: /angular/src/app/profile/request-mod/request-mod.component.ts[35, 17]: missing whitespace
+ERROR: /angular/src/app/profile/request-mod/request-mod.component.ts[38, 9]: Identifier 'request' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/profile/request-mod/request-mod.component.ts[4, 24]: " should be '
+ERROR: /angular/src/app/profile/request-mod/request-mod.component.ts[23, 21]: " should be '
+ERROR: /angular/src/app/profile/request-mod/request-mod.component.ts[39, 22]: " should be '
+ERROR: /angular/src/app/profile/request-mod/request-mod.component.ts[40, 38]: missing whitespace
+ERROR: /angular/src/app/profile/request-mod/request-mod.component.ts[40, 39]: missing whitespace
+ERROR: /angular/src/app/admin/user-detail/user-detail.component.ts[29, 21]: missing whitespace
+ERROR: /angular/src/app/admin/user-detail/user-detail.component.ts[30, 21]: " should be '
+ERROR: /angular/src/app/admin/user-detail/user-detail.component.ts[30, 35]: " should be '
+ERROR: /angular/src/app/admin/user-detail/user-detail.component.ts[30, 28]: missing whitespace
+ERROR: /angular/src/app/admin/profiles/profiles.component.ts[9, 3]: comment must start with a space
+ERROR: /angular/src/app/admin/profiles/profiles.component.ts[35, 21]: missing whitespace
+ERROR: /angular/src/app/admin/profiles/profiles.component.ts[5, 24]: " should be '
+ERROR: /angular/src/app/admin/profiles/profiles.component.ts[28, 21]: " should be '
+ERROR: /angular/src/app/profile/profile-page/profile-page.component.ts[21, 78]: missing whitespace
+ERROR: /angular/src/app/profile/profile-page/profile-page.component.ts[22, 46]: missing whitespace
+ERROR: /angular/src/app/profile/profile-page/profile-page.component.ts[28, 13]: missing whitespace
+ERROR: /angular/src/app/profile/profile-page/profile-page.component.ts[16, 12]: " should be '
+ERROR: /angular/src/app/profile/profile-page/profile-page.component.ts[16, 33]: " should be '
+ERROR: /angular/src/app/profile/profile-page/profile-page.component.ts[17, 12]: " should be '
+ERROR: /angular/src/app/profile/profile-page/profile-page.component.ts[17, 39]: " should be '
+ERROR: /angular/src/app/profile/profile-page/profile-page.component.ts[18, 12]: " should be '
+ERROR: /angular/src/app/profile/profile-page/profile-page.component.ts[18, 31]: " should be '
+ERROR: /angular/src/app/profile/profile-page/profile-page.component.ts[22, 8]: missing whitespace
+ERROR: /angular/src/app/admin/admin-page/admin-page.component.ts[10, 50]: missing whitespace
+ERROR: /angular/src/app/admin/admin-page/admin-page.component.ts[13, 12]: " should be '
+ERROR: /angular/src/app/admin/admin-page/admin-page.component.ts[13, 29]: " should be '
+ERROR: /angular/src/app/register/register.component.ts[32, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /angular/src/app/register/register.component.ts[33, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /angular/src/app/register/register.component.ts[34, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /angular/src/app/register/register.component.ts[35, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /angular/src/app/register/register.component.ts[36, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /angular/src/app/register/register.component.ts[37, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /angular/src/app/register/register.component.ts[38, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /angular/src/app/register/register.component.ts[45, 3]: Declaration of instance field not allowed after declaration of instance method. Instead, this should come at the beginning of the class/interface.
+ERROR: /angular/src/app/register/register.component.ts[36, 17]: Type string trivially inferred from a string literal, remove type annotation
+ERROR: /angular/src/app/register/register.component.ts[37, 16]: Type string trivially inferred from a string literal, remove type annotation
+ERROR: /angular/src/app/register/register.component.ts[25, 4]: missing whitespace
+ERROR: /angular/src/app/register/register.component.ts[52, 18]: missing whitespace
+ERROR: /angular/src/app/register/register.component.ts[53, 76]: missing whitespace
+ERROR: /angular/src/app/register/register.component.ts[54, 11]: Identifier 'data' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/register/register.component.ts[6, 29]: " should be '
+ERROR: /angular/src/app/register/register.component.ts[17, 56]: " should be '
+ERROR: /angular/src/app/register/register.component.ts[17, 68]: " should be '
+ERROR: /angular/src/app/register/register.component.ts[17, 85]: " should be '
+ERROR: /angular/src/app/register/register.component.ts[17, 97]: " should be '
+ERROR: /angular/src/app/register/register.component.ts[36, 26]: " should be '
+ERROR: /angular/src/app/register/register.component.ts[37, 25]: " should be '
+ERROR: /angular/src/app/register/register.component.ts[46, 28]: " should be '
+ERROR: /angular/src/app/register/register.component.ts[53, 35]: " should be '
+ERROR: /angular/src/app/register/register.component.ts[58, 24]: " should be '
+ERROR: /angular/src/app/register/register.component.ts[53, 7]: missing whitespace
+ERROR: /angular/src/app/register/register.component.ts[41, 3]: Implement lifecycle hook interface OnInit for method ngOnInit in class RegisterComponent (https://goo.gl/w1Nwk3)
+ERROR: /angular/src/app/learn/course-editor/create-course/edit-course.component.ts[21, 9]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/edit-course.component.ts[26, 53]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/edit-course.component.ts[27, 13]: Identifier 'module' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course-editor/create-course/edit-course.component.ts[22, 49]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/edit-course.component.ts[22, 50]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/edit-course.component.ts[22, 31]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/edit-course.component.ts[22, 32]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/edit-course.component.ts[26, 10]: missing whitespace
+ERROR: /angular/src/app/learn/course-editor/create-course/edit-course.component.ts[14, 3]: Implement lifecycle hook interface OnInit for method ngOnInit in class EditCourseComponent (https://goo.gl/w1Nwk3)
+ERROR: /angular/src/app/app.module.ts[10, 3]: comment must start with a space
+ERROR: /angular/src/app/app.module.ts[14, 1]: Exceeds maximum line length of 140
+ERROR: /angular/src/app/app.module.ts[27, 29]: " should be '
+ERROR: /angular/src/app/app.module.ts[31, 23]: " should be '
+ERROR: /angular/src/app/app.module.ts[49, 35]: " should be '
+ERROR: /angular/src/app/app.module.ts[53, 32]: " should be '
+ERROR: /angular/src/app/app.module.ts[74, 14]: " should be '
+ERROR: /angular/src/app/app.module.ts[78, 13]: " should be '
+ERROR: /angular/src/app/app.module.ts[82, 14]: " should be '
+ERROR: /angular/src/app/app.module.ts[86, 14]: " should be '
+ERROR: /angular/src/app/app.module.ts[92, 11]: " should be '
+ERROR: /angular/src/app/app.module.ts[104, 11]: " should be '
+ERROR: /angular/src/app/app.module.ts[109, 15]: " should be '
+ERROR: /angular/src/app/app.module.ts[113, 15]: " should be '
+ERROR: /angular/src/app/app.module.ts[117, 15]: " should be '
+ERROR: /angular/src/app/app.module.ts[123, 11]: " should be '
+ERROR: /angular/src/app/app.module.ts[130, 15]: " should be '
+ERROR: /angular/src/app/app.module.ts[134, 19]: " should be '
+ERROR: /angular/src/app/app.module.ts[142, 11]: " should be '
+ERROR: /angular/src/app/app.module.ts[147, 17]: " should be '
+ERROR: /angular/src/app/app.module.ts[78, 13]: missing whitespace
+ERROR: /angular/src/polyfills.ts[45, 8]: " should be '
+ERROR: /angular/src/app/base-test.ts[17, 24]: Too many spaces before 'from'
+ERROR: /angular/src/app/base-test.ts[4, 1]: Exceeds maximum line length of 140
+ERROR: /angular/src/app/base-test.ts[30, 22]: missing whitespace
+ERROR: /angular/src/app/base-test.ts[32, 49]: missing whitespace
+ERROR: /angular/src/app/base-test.ts[55, 22]: missing whitespace
+ERROR: /angular/src/app/base-test.ts[56, 44]: missing whitespace
+ERROR: /angular/src/app/base-test.ts[63, 51]: missing whitespace
+ERROR: /angular/src/app/base-test.ts[65, 22]: missing whitespace
+ERROR: /angular/src/app/base-test.ts[66, 44]: missing whitespace
+ERROR: /angular/src/app/base-test.ts[73, 57]: missing whitespace
+ERROR: /angular/src/app/base-test.ts[75, 22]: missing whitespace
+ERROR: /angular/src/app/base-test.ts[76, 44]: missing whitespace
+ERROR: /angular/src/app/base-test.ts[33, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/base-test.ts[64, 9]: Identifier 'data' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/base-test.ts[74, 9]: Identifier 'data' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/base-test.ts[21, 29]: " should be '
+ERROR: /angular/src/app/base-test.ts[55, 7]: missing whitespace
+ERROR: /angular/src/app/base-test.ts[56, 10]: missing whitespace
+ERROR: /angular/src/app/base-test.ts[65, 7]: missing whitespace
+ERROR: /angular/src/app/base-test.ts[66, 10]: missing whitespace
+ERROR: /angular/src/app/base-test.ts[75, 7]: missing whitespace
+ERROR: /angular/src/app/base-test.ts[76, 10]: missing whitespace
+ERROR: /angular/src/app/app.component.spec.ts[10, 7]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/admin/admin-page/admin-page.component.spec.ts[16, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/admin/profiles/profiles.component.spec.ts[12, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/admin/user-detail/user-detail.component.spec.ts[12, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/error-message/error-message.component.spec.ts[13, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course/course.component.spec.ts[16, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course-editor/add-module/add-module.component.spec.ts[21, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course-editor/add-multiply-choice/add-multiply-choice.component.spec.ts[12, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course-editor/add-question/add-question.component.spec.ts[12, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.spec.ts[6, 24]: Too many spaces before 'from'
+ERROR: /angular/src/app/learn/course-editor/create-course/create-course.component.spec.ts[19, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/dashboard/dashboard.component.spec.ts[14, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/module/module.component.spec.ts[14, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/multiple-choice-question/multiple-choice-question.component.spec.ts[15, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/learn/question/question.component.spec.ts[14, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/loader/loader.component.spec.ts[12, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/login/login.component.spec.ts[13, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/menu/menu.component.spec.ts[12, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/page-not-found/page-not-found.component.spec.ts[12, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/profile/personal_statistics/statistics.component.spec.ts[13, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/profile/profile-page/profile-page.component.spec.ts[12, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/profile/request-mod/request-mod.component.spec.ts[13, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/register/register.component.spec.ts[12, 9]: Identifier 'base' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/service/user.service.spec.ts[6, 24]: " should be '
+
+[31mLint errors found in the listed files.[39m
+[37;40mnpm[0m [0m[32minfo[0m [0m[35mlifecycle[0m clonecademy@0.0.0~lint: Failed to exec lint script
+[0m[37;40mnpm[0m [0m[31;40mERR![0m [0m[35mcode[0m ELIFECYCLE
+[0m[37;40mnpm[0m [0m[31;40mERR![0m [0m[35merrno[0m 2
+[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m clonecademy@0.0.0 lint: `ng lint`
+[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m Exit status 2
+[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m 
+[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m Failed at the clonecademy@0.0.0 lint script.
+[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m This is probably not a problem with npm. There is likely additional logging output above.
+[0m
+[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m A complete log of this run can be found in:
+[0m[37;40mnpm[0m [0m[31;40mERR![0m[35m[0m     /root/.npm/_logs/2017-09-25T15_16_22_428Z-debug.log
+[0m
