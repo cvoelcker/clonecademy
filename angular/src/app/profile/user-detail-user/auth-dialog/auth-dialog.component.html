@@ -1,9 +1,9 @@
 <h1 md-dialog-title>Second Authentication needed</h1>
 <div md-dialog-content>
   <p>Please enter your password to proceed</p>
-  <form>
+  <md-form-field>
     <input mdInput tabindex="1" [(ngModel)]="password" type="password">
-  </form>
+  </md-form-field>
   <md-error *ngIf='error'>
     wrong
   </md-error>
