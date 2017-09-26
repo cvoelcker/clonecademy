@@ -266,7 +266,7 @@ class CourseSerializer(serializers.ModelSerializer):
         course.save()
 
         # add quiz to a course
-        if quiz_data:
+        if quiz_data and len(quiz_data) >= 5:
             try:
                 if 5 <= len(quiz_data) <= 20:
                     quiz_id = [q['id'] for q in quiz_data if 'id' in q.keys()]
@@ -286,6 +286,9 @@ class CourseSerializer(serializers.ModelSerializer):
                 if 'id' not in validated_data:
                     course.delete()
                 raise ParseError(detail=error.detail, code=None)
+        else:
+            for quiz in coruse.quizquestion_set.all():
+                quiz.delete()
 
         # create a array with the ids for all module ids of this course
         module_id = []

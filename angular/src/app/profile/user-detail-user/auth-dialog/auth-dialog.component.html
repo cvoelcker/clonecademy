@@ -2,7 +2,7 @@
 <div md-dialog-content>
   <p>Please enter your password to proceed</p>
   <form>
-    <input mdInput tabindex="1" [(ngModel)]="password" type="password">
+    <input mdInput [ngModelOptions]="{standalone: true}" tabindex="1" [(ngModel)]="password" type="password"/>
   </form>
   <md-error *ngIf='error'>
     wrong

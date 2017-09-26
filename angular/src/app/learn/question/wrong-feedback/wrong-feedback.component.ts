@@ -13,12 +13,8 @@ export class WrongFeedbackComponent {
 
   text = 'test';
 
-  constructor(@Optional() @Inject(MD_DIALOG_DATA) public data: string, private translate: TranslateService) {
-    if (data !== undefined) {
-      translate.get(data['text']).subscribe((res) => {
-        this.text = res
-      })
-    }
+  constructor(@Inject(MD_DIALOG_DATA) public data: any) {
+    console.log('test')
   }
 
 }

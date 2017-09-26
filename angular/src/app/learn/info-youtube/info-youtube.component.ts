@@ -5,6 +5,10 @@ import {SafeResourceUrl} from '@angular/platform-browser';
 import {ActivatedRoute} from '@angular/router'
 import {DomSanitizer} from '@angular/platform-browser';
 
+/**
+ View a Youtube Video as question
+ @author Class Voelcker
+**/
 @Component({
   selector: 'app-information-text',
   templateUrl: './info-youtube.component.html',

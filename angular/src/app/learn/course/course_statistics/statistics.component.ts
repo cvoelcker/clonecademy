@@ -53,7 +53,7 @@ export class CourseStatisticsComponent implements OnInit {
       course: this.id,
       filter: 'solved'
     }).then((data: any) => {
-      if (data.True != undefined && data.False != undefined) {
+      if (data.True !== undefined && data.False !== undefined) {
         this.pieChartData = [data['True'], data['False']]
         this.loadingPie = true;
       }
@@ -71,7 +71,7 @@ export class CourseStatisticsComponent implements OnInit {
       list_questions: true,
       course: this.id,
     }).then((data: any) => {
-      this.list = data  
+      this.list = data
       this.cdr.detectChanges()
       })
   }

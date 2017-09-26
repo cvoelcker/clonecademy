@@ -86,7 +86,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
     public server: ServerService,
     private route: ActivatedRoute,
     private factory: ComponentFactoryResolver,
-    private dialog: MdDialog
+    public dialog: MdDialog
   ) {
     this.loadQuestion()
   }
@@ -181,14 +181,11 @@ export class QuestionComponent implements OnInit, OnDestroy {
       this.translate.get('wrong feedback ' + this.feedbackIterator).subscribe(translated => {
         text = translated
       })
-      const dialogRef = this.dialog.open(WrongFeedbackComponent, {
-        data: {
-          text: text
-        }
+      console.log(WrongFeedbackComponent)
+      const wrongFeedback = this.dialog.open(WrongFeedbackComponent, {
+        data: { text: text }
       })
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-      });
+      console.log(wrongFeedback)
     }
   }
 

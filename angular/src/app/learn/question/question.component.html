@@ -5,13 +5,9 @@
     <app-question-sidenav [sidemenu]="sidenav"></app-question-sidenav>
   </md-sidenav>
   <div class="content">
+    <h2>{{title}}</h2>
     <table>
       <td class="text">
-        <div class="alert">
-          <markdown id="learning_text" [data]="learning_text"
-                    *ngIf="learning_text != undefined">
-          </markdown>
-        </div>
         <md-card>
           <markdown id="question_text" [data]="questionBody"
                     *ngIf="questionBody != undefined"></markdown>

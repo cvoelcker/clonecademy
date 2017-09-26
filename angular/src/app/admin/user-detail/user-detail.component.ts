@@ -4,6 +4,10 @@ import {ServerService} from '../../service/server.service';
 import {UserService} from '../../service/user.service';
 import {ProfilesComponent} from '../profiles/profiles.component'
 
+/**
+Make the user details visible to the admin and add some more admin funktions for users
+@author Ilhan Simsiki
+**/
 @Component({
   selector: 'app-user-detail',
   templateUrl: './user-detail.component.html',
@@ -33,6 +37,13 @@ export class UserDetailComponent {
     })
   }
 
+  /**
+    This funktions loads the user with the id, gives the variable "user" the
+    response and sets the variables isMod, isAdmin
+
+    @input id: the id number of the user to load from the server
+    @author Ilhan Simisiki
+  **/
   change(id: number) {
     this.loading = true;
     // load the current user
@@ -48,45 +59,22 @@ export class UserDetailComponent {
       })
   }
 
-  promoteToModerator() {
-    this.server.post('user/' + this.id + '/rights', {
-      'right': 'moderator',
-      'action': 'promote'
-    })
-      .then(answer => {
-        this.isMod = true;
-      })
-  }
+  /**
+  Promote or demote a user to admin or moderator and reset the current user information
 
-  promoteToAdmin() {
+  @input
+    right: a string for the group ('admin' or 'moderator')
+    action: a string for 'demote' or 'promote'
+  @author Tobias Huber
+  **/
+  proDemote(right: string, action: string) {
     this.server.post('user/' + this.id + '/rights', {
-      'right': 'admin',
-      'action': 'promote'
+      'right': right,
+      'action': action
     })
-      .then(answer => {
-        this.isAdmin = true;
-      })
-  }
-
-  demoteToUser() {
-    this.server.post('user/' + this.id + '/rights', {
-      'right': 'moderator',
-      'action': 'demote'
+    .then(data => {
+      this.isMod = (-1 !== data['groups'].indexOf('moderator'))
+      this.isAdmin = (-1 !== data['groups'].indexOf('admin'))
     })
-      .then(answer => {
-        this.isMod = false;
-      })
-      .catch(err => console.log(err))
-  }
-
-  demoteToModerator() {
-    this.server.post('user/' + this.id + '/rights', {
-      'right': 'admin',
-      'action': 'demote'
-    })
-      .then(answer => {
-        this.isAdmin = false;
-      })
-      .catch(err => console.log(err))
   }
 }
