@@ -1,9 +1,9 @@
 	Iteration	User Stories	Commit Hash	Design	Veränderbarkeit	Sicherheit
 Benötigt	#num of iter	handed-in us	valid commit hash	user study report, checklist	django_test,pylint,ng2lint,selenium,checklist	bandit,zat,checklist
-02.06.	3	basis der evaluation				
-09.06.	4	basis der evaluation				
-16.06.	5	basis der evaluation				
-23.06.	6	basis der evaluation				
+02.06.	3	basis der evaluation
+09.06.	4	basis der evaluation
+16.06.	5	basis der evaluation
+23.06.	6	basis der evaluation
 30.06.	7	basis der evaluation	22f76fcce2d1d6b03857a9a4db7f9276433aecdd		django_test,pylint,ng_lint	bandit
 07.07.	8	12	cf525f64091e6c892b7e471fc8048bd8c056d69e		django_test,pylint,ng_lint	bandit
 14.07.	9	nix	e2b7fed9dbc0e929bb28e7ccf30cd68aa0d73c19		django_test,pylint,ng_lint	bandit
@@ -15,63 +15,63 @@ Benötigt	#num of iter	handed-in us	valid commit hash	user study report, checkli
 25.08.	15	38	78f8954ebc159fbcb6ed6a767e18d3437a604d22		django_test,pylint,ng_lint	bandit
 01.09.	16	DEPLOY 30,32,36,37,40,41	11bc7fa37a20ac045d5a6c29e4e3a060b73b3504		django_test,pylint,ng_lint	bandit
 08.09.	17	31,33,34,42,43,44,46	ffc8afbf7012f4b2d63e5b58ac8f0c224a7ee382		django_test,pylint,ng_lint	bandit
-15.09.	18	39, 45, 47, 49, 50, 51, 54, 55	 			
-22.09.	19	 	 			
-29.09.	20	 	 			
-						
-	Checklisten	Entwickler	Reviewer	Angesetzt in / Abgegeben in	Checklicte vorhanden	
-	1	Tobias	Claas	5	ja	
-	2	Leon	Ilhan	1		
-	3	Claas	Tobias	1		
-	4	Leon	Claas	12	ja	
-	5	Ilhan	Leon	3		
-	6	Claas	Ilhan	4	ja	
-	7	Leon	Tobias	4		
-	8	Leon	Ilhan	4	ja	
-	9	Leon	Claas	4	ja	
-	10	Ilhan	Leon	4		
-	11	Claas	Tobias	8		
-	12	Tobias	Leon	12		
-	13	geteilt				
-	14	Leon	Ilhan	7	ja	
-	15	Ilhan	Tobias	7		
-	16	Leon	Claas	7	ja	
-	17	Ilhan	Leon	10		
-	18	Tobias	Ilhan	10	ja	
-	19	Ilhan	Tobias	12		
-	20	Tobias	Leon	12		
-	21	gestrichen				
-	22	Leon	Ilhan	11	ja	
-	23	Ilhan	Tobias	läuft		
-	24	Claas	Leon	13		
-	25	Claas	Ilhan	14	ja	
-	26	Leon	Claas	13	ja	
-	27	Leon	Tobias	11		
-	28	Leon	Claas	13	ja	
-	29	Tobias	Claas	läuft	eine	
-	30	Tobias	Ilhan	16	ja	
-	31	Tobias	Leon	17		
-	32	Tobias	Leon	16		
-	33	Tobias	Claas	17		
-	34	Tobias	Ilhan	17	ja	
-	35	Tobias	Claas	läuft		
-	36	Leon	Tobias	16		
-	37	Leon	Claas	16		
-	38	Claas	Ilhan	15	ja	
-	39	Ilhan	Tobias	18	ja	
-	40	Claas	Leon	16		
-	41	Claas	Tobias	16		
-	42	Claas	Ilhan	17	ja	
-	43	Leon	Tobias	17		
-	44	Leon	Leon	17		
-	45	Ilhan	Claas	18	ja	
-	46	Claas	Ilhan	17	ja	
-	47	Leon	Claas	18	ja	
-	48	Leon	Leon		ja	
-	49	Ilhan	Claas	18	ja	
-	50	Claas	Ilhan	18		
-	51	Ilhan	Tobias	18	ja	
-	52	Claas	Leon		ja	
-	53	Tobias	Tobias			
-	54	Tobias	Claas	18	ja	
-	55	Tobias	Claas	18	ja	
+15.09.	18	39, 45, 47, 49, 50, 51, 54, 55
+22.09.	19
+29.09.	20
+
+	Checklisten	Entwickler	Reviewer	Angesetzt in / Abgegeben in	Checklicte vorhanden
+	1	Tobias	Claas	5	ja
+	2	Leon	Ilhan	1
+	3	Claas	Tobias	1
+	4	Leon	Claas	12	ja
+	5	Ilhan	Leon	3	ja
+	6	Claas	Ilhan	4	ja
+	7	Leon	Tobias	4
+	8	Leon	Ilhan	4	ja
+	9	Leon	Claas	4	ja
+	10	Ilhan	Leon	4	ja
+	11	Claas	Tobias	8
+	12	Tobias	Leon	12
+	13	geteilt
+	14	Leon	Ilhan	7	ja
+	15	Ilhan	Tobias	7
+	16	Leon	Claas	7	ja
+	17	Ilhan	Leon	10	ja
+	18	Tobias	Ilhan	10	ja
+	19	Ilhan	Tobias	12
+	20	Tobias	Leon	12	ja
+	21	gestrichen
+	22	Leon	Ilhan	11	ja
+	23	Ilhan	Tobias	läuft
+	24	Claas	Leon	13	ja
+	25	Claas	Ilhan	14	ja
+	26	Leon	Claas	13	ja
+	27	Leon	Tobias	11
+	28	Leon	Claas	13	ja
+	29	Tobias	Claas	läuft	eine
+	30	Tobias	Ilhan	16	ja
+	31	Tobias	Leon	17
+	32	Tobias	Leon	16
+	33	Tobias	Claas	17
+	34	Tobias	Ilhan	17	ja
+	35	Tobias	Claas	läuft
+	36	Leon	Tobias	16
+	37	Leon	Claas	16
+	38	Claas	Ilhan	15	ja
+	39	Ilhan	Tobias	18	ja
+	40	Claas	Leon	16
+	41	Claas	Tobias	16
+	42	Claas	Ilhan	17	ja
+	43	Leon	Tobias	17
+	44	Leon	Leon	17
+	45	Ilhan	Claas	18	ja
+	46	Claas	Ilhan	17	ja
+	47	Leon	Claas	18	ja
+	48	Leon	Leon		ja
+	49	Ilhan	Claas	18	ja
+	50	Claas	Ilhan	18
+	51	Ilhan	Tobias	18	ja
+	52	Claas	Leon		ja
+	53	Tobias	Tobias
+	54	Tobias	Claas	18	ja
+	55	Tobias	Claas	18	ja
