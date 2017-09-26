@@ -134,36 +134,46 @@ describe('Profile Area', function() {
   });
 });
 
-describe('Profile Area', function() {
+describe('Course', function() {
   beforeAll(function() {
     browser.get('http://localhost:4200');
     expect(browser.getTitle()).toEqual('Clonecademy');
     browser.waitForAngular();
+    let elem = element.all(by.css('input'));
+    expect(elem.count()).toEqual(2);
+    elem.get(0).sendKeys("admin");
+    elem.get(1).sendKeys("Apfelbaum");
+    elem.get(1).sendKeys(protractor.Key.ENTER);
     browser.waitForAngular();
     expect(element(by.css(".sidebar")).isDisplayed()).toBeTruthy();
   });
 
-  it('should display the profile area', function() {
-    element.all(by.css('a')).get(2).click();
-    browser.waitForAngular();
+  it('should do a course', function() {
+    element.all(by.css('a')).get(4).click();
     let buttons = element.all(by.css('.mat-raised-button'));
-    expect(buttons.count()).toEqual(3);
-    buttons.get(1).click();
-    browser.waitForAngular();
-    // buttons = element.all(by.css('button'));
-    // expect(buttons.count()).toEqual(7);
-    browser.sleep(500);
-    let images = element.all(by.css('img'))
-    expect(images.count()).toEqual(6)
-    buttons = element.all(by.css('.mat-button'));
     expect(buttons.count()).toEqual(5);
-    buttons.get(0).click();
     buttons.get(1).click();
-    buttons.get(2).click();
-    buttons.get(3).click();
-    buttons.get(4).click();
     browser.waitForAngular();
-    let elem = element.all(by.css('input'));
-    expect(elem.count()).toEqual(2);
+    browser.sleep(500);
+    expect(element(by.css('iframe')).isDisplayed()).toBeTruthy();
+
+    buttons = element.all(by.css('.mat-raised-button'));
+    buttons.get(0).click();
+    browser.waitForAngular();
+    browser.sleep(500);
+    expect(element(by.css('md-sidenav')).isDisplayed()).toBeTruthy();
+
+    buttons = element.all(by.css('button'));
+    expect(buttons.get(2).isEnabled()).toBeFalsy();
+
+    element(by.css('.mat-drawer-backdrop')).click();
+    buttons = element.all(by.css('.mat-raised-button'));
+    buttons.get(1).click();
+    browser.waitForAngular();
+
+    buttons = element.all(by.css('.mat-raised-button'));
+    buttons.get(1).click();
+    browser.waitForAngular();
+
   });
 });
