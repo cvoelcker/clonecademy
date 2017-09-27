@@ -1,0 +1,70 @@
+\chapter*{QuestionView}
+
+\section*{Introduction}\label{introduction}
+
+The QuestionView class is used to provide information about every
+question, provided the user is allowed to see the question. The class is
+also used to answer questions.
+
+\section*{Method Detais}\label{method-detais}
+
+\subsection*{\texorpdfstring{`get'}{get}}\label{get}
+
+Header: user id (for permissions), course id (from url), ordered
+position of module in coures (from url), ordered position of question in
+module (from url)
+
+Response:
+
+\begin{verbatim}
+{
+"title": string "Question title (currently from module)"
+"body": string "Question text"
+"feedback": string "Feedback for user after correct answer"
+"last": boolean "True/False"
+"module": string "the corresponding module for the question"
+"last_module": boolean "True/False"
+"learning_text": string "The modules learning text"
+"course": string "the corresponding course"
+"progress": [[string]] "contains the title of all questions of this course"
+}
+\end{verbatim}
+
+Error:
+
+Response: 400 if unauthorized // only allowed for user if it is the
+first in this course or if the user answered the questions before
+correct
+
+\subsection*{\texorpdfstring{`post'}{post}}\label{post}
+
+Header: user id (for permissions), course id (from url), ordered
+position of module in coures (from url), ordered position of question in
+module (from url)
+
+Request:
+
+\begin{verbatim}
+{
+"answers":depends on the question type 
+}
+\end{verbatim}
+
+Response:
+
+\begin{verbatim}
+{
+"solved": boolean true/false;
+"next": string "question/module/quiz for the next element"
+### potentially more in a future implementation
+}
+\end{verbatim}
+
+Response: 200 (correct answer, try saved), 400 unauthorized, 500+
+serializer error
+
+Error:
+
+Response: 400 if unauthorized // only allowed for user if it is the
+first in this course or if the user answered the questions before
+correct

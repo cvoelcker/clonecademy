@@ -1,0 +1,39 @@
+npm info it worked if it ends with ok
+npm info using npm@5.0.0
+npm info using node@v8.0.0
+npm info lifecycle clonecademy@0.0.0~prelint: clonecademy@0.0.0
+[..................] / : info lifecycle clonecademy@0.0.0~prelint: clonecademy@
+
+> clonecademy@0.0.0 lint /angular
+> ng lint
+
+Warning: The 'no-use-before-declare' rule requires type checking
+
+ERROR: /angular/src/app/learn/info-text/info-text.component.ts[7, 13]: The selector of the component "InformationTextComponent" should be named kebab-case and include dash (https://goo.gl/mBg67Z)
+ERROR: /angular/src/app/learn/info-youtube/info-youtube.component.ts[10, 13]: The selector of the component "InformationYoutubeComponent" should be named kebab-case and include dash (https://goo.gl/mBg67Z)
+ERROR: /angular/src/app/learn/info-youtube/info-youtube.component.ts[18, 3]: Implement lifecycle hook interface OnInit for method ngOnInit in class InformationYoutubeComponent (https://goo.gl/w1Nwk3)
+ERROR: /angular/src/app/profile/user-detail-user/user-detail-user.component.ts[30, 16]: missing whitespace
+ERROR: /angular/src/app/profile/user-detail-user/user-detail-user.component.ts[31, 78]: missing whitespace
+ERROR: /angular/src/app/profile/user-detail-user/user-detail-user.component.ts[32, 13]: Identifier 'data' is never reassigned; use 'const' instead of 'let'.
+ERROR: /angular/src/app/profile/user-detail-user/user-detail-user.component.ts[6, 29]: " should be '
+ERROR: /angular/src/app/profile/user-detail-user/user-detail-user.component.ts[18, 56]: " should be '
+ERROR: /angular/src/app/profile/user-detail-user/user-detail-user.component.ts[18, 68]: " should be '
+ERROR: /angular/src/app/profile/user-detail-user/user-detail-user.component.ts[18, 85]: " should be '
+ERROR: /angular/src/app/profile/user-detail-user/user-detail-user.component.ts[18, 97]: " should be '
+ERROR: /angular/src/app/profile/user-detail-user/user-detail-user.component.ts[31, 37]: " should be '
+ERROR: /angular/src/app/profile/user-detail-user/user-detail-user.component.ts[31, 9]: missing whitespace
+ERROR: /angular/src/app/profile/user-detail-user/user-detail-user.component.ts[27, 5]: Implement lifecycle hook interface OnInit for method ngOnInit in class UserDetailUserComponent (https://goo.gl/w1Nwk3)
+
+Lint errors found in the listed files.
+npm info lifecycle clonecademy@0.0.0~lint: Failed to exec lint script
+npm ERR! code ELIFECYCLE
+npm ERR! errno 2
+npm ERR! clonecademy@0.0.0 lint: `ng lint`
+npm ERR! Exit status 2
+npm ERR! 
+npm ERR! Failed at the clonecademy@0.0.0 lint script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2017-09-25T15_21_31_490Z-debug.log
+
