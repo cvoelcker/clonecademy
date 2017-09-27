@@ -64,9 +64,9 @@ class Profile(models.Model):
         """
         :return: True if the user is allowed to request moderator rights
         """
-        return ((self.last_modrequest is None
-                 or (timezone.localdate() - self.last_modrequest).days >= 7)
-                and not self.is_mod())
+        return (not self.is_mod()
+                and (self.last_modrequest is None
+                     or (timezone.now() - self.last_modrequest).days >= 7))
 
     def is_mod(self):
         """

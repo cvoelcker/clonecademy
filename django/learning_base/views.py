@@ -1,7 +1,7 @@
 """
 This module contains all directly accessed API functions
 """
-from math import floor
+# from math import floor
 
 from django.http import HttpResponse
 from django.core.mail import send_mail
@@ -895,9 +895,7 @@ class RankingView(APIView):
 
 
 class RequestView(APIView):
-    # TODO: implement proper send_mail()
     """
-    STILL IN DEVELOPMENT
     The RequestView class is used to submit a request for moderator rights.
 
     The request can be accessed via "clonecademy/user/request/"
@@ -928,8 +926,8 @@ class RequestView(APIView):
             return Response(
                 {'ans': 'User is mod or has sent too many requests'},
                 status=status.HTTP_403_FORBIDDEN)
-        # TODO: fix if an localization issues arrise
-        profile.last_modrequest = timezone.localdate()
+        # pay attention because there could be localization errors
+        profile.last_modrequest = timezone.now()
         profile.save()
         send_mail(
             'Moderator rights requested by {}'.format(user.username),

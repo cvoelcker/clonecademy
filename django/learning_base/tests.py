@@ -527,7 +527,7 @@ class RequestViewTest(DatabaseMixin, TestCase):
         self.u3.save()
         self.u3_profile = models.Profile(user=self.u3)
         self.u3_profile.save()
-        self.u3.profile.last_modrequest = timezone.localdate()
+        self.u3.profile.last_modrequest = timezone.now()
 
         Group(name='admin').save()
 
@@ -600,7 +600,7 @@ class UserRightsViewTest(DatabaseMixin, TestCase):
 
         self.u4 = User.objects.create_user(username='spamer')
         self.u4_profile = models.Profile.objects.create(user=self.u4)
-        self.u4.profile.last_modrequest = timezone.localdate()
+        self.u4.profile.last_modrequest = timezone.now()
 
         self.users = [self.u1, self.u2, self.u3, self.u4]
         # bad users are those who aren't allowed to promote users
