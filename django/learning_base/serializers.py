@@ -17,7 +17,7 @@ from .models import Question, CourseCategory, Module, Course, QuizQuestion, \
 
 def get_answer_serializer(obj):
     """
-    x
+    dispatch function that chooses the correct serializer
     :param obj:
     :return:
     """
@@ -80,6 +80,11 @@ class QuestionSerializer(serializers.ModelSerializer):
         return value
 
     def create(self, validated_data):
+        """
+        Serializer that governs the dispatch to specific class serializers
+        :param validated_data: the data to be serialized
+        :return: serialized representation
+        """
         question_type = validated_data.pop('type')
         if question_type == 'multiple_choice':
             MultipleChoiceQuestionSerializer().create(validated_data)
@@ -102,6 +107,11 @@ class QuestionEditSerializer(serializers.ModelSerializer):
         fields = ("title", "text", 'id', "feedback")
 
     def to_representation(self, obj):
+        """
+        to json representation serialization
+        :param obj: 
+        :return: a serialized representation
+        """
         value = super(QuestionEditSerializer, self).to_representation(obj)
         value['type'] = obj.__class__.__name__
         serializer = obj.get_edit_serializer()
@@ -287,7 +297,7 @@ class CourseSerializer(serializers.ModelSerializer):
                     course.delete()
                 raise ParseError(detail=error.detail, code=None)
         else:
-            for quiz in coruse.quizquestion_set.all():
+            for quiz in course.quizquestion_set.all():
                 quiz.delete()
 
         # create a array with the ids for all module ids of this course

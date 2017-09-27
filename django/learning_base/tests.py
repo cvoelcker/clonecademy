@@ -66,6 +66,15 @@ class DatabaseMixin():
             module=self.m1_test)
         self.q2_test.save()
 
+        self.q3_test = InformationText.models.InformationYoutube(
+            title='youtube video',
+            text='an information text',
+            url='',
+            feedback='',
+            order=3,
+            module=self.m1_test)
+        self.q3_test.save()
+
 
 class AnswerViewTest(DatabaseMixin, TestCase):
     def setUp(self):
@@ -202,11 +211,29 @@ class CourseViewTest(DatabaseMixin, TestCase):
                                          {'name': 'a module',
                                           'learning_text': 'no way',
                                           'order': 3,
-                                          'questions': []},
+                                          'questions': [
+                                              {'title': 'a question',
+                                               'text': 'some text',
+                                               'feedback': '',
+                                               'type': 'multiple_choice',
+                                               'order': 1,
+                                               'answers': [
+                                                   {'text': 'nope',
+                                                    'is_correct': True}]
+                                               }]},
                                          {'name': 'another module',
                                           'learning_text': 'appearing first',
                                           'order': 2,
-                                          'questions': []}],
+                                          'questions': [
+                                              {'title': 'a question',
+                                               'text': 'some text',
+                                               'feedback': '',
+                                               'type': 'multiple_choice',
+                                               'order': 1,
+                                               'answers': [
+                                                   {'text': 'nope',
+                                                    'is_correct': True}]
+                                               }]}],
                                      'language': 'en'}, format='json')
         force_authenticate(request, self.u1)
         response = self.view(request)
@@ -1353,6 +1380,51 @@ class PwResetViewTest(DatabaseMixin, TestCase):
         self.assertEqual(self.u1.email, 'user1@email.de')
         tested = User.objects.get(email='user1@email.de')
         self.assertFalse(tested.check_password('12345'))
+
+
+class QuestionFunctionTests(TestCase, DatabaseMixin):
+    def setUp(self):
+        self.setup_database()
+
+    def test_quiz_question(self):
+        self.assertEqual(MultipleChoice.serializer.MultipleChoiceQuestionEditSerializer,
+                         self.q1_test.get_edit_serializer())
+
+    def test_question(self):
+        self.assertTrue(self.q1_test.is_first_question())
+        self.assertFalse(self.q2_test.is_first_question())
+        self.assertEquals(1, self.q1_test.get_points())
+
+    def test_info_question(self):
+        self.assertEquals(0, self.q2_test.get_points())
+        self.assertEquals(0, self.q3_test.get_points())
+        self.assertEquals(0, self.q2_test.num_correct_answers())
+        self.assertEquals(0, self.q3_test.num_correct_answers())
+        self.assertEqual(InformationText.serializer.InformationTextSerializer,
+                         self.q2_test.get_serializer())
+        self.assertEqual(InformationText.serializer.InformationYoutubeSerializer,
+                         self.q3_test.get_serializer())
+        self.assertEqual(InformationText.serializer.InformationTextSerializer,
+                         self.q2_test.get_edit_serializer())
+        self.assertEqual(InformationText.serializer.InformationYoutubeSerializer,
+                         self.q3_test.get_edit_serializer())
+
+        self.assertFalse(self.q2_test.not_solvable())
+        self.assertTrue(self.q2_test.evaluate([]))
+        self.assertTrue(self.q3_test.evaluate([]))
+
+    def test_multiple_choice_question(self):
+        pass
+
+    def test_module(self):
+        self.assertEqual(str(self.m1_test), 'module_1')
+        self.assertEqual(self.m1_test.num_of_questions(), 3)
+        self.assertFalse(self.m1_test.get_previous_in_order())
+
+    def test_course(self):
+        self.assertEqual(str(self.c1_test_en), 'test_1')
+        self.assertEqual(self.c1_test_en.num_of_modules(), 1)
+        self.assertFalse(models.started_courses(self.u1).exists())
 
 
 class RankingCalculationTest(TestCase):
