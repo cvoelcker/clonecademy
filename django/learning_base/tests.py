@@ -1431,6 +1431,22 @@ class UserViewTest(DatabaseMixin, TestCase):
         self.assertFalse(updated_user.profile.avatar == '...')
 
 
+class UserRegisterViewTest(DatabaseMixin, TestCase):
+    def setUp(self):
+        self.view = views.UserRegisterView.as_view()
+        self.factory = APIRequestFactory()
+
+    def test_post(self):
+        request = self.factory.post('register/', {
+            'username': 'NotYetExisting',
+            'password': '12345',
+            'profile': {},
+            'groups': {},
+        }, format='json')
+        response = self.view(request)
+        self.assertEqual(response.status_code, 201)
+
+
 class QuestionViewTest(DatabaseMixin, TestCase):
     def setUp(self):
         self.factory = APIRequestFactory()

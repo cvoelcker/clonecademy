@@ -667,7 +667,7 @@ class UserView(APIView):
 
 class UserRegisterView(APIView):
     """
-    Shows a user profile
+    Saves a new user
     @author Tobias Huber
     """
     authentication_classes = []
@@ -675,11 +675,7 @@ class UserRegisterView(APIView):
 
     def post(self, request, user_id=False, format=None):
         """
-        If the user_id field is specified, it updates user information.
-        Otherwise it saves a new user.
-
-        This behaviour isn't smart since this view doesn't require any
-        authentication
+        Saves a new user.
         """
         if user_id:
             return Response({'ans': 'Please use the UserView to update data'},
