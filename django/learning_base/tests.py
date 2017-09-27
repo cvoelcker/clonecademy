@@ -506,6 +506,45 @@ class CourseEditViewTest(DatabaseMixin, TestCase):
             models.Module.objects.filter(name='another module').exists())
 
 
+class ToggleCourseVisibilityViewTest(DatabaseMixin, TestCase):
+    def setUp(self):
+        # important for this test:
+        # c1_test_en and dependent
+        self.setup_database()
+        self.view = views.ToggleCourseVisibilityView.as_view()
+
+    def post(self):
+        request = self.factory.post(
+            "courses/" + self.c1_test_en.id + "/toggleVisibility/",
+            {"is_visible":"true"}
+        )
+        self.view(request)
+        self.assertTrue(Course.objects.get(id=self.c1_test_en.id).is_visible)
+
+        request = self.factory.post(
+            "courses/" + self.c1_test_en.id + "/toggleVisibility/",
+            {"is_visible":"false"}
+        )
+        self.view(request)
+        self.assertFalse(Course.objects.get(id=self.c1_test_en.id).is_visible)
+
+        # as asserted the current visibility of the test course is false
+        request = self.factory.post(
+            "courses/" + self.c1_test_en.id + "/toggleVisibility/"
+        )
+        self.view(request)
+        # so now it should be true
+        self.assertTrue(Course.objects.get(id=self.c1_test_en.id).is_visible)
+
+        # as asserted the current visibility of the test course is true
+        request = self.factory.post(
+            "courses/" + self.c1_test_en.id + "/toggleVisibility/"
+        )
+        self.view(request)
+        # so now it should be false
+        self.assertFalse(Course.objects.get(id=self.c1_test_en.id).is_visible)
+
+
 class RequestViewTest(DatabaseMixin, TestCase):
     def setUp(self):
         self.factory = APIRequestFactory()

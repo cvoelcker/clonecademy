@@ -176,7 +176,7 @@ class ModuleSerializer(serializers.ModelSerializer):
         """
         questions = validated_data.pop('questions')
 
-        if questions == None or len(questions) is 0:
+        if questions is None or len(questions) is 0:
             raise ParseError(detail="empty module is not allowed", code=None)
 
         module = Module(**validated_data)
