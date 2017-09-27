@@ -298,13 +298,12 @@ class ToggleCourseVisibilityView(APIView):
     authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (custom_permissions.IsAdmin,)
 
-    def post(self, request, course_id, format=None):
+    def post(self, request, course_id):
         """
         Sets the course visibility to the given value
-        :param request:
-        :param course_id:
-        :param format:
-        :return:
+        :param request: request object from the rest dispatcher
+        :param course_id: the id of the course whos visibility shall be changed
+        :return: a REST Response with a meaningfull JSON formatted message
         """
         if course_id is None:
             return Response({'ans': 'course_id must be provided'},
@@ -315,7 +314,10 @@ class ToggleCourseVisibilityView(APIView):
         else:
             course = Course.objects.get(id=course_id)
             if 'is_visible' in request.data:
-                course.is_visible = request.data['is_visible']
+                if not (request.data['is_visible'] == 'true'
+                        or request.data['is_visible'] == 'false'):
+                    Response({'ans':'is_visible must be "true" or "false" of type string'})
+                course.is_visible = request.data['is_visible'] == 'true'
             else:
                 course.is_visible = not course.is_visible
             course.save()
@@ -360,11 +362,12 @@ class QuestionView(APIView):
         """
         Checks if the question is accessable by the user (all questions before
         need to be answered correctly)
-        :param user:
-        :param question:
-        :param module_id:
-        :param question_id:
-        :return:
+        :param user: user wanting to access
+        :param question: question to be accessed
+        :param module_id: module id the question belongs to
+        :param question_id: the questions id
+        :return: True|False (see description)
+        @author Tobias Huber
         """
         module = question.module
         first_question = int(module_id) <= 0 and int(question_id) <= 0

@@ -119,6 +119,11 @@ export class CourseComponent implements OnInit {
       })
   }
 
+  /*
+  this function toggles the visibility of the current course
+  it is called by the visibility button
+  @author Tobias Huber
+  */
   toggleVisibility() {
     this.server.post('courses/' + this.id + '/toggleVisibility', {})
       .then(answer => {

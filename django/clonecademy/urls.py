@@ -49,7 +49,7 @@ urlpatterns = [
         r'(?P<question_id>[0-9]+)/?answers',
         views.AnswerView.as_view()),
     url(
-        r'^courses/(?P<course_id>[0-9]+)/?',
+        r'^courses/(?P<course_id>[0-9]+)/?$',
         views.QuizView.as_view(),
     ),
     url(r'^courses/save$', views.CourseView.as_view()),

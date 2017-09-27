@@ -17,12 +17,21 @@ class DatabaseMixin():
         self.factory = APIRequestFactory()
 
         self.admin_group = Group.objects.create(name='admin')
+        self.mod_group = Group.objects.create(name='moderator')
 
         self.u1 = User(username='admin')
         self.u1.save()
         self.u1.groups.add(self.admin_group)
         self.u1_profile = Profile.objects.create(user=self.u1)
         self.u1.save()
+
+        self.normal_user = User.objects.create(username='normal user')
+        self.normal_user.profile = Profile.objects.create(user=self.normal_user)
+
+        self.moderator = User.objects.create(username='moderator')
+        self.moderator.groups.add(self.mod_group)
+        self.moderator.profile = Profile.objects.create(user=self.moderator)
+        self.moderator.save()
 
         self.category = models.CourseCategory(name='test')
         self.category.save()
@@ -513,36 +522,57 @@ class ToggleCourseVisibilityViewTest(DatabaseMixin, TestCase):
         self.setup_database()
         self.view = views.ToggleCourseVisibilityView.as_view()
 
-    def post(self):
-        request = self.factory.post(
-            "courses/" + self.c1_test_en.id + "/toggleVisibility/",
-            {"is_visible":"true"}
+    def test_post(self):
+        self.c1_test_en.is_visible = False
+        self.c1_test_en.save()
+        self.assertFalse(
+            models.Course.objects.get(id=self.c1_test_en.id).is_visible
         )
-        self.view(request)
-        self.assertTrue(Course.objects.get(id=self.c1_test_en.id).is_visible)
+        post_url = "courses/" + str(self.c1_test_en.id) + "/toggleVisibility/"
 
         request = self.factory.post(
-            "courses/" + self.c1_test_en.id + "/toggleVisibility/",
+            post_url,
+            {"is_visible":"true"},
+        )
+        force_authenticate(request, self.u1)
+        response = self.view(request, self.c1_test_en.id)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(models.Course.objects.get(id=self.c1_test_en.id).is_visible)
+
+        request = self.factory.post(
+            post_url,
             {"is_visible":"false"}
         )
-        self.view(request)
-        self.assertFalse(Course.objects.get(id=self.c1_test_en.id).is_visible)
+        force_authenticate(request, self.u1)
+        response = self.view(request, self.c1_test_en.id)
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(models.Course.objects.get(id=self.c1_test_en.id).is_visible)
 
         # as asserted the current visibility of the test course is false
-        request = self.factory.post(
-            "courses/" + self.c1_test_en.id + "/toggleVisibility/"
-        )
-        self.view(request)
+        request = self.factory.post(post_url)
+        force_authenticate(request, self.u1)
+        response = self.view(request, self.c1_test_en.id)
         # so now it should be true
-        self.assertTrue(Course.objects.get(id=self.c1_test_en.id).is_visible)
+        self.assertTrue(models.Course.objects.get(id=self.c1_test_en.id).is_visible)
+        self.assertEqual(response.status_code, 200)
 
         # as asserted the current visibility of the test course is true
-        request = self.factory.post(
-            "courses/" + self.c1_test_en.id + "/toggleVisibility/"
-        )
-        self.view(request)
+        request = self.factory.post(post_url)
+        force_authenticate(request, self.u1)
+        response = self.view(request, self.c1_test_en.id)
         # so now it should be false
-        self.assertFalse(Course.objects.get(id=self.c1_test_en.id).is_visible)
+        self.assertFalse(models.Course.objects.get(id=self.c1_test_en.id).is_visible)
+        self.assertEqual(response.status_code, 200)
+
+        # current visibility is False so a not authorized user
+        # shouldn't be able to change it
+        request = self.factory.post(post_url)
+        force_authenticate(request, self.normal_user)
+        response = self.view(request, self.c1_test_en.id)
+        self.assertEqual(response.status_code, 403)
+        self.assertFalse(
+            models.Course.objects.get(id=self.c1_test_en.id).is_visible
+        )
 
 
 class RequestViewTest(DatabaseMixin, TestCase):
@@ -1322,6 +1352,83 @@ class ProfileTest(DatabaseMixin, TestCase):
         hash_u1_2 = self.u1_profile.get_hash()
 
         self.assertTrue(hash_u1_1 == hash_u1_2)
+
+
+class UserViewTest(DatabaseMixin, TestCase):
+    def setUp(self):
+        self.setup_database()
+        self.view = views.UserView.as_view()
+        self.test_user = User.objects.create(username='test_user')
+        self.test_user.set_password('12345')
+        self.test_user.profile = Profile.objects.create(user=self.test_user)
+        self.test_user.save()
+
+    def test_get(self):
+        # test if an admin can get any user info
+        required_fields = ['first_name', 'last_name', 'username', 'email', 'id', 'date_joined',
+            'avatar', 'ranking', 'groups']
+        request = self.factory.get('user/' + str(self.normal_user.id))
+        force_authenticate(request, self.u1)
+        response = self.view(request, user_id=self.u1.id)
+        self.assertEqual(response.status_code, 200)
+        for field in required_fields:
+            self.assertTrue(field in response.data)
+
+        # test if a user can access his own but not other users
+        request = self.factory.get('user/current')
+        force_authenticate(request, self.normal_user)
+        response = self.view(request)
+        self.assertEqual(response.status_code, 200)
+        for field in required_fields:
+            self.assertTrue(field in response.data)
+
+        request = self.factory.get('user/' + str(self.u1.id))
+        force_authenticate(request, self.normal_user)
+        response = self.view(request, user_id=self.u1.id)
+        self.assertEqual(response.status_code, 403)
+
+    def test_post(self):
+        self.assertTrue(self.test_user.check_password('12345'))
+        request = self.factory.post('user/current', {
+            'oldpassword': '12345',
+            'password': '54321',
+            'email': self.test_user.email,
+            'first_name': self.test_user.first_name,
+            'last_name': self.test_user.last_name,
+            'avatar': self.test_user.profile.avatar,
+        })
+        force_authenticate(request, self.test_user)
+        response = self.view(request)
+        self.assertEqual(response.status_code, 200)
+
+        request = self.factory.post('user/current', {
+            'oldpassword': '54321',
+            'email': self.test_user.email,
+            'first_name': 'test first name',
+            'last_name': self.test_user.last_name,
+            'avatar': self.test_user.profile.avatar,
+        })
+        force_authenticate(request, self.test_user)
+        response = self.view(request)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            User.objects.get(username=self.test_user.username).first_name, 'test first name')
+
+        request = self.factory.post('user/current', {
+            'oldpassword': '123',
+            'email': 'please@dont.de',
+            'first_name': 'please',
+            'last_name': 'dont',
+            'avatar': '...',
+        })
+        force_authenticate(request, self.test_user)
+        response = self.view(request)
+        self.assertEqual(response.status_code, 400)
+        updated_user = User.objects.get(id=self.test_user.id)
+        self.assertNotEqual(updated_user.email, 'please@dont.de')
+        self.assertFalse(updated_user.first_name == 'please')
+        self.assertFalse(updated_user.last_name == 'dont')
+        self.assertFalse(updated_user.profile.avatar == '...')
 
 
 class QuestionViewTest(DatabaseMixin, TestCase):
