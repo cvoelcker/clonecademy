@@ -519,33 +519,6 @@ class TrySerializer(serializers.ModelSerializer):
         return data
 
 
-class StatisticsOverviewSerializer(serializers.BaseSerializer):
-    """
-    Longer serializer for the statistics overview
-    """
-
-    def to_representation(self, user):
-        all_questions = list()
-        for question in Question.objects.all():
-            question_string = str(question)
-            question_entry = dict()
-            try_set = Try.objects.filter(question=question, user=user)
-            for _try in try_set:
-                if not question_entry:
-                    question_entry = {
-                        'question': question_string,
-                        'solved': _try.solved,
-                        'tries': 1
-                    }
-                else:
-                    question_entry['tries'] += 1
-                    question_entry['solved'] = question_entry['solved'] \
-                                               or _try.solved
-            if question_entry:
-                all_questions.append(question_entry)
-        return all_questions
-
-
 class RankingSerializer(serializers.BaseSerializer):
     """
     A serializer for all rankings

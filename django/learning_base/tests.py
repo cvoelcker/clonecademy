@@ -26,7 +26,8 @@ class DatabaseMixin():
         self.u1.save()
 
         self.normal_user = User.objects.create(username='normal user')
-        self.normal_user.profile = Profile.objects.create(user=self.normal_user)
+        self.normal_user.profile = Profile.objects.create(
+            user=self.normal_user)
 
         self.moderator = User.objects.create(username='moderator')
         self.moderator.groups.add(self.mod_group)
@@ -532,28 +533,31 @@ class ToggleCourseVisibilityViewTest(DatabaseMixin, TestCase):
 
         request = self.factory.post(
             post_url,
-            {"is_visible":"true"},
+            {"is_visible": "true"},
         )
         force_authenticate(request, self.u1)
         response = self.view(request, self.c1_test_en.id)
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(models.Course.objects.get(id=self.c1_test_en.id).is_visible)
+        self.assertTrue(
+            models.Course.objects.get(id=self.c1_test_en.id).is_visible)
 
         request = self.factory.post(
             post_url,
-            {"is_visible":"false"}
+            {"is_visible": "false"}
         )
         force_authenticate(request, self.u1)
         response = self.view(request, self.c1_test_en.id)
         self.assertEqual(response.status_code, 200)
-        self.assertFalse(models.Course.objects.get(id=self.c1_test_en.id).is_visible)
+        self.assertFalse(
+            models.Course.objects.get(id=self.c1_test_en.id).is_visible)
 
         # as asserted the current visibility of the test course is false
         request = self.factory.post(post_url)
         force_authenticate(request, self.u1)
         response = self.view(request, self.c1_test_en.id)
         # so now it should be true
-        self.assertTrue(models.Course.objects.get(id=self.c1_test_en.id).is_visible)
+        self.assertTrue(
+            models.Course.objects.get(id=self.c1_test_en.id).is_visible)
         self.assertEqual(response.status_code, 200)
 
         # as asserted the current visibility of the test course is true
@@ -561,7 +565,8 @@ class ToggleCourseVisibilityViewTest(DatabaseMixin, TestCase):
         force_authenticate(request, self.u1)
         response = self.view(request, self.c1_test_en.id)
         # so now it should be false
-        self.assertFalse(models.Course.objects.get(id=self.c1_test_en.id).is_visible)
+        self.assertFalse(
+            models.Course.objects.get(id=self.c1_test_en.id).is_visible)
         self.assertEqual(response.status_code, 200)
 
         # current visibility is False so a not authorized user
@@ -1365,8 +1370,9 @@ class UserViewTest(DatabaseMixin, TestCase):
 
     def test_get(self):
         # test if an admin can get any user info
-        required_fields = ['first_name', 'last_name', 'username', 'email', 'id', 'date_joined',
-            'avatar', 'ranking', 'groups']
+        required_fields = ['first_name', 'last_name', 'username', 'email',
+                           'id', 'date_joined',
+                           'avatar', 'ranking', 'groups']
         request = self.factory.get('user/' + str(self.normal_user.id))
         force_authenticate(request, self.u1)
         response = self.view(request, user_id=self.u1.id)
@@ -1412,7 +1418,8 @@ class UserViewTest(DatabaseMixin, TestCase):
         response = self.view(request)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            User.objects.get(username=self.test_user.username).first_name, 'test first name')
+            User.objects.get(username=self.test_user.username).first_name,
+            'test first name')
 
         request = self.factory.post('user/current', {
             'oldpassword': '123',
@@ -1549,8 +1556,9 @@ class QuestionFunctionTests(TestCase, DatabaseMixin):
         self.setup_database()
 
     def test_quiz_question(self):
-        self.assertEqual(MultipleChoice.serializer.MultipleChoiceQuestionEditSerializer,
-                         self.q1_test.get_edit_serializer())
+        self.assertEqual(
+            MultipleChoice.serializer.MultipleChoiceQuestionEditSerializer,
+            self.q1_test.get_edit_serializer())
 
     def test_question(self):
         self.assertTrue(self.q1_test.is_first_question())
@@ -1564,12 +1572,14 @@ class QuestionFunctionTests(TestCase, DatabaseMixin):
         self.assertEquals(0, self.q3_test.num_correct_answers())
         self.assertEqual(InformationText.serializer.InformationTextSerializer,
                          self.q2_test.get_serializer())
-        self.assertEqual(InformationText.serializer.InformationYoutubeSerializer,
-                         self.q3_test.get_serializer())
+        self.assertEqual(
+            InformationText.serializer.InformationYoutubeSerializer,
+            self.q3_test.get_serializer())
         self.assertEqual(InformationText.serializer.InformationTextSerializer,
                          self.q2_test.get_edit_serializer())
-        self.assertEqual(InformationText.serializer.InformationYoutubeSerializer,
-                         self.q3_test.get_edit_serializer())
+        self.assertEqual(
+            InformationText.serializer.InformationYoutubeSerializer,
+            self.q3_test.get_edit_serializer())
 
         self.assertFalse(self.q2_test.not_solvable())
         self.assertTrue(self.q2_test.evaluate([]))
@@ -1607,3 +1617,82 @@ class RankingCalculationTest(TestCase):
         self.assertEqual(ranking(0.4, 0.8, 2), 10)
         self.assertEqual(ranking(0.4, 1, 1), 10)
         self.assertEqual(ranking(0.4, 0, 1), 0)
+
+
+class CourseCategoryTest(TestCase, DatabaseMixin):
+    def setUp(self):
+        self.view = views.CategoryView.as_view()
+        self.setup_database()
+
+    def test_get(self):
+        request_1 = self.factory.get('/course_categories')
+        force_authenticate(request_1, self.u1)
+        response = self.view(request_1)
+        self.assertEqual(200, response.status_code)
+        self.assertEqual([{
+            'name': str(self.category),
+            'color': '#000000',
+            'id': 1
+        }], response.data)
+
+    def test_post(self):
+        request_1 = self.factory.post(
+            '/course_categories',
+            {
+                'name': 'test_category_2',
+                'color': '#010101',
+            })
+        force_authenticate(request_1, self.u1)
+        response = self.view(request_1)
+        self.assertTrue(
+            models.CourseCategory.objects
+            .filter(name='test_category_2').exists()
+        )
+        request_2 = self.factory.post(
+            '/course_categories',
+            {
+                'delete': 'true',
+                'id': '2',
+            })
+        force_authenticate(request_2, self.u1)
+        response = self.view(request_2)
+        self.assertFalse(
+            models.CourseCategory.objects
+            .filter(name='test_category_2').exists()
+        )
+
+
+class MultiUserViewTest(TestCase, DatabaseMixin):
+    def setUp(self):
+        self.view = views.MultiUserView.as_view()
+        self.setup_database()
+
+    def test_get(self):
+        request_1 = self.factory.get('/course_categories')
+        force_authenticate(request_1, self.u1)
+        response = self.view(request_1)
+        self.assertEqual(200, response.status_code)
+
+    def test_post(self):
+        request_1 = self.factory.post('/course_categories')
+        force_authenticate(request_1, self.u1)
+        response = self.view(request_1)
+        self.assertEqual(405, response.status_code)
+
+
+class RankingViewTest(TestCase, DatabaseMixin):
+    def setUp(self):
+        self.view = views.RankingView.as_view()
+        self.setup_database()
+
+    def test_get(self):
+        request_1 = self.factory.get('/course_categories')
+        force_authenticate(request_1, self.u1)
+        response = self.view(request_1)
+        self.assertEqual(serializers.RankingSerializer(models.Profile.objects.all().reverse()).data, response.data)
+
+    def test_post(self):
+        request_1 = self.factory.post('/course_categories')
+        force_authenticate(request_1, self.u1)
+        response = self.view(request_1)
+        self.assertEqual(405, response.status_code)

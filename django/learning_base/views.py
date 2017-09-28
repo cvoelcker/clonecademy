@@ -47,7 +47,7 @@ class CategoryView(APIView):
         # check if instance shall be deleted
         if 'delete' in data and data['delete'] == 'true':
             if 'id' in data:
-                instance = CourseCategory.get(id=data['id'])
+                instance = CourseCategory.objects.get(id=data['id'])
                 instance.delete()
                 return Response(status=status.HTTP_204_NO_CONTENT)
             return Response({'ans': 'a category with the given id'
@@ -69,7 +69,6 @@ class CategoryView(APIView):
         else:
             # else just create a plain serializer
             serializer = serializers.CourseCategorySerializer(data=data)
-
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,
