@@ -18,8 +18,8 @@ from .models import Question, CourseCategory, Module, Course, QuizQuestion, \
 def get_answer_serializer(obj):
     """
     dispatch function that chooses the correct serializer
-    :param obj:
-    :return:
+    :param obj: the answers object to be serialiaized
+    :return: a json serialization
     """
     serializer = obj.get_serializer()
     return serializer(obj).data
@@ -28,7 +28,7 @@ def get_answer_serializer(obj):
 class QuestionSerializer(serializers.ModelSerializer):
     """
     The serializer responsible for the Question object
-    @author: Claas Voelcker
+    :author: Claas Voelcker
     """
 
     class Meta:
@@ -41,10 +41,8 @@ class QuestionSerializer(serializers.ModelSerializer):
     def to_representation(self, obj):
         """
         Appends additional information to the model.
-        Input:
-            obj: The object that should be serialized (Question)
-        Output:
-            value: a valid json object containing all required fields
+        :param: obj: The object that should be serialized (Question)
+        :return: value: a valid json object containing all required fields
         """
         course_module = obj.module
         value = super(QuestionSerializer, self).to_representation(obj)
@@ -62,11 +60,11 @@ class QuestionSerializer(serializers.ModelSerializer):
             for question in course_module.question_set.all():
                 if answered_question_before and question.try_set.filter(
                         solved=True, user=user).exists():
-                    module_set.append({"solved": True, "title": question.title})
+                    module_set.append({'solved': True, 'title': question.title})
 
                 else:
                     answered_question_before = False
-                    module_set.append({"solved": False, "title": question.title})
+                    module_set.append({'solved': False, 'title': question.title})
             value['progress'].append(module_set)
 
         value['last_question'] = obj.is_last_question()
@@ -101,15 +99,16 @@ class QuestionSerializer(serializers.ModelSerializer):
 class QuestionEditSerializer(serializers.ModelSerializer):
     """
     The serializer to get all information to edit a question
+    :author: Leonhard Wiedmann
     """
     class Meta:
         model = Question
-        fields = ("title", "text", 'id', "feedback")
+        fields = ('title', 'text', 'id', 'feedback')
 
     def to_representation(self, obj):
         """
         to json representation serialization
-        :param obj: 
+        :param obj: the object to be serialized
         :return: a serialized representation
         """
         value = super(QuestionEditSerializer, self).to_representation(obj)
@@ -122,10 +121,11 @@ class QuestionEditSerializer(serializers.ModelSerializer):
 class CourseCategorySerializer(serializers.ModelSerializer):
     """
     A serializer for course categories
+    :author: Claas Voelcker
     """
     class Meta:
         model = CourseCategory
-        fields = ('name', "color", "id",)
+        fields = ('name', 'color', 'id',)
 
     color = serializers.RegexField(r'^#[a-fA-F0-9]{6}', max_length=7,
                                    min_length=7, allow_blank=False)
@@ -134,12 +134,18 @@ class CourseCategorySerializer(serializers.ModelSerializer):
 class ModuleEditSerializer(serializers.ModelSerializer):
     """
     A serializer to get module editing data
+    :auhor: Leonhard Wiedmann
     """
     class Meta:
         model = Module
-        fields = ('name', "id", "learning_text", "order")
+        fields = ('name', 'id', 'learning_text', 'order')
 
     def to_representation(self, obj):
+        """
+        responsible for returning a valid json response
+        :param obj: the object to be serialized
+        :return: a valid json representation
+        """
         value = super(ModuleEditSerializer, self).to_representation(obj)
 
         questions = obj.question_set.all()
@@ -150,6 +156,7 @@ class ModuleEditSerializer(serializers.ModelSerializer):
 class ModuleSerializer(serializers.ModelSerializer):
     """
     The serializer for modules
+    :author: Leonhard Wiedmann
     """
     class Meta:
         model = Module
@@ -159,6 +166,8 @@ class ModuleSerializer(serializers.ModelSerializer):
         """
         This function makes the serialization and is needed to correctly
         display nested objects.
+        :param obj: a
+        :return:
         """
 
         value = super(ModuleSerializer, self).to_representation(obj)
@@ -167,7 +176,7 @@ class ModuleSerializer(serializers.ModelSerializer):
         questions = QuestionSerializer(
             questions, many=True, read_only=True, context=self.context).data
 
-        value["questions"] = questions
+        value['questions'] = questions
         return value
 
     def create(self, validated_data):
@@ -177,7 +186,7 @@ class ModuleSerializer(serializers.ModelSerializer):
         questions = validated_data.pop('questions')
 
         if questions is None or len(questions) is 0:
-            raise ParseError(detail="empty module is not allowed", code=None)
+            raise ParseError(detail='empty module is not allowed', code=None)
 
         module = Module(**validated_data)
         module.course = validated_data['course']
@@ -205,7 +214,7 @@ class ModuleSerializer(serializers.ModelSerializer):
             question_serializer = QuestionSerializer(data=question)
             if not question_serializer.is_valid():
                 raise ParseError(
-                    detail="Error in question serialization", code=None)
+                    detail='Error in question serialization', code=None)
             else:
                 question_serializer.create(question)
 
@@ -226,6 +235,8 @@ class CourseSerializer(serializers.ModelSerializer):
     def to_representation(self, obj):
         """
         This function serializes the courses.
+        :param obj: the object to be serialized
+        :return: a json serialization
         """
 
         value = super(CourseSerializer, self).to_representation(obj)
@@ -255,10 +266,11 @@ class CourseSerializer(serializers.ModelSerializer):
         value['responsible_mod'] = obj.responsible_mod.id
         return value
 
-    def create(self, validated_data):  # pylint: ignore-line
+    def create(self, validated_data):
         """
         This method is used to save courses together with all modules and
         questions.
+        :param validated_data: valid data for the Course object
         """
         modules = validated_data.pop('modules')
         quiz_data = []
@@ -267,7 +279,7 @@ class CourseSerializer(serializers.ModelSerializer):
 
         # check if course is empty and raise error if so
         if not modules:
-            raise ParseError(detail="Course needs to have at least one module",
+            raise ParseError(detail='Course needs to have at least one module',
                              code=None)
         category = validated_data.pop('category')
         category = CourseCategory.objects.get(name=category)
@@ -319,12 +331,12 @@ class CourseSerializer(serializers.ModelSerializer):
 
         try:
             if len(modules) <= 0:
-                raise ParseError(detail="no Empty course allowed", code=None)
+                raise ParseError(detail='no Empty course allowed', code=None)
             for module in modules:
                 module_serializer = ModuleSerializer(data=module)
                 if not module_serializer.is_valid():
                     raise ParseError(
-                        detail="Error in module serialization", code=None)
+                        detail='Error in module serialization', code=None)
                 else:
                     module['course'] = course
                     module_serializer.create(module)
@@ -338,24 +350,30 @@ class CourseSerializer(serializers.ModelSerializer):
 class CourseEditSerializer(serializers.ModelSerializer):
     """
     A serializer that returns all data needed to edit the course
+    :author: Leonhard Wiedmann
     """
     category = serializers.StringRelatedField()
 
     class Meta:
         model = Course
         fields = (
-            "name", "id", "category", "difficulty", "language",
-            "responsible_mod",
-            "is_visible", "description")
+            'name', 'id', 'category', 'difficulty', 'language',
+            'responsible_mod',
+            'is_visible', 'description')
 
     def to_representation(self, obj):
+        """
+        method responsible for serializing a Curse object for editing purposes
+        :param obj: the object to be serialized
+        :return: a json representation of the object
+        """
         value = super(CourseEditSerializer, self).to_representation(obj)
         all_modules = obj.module_set.all()
         modules = ModuleEditSerializer(all_modules, many=True).data
         value['modules'] = modules
 
         all_quiz = obj.quizquestion_set.all()
-        quiz = QuizSerializer(all_quiz, many=True, context={"edit": True}).data
+        quiz = QuizSerializer(all_quiz, many=True, context={'edit': True}).data
         value['quiz'] = quiz
 
         return value
@@ -364,7 +382,7 @@ class CourseEditSerializer(serializers.ModelSerializer):
 class QuizSerializer(serializers.ModelSerializer):
     """
     Quiz Serializer for a single quiz question
-    @author Leonhard Wiedmann
+    :author: Leonhard Wiedmann
     """
 
     class Meta:
@@ -372,14 +390,19 @@ class QuizSerializer(serializers.ModelSerializer):
         fields = ('question', 'image', 'id',)
 
     def create(self, validated_data):
+        """
+        method creating a Quiz object form a json input
+        :param validated_data: validated json data for the object
+        """
         if 'answers' not in validated_data:
-            return False
+            raise ParseError(detail='The quiz has no answers',
+                             code=None)
         answers = validated_data.pop('answers')
         quiz = QuizQuestion(**validated_data)
         quiz.save()
         try:
             if len(answers) != 4:
-                raise ParseError(detail="Quiz must have 4 answers", code=None)
+                raise ParseError(detail='Quiz must have 4 answers', code=None)
             for ans in answers:
                 quiz_answer_serializer = QuizAnswerSerializer(data=ans)
                 if not quiz_answer_serializer.is_valid():
@@ -389,12 +412,18 @@ class QuizSerializer(serializers.ModelSerializer):
                     ans['quiz'] = quiz
                     quiz_answer_serializer.create(ans)
             if not quiz.is_solvable():
-                raise ParseError(detail="This quiz is not solvable", code=None)
+                raise ParseError(detail='This quiz is not solvable', code=None)
         except ParseError as error:
             quiz.delete()
             raise ParseError(detail=error.detail, code=None)
 
     def to_representation(self, obj):
+        """
+        representation of a Quiz object
+        :author: Claas Voelcker
+        :param obj: the user object to be serialized
+        :return: a json representation of the object
+        """
         value = super(QuizSerializer, self).to_representation(obj)
         value['answers'] = QuizAnswerSerializer(obj.answer_set(), many=True,
                                                 context=self.context).data
@@ -404,7 +433,7 @@ class QuizSerializer(serializers.ModelSerializer):
 class QuizAnswerSerializer(serializers.ModelSerializer):
     """
     Quiz Answer Serializer
-    @author Leonhard Wiedmann
+    :author: Leonhard Wiedmann
     """
 
     class Meta:
@@ -412,10 +441,20 @@ class QuizAnswerSerializer(serializers.ModelSerializer):
         fields = ('text', 'img', 'id')
 
     def create(self, validated_data):
+        """
+        method creating a QuizAnswer object form a json input
+        :param validated_data: validated json data for the object
+        """
         quiz_answer = QuizAnswer(**validated_data)
         quiz_answer.save()
 
     def to_representation(self, obj):
+        """
+        representation of a Quiz object
+        :author: Claas Voelcker
+        :param obj: the user object to be serialized
+        :return: a json representation of the object
+        """
         value = super(QuizAnswerSerializer, self).to_representation(obj)
         if 'edit' in self.context and self.context['edit']:
             value['correct'] = obj.correct
@@ -425,16 +464,18 @@ class QuizAnswerSerializer(serializers.ModelSerializer):
 class GroupSerializer(serializers.ModelSerializer):
     """
     Model serializer for the Group model
+    :author: Claas Voelcker
     """
 
     class Meta:
         model = LearningGroup
-        fields = ('name', "id")
+        fields = ('name', 'id')
 
 
 class UserSerializer(serializers.ModelSerializer):
     """
     Model serializer for the User model
+    :author: Claas Voelcker
     """
 
     groups = serializers.StringRelatedField(many=True)
@@ -446,10 +487,16 @@ class UserSerializer(serializers.ModelSerializer):
             'last_name')
 
     def to_representation(self, obj):
+        """
+        representation of a user object
+        :author: Leonhard Wiedmann
+        :param obj: the user object to be serialized
+        :return: a json representation of the object
+        """
         value = super(UserSerializer, self).to_representation(obj)
 
         if 'language' not in value:
-            value['language'] = "en"
+            value['language'] = 'en'
         profile = Profile.objects.filter(user=obj).first()
         value['language'] = profile.language
 
@@ -458,10 +505,15 @@ class UserSerializer(serializers.ModelSerializer):
         return value
 
     def create(self, validated_data):
+        """
+        method creating a User object form a json input
+        :author: Leonhard Wiedmann
+        :param validated_data: validated json data for the object
+        """
         profile_data = validated_data.pop('profile')
         validated_data.pop('groups')
         if 'language' not in validated_data:
-            validated_data['language'] = "en"
+            validated_data['language'] = 'en'
         profile_data['language'] = validated_data.pop('language')
         if 'avatar' in validated_data:
             profile_data['avatar'] = validated_data.pop('avatar')
@@ -470,48 +522,51 @@ class UserSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(**validated_data)
         profile = Profile(user=user, **profile_data)
         profile.save()
-        return True
 
     def update(self, instance, validated_data):
         """
         Updates a given user instance
         Note: Only updates fields changeable by user
-        @author Tobias Huber
-        Thoughts: Add birth_date when neccessary
+        :author: Tobias Huber
+        :param validated_data: validated data for the input
         """
-        # instance.username = validated_data["username"]
-        instance.email = validated_data["email"]
-        instance.first_name = validated_data["first_name"]
-        instance.last_name = validated_data["last_name"]
-        if "password" in validated_data:
-            instance.set_password(validated_data["password"])
+        instance.email = validated_data['email']
+        instance.first_name = validated_data['first_name']
+        instance.last_name = validated_data['last_name']
+        if 'password' in validated_data:
+            instance.set_password(validated_data['password'])
         profile = instance.profile
-        # profile.language = validated_data["language"]
-        profile.avatar = validated_data["avatar"]
+        # profile.language = validated_data['language']
+        profile.avatar = validated_data['avatar']
         profile.save()
         instance.save()
-        return True
 
 
 class TrySerializer(serializers.ModelSerializer):
     """
     Model serializer for the Try model
+    :author: Claas Voelcker
     """
     user = serializers.StringRelatedField()
     question = serializers.StringRelatedField()
-    date = serializers.DateTimeField(format="%d/%m/%Y")
+    date = serializers.DateTimeField(format='%d/%m/%Y')
 
     class Meta:
         model = Try
         fields = ('user', 'question', 'date', 'solved')
 
     def to_representation(self, obj):
+        """
+        converts try objects to a serialized version
+        :param obj: the object to be serialized
+        :return: a json serialization
+        """
         data = super(TrySerializer, self).to_representation(obj)
 
         if 'serialize' in self.context:
             for serial in self.context['serialize']:
                 value = obj
-                for child in serial.split("__"):
+                for child in serial.split('__'):
                     if value is None:
                         break
                     value = getattr(value, child)

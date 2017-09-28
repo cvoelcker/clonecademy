@@ -479,6 +479,7 @@ class Try(models.Model):
     A try represents a submission of an answer. Each time an answer is
     submitted, a Try object is created in the database, detailing answer,
     whether it was answered correctly and the time of the submission.
+    :author: Claas Voelcker
     """
     user = models.ForeignKey(
         User,
@@ -521,8 +522,8 @@ class Try(models.Model):
 def started_courses(user):
     """
     returns all courses started by a user
-    :param user:
-    :return:
+    :param user: the user that is currently accessing the database
+    :return: all courses where the user has answered at least one course
     """
     courses = Course.objects.filter(
         module__question__try__user=user)

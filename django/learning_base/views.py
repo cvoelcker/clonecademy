@@ -1,8 +1,8 @@
 """
 This module contains all directly accessed API functions
+Views are not documented extensively in the code but at
+https://github.com/Iliricon/clonecademy
 """
-# from math import floor
-
 from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.contrib.auth.models import User, Group
@@ -23,7 +23,7 @@ from .models import Course, CourseCategory, Try, Profile, started_courses
 class CategoryView(APIView):
     """
     Shows, creates, updates and deletes a category
-    @author Claas Voelcker, Tobias Huber
+    :author: Claas Voelcker, Tobias Huber
     """
     authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (custom_permissions.IsAdminOrReadOnly,)
@@ -31,7 +31,8 @@ class CategoryView(APIView):
     def get(self, request, format=None):
         """
         Shows the categories
-        @author Claas Voelcker
+        :author: Claas Voelcker
+        :return: a list of all categories
         """
         categories = CourseCategory.objects.all()
         data = serializers.CourseCategorySerializer(categories, many=True).data
@@ -41,7 +42,7 @@ class CategoryView(APIView):
     def post(self, request, format=None):
         """
         everything else but displaying
-        @author Tobias Huber
+        :author: Tobias Huber
         """
         data = request.data
         # check if instance shall be deleted

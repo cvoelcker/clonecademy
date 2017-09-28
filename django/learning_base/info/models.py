@@ -1,5 +1,5 @@
 """
-x
+Models for information type questions
 """
 from django.db import models
 from learning_base.models import Question
@@ -10,7 +10,7 @@ class InformationText(Question):
     A 'question' that only displays an informative text
     to the user. It requires no input and is only used to
     convey additional learning material to the reader.
-    @author: Claas Voelcker
+    :author: Claas Voelcker
     """
 
     __name__ = "info_text"
@@ -24,28 +24,35 @@ class InformationText(Question):
     @staticmethod
     def not_solvable():
         """
-        x
+        always solvable
+        :author: Claas Voelcker
+        :return: False
         """
         return False
 
     @staticmethod
     def evaluate(data):
         """
-        x
+        always correctly solved
+        :author: Claas Voelcker
+        :return: True
         """
         return True
 
     @staticmethod
     def num_correct_answers():
         """
-        x
+        has no answers
+        :author: Claas Voelcker
         """
         return 0
 
     @staticmethod
     def get_serializer():
         """
-        x
+        returns the correct serializer
+        :author: Claas Voelcker
+        :return: serializer for the question
         """
         from . import serializer
         return serializer.InformationTextSerializer
@@ -53,15 +60,17 @@ class InformationText(Question):
     @staticmethod
     def get_edit_serializer():
         """
-        x
+        returns the serializer for editing
+        :author: Claas Voelcker
+        :return: serializer for the question
         """
-        from . import serializer
-        return serializer.InformationTextSerializer
+        return InformationText.get_serializer()
 
     @staticmethod
     def get_points():
         """
-        x
+        has no points for a correct answer
+        :author: Claas Voelcker
         """
         return 0
 
@@ -88,28 +97,36 @@ class InformationYoutube(Question):
     @staticmethod
     def not_solvable():
         """
-        x
+        always solvable
+        :author: Claas Voelcker
+        :return: False
         """
         return False
 
     @staticmethod
     def evaluate(data):
         """
-        x
+        always correctly solved
+        :author: Claas Voelcker
+        :return: True
         """
+
         return True
 
     @staticmethod
     def num_correct_answers():
         """
-        x
+        has no answers
+        :author: Claas Voelcker
         """
         return 0
 
     @staticmethod
     def get_serializer():
         """
-        x
+        returns the correct serializer
+        :author: Claas Voelcker
+        :return: serializer for the question
         """
         from . import serializer
         return serializer.InformationYoutubeSerializer
@@ -117,7 +134,8 @@ class InformationYoutube(Question):
     @staticmethod
     def get_edit_serializer():
         """
-        x
+        returns the serializer for editing
+        :return: serializer for the question
         """
         from . import serializer
         return serializer.InformationYoutubeSerializer
@@ -125,12 +143,13 @@ class InformationYoutube(Question):
     @staticmethod
     def get_points():
         """
-        x
+        has no points for a correct answer
+        :author: Claas Voelcker
         """
         return 0
 
     def __str__(self):
         """
-        x
+        :return: string representation from the id
         """
         return "Learning text {}".format(self.id)

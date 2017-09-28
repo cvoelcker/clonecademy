@@ -9,6 +9,7 @@ from learning_base.models import Question
 class MultipleChoiceQuestion(Question):
     """
     A simple multiple choice question
+    :Leonhard Wiedmann:
     """
     __name__ = "multiple_choice"
 
@@ -24,8 +25,8 @@ class MultipleChoiceQuestion(Question):
 
     def num_correct_answers(self):
         """
-        returns the number of correct answers
-        :return:
+        :author: Claas Voelcker
+        :return: the number of correct answers
         """
         return len(MultipleChoiceAnswer.objects.filter(
             question=self, is_correct=True))
@@ -33,16 +34,17 @@ class MultipleChoiceQuestion(Question):
     def not_solvable(self):
         """
         Checks whether the question is actually solvable
-        :return:
+        :author: Claas Voelcker
+        :return: True if the number of answers is 0
         """
         return self.num_correct_answers() == 0
 
     def evaluate(self, data):
         """
         data: Map of answers
-        returns True if and only if the array of provided answers are exactly
+        :return: True if and only if the array of provided answers are exactly
         the correct answers
-        @author Tobias Huber
+        :author: Tobias Huber
         """
 
         # get all correct answers, map them to their id and make a
@@ -57,7 +59,8 @@ class MultipleChoiceQuestion(Question):
     def answer_set(self):
         """
         shorthand for the answer set
-        :return:
+        :author: Leonhard Wiedmann
+        :return: the QuerySet of all answers
         """
         return self.multiplechoiceanswer_set.all()
 
@@ -65,7 +68,8 @@ class MultipleChoiceQuestion(Question):
     def get_serializer():
         """
         reverse for the serializer
-        :return:
+        :author: Claas Voelcker
+        :return: the fitting serializer
         """
         from . import serializer
         return serializer.MultipleChoiceQuestionSerializer
@@ -73,7 +77,7 @@ class MultipleChoiceQuestion(Question):
     def get_points(self):
         """
         returns the points value of the question
-        :return:
+        :return: 2 if the course is hard, else 1
         """
         return 2 if self.module.course.category == 2 else 1
 
@@ -81,7 +85,8 @@ class MultipleChoiceQuestion(Question):
     def get_edit_serializer():
         """
         reverse for the serializer
-        :return:
+        :author: Claas Voelcker
+        :return: the fitting serializer
         """
         from . import serializer
         return serializer.MultipleChoiceQuestionEditSerializer
@@ -90,6 +95,7 @@ class MultipleChoiceQuestion(Question):
 class MultipleChoiceAnswer(models.Model):
     """
     A possible answer to a multiple choice question
+    :author: Claas Voelcker
     """
     question = models.ForeignKey(
         MultipleChoiceQuestion,
@@ -118,7 +124,8 @@ class MultipleChoiceAnswer(models.Model):
     def get_serializer():
         """
         reverse for the serializer
-        :return:
+        :author: Claas Voelcker
+        :return: the fitting serializer
         """
         from learning_base.multiple_choice import serializer
         return serializer.MultipleChoiceAnswerSerializer
@@ -127,7 +134,8 @@ class MultipleChoiceAnswer(models.Model):
     def get_edit_serializer():
         """
         reverse for the serializer
-        :return:
+        :author: Claas Voelcker
+        :return: the fitting serializer
         """
         from learning_base.multiple_choice import serializer
         return serializer.MultipleChoiceAnswerEditSerializer
