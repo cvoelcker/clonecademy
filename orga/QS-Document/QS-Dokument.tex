@@ -356,240 +356,29 @@ Während des Semesters ist dem Team aufgefallen, dass der vorgestellte QS-Prozes
 Einige QS-Maßnahmen wurden noch einmal kurz vor Abgabe des Projektes an die Auftraggeber*innen durchgeführt, auch wenn die Zeit an diesem Punkt nicht mehr ausreicht, um gefundene Probleme noch zu beheben. Dies hat den Hintergrund, dass die Auftraggeber*innen explizit wünschen, dass das Produkt auch in Zukunft noch weiter entwickelt und verfeinert wird. Somit haben wir beschlossen, einen letzten Durchlauf der Nutzungsstudien zu machen, um somit dem iGEM-Team die Möglichkeiten dazu an die Hand zu geben.
 
 \chapter{Nachweis über den QS Prozess pro Iteration}
-Um dieses Dokument nicht unübersichtlich werden zu lassen, wurden nicht alle Outputs der automatisierten Tests angehängt. Wir haben stattdessen die Meldungen zum Stand der Abgabe gespeichert und sporadisch einzelne Reports angehängt, um den Verlauf der Softwareentwicklung deutlich zu machen.
+Um dieses Dokument nicht unübersichtlich werden zu lassen, wurden nicht alle Outputs der automatisierten Tests angehängt. Wir haben stattdessen die Meldungen zum Stand der wöchentlichen Abgabe gespeichert, um den Verlauf der Softwareentwicklung deutlich zu machen.
 
-Bei den Berichten über die Testabdeckung haben wir zu jeder Iteration die Übersichtsseite der Reports angehängt, und einen gesamten Report für jeden Release.
+Bei den Berichten über die Testabdeckung haben wir zu jeder Iteration die Übersichtsseite der Reports angehängt, und einen gesamten Report für das finale Produkt.
 
-Um die Dokumentation der Webseite im Wiki anschaulich zu dokumentieren, haben wir einen Auszug der Dokumentation für jeden Release angehängt und eine vollständige Version der Seite für die endgültige Übergabe an die Auftraggeber*innen.
+Um die Dokumentation der Webseite im Wiki anschaulich zu dokumentieren, haben wir das gesamte Wiki bei Stand der Abgabe angehängt. Eine Rekonstruktion des Stands der jeweiligen Releases ist leider wegen der fehlenden Versionsgeschichte der Github Integration nicht mehr möglich.
 
-Die Dokumentation zum QS-Ziel ''Bedienbarkeit'' anschaulich zu gestalten, haben wir die Veränderungen an der Webseite durch Screenshots dokumentiert. Zusätzlich finden sich die Checklisten (pro Iteration) und die aus den Nutzungsstudien entstandenen Dokumente (Protokolle und Issues in GitHub).
+Die Dokumentation zum QS-Ziel ''Bedienbarkeit'' anschaulich zu gestalten, haben wir die Veränderungen an der Webseite durch Screenshots dokumentiert. Zusätzlich finden sich die Checklisten (pro Iteration) und die aus den Nutzungsstudien entstandenen Dokumente (Protokolle und Issues in GitHub) im folgenden Anhang.
 
-
-\section*{Iteration 7 - 29.06.}
-	Wir haben unseren QS-Prozess das erste Mal zur 7. Iteration durchgeführt, allerdings noch nicht vollständig (einige Details fehlen noch, z.B. geänderte Tools). Um den Stand der Software vor Beginn des Prozesses zu dokumentieren, haben wir alle QS-Maßnahmen am Produkt durchgeführt, ohne etwas an der Software zu ändern. Das bietet uns die Basis für den weiteren Verlauf.
-	
-	Abgegebene Userstories (bislang): 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
-	
-	Commit Hash der ersten Durchführung: 22f76fcce2d1d6b03857a9a4db7f9276433aecdd
-	
-	\subsection*{ng lint Output}
-	\lstinputlisting{appendix/ng_lint/ng_clean_7.txt}
-	
-	\subsection*{pep8 Output}
-	\lstinputlisting{appendix/pep8_07.txt}
-	
-	\subsection*{coverage Output}
-	\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/coverage/django_test_07.pdf}
-	
-	\subsection*{bandit Output}
-	\lstinputlisting{appendix/bandit/bandit_22f76.txt}
-
-\section*{Iteration 8 - 06.07.}
-	Abgegebene Userstories: 12
-	
-	Commit Hash: cf525f64091e6c892b7e471fc8048bd8c056d69e
-	
-	\subsection*{ng lint Output}
-	\lstinputlisting{appendix/ng_lint/ng_clean_8.txt}
-	
-	\subsection*{pep8 Output}
-	\lstinputlisting{appendix/pep8_07.txt}
-	
-	\subsection*{coverage Output}
-%	\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/coverage/django_test_08.pdf}
-	
-	\subsection*{bandit Output}
-	\lstinputlisting{appendix/bandit/bandit_cf525.txt}
-
-
-
-
+\input{appendix/iteration_07.tex}
+\input{appendix/iteration_08.tex}
+\input{appendix/iteration_09.tex}
 % Abgabe QS Dokument war hier
-
-\section*{Iteration 9 - 13.07.}
-	Abgegebene Userstories: keine
+\input{appendix/iteration_10.tex}
+\input{appendix/iteration_11.tex}
+\input{appendix/iteration_12.tex}
+\input{appendix/iteration_13.tex}
+\input{appendix/iteration_14.tex}
+\input{appendix/iteration_15.tex}
+\input{appendix/iteration_16.tex}
+\input{appendix/iteration_17.tex}
+\input{appendix/iteration_18.tex}
+\input{appendix/iteration_19.tex}
 	
-	Commit Hash: e2b7fed9dbc0e929bb28e7ccf30cd68aa0d73c19
-	
-	\subsection*{pep8 Output}
-	\lstinputlisting{appendix/pep8_07.txt}
-	
-	\subsection*{coverage Output}
-	\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/coverage/django_test_09.pdf}
-	
-	\subsection*{bandit Output}
-	\lstinputlisting{appendix/bandit/bandit_e2b7.txt}
-
-\section*{Iteration 10 - 20.07.}
-Abgegebene Userstories: 17, 18
-
-	Commit Hash: f5845985bf7463a32f0f4f04279ea7481a32daaf
-	
-	\subsection*{ng lint Output}
-	\lstinputlisting{appendix/ng_lint/ng_clean_10.txt}
-	
-	\subsection*{pylint Output}
-	\lstinputlisting{appendix/pylint/meldung_pylint_it10.txt}
-	
-	\subsection*{coverage Output}
-	\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/coverage/django_test_10.pdf}
-	
-	\subsection*{bandit Output}
-	\lstinputlisting{appendix/bandit/bandit_f584.txt}
-
-\section*{Iteration 11 - 27.07.}
-	Abgegebene Userstories: 22
-	
-	Commit Hash: 2d17b38eecc8bbd754534a564ff2a22d60ee5f71
-	
-	\subsection*{ng lint Output}
-	\lstinputlisting{appendix/ng_lint/ng_clean_11.txt}
-	
-	\subsection*{pylint Output}
-	\lstinputlisting{appendix/pylint/meldung_pylint_it11.txt}
-	
-	\subsection*{coverage Output}
-	\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/coverage/django_test_11.pdf}
-	
-	\subsection*{bandit Output}
-	\lstinputlisting{appendix/bandit/bandit_2d17b.txt}
-
-\section*{Iteration 12 - 03.08.}
-	Abgegebene Userstories: 4,19,20
-	
-	Commit Hash: 7af0e8284c862f9841d8101c6f4569adb0c6289c
-	
-	\subsection*{ng lint Output}
-	\lstinputlisting{appendix/ng_lint/ng_clean_12.txt}
-	
-	\subsection*{pylint Output}
-	\lstinputlisting{appendix/pylint/meldung_pylint_it12.txt}
-	
-	\subsection*{coverage Output}
-	\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/coverage/django_test_12.pdf}
-	
-	\subsection*{bandit Output}
-	\lstinputlisting{appendix/bandit/bandit_7af0e.txt}
-
-\section*{Iteration 13 - 10.08.}
-Abgegebene Userstories: 26,28,24
-
-	Commit Hash: b5e9a319bf3bd0bc33e544ff615e1bd8b62c7931
-	
-	\subsection*{ng lint Output}
-	\lstinputlisting{appendix/ng_lint/ng_clean_13.txt}
-	
-	\subsection*{pylint Output}
-	\lstinputlisting{appendix/pylint/meldung_pylint_it13.txt}
-	
-	\subsection*{coverage Output}
-	\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/coverage/django_test_13.pdf}
-	
-	\subsection*{bandit Output}
-	\lstinputlisting{appendix/bandit/bandit_b5e9a.txt}
-
-\section*{Iteration 14 - 17.08.}
-	Abgegebene Userstories: 25,27
-	
-	Commit Hash: ba0fab4c21d736b0f67f8fe21ef90c0da810ac4b
-	
-	\subsection*{ng lint Output}
-	\lstinputlisting{appendix/ng_lint/ng_clean_14.txt}
-	
-	\subsection*{pylint Output}
-	\lstinputlisting{appendix/pylint/meldung_pylint_it14.txt}
-	
-	\subsection*{coverage Output}
-	\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/coverage/django_test_14.pdf}
-	
-	\subsection*{bandit Output}
-	\lstinputlisting{appendix/bandit/bandit_ba0fa.txt}
-
-\section*{Iteration 15 - 24.08.}
-	Abgegebene Userstories: 38
-	
-	Commit Hash: 78f8954ebc159fbcb6ed6a767e18d3437a604d22
-	
-	\subsection*{ng lint Output}
-	\lstinputlisting{appendix/ng_lint/ng_clean_15.txt}
-	
-	\subsection*{pylint Output}
-	\lstinputlisting{appendix/pylint/meldung_pylint_it15.txt}
-	
-	\subsection*{coverage Output}
-	\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/coverage/django_test_15.pdf}
-	
-	\subsection*{bandit Output}
-	\lstinputlisting{appendix/bandit/bandit_78f89.txt}
-
-\section*{Iteration 16 - 31.08.} 
-	Abgegebene Userstories: 30, 32, 36, 37, 40, 41
-	
-	Commit Hash: 11bc7fa37a20ac045d5a6c29e4e3a060b73b3504
-	
-	\subsection*{ng lint Output}
-	\lstinputlisting{appendix/ng_lint/ng_clean_16.txt}
-	
-	\subsection*{pylint Output}
-	\lstinputlisting{appendix/pylint/meldung_pylint_it16.txt}
-	
-	\subsection*{coverage Output}
-	\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/coverage/django_test_16.pdf}
-	
-	\subsection*{bandit Output}
-	\lstinputlisting{appendix/bandit/bandit_11bc7.txt}
-
-\section*{Iteration 17 - 07.09.}
-	Abgegebene Userstories: 31, 33, 34, 42, 43, 44, 46
-	
-	Commit Hash: ffc8afbf7012f4b2d63e5b58ac8f0c224a7ee382
-	
-	\subsection*{ng lint Output}
-	\lstinputlisting{appendix/ng_lint/ng_clean_17.txt}
-	
-	\subsection*{pylint Output}
-	\lstinputlisting{appendix/pylint/meldung_pylint_it17.txt}
-	
-	\subsection*{coverage Output}
-	\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/coverage/django_test_17.pdf}
-	
-	\subsection*{bandit Output}
-	\lstinputlisting{appendix/bandit/bandit_ffc8a.txt}
-
-\section*{Iteration 18 - 14.09.}
-	Abgegebene Userstories: 39, 45, 47, 49, 50, 51, 54, 55
-	
-	Commit Hash: 
-	
-	\subsection*{ng lint Output}
-	\lstinputlisting{appendix/ng_lint/ng_clean_18.txt}
-	
-	\subsection*{pylint Output}
-	\lstinputlisting{appendix/pylint/meldung_pylint_it18.txt}
-	
-	\subsection*{coverage Output}
-	\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/coverage/django_test_18.pdf}
-	
-	\subsection*{bandit Output}
-	\lstinputlisting{appendix/bandit/bandit_18.txt}
-
-\section*{Iteration 19}
-	Abgegebene Userstories:
-	
-	Commit Hash: 
-	
-	\subsection*{ng lint Output}
-%	\lstinputlisting{appendix/ng_lint/ng-output19.txt}
-	
-	\subsection*{pylint Output}
-	\lstinputlisting{appendix/pylint/meldung_pylint_it19.txt}
-	
-	\subsection*{coverage Output}
-	\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/coverage/django_test_07.pdf}
-	
-	\subsection*{bandit Output}
-	\lstinputlisting{appendix/bandit/bandit_22f76.txt}
-
 \section*{Release 1 - 07.08.2017}
 Späteste Durchführung aller Tests: 30.07.2017
 
@@ -639,39 +428,88 @@ Durchführung aller Tests: 22.09.2017
 
 Commit Hash der Serverversion (master branch): 
 
-\section*{Dokumentation des Codes - Auszüge}
+\subsection*{Nutzerstudie - Protokoll}
+\includepdf[pages=-,pagecommand={},width=\textwidth]{../nutzerstudien/protokoll-09_25_2017.pdf}
+
+\subsection*{Nutzerstudie - Fragebögen}
+
+\chapter*{Progression des Design}
+
+\section*{Planungsphase}
+Dies war der ursprüngliche Plan für das Layout der Seite. Dieses Design wurde mit den Auftraggeber*innen erarbeitet.
+
+\includepdf[pages=-,pagecommand={},width=\textwidth]{../BeispielDesign/Dashboard.pdf}
+\includepdf[pages=-,pagecommand={},width=\textwidth]{../BeispielDesign/MultipleChoice.pdf}
+
+\section*{Minimum Viable Product}
+Im folgenden ist ein Screenshot vom Frontend gezeigt, nachdem die Webseite funktional war.
+
+\includegraphics[width=\textwidth]{appendix/screenshots/forntend.png}
+
+\section*{Abgabefertiges Produkt}
+Im folgenden ist der Stand des Produktes bei Abgabe zu sehen.
+
+\includegraphics[height=0.3\textheight]{appendix/screenshots/dashboard.jpg}
+
+\includegraphics[height=0.3\textheight]{appendix/screenshots/screenshot-0.jpg}
+
+\includegraphics[height=0.3\textheight]{appendix/screenshots/question-0.jpeg}
+
+
+
+\chapter*{Dokumentation des Codes - Auszüge}
 
 Wir haben uns dafür entschieden, jeweils drei Klassen us dem Front- und dem Backend vorzuweisen. Dies liegt daran, dass wir die Komponenten separat entwickelt haben und die Qualität in beiden Teilen des Projektes wichtig für die weitere Verwendbarkeit ist.
 
-\subsection*{Course Service - Frontend}
+\section*{Course Service - Frontend}
 Der Course Service ist der zentrale Dreh- und Angelpunkt über den das Frontend die Lerndaten vom Backend anfragt.
 
 \lstinputlisting[language=Java]{appendix/code_documentation/course.service.ts}
 
-\subsection*{User Details - Frontend}
-User Details ist eine komplexe Klasse, die einige 
+\section*{User Details - Frontend}
+User Details ist eine komplexe Klasse, die es ermöglicht, Einstellungen zu verändern. Sie zeigt gut, wie der Code des Frontends aufgebaut ist.
 
 \lstinputlisting[language=Java]{appendix/code_documentation/user-detail.component.ts }
 
-\subsection*{Statistics - Frontend}
-Statistics 
+\section*{Statistics - Frontend}
+Statistics zeigt den Nutzer*innen ihre Nutzungsstatistiken auf der Plattform an. 
 
 \lstinputlisting[language=Java]{appendix/code_documentation/statistics.component.ts }
 
-\subsection*{Course object - Backend}
-Statistics 
+\section*{Course object - Backend}
+Das Course Objekt repräsentiert den betreffenden Eintrag in der Datenbank und stellt weitere Funktionalitäten für das Backend bereit.
 
 \lstinputlisting[language=Java]{appendix/code_documentation/course.py }
 
-\subsection*{Question object - Backend}
-Statistics 
+\section*{Question object - Backend} 
 
 \lstinputlisting[language=Java]{appendix/code_documentation/question.py }
 
-\subsection*{CourseView object - Backend}
-Statistics 
+\section*{CourseView object - Backend}
+Die Klasse CourseView modelliert die REST-Schnittstelle über die auf Kurse zugegriffen werden kann.
 
 \lstinputlisting[language=Java]{appendix/code_documentation/course_view.py }
+
+\chapter{Unittests}
+
+Dies sind die Testklassen bei Stand der Abgabe
+
+\section{Python Tests}
+\lstinputlisting[language=Python]{appendix/tests.py}
+
+\section{Protractor/Selenium Tests}
+\lstinputlisting[language=Java]{appendix/specs.js}
+
+\chapter{Abschließende Coverage}
+Hier angefügt ist ein vollständiger Coverage-Report.
+
+\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/coverage/django_test_19.pdf}
+\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/coverage/django_learning_base_info_models.pdf}
+\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/coverage/django_learning_base_info_serializer.pdf}
+\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/coverage/django_learning_base_models.pdf}
+\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/coverage/django_learning_base_multiple_choice_models.pdf}
+\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/coverage/django_learning_base_multiple_choice_serializer.pdf}
+\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/coverage/django_learning_base_views.pdf}
 
 
 \chapter{GitHub-Wiki}
@@ -692,62 +530,8 @@ Das Team hat die Dokumentation der REST-API wie geplant im GitHub Wiki des Repos
 \input{appendix/github_wiki_tex/UserView.tex}	
 
 
-
-\chapter{Unittests}
-
-Dies sind die Testklassen bei Stand der Abgabe
-
-\section{Python Tests}
-\lstinputlisting[language=Python]{appendix/tests.py}
-
-\section{Protractor/Selenium Tests}
-\lstinputlisting[language=Java]{appendix/specs.js}
-
 \chapter{Userstories}
 \input{userstories/userstories_all.tex}
-
-\chapter{Checklisten für die Userstorie-Abgaben}
-
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/01_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/04_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/05_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/06_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/08_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/09_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/10_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/14_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/16_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/17_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/18_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/20_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/22_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/24_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/25_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/26_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/28_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/29_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/29_02.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/30_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/31_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/32_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/33_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/34_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/35_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/37_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/38_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/39_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/40_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/42_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/45_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/46_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/47_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/48_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/49_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/51_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/52_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/54_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/55_01.pdf}
-\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/checklisten/56_01.pdf}
 
 
 \chapter{Protokolle der Auftraggeber*innentreffen}

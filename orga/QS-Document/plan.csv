@@ -31,7 +31,7 @@ Benötigt	#num of iter	handed-in us	valid commit hash	user study report, checkli
 	9	Leon	Claas	4	ja	
 	10	Ilhan	Leon	4	ja	
 	11	Claas	Tobias	8		
-	12	Tobias	Leon	12		
+	12	Tobias	Leon	8		
 	13	geteilt				
 	14	Leon	Ilhan	7	ja	
 	15	Ilhan	Tobias	7		
@@ -76,5 +76,5 @@ Benötigt	#num of iter	handed-in us	valid commit hash	user study report, checkli
 	54	Tobias	Claas	18	ja	
 	55	Tobias	Claas	18	ja	
 	56	Claas			ja	
-	57	Tobias				
+	57	Tobias	Claas			
 	58	Ilhan				
