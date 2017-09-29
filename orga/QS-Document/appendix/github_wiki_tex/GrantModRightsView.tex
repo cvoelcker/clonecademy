@@ -1,0 +1,40 @@
+\chapter*{GrantModRightsView}
+
+\section*{Introduction}\label{introduction}
+
+The GrantModRightsView class is used to promote a user to a moderator or
+in other words add him*her to the usergroup 'moderator'. It also
+provides a get method to show if a user is already moderator
+
+\section*{Method Details}\label{method-details}
+
+\subsection*{\texorpdfstring{`get'}{get}}\label{get}
+
+URL: user\_id
+
+Returns true, when the user in the url is a moderator
+
+Request
+
+Response
+
+\begin{verbatim}
+True|False (200)
+\end{verbatim}
+
+\subsection*{\texorpdfstring{`post'}{post}}\label{post}
+
+Header: user\_id Request:
+
+\begin{verbatim}
+{ }
+\end{verbatim}
+
+Note: May be user for other permissions in the future
+
+Response:
+
+\begin{verbatim}
+"successfully promoted " + to_be_promoted.username (200)
+"the user \" "+ to_be_promoted.username +"\" is already a moderator" (200)
+\end{verbatim}

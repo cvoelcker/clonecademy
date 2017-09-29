@@ -1,0 +1,28 @@
+\chapter*{UserRightsView}
+
+\section*{Introduction}\label{introduction}
+
+The UserRightsView class is used to promote or demote a user to
+Moderator or Admin.
+
+\section*{Method Details}\label{method-details}
+
+\subsection*{\texorpdfstring{`get'}{get}}\label{get}
+
+No get Method implemented
+
+\subsection*{\texorpdfstring{`post'}{post}}\label{post}
+
+Header: user\_id Request:
+
+\begin{verbatim}
+{
+'right': string "the group in which the user will be pro or demoted",
+'action': string "promote or demote",
+}
+\end{verbatim}
+
+Response:
+
+The response is identical to the UserView get method
+
