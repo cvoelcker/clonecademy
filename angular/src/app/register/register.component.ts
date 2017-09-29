@@ -52,7 +52,7 @@ export class RegisterComponent {
       delete data['password2'];
       data['groups'] = [];
       data['profile'] = {};
-      this.server.post('register/', data, false, false)
+      this.server.post('register/', data)
         .then(answer => {
           this.user.loginUser(this.newUsername, this.newPassword)
         })

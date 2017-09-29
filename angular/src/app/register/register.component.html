@@ -7,7 +7,7 @@
     <md-input-container>
       <input mdInput type="email" placeholder='{{"email" | translate}}'
              #email="ngModel"
-             pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"
+             pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9]+$"
              name="email" [(ngModel)]="newEmail" required/>
       <md-hint align="start" *ngIf="!email.valid && f.submitted"
                class="warning">

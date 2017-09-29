@@ -535,10 +535,11 @@ class UserSerializer(serializers.ModelSerializer):
         instance.last_name = validated_data['last_name']
         if 'password' in validated_data:
             instance.set_password(validated_data['password'])
-        profile = instance.profile
         # profile.language = validated_data['language']
-        profile.avatar = validated_data['avatar']
-        profile.save()
+        if 'avatar' in validated_data:
+            profile = instance.profile
+            profile.avatar = validated_data['avatar']
+            profile.save()
         instance.save()
 
 

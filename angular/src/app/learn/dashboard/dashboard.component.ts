@@ -37,8 +37,13 @@ export class DashboardComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.course.load().then(() => {
-      this.loading = false, this.loadingCat = false
-    });
+      this.loading = false;
+      this.loadingCat = false
+    })
+    .catch(() => {
+      this.loading = false;
+      this.loadingCat = false;
+    })
   }
 
   constructor(private course: CourseService, private user: UserService) {

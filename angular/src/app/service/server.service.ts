@@ -104,20 +104,25 @@ export class ServerService {
       .catch(err => {
 
         if (!silent) {
+          loader.afterClosed().subscribe(nichts => {
+            this.handleError(err)
+            reject(err)
+          })
           loader.close()
+        } else {
+          if (error) {
+            this.handleError(err)
+          }
+          reject(err)
         }
-        if (error) {
-          this.handleError(err)
-        }
-        reject(err)
       })
     )
   }
 
   // error handler will show a popup with the error Message
   private handleError(error: any) {
-    console.error('An error occurred:', error.json()['error']);
-    this.error.open(error.json()['error'])
+    console.error('An error occurred:', error.json());
+    this.error.open(error.json())
   }
 
   // sends request to server and saves the token from server as cookie for future requests

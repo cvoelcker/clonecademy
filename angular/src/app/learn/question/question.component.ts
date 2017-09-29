@@ -22,10 +22,11 @@ import {MdSidenavModule} from '@angular/material';
 import {MultipleChoiceQuestionComponent} from '../multiple-choice-question/multiple-choice-question.component'
 import {InformationTextComponent} from '../info-text/info-text.component'
 
-import {WrongFeedbackComponent} from './wrong-feedback/wrong-feedback.component';
+import { QuestionFeedbackComponent } from './question-feedback/question-feedback.component'
 import {QuestionModuleComponent} from './question.module';
 
 import {QuestionDictionary} from '../question-dictionary';
+import {LoaderComponent} from '../../loader/loader.component';
 
 import {Subject} from 'rxjs/Subject';
 
@@ -144,50 +145,27 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
 
   submit() {
+    const loader = this.dialog.open(LoaderComponent, {
+      disableClose: true
+    })
     const postData = {answers: this.questionModule.submit()};
     this.server.post(
       'courses/' + this.courseID + '/' + (
         Number(this.moduleIndex) - 1
       ) + '/' + (Number(this.questionIndex) - 1),
-      postData)
-      .then(data => this.evaluteAnswer(data))
+      postData, true)
+      .then(data => {
+        loader.afterClosed().subscribe(nichts => {
+          const wrongFeedback = this.dialog.open(QuestionFeedbackComponent, {
+            disableClose: true,
+            data: data
+          })
+        })
+        loader.close()
+      })
       .catch(err => console.log(err))
   }
 
-  evaluteAnswer(data) {
-
-    this.submitResponse = data
-    this.submitCorrect = data['evaluate']
-    this.submitSend = true;
-
-    if (this.submitCorrect) {
-      // calls block to freeze the question element
-      this.questionModule.block();
-      this.questionModule.feedback = data.custom_feedback
-
-      this.progress[this.moduleIndex - 1][this.questionIndex - 1]['solved'] = true
-      // the answer is correct and the correct Feedback will be set
-      if (data['feedback'] !== '') {
-        this.correctFeedback = data['feedback']
-      } else {
-        this.translate.get('correct feedback').subscribe(translated => {
-          this.correctFeedback = translated
-        })
-      }
-    } else {
-      this.feedbackIterator = (this.feedbackIterator + 1) % 3;
-      // answer was wrong and the wrong Feedback will be setup
-      let text = '';
-      this.translate.get('wrong feedback ' + this.feedbackIterator).subscribe(translated => {
-        text = translated
-      })
-      console.log(WrongFeedbackComponent)
-      const wrongFeedback = this.dialog.open(WrongFeedbackComponent, {
-        data: { text: text }
-      })
-      console.log(wrongFeedback)
-    }
-  }
 
   next() {
     // if this is not the last question of a module add 1 to the index

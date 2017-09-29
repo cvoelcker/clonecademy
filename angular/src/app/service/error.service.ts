@@ -12,9 +12,7 @@ export class ErrorDialog {
 
   open(text: string) {
     this.dialog.open(ErrorMessageComponent, {
-      data: {
-        text: text
-      }
+      data: text
     })
   }
 

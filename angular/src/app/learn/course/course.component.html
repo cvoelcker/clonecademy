@@ -20,18 +20,12 @@
           {{"continue" | translate}}
         </button>
       </div>
-      <div class="button" [ngSwitch]="true" *ngIf="sidemenu == undefined">
       <span mdTooltip='Finish the course to start the quiz'>
-      <button *ngSwitchCase="!completed"
-              md-raised-button [disabled]="true">Start quiz
-      </button>
         </span>
-        <button *ngSwitchCase="completed" md-raised-button
+        <button md-raised-button [disabled]="!completed" *ngIf="quiz"
                 routerLink="/course/{{ id }}/quiz">
           Start quiz
         </button>
-
-      </div>
     </td>
 
     <td class="options" *ngIf="user.isModerator()">

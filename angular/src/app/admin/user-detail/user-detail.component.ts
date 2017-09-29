@@ -16,15 +16,12 @@ Make the user details visible to the admin and add some more admin funktions for
 
 export class UserDetailComponent {
 
-  // {username: string, id: number, email: string, group: {}, dateRegistered: Date, dateString: string}
   user: any;
   id: number;
   isMod = false;
   isAdmin = false;
 
   loading = true;
-
-  position = 'before';
 
   constructor(
     private route: ActivatedRoute,
@@ -41,7 +38,7 @@ export class UserDetailComponent {
     This funktions loads the user with the id, gives the variable "user" the
     response and sets the variables isMod, isAdmin
 
-    @input id: the id number of the user to load from the server
+    @param id: the id number of the user to load from the server
     @author Ilhan Simisiki
   **/
   change(id: number) {
@@ -62,7 +59,7 @@ export class UserDetailComponent {
   /**
   Promote or demote a user to admin or moderator and reset the current user information
 
-  @input
+  @param
     right: a string for the group ('admin' or 'moderator')
     action: a string for 'demote' or 'promote'
   @author Tobias Huber
