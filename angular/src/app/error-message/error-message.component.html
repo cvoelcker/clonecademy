@@ -1,6 +1,13 @@
 <div class="error-msg">
   <h2 md-dialog-title>{{"error" | translate}}</h2>
-  <md-dialog-content>{{data}}</md-dialog-content>
+  <md-dialog-content>
+    <span *ngIf="keys == undefined">{{data}}</span>
+    <ul *ngIf="keys != undefined && keys != []">
+      <li *ngFor="let k of keys">
+        {{k}}: {{data[k]}}
+      </li>
+    </ul>
+  </md-dialog-content>
   <md-dialog-actions>
     <!-- Can optionally provide a result for the closing dialog. -->
     <button md-button md-dialog-close>{{"close" | translate}}</button>

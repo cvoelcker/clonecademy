@@ -11,9 +11,10 @@ import {TranslateService} from '@ngx-translate/core';
 })
 export class ErrorMessageComponent {
 
-  text: string;
+  keys: Array<string>;
 
-  constructor(@Optional() @Inject(MD_DIALOG_DATA) public data: string, private translate: TranslateService) {
-    this.text = data
+  constructor(@Optional() @Inject(MD_DIALOG_DATA) public data: any, private translate: TranslateService) {
+    this.keys = Object.keys(data)
+    console.log(data)
   }
 }
