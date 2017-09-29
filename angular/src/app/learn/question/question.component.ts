@@ -156,8 +156,8 @@ export class QuestionComponent implements OnInit, OnDestroy {
       postData, true)
       .then(data => {
         loader.afterClosed().subscribe(nichts => {
-          let wrongFeedback = this.dialog.open(QuestionFeedbackComponent, {
-            disableClose:true,
+          const wrongFeedback = this.dialog.open(QuestionFeedbackComponent, {
+            disableClose: true,
             data: data
           })
         })

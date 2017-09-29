@@ -46,22 +46,12 @@ export class UserDetailUserComponent {
   edit(value) {
     if (value.valid && value.value['password'] === value.value['password2']) {
       const formData = value.value
-      if (this.body['avatar'] != ''){
+      if (this.body['avatar'] !== '') {
         formData['avatar'] = this.body['avatar']
       }
 
       const dialogRef = this.dialog.open(AuthDialogComponent, {
         data: formData, });
-      dialogRef.afterClosed().subscribe(result => {
-        /*if (result) {
-          data['oldpassword'] = result;
-          this.server.post("user/current", data, false, true).then(() => {
-            this.user.setData(data);
-          }).catch(err => {
-
-          })
-        }*/
-      });
     } else {
       console.log('form not valid')
     }

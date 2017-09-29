@@ -109,8 +109,7 @@ export class ServerService {
             reject(err)
           })
           loader.close()
-        }
-        else{
+        } else {
           if (error) {
             this.handleError(err)
           }

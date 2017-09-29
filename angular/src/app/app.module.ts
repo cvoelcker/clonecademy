@@ -11,7 +11,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {MarkdownModule} from 'angular2-markdown';
 
 // ColorPicker
-//import {ColorPickerModule} from 'angular2-color-picker';
+// import {ColorPickerModule} from 'angular2-color-picker';
 
 // Material Style
 

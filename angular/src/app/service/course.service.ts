@@ -29,7 +29,7 @@ export class CourseService {
     return new Promise((resolve, reject) => {
       this.getCategory().then(() => {
         let requests = 0
-        if (this.categorys.length <= 0){
+        if (this.categorys.length <= 0) {
           resolve()
           this.data = []
         }
