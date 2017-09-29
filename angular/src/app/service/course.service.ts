@@ -22,11 +22,18 @@ export class CourseService {
   /**
    load courses for all categories for the current user language
    after loading sorts course for every category in data variable
+   @author Leonhard Wiedmann
+   @returns Promise
    **/
   load() {
     return new Promise((resolve, reject) => {
       this.getCategory().then(() => {
         let requests = 0
+        if (this.categorys.length <= 0){
+          resolve()
+          this.data = []
+        }
+        // load all courses and sort them in a array by there categories
         for (let i = 0; i < this.categorys.length; i++) {
           this.server.post('courses/', {
             'type': '',
@@ -37,6 +44,7 @@ export class CourseService {
                 requests++;
                 this.data[this.categorys[i].name] = data;
                 if (requests === this.categorys.length) {
+                  // if all courses are loaded end the promise successfully
                   resolve()
                 }
               }
@@ -63,6 +71,7 @@ export class CourseService {
         }
       )
       .catch(err => {
+        this.categorys = []
         reject(err);
       }))
   }
@@ -72,7 +81,7 @@ export class CourseService {
    Loads the courses if currently not loaded.
    @author Leonhard Wiedmann
    @returns a promise resolving the course
-   @param id the id of the course loaded
+   @param id: number
    **/
   contains(id: number) {
     return new Promise((resolve, reject) => {
@@ -102,9 +111,10 @@ export class CourseService {
   }
 
   /**
-   Returns the course by id
+   Returns the course by the course id
+   If the id does not exist it will return false
    @author Leonhard Wiedmann
-   @aram id
+   @param id: number
    @returns a loaded course
    **/
   get(id: number) {
@@ -113,10 +123,8 @@ export class CourseService {
         if (this.data[this.categorys[i].name][j]['id'] === Number(id)) {
           return this.data[this.categorys[i].name][j];
         }
-
       }
     }
-
     return false;
   }
 

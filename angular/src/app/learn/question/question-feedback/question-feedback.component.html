@@ -1,0 +1,35 @@
+<div [class.wrong]="!data.evaluate" [class.correct]="data.evaluate">
+  <h2 md-dialog-title>
+    <span *ngIf="!data.evaluate">
+      Wrong
+    </span>
+    <span *ngIf="data.evaluate">
+      Correct
+    </span>
+  </h2>
+  <div class="context">
+    <span *ngIf="!data.evaluate">
+      Your answer was not correct.<br>
+      Try again!
+    </span>
+    <span *ngIf="data.evaluate">
+      <span *ngIf="data.feedback != undefined">
+        {{data.feedback}}
+      </span>
+      <span *ngIf="data.feedback == undefined">
+        Your answer was correct.
+      </span>
+      <p *ngIf="data.next == ''" class="done">
+        Congratulations you finished this course.
+      </p>
+    </span>
+  </div>
+  <div md-dialog-actions >
+    <!-- Can optionally provide a result for the closing dialog. -->
+    <button md-button md-dialog-close *ngIf="!data.evaluate">{{"close" | translate}}</button>
+    <button md-button md-dialog-close *ngIf="data.evaluate && data.next != ''" [routerLink]="'course/' + data.next">next</button>
+
+    <button md-button md-dialog-close *ngIf="data.evaluate && data.quiz" [routerLink]="'course/'">exit</button>
+    <button md-button md-dialog-close *ngIf="data.evaluate && data.quiz" [routerLink]="'course/' + data.course + '/quiz'">quiz</button>
+  </div>
+</div>

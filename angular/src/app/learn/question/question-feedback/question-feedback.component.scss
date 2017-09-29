@@ -1,0 +1,22 @@
+@import '../../../../_vars.scss';
+
+h2.mat-dialog-title{
+  margin: -24px -24px 12px;
+  padding: 24px 24px 0;
+}
+
+.wrong{
+  h2{
+    background-color: $warn;
+    color: $white;
+  }
+}
+.correct{
+  h2{
+    background-color: $green;
+    
+  }
+}
+.context{
+  margin-bottom: 1em
+}

@@ -203,20 +203,23 @@ class CourseView(APIView):
 
         # if no course id is given, the method was called wrong
         if not course_id:
-            return Response({'ans': 'Method not allowed'},
+            return Response({'error': 'Method not allowed'},
                             status=status.HTTP_405_METHOD_NOT_ALLOWED)
         try:
             # fetch the course object, serialize it and return
             # the serialization
-            course = Course.objects.get(id=course_id)
-            course_serializer = serializers.CourseSerializer(course, context={
-                'request': request})
-            return Response(course_serializer.data,
+            course = Course.objects.filter(id=course_id).first()
+            data = serializers.CourseSerializer(course, context={
+                'request': request}).data
+            data['quiz'] = False
+            if len(course.quizquestion_set.all()) > 0:
+                data['quiz'] = True
+            return Response(data,
                             status=status.HTTP_200_OK)
         # in case of an exception, throw a "Course not found" error for the
         # frontend, packaged in a valid response with an error status code
-        except Exception:
-            return Response({'ans': 'Course not found'},
+        except Exception as e:
+            return Response({'error': str(e)},
                             status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request, course_id=None, format=None):
@@ -425,14 +428,14 @@ class QuestionView(APIView):
             course_module = course.module_set.all()[int(module_id)]
             question = course_module.question_set.all()[int(question_id)]
         except Exception:
-            return Response({'ans': 'Question not found'},
+            return Response({'error': 'Question not found'},
                             status=status.HTTP_404_NOT_FOUND)
         # deny access if there is a/are previous question(s) and it/they
         # haven't been answered correctly
         if not (self.can_access_question(request.user, question, module_id,
                                          question_id)):
             return Response(
-                {'ans': "Previous question(s) haven't been answered"
+                {'error': "Previous question(s) haven't been answered"
                         + " correctly yet"},
                 status=status.HTTP_403_FORBIDDEN
             )
@@ -450,13 +453,15 @@ class QuestionView(APIView):
         if solved:
             next_type = ""
             if not question.is_last_question():
-                next_type = "question"
+                next_type = str(course_id) + '/' + str(int(module_id) + 1) + '/' + str(int(question_id) + 2)
             elif not course_module.is_last_module():
-                next_type = "module"
+                next_type = str(course_id) + '/' + str(int(module_id) + 2) + '/1'
             elif course.quizquestion_set.exists():
-                next_type = "quiz"
+                response['quiz'] = True
+            response['course'] = course_id
             response['next'] = next_type
-            if solved and question.feedback:
+
+            if question.feedback:
                 # response['custom_feedback'] = question.custom_feedback()
                 response['feedback'] = question.feedback
         return Response(response)

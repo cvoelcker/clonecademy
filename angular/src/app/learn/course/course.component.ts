@@ -24,6 +24,7 @@ export class CourseComponent implements OnInit {
   description: string;
   visible: boolean;
   @Input() sidemenu: any;
+  quiz: boolean;
 
   // Pie
   // public pieChartLabels:string[] = ['answered', 'to do'];
@@ -90,6 +91,7 @@ export class CourseComponent implements OnInit {
         this.modules = data['modules'];
         this.description = data['description']
         this.visible = data['is_visible']
+        this.quiz = data['quiz']
         // this.pieChartData = [this.numAnswered, this.numQuestions-this.numAnswered]
 
         const lastModule = this.modules[this.modules.length - 1]

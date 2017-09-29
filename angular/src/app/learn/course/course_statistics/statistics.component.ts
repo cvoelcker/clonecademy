@@ -7,9 +7,9 @@ import {ServerService} from '../../../service/server.service'
 import 'rxjs/Rx' ;
 
 /**
- * @author Leonhard Wiedmann
- *
  * A component to display the statistics of the current course
+ *
+ * @author Leonhard Wiedmann
  */
 @Component({
   selector: 'app-course-statistics',
@@ -71,17 +71,8 @@ export class CourseStatisticsComponent implements OnInit {
       list_questions: true,
       course: this.id,
     }).then((data: any) => {
-      this.list = data
-      this.cdr.detectChanges()
+      this.list = data;
       })
-  }
-
-  /**
-  Download the statistics for the current user
-  @author Leonhard Wiedmann
-  **/
-  downloadStatistics() {
-    this.server.downloadStatistics({id: 0})
   }
 
 }

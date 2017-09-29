@@ -10,6 +10,9 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 // markdown
 import {MarkdownModule} from 'angular2-markdown';
 
+// ColorPicker
+//import {ColorPickerModule} from 'angular2-color-picker';
+
 // Material Style
 
 import {DialogComponent} from './quickview/dialog.component'
@@ -17,7 +20,7 @@ import {DialogComponent} from './quickview/dialog.component'
 import {
   MdSidenavModule, MdDialog, MdDialogModule, MdIconModule, MdMenuModule,
   MdButtonModule, MdAutocompleteModule, MdCheckboxModule, MdTooltipModule,
-  MdCardModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule,
+  MdCardModule, MdInputModule, MdSelectModule, MdTabsModule,
   MdProgressSpinnerModule, MdDatepickerModule, MdNativeDateModule} from '@angular/material';
 
 import { ChartsModule } from 'ng2-charts';
@@ -30,9 +33,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 
 import {RouterModule, Routes} from '@angular/router';
 import {CookieService} from 'angular2-cookie/services/cookies.service';
-/*
- import { ColorPickerModule } from 'angular2-color-picker';
- */
+
 import {ServerService} from './service/server.service';
 import {UserService} from './service/user.service';
 import {CourseService} from './service/course.service'
@@ -76,7 +77,6 @@ import { PwResetComponent } from './login/pw-reset/pw-reset.component';
 import { PwResetAnswerDialogComponent } from './login/pw-reset/pw-reset-answer-dialog/pw-reset-answer-dialog.component';
 
 import { ErrorMessageComponent } from './error-message/error-message.component';
-import { WrongFeedbackComponent } from './learn/question/wrong-feedback/wrong-feedback.component';
 import { LoaderComponent } from './loader/loader.component';
 import { EditCourseComponent } from './learn/course-editor/create-course/edit-course.component';
 import { StaticPageComponent } from './static-page/static-page.component';
@@ -86,6 +86,7 @@ import { CourseStatisticsComponent } from './learn/course/course_statistics/stat
 import {CourseViewComponent} from './learn/view-courses/view-courses.component';
 import {FooterMainpageComponent} from './footer-mainpage/footer-mainpage.component';
 import {QuizQuestionComponent} from './quiz/quiz-question/quiz-question.component';
+import { QuestionFeedbackComponent } from './learn/question/question-feedback/question-feedback.component';
 
 
 
@@ -234,7 +235,6 @@ const QuestionList = QuestionDictionary.questionComponents
     RegisterComponent,
     PwResetComponent,
     ErrorMessageComponent,
-    WrongFeedbackComponent,
     LoaderComponent,
     EditCourseComponent,
     UserDetailUserComponent,
@@ -251,6 +251,7 @@ const QuestionList = QuestionDictionary.questionComponents
     CourseStatisticsComponent,
     PwResetAnswerDialogComponent,
     AuthDialogComponent,
+    QuestionFeedbackComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -282,7 +283,7 @@ const QuestionList = QuestionDictionary.questionComponents
     MdProgressSpinnerModule,
     MdMenuModule,
     MdIconModule,
-    ChartsModule
+    ChartsModule,
   ],
   exports: [],
   providers: [
@@ -302,7 +303,7 @@ const QuestionList = QuestionDictionary.questionComponents
     AddQuestionModuleComponent,
     AddQuestionComponent,
     ErrorMessageComponent,
-    WrongFeedbackComponent,
+    QuestionFeedbackComponent,
     LoaderComponent,
     CourseComponent,
     CreateCourseComponent,

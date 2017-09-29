@@ -13,7 +13,6 @@ import {
   MdCardModule,
   MdInputModule,
   MdSelectModule,
-  MaterialModule,
   MdTabsModule,
   MdProgressSpinnerModule
 } from '@angular/material';
