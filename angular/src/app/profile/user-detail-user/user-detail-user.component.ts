@@ -46,7 +46,9 @@ export class UserDetailUserComponent {
   edit(value) {
     if (value.valid && value.value['password'] === value.value['password2']) {
       const formData = value.value
-      formData['avatar'] = this.body['avatar']
+      if (this.body['avatar'] != ''){
+        formData['avatar'] = this.body['avatar']
+      }
 
       const dialogRef = this.dialog.open(AuthDialogComponent, {
         data: formData, });
