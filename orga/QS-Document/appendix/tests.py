@@ -150,64 +150,23 @@ class CourseViewTest(DatabaseMixin, TestCase):
 
     def test_post(self):
         request = self.factory.post('/courses/save',
-                                    {'name': 'test_2',
-                                     'category': 'test',
-                                     'difficulty': 2,
-                                     'modules': [{'name': 'a module',
-                                                  'learning_text': 'no way',
-                                                  'order': 3,
-                                                  'questions': [
-                                                      {'title': 'a question',
-                                                       'text': 'some text',
-                                                       'feedback': '',
-                                                       'type': 'multiple_choice',
-                                                       'order': 1,
-                                                       'answers': [
-                                                           {'text': 'nope',
-                                                            'is_correct': True},
-                                                           {'text': 'nope',
-                                                            'is_correct': False}]}]}],
-                                     'language': 'en'}, format='json')
+                                    {'name': 'test_2', [...],
+                                        'language': 'en'}, format='json')
         force_authenticate(request, self.u1)
         response = self.view(request)
         self.assertEqual(response.status_code, 201)
         self.assertTrue(models.Course.objects.filter(name='test_2').exists())
 
         request = self.factory.post('/courses/save',
-                                    {'name': 'test_2',
-                                     'category': 'test',
-                                     'difficulty': 2,
-                                     'modules': [{'name': 'a module',
-                                                  'learning_text': 'no way',
-                                                  'order': 3,
-                                                  'questions': [
-                                                      {'title': 'a question',
-                                                       'text': 'some text',
-                                                       'feedback': '',
-                                                       'type': 'MultipleChoiceQuestion',
-                                                       'order': 1,
-                                                       'answers': [
-                                                           {'text': 'nope',
-                                                            'is_correct': False}]}]}],
-                                     'language': 'en'}, format='json')
+                                    {'name': 'test_2', [...],
+                                        'language': 'en'}, format='json')
         force_authenticate(request, self.u1)
         response = self.view(request)
         self.assertEqual(response.status_code, 409)
 
         request = self.factory.post('/courses/save',
-                                    {'name': 'test_3',
-                                     'category': 'test',
-                                     'difficulty': 2,
-                                     'modules': [
-                                         {'name': 'a module',
-                                          'learning_text': 'no way',
-                                          'order': 3,
-                                          'questions': []},
-                                         {'name': 'another module',
-                                          'learning_text': 'appearing first',
-                                          'order': 2,
-                                          'questions': []}],
-                                     'language': 'en'}, format='json')
+                                    {'name': 'test_3', [...],
+                                        'language': 'en'}, format='json')
         force_authenticate(request, self.u1)
         response = self.view(request)
         self.assertEqual(response.status_code, 201)
@@ -217,24 +176,8 @@ class CourseViewTest(DatabaseMixin, TestCase):
             models.Module.objects.filter(name='another module').exists())
 
         request = self.factory.post('/courses/save',
-                                    {'name': 'test_4',
-                                     'category': 'test',
-                                     'difficulty': 2,
-                                     'modules': [{'name': 'any module',
-                                                  'learning_text': 'no way',
-                                                  'order': 0,
-                                                  'questions': [
-                                                      {
-                                                          'title': 'some question',
-                                                          'text': 'any text',
-                                                          'feedback': '',
-                                                          'type': 'multiple_choice',
-                                                          'order': 1,
-                                                          'answers': [
-                                                              {
-                                                                  'text': 'this is not correct',
-                                                                  'is_correct': False}]}]}],
-                                     'language': 'en'}, format='json')
+                                    {'name': 'test_4', [...],
+                                        'language': 'en'}, format='json')
         force_authenticate(request, self.u1)
         response = self.view(request)
         self.assertEquals(response.status_code, 400)
@@ -244,24 +187,8 @@ class CourseViewTest(DatabaseMixin, TestCase):
                 title='any module').exists())
 
         request = self.factory.post('/courses/save',
-                                    {'name': 'test_4',
-                                     'category': 'test',
-                                     'difficulty': 2,
-                                     'modules': [
-                                         {'name': 'a module',
-                                          'learning_text': 'no way',
-                                          'order': 3,
-                                          'questions': [
-                                              {'title': 'a question',
-                                               'text': 'some text',
-                                               'feedback': '',
-                                               'type': 'multiple_choice',
-                                               'order': 1,
-                                               'answers': [
-                                                   {'text': 'nope',
-                                                    'is_correct': True}]
-                                               }]}],
-                                     'language': 'en'}, format='json')
+                                    {'name': 'test_4', [...],
+                                        'language': 'en'}, format='json')
         force_authenticate(request, self.u1)
         response = self.view(request)
         self.assertEqual(response.status_code, 201)
@@ -272,21 +199,8 @@ class CourseViewTest(DatabaseMixin, TestCase):
 
     def test_information_text(self):
         request = self.factory.post('/courses/save',
-                                    {'name': 'test_4',
-                                     'category': 'test',
-                                     'difficulty': 2,
-                                     'modules': [
-                                         {'name': 'a module',
-                                          'learning_text': 'no way',
-                                          'order': 3,
-                                          'questions': [
-                                              {'title': 'a question',
-                                               'text': 'some text',
-                                               'feedback': '',
-                                               'type': 'info_text',
-                                               'order': 1,
-                                               }]}],
-                                     'language': 'en'}, format='json')
+                                    {'name': 'test_4', [...],
+                                        'language': 'en'}, format='json')
         force_authenticate(request, self.u1)
         response = self.view(request)
         self.assertEqual(response.status_code, 201)
@@ -304,56 +218,8 @@ class CourseEditViewTest(DatabaseMixin, TestCase):
         self.setup_database()
 
     def test_deleting_question(self):
-        courseData = {
-            'name': 'edit_1',
-            'category': 'test',
-            'difficulty': 2,
-            'responsible_mod': 1,
-            'responsible_mod': self.u1,
-            'modules': [
-                {
-                    'name': 'a module',
-                    'learning_text': 'no way',
-                    'order': 3,
-                    'questions': [
-                        {
-                            'title': 'a question',
-                            'text': 'some text',
-                            'feedback': '',
-                            'type': 'multiple_choice',
-                            'order': 1,
-                            'answers': [
-                                {
-                                    'text': 'true',
-                                    'is_correct': True
-                                },
-                                {
-                                    'text': 'nope',
-                                    'is_correct': False
-                                }
-                            ]
-                        },
-                        {
-                            'title': 'this one will be removed',
-                            'text': 'some text',
-                            'feedback': '',
-                            'type': 'multiple_choice',
-                            'order': 2,
-                            'answers': [
-                                {
-                                    'text': 'true',
-                                    'is_correct': True
-                                },
-                                {
-                                    'text': 'nope',
-                                    'is_correct': False
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ],
-            'language': 'en'}
+        courseData = {'name': 'edit_1', [...],
+                          'language': 'en'}
 
         course = serializers.CourseSerializer(data=courseData)
         if not course.is_valid():
@@ -388,63 +254,8 @@ class CourseEditViewTest(DatabaseMixin, TestCase):
             title='this one will be removed').exists())
 
     def test_deleting_module(self):
-        courseData = {
-            'name': 'edit_2',
-            'category': 'test',
-            'difficulty': 2,
-            'responsible_mod': 1,
-            'responsible_mod': self.u1,
-            'modules': [
-                {
-                    'name': 'a module',
-                    'learning_text': 'no way',
-                    'order': 3,
-                    'questions': [
-                        {
-                            'title': 'a question',
-                            'text': 'some text',
-                            'feedback': '',
-                            'type': 'multiple_choice',
-                            'order': 1,
-                            'answers': [
-                                {
-                                    'text': 'true',
-                                    'is_correct': True
-                                },
-                                {
-                                    'text': 'nope',
-                                    'is_correct': False
-                                }
-                            ]
-                        },
-                    ]
-                },
-                {
-                    'name': 'another module',
-                    'learning_text': 'no way',
-                    'order': 4,
-                    'questions': [
-                        {
-                            'title': 'a question',
-                            'text': 'some text',
-                            'feedback': '',
-                            'type': 'multiple_choice',
-                            'order': 1,
-                            'answers': [
-                                {
-                                    'text': 'true',
-                                    'is_correct': True
-                                },
-                                {
-                                    'text': 'nope',
-                                    'is_correct': False
-                                }
-                            ]
-                        },
-                    ]
-                }
-            ],
-            'language': 'en'}
+        courseData = {'name': 'edit_2', [...],
+                          'language': 'en'}
 
         course = serializers.CourseSerializer(data=courseData)
         if not course.is_valid():
@@ -664,39 +475,8 @@ class TryTest(DatabaseMixin, TestCase):
         self.view = views.QuestionView.as_view()
         self.setup_database()
 
-        courseData = {
-            'name': 'quiz_1',
-            'category': 'test',
-            'difficulty': 2,
-            'responsible_mod': 1,
-            'responsible_mod': self.u1,
-            'modules': [
-                {
-                    'name': 'a module',
-                    'learning_text': 'no way',
-                    'order': 3,
-                    'questions': [
-                        {
-                            'title': 'a question',
-                            'text': 'some text',
-                            'feedback': '',
-                            'type': 'multiple_choice',
-                            'order': 1,
-                            'answers': [
-                                {
-                                    'text': 'true',
-                                    'is_correct': True
-                                },
-                                {
-                                    'text': 'nope',
-                                    'is_correct': False
-                                }
-                            ]
-                        },
-                    ]
-                }
-            ],
-            'language': 'en'}
+        courseData = {'name': 'quiz_1', [...],
+                          'language': 'en'}
 
         course = serializers.CourseSerializer(data=courseData)
         course.create(courseData)
@@ -781,171 +561,8 @@ class QuizTest(DatabaseMixin, TestCase):
         self.view = views.QuestionView.as_view()
         self.setup_database()
 
-        courseData = {
-            'name': 'quiz_1',
-            'category': 'test',
-            'difficulty': 2,
-            'responsible_mod': 1,
-            'responsible_mod': self.u1,
-            'modules': [
-                {
-                    'name': 'a module',
-                    'learning_text': 'no way',
-                    'order': 3,
-                    'questions': [
-                        {
-                            'title': 'a question',
-                            'text': 'some text',
-                            'feedback': '',
-                            'type': 'multiple_choice',
-                            'order': 1,
-                            'answers': [
-                                {
-                                    'text': 'true',
-                                    'is_correct': True
-                                },
-                                {
-                                    'text': 'nope',
-                                    'is_correct': False
-                                }
-                            ]
-                        },
-                    ]
-                }
-            ],
-            'quiz': [
-                {
-                    'question': 'first',
-                    'image': '',
-                    'answers': [
-                        {
-                            'text': 'a sdfa sdfasd fasd fa',
-                            'img': '',
-                            'correct': True
-                        },
-                        {
-                            'text': 'as dfas dasd asfd adsfa sdf',
-                            'img': '',
-                            'correct': False
-                        },
-                        {
-                            'text': 'asdds afadsfadsf adsf ads fa dsf',
-                            'img': '',
-                            'correct': False
-                        },
-                        {
-                            'text': 'adf asdf asdfasdf',
-                            'img': '',
-                            'correct': False
-                        }
-                    ]
-                },
-                {
-                    'question': 'sadfasdfasdfas dasd fasd ',
-                    'image': '',
-                    'answers': [
-                        {
-                            'text': 'sadfasdfasdfas dfasdf a',
-                            'img': '',
-                            'correct': False
-                        },
-                        {
-                            'text': 'asd fasdf asdf asd fasd f',
-                            'img': '',
-                            'correct': True
-                        },
-                        {
-                            'text': 'asdf asdf asdf asdf asd ',
-                            'img': '',
-                            'correct': False
-                        },
-                        {
-                            'text': 'asdf asdf asd',
-                            'img': '',
-                            'correct': False
-                        }
-                    ]
-                },
-                {
-                    'question': 'sadfasdfasdfas dasd fasd ',
-                    'image': '',
-                    'answers': [
-                        {
-                            'text': 'sadfasdfasdfas dfasdf a',
-                            'img': '',
-                            'correct': False
-                        },
-                        {
-                            'text': 'asd fasdf asdf asd fasd f',
-                            'img': '',
-                            'correct': True
-                        },
-                        {
-                            'text': 'asdf asdf asdf asdf asd ',
-                            'img': '',
-                            'correct': False
-                        },
-                        {
-                            'text': 'asdf asdf asd',
-                            'img': '',
-                            'correct': False
-                        }
-                    ]
-                },
-                {
-                    'question': 'sadfasdfasdfas dasd fasd ',
-                    'image': '',
-                    'answers': [
-                        {
-                            'text': 'sadfasdfasdfas dfasdf a',
-                            'img': '',
-                            'correct': False
-                        },
-                        {
-                            'text': 'asd fasdf asdf asd fasd f',
-                            'img': '',
-                            'correct': True
-                        },
-                        {
-                            'text': 'asdf asdf asdf asdf asd ',
-                            'img': '',
-                            'correct': False
-                        },
-                        {
-                            'text': 'asdf asdf asd',
-                            'img': '',
-                            'correct': False
-                        }
-                    ]
-                },
-                {
-                    'question': 'last',
-                    'image': '',
-                    'answers': [
-                        {
-                            'text': 'sadfasdfasdfas dfasdf a',
-                            'img': '',
-                            'correct': False
-                        },
-                        {
-                            'text': 'asd fasdf asdf asd fasd f',
-                            'img': '',
-                            'correct': True
-                        },
-                        {
-                            'text': 'asdf asdf asdf asdf asd ',
-                            'img': '',
-                            'correct': False
-                        },
-                        {
-                            'text': 'asdf asdf asd',
-                            'img': '',
-                            'correct': False
-                        }
-                    ]
-                }
-            ],
-            'language': 'en'}
+        courseData = {'name': 'quiz_1', [...],
+                          'language': 'en'}
 
         course = serializers.CourseSerializer(data=courseData)
         if not course.is_valid():
@@ -1037,193 +654,8 @@ class QuizTest(DatabaseMixin, TestCase):
         self.assertEqual(response.status_code, 200)
 
         # creation for unsolvable quiz resolves in error
-        courseData = {
-            'name': 'quiz_2',
-            'category': 'test',
-            'difficulty': 2,
-            'responsible_mod': 1,
-            'responsible_mod': self.u1,
-            'modules': [
-                {
-                    'name': 'a module',
-                    'learning_text': 'no way',
-                    'order': 3,
-                    'questions': [
-                        {
-                            'title': 'a question',
-                            'text': 'some text',
-                            'feedback': '',
-                            'type': 'multiple_choice',
-                            'order': 1,
-                            'answers': [
-                                {
-                                    'text': 'true',
-                                    'is_correct': True
-                                },
-                                {
-                                    'text': 'nope',
-                                    'is_correct': False
-                                }
-                            ]
-                        },
-                    ]
-                },
-                {
-                    'name': 'another module',
-                    'learning_text': 'no way',
-                    'order': 4,
-                    'questions': [
-                        {
-                            'title': 'a question',
-                            'text': 'some text',
-                            'feedback': '',
-                            'type': 'multiple_choice',
-                            'order': 1,
-                            'answers': [
-                                {
-                                    'text': 'true',
-                                    'is_correct': True
-                                },
-                                {
-                                    'text': 'nope',
-                                    'is_correct': False
-                                }
-                            ]
-                        },
-                    ]
-                }
-            ],
-            'quiz': [
-                {
-                    'question': 'first',
-                    'image': '', 'answers': [
-                    {
-                        'text': 'a sdfa sdfasd fasd fa',
-                        'img': '',
-                        'correct': False
-                    },
-                    {
-                        'text': 'as dfas dasd asfd adsfa sdf',
-                        'img': '',
-                        'correct': False
-                    },
-                    {
-                        'text': 'asdds afadsfadsf adsf ads fa dsf',
-                        'img': '',
-                        'correct': False
-                    },
-                    {
-                        'text': 'adf asdf asdfasdf',
-                        'img': '', 'correct': False
-                    }
-                ]
-                },
-                {
-                    'question': 'sadfasdfasdfas dasd fasd ',
-                    'image': '',
-                    'answers': [
-                        {
-                            'text': 'sadfasdfasdfas dfasdf a',
-                            'img': '',
-                            'correct': False
-                        },
-                        {
-                            'text': 'asd fasdf asdf asd fasd f',
-                            'img': '',
-                            'correct': True
-                        },
-                        {
-                            'text': 'asdf asdf asdf asdf asd ',
-                            'img': '',
-                            'correct': False
-                        },
-                        {
-                            'text': 'asdf asdf asd',
-                            'img': '',
-                            'correct': False
-                        }
-                    ]
-                },
-                {
-                    'question': 'sadfasdfasdfas dasd fasd ',
-                    'image': '',
-                    'answers': [
-                        {
-                            'text': 'sadfasdfasdfas dfasdf a',
-                            'img': '',
-                            'correct': False
-                        },
-                        {
-                            'text': 'asd fasdf asdf asd fasd f',
-                            'img': '',
-                            'correct': True
-                        },
-                        {
-                            'text': 'asdf asdf asdf asdf asd ',
-                            'img': '',
-                            'correct': False
-                        },
-                        {
-                            'text': 'asdf asdf asd',
-                            'img': '',
-                            'correct': False
-                        }
-                    ]
-                },
-                {
-                    'question': 'sadfasdfasdfas dasd fasd ',
-                    'image': '',
-                    'answers': [
-                        {
-                            'text': 'sadfasdfasdfas dfasdf a',
-                            'img': '',
-                            'correct': False
-                        },
-                        {
-                            'text': 'asd fasdf asdf asd fasd f',
-                            'img': '',
-                            'correct': True
-                        },
-                        {
-                            'text': 'asdf asdf asdf asdf asd ',
-                            'img': '',
-                            'correct': False
-                        },
-                        {
-                            'text': 'asdf asdf asd',
-                            'img': '',
-                            'correct': False
-                        }
-                    ]
-                },
-                {
-                    'question': 'last',
-                    'image': '',
-                    'answers': [
-                        {
-                            'text': 'sadfasdfasdfas dfasdf a',
-                            'img': '',
-                            'correct': False
-                        },
-                        {
-                            'text': 'asd fasdf asdf asd fasd f',
-                            'img': '',
-                            'correct': True
-                        },
-                        {
-                            'text': 'asdf asdf asdf asdf asd ',
-                            'img': '',
-                            'correct': False
-                        },
-                        {
-                            'text': 'asdf asdf asd',
-                            'img': '',
-                            'correct': False
-                        }
-                    ]
-                }
-            ],
-            'language': 'en'}
+        courseData = {'name': 'quiz_2', [...],
+                          'language': 'en'}
 
         quiz = serializers.CourseSerializer(data=courseData)
 
