@@ -5,6 +5,6 @@
     <h4>Score: {{user.data.ranking}}</h4>
   </div>
 
-    <button type="button" class="buttons" md-raised-button (click)="dialogRef.close()"  routerLink="/profile/details" [routerLinkActive]="['active']">Profile</button><br>
+    <button type="button" class="buttons" md-raised-button (click)="dialogRef.close()"  routerLink="/profile/settings" [routerLinkActive]="['active']">Profile</button><br>
     <button type="button" class="buttons" md-raised-button (click)="user.logout()" (click)="dialogRef.close()">Logout</button>
 </div>

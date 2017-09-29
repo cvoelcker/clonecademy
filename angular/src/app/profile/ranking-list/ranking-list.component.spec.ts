@@ -10,7 +10,7 @@ describe('RankingListComponent', () => {
   let fixture: ComponentFixture<RankingListComponent>;
 
   beforeEach(async(() => {
-    let base = new BaseTest();
+    const base = new BaseTest();
     TestBed.configureTestingModule({
       declarations: [RankingListComponent],
       imports: [base.imports()],

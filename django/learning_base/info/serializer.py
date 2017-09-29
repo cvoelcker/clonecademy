@@ -1,5 +1,5 @@
 """
-x
+Serializers for the information type questions
 """
 from re import compile
 
@@ -19,12 +19,12 @@ class InformationTextSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         """
-        x
+        creates a InformationText from validated data
+        :param validated_data: the data for the new db entry
         """
         question = InformationText(**validated_data)
         question.module = validated_data['module']
         question.save()
-        return True
 
 
 class InformationYoutubeSerializer(serializers.ModelSerializer):

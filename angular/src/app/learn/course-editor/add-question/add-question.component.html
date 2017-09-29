@@ -1,8 +1,13 @@
 <md-card class="panel" [@slideIn]="loading" (@slideIn.done)="remove($event)">
   <details open="open">
     <summary>
-      <ul>
-        <li class="titleName">
+      <table style="width:100%">
+        <tr>
+          <th>Question: {{title}}</th>
+        </tr>
+      </table>
+    </summary>
+    <div>
           <md-input-container>
             <input mdInput placeholder='{{"Question title" | translate}}'
                    type="text" #Title="ngModel" [(ngModel)]="title"
@@ -12,10 +17,6 @@
               <strong>{{'The title of the module is required' |
                 translate}}</strong></md-hint>
           </md-input-container>
-        </li>
-      </ul>
-    </summary>
-
     <md-input-container>
       <textarea mdInput placeholder='{{"Question" | translate}}'
                 #Question="ngModel" name="questionBody" type="textarea"
@@ -25,7 +26,7 @@
         question is required' | translate}}</strong></md-hint>
     </md-input-container>
     <div class="question" #question></div>
-    <div>
+
       <md-checkbox name="isActive" [(ngModel)]="feedbackBool">
         {{"Custom feedback" | translate}}
       </md-checkbox>
@@ -33,10 +34,13 @@
         <input mdInput placeholder='{{"custom feedback text" | translate}}'
                [(ngModel)]="feedback"/>
       </md-input-container>
+
+      <button md-raised-button (click)="loading = false">
+        <md-icon>delete</md-icon>
+        {{"remove Question" | translate}}
+      </button>
+
     </div>
-    <button md-raised-button (click)="loading = false">
-      <md-icon>delete</md-icon>
-      {{"remove Question" | translate}}
-    </button>
+
   </details>
 </md-card>

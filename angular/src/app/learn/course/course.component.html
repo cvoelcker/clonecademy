@@ -1,36 +1,59 @@
-<div *ngIf="!loading">
-  <table class="header">
-    <td class="title">
-      <h2>
-        {{name}}
-      </h2>
+<div *ngIf="!loading" class="wrapper">
+
+  <h2>
+    {{name}}
+  </h2>
+  <table>
+    <td class="navigation">
+      <div class="button" [ngSwitch]="true" *ngIf="sidemenu == undefined">
+        <button
+          *ngSwitchCase="!completed && modules[0] != undefined && !modules[0].questions[0].solved"
+          md-raised-button routerLink="/course/{{ id }}/1/1/">{{"start Course"
+          |
+          translate}}
+        </button>
+        <button *ngSwitchCase="completed" md-raised-button [disabled]="true">
+          {{"course completed" | translate}}
+        </button>
+        <button *ngSwitchDefault md-raised-button
+                routerLink="/course/{{ id }}/{{ lastCourse[0] }}/{{ lastCourse[1] + 1 }}/">
+          {{"continue" | translate}}
+        </button>
+      </div>
+      <div class="button" [ngSwitch]="true" *ngIf="sidemenu == undefined">
+      <span mdTooltip='Finish the course to start the quiz'>
+      <button *ngSwitchCase="!completed"
+              md-raised-button [disabled]="true">Start quiz
+      </button>
+        </span>
+        <button *ngSwitchCase="completed" md-raised-button
+                routerLink="/course/{{ id }}/quiz">
+          Start quiz
+        </button>
+
+      </div>
     </td>
-    <!--<td class="counter">
-    <div class="chart" style="display: block">
-      <canvas baseChart
-              [legend]="false"
-              [colors]="pieChartColor"
-              [data]="pieChartData"
-              [labels]="pieChartLabels"
-              [chartType]="pieChartType"
-              (chartHover)="chartHovered($event)"></canvas>
-    </div>
-  </td>-->
+
+    <td class="options" *ngIf="user.isModerator()">
+      <!-- add visible/invisble button here -->
+      <div class="button" [ngSwitch]="true" *ngIf="sidemenu == undefined">
+        <button md-raised-button *ngSwitchCase="visible"
+                [disabled]='!user.isAdmin()' (click)='toggleVisibility()'
+                mdTooltip='This course is visible to users'>
+          <md-icon>visibility</md-icon>
+        </button>
+        <button md-raised-button *ngSwitchCase="!visible"
+                [disabled]='!user.isAdmin()' (click)='toggleVisibility()'
+                mdTooltip='This course is NOT visible to users'>
+          <md-icon>visibility_off</md-icon>
+        </button>
+      </div>
+      <button md-raised-button routerLink="/course/{{ id }}/statistic">
+        <md-icon>poll</md-icon>
+      </button>
+    </td>
   </table>
-  <div class="button" [ngSwitch]="true" *ngIf="sidemenu == undefined">
-    <button
-      *ngSwitchCase="!completed && modules[0] != undefined && !modules[0].questions[0].solved"
-      md-raised-button routerLink="/course/{{ id }}/1/1/">{{"start Course" |
-      translate}}
-    </button>
-    <button *ngSwitchCase="completed" md-raised-button [disabled]="true">
-      {{"course completed" | translate}}
-    </button>
-    <button *ngSwitchDefault md-raised-button
-            routerLink="/course/{{ id }}/{{ lastCourse[0] }}/{{ lastCourse[1] + 1 }}/">
-      {{"continue" | translate}}
-    </button>
-  </div>
+
   <div class="courseDescription">
     {{description}}
   </div>

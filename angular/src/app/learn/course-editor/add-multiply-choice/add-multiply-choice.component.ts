@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 
-import {AddQuestionModule} from "../add-question/add-question.module"
+import {AddQuestionModuleComponent} from '../add-question/add-question.module'
 
-import {slideIn} from "../../../animations";
+import {slideIn} from '../../../animations';
 
 import {MdDialog, MdDialogRef} from '@angular/material';
 import {ImageCropperDialogComponent} from '../../../image-cropper/image-cropper.component';
@@ -13,26 +13,23 @@ import {ImageCropperDialogComponent} from '../../../image-cropper/image-cropper.
   styleUrls: ['./add-multiply-choice.component.scss'],
   animations: [slideIn],
 })
-export class AddMultiplyChoiceComponent extends AddQuestionModule {
+export class AddMultiplyChoiceComponent extends AddQuestionModuleComponent {
 
   body = {
-    answers: [{text: "", is_correct: true, visible: true, id: null, img: ''}],
+    answers: [{text: '', is_correct: true, visible: true, id: null, img: ''}],
     question_image: '',
     feedback_image: ''
-  }
-
-  url: string = "";
+  };
+  compInfo = 'Loading';
+  file: any = null;
+  url = '';
 
   constructor(public dialog: MdDialog) {
     super()
   }
 
-  compInfo: string = "Loading";
-
-  file: any = null;
-
   openImageDialog(width: number, height: number, key: string, answers = false) {
-    let dialogRef = this.dialog.open(ImageCropperDialogComponent, {
+    const dialogRef = this.dialog.open(ImageCropperDialogComponent, {
       data: {
         width: width,
         height: height
@@ -42,11 +39,9 @@ export class AddMultiplyChoiceComponent extends AddQuestionModule {
       if (result) {
         if (answers) {
           this.body.answers[key].img = result
-        }
-        else {
+        } else {
           this.body[key] = result
         }
-
       }
     });
   }
@@ -56,15 +51,15 @@ export class AddMultiplyChoiceComponent extends AddQuestionModule {
   // {type: string, answers: [text: string, is_correct: boolean]}
   save(form): any {
     this.form = form;
-    let answers = this.body.answers
+    const answers = this.body.answers
     for (let i = 0; i < answers.length; i++) {
       if (answers[i].img == null) {
-        answers[i].img = ""
+        answers[i].img = ''
       }
       delete answers[i].visible
     }
     return {
-      type: "multiple_choice",
+      type: 'multiple_choice',
       question_image: this.body.question_image,
       feedback_image: this.body.feedback_image,
       answers: answers
@@ -72,7 +67,7 @@ export class AddMultiplyChoiceComponent extends AddQuestionModule {
   }
 
   removeAnswer(event, index: number) {
-    if (this.body.answers[index] != null && this.body.answers[index].visible == false) {
+    if (this.body.answers[index] != null && this.body.answers[index].visible === false) {
       this.body.answers.splice(index, 1);
     }
   }
@@ -83,11 +78,11 @@ export class AddMultiplyChoiceComponent extends AddQuestionModule {
 
   addAnswer() {
     this.body.answers.push({
-      text: "",
+      text: '',
       is_correct: false,
       visible: true,
       id: null,
-      img: ""
+      img: ''
     })
   }
 

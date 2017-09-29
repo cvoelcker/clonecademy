@@ -9,7 +9,7 @@
 
 <div *ngIf="user != undefined">
 
-  <h2 class="example-tooltip-host" mdTooltip="The behaviour is the following:
+  <h2 mdTooltip="The behaviour is the following:
     A user can be a moderator, an admin, both or neither.
     So a moderator, that is also promoted to an admin will be a moderator again, if he/she gets his/her admin rights withdrawn.
     An admin can always do the same things as moderator."
@@ -24,24 +24,24 @@
   <div>
     <div>
       <button *ngIf="isMod == false" [disabled]="loading"
-              (click)="promoteToModerator()" md-raised-button>
+              (click)="proDemote('moderator', 'promote')" md-raised-button>
         <md-icon> star_half</md-icon>
         {{"promote to moderator" | translate}}
       </button>
       <button *ngIf="isMod == true" [disabled]="loading"
-              (click)="demoteToUser()" md-raised-button>
+              (click)="proDemote('moderator', 'demote')" md-raised-button>
         <md-icon> star_half</md-icon>
         {{"wihdraw moderator rights" | translate}}
       </button>
     </div>
     <div>
       <button *ngIf="isAdmin == false" [disabled]="loading"
-              (click)="promoteToAdmin()" md-raised-button>
+              (click)="proDemote('admin', 'promote')" md-raised-button>
         <md-icon> star</md-icon>
         {{"promote to admin" | translate}}
       </button>
       <button *ngIf="isAdmin == true" [disabled]="loading"
-              (click)="demoteToModerator()" md-raised-button>
+              (click)="proDemote('admin', 'demote')" md-raised-button>
         <md-icon> star</md-icon>
         {{"wihdraw admin rights" | translate}}
       </button>

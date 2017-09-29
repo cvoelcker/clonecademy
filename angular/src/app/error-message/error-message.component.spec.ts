@@ -23,10 +23,10 @@ describe('ErrorMessageComponent', () => {
 
   let dialog: MdDialog;
   let component: ErrorMessageComponent;
-  let fixture: ComponentFixture<ErrorMessageComponent>;
+  const fixture: ComponentFixture<ErrorMessageComponent>;
 
   beforeEach(async(() => {
-    let base = new BaseTest();
+    const base = new BaseTest();
     TestBed.configureTestingModule({
       imports: [base.imports(), TestModule, MdDialogModule]
     })
@@ -42,7 +42,7 @@ describe('ErrorMessageComponent', () => {
 
   beforeEach(() => {
     dialog = TestBed.get(MdDialog);
-    let dialogRef = dialog.open(ErrorMessageComponent);
+    const dialogRef = dialog.open(ErrorMessageComponent);
 
     component = dialogRef.componentInstance;
   });

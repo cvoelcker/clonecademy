@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnChanges, OnInit} from '@angular/core';
 
 import {CreateCourseComponent} from './create-course.component';
 
@@ -7,7 +7,7 @@ import {CreateCourseComponent} from './create-course.component';
   templateUrl: './create-course.component.html',
   styleUrls: ['./create-course.component.scss']
 })
-export class EditCourseComponent extends CreateCourseComponent {
+export class EditCourseComponent extends CreateCourseComponent implements OnChanges, OnInit {
 
   id: number
 
@@ -44,7 +44,7 @@ export class EditCourseComponent extends CreateCourseComponent {
       super.clearModule()
       this.quiz = data['quiz']
       for (let i = 0; i < data['modules'].length; i++) {
-        let module = data['modules'][i]
+        const module = data['modules'][i]
         super.addModule(module['id'], module['name'], module['learning_text'], module['questions'])
       }
       super.setCourseTrue(true)
@@ -55,16 +55,16 @@ export class EditCourseComponent extends CreateCourseComponent {
    save the current course with the old id and the old modules
    **/
   save(f) {
-    let saveModules = this.saveModules(f)
+    const saveModules = this.saveModules(f)
     if (f.valid) {
-      for (let q of this.quiz) {
+      for (const q of this.quiz) {
         delete q.invisible;
       }
-      let course = {
+      const course = {
         id: Number(this.id),
         name: f.value['title'],
         difficulty: f.value['difficulty'],
-        language: f.value["language"],
+        language: f.value['language'],
         category: f.value['category'],
         modules: saveModules,
         quiz: this.quiz,

@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ServerService} from '../../service/server.service';
-import {Router} from "@angular/router"
+import {Router} from '@angular/router'
 
 
 @Component({
@@ -22,7 +22,7 @@ export class ProfilesComponent implements OnInit {
 
   ngOnInit() {
     // load the data for all users
-    this.server.get("user/", true)
+    this.server.get('user/', true)
       .then(data => {
         this.profiles = data;
         this.loading = false;

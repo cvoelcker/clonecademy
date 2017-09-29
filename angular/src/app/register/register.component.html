@@ -1,5 +1,5 @@
 <div class="register">
-
+  <div class="registerWrapper">
   <h2>{{"register" | translate}}</h2>
 
   <form #f="ngForm" name="register" (ngSubmit)="register(f)">
@@ -78,6 +78,7 @@
   <button md-raised-button class="btn-info" routerLink="/login">{{"Login with
     your account" | translate}}
   </button>
+</div>
 </div>
 <footer>
   <app-footer-mainpage></app-footer-mainpage>

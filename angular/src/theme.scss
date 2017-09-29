@@ -363,7 +363,7 @@ md-card{
     }
   }
   .details{
-    transform: scale(0);
+    max-height: 0;
     transition: max-height 400ms ease-in;
     overflow: hidden;
   }
@@ -374,8 +374,9 @@ md-card{
       }
     }
     .details{
-      transform: scale(1);
+      max-height: 8000px;
       transition: max-height 400ms ease-in;
+
     }
   }
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
+import {Component, OnInit, ViewChild, ViewContainerRef, AfterViewInit} from '@angular/core';
 
 import {CourseService} from '../../service/course.service'
 import {UserService} from '../../service/user.service'
@@ -11,8 +11,8 @@ import {trigger, state, style, animate, transition} from '@angular/animations';
   styleUrls: ['./dashboard.component.scss'],
   animations: [
     trigger('slideIn', [
-      state('1', style({"height": "*", 'overflow-y': 'hidden'})),
-      state('0', style({"height": "0", 'overflow-y': 'hidden'})),
+      state('1', style({'height': '*', 'overflow-y': 'hidden'})),
+      state('0', style({'height': '0', 'overflow-y': 'hidden'})),
       transition('1 => 0', [
         style({height: '*'}),
         animate(250, style({height: 0}))
@@ -25,7 +25,7 @@ import {trigger, state, style, animate, transition} from '@angular/animations';
   ]
 })
 
-export class DashboardComponent {
+export class DashboardComponent implements AfterViewInit {
   data: any;
   collapse: boolean
   collapse2: boolean

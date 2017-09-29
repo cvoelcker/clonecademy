@@ -15,7 +15,7 @@ export class StaticPageComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(data => {
-      this.get(data.page + ".html")
+      this.get(data.page + '.html')
     })
   }
 

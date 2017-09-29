@@ -1,5 +1,5 @@
 """
-x
+serializers for MultipleChoice question types
 """
 
 from rest_framework import serializers
@@ -10,7 +10,7 @@ from .models import MultipleChoiceAnswer, MultipleChoiceQuestion
 class MultipleChoiceAnswerSerializer(serializers.ModelSerializer):
     """
     Serializer for MultipleChoice answers
-    @author: Leon Wiedmann
+    :author: Leonhard Wiedmann
     """
     class Meta:
         model = MultipleChoiceAnswer
@@ -18,7 +18,9 @@ class MultipleChoiceAnswerSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         """
-        parent:
+        creation method for new db entries
+        :author: Leonhard Wiedmann
+        :param: validated_data valid data for the creation
         """
         answer = MultipleChoiceAnswer(**validated_data)
         answer.question = validated_data['question']
@@ -28,7 +30,7 @@ class MultipleChoiceAnswerSerializer(serializers.ModelSerializer):
 class MultipleChoiceQuestionPreviewSerializer(serializers.ModelSerializer):
     """
     Serializer for MultipleChoice question preview
-    @author: Leon Wiedmann
+    :author: Leonhard Wiedmann
     """
     class Meta:
         model = MultipleChoiceQuestion
@@ -38,7 +40,7 @@ class MultipleChoiceQuestionPreviewSerializer(serializers.ModelSerializer):
 class MultipleChoiceAnswerEditSerializer(serializers.ModelSerializer):
     """
     Serializer for MultipleChoice answer editing
-    @author: Leon Wiedmann
+    :author: Leonhard Wiedmann
     """
     class Meta:
         model = MultipleChoiceAnswer
@@ -48,7 +50,7 @@ class MultipleChoiceAnswerEditSerializer(serializers.ModelSerializer):
 class MultipleChoiceQuestionEditSerializer(serializers.ModelSerializer):
     """
     Serializer for MultipleChoice question editing
-    @author: Leon Wiedmann
+    :author: Leon Wiedmann
     """
     class Meta:
         model = MultipleChoiceQuestion
@@ -56,7 +58,10 @@ class MultipleChoiceQuestionEditSerializer(serializers.ModelSerializer):
 
     def to_representation(self, obj):
         """
-        parent:
+        responsible for json serialization of objects
+        :author: Leonhard Wiedmann
+        :param obj: the object that should be serialized
+        :return: a json representation of the object
         """
         values = super(MultipleChoiceQuestionEditSerializer,
                        self).to_representation(obj)
@@ -77,7 +82,10 @@ class MultipleChoiceQuestionSerializer(serializers.ModelSerializer):
 
     def to_representation(self, obj):
         """
-        parent:
+        responsible for json serialization of objects
+        :author: Leonhard Wiedmann
+        :param obj: the object that should be serialized
+        :return: a json representation of the object
         """
         values = super(MultipleChoiceQuestionSerializer,
                        self).to_representation(obj)
@@ -88,7 +96,9 @@ class MultipleChoiceQuestionSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         """
-        parent:
+        creating new database entries while editing
+        :author: Leonhard Wiedmann
+        :param validated_data: valid data
         """
         answers = validated_data.pop('answers')
         question = MultipleChoiceQuestion(**validated_data)
@@ -107,4 +117,3 @@ class MultipleChoiceQuestionSerializer(serializers.ModelSerializer):
             raise ParseError(
                 detail="Unsolvable question {}".format(question.title),
                 code=None)
-        return True

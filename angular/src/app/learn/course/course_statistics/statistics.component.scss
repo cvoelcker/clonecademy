@@ -1,0 +1,67 @@
+@import "../../../../_vars";
+
+md-progress-spinner{
+  height: calc(200px + 2em + 2em);
+}
+
+.total{
+  text-align: left;
+  width: 50%;
+}
+
+.tableWrapper{
+  .tableHeader{
+    background-color: $white;
+    padding: 0.5em;
+  }
+  position: relative;
+  span{
+    position: relative;
+  }
+  .title{
+    display: inline-block;
+  }
+  .solved{
+    border-left: 1px solid $white;
+    margin-left: 5px;
+    display: inline-block;
+    width: 50px;
+    position: absolute;
+    right: 105px;
+    left: auto;
+    text-align: center;
+  }
+  .tries{
+    text-align: center;
+    margin-left: 5px;
+    border-left: 1px solid $white;
+    position: absolute;
+    right: 0;
+    left: auto;
+    width: 100px;
+    display: inline-block;
+  }
+
+  ul{
+    list-style: none;
+    padding: 0;
+    li{
+      padding: 0.5em;
+      margin: 0.1em 0;
+      border-bottom: 1px solid $white;
+      position: relative;
+      span{
+        z-index: 999;
+      }
+      .background{
+        position: absolute;
+        left: 0;
+        top:0;
+        bottom: 0;
+        background-color: $green;
+        z-index: 1;
+      }
+
+    }
+  }
+}

@@ -5,7 +5,7 @@ import {Component, AfterViewInit, ChangeDetectorRef} from '@angular/core';
   templateUrl: './loader.component.html',
   styleUrls: ['./loader.component.scss']
 })
-export class LoaderComponent {
+export class LoaderComponent implements AfterViewInit {
 
   constructor(private _changeDetectionRef: ChangeDetectorRef) {
   }

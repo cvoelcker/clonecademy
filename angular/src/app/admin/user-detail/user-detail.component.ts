@@ -1,9 +1,13 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router'
 import {ServerService} from '../../service/server.service';
 import {UserService} from '../../service/user.service';
 import {ProfilesComponent} from '../profiles/profiles.component'
 
+/**
+Make the user details visible to the admin and add some more admin funktions for users
+@author Ilhan Simsiki
+**/
 @Component({
   selector: 'app-user-detail',
   templateUrl: './user-detail.component.html',
@@ -22,76 +26,55 @@ export class UserDetailComponent {
 
   position = 'before';
 
-  constructor(private route: ActivatedRoute,
-              private server: ServerService,
-              private router: Router,) {
+  constructor(
+    private route: ActivatedRoute,
+    private server: ServerService,
+    private router: Router
+  ) {
     this.route.params.subscribe(data => {
       this.id = data.id
       this.change(this.id);
     })
   }
 
-  ngOnInit() {
+  /**
+    This funktions loads the user with the id, gives the variable "user" the
+    response and sets the variables isMod, isAdmin
 
-  }
-
+    @input id: the id number of the user to load from the server
+    @author Ilhan Simisiki
+  **/
   change(id: number) {
     this.loading = true;
     // load the current user
-    this.server.get("user/" + id + "/")
+    this.server.get('user/' + id + '/')
       .then(data => {
         this.user = data
         this.user['dateRegistered'] = new Date(data['date_joined'])
-        this.isMod = (-1 != this.user["groups"].indexOf("moderator"));
-        this.isAdmin = (-1 != this.user["groups"].indexOf("admin"));
+        this.isMod = (-1 !== this.user['groups'].indexOf('moderator'));
+        this.isAdmin = (-1 !== this.user['groups'].indexOf('admin'));
 
         // show the spinning loader until the user is loaded
         this.loading = false;
       })
-      .catch(err => console.log(err))
   }
 
-  promoteToModerator() {
-    this.server.post("user/" + this.id + "/rights", {
-      "right": "moderator",
-      "action": "promote"
-    })
-      .then(answer => {
-        this.isMod = true;
-      })
-  }
+  /**
+  Promote or demote a user to admin or moderator and reset the current user information
 
-  promoteToAdmin() {
-    this.server.post("user/" + this.id + "/rights", {
-      "right": "admin",
-      "action": "promote"
+  @input
+    right: a string for the group ('admin' or 'moderator')
+    action: a string for 'demote' or 'promote'
+  @author Tobias Huber
+  **/
+  proDemote(right: string, action: string) {
+    this.server.post('user/' + this.id + '/rights', {
+      'right': right,
+      'action': action
     })
-      .then(answer => {
-        this.isAdmin = true;
-      })
-  }
-
-  demoteToUser() {
-    this.server.post("user/" + this.id + "/rights", {
-      "right": "moderator",
-      "action": "demote"
+    .then(data => {
+      this.isMod = (-1 !== data['groups'].indexOf('moderator'))
+      this.isAdmin = (-1 !== data['groups'].indexOf('admin'))
     })
-      .then(answer => {
-        this.isMod = false;
-        console.log(answer)
-      })
-      .catch(err => console.log(err))
-  }
-
-  demoteToModerator() {
-    this.server.post("user/" + this.id + "/rights", {
-      "right": "admin",
-      "action": "demote"
-    })
-      .then(answer => {
-        this.isAdmin = false;
-        console.log(answer)
-      })
-      .catch(err => console.log(err))
   }
 }

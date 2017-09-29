@@ -18,8 +18,9 @@ import {
   MdSidenavModule, MdDialog, MdDialogModule, MdIconModule, MdMenuModule,
   MdButtonModule, MdAutocompleteModule, MdCheckboxModule, MdTooltipModule,
   MdCardModule, MdInputModule, MdSelectModule, MaterialModule, MdTabsModule,
-  MdProgressSpinnerModule
-} from '@angular/material';
+  MdProgressSpinnerModule, MdDatepickerModule, MdNativeDateModule} from '@angular/material';
+
+import { ChartsModule } from 'ng2-charts';
 
 import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
 
@@ -56,31 +57,36 @@ import {QuestionComponent} from './learn/question/question.component';
 import {CreateCourseComponent} from './learn/course-editor/create-course/create-course.component';
 import {AddModuleComponent} from './learn/course-editor/add-module/add-module.component';
 import {AddQuestionComponent} from './learn/course-editor/add-question/add-question.component';
-import {AddQuestionModule} from './learn/course-editor/add-question/add-question.module'
+import {AddQuestionModuleComponent} from './learn/course-editor/add-question/add-question.module'
 
-import {StatisticsComponent} from './profile/personal_statistics/statistics.component';
-import {RankingListComponent} from './profile/ranking-list/ranking-list.component';
-import {RequestModComponent} from './profile/request-mod/request-mod.component';
-import {QuestionModule} from './learn/question/question.module';
-import {CourseCategoriesComponent} from './admin/course-categories/course-categories.component';
-import {DeleteDialogComponent} from './admin/delete-dialog/delete-dialog.component';
-import {ProfilesComponent} from './admin/profiles/profiles.component';
-import {UserDetailComponent} from './admin/user-detail/user-detail.component';
-import {UserDetailUserComponent} from './profile/user-detail-user/user-detail-user.component'
-import {ProfilePageComponent} from './profile/profile-page/profile-page.component';
-import {AdminPageComponent} from './admin/admin-page/admin-page.component';
-import {RegisterComponent} from './register/register.component';
-import {ErrorMessageComponent} from './error-message/error-message.component';
-import {WrongFeedbackComponent} from './learn/question/wrong-feedback/wrong-feedback.component';
-import {LoaderComponent} from './loader/loader.component';
-import {EditCourseComponent} from './learn/course-editor/create-course/edit-course.component';
-import {StaticPageComponent} from './static-page/static-page.component';
-import {ImageCropperDialogComponent} from './image-cropper/image-cropper.component';
+import { StatisticsComponent } from './profile/personal_statistics/statistics.component';
+import { RankingListComponent } from './profile/ranking-list/ranking-list.component';
+import { RequestModComponent } from './profile/request-mod/request-mod.component';
+import { QuestionModuleComponent} from './learn/question/question.module';
+import { CourseCategoriesComponent } from './admin/course-categories/course-categories.component';
+import { DeleteDialogComponent } from './admin/delete-dialog/delete-dialog.component';
+import { ProfilesComponent } from './admin/profiles/profiles.component';
+import { UserDetailComponent } from './admin/user-detail/user-detail.component';
+import { UserDetailUserComponent } from './profile/user-detail-user/user-detail-user.component'
+import {AuthDialogComponent} from './profile/user-detail-user/auth-dialog/auth-dialog.component';
+import { ProfilePageComponent } from './profile/profile-page/profile-page.component';
+import { AdminPageComponent } from './admin/admin-page/admin-page.component';
+import { RegisterComponent } from './register/register.component';
+import { PwResetComponent } from './login/pw-reset/pw-reset.component';
+import { PwResetAnswerDialogComponent } from './login/pw-reset/pw-reset-answer-dialog/pw-reset-answer-dialog.component';
 
+import { ErrorMessageComponent } from './error-message/error-message.component';
+import { WrongFeedbackComponent } from './learn/question/wrong-feedback/wrong-feedback.component';
+import { LoaderComponent } from './loader/loader.component';
+import { EditCourseComponent } from './learn/course-editor/create-course/edit-course.component';
+import { StaticPageComponent } from './static-page/static-page.component';
+import { ImageCropperDialogComponent } from './image-cropper/image-cropper.component';
+import { CourseStatisticsComponent } from './learn/course/course_statistics/statistics.component';
 // Viewing started courses on the welcome page
 import {CourseViewComponent} from './learn/view-courses/view-courses.component';
 import {FooterMainpageComponent} from './footer-mainpage/footer-mainpage.component';
 import {QuizQuestionComponent} from './quiz/quiz-question/quiz-question.component';
+
 
 
 const appRoutes: Routes = [
@@ -113,6 +119,10 @@ const appRoutes: Routes = [
         path: 'edit/:id',
         component: EditCourseComponent
       },
+      {
+        path: ':id/statistic',
+        component: CourseStatisticsComponent,
+      },
     ]
   },
   {
@@ -125,11 +135,15 @@ const appRoutes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'pw-reset',
+    component: PwResetComponent,
   },
   {
     path: 'profile',
@@ -137,7 +151,7 @@ const appRoutes: Routes = [
     children: [
 
       {
-        path: 'details',
+        path: 'settings',
         component: UserDetailUserComponent,
       },
       {
@@ -209,15 +223,16 @@ const QuestionList = QuestionDictionary.questionComponents
     AddQuestionComponent,
     RankingListComponent,
     StatisticsComponent,
-    QuestionModule,
+    QuestionModuleComponent,
     QuestionList,
-    AddQuestionModule,
+    AddQuestionModuleComponent,
     ProfilesComponent,
     UserDetailComponent,
     RequestModComponent,
     ProfilePageComponent,
     AdminPageComponent,
     RegisterComponent,
+    PwResetComponent,
     ErrorMessageComponent,
     WrongFeedbackComponent,
     LoaderComponent,
@@ -232,7 +247,10 @@ const QuestionList = QuestionDictionary.questionComponents
     QuestionSidenavComponent,
     QuizQuestionComponent,
     CourseCategoriesComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    CourseStatisticsComponent,
+    PwResetAnswerDialogComponent,
+    AuthDialogComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -249,10 +267,12 @@ const QuestionList = QuestionDictionary.questionComponents
     ReactiveFormsModule,
     BrowserModule,
     HttpModule,
+    MdDatepickerModule,
     MdButtonModule,
     MdCheckboxModule,
     MdInputModule,
     MdSelectModule,
+    MdNativeDateModule,
     MdTabsModule,
     MdDialogModule,
     MdCardModule,
@@ -262,6 +282,7 @@ const QuestionList = QuestionDictionary.questionComponents
     MdProgressSpinnerModule,
     MdMenuModule,
     MdIconModule,
+    ChartsModule
   ],
   exports: [],
   providers: [
@@ -278,7 +299,7 @@ const QuestionList = QuestionDictionary.questionComponents
   ],
   entryComponents: [
     AddModuleComponent,
-    AddQuestionModule,
+    AddQuestionModuleComponent,
     AddQuestionComponent,
     ErrorMessageComponent,
     WrongFeedbackComponent,
@@ -287,17 +308,19 @@ const QuestionList = QuestionDictionary.questionComponents
     CreateCourseComponent,
     ImageCropperDialogComponent,
     DialogComponent,
+    // pw-reset
+    PwResetAnswerDialogComponent,
     // profile page components
     StatisticsComponent,
     RequestModComponent,
     UserDetailComponent,
+    AuthDialogComponent,
     // admin Page components
     ProfilesComponent,
-
+    DeleteDialogComponent,
     // you have to add all modules for questions here
     QuestionList,
     CourseViewComponent,
-    DeleteDialogComponent,
   ]
 })
 export class AppModule {

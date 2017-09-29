@@ -128,3 +128,6 @@ npm-debug.log
 #Django
 db.sqlite.3
 /django/database/db.sqlite.3
+
+# angular
+package-lock.json

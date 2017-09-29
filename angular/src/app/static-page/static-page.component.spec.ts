@@ -12,7 +12,7 @@ describe('StaticPage Component', () => {
   let fixture: ComponentFixture<StaticPageComponent>;
 
   beforeEach(async(() => {
-    let base = new BaseTest();
+    const base = new BaseTest();
     TestBed.configureTestingModule({
       imports: [base.imports()],
       declarations: [StaticPageComponent],

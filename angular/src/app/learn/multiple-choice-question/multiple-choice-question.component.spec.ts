@@ -15,7 +15,7 @@ describe('Info Text Component', () => {
   let fixture: ComponentFixture<QuestionComponent>;
 
   beforeEach(async(() => {
-    let base = new BaseTest();
+    const base = new BaseTest();
     TestBed.configureTestingModule({
       imports: [base.imports()],
       providers: [base.providers()],
@@ -39,15 +39,15 @@ describe('Info Text Component', () => {
 
   it('create', () => {
     component.setupQuestion({
-      title: "test",
-      body: "question",
+      title: 'test',
+      body: 'question',
       learning_text: 'learn',
-      type: "multiple_choice",
+      type: 'multiple_choice',
       last_question: false,
       last_module: false,
       question_body: {}
     })
     expect(component.question).toBeTruthy()
-    expect(component.questionModule instanceof MultipleChoiceQuestionComponent).toBeTruthy()
+    expect(component.QuestionModuleComponentinstanceof MultipleChoiceQuestionComponent).toBeTruthy()
   });
 });

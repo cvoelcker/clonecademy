@@ -8,14 +8,15 @@ import {
   ViewChild,
   ViewContainerRef,
   ComponentFactoryResolver,
-  ComponentFactory
+  ComponentFactory,
+  AfterViewInit
 } from '@angular/core';
 
-import {AddQuestionComponent} from "../add-question/add-question.component"
+import {AddQuestionComponent} from '../add-question/add-question.component'
 
-import {slideIn} from "../../../animations";
+import {slideIn} from '../../../animations';
 
-import {AddQuestionModule} from '../add-question/add-question.module'
+import {AddQuestionModuleComponent} from '../add-question/add-question.module'
 import {QuestionDictionary} from '../../question-dictionary';
 
 import {trigger, state, style, animate, transition} from '@angular/animations';
@@ -27,15 +28,15 @@ import {trigger, state, style, animate, transition} from '@angular/animations';
   styleUrls: ['./add-module.component.scss'],
   animations: [slideIn]
 })
-export class AddModuleComponent implements OnInit {
+export class AddModuleComponent implements AfterViewInit {
 
-  components: Array<{ name: string, key: string, component: Type<AddQuestionModule> }> = QuestionDictionary.detailComponents;
+  components: Array<{ name: string, key: string, component: Type<AddQuestionModuleComponent> }> = QuestionDictionary.detailComponents;
   selectedValue: Type<AddQuestionComponent> = null;
-  title: string = "";
-  learningText: string = "";
+  title = '';
+  learningText = '';
   selected: boolean;
   question: ComponentFactory<AddQuestionComponent>;
-  questionArray: any[] = [];
+  questionArray = [];
   moduleComponent: AddQuestionComponent;
   id: number;
   collapse: boolean;
@@ -56,11 +57,11 @@ export class AddModuleComponent implements OnInit {
 
   addQuestion(component, data) {
     // add the question to the module component and add it to the array so we can edit and save it later
-    let question = this.module.createComponent(this.question)
-    let q = (<AddQuestionComponent> question.instance)
+    const question = this.module.createComponent(this.question)
+    const q = (<AddQuestionComponent> question.instance)
     q.form = this.form
 
-    q.emitter.subscribe(data => this.module.detach())
+    q.emitter.subscribe(stuff => this.module.detach())
     q.child = component
     q.addQuestion(data)
     this.questionArray.push(question)
@@ -69,7 +70,7 @@ export class AddModuleComponent implements OnInit {
   }
 
   editQuestion(data) {
-    let cmp: Type<AddQuestionModule> = null;
+    let cmp: Type<AddQuestionModuleComponent> = null;
     for (let i = 0; i < this.components.length; i++) {
       if (data['type'] === this.components[i].key) {
         cmp = this.components[i].component
@@ -80,9 +81,6 @@ export class AddModuleComponent implements OnInit {
     this.addQuestion(cmp, data)
   }
 
-  ngOnInit() {
-  }
-
   ngAfterViewInit() {
     this.loading = true;
     this.ref.detectChanges()
@@ -91,23 +89,23 @@ export class AddModuleComponent implements OnInit {
   // emit remove so parent class can remove this
   close() {
     this.loading = false;
-    //this.clear.emit("remove")
+    // this.clear.emit('remove')
   }
 
   remove(event) {
-    if (event.toState == "0" && this.loading == false) {
-      this.clear.emit("remove")
+    if (event.toState === '0' && this.loading === false) {
+      this.clear.emit('remove')
     }
   }
 
   // emit up so parent class can change the position
   up() {
-    this.clear.emit("up")
+    this.clear.emit('up')
   }
 
   // emit down so parent can change the position
   down() {
-    this.clear.emit("down")
+    this.clear.emit('down')
   }
 
 
@@ -115,12 +113,12 @@ export class AddModuleComponent implements OnInit {
   // append title, and the module description and return it
   save(form) {
     this.form = form;
-    let values = [];
+    const values = [];
     for (let i = 0; i < this.questionArray.length; i++) {
-      let tmp = this.questionArray[i];
-      let index = this.module.indexOf(this.questionArray[i].hostView)
+      const tmp = this.questionArray[i];
+      const index = this.module.indexOf(this.questionArray[i].hostView)
       if (index >= 0) {
-        let save = (<AddQuestionComponent> tmp.instance).save(form)
+        const save = (<AddQuestionComponent> tmp.instance).save(form)
         save['order'] = index;
         values.push(save)
       }

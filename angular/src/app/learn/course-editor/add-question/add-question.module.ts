@@ -5,20 +5,20 @@ import {CommonModule} from '@angular/common';
   selector: 'app-add-question-module',
   template: '<p>implement me</p>',
 })
-export class AddQuestionModule {
+export class AddQuestionModuleComponent {
 
   form = null;
 
   body: any;
 
   public save(form): any {
-    return "nix";
+    return 'nix';
   }
 
   public edit(body: any) {
-    if (body != null) {
+    if (body !== null) {
       this.body = body;
-      if (this.body['url'] != undefined) {
+      if (this.body['url'] !== undefined) {
         this.body['url'] = 'https://www.youtube.com/embed/' + this.body['url']
       }
     }

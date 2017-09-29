@@ -21,7 +21,7 @@ export class QuestionSidenavComponent implements OnInit {
   name: string;
   description: string;
   modules: [any];
-  completed: boolean = false;
+  completed = false;
   loading = true;
   lastCourse = [1, 1];
   numAnswered: number;
@@ -34,7 +34,7 @@ export class QuestionSidenavComponent implements OnInit {
   constructor(private course: CourseService,
               private route: ActivatedRoute,
               private server: ServerService,
-              private router: Router,) {
+              private router: Router) {
 
   }
 
@@ -48,7 +48,7 @@ export class QuestionSidenavComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.initChart()
+    // this.initChart()
     this.route.params.subscribe(data => {
       this.id = data.id
       this.load(data.id);
@@ -73,17 +73,16 @@ export class QuestionSidenavComponent implements OnInit {
         this.name = data['name'];
         this.description = data['description']
         this.modules = data['modules'];
-        //this.pieChartData = [this.numAnswered, this.numQuestions-this.numAnswered]
+        // this.pieChartData = [this.numAnswered, this.numQuestions-this.numAnswered]
 
-        let lastModule = this.modules[this.modules.length - 1]
-        if (lastModule != undefined) {
+        const lastModule = this.modules[this.modules.length - 1]
+        if (lastModule !== undefined) {
 
-          let lastQuestion = lastModule.questions[lastModule.questions.length - 1]
-          if (lastQuestion.solved == true) {
+          const lastQuestion = lastModule.questions[lastModule.questions.length - 1]
+          if (lastQuestion.solved === true) {
             this.completed = true;
           }
-        }
-        else {
+        } else {
           this.completed = true;
         }
         if (!this.completed) {

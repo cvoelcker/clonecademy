@@ -141,7 +141,7 @@
             </span>
             </div>
           </md-card>
-          <span mdTooltip="a quiz can must have not more then 20 questions"
+          <span mdTooltip="a quiz must have less than 20 questions"
                 [mdTooltipDisabled]="quiz.length < 20 ">
           <button type="button" md-raised-button (click)="addQuizQuestion()"
                   [disabled]="quiz.length >= 20"><md-icon>add</md-icon> {{"add Quiz Question" | translate}}</button>
@@ -161,9 +161,7 @@
       <div class="alert danger" *ngIf="f.submitted && !f.valid">
         {{"Please check the from there is something wrong." | translate}}
       </div>
-      <button type="submit" md-raised-button class="saveButton"
-              mdTooltip='{{"a course must contain at least one module" | translate}}'
-              [disabled]="length < 1">
+      <button type="submit"  md-raised-button class="saveButton">
         <md-icon>save</md-icon>
         {{"save" | translate}}
       </button>

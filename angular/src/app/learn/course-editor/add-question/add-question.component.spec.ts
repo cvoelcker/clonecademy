@@ -9,7 +9,7 @@ describe('AddQuestionComponent', () => {
   let fixture: ComponentFixture<AddQuestionComponent>;
 
   beforeEach(async(() => {
-    let base = new BaseTest();
+    const base = new BaseTest();
     TestBed.configureTestingModule({
       imports: [base.imports()],
       providers: [base.providers()],

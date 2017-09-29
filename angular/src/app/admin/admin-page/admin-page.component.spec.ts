@@ -13,11 +13,11 @@ describe('AdminPageComponent', () => {
   let fixture: ComponentFixture<AdminPageComponent>;
 
   beforeEach(async(() => {
-    let base = new BaseTest();
+    const base = new BaseTest();
     TestBed.configureTestingModule({
       imports: base.imports(),
       providers: base.providers(),
-      declarations: [AdminPageComponent, ErrorMessageComponent, LoaderComponent,]
+      declarations: [AdminPageComponent, ErrorMessageComponent, LoaderComponent]
     })
     TestBed.overrideModule(
       BrowserDynamicTestingModule, {

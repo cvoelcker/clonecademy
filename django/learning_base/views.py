@@ -1,11 +1,13 @@
 """
 This module contains all directly accessed API functions
+Views are not documented extensively in the code but at
+https://github.com/Iliricon/clonecademy
 """
-
 from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.contrib.auth.models import User, Group
 from django.utils import timezone
+from django.utils.crypto import get_random_string
 
 from rest_framework import status
 from rest_framework import authentication, permissions
@@ -21,7 +23,7 @@ from .models import Course, CourseCategory, Try, Profile, started_courses
 class CategoryView(APIView):
     """
     Shows, creates, updates and deletes a category
-    @author Claas Voelcker, Tobias Huber
+    :author: Claas Voelcker, Tobias Huber
     """
     authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (custom_permissions.IsAdminOrReadOnly,)
@@ -29,7 +31,8 @@ class CategoryView(APIView):
     def get(self, request, format=None):
         """
         Shows the categories
-        @author Claas Voelcker
+        :author: Claas Voelcker
+        :return: a list of all categories
         """
         categories = CourseCategory.objects.all()
         data = serializers.CourseCategorySerializer(categories, many=True).data
@@ -38,36 +41,35 @@ class CategoryView(APIView):
 
     def post(self, request, format=None):
         """
-        everything else than displaying
-        @author Tobias Huber
+        everything else but displaying
+        :author: Tobias Huber
         """
         data = request.data
         # check if instance shall be deleted
-        if "delete" in data and data["delete"] == "true":
-            if "id" in data:
-                instance = CourseCategory.get(id=data["id"])
+        if 'delete' in data and data['delete'] == 'true':
+            if 'id' in data:
+                instance = CourseCategory.objects.get(id=data['id'])
                 instance.delete()
                 return Response(status=status.HTTP_204_NO_CONTENT)
-            return Response({"ans": "a category with the given id"
-                                    + " does not exist"},
+            return Response({'ans': 'a category with the given id'
+                                    + ' does not exist'},
                             status=status.HTTP_404_NOT_FOUND)
 
         # check if an id is given, signaling to update the corresponding cat.
-        if "id" in data:
-            category_id = data["id"]
+        if 'id' in data:
+            category_id = data['id']
             if CourseCategory.objects.filter(id=category_id).exists():
                 category = CourseCategory.objects.get(id=category_id)
                 serializer = serializers.CourseCategorySerializer(
                     category, data=data, partial=True, )
             else:
                 return Response(
-                    {"ans": "a category with the id " + str(category_id)
-                            + " does not exist"},
+                    {'ans': 'a category with the id ' + str(category_id)
+                            + ' does not exist'},
                     status=status.HTTP_404_NOT_FOUND)
         else:
             # else just create a plain serializer
             serializer = serializers.CourseCategorySerializer(data=data)
-
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,
@@ -89,7 +91,7 @@ class MultiCourseView(APIView):
         """
         Not implemented
         """
-        return Response({"ans": 'Method not allowed'},
+        return Response({'ans': 'Method not allowed'},
                         status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def post(self, request, format=None):
@@ -112,24 +114,30 @@ class MultiCourseView(APIView):
             if not ((r_type in types or not r_type)
                     and (r_category in categories or not r_category)
                     and (r_lan in languages or not r_lan)):
-                return Response({"ans": "Query not possible"},
+                return Response({'ans': 'Query not possible'},
                                 status=status.HTTP_400_BAD_REQUEST)
 
             courses = Course.objects.all()
             courses = courses.filter(language=r_lan)
-            if r_category != "":
+
+            # filter invisible courses if neccessary
+            if not (request.user.profile.is_mod()
+                    or request.user.profile.is_admin()):
+                courses = courses.filter(is_visible=True)
+
+            if r_category != '':
                 category = CourseCategory.objects.filter(
                     name=r_category).first()
                 courses = courses.filter(category=category)
-            if r_type == "mod":
+            if r_type == 'mod':
                 courses = courses.filter(responsible_mod=request.user)
-            elif r_type == "started":
+            elif r_type == 'started':
                 courses = started_courses(request.user)
             data = serializers.CourseSerializer(courses, many=True, context={
                 'request': request}).data
             return Response(data, status=status.HTTP_200_OK)
         except Exception as errors:
-            return Response({"ans": "Query not possible" + str(errors)},
+            return Response({'ans': 'Query not possible' + str(errors)},
                             status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -148,7 +156,7 @@ class CourseEditView(APIView):
         solutions
         """
         if not course_id:
-            return Response({"ans": 'Method not allowed'},
+            return Response({'ans': 'Method not allowed'},
                             status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
         try:
@@ -161,23 +169,21 @@ class CourseEditView(APIView):
             return Response(data)
 
         except Exception as errors:
-            # TODO: Try if the conformate "ans" instead of "error"
-            # works as good as this
-            return Response({'error': str(errors)},
+            return Response({'ans': str(errors)},
                             status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request, course_id=None, format=None):
         """
         Not implemented
         """
-        return Response({"ans": 'Method not allowed'},
+        return Response({'ans': 'Method not allowed'},
                         status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
 class CourseView(APIView):
     """
     Contains all code related to viewing and saving courses.
-    @author Claas Voelcker
+    :author: Claas Voelcker
     """
     authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (
@@ -187,18 +193,30 @@ class CourseView(APIView):
         """
         Returns a course if the course_id exists. The course, it's
         modules and questions are serialized.
+
+        :author: Claas Voelcker
+        :param request: request object containing auth token and user id
+        :param course_id: the id of the required course
+        :param format: unused (inherited)
+        :return: a response containing the course serialization
         """
+
+        # if no course id is given, the method was called wrong
         if not course_id:
-            return Response({"ans": 'Method not allowed'},
+            return Response({'ans': 'Method not allowed'},
                             status=status.HTTP_405_METHOD_NOT_ALLOWED)
         try:
-            course = Course.objects.filter(id=course_id).first()
+            # fetch the course object, serialize it and return
+            # the serialization
+            course = Course.objects.get(id=course_id)
             course_serializer = serializers.CourseSerializer(course, context={
                 'request': request})
             return Response(course_serializer.data,
                             status=status.HTTP_200_OK)
+        # in case of an exception, throw a "Course not found" error for the
+        # frontend, packaged in a valid response with an error status code
         except Exception:
-            return Response({"ans": 'Course not found'},
+            return Response({'ans': 'Course not found'},
                             status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request, course_id=None, format=None):
@@ -206,44 +224,105 @@ class CourseView(APIView):
         Saves a course to the database. If the course id is provided,
         the method updates and existing course, otherwise, a new course
         is created.
+
+        :author: Tobias Huber, Claas Voelcker
+        :param request: request containig the user and auth token
+        :param course_id: optional: the course id
+                    (if a course is edited instead of created)
+        :param format: unused (inherited)
+        :return: a status response giving feedback about errors or a sucessful
+                    database access to the frontend
         """
+
         data = request.data
+
+        # checks whether the request contains any data
         if data is None:
-            return Response({"error": "Request does not contain data"},
+            return Response({'error': 'Request does not contain data'},
                             status=status.HTTP_400_BAD_REQUEST)
 
         course_id = data.get('id')
-        # This branch saves new courses or edites existing courses
-        if (course_id is None) and Course.objects.filter(name=data['name']).exists():
-            return Response({"ans": 'Course with that name exists'},
+        # Checks whether the name of the new course is unique
+        if (course_id is None) and Course.objects.filter(
+                name=data['name']).exists():
+            return Response({'error': 'Course with that name exists'},
                             status=status.HTTP_409_CONFLICT)
+
+        # adds the user of the request to the data
         if course_id is None:
             data['responsible_mod'] = request.user
+        # if the course is edited, check for editing permission
         else:
             responsible_mod = Course.objects.get(id=course_id).responsible_mod
-            # decline access if user is wether admin nor responsible_mod
+            # decline access if user is neither admin nor the responsible mod
             if (request.user.profile.is_admin()
                     or request.user == responsible_mod):
-                data['responsible_mod'] = Course.objects.get(
-                    id=course_id).responsible_mod
+                data['responsible_mod'] = responsible_mod
             else:
                 raise PermissionDenied(detail="You're not allowed to edit this"
                                        + "course, since you're not the"
-                                       + "responsible mod",
+                                       + 'responsible mod',
                                        code=None)
 
+        # serialize the course
         course_serializer = serializers.CourseSerializer(data=data)
+
+        # check for serialization errors
         if not course_serializer.is_valid():
-            return Response({"error": course_serializer.errors},
+            return Response({'error': course_serializer.errors},
                             status=status.HTTP_400_BAD_REQUEST)
+
+        # send the data to the frontend
         else:
             try:
                 course_serializer.create(data)
-                return Response({"success": "Course saved"},
+                return Response({'success': 'Course saved'},
                                 status=status.HTTP_201_CREATED)
             except ParseError as error:
-                return Response({"error": str(error)},
+                return Response({'error': str(error)},
                                 status=status.HTTP_400_BAD_REQUEST)
+
+
+class ToggleCourseVisibilityView(APIView):
+    """
+    changes the visibility of a course
+
+    alternatively sets the visibility to the provided state
+    {
+        "is_visible": (optional) True|False
+    }
+
+    @author Tobias Huber
+    """
+
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (custom_permissions.IsAdmin,)
+
+    def post(self, request, course_id):
+        """
+        Sets the course visibility to the given value
+        :param request: request object from the rest dispatcher
+        :param course_id: the id of the course whos visibility shall be changed
+        :return: a REST Response with a meaningfull JSON formatted message
+        """
+        if course_id is None:
+            return Response({'ans': 'course_id must be provided'},
+                            status=status.HTTP_400_BAD_REQUEST)
+        elif not Course.objects.filter(id=course_id).exists():
+            return Response({'ans': 'course not found. id: ' + course_id},
+                            status=status.HTTP_404_NOT_FOUND)
+        else:
+            course = Course.objects.get(id=course_id)
+            if 'is_visible' in request.data:
+                if not (request.data['is_visible'] == 'true'
+                        or request.data['is_visible'] == 'false'):
+                    Response({'ans':'is_visible must be "true" or "false" of type string'})
+                course.is_visible = request.data['is_visible'] == 'true'
+            else:
+                course.is_visible = not course.is_visible
+            course.save()
+            return Response({'is_visible': course.is_visible},
+                            status=status.HTTP_200_OK)
 
 
 class ModuleView(APIView):
@@ -258,14 +337,14 @@ class ModuleView(APIView):
         """
         Not implemented
         """
-        return Response({"ans": 'Method not allowed'},
+        return Response({'ans': 'Method not allowed'},
                         status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def post(self, request, format=None):
         """
         Not implemented
         """
-        return Response({"ans": 'Method not allowed'},
+        return Response({'ans': 'Method not allowed'},
                         status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
@@ -283,11 +362,12 @@ class QuestionView(APIView):
         """
         Checks if the question is accessable by the user (all questions before
         need to be answered correctly)
-        :param user:
-        :param question:
-        :param module_id:
-        :param question_id:
-        :return:
+        :param user: user wanting to access
+        :param question: question to be accessed
+        :param module_id: module id the question belongs to
+        :param question_id: the questions id
+        :return: True|False (see description)
+        @author Tobias Huber
         """
         module = question.module
         first_question = int(module_id) <= 0 and int(question_id) <= 0
@@ -320,19 +400,19 @@ class QuestionView(APIView):
             question = course_module.question_set.all()[int(question_id)]
 
             if question is None:
-                return Response({"ans": "Question not found"},
+                return Response({'ans': 'Question not found'},
                                 status=status.HTTP_404_NOT_FOUND)
             if not self.can_access_question(request.user, question, module_id,
                                             question_id):
-                return Response({"ans": "Previous question(s) haven't been "
-                                        "answered correctly yet"},
+                return Response({'ans': "Previous question(s) haven't been "
+                                        'answered correctly yet'},
                                 status=status.HTTP_403_FORBIDDEN)
             data = serializers.QuestionSerializer(question,
                                                   context={'request': request})
             data = data.data
             return Response(data, status=status.HTTP_200_OK)
         except Exception as error:
-            return Response({"error": str(error)},
+            return Response({'error': str(error)},
                             status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request, course_id, module_id, question_id, format=None):
@@ -345,14 +425,14 @@ class QuestionView(APIView):
             course_module = course.module_set.all()[int(module_id)]
             question = course_module.question_set.all()[int(question_id)]
         except Exception:
-            return Response({"ans": "Question not found"},
+            return Response({'ans': 'Question not found'},
                             status=status.HTTP_404_NOT_FOUND)
         # deny access if there is a/are previous question(s) and it/they
         # haven't been answered correctly
         if not (self.can_access_question(request.user, question, module_id,
                                          question_id)):
             return Response(
-                {"ans": "Previous question(s) haven't been answered"
+                {'ans': "Previous question(s) haven't been answered"
                         + " correctly yet"},
                 status=status.HTTP_403_FORBIDDEN
             )
@@ -377,7 +457,7 @@ class QuestionView(APIView):
                 next_type = "quiz"
             response['next'] = next_type
             if solved and question.feedback:
-                response['custom_feedback'] = question.custom_feedback()
+                # response['custom_feedback'] = question.custom_feedback()
                 response['feedback'] = question.feedback
         return Response(response)
 
@@ -385,7 +465,7 @@ class QuestionView(APIView):
 class AnswerView(APIView):
     """
     Shows all possible answers to a question.
-    @author Claas Voelcker
+    :author: Claas Voelcker
     """
     authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
@@ -398,7 +478,8 @@ class AnswerView(APIView):
         module = course.module_set.all()[int(module_id)]
         question = module.question_set.all()[int(question_id)]
         answers = question.answer_set()
-        data = [serializers.get_answer_serializer(answer) for answer in answers]
+        data = [serializers.get_answer_serializer(answer) for answer in
+                answers]
         return Response(data, status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
@@ -410,6 +491,26 @@ class AnswerView(APIView):
         """
         return Response({"ans": 'Method not allowed'},
                         status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+def calculate_quiz_points(old_percentage, new_percentage, difficulty):
+    """
+    calculates the quiz points from the old existing statistics and the new
+    quiz answers
+    :param old_percentage: percentage of questions already answered correctly
+    :param new_percentage: percentage of questions newly answered correctly
+    :param difficulty: the course difficulty
+    :return: the additional points
+    """
+    multiplier = 2 if difficulty == 2 else 1
+    ranking_threshold = [0.4, 0.7, 0.9]
+    old_extra_points = [x[0] for x in enumerate(ranking_threshold) if
+                        x[1] > old_percentage]
+    new_extra_points = [x[0] for x in enumerate(ranking_threshold) if
+                        x[1] > new_percentage]
+    old_extra_points = 3 if not old_extra_points else old_extra_points[0]
+    new_extra_points = 3 if not new_extra_points else new_extra_points[0]
+    return max(0, 5 * multiplier * (new_extra_points - old_extra_points))
 
 
 class QuizView(APIView):
@@ -449,32 +550,61 @@ class QuizView(APIView):
         """
         Resolves this quiz question for the current user.
         """
-        course = Course.objects.filter(id=course_id).first()
-        quiz = course.quizquestion_set.all()
+        # post does two things (return feedback for questions and whole quiz)
+        # this switch/case differentiates between the two
+        if request.data['type'] == "check_answers":
+            course = Course.objects.get(id=course_id)
+            quiz = course.quizquestion_set.all()
+            all_question_length = len(quiz)
+            if all_question_length <= 0:
+                return Response({"error": "this quiz does not exist"},
+                                status=status.HTTP_404_NOT_FOUND)
+            # checks if the submission is wrong (different lengths of the
+            # arrays)
+            if len(quiz) != len(request.data['answers']):
+                resp = "the quiz has {} question and your evaluation has {}"\
+                    .format(len(quiz), len(request.data['answers']))
+                return Response({"error": resp, "test": request.data},
+                                status=status.HTTP_400_BAD_REQUEST)
+            response = []
+            newly_solved = 0
+            old_solved = 0
+            for i, quiz_entry in enumerate(quiz):
+                answer_solved = request.data['answers'][i]
+                for answer in request.data['answers']:
+                    if 'id' in answer and quiz_entry.id is answer['id']:
+                        answer.pop('id')
+                        answer_solved = answer
+                        break
+                solved = quiz_entry.evaluate(answer_solved)
+                if solved and not quiz_entry.try_set.filter(
+                        user=request.user, solved=True).exists():
+                    newly_solved += 1
+                    request.user.profile.ranking += quiz_entry.get_points()
+                elif quiz_entry.try_set.filter(user=request.user,
+                                               solved=True).exists():
+                    old_solved += 1
+                Try(user=request.user, quiz_question=quiz_entry,
+                    answer=str(request.data), solved=solved).save()
 
-        if len(quiz) <= 0:
-            return Response({"error": "this quiz does not exist"},
-                            status=status.HTTP_404_NOT_FOUND)
+                response.append({"name": quiz[i].question, "solved": solved})
 
-        if len(quiz) != len(request.data):
-            return Response({"error": "the quiz has " + str(
-                len(quiz)) + " question and your evaluation has " + str(
-                    len(request.data)), "test": request.data},
-                            status=status.HTTP_400_BAD_REQUEST)
+            old_extra = float(old_solved / all_question_length)
+            new_extra = float(
+                (newly_solved + old_solved) / all_question_length)
+            request.user.profile.ranking += calculate_quiz_points(
+                old_extra, new_extra, course.difficulty)
+            request.user.profile.save()
 
-        response = []
-        for i, quiz_entry in enumerate(quiz):
-            solved = quiz_entry.evaluate(request.data[i])
-
-            if solved and not quiz_entry.try_set.filter(
-                    user=request.user, solved=True).exists():
-                request.user.profile.ranking += quiz_entry.get_points()
-                request.user.profile.save()
-            Try(user=request.user, quiz_question=quiz_entry,
-                answer=str(request.data), solved=solved).save()
-
-            response.append({"name": quiz[i].question, "solved": solved})
-        return Response(response, status=status.HTTP_200_OK)
+            return Response(response, status=status.HTTP_200_OK)
+        if request.data['type'] == 'get_answers':
+            course = Course.objects.get(id=course_id)
+            quiz_question = course.quizquestion_set.all()[request.data['id']]
+            answers = [answer.id for answer in
+                       quiz_question.quizanswer_set.all() if answer.correct]
+            return Response({'answers': answers}, status.HTTP_200_OK)
+        return Response({'ans': 'Could not process request'},
+                        status.HTTP_400_BAD_REQUEST)
 
 
 class UserView(APIView):
@@ -499,7 +629,7 @@ class UserView(APIView):
             if user.profile.is_admin():
                 user = User.objects.filter(id=user_id).first()
                 if not user:
-                    return Response({"ans": 'User not found'},
+                    return Response({'ans': 'User not found'},
                                     status=status.HTTP_404_NOT_FOUND)
             else:
                 raise PermissionDenied(detail=None, code=None)
@@ -515,12 +645,12 @@ class UserView(APIView):
         user = request.user
         data = request.data
 
-        if "oldpassword" in data:
-            if not request.user.check_password(request.data["oldpassword"]):
-                return Response({"error": "given password is incorrect"},
+        if 'oldpassword' in data:
+            if not request.user.check_password(request.data['oldpassword']):
+                return Response({'error': 'given password is incorrect'},
                                 status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response({"error": "password is required"},
+            return Response({'error': 'password is required'},
                             status=status.HTTP_400_BAD_REQUEST)
 
         user_serializer = serializers.UserSerializer(user, data=data,
@@ -529,15 +659,15 @@ class UserView(APIView):
             user_serializer = user_serializer.update(
                 user,
                 validated_data=request.data)
-            return Response({"ans": 'Updated user ' + user.username},
+            return Response({'ans': 'Updated user ' + user.username},
                             status=status.HTTP_200_OK)
         return Response(user_serializer.errors,
-                            status=status.HTTP_400_BAD_REQUEST)
+                        status=status.HTTP_400_BAD_REQUEST)
 
 
 class UserRegisterView(APIView):
     """
-    Shows a user profile
+    Saves a new user
     @author Tobias Huber
     """
     authentication_classes = []
@@ -545,19 +675,15 @@ class UserRegisterView(APIView):
 
     def post(self, request, user_id=False, format=None):
         """
-        If the user_id field is specified, it updates user information.
-        Otherwise it saves a new user.
-
-        This behaviour isn't smart since this view doesn't require any
-        authentication
+        Saves a new user.
         """
         if user_id:
-            return Response({"ans": 'Please use the UserView to update data'},
+            return Response({'ans': 'Please use the UserView to update data'},
                             status=status.HTTP_403_FORBIDDEN)
         user_serializer = serializers.UserSerializer(data=request.data)
         if user_serializer.is_valid():
             user_serializer.create(request.data)
-            return Response({"ans": 'Created a new user'},
+            return Response({'ans': 'Created a new user'},
                             status=status.HTTP_201_CREATED)
         return Response(user_serializer.errors,
                         status=status.HTTP_400_BAD_REQUEST)
@@ -583,7 +709,7 @@ class MultiUserView(APIView):
         """
         Not implemented
         """
-        return Response({"ans": 'Method not allowed'},
+        return Response({'ans': 'Method not allowed'},
                         status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
@@ -630,7 +756,7 @@ class StatisticsView(APIView):
         # A moderator can get all statistics of his created courses
         # with 'get_courses' as in put the it will return all courses created
         # by this user
-        elif is_mod and 'get_courses' in data:
+        elif is_mod and 'course' in data and 'admin' not in groups:
             tries = tries.filter(
                 question__module__course__responsible_mod=user)
 
@@ -639,19 +765,39 @@ class StatisticsView(APIView):
             if 'id' in data:
                 tries.filter(user__id=data['id'])
         else:
-            return Response({"error": "invalid userID"},
-                            status=status.HTTP_401_UNAUTHORIZED)
+            return Response({'error': 'invalid userID'},
+                            status=status.HTTP_403_FORBIDDEN)
 
         # return all statistics after prefiltering for this course
         if 'course' in data:
+
             tries = tries.filter(question__module__course__id=data['course'])
+
+            if 'list_questions' in data:
+                course = Course.objects.filter(id=data['course']).first()
+                value = []
+                index = 0
+                for module in course.module_set.all():
+                    value.append([])
+                    for question in module.question_set.all():
+                        value[index].append({'name': question.title,
+                                             'solved': len(
+                                                 question.try_set.filter(
+                                                     solved=True).all()),
+                                             'not solved': len(
+                                                 question.try_set.filter(
+                                                     solved=False).all())})
+                    index += 1
+                return Response(value)
 
         # get the statistics for a specific time
         if ('date' in data
                 and 'start' in data['date']
                 and 'end' in data['date']):
+            start = data['date']['start']
+            end = data['date']['end']
             tries = tries.filter(
-                date__range=[data['date']['start'], data['date']['end']])
+                date__range=[start, end])
 
         # filter just for solved tries
         if 'solved' in data:
@@ -662,11 +808,48 @@ class StatisticsView(APIView):
             tries = tries.filter(
                 question__module__course__category__name=data['category'])
 
-        serialize_data = serializers.TrySerializer(tries, many=True).data
+        # if this variable is set the view will return a array of dicts which
+        # are {name: string, color: string, counter: number}
+        if 'categories__with__counter' in data:
+            categories = CourseCategory.objects.all()
+            value = []
+            for cat in categories:
+                value.append(
+                    {
+                        'name': cat.name,
+                        'color': cat.color,
+                        'counter': len(tries.filter(
+                            question__module__course__category=cat))
+                    })
+            return Response(value)
 
-        if 'format' in data and data['format'] == "csv":
+        serialize_data = None
+
+        # filters the statistics and counts for the 'filter' variable
+        if 'filter' in data:
+            value = {}
+            for trie in tries:
+                if not str(getattr(trie, data['filter'])) in value:
+                    value[str(getattr(trie, data['filter']))] = 1
+                else:
+                    value[str(getattr(trie, data['filter']))] += 1
+            return Response(value)
+
+        # this part orders the list for the 'order' value in the request
+        if 'order' in data:
+            tries = tries.order_by(data['order'])
+
+        if 'serialize' in data:
+            serialize_data = serializers.TrySerializer(tries, many=True,
+                                                       context={
+                                                           'serialize': data[
+                                                               'serialize']}).data
+        else:
+            serialize_data = serializers.TrySerializer(tries, many=True).data
+
+        if 'format' in data and data['format'] == 'csv':
             response = HttpResponse(content_type='text/csv')
-            filename = time.strftime("%d/%m/%Y") + '-' + user.username + '.csv'
+            filename = time.strftime('%d/%m/%Y') + '-' + user.username + '.csv'
             content = 'attachment; filename="' + filename
             response['Content-Disposition'] = content
             writer = csv.writer(response)
@@ -706,14 +889,12 @@ class RankingView(APIView):
         """
         Not implemented
         """
-        return Response({"ans": 'Method not allowed'},
+        return Response({'ans': 'Method not allowed'},
                         status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
 class RequestView(APIView):
-    # TODO: implement proper send_mail()
     """
-    STILL IN DEVELOPMENT
     The RequestView class is used to submit a request for moderator rights.
 
     The request can be accessed via "clonecademy/user/request/"
@@ -742,26 +923,26 @@ class RequestView(APIView):
         profile = user.profile
         if not user.profile.modrequest_allowed():
             return Response(
-                {"ans": 'User is mod or has sent too many requests'},
+                {'ans': 'User is mod or has sent too many requests'},
                 status=status.HTTP_403_FORBIDDEN)
-        # TODO: fix if an localization issues arrise
-        profile.last_modrequest = timezone.localdate()
+        # pay attention because there could be localization errors
+        profile.last_modrequest = timezone.now()
         profile.save()
         send_mail(
             'Moderator rights requested by {}'.format(user.username),
-            'The following user {} requested moderator rights for the \
-CloneCademy platform. \n \
-The given reason for this request: \n{}\n \
-If you want to add this user to the moderator group, access the \
-profile {} for the confirmation field.\n \
-Have a nice day,\n your CloneCademy bot'.format(
-                user.username, data["reason"],
+            'The following user {} requested moderator rights for the'
+            'CloneCademy platform. \n'
+            'The given reason for this request: \n{}\n '
+            'If you want to add this user to the moderator group, access the '
+            'profile {} for the confirmation field.\n '
+            'Have a nice day,\n your CloneCademy bot'.format(
+                user.username, data['reason'],
                 user.profile.get_link_to_profile()),
             'bot@clonecademy.de',
             [admin.email for
-             admin in Group.objects.get(name="admin").user_set.all()]
+             admin in Group.objects.get(name='admin').user_set.all()]
         )
-        return Response({"Request": "ok"}, status=status.HTTP_200_OK)
+        return Response({'Request': 'ok'}, status=status.HTTP_200_OK)
 
 
 class UserRightsView(APIView):
@@ -794,26 +975,26 @@ class UserRightsView(APIView):
         errors = {}
 
         # validation
-        if not data["right"] or not data["right"] in right_choices:
-            errors["right"] = ("this field is required and must be one of "
-                               + "the following options"
+        if not data['right'] or not data['right'] in right_choices:
+            errors['right'] = ('this field is required and must be one of '
+                               + 'the following options'
                                + ', '.join(right_choices))
-        if not data["action"] or not data["action"] in action_choices:
-            errors["action"] = ("this field is required and must be one of "
-                                + "the following options"
+        if not data['action'] or not data['action'] in action_choices:
+            errors['action'] = ('this field is required and must be one of '
+                                + 'the following options'
                                 + ', '.join(action_choices))
         if not User.objects.filter(id=user_id).exists():
-            errors["id"] = "a user with the id #" + user_id + " does not exist"
+            errors['id'] = 'a user with the id #' + user_id + ' does not exist'
         if errors:
             return Response(errors, status=status.HTTP_400_BAD_REQUEST)
 
         # actual behaviour
         user = User.objects.get(id=user_id)
-        group = Group.objects.get(name=data["right"])
-        action = data["action"]
-        if action == "promote":
+        group = Group.objects.get(name=data['right'])
+        action = data['action']
+        if action == 'promote':
             user.groups.add(group)
-        elif action == "demote":
+        elif action == 'demote':
             user.groups.remove(group)
         return Response(serializers.UserSerializer(user).data)
 
@@ -823,8 +1004,58 @@ class UserRightsView(APIView):
         It comes in quite handy with the browsable API
         """
         user = User.objects.get(id=user_id)
-        return Response({"username": user.username,
-                         "is_mod?":
-                             user.groups.filter(name="moderator").exists(),
-                         "is_admin?":
-                             user.groups.filter(name="admin").exists()})
+        return Response({'username': user.username,
+                         'is_mod?':
+                             user.groups.filter(name='moderator').exists(),
+                         'is_admin?':
+                             user.groups.filter(name='admin').exists()})
+
+
+class PwResetView(APIView):
+    """
+    Resets the password of a user and sends the new one to the email adress
+    of the user
+
+    {
+        "email": the email of the user
+    }
+    """
+
+    authentication_classes = ()
+    permission_classes = ()
+
+    def post(self, request, format=None):
+        """
+        Sends a mail to the user containing a new one time password
+        :param request:
+        :param format:
+        :return:
+        """
+        data = request.data
+        if 'email' not in data:
+            return Response({'ans': 'you must provide an email'},
+                            status=status.HTTP_400_BAD_REQUEST)
+        elif not User.objects.filter(email=data['email']).exists():
+            return Response({'ans': 'no user with email: ' + data['email']},
+                            status=status.HTTP_404_NOT_FOUND)
+
+        # if request data is valid:
+        user = User.objects.get(email=data['email'])
+        # generate a random password with the rand() implementation of
+        # django.utils.crypto
+        new_password = get_random_string(length=16)
+
+        send_mail(
+            'Password Reset on clonecademy.net',
+            ('Hello {},\n \n'
+             + 'You have requested a new password on clonecademy.net \n'
+             + 'Your new password is: \n{} \n \n'
+             + 'Please change it imediately! \n'
+             + 'Have a nice day,\nyour CloneCademy bot').format(
+                 user.username, new_password),
+            'bot@clonecademy.de',
+            [user.email]
+        )
+        user.set_password(new_password)
+        user.save()
+        return Response(status=status.HTTP_200_OK)

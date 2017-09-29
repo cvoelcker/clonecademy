@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 import {ServerService} from '../../service/server.service';
-import {Router} from "@angular/router"
+import {Router} from '@angular/router'
 
 import {CookieService} from 'angular2-cookie/core';
 
@@ -21,7 +21,7 @@ export class RequestModComponent implements OnInit {
   }
 
   check_request() {
-    this.server.get("user/mod_request", true, false)
+    this.server.get('user/mod_request', true, false)
       .then(answer => {
         this.available = answer['allowed'];
         this.loading = false;
@@ -34,10 +34,11 @@ export class RequestModComponent implements OnInit {
   }
 
   send_request() {
-    if (!this.available)
+    if (!this.available) {
       return -1;
-    let request = {reason: this.reason}
-    this.server.post("user/mod_request", request)
+    }
+    const request = {reason: this.reason}
+    this.server.post('user/mod_request', request)
       .then(answer => {
         this.available = false
       })

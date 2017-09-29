@@ -1,17 +1,22 @@
 """
-x
+This module contains all database models not provided by django
+itself.
+:author: Claas Voelcker
 """
 
-from  hashlib import sha512
+from hashlib import sha512
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from polymorphic.models import PolymorphicModel
 
+from .default_picture import default_picture
+
 
 class Profile(models.Model):
     """
     A user profile that stores additional information about a user
+    :author: Claas Voelcker
     """
 
     class Meta:
@@ -40,6 +45,7 @@ class Profile(models.Model):
 
     avatar = models.TextField(
         verbose_name="Avatar of the User",
+        default=default_picture,
         null=True,
         blank=True,
     )
@@ -48,33 +54,23 @@ class Profile(models.Model):
         default=0
     )
 
-    def get_age(self):
-        """
-        Caculates the current age of the user
-        :return: the age of the user relative to the current server date
-        """
-        today = timezone.now()
-        return today.year - self.birth_date.year - ((today.month, today.day) <
-                                                    (self.birth_date.month,
-                                                     self.birth_date.day))
-
     def get_link_to_profile(self):
         """
-        Returns the link to the users profile page
+        :return: the link to the users profile page
         """
         return "clonecademy.net/admin/profiles/{}/".format(self.user.id)
 
     def modrequest_allowed(self):
         """
-        Returns True if the user is allowed to request moderator rights
+        :return: True if the user is allowed to request moderator rights
         """
-        return ((self.last_modrequest is None
-                 or (timezone.localdate() - self.last_modrequest).days >= 7)
-                and not self.is_mod())
+        return (not self.is_mod()
+                and (self.last_modrequest is None
+                     or (timezone.now() - self.last_modrequest).days >= 7))
 
     def is_mod(self):
         """
-        Returns True if the user is in the group moderators
+        :return: True if the user is in the group moderators
         """
         return self.user.groups.filter(name="moderator").exists()
 
@@ -122,13 +118,13 @@ class Course(models.Model):
     One course is a group of questions which build on each other and should be
     solved together. These questions should have similar topics, difficulty
     and should form a compete unit for learning.
+    :author: Claas Voelcker
     """
 
     class Meta:
         unique_together = ['category', 'name']
 
-    QUESTION_NAME_LENGTH = 144
-
+    # difficulty selection and mapping to human readable names
     EASY = 0
     MODERATE = 1
     DIFFICULT = 2
@@ -140,6 +136,7 @@ class Course(models.Model):
         (EXPERT, 'Expert (college graduates)')
     )
 
+    # language selection and mapping
     GER = 'de'
     ENG = 'en'
     LANGUAGES = (
@@ -147,24 +144,28 @@ class Course(models.Model):
         (ENG, 'English')
     )
 
+    # the name of the course
     name = models.CharField(
         verbose_name='Course name',
         help_text="A short concise name for the course",
         max_length=144
     )
 
+    # foreign key mapping to the CourseCategory object
     category = models.ForeignKey(
         CourseCategory,
         null=True,
         blank=True
     )
 
+    # choice field mapped to dictionary above
     difficulty = models.IntegerField(
         verbose_name='Course difficulty',
         choices=DIFFICULTY,
         default=MODERATE
     )
 
+    # choice field mapped to dictionary above
     language = models.CharField(
         verbose_name='Course Language',
         max_length=2,
@@ -172,6 +173,7 @@ class Course(models.Model):
         default=ENG
     )
 
+    # foreign key mapping to the user who can edit the course
     responsible_mod = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,
@@ -179,11 +181,13 @@ class Course(models.Model):
         blank=True
     )
 
+    # should the course be serialized for normal users
     is_visible = models.BooleanField(
         verbose_name='Is the course visible',
         default=False
     )
 
+    # a short description of the course
     description = models.CharField(
         max_length=144,
         null=True,
@@ -206,7 +210,7 @@ class Module(models.Model):
     A Course is made out of several modules and a module contains the questions
     """
 
-    class Meta():
+    class Meta:
         unique_together = ['order', 'course']
         ordering = ['order']
 
@@ -274,12 +278,15 @@ class Question(PolymorphicModel):
     A question is the smallest unit of the learning process. A question has a
     task that can be solved by a user, a correct solution to evaluate the
     answer and a way to provide feedback to the user.
+
+    :author: Claas Voelcker
     """
 
     class Meta:
         unique_together = ['module', 'order']
         ordering = ['module', 'order']
 
+    # a title for the question
     title = models.TextField(
         verbose_name='Question title',
         help_text="A short and concise name for the question",
@@ -287,11 +294,13 @@ class Question(PolymorphicModel):
         null=True
     )
 
+    # the question text, that provides additional information to the user
     text = models.TextField(
         verbose_name='Question text',
         help_text="This field can contain markdown syntax"
     )
 
+    # the specific question
     question = models.TextField(
         verbose_name='Question',
         help_text="This field can contain markdown syntax",
@@ -299,6 +308,7 @@ class Question(PolymorphicModel):
         null=True
     )
 
+    # a custom feedback that can be displayed
     feedback = models.TextField(
         verbose_name="feedback",
         help_text="The feedback for the user after a sucessful answer",
@@ -306,8 +316,10 @@ class Question(PolymorphicModel):
         null=True
     )
 
+    # the ordering attribute of the question (needs to be explicitly saved)
     order = models.IntegerField()
 
+    # foreign key mapping to the module that contains this question
     module = models.ForeignKey(
         Module,
         verbose_name="Module",
@@ -318,6 +330,8 @@ class Question(PolymorphicModel):
     def is_first_question(self):
         """
         Checks whether this is the first question in the module
+
+        :author: Claas Voelcker
         :return: whether this is the first question or not
         """
         questions = self.module.question_set
@@ -326,6 +340,8 @@ class Question(PolymorphicModel):
     def is_last_question(self):
         """
         Checks whether this is the last question in the module
+
+        :author: Claas Voelcker
         :return: whether this is the last question or not
         """
         questions = self.module.question_set
@@ -334,6 +350,7 @@ class Question(PolymorphicModel):
     def get_previous_in_order(self):
         """
         Returns the previous question in the course
+        :author: Claas Voelcker
         :return: the previous question in the same module
         """
         questions = self.module.question_set.all()
@@ -341,15 +358,19 @@ class Question(PolymorphicModel):
             return False
         return questions[list(questions).index(self) - 1]
 
-    def __str__(self):
-        return self.title
-
     def get_points(self):
         """
-        x
-        :return:
+        Returns the number of ranking points for the question.
+        This method needs to be overridden by subclasses and
+        remains unimplemented here.
+        :author: Claas Voelcker
+        :return: the points
+        :raise: not implemented error
         """
         raise NotImplementedError
+
+    def __str__(self):
+        return self.title
 
 
 class QuizQuestion(models.Model):
@@ -377,23 +398,26 @@ class QuizQuestion(models.Model):
 
     def evaluate(self, data):
         """
-        x
-        :return:
+        Checks whether the quiz question is answered correctly
+        :return: True iff all and only the correct answers are
+                 provided
         """
         answers = self.answer_set()
         for ans in answers:
             if ans.correct:
-                if not data[str(ans.id)]:
-                    return False
+                for i in data['answers']:
+                    if 'id' in i and (i['id'] == ans.id and not i['chosen']):
+                        return False
             if not ans.correct:
-                if data[str(ans.id)]:
-                    return False
+                for i in data:
+                    if 'id' in i and (i['id'] == ans.id and i['chosen']):
+                        return False
         return True
 
     def answer_set(self):
         """
-        x
-        :return:
+        shortcut for all answers to a question
+        :return: all answers to the quizquestion
         """
         return self.quizanswer_set.all()
 
@@ -407,13 +431,12 @@ class QuizQuestion(models.Model):
                 return True
         return False
 
-    @staticmethod
-    def get_points():
+    def get_points(self):
         """
         returns the points for answering this question type
-        :return: 2 points
+        :return: 0 points
         """
-        return 2
+        return 0
 
 
 class QuizAnswer(models.Model):
@@ -456,6 +479,7 @@ class Try(models.Model):
     A try represents a submission of an answer. Each time an answer is
     submitted, a Try object is created in the database, detailing answer,
     whether it was answered correctly and the time of the submission.
+    :author: Claas Voelcker
     """
     user = models.ForeignKey(
         User,
@@ -498,8 +522,8 @@ class Try(models.Model):
 def started_courses(user):
     """
     returns all courses started by a user
-    :param user:
-    :return:
+    :param user: the user that is currently accessing the database
+    :return: all courses where the user has answered at least one course
     """
     courses = Course.objects.filter(
         module__question__try__user=user)

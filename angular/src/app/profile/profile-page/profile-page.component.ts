@@ -13,10 +13,10 @@ export class ProfilePageComponent implements OnInit {
 
   // create all items for the list menu
   menu: Array<{ name: string, url: string }> = [
-    {name: 'user details', url: 'details'},
-    {name: 'request mod rights', url: 'request_mod'},
-    {name: 'statistics', url: 'statistics'},
-    {name: 'ranking', url: 'ranking'}
+    {name: 'Settings', url: 'settings'},
+    {name: 'Request mod rights', url: 'request_mod'},
+    {name: 'Statistics', url: 'statistics'},
+    {name: 'Ranking', url: 'ranking'}
   ]
 
   constructor(private user: UserService, private translate: TranslateService) {

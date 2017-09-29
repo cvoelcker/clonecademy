@@ -14,11 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import include, url
-from rest_framework import routers
 from django.contrib import admin
 
-from learning_base import views
+from rest_framework import routers
 from rest_framework.authtoken import views as auth_views
+
+from learning_base import views
+
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
@@ -32,6 +34,8 @@ urlpatterns = [
 
     url(r'^courses/$', views.MultiCourseView.as_view()),
     url(r'^courses/(?P<course_id>[0-9]+)/?$', views.CourseView.as_view()),
+    url(r'^courses/(?P<course_id>[0-9]+)/toggleVisibility/?$',
+        views.ToggleCourseVisibilityView.as_view()),
     url(r'^courses/(?P<course_id>[0-9]+)?/edit$',
         views.CourseEditView.as_view()),
     url(r'^courses/(?P<course_id>[0-9]+)/(?P<module_id>[0-9]+)/?$',
@@ -45,7 +49,7 @@ urlpatterns = [
         r'(?P<question_id>[0-9]+)/?answers',
         views.AnswerView.as_view()),
     url(
-        r'^courses/(?P<course_id>[0-9]+)/?',
+        r'^courses/(?P<course_id>[0-9]+)/quiz',
         views.QuizView.as_view(),
     ),
     url(r'^courses/save$', views.CourseView.as_view()),
@@ -55,13 +59,12 @@ urlpatterns = [
     url(r'^user/(?P<user_id>[0-9]+)/?$', views.UserView.as_view()),
     url(r'^user/(?P<user_id>[0-9]+)/rights/?$',
         views.UserRightsView.as_view()),
-    url(r'^user/(?P<user_id>[0-9]+)/statistics$',
-        views.StatisticsView.as_view()),
-    url(r'^user/statistics$', views.StatisticsView.as_view()),
+    url(r'^statistics$', views.StatisticsView.as_view()),
     url(r'^user/mod_request$', views.RequestView.as_view()),
     url(r'^user/current$', views.UserView.as_view()),
 
     url(r'^ranking$', views.RankingView.as_view()),
+    url(r'^pw_reset/?$', views.PwResetView.as_view()),
 
     url(r'^register/$', views.UserRegisterView.as_view())
 ]

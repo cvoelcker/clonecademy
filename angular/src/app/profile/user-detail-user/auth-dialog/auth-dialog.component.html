@@ -1,0 +1,14 @@
+<h1 md-dialog-title>Second Authentication needed</h1>
+<div md-dialog-content>
+  <p>Please enter your password to proceed</p>
+  <form>
+    <input mdInput [ngModelOptions]="{standalone: true}" tabindex="1" [(ngModel)]="password" type="password"/>
+  </form>
+  <md-error *ngIf='error'>
+    wrong
+  </md-error>
+</div>
+<div md-dialog-actions>
+  <button md-button (click)='submit(password)' tabindex="2">Ok</button>
+  <button md-button md-dialog-close tabindex="-1">No Thanks</button>
+</div>

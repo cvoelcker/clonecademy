@@ -4,7 +4,7 @@ import {DeleteDialogComponent} from '../delete-dialog/delete-dialog.component'
 
 import {ServerService} from '../../service/server.service';
 
-import {Router} from "@angular/router"
+import {Router} from '@angular/router'
 
 @Component({
   selector: 'app-course-categories',
@@ -23,19 +23,22 @@ export class CourseCategoriesComponent implements OnInit {
   courses: any;
 
   error = false;
-  errorMessage = "";
+  errorMessage = '';
 
   dialogRef: any;
 
 
-  constructor(private server: ServerService, private router: Router,
-              public dialog: MdDialog) {
+  constructor(
+    private server: ServerService,
+    private router: Router,
+    public dialog: MdDialog
+  ) {
   }
 
   ngOnInit() {
     // load the data for all categories
 
-    this.server.get("get-course-categories/", true)
+    this.server.get('get-course-categories/', true)
       .then(data => {
         this.categories = data;
         this.loading = false;
@@ -45,19 +48,16 @@ export class CourseCategoriesComponent implements OnInit {
   change(c: any) {
     this.selected = c;
     this.create = false;
-    console.log("change called")
   }
 
   openCreate() {
-    console.log("open create called")
     this.create = true;
   }
 
   delete() {
-    console.log("delete init")
     this.server.post('courses/', {
-      "category": this.selected.name, "type": "",
-      "language": ""
+      'category': this.selected.name, 'type': '',
+      'language': ''
     }, false, false)
       .then(answer => {
         this.courses = answer;
@@ -68,7 +68,6 @@ export class CourseCategoriesComponent implements OnInit {
       height: '350px',
       data: this.courses
     })
-    console.log('dialog opened')
 
     this.dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
@@ -79,15 +78,16 @@ export class CourseCategoriesComponent implements OnInit {
 
   // register the updated category
   register(value) {
-    console.log(value)
     if (value.valid) {
-      let data = value.value
-      if (data['categorycolor'] == '')
+      const data = value.value
+      if (data['categorycolor'] === '') {
         delete data['categorycolor'];
-      if (data['categoryname'] == '')
+      };
+      if (data['categoryname'] === '') {
         delete data['categoryname'];
-      if (this.selected != undefined && !this.create) {
-        data["id"] = this.selected.id;
+      };
+      if (this.selected !== undefined && !this.create) {
+        data['id'] = this.selected.id;
       }
       this.server.post('get-course-categories/', data, false, false)
         .then(answer => {

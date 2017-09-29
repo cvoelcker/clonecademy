@@ -1,0 +1,10 @@
+<div *ngIf='!loading && success'>
+  <p>Your password has been successfully reset!
+    Please check your email inbox.</p>
+</div>
+<div *ngIf='!loading && !success'>
+  <p>{{error}}</p>
+</div>
+<div md-dialog-actions>
+  <button md-button md-dialog-close tabindex="2">Ok</button>
+</div>

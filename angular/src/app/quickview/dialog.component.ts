@@ -6,7 +6,7 @@ import {UserService} from '../service/user.service'
 
 
 @Component({
-  selector: 'your-dialog-selector',
+  selector: 'app-your-dialog-selector',
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.scss']
 })

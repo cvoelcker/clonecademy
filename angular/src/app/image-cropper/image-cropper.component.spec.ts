@@ -13,7 +13,7 @@ describe('ImageCropperDialogComponent', () => {
   let fixture: ComponentFixture<ImageCropperDialogComponent>;
 
   beforeEach(async(() => {
-    let base = new BaseTest();
+    const base = new BaseTest();
     TestBed.configureTestingModule({
       imports: [base.imports()],
       declarations: [ImageCropperDialogComponent, ImageCropperComponent],
