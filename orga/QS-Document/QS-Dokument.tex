@@ -339,7 +339,7 @@ Für jede Funktion der Schnittstelle muss das Wiki folgende Informationen enthal
 
 \chapter{Einleitung - Bericht und Anmerkung zum QS Prozess}
 \section{Struktur dieses Dokumentes}
-Im nachfolgenden Teil des Dokumentes befinden sich die Nachweise über die durchgeführten Maßnahmen. Wir haben uns beste Mühe gegeben, dies übersichtlich zu gestalten. Aufgrund der vielen auomatisierten Outputs und der Fülle an Checklisten haben wir uns entschlossen, den Anhang in mehrere Teile zu trennen. Im ersten Teil haben wir alle Checklisten und die wöchentlichen automatisierten Tests angehängt. Darauf folgend haben wir einen Übersicht über die Designveränderung während des Prozesses und die Dokumentation der Code Kommentare, des Testoutputs und unseres Entwicklungs-Wikis angehängt.
+Im nachfolgenden Teil des Dokumentes befinden sich die Nachweise über die durchgeführten Maßnahmen. Wir haben uns beste Mühe gegeben, dies übersichtlich zu gestalten. Aufgrund der vielen automatisierten Outputs und der Fülle an Checklisten haben wir uns entschlossen, den Anhang in mehrere Teile zu trennen. Im ersten Teil haben wir alle Checklisten und die wöchentlichen automatisierten Tests, nach Iterationen sortiert, angehängt. Darauf folgend haben wir eine Übersicht über die Designveränderung während des Prozesses und die Dokumentation der Code Kommentare, des Testoutputs und unseres Entwicklungs-Wikis angehängt.
 
 Alle Dateien, vor allem die Checklisten und die Userstories, sowie die Quelldateien der Tests und Codebespiele finden sich im beiligenden Ordner, damit diese auch gesondert eingesehen werden können. Dort finden sich auch die Videoaufzeichnungen der Nutzerstudien.
 
@@ -388,9 +388,7 @@ Einige QS-Maßnahmen wurden noch einmal kurz vor Abgabe des Projektes an die Auf
 
 
 	\subsection*{Zed Attack Proxy Tool - Diskussion}
-	Alle gefundenen Fehler betreffen nur die Konfiguration des Servers, nicht das Produkt an sich. Da wir im Gespräch mit den Auftraggeber*innen vereinbart hatten, dass wir nicht dafür zuständig sind, den Server zu sichern, ist das Korrigieren diese Fehler nicht Teil unserer Aufgabe.
-
-	Dennoch wollen wir für die kommenden Releases Empfehlungen geben, wie diese Probleme verhindert werden können. Claas recherchiert dazu zu den einzelnen Fehlern und schreibt eine kurze Anleitung, wie die richtigen Einstellung lauten. Diese werden dann an die Auftraggeber*innen weiter gegeben.
+	Alle gefundenen Fehler betreffen nur die Konfiguration des Servers, nicht das Produkt an sich. Da im Gespräch mit den Auftraggeber*innen vereinbart wurde, dass das Entwicklerteam nicht dafür zuständig ist, den Server zu sichern, ist das Korrigieren diese Fehler nicht Teil des Projektes.
 
 	\subsection*{Zed Attack Proxy Tool - Output}
 	\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/zap/zap_pre_release_august.pdf}
@@ -401,11 +399,11 @@ Einige QS-Maßnahmen wurden noch einmal kurz vor Abgabe des Projektes an die Auf
 	\includepdf[pages=-,pagecommand={},width=\textwidth]{../nutzerstudien/protokoll-09_06_2017.pdf}
 
 	\subsection*{Zed Attack Proxy Tool - Diskussion}
-	Der in der letzten Iteration gefundene Fehler mit einer Gefährlichkeit von ''Medium'' wurde inzwischen behoben. Die verbleibenden Fehler wurden bislang nicht bearbeitet. Claas hat die notwendigen Daten allerdings an die Auftraggeber*innen geschrieben.
+	Der in der letzten Iteration gefundene Fehler mit einer Gefährlichkeit von ''Medium'' wurde inzwischen durch die Auftraggeber*innen behoben. Die verbleibenden Fehler wurden bislang nicht bearbeitet. Claas hat die dafür notwendigen Daten allerdings an die Auftraggeber*innen geschrieben.
 
-	Wir empfehlen erneut, die Serverkonfiguration zu ändern.
+	Wir empfehlen, die Serverkonfiguration zu ändern.
 
-	Anhängend ein Auszug aus der beispielhaften Server-Konfiguration:
+	Anhängend ist eine beispielhafte Server-Konfiguration:
 
 	\lstinputlisting{appendix/code_documentation/nginx-app.conf}
 
@@ -419,6 +417,13 @@ Einige QS-Maßnahmen wurden noch einmal kurz vor Abgabe des Projektes an die Auf
 	\includepdf[pages=-,pagecommand={},width=\textwidth]{../nutzerstudien/protokoll-09_25_2017.pdf}
 
 	\subsection*{Nutzerstudie - Fragebögen}
+	
+	\subsection*{Zed Attack Proxy Tool - Diskussion}
+	Mit der geänderten Serverkonfiguration wurden fast alle gefundenen Fehler behoben. Die verbleibenden Warnungen betreffen allerdings nur das Caching Verhalten einiger Browser und stellen somit keine Gefahr da, da die Webseite keine besonders kritischen Daten wie Bankinformationen oder ähnliches enthält. Daher ist es nicht schlimm, wenn Daten der Webseite länger im Browser gehalten werden, da es nicht möglich ist, diese ohne eine korrekte Authentifizierung zu erhalten.
+
+	\subsection*{Zed Attack Proxy Tool - Output}
+	\includepdf[pages=-,pagecommand={},width=\textwidth]{appendix/zap/zap_pre_release_oktober.pdf}
+
 
 \chapter{Progression des Design}
 
@@ -504,7 +509,6 @@ Einige QS-Maßnahmen wurden noch einmal kurz vor Abgabe des Projektes an die Auf
 \chapter{GitHub-Wiki}
 	Das Team hat die Dokumentation der REST-API wie geplant im GitHub Wiki des Repositories geführt. Um die Webseiten lesbar für dieses Dokument zu machen, haben wir die Markdown Seiten der WIki in \LaTeX Code umgewandelt. Im folgenden sind die einzelnen Seiten aufgeführt.
 
-
 	\input{appendix/github_wiki_tex/UserView.tex}
 	\input{appendix/github_wiki_tex/CourseView.tex}
 	\input{appendix/github_wiki_tex/GrantModRightsView.tex}
@@ -547,13 +551,13 @@ Einige QS-Maßnahmen wurden noch einmal kurz vor Abgabe des Projektes an die Auf
 \begin{itemize}
 		\item Die Entwickler einigen sich mit den Auftraggeber*innen darauf, dass die Software unter der MIT Lizenz veröffentlicht wird. Urheber im Sinn dieser Lizenz sind die vier Mitglieder des Entwicklungsteams.
 
-			Copyright (c) 2017 Tobias Huber, Ilhan Simsiki, Claas Völcker, Leonhard Wiedmann
+	Copyright (c) 2017 Tobias Huber, Ilhan Simsiki, Claas Völcker, Leonhard Wiedmann
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+	Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+	The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		\item keine weiteren Einträge
 \end{itemize}
 
