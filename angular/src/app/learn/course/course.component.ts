@@ -108,7 +108,13 @@ export class CourseComponent implements OnInit {
           for (let i = 0; i < this.modules.length; i++) {
             for (let j = 0; j < this.modules[i].questions.length; j++) {
               if (this.modules[i].questions[j].solved) {
-                this.lastCourse = [i + 1, j + 1];
+                if ( j  == this.modules[i].questions.length - 1){
+                  this.lastCourse = [i + 2, 0];
+                }
+                else{
+                  this.lastCourse = [i + 1, j + 1];
+
+                }
               }
             }
           }
