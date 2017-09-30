@@ -21,6 +21,7 @@
 \usepackage[ngerman,english]{babel}
 \usepackage{listings}
 \usepackage{csvsimple}
+\usepackage{adjustbox}
 
 
 
@@ -391,7 +392,19 @@ Einige QS-Maßnahmen wurden noch einmal kurz vor Abgabe des Projektes an die Auf
 	\includepdf[pages=-,pagecommand={},width=\textwidth]{../nutzerstudien/protokoll-06_28_2017.pdf}
 	
 	\subsection*{Nutzerstudie - Daten}
-	\csvautotabular{../nutzerstudien/clonecademy_nutzerstudie.csv}
+	\begin{adjustbox}{max width=\textwidth}
+		\csvautotabular{../nutzerstudien/clonecademy_nutzerstudie_1.csv}
+	\end{adjustbox}
+	\begin{footnotesize} 11 - Gut | 5 - schlecht \end{footnotesize}
+	\begin{itemize}
+		\item[a)] Wie fanden sie die Aufgaben?
+		\item[b)] Konnten sie sich auf der Seite zurecht finden?
+		\item[c)] Wie fanden sie die Menüführung?
+		\item[d)] Wie fanden sie die Anordnung der Elemente?
+		\item[e)] Gab es etwas störendes auf der Seite?
+		\item[f)] Was hat ihnen gut gefallen?
+		\item[g)] Weitere Kritik
+	\end{itemize}
 
 	\subsection*{Zed Attack Proxy Tool - Diskussion}
 	Alle gefundenen Fehler betreffen nur die Konfiguration des Servers, nicht das Produkt an sich. Da im Gespräch mit den Auftraggeber*innen vereinbart wurde, dass das Entwicklerteam nicht dafür zuständig ist, den Server zu sichern, ist das Korrigieren diese Fehler nicht Teil des Projektes.
@@ -403,6 +416,21 @@ Einige QS-Maßnahmen wurden noch einmal kurz vor Abgabe des Projektes an die Auf
 
 	\subsection*{Nutzerstudie - Protokoll}
 	\includepdf[pages=-,pagecommand={},width=\textwidth]{../nutzerstudien/protokoll-09_06_2017.pdf}
+	
+	\subsection*{Nutzerstudie - Daten}
+	\begin{adjustbox}{max width=\textwidth}
+		\csvautotabular{../nutzerstudien/clonecademy_nutzerstudie_2.csv}
+	\end{adjustbox}
+	\begin{footnotesize} 1 - Gut | 5 - schlecht \end{footnotesize}
+	\begin{itemize}
+		\item[a)] Wie fanden sie die Aufgaben?
+		\item[b)] Konnten sie sich auf der Seite zurecht finden?
+		\item[c)] Wie fanden sie die Menüführung?
+		\item[d)] Wie fanden sie die Anordnung der Elemente?
+		\item[e)] Gab es etwas störendes auf der Seite?
+		\item[f)] Was hat ihnen gut gefallen?
+		\item[g)] Weitere Kritik
+	\end{itemize}
 
 	\subsection*{Zed Attack Proxy Tool - Diskussion}
 	Der in der letzten Iteration gefundene Fehler mit einer Gefährlichkeit von ''Medium'' wurde inzwischen durch die Auftraggeber*innen behoben. Die verbleibenden Fehler wurden bislang nicht bearbeitet. Claas hat die dafür notwendigen Daten allerdings an die Auftraggeber*innen geschrieben.
@@ -421,6 +449,21 @@ Einige QS-Maßnahmen wurden noch einmal kurz vor Abgabe des Projektes an die Auf
 
 	\subsection*{Nutzerstudie - Protokoll}
 	\includepdf[pages=-,pagecommand={},width=\textwidth]{../nutzerstudien/protokoll-09_25_2017.pdf}
+	
+	\subsection*{Nutzerstudie - Daten}
+	\begin{adjustbox}{max width=\textwidth}
+		\csvautotabular{../nutzerstudien/clonecademy_nutzerstudie_3.csv}
+	\end{adjustbox}
+	\begin{footnotesize} 1 - Gut | 5 - schlecht \end{footnotesize}
+	\begin{itemize}
+		\item[a)] Wie fanden sie die Aufgaben?
+		\item[b)] Konnten sie sich auf der Seite zurecht finden?
+		\item[c)] Wie fanden sie die Menüführung?
+		\item[d)] Wie fanden sie die Anordnung der Elemente?
+		\item[e)] Gab es etwas störendes auf der Seite?
+		\item[f)] Was hat ihnen gut gefallen?
+		\item[g)] Weitere Kritik
+	\end{itemize}
 	
 	\subsection*{Zed Attack Proxy Tool - Diskussion}
 	Mit der geänderten Serverkonfiguration wurden fast alle gefundenen Fehler behoben. Die verbleibenden Warnungen betreffen allerdings nur das Caching Verhalten einiger Browser und stellen somit keine Gefahr da, da die Webseite keine besonders kritischen Daten wie Bankinformationen oder ähnliches enthält. Daher ist es nicht schlimm, wenn Daten der Webseite länger im Browser gehalten werden, da es nicht möglich ist, diese ohne eine korrekte Authentifizierung zu erhalten.
