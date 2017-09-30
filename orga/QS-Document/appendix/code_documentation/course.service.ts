@@ -22,21 +22,25 @@ export class CourseService {
   /**
    load courses for all categories for the current user language
    after loading sorts course for every category in data variable
+   @author Leonhard Wiedmann
+   @returns a promise that resolves once all course data is loaded
    **/
   load() {
     return new Promise((resolve, reject) => {
       this.getCategory().then(() => {
-        let requests = 0
+      let requests = 0
+      // iterate over all given categories
         for (let i = 0; i < this.categorys.length; i++) {
           this.server.post('courses/', {
             'type': '',
             'category': this.categorys[i].name,
             'language': this.user.language
-          }, true)
+	    }, true)
+	    // this resolves the subrequests for loaded courses
             .then((data) => {
                 requests++;
                 this.data[this.categorys[i].name] = data;
-                if (requests === this.categorys.length) {
+		if (requests === this.categorys.length) {
                   resolve()
                 }
               }
@@ -53,7 +57,7 @@ export class CourseService {
    get all categories from server
    will store all categories in the categories variable as array
    @author Leonhard Wiedmann
-   @returns void
+   @returns a promise rexolving once all categories are loaded
    **/
   getCategory() {
     return new Promise((resolve, reject) => this.server.get('get-course-categories/', true)
@@ -104,7 +108,7 @@ export class CourseService {
   /**
    Returns the course by id
    @author Leonhard Wiedmann
-   @aram id
+   @param id the unique id of the course
    @returns a loaded course
    **/
   get(id: number) {
@@ -121,7 +125,8 @@ export class CourseService {
   }
 
   /**
-   Returns all courses that a user has started already
+  Returns all courses that a user has started already. The user is the one
+  currently logged in via the user service
    @author Claas Voelcker
    @returns all started courses by the user
    **/

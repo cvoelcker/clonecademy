@@ -57,7 +57,7 @@ class Question(PolymorphicModel):
         Checks whether this is the first question in the module
         
         :author: Claas Voelcker
-        :return: whether this is the first question or not
+        :return: True iff this is the first question
         """
         questions = self.module.question_set
         return self == questions.first()
@@ -67,7 +67,7 @@ class Question(PolymorphicModel):
         Checks whether this is the last question in the module
     
         :author: Claas Voelcker
-        :return: whether this is the last question or not
+        :return: True iff this is the last question
         """
         questions = self.module.question_set
         return self == questions.last()

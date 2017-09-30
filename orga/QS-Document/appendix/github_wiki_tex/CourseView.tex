@@ -3,7 +3,7 @@
 \section*{Introduction}\label{introduction}
 
 The CourseView class is used to get information for a specific course.
-Courses are referenced via the general url ``clonecademy.com/courses/''.
+Courses are referenced via the general url ``clonecademy/courses/''.
 
 \section*{Method Details}\label{method-details}
 
@@ -44,9 +44,9 @@ Request:
               "name": string "Module name",
               "learning_text": string "Sample learning text";
               "questions": [{
-                              "type": string "MultipleChoiceQuestion";
-                              "question_title": string "(currently blank)";
-                              "question_body": string "The text for the question";
+                              "type": string detailing the question type;
+                              "question_title": string;
+                              "question_body": string;
                               "feedback": string "A specific feedback text (leave empty for standard)"
                             }]
             }]

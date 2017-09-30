@@ -40,7 +40,7 @@ class CourseView(APIView):
     def post(self, request, course_id=None, format=None):
         """
         Saves a course to the database. If the course id is provided,
-        the method updates and existing course, otherwise, a new course
+        the method updates an existing course, otherwise, a new course
         is created.
 
         :author: Tobias Huber, Claas Voelcker

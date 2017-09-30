@@ -1,8 +1,8 @@
 class Course(models.Model):
     """
-    One course is a group of questions which build on each other and should be
-    solved together. These questions should have similar topics, difficulty
-    and should form a compete unit for learning.
+    One course is a group of questions which should be solved 
+    together. These questions should have similar topics, 
+    difficulty and should form a complete unit for learning.
     :author: Claas Voelcker
     """
 
@@ -86,6 +86,8 @@ class Course(models.Model):
     def num_of_modules(self):
         """
         Returns the number of modules
+        :author: Claas Voelcker
+        :returns: length of the containing modules queryset
         """
         return len(Module.objects.filter(course=self))
 

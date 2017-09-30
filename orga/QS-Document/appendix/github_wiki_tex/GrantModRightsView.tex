@@ -2,9 +2,7 @@
 
 \section*{Introduction}\label{introduction}
 
-The GrantModRightsView class is used to promote a user to a moderator or
-in other words add him*her to the usergroup 'moderator'. It also
-provides a get method to show if a user is already moderator
+The GrantModRightsView class is used to promote a user to a moderator by adding him*her to the usergroup 'moderator'. It also provides a get method to check whether a user is already part of the group.
 
 \section*{Method Details}\label{method-details}
 
@@ -12,7 +10,7 @@ provides a get method to show if a user is already moderator
 
 URL: user\_id
 
-Returns true, when the user in the url is a moderator
+Returns true, iff the user in the url is a moderator
 
 Request
 
@@ -30,7 +28,7 @@ Header: user\_id Request:
 { }
 \end{verbatim}
 
-Note: May be user for other permissions in the future
+Note: can be used for other permissions in the future
 
 Response:
 

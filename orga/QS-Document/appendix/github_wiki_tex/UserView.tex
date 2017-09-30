@@ -2,12 +2,12 @@
 
 \section*{Introduction}\label{introduction}
 
-The UserView class is used to view information about a single user. The
-`post' method is used to register new users
+The UserView class is used to show information about a single user. The
+`post' method is used to register new users.
 
-The request can be accessed via ``clonecademy/user/''
+The request can be accessed via ``clonecademy/user/''.
 
-The url ``clonecademy/user/'' Points to the user itself.
+The url ``clonecademy/user/'' points to the user itself.
 
 \section*{Method Details}\label{method-details}
 
@@ -26,9 +26,10 @@ Response:
 "email": string "the users email address",
 "first_name": string "First name of the user (if provided, else empty)",
 "last_name": string "First name of the user (if provided, else empty)",
-"groups": [string] "A array of strings with the names of the group. E.g ['moderator', 'admin'],
-"date_joined": string "The date on which this user was created",
-"language": string "short form of the language, 'eg' for english"
+"groups": [string] "An array of strings with the names of the group. E.g 
+          ['moderator', 'admin'],
+"date_joined": string "The date  this user was created",
+"language": string "short form of the language, 'en' for english"
 "avatar": string "encoded image of this user",
 "ranking": number "the ranking of the current user"
 }
