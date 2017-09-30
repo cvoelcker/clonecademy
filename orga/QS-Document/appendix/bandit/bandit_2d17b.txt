@@ -1,12 +1,12 @@
-Run started:2017-09-12 10:28:07.436143
+Run started:2017-07-27 13:28:07.436143
 
 Test results:
 >> Issue: [B104:hardcoded_bind_all_interfaces] Possible binding to all interfaces.
    Severity: Medium   Confidence: Medium
    Location: django/composeexample/settings.py:28
-27	
+27
 28	ALLOWED_HOSTS = ['0.0.0.0']
-29	
+29
 
 --------------------------------------------------
 
