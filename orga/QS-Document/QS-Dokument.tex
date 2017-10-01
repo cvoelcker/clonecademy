@@ -356,7 +356,7 @@ Um dieses Dokument nicht unübersichtlich werden zu lassen, wurden nicht alle Ou
 Um die Testabdeckung zu dokumentieren, haben wir zu jeder Iteration die Übersichtsseite der Reports, sowie einen gesamten Report für das finale Produkt angehängt.
 
 \subsection{Nachweis über den QS Prozess pro Release}
-Die Protokolle der Nutzerstudien, sowie die Daten aus den Fragebögen befinden sich bei den jeweiligen Releases. Zusätzlich haben wir die Reports des ZAP-Tools und eine kurze Stellungsnahme zu den erfolgten Maßnahmen ergänzt.
+Die Protokolle der Nutzerstudien, sowie die Daten aus den Fragebögen befinden sich bei den jeweiligen Releases. Zusätzlich haben wir die Reports des ZAP-Tools und eine Stellungsnahme zu den erfolgten Maßnahmen ergänzt.
 
 \subsection{Weitere Belege}
 Um die Dokumentation der Webseite im Wiki zu veranschaulichen, haben wir das gesamte Wiki als Tex-Dokument exportiert und in dieses Dokument eingefügt.
@@ -364,7 +364,7 @@ Um die Dokumentation der Webseite im Wiki zu veranschaulichen, haben wir das ges
 Um die Dokumentation zum QS-Ziel ''Bedienbarkeit'' anschaulich zu gestalten, haben wir die Veränderungen an der Webseite durch Screenshots dokumentiert. Zusätzlich finden sich die Checklisten (pro Iteration) und die aus den Nutzungsstudien entstandenen Dokumente (Protokolle und Issues in GitHub) im folgenden Anhang.
 
 \section{Änderungen des Prozesses während des Semesters}
-Während des Semesters ist dem Team aufgefallen, dass der in diesem Dokument vorgestellte QS-Prozess nicht optimal ist. Die wichtigste Änderung ist, dass die automatisierte Code-Überprüfung im Backend durch das Tool \emph{pylint} mit dem \emph{pylint\_django} Plugin durchgeführt wurde. Dieses vereinigt die Funktionen von \emph{pep8} und \emph{django-lint} und ist einfacher konfigurier- und verwendbar. Das Team hat deshalb beschlossen, dieses Tool zu verwenden, obwohl im QS-Dokument ein anderes vorgeschlagen wurde. Des weiteren haben wir beschlossen, im Python Backend eine Code Qualität von 9.5/10 Punkten (nach der Metrik des verwendeten Werkzeugs) anzustreben, da eine Behebung aller Fehler durch Eigenheiten der verwendeten Frameworks und Tools nicht immer möglich war.
+Während des Semesters ist dem Team aufgefallen, dass der in diesem Dokument vorgestellte QS-Prozess nicht optimal ist. Die wichtigste Änderung ist, dass die automatisierte Code-Überprüfung im Backend durch das Tool \emph{pylint} mit dem \emph{pylint\_django} Plugin durchgeführt wurde. Dieses vereinigt die Funktionen von \emph{pep8} und \emph{django-lint} und ist einfacher konfigurier- und verwendbar. Das Team hat deshalb beschlossen, dieses Tool zu verwenden, obwohl im QS-Dokument ein anderes vorgeschlagen wurde. Des Weiteren haben wir beschlossen, im Python Backend eine Code Qualität von 9.5/10 Punkten (nach der Metrik des verwendeten Werkzeugs) anzustreben, da eine Behebung aller Fehler durch Eigenheiten der verwendeten Frameworks und Tools nicht immer möglich war.
 
 \section{Durchführung der Maßnahmen kurz vor Abgabe}
 Einige QS-Maßnahmen wurden noch einmal kurz vor Abgabe des Projektes an die Auftraggeber*innen durchgeführt, obwohl die Zeit an diesem Punkt nicht mehr ausreichte, um alle gefundenen Probleme noch zu beheben. Dies hat den Hintergrund, dass die Auftraggeber*innen explizit wünschen, dass das Produkt auch in Zukunft noch weiter entwickelt und verfeinert wird. Somit haben wir beschlossen, einen letzten Durchlauf der Nutzerstudien zu machen, um somit dem iGEM-Team die Möglichkeiten zur Weiterentwicklung an die Hand zu geben.
@@ -399,12 +399,12 @@ Einige QS-Maßnahmen wurden noch einmal kurz vor Abgabe des Projektes an die Auf
 	\newline
 	\begin{footnotesize} 1 - Gut | 5 - schlecht \end{footnotesize}
 	\begin{itemize}
-		\item[a)] Wie fanden sie die Aufgaben?
-		\item[b)] Konnten sie sich auf der Seite zurecht finden?
-		\item[c)] Wie fanden sie die Menüführung?
-		\item[d)] Wie fanden sie die Anordnung der Elemente?
+		\item[a)] Wie fanden Sie die Aufgaben?
+		\item[b)] Konnten Sie sich auf der Seite zurecht finden?
+		\item[c)] Wie fanden Sie die Menüführung?
+		\item[d)] Wie fanden Sie die Anordnung der Elemente?
 		\item[e)] Gab es etwas störendes auf der Seite?
-		\item[f)] Was hat ihnen gut gefallen?
+		\item[f)] Was hat Ihnen gut gefallen?
 		\item[g)] Weitere Kritik
 	\end{itemize}
 
@@ -532,6 +532,21 @@ Die noch offenen Issues sind Designvorschläge aus der letzten Nutzerstudie. Die
 	identifierstyle=\color{black},
 	stringstyle=\color{orange}}
 
+\chapter{Designdokument der Auftraggeber*innen}
+	Um alle verbleibenden Features zu dokumentieren, haben die Auftraggeber*innen zum Treffen am 20.08.2017 ein dreiseitiges Dokument ausgearbeitet. Da einige Userstories dieses Dokument referenzieren, ist es hier angehängt.
+	
+	\pagebreak
+	
+		\includegraphics[height=\textheight]{appendix/Protokolle/IMG_20170830_104101.jpg}
+		
+	\pagebreak
+	
+		\includegraphics[height=\textheight]{appendix/Protokolle/IMG_20170830_104104.jpg}
+		
+	\pagebreak
+	
+		\includegraphics[height=\textheight]{appendix/Protokolle/IMG_20170830_104113.jpg}
+
 \chapter{Dokumentation des Codes - Auszüge}
 
 	Wir haben uns dafür entschieden, jeweils drei Klassen aus dem Front- und dem Backend vorzuweisen, da wir die Komponenten separat entwickelt haben und die Qualität in beiden Teilen des Projektes wichtig für die weitere Verwendbarkeit ist.
@@ -557,6 +572,7 @@ Die noch offenen Issues sind Designvorschläge aus der letzten Nutzerstudie. Die
 	\lstinputlisting[language=Python]{appendix/code_documentation/course.py }
 
 	\section*{Question object - Backend} 
+	Das Question Object repräsentiert als abstrakte Klasse eine Frage in der Datenbank. Es stellt eine große Anzahl von Methoden und Methodenrümpfen für Implementierungen von weiteren Fragetypen bereit.
 
 	\lstinputlisting[language=Python]{appendix/code_documentation/question.py }
 
@@ -650,7 +666,7 @@ Die noch offenen Issues sind Designvorschläge aus der letzten Nutzerstudie. Die
 	Über die angestrebten Grundziele hinaus hat sich das Entwicklungsteam zusammen mit den Auftraggeber*innen dafür entschieden, vor allem eine umfassende Nutzer*innenverwaltung umzusetzen. Dadurch können nun die Gruppenzugehörigkeiten aller Accounts verändert werden und Nutzer*innen haben diverse Möglichkeit ihre Registrierungsdetails zu ändern.
 
 	\section{Vereinbarungen zur Übergabe des Projektes}
-	Der Sourcecode des Projektes wird auf Github unter der MIT Lizenz veröffentlicht. Während der Entwicklung des Projektes war das zugehörige Repositoy nur für die Entwickler und die Auftraggeber*innen einsehbar. Nach offiziellem Ende des Bachelorprojektes wird das Repository in ein öffentliches umgewandelt und steht damit allen Entwickler*innen im Netz zur Verfügung. Dies entspricht sowohl den Wünschen des Teams und der Auftraggeber*innen, als auch den Anforderungen des iGEM Wettbewerbs.
+	Der Sourcecode des Projektes wird auf Github unter der MIT Lizenz veröffentlicht. Während der Entwicklung des Projektes war das  Repositoy nur für die Entwickler und die Auftraggeber*innen einsehbar. Nach offiziellem Ende des Bachelorprojektes wird das Repository in ein öffentliches umgewandelt und steht damit allen Entwickler*innen im Netz zur Verfügung. Dies entspricht sowohl den Wünschen des Teams und der Auftraggeber*innen, als auch den Anforderungen des iGEM Wettbewerbs.
 
 	Das ursprüngliche Repository wird weiterhin von Claas Völcker verwaltet. Eine fortlaufende Entwicklung durch das Team, aber auch durch interessierte Dritte ist damit möglich. Leonhard Wiedmann hat bereits sein Interesse angekündigt, die Webseite weiter mit dem iGEM-Team zusammen zu betreuen.
 
