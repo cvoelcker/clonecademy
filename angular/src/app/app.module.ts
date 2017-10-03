@@ -86,6 +86,7 @@ import { CourseStatisticsComponent } from './learn/course/course_statistics/stat
 import {CourseViewComponent} from './learn/view-courses/view-courses.component';
 import {FooterMainpageComponent} from './footer-mainpage/footer-mainpage.component';
 import {QuizQuestionComponent} from './quiz/quiz-question/quiz-question.component';
+import {QuizEndPopupComponent} from './quiz/quiz-question/quiz-end-popup/quiz-end-popup.component'
 import { QuestionFeedbackComponent } from './learn/question/question-feedback/question-feedback.component';
 
 
@@ -246,6 +247,7 @@ const QuestionList = QuestionDictionary.questionComponents
     DialogComponent,
     QuestionSidenavComponent,
     QuizQuestionComponent,
+    QuizEndPopupComponent,
     CourseCategoriesComponent,
     DeleteDialogComponent,
     CourseStatisticsComponent,
@@ -303,6 +305,7 @@ const QuestionList = QuestionDictionary.questionComponents
     AddQuestionModuleComponent,
     AddQuestionComponent,
     ErrorMessageComponent,
+    QuizEndPopupComponent,
     QuestionFeedbackComponent,
     LoaderComponent,
     CourseComponent,

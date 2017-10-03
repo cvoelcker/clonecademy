@@ -32,11 +32,11 @@
 
 </div>
 <footer>
-  <div class="nextButton" *ngIf="!showFeedback">
-    <button md-raised-button (click)="submit()">Submit</button>
+  <div class="nextButton"  *ngIf="!showFeedback">
+    <button md-raised-button [disabled]="done" (click)="submit()">Submit</button>
   </div>
   <div class="nextButton" *ngIf="showFeedback">
-    <button md-raised-button (click)="submit()">Next</button>
+    <button md-raised-button [disabled]="done" (click)="submit()">Next</button>
   </div>
 
 </footer>

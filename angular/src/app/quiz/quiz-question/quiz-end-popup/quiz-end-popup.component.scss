@@ -1,0 +1,22 @@
+@import '../../../../_vars.scss';
+
+.quiz-popup-msg{
+  min-width: 500px;
+}
+
+button{
+  width: 100%
+}
+
+table{
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  tr.solved {
+    background-color: $green;
+  }
+  td{
+    border-bottom: 1px solid $shadow;
+    padding: 0.5em 0;
+  }
+}

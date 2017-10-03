@@ -17,7 +17,7 @@ from rest_framework.response import Response
 
 from . import custom_permissions
 from . import serializers
-from .models import Course, CourseCategory, Try, Profile, started_courses
+from .models import Course, CourseCategory, Try, Profile, started_courses, QuizQuestion
 
 
 class CategoryView(APIView):
@@ -604,7 +604,7 @@ class QuizView(APIView):
             return Response(response, status=status.HTTP_200_OK)
         if request.data['type'] == 'get_answers':
             course = Course.objects.get(id=course_id)
-            quiz_question = course.quizquestion_set.all()[request.data['id']]
+            quiz_question = QuizQuestion.objects.filter(id=request.data['id']).first()
             answers = [answer.id for answer in
                        quiz_question.quizanswer_set.all() if answer.correct]
             return Response({'answers': answers}, status.HTTP_200_OK)

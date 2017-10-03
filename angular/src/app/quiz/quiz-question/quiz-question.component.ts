@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ServerService} from '../../service/server.service'
 import {ActivatedRoute, Params, Router} from '@angular/router'
+import {LoaderComponent} from '../../loader/loader.component';
+import {QuizEndPopupComponent} from './quiz-end-popup/quiz-end-popup.component'
+import {MdDialog} from '@angular/material';
 
 @Component({
   selector: 'app-quiz-question',
@@ -20,11 +23,17 @@ export class QuizQuestionComponent implements OnInit {
   id = 0;
   answers = [];
   quizSize = 0;
+  done = false;
   private showFeedback: boolean;
   private loading: boolean;
   private correct: boolean;
 
-  constructor(private router: Router, public server: ServerService, private route: ActivatedRoute) {
+  constructor(
+    private router: Router,
+    public server: ServerService,
+    private route: ActivatedRoute,
+    private dialog: MdDialog,
+  ) {
     this.load();
     this.loading = false;
     this.correct = true;
@@ -85,10 +94,19 @@ export class QuizQuestionComponent implements OnInit {
       this.answers.push({answers: value, id: this.data[this.id].id});
 
       if (this.quizSize - 1 === this.id) {
-        this.server.post('courses/' + this.courseID + '/quiz/', {'type': 'check_answers', 'answers': this.answers})
+        this.done = true;
+        const loader = this.dialog.open(LoaderComponent, {
+          disableClose: true
+        })
+        this.server.post('courses/' + this.courseID + '/quiz/', {'type': 'check_answers', 'answers': this.answers}, true)
           .then(data => {
+            loader.afterClosed().subscribe(stuff => {
+              this.dialog.open(QuizEndPopupComponent, {data: data})
+            })
+            loader.close()
             // TODO show popup for end course
             // data is {name: "question of the quiz", solved: boolean "if the question is correct solved"}
+
           });
         return;
       } else {
@@ -96,7 +114,7 @@ export class QuizQuestionComponent implements OnInit {
 
         this.showFeedback = true;
         this.loading = true;
-        this.server.post('courses/' + this.courseID + '/quiz/', {'type': 'get_answers', 'id': question.id - 1})
+        this.server.post('courses/' + this.courseID + '/quiz/', {'type': 'get_answers', 'id': question.id})
           .then(data => {
             this.correct = true;
 
