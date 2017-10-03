@@ -10,7 +10,7 @@
     <img-cropper class="img-cropper" #cropper [image]="data"
                  [settings]="cropperSettings"></img-cropper>
     <span class="result rounded" *ngIf="data.image">
-      <img [src]="data.image" [width]="cropperSettings.croppedWidth"
+      <img [src]="data.image" 
            [height]="cropperSettings.croppedHeight">
   </span>
   </md-dialog-content>

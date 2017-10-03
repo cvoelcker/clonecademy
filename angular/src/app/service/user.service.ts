@@ -28,8 +28,6 @@ export class UserService {
           this.login = true;
           resolve(true)
         });
-
-
       })
       .catch(res => {
         console.log(res)
@@ -100,7 +98,7 @@ export class UserService {
   }
 
   constructor(private translate: TranslateService, private server: ServerService, private router: Router, private cookie: CookieService) {
-    this.login = this.cookie.get('token') !== null;
+    this.login = this.cookie.get('token') !== undefined;
     if (this.login) {
       this.loadUser()
     } else {
