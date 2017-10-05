@@ -5,6 +5,11 @@ h2.mat-dialog-title{
   padding: 24px 24px 0;
 }
 
+.mat-dialog-actions{
+  text-align: center;
+  display: block;
+}
+
 .wrong{
   h2{
     background-color: $warn;
@@ -14,7 +19,7 @@ h2.mat-dialog-title{
 .correct{
   h2{
     background-color: $green;
-    
+
   }
 }
 .context{
