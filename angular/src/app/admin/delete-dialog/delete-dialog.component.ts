@@ -2,6 +2,8 @@ import {Component, Inject, Optional} from '@angular/core';
 
 import {MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
 
+import {ServerService} from '../../service/server.service';
+
 @Component({
   selector: 'app-delete-dialog',
   templateUrl: './delete-dialog.component.html',
@@ -9,18 +11,17 @@ import {MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
 })
 export class DeleteDialogComponent {
 
-  courses: any;
+  constructor(
+    @Inject(MD_DIALOG_DATA) public data: any,
+    private dialogRef: MdDialogRef<DeleteDialogComponent>,
+    private server: ServerService,
+  ) { }
 
-  constructor(@Optional() public dialogRef: MdDialogRef<DeleteDialogComponent>, @Inject(MD_DIALOG_DATA) public data: string) {
-    if (data != null) {
-      this.courses = data
-    } else {
-      this.courses = {}
-    }
-  }
-
-  onNoClick(): void {
-    this.dialogRef.close();
+  delete() {
+    this.server.post('get-course-categories/', {delete: true, id: this.data['id']})
+      .then(data => {
+        this.dialogRef.close({deleted: true})
+      })
   }
 }
 ;

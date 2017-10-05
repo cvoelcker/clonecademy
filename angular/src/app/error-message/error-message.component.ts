@@ -12,7 +12,7 @@ export class ErrorMessageComponent {
   keys: Array<string>;
 
   constructor(@Optional() @Inject(MD_DIALOG_DATA) public data: any) {
-    if(typeof data !== "string"){
+    if (typeof data !== 'string') {
       this.keys = Object.keys(data)
     }
   }

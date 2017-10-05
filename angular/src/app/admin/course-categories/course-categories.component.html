@@ -1,16 +1,8 @@
 <h2>Course Categories</h2>
 <h3>Create, delete or update</h3>
 <br>
-<!--
-<input #ignoredInput [(colorPicker)]="color"
-       [(cpToggle)]="toggle"
-       [style.background]="color"
-       [cpIgnoredElements]="[ignoredButton, ignoredInput]"/>
 
-<button (click)="toggle=!toggle;lastColor=color"
-         #ignoredButton></button>
--->
-<md-select [(ngModel)]="selected"
+<md-select
            placeholder='{{"select a category" | translate}}'
            floatPlaceholder="never">
   <md-option (click)="openCreate()"><i>create new</i></md-option>
@@ -19,16 +11,15 @@
   </md-option>
 </md-select>
 
-<div *ngIf="loading == false && selected != undefined && create == false">
+<div *ngIf="edit && !create && index >= 0 ">
   <br>
-  <h4>{{selected.name}}</h4>
+  <h4>Edit <b>{{categories[index].name}}</b></h4>
   <br>
-
 
   <form #f="ngForm" name="register" (ngSubmit)="register(f)">
 
     <md-input-container>
-      <input mdInput placeholder='Category name ({{selected.name}})'
+      <input mdInput placeholder='Category name '
              type="text" name='name' [(ngModel)]="categoryname" required/>
       <md-hint align="start" *ngIf="nameTaken && f.submitted" class="warning">
         <strong>{{"name already taken" | translate}}</strong>
@@ -36,7 +27,7 @@
     </md-input-container>
 
     <md-input-container>
-      <input mdInput placeholder='Category color ({{selected.color}})'
+      <input mdInput placeholder='Category color'
              type="text" pattern="#[a-fA-F0-9]{6}" name='color'
              [(ngModel)]="categorycolor" required/>
       <!---
@@ -55,7 +46,7 @@
 
   </form>
 </div>
-<div *ngIf="loading == false && create == true">
+<div *ngIf="edit && create">
   <br>
   <h4>Create a new category</h4>
   <br>
@@ -72,7 +63,7 @@
     <md-input-container>
       <input mdInput placeholder='Category color' type="text"
              pattern="#[a-fA-F0-9]{6}" name='color'
-             [(ngModel)]="categorycolor"/>
+             [(ngModel)]="categorycolor" #color="ngModel"/>
       <!---
       <md-hint align="start" *ngIf="f.submitted" class="warning">
         <strong>{{"color must be a # and 6 trailing digits long" | translate}}</strong>

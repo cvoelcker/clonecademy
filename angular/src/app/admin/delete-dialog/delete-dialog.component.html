@@ -1,16 +1,14 @@
 <h1 md-dialog-title>Confirm Deletion</h1>
-<div md-dialog-content *ngIf="data!=null && data!=undefined">
-  Deleting {{data.category.name}} results in deletion of the following:
+<md-dialog-content *ngIf="data != undefined && data.name != undefined">
+  Deleting {{data.name}} results in deletion of the following courses:
 
-  <ul *ngIf='courses != undefined'>
-    <li *ngFor='let c of courses'>
-      {{c.name}}
+  <ul *ngIf='data != undefined'>
+    <li *ngFor='let c of data.courses'>
+      {{c}}
     </li>
   </ul>
-</div>
-<div md-dialog-content>
-  <div md-dialog-actions>
-    <button md-button [md-dialog-close]="data.animal" tabindex="2">Ok</button>
-    <button md-button (click)="onNoClick()" tabindex="-1">No Thanks</button>
-  </div>
-</div>
+</md-dialog-content>
+<md-dialog-actions>
+  <button md-button (click)="delete()" tabindex="2">Ok</button>
+  <button md-button md-dialog-close tabindex="-1">No Thanks</button>
+</md-dialog-actions>

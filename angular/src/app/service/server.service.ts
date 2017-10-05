@@ -89,17 +89,19 @@ export class ServerService {
     return new Promise((resolve, reject) => this.http.post(this.baseUrl + type, body, options)
       .toPromise()
       .then(response => {
-        if (!silent) {
-          loader.close()
-        }
-
         try {
           response = response.json()
-
         } catch (e) {
         }
-        resolve(response)
 
+        if (!silent) {
+          loader.afterClosed().subscribe(stuff => {
+            resolve(response)
+          })
+          loader.close()
+        } else {
+          resolve(response)
+        }
       })
       .catch(err => {
 

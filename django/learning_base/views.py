@@ -46,14 +46,29 @@ class CategoryView(APIView):
         """
         data = request.data
         # check if instance shall be deleted
-        if 'delete' in data and data['delete'] == 'true':
-            if 'id' in data:
-                instance = CourseCategory.objects.get(id=data['id'])
-                instance.delete()
-                return Response(status=status.HTTP_204_NO_CONTENT)
-            return Response({'ans': 'a category with the given id'
-                                    + ' does not exist'},
-                            status=status.HTTP_404_NOT_FOUND)
+        if 'delete' in data:
+            if data['delete'] == False:
+                category = CourseCategory.objects.filter(id=data['id'])
+                if not category.exists():
+                    return Response({'error': 'this category does not exist'},
+                        status=status.HTTP_400_BAD_REQUEST)
+                category = category.first()
+                response = {}
+                response['name'] = category.name
+                response['courses'] = []
+                for course in category.course_set.all():
+                    response['courses'].append(course.name)
+                return Response(response, status=status.HTTP_200_OK)
+            if data['delete'] == True:
+                if 'id' in data:
+                    instance = CourseCategory.objects.filter(id=data['id'])
+                    if not instance.exists():
+                        return Response({'ans': 'a category with the given id'
+                                                + ' does not exist'},
+                                                status=status.HTTP_404_NOT_FOUND)
+                    instance.first().delete()
+                    return Response({'id': data['id']}, status=status.HTTP_200_OK)
+
 
         # check if an id is given, signaling to update the corresponding cat.
         if 'id' in data:
@@ -61,7 +76,8 @@ class CategoryView(APIView):
             if CourseCategory.objects.filter(id=category_id).exists():
                 category = CourseCategory.objects.get(id=category_id)
                 serializer = serializers.CourseCategorySerializer(
-                    category, data=data, partial=True, )
+                    category, data=data )
+
             else:
                 return Response(
                     {'ans': 'a category with the id ' + str(category_id)
