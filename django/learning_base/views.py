@@ -47,6 +47,8 @@ class CategoryView(APIView):
         data = request.data
         # check if instance shall be deleted
         if 'delete' in data:
+
+            # if 'delete' is false return the names of coures which will be deleted
             if data['delete'] == False:
                 category = CourseCategory.objects.filter(id=data['id'])
                 if not category.exists():
@@ -59,6 +61,8 @@ class CategoryView(APIView):
                 for course in category.course_set.all():
                     response['courses'].append(course.name)
                 return Response(response, status=status.HTTP_200_OK)
+
+            # if 'delete' is true delete this category
             if data['delete'] == True:
                 if 'id' in data:
                     instance = CourseCategory.objects.filter(id=data['id'])
@@ -192,6 +196,17 @@ class CourseEditView(APIView):
         """
         Not implemented
         """
+        data = request.data
+        if data['delete']:
+            groups = request.user.groups.values_list('name', flat=True)
+
+            if 'admin' in groups:
+                course = Course.objects.filter(id=course_id)
+                if not course.exists():
+                    return Response({'error': 'Course does not exist'},
+                        status=status.HTTP_404_NOT_FOUND)
+                course.first().delete()
+                return Response({'deleted': course_id}, status=status.HTTP_200_OK)
         return Response({'ans': 'Method not allowed'},
                         status=status.HTTP_405_METHOD_NOT_ALLOWED)
 

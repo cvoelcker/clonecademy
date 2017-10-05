@@ -77,6 +77,10 @@ class InformationText(Question):
     def __str__(self):
         return "Learning text {}".format(self.id)
 
+    def delete(self):
+        print("information Text")
+        super(InformationText, self).delete()
+
 
 class InformationYoutube(Question):
     """
@@ -153,3 +157,6 @@ class InformationYoutube(Question):
         :return: string representation from the id
         """
         return "Learning text {}".format(self.id)
+
+    def delete(self):
+        super(InformationYoutube, self).delete()

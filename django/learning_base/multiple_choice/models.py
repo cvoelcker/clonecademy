@@ -91,6 +91,10 @@ class MultipleChoiceQuestion(Question):
         from . import serializer
         return serializer.MultipleChoiceQuestionEditSerializer
 
+    def delete(self):
+        print("multiple choice")
+        super(MultipleChoiceQuestion, self).delete()
+
 
 class MultipleChoiceAnswer(models.Model):
     """

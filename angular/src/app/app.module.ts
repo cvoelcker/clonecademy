@@ -48,6 +48,7 @@ import {DashboardComponent} from './learn/dashboard/dashboard.component';
 import {LoggedInDirective} from './directive/logged-in.directive';
 import {MenuComponent} from './menu/menu.component';
 import {CourseComponent} from './learn/course/course.component';
+import {SubmitDeleteComponent} from './learn/course/submit-delete/submit-delete.component';
 import {QuestionSidenavComponent} from './learn/question-sidenav/question-sidenav.component';
 
 import {QuestionDictionary} from './learn/question-dictionary';
@@ -254,6 +255,7 @@ const QuestionList = QuestionDictionary.questionComponents
     PwResetAnswerDialogComponent,
     AuthDialogComponent,
     QuestionFeedbackComponent,
+    SubmitDeleteComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -309,6 +311,7 @@ const QuestionList = QuestionDictionary.questionComponents
     QuestionFeedbackComponent,
     LoaderComponent,
     CourseComponent,
+    SubmitDeleteComponent,
     CreateCourseComponent,
     ImageCropperDialogComponent,
     DialogComponent,

@@ -30,6 +30,11 @@
 
     <td class="options" *ngIf="user.isModerator()">
       <!-- add visible/invisble button here -->
+      <button md-raised-button class="delete"
+              [disabled]='!user.isAdmin()' (click)='delete()'
+              mdTooltip='Delete this course'>
+        <md-icon>delete_forever</md-icon>
+      </button>
       <div class="button" [ngSwitch]="true" *ngIf="sidemenu == undefined">
         <button md-raised-button *ngSwitchCase="visible"
                 [disabled]='!user.isAdmin()' (click)='toggleVisibility()'

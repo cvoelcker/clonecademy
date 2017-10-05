@@ -4,6 +4,11 @@ import {ServerService} from '../../service/server.service'
 import {CourseService} from '../../service/course.service'
 import {UserService} from '../../service/user.service'
 
+import {MdDialog} from '@angular/material';
+import {SubmitDeleteComponent} from './submit-delete/submit-delete.component';
+
+import {LoaderComponent} from '../../loader/loader.component';
+
 
 @Component({
   selector: 'app-course',
@@ -36,11 +41,14 @@ export class CourseComponent implements OnInit {
   public chartHovered(e: any): void {
   }
 
-  constructor(private course: CourseService,
-              private route: ActivatedRoute,
-              private server: ServerService,
-              private router: Router,
-              private user: UserService) {
+  constructor(
+    private course: CourseService,
+    private route: ActivatedRoute,
+    private server: ServerService,
+    private router: Router,
+    private user: UserService,
+    private dialog: MdDialog,
+  ) {
 
   }
 
@@ -49,24 +57,6 @@ export class CourseComponent implements OnInit {
       this.sidemenu.close()
     }
   }
-
-  //
-  // initChart(){
-  //   this.pieChartColor = [
-  //     {
-  //       backgroundColor: [
-  //         this.sassHelper.readProperty('success'),
-  //         "white"
-  //       ],
-  //       strokeColor: '#0f0',
-  //       hoverBackgroundColor: [
-  //         this.sassHelper.readProperty('success-hover'),
-  //         "white"
-  //       ],
-  //       borderColor: "transparent"
-  //     },
-  //   ]
-  // }
 
   ngOnInit() {
     // this.initChart()
@@ -136,5 +126,24 @@ export class CourseComponent implements OnInit {
       .then(answer => {
         this.visible = answer['is_visible']
       })
+  }
+  /*
+  open popup to submit for deleting this course
+  @author Leonhard Wiedmann
+  */
+  delete() {
+    const dialog = this.dialog.open(SubmitDeleteComponent, {data: {id: this.id}})
+    dialog.afterClosed().subscribe(stuff => {
+      if (stuff.delete === true) {
+        this.server.post('courses/' + this.id + '/edit', {delete: true})
+          .then(answer => {
+            const loader = this.dialog.open(LoaderComponent, {disableClose: true})
+            this.course.load().then(stuff => {
+              loader.close()
+              this.router.navigate(['/course/'])
+            })
+          })
+      }
+    })
   }
 }
