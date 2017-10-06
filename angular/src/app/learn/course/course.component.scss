@@ -1,6 +1,4 @@
-.button {
-  //margin: 1em;
-}
+@import '../../../_vars.scss';
 
 .startCourse {
   float: right;
@@ -113,4 +111,9 @@ ol {
       }
     }
   }
+}
+
+.delete{
+  background-color: $warn;
+  color: $white;
 }

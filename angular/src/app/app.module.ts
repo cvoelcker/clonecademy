@@ -48,6 +48,7 @@ import {DashboardComponent} from './learn/dashboard/dashboard.component';
 import {LoggedInDirective} from './directive/logged-in.directive';
 import {MenuComponent} from './menu/menu.component';
 import {CourseComponent} from './learn/course/course.component';
+import {SubmitDeleteComponent} from './learn/course/submit-delete/submit-delete.component';
 import {QuestionSidenavComponent} from './learn/question-sidenav/question-sidenav.component';
 
 import {QuestionDictionary} from './learn/question-dictionary';
@@ -86,6 +87,7 @@ import { CourseStatisticsComponent } from './learn/course/course_statistics/stat
 import {CourseViewComponent} from './learn/view-courses/view-courses.component';
 import {FooterMainpageComponent} from './footer-mainpage/footer-mainpage.component';
 import {QuizQuestionComponent} from './quiz/quiz-question/quiz-question.component';
+import {QuizEndPopupComponent} from './quiz/quiz-question/quiz-end-popup/quiz-end-popup.component'
 import { QuestionFeedbackComponent } from './learn/question/question-feedback/question-feedback.component';
 
 
@@ -246,12 +248,14 @@ const QuestionList = QuestionDictionary.questionComponents
     DialogComponent,
     QuestionSidenavComponent,
     QuizQuestionComponent,
+    QuizEndPopupComponent,
     CourseCategoriesComponent,
     DeleteDialogComponent,
     CourseStatisticsComponent,
     PwResetAnswerDialogComponent,
     AuthDialogComponent,
     QuestionFeedbackComponent,
+    SubmitDeleteComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -303,9 +307,11 @@ const QuestionList = QuestionDictionary.questionComponents
     AddQuestionModuleComponent,
     AddQuestionComponent,
     ErrorMessageComponent,
+    QuizEndPopupComponent,
     QuestionFeedbackComponent,
     LoaderComponent,
     CourseComponent,
+    SubmitDeleteComponent,
     CreateCourseComponent,
     ImageCropperDialogComponent,
     DialogComponent,

@@ -1,0 +1,25 @@
+<div class="quiz-popup-msg">
+  <h2 md-dialog-title>Quiz finished</h2>
+  <md-dialog-content>
+    <table>
+      <tr *ngFor="let ans of data; let i = index" [class.solved]="ans.solved">
+        <td>
+          {{i+1}}:
+        </td>
+        <td>
+          {{ans.name}}
+        </td>
+        <td>
+          <md-icon *ngIf="ans.solved">done</md-icon>
+        </td>
+        <td>
+          + {{ans.points}}
+        </td>
+      </tr>
+    </table>
+  </md-dialog-content>
+  <md-dialog-actions>
+    <!-- Can optionally provide a result for the closing dialog. -->
+    <button md-button md-dialog-close routerLink="/course" >Exit</button>
+  </md-dialog-actions>
+</div>

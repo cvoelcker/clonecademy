@@ -29,7 +29,7 @@
     <button md-button md-dialog-close *ngIf="!data.evaluate">{{"close" | translate}}</button>
     <button md-button md-dialog-close *ngIf="data.evaluate && data.next != ''" [routerLink]="'course/' + data.next">next</button>
 
-    <button md-button md-dialog-close *ngIf="data.evaluate && data.quiz" [routerLink]="'course/'">exit</button>
+    <button md-button md-dialog-close *ngIf="data.evaluate && (data.quiz || data.next == '')" [routerLink]="'course/'">exit</button>
     <button md-button md-dialog-close *ngIf="data.evaluate && data.quiz" [routerLink]="'course/' + data.course + '/quiz'">quiz</button>
   </div>
 </div>

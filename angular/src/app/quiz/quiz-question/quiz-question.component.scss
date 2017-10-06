@@ -45,6 +45,21 @@
     width: 100%;
   }
 
+  &.submited{
+    md-checkbox{
+      &.selected.correct {
+        box-shadow: none;
+        background-color: $white;
+      }
+      &.selected:not(correct) {
+        background-color: $warn;
+      }
+      &.correct:not(selected) {
+        background-color: $warn;
+      }
+    }
+  }
+
   md-checkbox {
     margin: 2em 0;
     box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
@@ -54,44 +69,6 @@
       box-shadow: none;
       background-color: $button;
     }
-    .answerText {
-      display: inline;
-      p {
-        display: inline;
-      }
-    }
-    img {
-      height: 50px;
-      margin-right: 10px;
-    }
-  }
-}
-
-.answers-feedback {
-  width: 50%;
-  display: inline-block;
-  margin: 1em auto;
-  min-width: 300px;
-  &.full {
-    width: 100%;
-  }
-
-  md-checkbox {
-    margin: 2em 0;
-    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
-    width: 100%;
-    display: block;
-    &.selected.correct {
-      box-shadow: none;
-      background-color: $white;
-    }
-    &.selected:not(correct) {
-      background-color: $warn;
-    }
-    &.correct:not(selected) {
-      background-color: $warn;
-    }
-
     .answerText {
       display: inline;
       p {

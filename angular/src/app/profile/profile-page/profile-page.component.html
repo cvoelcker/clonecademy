@@ -15,7 +15,7 @@
   </ul>
 </div>
 <div class="content">
-  <router-outlet></router-outlet>
+  <router-outlet *ngIf="user.loaded"></router-outlet>
 </div>
 <footer>
   <app-footer-mainpage></app-footer-mainpage>

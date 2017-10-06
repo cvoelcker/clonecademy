@@ -204,6 +204,12 @@ class Course(models.Model):
         """
         return len(Module.objects.filter(course=self))
 
+    def delete(self):
+        for module in self.module_set.all():
+            for question in module.question_set.all():
+                question.delete()
+            module.delete()
+        super(Course, self).delete()
 
 class Module(models.Model):
     """
@@ -271,6 +277,7 @@ class Module(models.Model):
         """
         modules = self.course.module_set
         return self == modules.last()
+
 
 
 class Question(PolymorphicModel):

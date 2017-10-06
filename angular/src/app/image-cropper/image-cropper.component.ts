@@ -27,8 +27,9 @@ export class ImageCropperDialogComponent {
     this.cropperSettings.noFileInput = true;
     this.cropperSettings.fileType = 'image/*'
     if (input.width && input.height) {
-      this.cropperSettings.canvasWidth = 500;
-      this.cropperSettings.canvasHeight = 300;
+      this.cropperSettings.canvasWidth = (input.width / input.height) * 300;
+      this.cropperSettings.canvasHeight = (input.height / input.width) * 300;
+
       this.cropperSettings.croppedWidth = input.width;
       this.cropperSettings.croppedHeight = input.height;
     }

@@ -11,12 +11,15 @@ import {Router} from '@angular/router'
   templateUrl: './course-categories.component.html',
   styleUrls: ['./course-categories.component.sass']
 })
-export class CourseCategoriesComponent implements OnInit {
+export class CourseCategoriesComponent {
 
   loading = true;
   create = false;
 
-  selected: any;
+  categoryname: string;
+  categorycolor: string;
+  categoryID: number;
+  index: number = -1;
 
   categories: any;
 
@@ -27,18 +30,16 @@ export class CourseCategoriesComponent implements OnInit {
 
   dialogRef: any;
 
+  edit = false;
+
 
   constructor(
     private server: ServerService,
     private router: Router,
     public dialog: MdDialog
   ) {
-  }
-
-  ngOnInit() {
     // load the data for all categories
-
-    this.server.get('get-course-categories/', true)
+    this.server.get('get-course-categories/')
       .then(data => {
         this.categories = data;
         this.loading = false;
@@ -46,61 +47,60 @@ export class CourseCategoriesComponent implements OnInit {
   }
 
   change(c: any) {
-    this.selected = c;
+    this.categoryname = c.name
+    this.categorycolor = c.color
+    this.categoryID = c.id
+    this.index = this.categories.indexOf(c)
     this.create = false;
+    this.edit = true;
   }
 
   openCreate() {
+    this.categoryname = '';
+    this.categorycolor = '';
     this.create = true;
+    this.edit = true;
   }
 
   delete() {
-    this.server.post('courses/', {
-      'category': this.selected.name, 'type': '',
-      'language': ''
-    }, false, false)
+    this.server.post('get-course-categories/', {delete: false, id: this.categoryID})
       .then(answer => {
         this.courses = answer;
+        answer['id'] = this.categoryID
+        const dialogRef = this.dialog.open(DeleteDialogComponent, {
+          data: answer
+        })
+        dialogRef.afterClosed().subscribe( valid => {
+          if (valid['deleted'] === true) {
+            this.categories.splice(this.index, 1);
+            this.edit = false
+
+          }
+
+        })
       })
-
-
-    const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      height: '350px',
-      data: this.courses
-    })
-
-    this.dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
-    console.log('got result')
-
   }
 
   // register the updated category
   register(value) {
     if (value.valid) {
       const data = value.value
-      if (data['categorycolor'] === '') {
-        delete data['categorycolor'];
-      };
-      if (data['categoryname'] === '') {
-        delete data['categoryname'];
-      };
-      if (this.selected !== undefined && !this.create) {
-        data['id'] = this.selected.id;
+      if (this.categoryID !== undefined && !this.create) {
+        data['id'] = this.categoryID;
       }
-      this.server.post('get-course-categories/', data, false, false)
+      this.server.post('get-course-categories/', data)
         .then(answer => {
-          this.selected = answer;
-          this.categories.push(answer);
+          if (this.create) {
+            this.categories.push(answer)
+            this.change(this.categories[this.categories.length - 1])
+          } else {
+            this.categories[this.index] = answer
+          }
         })
         .catch(errorRes => {
           this.error = true;
           this.errorMessage = errorRes;
         })
-      if (this.create) {
-        this.change(this.selected)
-      }
     }
   }
 
