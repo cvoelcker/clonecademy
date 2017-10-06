@@ -2,10 +2,11 @@
   <md-card class="question" *ngIf="data[id].question != undefined">
     {{data[id].question}}
   </md-card>
-  <div class="answersWrapper" *ngIf="!showFeedback">
-    <div class="answers" [class.full]="data[id].image == ''">
+  <div class="answersWrapper">
+    <div class="answers" [class.submited]="showFeedback" [class.full]="data[id].image == ''">
       <md-checkbox *ngFor="let ans of data[id].answers"
-                   [(ngModel)]="ans.chosen" [class.selected]="ans.chosen">
+                   [(ngModel)]="ans.chosen" [class.selected]="ans.chosen"
+                   [class.correct]="ans.correct" [disabled]="showFeedback">
         <img *ngIf="ans.img != ''" [src]="ans.img">
         {{ ans.text }}
       </md-checkbox>
@@ -15,17 +16,6 @@
     </div>
   </div>
   <div class="answersWrapper" *ngIf="showFeedback && !loading">
-    <div class="answers-feedback" [class.full]="data[id].image == ''">
-      <md-checkbox *ngFor="let ans of data[id].answers"
-                   [(ngModel)]="ans.chosen" [class.selected]="ans.chosen"
-                   [class.correct]="ans.correct" disabled>
-        <img *ngIf="ans.img != ''" [src]="ans.img">
-        {{ ans.text }}
-      </md-checkbox>
-    </div>
-    <div class="image" *ngIf="data[id].image">
-      <img [src]="data[id].image">
-    </div>
     <p *ngIf="correct">Your answer was correct</p>
     <p *ngIf="!correct">Your answer was not correct</p>
   </div>
@@ -36,7 +26,7 @@
     <button md-raised-button [disabled]="done" (click)="submit()">Submit</button>
   </div>
   <div class="nextButton" *ngIf="showFeedback">
-    <button md-raised-button [disabled]="done" (click)="submit()">Next</button>
+    <button md-raised-button [disabled]="done || loading" (click)="submit()">Next</button>
   </div>
 
 </footer>

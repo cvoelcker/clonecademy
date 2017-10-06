@@ -613,8 +613,10 @@ class QuizView(APIView):
                         answer_solved = answer
                         break
                 solved = quiz_entry.evaluate(answer_solved)
+                points = 0
                 if solved and not quiz_entry.try_set.filter(
                         user=request.user, solved=True).exists():
+                    points = 1
                     newly_solved += 1
                     request.user.profile.ranking += quiz_entry.get_points()
                 elif quiz_entry.try_set.filter(user=request.user,
@@ -623,7 +625,7 @@ class QuizView(APIView):
                 Try(user=request.user, quiz_question=quiz_entry,
                     answer=str(request.data), solved=solved).save()
 
-                response.append({"name": quiz[i].question, "solved": solved})
+                response.append({"name": quiz[i].question, "solved": solved, 'points': points})
 
             old_extra = float(old_solved / all_question_length)
             new_extra = float(
@@ -786,6 +788,8 @@ class StatisticsView(APIView):
         is_mod = 'moderator' in groups or 'admin' in groups
 
         # the simplest call is if the user just wants its statistic
+        print(data)
+        print(data['id'])
         if 'id' in data and data['id'] == user.id:
             tries = tries.filter(user=user)
 

@@ -1,5 +1,5 @@
 <div class="quiz-popup-msg">
-  <h2 md-dialog-title>Quiz ended</h2>
+  <h2 md-dialog-title>Quiz finished</h2>
   <md-dialog-content>
     <table>
       <tr *ngFor="let ans of data; let i = index" [class.solved]="ans.solved">
@@ -11,6 +11,9 @@
         </td>
         <td>
           <md-icon *ngIf="ans.solved">done</md-icon>
+        </td>
+        <td>
+          + {{ans.points}}
         </td>
       </tr>
     </table>

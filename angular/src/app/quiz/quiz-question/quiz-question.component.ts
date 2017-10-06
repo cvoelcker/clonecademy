@@ -47,28 +47,29 @@ export class QuizQuestionComponent implements OnInit {
     this.route.params.subscribe((data: Params) => {
       this.showFeedback = false;
       this.courseID = Number(data.id);
-      this.server.get('courses/' + this.courseID + '/quiz/').then((value: Array<any>) => {
-        const array = [];
-        while (value.length > 0) {
-          const i = Math.floor(Math.random() * value.length);
-          const item = Object.assign({}, value[i]);
-          const ansArray = [];
-          const answers = Object.assign([], item['answers']);
-          while (answers.length > 0) {
-            const j = Math.floor(Math.random() * answers.length);
-            const singleItem = Object.assign({}, answers[j]);
-            singleItem.chosen = false;
-            ansArray.push(singleItem);
-            answers.splice(j, 1)
+      this.server.get('courses/' + this.courseID + '/quiz/')
+        .then((value: Array<any>) => {
+          const array = [];
+          while (value.length > 0) {
+            const i = Math.floor(Math.random() * value.length);
+            const item = Object.assign({}, value[i]);
+            const ansArray = [];
+            const answers = Object.assign([], item['answers']);
+            while (answers.length > 0) {
+              const j = Math.floor(Math.random() * answers.length);
+              const singleItem = Object.assign({}, answers[j]);
+              singleItem.chosen = false;
+              ansArray.push(singleItem);
+              answers.splice(j, 1)
+            }
+            item['answers'] = ansArray;
+            array.push(item);
+            value.splice(i, 1);
           }
-          item['answers'] = ansArray;
-          array.push(item);
-          value.splice(i, 1);
-        }
-        this.data = array;
-        this.quizSize = this.data.length;
-        this.id = 0
-      })
+          this.data = array;
+          this.quizSize = this.data.length;
+          this.id = 0
+        })
     })
   }
 
@@ -117,12 +118,11 @@ export class QuizQuestionComponent implements OnInit {
         this.server.post('courses/' + this.courseID + '/quiz/', {'type': 'get_answers', 'id': question.id})
           .then(data => {
             this.correct = true;
-
             // iterates over all answers of the question and checks whether it was only selected if it is true
             // sets the attribute to true iff all correct answers and no others are selected
             for (let i = 0; i < item.answers.length; i++) {
               if (data['answers'].indexOf(item.answers[i].id) > -1) {
-                item.answers[i].correct = true;
+                question.answers[i].correct = true;
               } else {
                 question.answers[i].correct = false;
               }
