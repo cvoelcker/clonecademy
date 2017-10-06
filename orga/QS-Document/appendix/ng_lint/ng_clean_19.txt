@@ -1,7 +1,0 @@
-
-> clonecademy@0.0.0 lint /home/iliricon/Documents/Studium/6/BP/clonecadamy/angular
-> ng lint
-
-
-
-All files pass linting.
