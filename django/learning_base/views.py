@@ -67,7 +67,7 @@ class CategoryView(APIView):
                 if 'id' in data:
                     instance = CourseCategory.objects.filter(id=data['id'])
                     if not instance.exists():
-                        return Response({'ans': 'a category with the given id'
+                        return Response({'error': 'a category with the given id'
                                                 + ' does not exist'},
                                                 status=status.HTTP_404_NOT_FOUND)
                     instance.first().delete()
@@ -84,7 +84,7 @@ class CategoryView(APIView):
 
             else:
                 return Response(
-                    {'ans': 'a category with the id ' + str(category_id)
+                    {'error': 'a category with the id ' + str(category_id)
                             + ' does not exist'},
                     status=status.HTTP_404_NOT_FOUND)
         else:
@@ -111,7 +111,7 @@ class MultiCourseView(APIView):
         """
         Not implemented
         """
-        return Response({'ans': 'Method not allowed'},
+        return Response({'error': 'Method not allowed'},
                         status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def post(self, request, format=None):
@@ -134,7 +134,7 @@ class MultiCourseView(APIView):
             if not ((r_type in types or not r_type)
                     and (r_category in categories or not r_category)
                     and (r_lan in languages or not r_lan)):
-                return Response({'ans': 'Query not possible'},
+                return Response({'error': 'Query not possible'},
                                 status=status.HTTP_400_BAD_REQUEST)
 
             courses = Course.objects.all()
@@ -157,7 +157,7 @@ class MultiCourseView(APIView):
                 'request': request}).data
             return Response(data, status=status.HTTP_200_OK)
         except Exception as errors:
-            return Response({'ans': 'Query not possible' + str(errors)},
+            return Response({'error': 'Query not possible' + str(errors)},
                             status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -176,7 +176,7 @@ class CourseEditView(APIView):
         solutions
         """
         if not course_id:
-            return Response({'ans': 'Method not allowed'},
+            return Response({'error': 'Method not allowed'},
                             status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
         try:
@@ -189,7 +189,7 @@ class CourseEditView(APIView):
             return Response(data)
 
         except Exception as errors:
-            return Response({'ans': str(errors)},
+            return Response({'error': str(errors)},
                             status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request, course_id=None, format=None):
@@ -207,7 +207,7 @@ class CourseEditView(APIView):
                         status=status.HTTP_404_NOT_FOUND)
                 course.first().delete()
                 return Response({'deleted': course_id}, status=status.HTTP_200_OK)
-        return Response({'ans': 'Method not allowed'},
+        return Response({'error': 'Method not allowed'},
                         status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
@@ -340,10 +340,10 @@ class ToggleCourseVisibilityView(APIView):
         :return: a REST Response with a meaningfull JSON formatted message
         """
         if course_id is None:
-            return Response({'ans': 'course_id must be provided'},
+            return Response({'error': 'course_id must be provided'},
                             status=status.HTTP_400_BAD_REQUEST)
         elif not Course.objects.filter(id=course_id).exists():
-            return Response({'ans': 'course not found. id: ' + course_id},
+            return Response({'error': 'course not found. id: ' + course_id},
                             status=status.HTTP_404_NOT_FOUND)
         else:
             course = Course.objects.get(id=course_id)
@@ -371,14 +371,14 @@ class ModuleView(APIView):
         """
         Not implemented
         """
-        return Response({'ans': 'Method not allowed'},
+        return Response({'error': 'Method not allowed'},
                         status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def post(self, request, format=None):
         """
         Not implemented
         """
-        return Response({'ans': 'Method not allowed'},
+        return Response({'error': 'Method not allowed'},
                         status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
@@ -434,11 +434,11 @@ class QuestionView(APIView):
             question = course_module.question_set.all()[int(question_id)]
 
             if question is None:
-                return Response({'ans': 'Question not found'},
+                return Response({'error': 'Question not found'},
                                 status=status.HTTP_404_NOT_FOUND)
             if not self.can_access_question(request.user, question, module_id,
                                             question_id):
-                return Response({'ans': "Previous question(s) haven't been "
+                return Response({'error': "Previous question(s) haven't been "
                                         'answered correctly yet'},
                                 status=status.HTTP_403_FORBIDDEN)
             data = serializers.QuestionSerializer(question,
@@ -525,7 +525,7 @@ class AnswerView(APIView):
         :param format:
         :return:
         """
-        return Response({"ans": 'Method not allowed'},
+        return Response({"error": 'Method not allowed'},
                         status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
@@ -641,7 +641,7 @@ class QuizView(APIView):
             answers = [answer.id for answer in
                        quiz_question.quizanswer_set.all() if answer.correct]
             return Response({'answers': answers}, status.HTTP_200_OK)
-        return Response({'ans': 'Could not process request'},
+        return Response({'error': 'Could not process request'},
                         status.HTTP_400_BAD_REQUEST)
 
 
@@ -667,7 +667,7 @@ class UserView(APIView):
             if user.profile.is_admin():
                 user = User.objects.filter(id=user_id).first()
                 if not user:
-                    return Response({'ans': 'User not found'},
+                    return Response({'error': 'User not found'},
                                     status=status.HTTP_404_NOT_FOUND)
             else:
                 raise PermissionDenied(detail=None, code=None)
@@ -716,7 +716,7 @@ class UserRegisterView(APIView):
         Saves a new user.
         """
         if user_id:
-            return Response({'ans': 'Please use the UserView to update data'},
+            return Response({'error': 'Please use the UserView to update data'},
                             status=status.HTTP_403_FORBIDDEN)
         user_serializer = serializers.UserSerializer(data=request.data)
         if user_serializer.is_valid():
@@ -747,7 +747,7 @@ class MultiUserView(APIView):
         """
         Not implemented
         """
-        return Response({'ans': 'Method not allowed'},
+        return Response({'error': 'Method not allowed'},
                         status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
@@ -929,7 +929,7 @@ class RankingView(APIView):
         """
         Not implemented
         """
-        return Response({'ans': 'Method not allowed'},
+        return Response({'error': 'Method not allowed'},
                         status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
@@ -963,7 +963,7 @@ class RequestView(APIView):
         profile = user.profile
         if not user.profile.modrequest_allowed():
             return Response(
-                {'ans': 'User is mod or has sent too many requests'},
+                {'error': 'User is mod or has sent too many requests'},
                 status=status.HTTP_403_FORBIDDEN)
         # pay attention because there could be localization errors
         profile.last_modrequest = timezone.now()
@@ -1073,10 +1073,10 @@ class PwResetView(APIView):
         """
         data = request.data
         if 'email' not in data:
-            return Response({'ans': 'you must provide an email'},
+            return Response({'error': 'you must provide an email'},
                             status=status.HTTP_400_BAD_REQUEST)
         elif not User.objects.filter(email=data['email']).exists():
-            return Response({'ans': 'no user with email: ' + data['email']},
+            return Response({'error': 'no user with email: ' + data['email']},
                             status=status.HTTP_404_NOT_FOUND)
 
         # if request data is valid:
