@@ -37,7 +37,7 @@ export class AddInformationYoutubeComponent extends AddQuestionModuleComponent {
     this.form = form;
     return {
       type: 'info_text_youtube',
-      text_field: this.body.text_field,
+      // text_field: this.body.text_field,
       url: this.body.url,
     };
   }

@@ -49,7 +49,7 @@ export class StatisticsComponent implements OnInit {
     this.offsetDate = new Date();
     this.offsetDate.setDate(this.currentDate.getDate() - 7)
     // rearange the days array for the current day
-    for(let i = this.statistics.length - 1; i > this.offsetDate.getDay(); i--){
+    for (let i = this.statistics.length - 1; i > this.offsetDate.getDay(); i--) {
       const day = Object.assign(this.statistics[i])
       this.statistics.splice(i, 1);
       this.statistics.unshift(day)
@@ -129,13 +129,13 @@ export class StatisticsComponent implements OnInit {
       ]
     } , true)
       .then((data: any) => {
-        for (let j = 0; j < 7; j ++){
+        for (let j = 0; j < 7; j ++) {
           const tmpDate = new Date();
           tmpDate.setDate(this.currentDate.getDate() - j)
           for (let i = 0; i < data.length; i++) {
             const s = data[i]
             const day = (Number(data[i]['date'].split('/')[0]))
-            if (tmpDate.getDay() === day) {
+            if (tmpDate.getUTCDate() === day) {
               this.statistics[6 - j ]['stat'].push(data[i])
             }
           }

@@ -138,7 +138,7 @@ export class CourseComponent implements OnInit {
         this.server.post('courses/' + this.id + '/edit', {delete: true})
           .then(answer => {
             const loader = this.dialog.open(LoaderComponent, {disableClose: true})
-            this.course.load().then(stuff => {
+            this.course.load().then(useless => {
               loader.close()
               this.router.navigate(['/course/'])
             })

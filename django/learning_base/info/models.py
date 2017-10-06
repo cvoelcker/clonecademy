@@ -96,7 +96,10 @@ class InformationYoutube(Question):
         blank=True,
     )
 
-    text_field = models.TextField()
+    text_field = models.TextField(
+        default='',
+        blank=True
+    )
 
     @staticmethod
     def not_solvable():
