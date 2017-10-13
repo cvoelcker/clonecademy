@@ -10,83 +10,14 @@ echo "-b | build    to build the $1";
 echo "-rm | remove  remove the docker $1";
 }
 
-function startAngular {
-	cd $DIR/angular
-	docker-compose up -d
-}
+cd $DIR
 
-function startDjango {
-	cd $DIR/django
-	docker-compose up -d
-}
-
-function stopAngular {
-	docker 2>/dev/null stop $(docker ps -a -q  --filter name=angular)
-	if [ $? == 1 ]
-		then
-			noBuildError "angular"
-	fi
-}
-
-function stopDjango {
-	docker 2>/dev/null stop $(docker ps -a -q  --filter name=django)
-	if [ $? == 1 ]
-		then
-			noBuildError "django"
-	fi
-}
-
-function removeAngular {
-	docker 2>/dev/null rm $(docker ps -aq -f name=angular)
-	if [ $? == 1 ]
-		then
-			noBuildError "angular"
-	fi
-}
-
-function removeDjango {
-	docker 2>/dev/null rm $(docker ps -aq -f name=django)
-	if [ $? == 1 ]
-		then
-			noBuildError "django"
-	fi
-}
-
-function buildAngular {
-	cd $DIR/angular
-	docker-compose build
-}
-
-function buildDjango {
-	cd $DIR/django
-	docker-compose build
-	docker-compose run django python3 manage.py makemigrations
-
-	docker-compose run django python3 manage.py makemigrations learning_base
-
-	docker-compose run django python3 manage.py migrate
-}
-
-function noBuildError {
-	echo "someting went wrong."
-	echo "is the"$1"container installed."
-	echo "Run 'clonecademy build' or 'clonecademy "$1" build' to start build self container"
-}
-
-function runAngular {
-	cd $DIR/angular
-	docker-compose run angular $@
-}
-
-function runDjango {
-	cd $DIR/django
-	docker-compose run django python manage.py $@
+function testAngular {
+	docker-compose run angular npm test
 }
 
 function testAngular {
-	cd $DIR/angular
-	DATE=`date +%Y-%m-%d`
-	docker-compose run angular npm test
+	docker-compose run django python3 /clonecademy/django/manage.py test
 }
 
 case $1 in
@@ -96,81 +27,81 @@ case $1 in
 		echo "django        to run the command only in the django container"
 	;;
 	-s | start)
-		startAngular
-		startDjango
+		docker-compose up -d
 	;;
 	-p | pause)
-		stopAngular
-		stopDjango
+		docker-compose stop
 	;;
 	-b | build)
-		buildAngular
-		buildDjango
+		docker-compose build
 	;;
 	-rm | remove)
-		removeAngular
-		removeDjango
+		docker-compose rm -f
 	;;
 	-t | test)
 		testAngular
+		testDjango
 	;;
 	angular)
 		case $2 in
 			-s | start)
-			startAngular
+			docker-compose up angular
 			;;
 			-p | pause)
-			stopAngular
+			docker-compose stop angular
 			;;
 			-rm | remove)
-			removeAngular
+			docker-compose rm -f angular
 			;;
 			-b | build)
-			buildAngular
+			docker-compose build angular
+			;;
+			-i | install)
+			docker-compose run angular npm run ng build --prod
 			;;
 			-h | help)
 			help "angular"
 			echo "-r | run [command]  run the command in the angular container ";
 			;;
 			-r | run)
-			runAngular ${*:3}
+			docker-compose run angular ${*:3}
 			;;
 			-t | test)
 			testAngular
 			;;
 			*)
-			startAngular
+			docker-compose up angular
 			;;
 		esac
 	;;
 	django)
 		case $2 in
 			-s | start)
-			startDjango
+			docker-compose start django
 			;;
 			-p | pause)
-			stopDjango
+			docker-compose stop django
 			;;
 			-rm | remove)
-			removeDjango
+			docker-compose rm -f django
 			;;
 			-b | build)
-			buildDjango
+			docker-compose build django
 			;;
 			-h | help)
 			help "django"
 			echo "-r | run [command]  run the command in the django container ";
 			;;
 			-r | run)
-			runDjango ${*:3}
+			docker-compose run django python3 manage.py ${*:3}
 			;;
 			*)
-			startDjango
+			docker-compose up
 			;;
 		esac
 	;;
 	*)
-		help "containers"
+		help containers
 		echo "angular       to run the command only in the angular container"
 		echo "django        to run the command only in the django container"
 	;;

@@ -1,0 +1,12 @@
+version: '2'
+services:
+  clonecademy:
+   build: .
+   image: clonecademy:dev
+   command: /bin/bash /clonecademy/django/setup.sh
+   volumes:
+     - ./django:/clonecademy/django
+     - ./angular:/clonecademy/angular
+     - ./bin/init/sites-available:/etc/nginx/sites-available
+   ports:
+     - "80:80"

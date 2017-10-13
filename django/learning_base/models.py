@@ -12,6 +12,32 @@ from polymorphic.models import PolymorphicModel
 
 from .default_picture import default_picture
 
+class Settings(models.Model):
+    """
+    The settings for the website.
+    :author: Leonhard Wiedmann
+    """
+
+    name = models.CharField(
+        verbose_name='Title of the Homepage',
+        max_length=40,
+        default='CloneCademy'
+    )
+
+    image = models.TextField(
+        verbose_name='Main image of the Homepage',
+        default=''
+    )
+
+    email = models.EmailField(
+        verbose_name='Email to send system informations',
+        default=''
+    )
+
+    img = models.ImageField(
+        blank=True,
+        upload_to="media/base"
+    )
 
 class Profile(models.Model):
     """

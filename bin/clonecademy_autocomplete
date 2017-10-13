@@ -22,7 +22,7 @@ _apport-bug ()
 
     ;;
     angular | django)
-        dashoptions="-t test -s start -p pause -b build -rm remove -r run -h help"
+        dashoptions="-t test -s start -p pause -b build -rm remove -r run -h help -i install"
         COMPREPLY=( $( compgen -W "$dashoptions" -- $cur ) )
     ;;
     *)
@@ -33,4 +33,4 @@ _apport-bug ()
     esac
 }
 
-complete -F _apport-bug -o filenames -o dirnames clonecademy
+complete -F _apport-bug clonecademy

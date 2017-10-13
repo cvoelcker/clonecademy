@@ -11,6 +11,7 @@ export class AdminPageComponent implements OnInit {
 
   // the pages for the admin
   menu: Array<{ name: string, url: string }> = [
+    {name: 'Settings', url: 'settings'},
     {name: 'Profiles', url: 'profiles'},
     {name: 'Course Categories', url: 'categories'}
   ]

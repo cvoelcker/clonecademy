@@ -39,7 +39,7 @@ import {UserService} from './service/user.service';
 import {CourseService} from './service/course.service'
 import {ErrorDialog} from './service/error.service';
 
-import {Admin} from './injectible/admin.injectible'
+import {Settings} from './injectible/page.injectible'
 
 import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
@@ -89,13 +89,14 @@ import {FooterMainpageComponent} from './footer-mainpage/footer-mainpage.compone
 import {QuizQuestionComponent} from './quiz/quiz-question/quiz-question.component';
 import {QuizEndPopupComponent} from './quiz/quiz-question/quiz-end-popup/quiz-end-popup.component'
 import { QuestionFeedbackComponent } from './learn/question/question-feedback/question-feedback.component';
+import { PageSettingsComponent } from './admin/page-settings/page-settings.component';
 
 
 
 const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'login/',
     pathMatch: 'full'
   },
   {
@@ -174,9 +175,6 @@ const appRoutes: Routes = [
   {
     path: 'admin',
     component: AdminPageComponent,
-    canActivate: [
-      Admin
-    ],
     children: [
       {
         path: 'profiles',
@@ -191,6 +189,10 @@ const appRoutes: Routes = [
       {
         path: 'categories',
         component: CourseCategoriesComponent
+      },
+      {
+        path: 'settings',
+        component: PageSettingsComponent
       }
     ]
   },
@@ -256,6 +258,7 @@ const QuestionList = QuestionDictionary.questionComponents
     AuthDialogComponent,
     QuestionFeedbackComponent,
     SubmitDeleteComponent,
+    PageSettingsComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -297,7 +300,7 @@ const QuestionList = QuestionDictionary.questionComponents
     CookieService,
     MdDialog,
     ErrorDialog,
-    Admin
+    Settings
   ],
   bootstrap: [
     AppComponent,

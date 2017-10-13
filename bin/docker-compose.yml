@@ -1,12 +1,10 @@
 version: '2'
 services:
   angular:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: ../angular
     image: angular-clonecademy:dev
     command: npm start
     volumes:
-      - .:/angular
+      - ../angular:/angular
     ports:
-      - "3000:3000"
+      - "80:80"

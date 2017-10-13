@@ -1,9 +1,9 @@
-<div class="box">
+<div class="box" *ngIf="settings.loaded">
   <header>
     <span routerLink="/course">
-      <img src="assets/logo.png" id="logo">
+      <img *ngIf="settings.data.image != ''" [src]="settings.data.image" id="logo">
     <h1>
-      {{title}}
+      {{settings.data.name}}
     </h1>
   </span>
     <app-menu [hidden]="!user.loaded" #menu></app-menu>
@@ -18,3 +18,5 @@
     </div>
   </main>
 </div>
+
+<md-progress-spinner mode="indeterminate" *ngIf="!settings.loaded"></md-progress-spinner>

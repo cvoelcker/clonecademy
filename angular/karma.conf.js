@@ -1,16 +1,11 @@
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/0.13/config/configuration-file.html
-let today = new Date();
-let d = today.getDate();
-let m = today.getMonth();
-let y = today.getFullYear();
 
 module.exports = function (config) {
   config.set({
     basePath: '',
     frameworks: ['jasmine', '@angular/cli'],
     plugins: [
-      require('karma-phantomjs-launcher'),
       require('karma-jasmine'),
       require('karma-htmlfile-reporter'),
       require('@angular/cli/plugins/karma'),
@@ -27,8 +22,6 @@ module.exports = function (config) {
     reporters: ['verbose', "html"],
 
     htmlReporter: {
-      outputFile: 'tests/' + y + '-' + m + '-' + d + '.html',
-
       // Optional
       pageTitle: 'Unit Tests',
       subPageTitle: 'A sample project description',
@@ -37,7 +30,7 @@ module.exports = function (config) {
       useLegacyStyle: true
     },
 
-    browsers: ['PhantomJS', ],
+    browsers: [],
     singleRun: false
   });
 };

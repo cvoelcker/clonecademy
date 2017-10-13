@@ -1,4 +1,4 @@
-# clonecadamy
+# clonecademy
 
 ## Installation
 If you have self package inside your home folder just go on. Otherwise you have to

@@ -17,8 +17,68 @@ from rest_framework.response import Response
 
 from . import custom_permissions
 from . import serializers
-from .models import Course, CourseCategory, Try, Profile, started_courses, QuizQuestion
+from .models import Course, CourseCategory, Try, Profile, started_courses, QuizQuestion, Settings
 
+class SettingsView(APIView):
+    """
+    Shows and updates the page settings
+    :author: Leonhard Wiedmann
+    """
+
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request):
+        settings = Settings.objects.all().first()
+        if settings is None:
+            settings = Settings()
+            settings.save
+        data = {}
+        data['name'] = settings.name
+        if settings.img:
+            data['image'] = settings.img.url
+        return Response(data)
+
+class SettingsEditView(APIView):
+    """
+    Shows and updates the page settings
+    :author: Leonhard Wiedmann
+    """
+
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (custom_permissions.IsAdmin, )
+
+    def post(self, request):
+
+        settings = Settings.objects.first()
+
+        data = request.data
+
+        if 'name' in data:
+            settings.name = data['name']
+
+        if 'image' in data:
+            settings.image = data['image']
+            import base64
+
+            from django.core.files.base import ContentFile
+            format, imgstr = data['image'].split(';base64,')
+            ext = format.split('/')[-1]
+            settings.img = ContentFile(base64.b64decode(imgstr), name='main.' + ext)
+
+
+        if 'email' in data:
+            settings.email = data['email']
+
+        settings.save()
+
+        image_url = ''
+        if settings.img:
+            image_url = settings.img.url
+
+        resolve = {'name': settings.name, 'image': image_url, 'email': settings.email}
+
+        return Response(resolve)
 
 class CategoryView(APIView):
     """

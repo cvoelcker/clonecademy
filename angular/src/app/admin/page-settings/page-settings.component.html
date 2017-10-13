@@ -1,0 +1,32 @@
+<p>
+  page-settings works!
+</p>
+<form *ngIf="settings != undefined" #f='ngForm' (ngSubmit)="save(f)" ngNativeValidate>
+  <div class="form-group">
+  <md-input-container>
+    <input mdInput type="name" placeholder='{{"name" | translate}}'
+           #name="ngModel"
+           name="name" [(ngModel)]="settings.name"/>
+    <md-hint align="start" *ngIf="!name.valid && f.submitted" class="warning">
+      <strong>{{"invalid name" | translate}}</strong>
+    </md-hint>
+  </md-input-container>
+  <md-input-container>
+    <input mdInput type="email" placeholder='{{"email" | translate}}'
+           #email="ngModel"
+           pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"
+           name="email" [(ngModel)]="settings.email"/>
+    <md-hint align="start" *ngIf="!email.valid && f.submitted" class="warning">
+      <strong>{{"invalid email" | translate}}</strong>
+    </md-hint>
+  </md-input-container>
+  <img [src]="settings.image" id="oldImage">
+  <input type="file" accept="image/*" (change)="fileChangeListener($event)">
+</div>
+
+<img [src]="settings.img" id="oldImage">
+  <button type="submit"  md-raised-button class="saveButton">
+    <md-icon>save</md-icon>
+    {{"save" | translate}}
+  </button>
+</form>

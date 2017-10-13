@@ -52,10 +52,24 @@ class IsAdminOrReadOnly(IsAuthenticated):
         :return: True iff the user is admin or only accessing the database in
                     read mode
         """
-
         return (super().has_permission(request, view)
                 and (request.method in SAFE_METHODS
                      or request.user.groups.filter(name="admin").exists()))
+
+class IsAdminOrAnonymReadOnly(IsAuthenticated):
+    """
+    Permission class
+    :author: Leonhard Wiedmann
+    """
+
+    def has_permission(self, request, view):
+        """
+        Allows access to anyone but edit just for admins
+        :return: True iff the user is admin or only accessing the database in
+                     read mode
+        """
+        return (request.method in SAFE_METHODS
+                or request.user.groups.filter(name="admin").exists())
 
 
 class IsModOrAdminOrReadOnly(IsAuthenticated):

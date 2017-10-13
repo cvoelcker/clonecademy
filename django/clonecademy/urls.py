@@ -1,4 +1,4 @@
-"""clonecadamy URL Configuration
+"""clonecademy URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.8/topics/http/urls/
@@ -54,6 +54,9 @@ urlpatterns = [
     ),
     url(r'^courses/save$', views.CourseView.as_view()),
     url(r'^get-course-categories/$', views.CategoryView.as_view()),
+
+    url(r'^settings/$', views.SettingsView.as_view()),
+    url(r'^settings/edit/$', views.SettingsEditView.as_view()),
 
     url(r'^user/$', views.MultiUserView.as_view()),
     url(r'^user/(?P<user_id>[0-9]+)/?$', views.UserView.as_view()),
